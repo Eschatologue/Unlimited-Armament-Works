@@ -1,20 +1,21 @@
 #the mod name as displayed in-game
-displayName: "Java Mod Template"
+displayName: "Unlimited-Armament-Works"
 
 #the internal name of your mod
-name: "example-java-mod"
+name: "uaw"
 
 #your name
-author: "You"
+author: "Eschatologue"
 
 #the fully qualified main class of the mod
-main: "example.ExampleJavaMod"
+main: "UAW.UAWModLoader",
+
 
 #the mod description as seen in the mod dialog
-description: "A Mindustry Java mod template."
+description: "A port and a sequel to Heavy-Armaments-Industries written in java."
 
 #the mod version
-version: 1.0
+version: 0.6 - Beta
 
 #the minimum game build required to run this mod
 minGameVersion: 129
