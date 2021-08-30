@@ -3,6 +3,7 @@ package UAW;
 import UAW.content.*;
 import arc.*;
 import arc.util.*;
+import mindustry.Vars;
 import mindustry.game.EventType.*;
 import mindustry.mod.*;
 import mindustry.ui.dialogs.*;
@@ -24,6 +25,13 @@ public class UAWModLoader extends Mod{
                 dialog.show();
             });
         });
+        if (Vars.headless) {
+            Events.on(FileTreeInitEvent.class, e -> {
+                UAWSounds.load();
+            });
+        } else {
+            UAWSounds.load();
+        }
     }
 
     @Override
@@ -35,6 +43,7 @@ public class UAWModLoader extends Mod{
         new UAWLiquid().load();
         new UAWBlock().load();
         new UAWTechTree().load();
+
     }
 
 }
