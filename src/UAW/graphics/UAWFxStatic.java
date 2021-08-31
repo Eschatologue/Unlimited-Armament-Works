@@ -155,7 +155,7 @@ public class UAWFxStatic {
     }).layer(Layer.debris),
 
     torpedoCruiseTrail = new Effect(25f, e -> {
-        color(Color.lightGray);
+        color(Color.valueOf("#f5f5f5"));
         randLenVectors(e.id, 16, 2f + e.fin() * 7f, (x, y) -> {
             Fill.circle(e.x + x, e.y + y, 0.2f + e.fslope() * 1.5f);
         });

@@ -349,7 +349,7 @@ public class UAWUnitTypes implements ContentList {
                 mirror = false;
                 rotateSpeed = 2;
                 x = 0f;
-                y = -9f;
+                y = -10f;
                 reload = 6 * 60;
                 inaccuracy = 1f;
                 ammoType = new ItemAmmoType(Items.thorium);
