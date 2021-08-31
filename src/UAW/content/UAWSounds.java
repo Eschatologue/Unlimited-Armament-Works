@@ -7,6 +7,17 @@ import arc.audio.Sound;
 import mindustry.Vars;
 
 public class UAWSounds {
+    protected static Sound loadSound(String soundName) {
+        String name = "sounds/" + soundName;
+        String path = Vars.tree.get(name + ".ogg").exists() ? name + ".ogg" : name + ".mp3";
+
+        Sound sound = new Sound();
+
+        AssetDescriptor<?> desc = Core.assets.load(path, Sound.class, new SoundLoader.SoundParameter(sound));
+        desc.errored = Throwable::printStackTrace;
+
+        return sound;
+    }
     public static Sound
             CannonShot1 = new Sound(),
             CannonShot2 = new Sound(),
@@ -16,21 +27,8 @@ public class UAWSounds {
             SuppressedShot1 = new Sound(),
             TorpedoFire1 = new Sound()
                     ;
-
-    protected static Sound loadSound (String soundName) {
-        if (!Vars.headless) {
-            String name = "sounds/" + soundName;
-            String path = Vars.tree.get(name + ".ogg").exists() ? name + ".ogg" : name + ".mp3";
-
-            Sound sound = new Sound();
-
-            AssetDescriptor <?> desc = Core.assets.load(path, Sound.class, new SoundLoader.SoundParameter(sound));
-            desc.errored = Throwable::printStackTrace;
-            return sound;
-        } else return new Sound();
-    }
-
     public static void load () {
+        if(Vars.headless) return;
         CannonShot1 = loadSound("CannonShot1");
         CannonShot2 = loadSound("CannonShot2");
         LauncherShot1 = loadSound("LauncherShot1");
