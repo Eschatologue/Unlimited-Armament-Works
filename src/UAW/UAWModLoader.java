@@ -2,7 +2,6 @@ package UAW;
 
 import UAW.content.*;
 import arc.*;
-import mindustry.Vars;
 import mindustry.game.EventType.*;
 import mindustry.mod.*;
 
