@@ -159,7 +159,7 @@ public class UAWFxStatic {
         randLenVectors(e.id, 16, 2f + e.fin() * 7f, (x, y) -> {
             Fill.circle(e.x + x, e.y + y, 0.2f + e.fslope() * 1.5f);
         });
-    }).layer(Layer.debris)
+    }).layer(Layer.debris + 0.002f)
         // endregion Trail
 ;
 }
