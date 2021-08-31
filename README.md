@@ -1,6 +1,52 @@
-# Mindustry Java Mod Template
-A Java Mindustry mod template that works on Android and PC. The Kotlin version of this mod can be seen [here](https://github.com/Anuken/MindustryKotlinModTemplate).
+<div align="center">
 
+![UAW-Banner-Ex2.png](https://i.postimg.cc/nc9655q7/HAI-Banner-Ex2.png)
+[![MadeWithJava](https://img.shields.io/badge/Made%20with-java-red?style=for-the-badge&logo=java)](https://en.wikipedia.org/wiki/Java_%28programming_language%29)
+[![License](https://img.shields.io/github/license/Eschatologue/Unlimited-Armament-Works?color=important&logo=Github&style=for-the-badge)](https://mit-license.org/)
+[![Build](https://img.shields.io/github/workflow/status/Eschatologue/Unlimited-Armament-Works/Java%20CI?logo=Gradle&style=for-the-badge)](https://github.com/Eschatologue/Unlimited-Armament-Works/actions)
+[![Discord](https://img.shields.io/discord/704355237246402721.svg?color=7289da&label=de_server&logo=discord&logoColor=ffffff&style=for-the-badge)](https://discord.gg/RCCVQFW)
+
+</div>
+
+<h1 align="center"> 
+UNLIMITED ARMAMENT WORKS
+</h1> 
+
+<div align="center">
+
+My first java mod, a continuation of [Heavy Armaments Industries](https://github.com/Eschatologue/Heavy-Armaments-Industries), all future content will be implemented here instead of the old repository.
+
+**Unlimited Armament Works**, which the name obviously not inspired by a certain anime title, is both a port and a sequel to **Heavy Armament Industries**. 
+
+Featuring contents that expands upon vanilla Mindustry, adding more turrets, units, factories, and much more that meant to be played side by side with vanilla Mindustry.
+
+</div> 
+
+<h1 align="center"> 
+DOWNLOAD
+</h1> 
+
+<div align="center">
+
+[![File Size](https://img.shields.io/github/repo-size/Eschatologue/Unlimited-Armament-Works?color=62ae7f&label&style=for-the-badge)](https://github.com/Eschatologue/Unlimited-Armament-Works/releases)
+[![Download](https://img.shields.io/github/v/release/Eschatologue/Unlimited-Armament-Works?color=62ae7f&include_prereleases&label=Latest%20version&logo=github&logoColor=white&style=for-the-badge)](https://github.com/Eschatologue/Unlimited-Armament-Works/releases)
+[![Total Downloads](https://img.shields.io/github/downloads/Eschatologue/Unlimited-Armament-Works/total?color=62ae7f&label&logo=docusign&logoColor=white&style=for-the-badge)](https://github.com/Eschatologue/Unlimited-Armament-Works/releases)
+
+Also available in the in-game mod browser, where installation is automatic, just search for **Unlimited-Armament-Works** and you're done.
+
+For unreleased builds you can find it at the [Actions](https://github.com/Eschatologue/Unlimited-Armament-Works/actions) tab and open the last workflow with a green ✅. The zip will contain the latest unreleased build of **UAW** which you should install with caution since it may crashes your game.
+
+Only compatible on Desktop and Android, both Java and JavaScript mod doesn't work on iOS.
+
+</div>
+
+## Software Used
+- Intellij IDEA
+- GitHub Desktop
+- Aseprite [Making Sprites]
+- Inkscape [Making Banner and Logo]
+- Audacity [Editing audio used in the mod]
+---
 ## Building for Desktop Testing
 
 1. Install JDK **16**.
@@ -37,3 +83,15 @@ Only use `implementation` if you want to package another Java library *with your
 
 *[1]* *On Linux/Mac it's `./gradlew`, but if you're using Linux I assume you know how to run executables properly anyway.*  
 *[2]: Yes, I know this is stupid. It's a Github UI limitation - while the jar itself is uploaded unzipped, there is currently no way to download it as a single file.*
+
+---
+
+## Notes
+If you have any questions, ideas, or feedback, please DM `Geschiedenis#4783` at Discord, I will try my best to reply.
+
+<div align="center">
+
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/it-works-why.svg)](https://forthebadge.com)
+
+</div>
