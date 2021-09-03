@@ -75,7 +75,5 @@ public class TorpedoBulletType extends BulletType {
             b.vel.scl(Math.max(1f - deepDrag * Time.delta, 0.01f));
         }
         super.update(b);
-        float UnitHitSize = Groups.unit.getByID(b.collided.get(0)).hitSize;
-        damage = damage + (damage * ((UnitHitSize * 2)/100));
     }
 }
