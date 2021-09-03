@@ -2,12 +2,13 @@ package UAW.content;
 
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
+import mindustry.entities.effect.MultiEffect;
 import mindustry.graphics.Pal;
 import mindustry.type.StatusEffect;
 
 public class UAWStatusEffects implements ContentList {
     public static StatusEffect
-            EMP, riptide, superCorrosive,
+            EMP, riptide, flooding,
             breached;
 
     @Override
@@ -22,6 +23,13 @@ public class UAWStatusEffects implements ContentList {
             healthMultiplier = 0.55f;
             permanent = true;
             effect = Fx.shieldBreak;
+        }};
+        flooding = new StatusEffect("flooding") {{
+            healthMultiplier = 0.85f;
+            speedMultiplier = 0.8f;
+            damage = 0.5f;
+            effect = new MultiEffect(Fx.bubble, Fx.wet);
+            show = false;
         }};
     }
 }

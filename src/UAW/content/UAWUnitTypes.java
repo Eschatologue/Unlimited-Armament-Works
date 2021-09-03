@@ -330,8 +330,8 @@ public class UAWUnitTypes implements ContentList {
                         rotate = autoTarget = true;
                         mirror = controllable = false;
                         x = 0f;
-                        y = 8.5f;
-                        reload = 3f;
+                        y = 7f;
+                        reload = 4f;
                         recoil = 0f;
                         targetInterval = 4f;
                         targetSwitchInterval = 4f;

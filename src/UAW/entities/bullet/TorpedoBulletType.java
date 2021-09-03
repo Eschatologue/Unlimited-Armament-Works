@@ -1,5 +1,6 @@
 package UAW.entities.bullet;
 
+import UAW.content.UAWStatusEffects;
 import UAW.graphics.*;
 import arc.*;
 import arc.graphics.*;
@@ -32,7 +33,8 @@ public class TorpedoBulletType extends BulletType {
         layer = Layer.debris + 0.001f;
         homingPower = 0.035f;
         homingRange = 20 * tilesize;
-        hitShake = 8;
+        hitShake = 16;
+        knockback = 8f;
         keepVelocity = collidesAir = absorbable = hittable = false;
         lightColor = hitColor;
         trailLength = 36;
@@ -44,7 +46,7 @@ public class TorpedoBulletType extends BulletType {
         trailRotation = true;
         hitEffect = new MultiEffect(Fx.flakExplosionBig, UAWFxStatic.torpedoRippleHit);
         despawnEffect = UAWFxStatic.torpedoRippleHit;
-        status = StatusEffects.slow;
+        status = UAWStatusEffects.flooding;
         statusDuration = 3 * 60;
     }
     @Override
