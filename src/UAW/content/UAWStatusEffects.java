@@ -26,9 +26,10 @@ public class UAWStatusEffects implements ContentList {
         }};
         flooding = new StatusEffect("flooding") {{
             healthMultiplier = 0.85f;
-            speedMultiplier = 0.8f;
+            speedMultiplier = 0.6f;
             damage = 0.5f;
-            effect = new MultiEffect(Fx.bubble, Fx.wet);
+            effect = Fx.wet;
+            permanent = true;
             show = false;
         }};
     }
