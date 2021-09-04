@@ -22,22 +22,12 @@ import mindustry.graphics.Pal;
 import static mindustry.Vars.tilesize;
 
 public class RazorRotorAbility extends Ability{
-    // Rotor damage
     public float damage = 35f;
-    // Damage Range
     public float range = 4f * tilesize;
-    //Chance of firing every tick. Set >= 1 to always fire lightning every tick at max speed.
     public float chance = 20f;
-    // Speeds for when to start firing and when to stop getting faster
     public float minSpeed = 0.8f, maxSpeed = 2.5f;
-    // Bullet type that is fired. Can be null
     public BulletType bullet;
-/*
-    public float layer = Layer.bullet - 0.001f, blinkScl = 20f;
-    public float sectorRad = 0.14f, rotateSpeed = 0.5f;
-    public int sectors = 4;
-    public Color color = UAWPal.titaniumBlueMiddle;
-*/
+
     RazorRotorAbility(){}
 
     public RazorRotorAbility(float damage, float chance ,float range){
@@ -51,26 +41,6 @@ public class RazorRotorAbility extends Ability{
             hitEffect = Fx.hitBulletSmall;
         }};
     }
-/*
-    @Override
-    public void draw(Unit unit){
-        float scl = Mathf.clamp((unit.vel().len() - minSpeed) / (maxSpeed - minSpeed));
-        float rx = Tmp.v1.x, ry = Tmp.v1.y;
-        super.draw(unit);
-        Draw.z(layer);
-        Draw.color(color);
-        Lines.stroke((0.7f + Mathf.absin(blinkScl, 0.7f)), color);
-        Lines.stroke(Lines.getStroke() * scl);
-        if(scl > 0){
-            for(int i = 0; i < sectors; i++){
-                float rot = unit.rotation + i * 360f/sectors + Time.time * rotateSpeed;
-                Lines.swirl(rx, ry, range, sectorRad, rot);
-            }
-        }
-        Drawf.light(rx, ry, range, color, scl * 0.8f);
-        Draw.reset();
-    }
-*/
     @Override
     public void update(Unit unit){
         float rotationAngle = Time.time + 15;
@@ -78,7 +48,10 @@ public class RazorRotorAbility extends Ability{
         if(Mathf.chance(Time.delta * chance * scl)) {
             float x = unit.x + Angles.trnsx(unit.rotation, 0, 0);
             float y = unit.y + Angles.trnsy(unit.rotation, 0, 0);
-            bullet.create(unit, unit.team, x, y, rotationAngle);
+            for(int j = 0; j < 4; j++){
+                float angle = ((j * 360f / 4 + (Time.time * rotationAngle) % 360));
+                bullet.create(unit, unit.team, x, y, angle);
+            }
         }
     }
 }

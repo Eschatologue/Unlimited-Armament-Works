@@ -66,7 +66,7 @@ public class UAWUnitTypes implements ContentList {
                         y = 0f;
                         shots = 2;
                         inaccuracy = 4;
-                        reload = 12f;
+                        reload = 16f;
                         shootSound = Sounds.missile;
                         bullet = Bullets.missileExplosive;
                     }},
@@ -77,7 +77,7 @@ public class UAWUnitTypes implements ContentList {
                         top = false;
                         x = 3.5f;
                         y = 7f;
-                        reload = 8f;
+                        reload = 9f;
                         shootSound = Sounds.shoot;
                         ejectEffect = Fx.casing1;
                         bullet = UAWBullets.standardMG;
@@ -109,7 +109,7 @@ public class UAWUnitTypes implements ContentList {
                         x = 6f;
                         y = -2f;
                         shootY = -1;
-                        reload = 24f;
+                        reload = 35f;
                         shootSound = Sounds.missile;
                         bullet = Bullets.missileSurge;
                     }},
@@ -120,7 +120,7 @@ public class UAWUnitTypes implements ContentList {
                         top = false;
                         x = 5f;
                         y = 7f;
-                        reload = 5f;
+                        reload = 8f;
                         shootSound = Sounds.shoot;
                         ejectEffect = Fx.casing1;
                         bullet = UAWBullets.standardMG;

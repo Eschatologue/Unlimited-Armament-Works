@@ -24,13 +24,5 @@ public class UAWStatusEffects implements ContentList {
             permanent = true;
             effect = Fx.shieldBreak;
         }};
-        flooding = new StatusEffect("flooding") {{
-            healthMultiplier = 0.85f;
-            speedMultiplier = 0.6f;
-            damage = 0.5f;
-            effect = Fx.wet;
-            permanent = true;
-            show = false;
-        }};
     }
 }

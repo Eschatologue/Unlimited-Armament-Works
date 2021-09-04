@@ -46,7 +46,7 @@ public class TorpedoBulletType extends BulletType {
         trailRotation = true;
         hitEffect = new MultiEffect(Fx.flakExplosionBig, UAWFxStatic.torpedoRippleHit);
         despawnEffect = UAWFxStatic.torpedoRippleHit;
-        status = UAWStatusEffects.flooding;
+        status = StatusEffects.slow;
         statusDuration = 3 * 60;
     }
     @Override

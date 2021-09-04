@@ -26,7 +26,7 @@ public class HelicopterUnitType extends UnitType {
 
     float rotorFallSpeedModifier = 1f;
 
-    public TextureRegion bladeRegion, topRegion;
+    public TextureRegion bladeRegion, topRegion, rotorShadowRegion;
 
     public HelicopterUnitType(String name) {
         super(name);
@@ -34,6 +34,7 @@ public class HelicopterUnitType extends UnitType {
         flying = lowAltitude = true;
         constructor = UnitEntity::create;
         engineSize = 0f;
+        rotateSpeed = 4f;
         defaultController = CopterAI::new;
         fallSpeed = 0.008f;
     }
