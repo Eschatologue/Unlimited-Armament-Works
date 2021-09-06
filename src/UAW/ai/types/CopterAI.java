@@ -16,7 +16,7 @@ public class CopterAI extends FlyingAI {
                 moveTo(target, unit.type.range * 2.5f);
                 unit.lookAt(target);
             }
-            attack(130f);
+            attack(unit.type.range * 2.5f);
         }
 
         if(target == null && command() == UnitCommand.attack && state.rules.waves && unit.team == state.rules.defaultTeam){

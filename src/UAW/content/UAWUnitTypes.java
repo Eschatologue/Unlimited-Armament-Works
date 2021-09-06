@@ -48,25 +48,26 @@ public class UAWUnitTypes implements ContentList {
             health = 450;
             hitSize = 18;
             speed = 2.8f;
-            accel = 0.1f;
+            rotateSpeed = 2.5f;
+            accel = 0.5f;
             drag = 0.01f;
             ammoType = new ItemAmmoType(Items.graphite);
 
             flying = true;
-            range = 25 * tilesize;
+            range = 20 * tilesize;
             maxRange = range;
-
             circleTarget = true;
 
-            rotorOffsetY = 2.5f;
+            rotorSpeed = 12f;
+            rotorOffsetY = 0.5f;
 
             weapons.add(
                     new Weapon("uaw-missile-small-red") {{
                         rotate = false;
                         mirror = true;
                         shootCone = 90;
-                        x = 3.5f;
-                        y = -1f;
+                        x = 5f;
+                        y = -2f;
                         shotDelay = 12f;
                         shots = 4;
                         inaccuracy = 4;
@@ -95,12 +96,12 @@ public class UAWUnitTypes implements ContentList {
                         mirror = true;
                         shootCone = 90;
                         top = false;
-                        x = 4f;
-                        y = 6f;
+                        x = 6f;
+                        y = 2f;
                         reload = 4f;
                         shootSound = Sounds.shoot;
                         ejectEffect = Fx.casing1;
-                        bullet = new BasicBulletType(6f, 12) {{
+                        bullet = new BasicBulletType(6f, 24) {{
                             height = 18f;
                             pierce = true;
                             pierceCap = 2;
@@ -116,9 +117,10 @@ public class UAWUnitTypes implements ContentList {
             );
         }};
         bedivere = new HelicopterUnitType("bedivere") {{
-            health = 900;
+            health = 3500;
             hitSize = 30;
             speed = 2.3f;
+            rotateSpeed = 3f;
             accel = 0.5f;
             drag = 0.03f;
             ammoType = new ItemAmmoType(Items.graphite);
@@ -129,7 +131,7 @@ public class UAWUnitTypes implements ContentList {
             circleTarget = true;
             bladeCount = 4;
 
-            rotorOffsetY = 0f;
+            rotorOffsetY = 1.5f;
 
             weapons.add(
                     new Weapon("uaw-missile-medium-red") {{
@@ -168,12 +170,12 @@ public class UAWUnitTypes implements ContentList {
                         shootCone = 90;
                         x = 5f;
                         y = 7f;
-                        shots = 5;
+                        shots = 8;
                         reload = 30f;
                         shootSound = Sounds.spark;
                         bullet =  new LightningBulletType() {{
                             lightningColor = hitColor = Pal.bulletYellow;
-                            damage = 15f;
+                            damage = 25f;
                             lightningLength = 7;
                             lightningLengthRand = 7;
                             shootEffect = Fx.shootHealYellow;
