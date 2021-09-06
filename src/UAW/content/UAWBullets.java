@@ -320,19 +320,6 @@ public class UAWBullets implements ContentList {
         }};
         // endregion
         // region Unit Bullets
-
-        standardMG = new BasicBulletType(4f, 13) {{
-            height = 18f;
-            pierce = true;
-            maxRange = 20 * tilesize;
-            pierceCap = 2;
-            buildingDamageMultiplier = 0.4f;
-            width = 9f;
-            lifetime = 70f;
-            trailLength = 12;
-            trailWidth = 1.5f;
-            trailColor = backColor;
-        }};
         // endregion
         // region Carriers
 

@@ -17,8 +17,8 @@ import UAW.ai.types.*;
 
 //Possible thanks to iarkn#8872 help
 public class HelicopterUnitType extends UnitType {
-    public float offsetX = 0f;
-    public float offsetY = 0f;
+    public float rotorOffsetX = 0f;
+    public float rotorOffsetY = 0f;
     public float rotorSpeed = 15;
 
     public int rotorCount = 1;
@@ -64,8 +64,8 @@ public class HelicopterUnitType extends UnitType {
     }
 
     public void drawRotor(Unit unit){
-        float rx = unit.x + Angles.trnsx(unit.rotation - 90, offsetX, offsetY);
-        float ry = unit.y + Angles.trnsy(unit.rotation - 90, offsetX, offsetY);
+        float rx = unit.x + Angles.trnsx(unit.rotation - 90, rotorOffsetX, rotorOffsetY);
+        float ry = unit.y + Angles.trnsy(unit.rotation - 90, rotorOffsetX, rotorOffsetY);
 
         for(int j = 0; j < bladeCount; j++){
             float angle = ((j * 360f / bladeCount + (Time.time * -(rotorSpeed * rotorFallSpeedModifier))) % 360);

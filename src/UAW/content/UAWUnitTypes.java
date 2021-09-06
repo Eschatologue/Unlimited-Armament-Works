@@ -8,6 +8,7 @@ import UAW.type.HelicopterUnitType;
 import UAW.type.TankUnitType;
 
 import arc.graphics.Color;
+import mindustry.ai.types.FlyingAI;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.bullet.*;
@@ -47,40 +48,70 @@ public class UAWUnitTypes implements ContentList {
             health = 450;
             hitSize = 18;
             speed = 2.8f;
-            accel = 0.5f;
-            drag = 0.02f;
+            accel = 0.1f;
+            drag = 0.01f;
             ammoType = new ItemAmmoType(Items.graphite);
 
             flying = true;
-            range = 150;
+            range = 25 * tilesize;
+            maxRange = range;
+
             circleTarget = true;
 
-            offsetY = 2.5f;
+            rotorOffsetY = 2.5f;
 
             weapons.add(
-                    new Weapon("uaw-missile-small-blue") {{
+                    new Weapon("uaw-missile-small-red") {{
                         rotate = false;
                         mirror = true;
                         shootCone = 90;
                         x = 3.5f;
-                        y = 0f;
-                        shots = 2;
+                        y = -1f;
+                        shotDelay = 12f;
+                        shots = 4;
                         inaccuracy = 4;
-                        reload = 16f;
+                        reload = 4f;
                         shootSound = Sounds.missile;
-                        bullet = Bullets.missileExplosive;
+                        bullet = new MissileBulletType(2.7f, 12){{
+                            width = 6f;
+                            height = 12f;
+                            shrinkY = 0f;
+                            drag = -0.003f;
+                            homingRange = 60f;
+                            keepVelocity = false;
+                            splashDamageRadius = 25f;
+                            splashDamage = 8f;
+                            lifetime = 70f;
+                            backColor = Pal.bulletYellowBack;
+                            frontColor = Pal.bulletYellow;
+                            hitEffect = Fx.blastExplosion;
+                            despawnEffect = Fx.blastExplosion;
+                            trailColor = Color.gray;
+                            trailChance = 0.7f;
+                        }};
                     }},
-                    new Weapon("uaw-machine-gun-small-blue") {{
+                    new Weapon("uaw-machine-gun-small-red") {{
                         rotate = false;
                         mirror = true;
                         shootCone = 90;
                         top = false;
-                        x = 3.5f;
-                        y = 7f;
-                        reload = 9f;
+                        x = 4f;
+                        y = 6f;
+                        reload = 4f;
                         shootSound = Sounds.shoot;
                         ejectEffect = Fx.casing1;
-                        bullet = UAWBullets.standardMG;
+                        bullet = new BasicBulletType(6f, 12) {{
+                            height = 18f;
+                            pierce = true;
+                            pierceCap = 2;
+                            buildingDamageMultiplier = 0.4f;
+                            width = 9f;
+                            maxRange = range;
+                            lifetime = (range/speed) * 1.4f;
+                            trailLength = 15;
+                            trailWidth = 1.6f;
+                            trailColor = backColor;
+                        }};
                     }}
             );
         }};
@@ -97,10 +128,10 @@ public class UAWUnitTypes implements ContentList {
             circleTarget = true;
             bladeCount = 4;
 
-            offsetY = 0f;
+            rotorOffsetY = 0f;
 
             weapons.add(
-                    new Weapon("uaw-missile-medium-blue") {{
+                    new Weapon("uaw-missile-medium-red") {{
                         shots = 3;
                         rotate = false;
                         mirror = true;
@@ -113,7 +144,7 @@ public class UAWUnitTypes implements ContentList {
                         shootSound = Sounds.missile;
                         bullet = Bullets.missileSurge;
                     }},
-                    new Weapon("uaw-machine-gun-small-blue") {{
+                    new Weapon("uaw-shotgun-red") {{
                         rotate = false;
                         mirror = true;
                         shootCone = 100;
@@ -121,9 +152,23 @@ public class UAWUnitTypes implements ContentList {
                         x = 5f;
                         y = 7f;
                         reload = 8f;
-                        shootSound = Sounds.shoot;
-                        ejectEffect = Fx.casing1;
-                        bullet = UAWBullets.standardMG;
+                        shootSound = Sounds.spark;
+                        bullet =  new LightningBulletType() {{
+                            lightningColor = hitColor = Pal.bulletYellow;
+                            damage = 15f;
+                            lightningLength = 7;
+                            lightningLengthRand = 7;
+                            shootEffect = Fx.shootHealYellow;
+
+                            lightningType = new BulletType(0.0001f, 0f){{
+                                lifetime = Fx.lightning.lifetime;
+                                hitEffect = Fx.hitLancer;
+                                despawnEffect = Fx.none;
+                                status = StatusEffects.shocked;
+                                statusDuration = 10f;
+                                hittable = false;
+                            }};
+                        }};
                     }}
             );
             abilities.add(new RazorRotorAbility(4, 10, 8 * tilesize));
@@ -158,7 +203,6 @@ public class UAWUnitTypes implements ContentList {
                         y = 8f;
                         reload = 2.5f;
                         recoil = 0.1f;
-                        reload = 5f;
                         targetInterval = 10f;
                         targetSwitchInterval = 15f;
                         ejectEffect = Fx.casing1;
@@ -387,7 +431,6 @@ public class UAWUnitTypes implements ContentList {
                         reload = 1.5f;
                         rotateSpeed = 5.5f;
                         recoil = 0.1f;
-                        reload = 6f;
                         targetInterval = 6f;
                         targetSwitchInterval = 7.5f;
                         ejectEffect = Fx.casing1;
