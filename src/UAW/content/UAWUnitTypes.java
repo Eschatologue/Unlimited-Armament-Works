@@ -70,7 +70,7 @@ public class UAWUnitTypes implements ContentList {
                         shotDelay = 12f;
                         shots = 4;
                         inaccuracy = 4;
-                        reload = 4f;
+                        reload = 36f;
                         shootSound = Sounds.missile;
                         bullet = new MissileBulletType(2.7f, 12){{
                             width = 6f;
@@ -124,7 +124,8 @@ public class UAWUnitTypes implements ContentList {
             ammoType = new ItemAmmoType(Items.graphite);
 
             flying = true;
-            range = 280;
+            range = 24 * tilesize;
+            maxRange = range;
             circleTarget = true;
             bladeCount = 4;
 
@@ -132,7 +133,7 @@ public class UAWUnitTypes implements ContentList {
 
             weapons.add(
                     new Weapon("uaw-missile-medium-red") {{
-                        shots = 3;
+                        shots = 2;
                         rotate = false;
                         mirror = true;
                         shootCone = 100;
@@ -142,16 +143,33 @@ public class UAWUnitTypes implements ContentList {
                         shootY = -1;
                         reload = 35f;
                         shootSound = Sounds.missile;
-                        bullet = Bullets.missileSurge;
+                        bullet = new MissileBulletType(4f, 14){{
+                            width = 8f;
+                            height = 8f;
+                            shrinkY = 0f;
+                            drag = -0.003f;
+                            homingRange = 60f;
+                            keepVelocity = false;
+                            splashDamageRadius = 25f;
+                            splashDamage = 15f;
+                            lifetime = range / speed * 1.5f;
+                            trailColor = Pal.unitBack;
+                            backColor = Pal.unitBack;
+                            frontColor = Pal.unitFront;
+                            hitEffect = Fx.blastExplosion;
+                            despawnEffect = Fx.blastExplosion;
+                            weaveScale = 6f;
+                            weaveMag = 1f;
+                        }};
                     }},
-                    new Weapon("uaw-shotgun-red") {{
+                    new Weapon("uaw-shotgun-medium-red") {{
                         rotate = false;
                         mirror = true;
-                        shootCone = 100;
-                        top = false;
+                        shootCone = 90;
                         x = 5f;
                         y = 7f;
-                        reload = 8f;
+                        shots = 5;
+                        reload = 30f;
                         shootSound = Sounds.spark;
                         bullet =  new LightningBulletType() {{
                             lightningColor = hitColor = Pal.bulletYellow;
