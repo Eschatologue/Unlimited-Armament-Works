@@ -46,25 +46,25 @@ public class UAWFxStatic {
     shootCryoFlame = new Effect(33f, 80f, e -> {
         color(UAWPal.cryoMiddle, UAWPal.cryoBack, Color.gray, e.fin());
 
-        randLenVectors(e.id, 10, e.finpow() * 70f, e.rotation, 10f, (x, y) ->
+        randLenVectors(e.id, 12, e.finpow() * 70f, e.rotation, 10f, (x, y) ->
                 Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 1.6f));
     }),
     shootSurgeFlame = new Effect(33f, 80f, e -> {
         color(UAWPal.surgeFront, UAWPal.surgeBack, Color.gray, e.fin());
 
-        randLenVectors(e.id, 10, e.finpow() * 70f, e.rotation, 10f, (x, y) ->
+        randLenVectors(e.id, 12, e.finpow() * 70f, e.rotation, 10f, (x, y) ->
                 Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 1.6f));
     }),
     shootPlastFlame = new Effect(33f, 80f, e -> {
                 color(Pal.plastaniumFront, Pal.plastaniumBack, Color.gray, e.fin());
 
-                randLenVectors(e.id, 10, e.finpow() * 70f, e.rotation, 10f, (x, y) ->
+                randLenVectors(e.id, 12, e.finpow() * 70f, e.rotation, 10f, (x, y) ->
                         Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 1.6f));
             }),
     shootSporeFlame = new Effect(33f, 80f, e -> {
                 color(UAWPal.sporeFront, UAWPal.sporeBack, Color.gray, e.fin());
 
-                randLenVectors(e.id, 10, e.finpow() * 70f, e.rotation, 10f, (x, y) ->
+                randLenVectors(e.id, 12, e.finpow() * 70f, e.rotation, 10f, (x, y) ->
                         Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 1.6f));
             }),
     // endregion Shooting

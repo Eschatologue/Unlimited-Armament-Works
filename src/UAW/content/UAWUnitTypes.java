@@ -53,6 +53,7 @@ public class UAWUnitTypes implements ContentList {
             drag = 0.016f;
             ammoType = new ItemAmmoType(Items.graphite);
             circleTarget = true;
+            defaultController = FlyingAI::new;
 
             faceTarget = flying = true;
             range = 15 * tilesize;
@@ -147,17 +148,18 @@ public class UAWUnitTypes implements ContentList {
                         x = 7f;
                         y = -2f;
                         shootY = -1;
-                        reload = 35f;
+                        shots = 2;
+                        reload = 12f;
                         shootSound = Sounds.missile;
-                        bullet = new MissileBulletType(6f, 28){{
-                            width = 6f;
-                            height = 12f;
+                        bullet = new MissileBulletType(6f, 95){{
+                            width = 9f;
+                            height = 16f;
                             shrinkY = 0f;
                             drag = -0.003f;
                             homingRange = 60f;
                             keepVelocity = false;
-                            splashDamageRadius = 25f;
-                            splashDamage = 8f;
+                            splashDamageRadius = 4 * tilesize;
+                            splashDamage = damage;
                             lifetime = 70f;
                             backColor = Pal.bulletYellowBack;
                             frontColor = Pal.bulletYellow;
@@ -174,28 +176,24 @@ public class UAWUnitTypes implements ContentList {
                         x = 7.5f;
                         y = 8.3f;
                         maxRange = range + 24;
-                        shots = 9;
-                        reload = 30f;
-                        shootSound = Sounds.spark;
-                        bullet =  new LightningBulletType() {{
-                            lightningColor = hitColor = Pal.bulletYellow;
-                            damage = 25f;
-                            lightningLength = 8;
-                            lightningLengthRand = 8;
-                            shootEffect = Fx.shootHealYellow;
-
-                            lightningType = new BulletType(0.0001f, 0f){{
-                                lifetime = Fx.lightning.lifetime;
-                                hitEffect = Fx.hitLancer;
-                                despawnEffect = Fx.none;
-                                status = StatusEffects.shocked;
-                                statusDuration = 10f;
-                                hittable = false;
-                            }};
+                        reload = 5;
+                        recoil = 0f;
+                        shootSound = Sounds.flame;
+                        bullet = new BulletType(4f, 45f){{
+                            hitSize = 7f;
+                            lifetime = 36f;
+                            pierce = true;
+                            collidesAir = false;
+                            statusDuration = 60f * 10;
+                            shootEffect = Fx.shootPyraFlame;
+                            hitEffect = Fx.hitFlameSmall;
+                            despawnEffect = Fx.none;
+                            status = StatusEffects.burning;
+                            hittable = false;
                         }};
                     }}
             );
-            abilities.add(new RazorRotorAbility(4, 10, 8 * tilesize));
+            abilities.add(new RazorRotorAbility(4, 10, 5 * tilesize));
         }};
         // endregion
         // region Naval - Monitor
