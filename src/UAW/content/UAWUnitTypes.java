@@ -48,7 +48,7 @@ public class UAWUnitTypes implements ContentList {
             health = 450;
             hitSize = 18;
             speed = 2.8f;
-            rotateSpeed = 2.5f;
+            rotateSpeed = 7f;
             accel = 0.5f;
             drag = 0.01f;
             ammoType = new ItemAmmoType(Items.graphite);
@@ -67,7 +67,7 @@ public class UAWUnitTypes implements ContentList {
                         mirror = true;
                         shootCone = 90;
                         x = 5f;
-                        y = -2f;
+                        y = -3f;
                         shotDelay = 12f;
                         shots = 4;
                         inaccuracy = 4;
@@ -97,7 +97,7 @@ public class UAWUnitTypes implements ContentList {
                         shootCone = 90;
                         top = false;
                         x = 6f;
-                        y = 2f;
+                        y = 2.5f;
                         reload = 4f;
                         shootSound = Sounds.shoot;
                         ejectEffect = Fx.casing1;
@@ -120,7 +120,7 @@ public class UAWUnitTypes implements ContentList {
             health = 3500;
             hitSize = 30;
             speed = 2.3f;
-            rotateSpeed = 3f;
+            rotateSpeed = 6f;
             accel = 0.5f;
             drag = 0.03f;
             ammoType = new ItemAmmoType(Items.graphite);
@@ -129,8 +129,9 @@ public class UAWUnitTypes implements ContentList {
             range = 24 * tilesize;
             maxRange = range;
             circleTarget = true;
-            bladeCount = 4;
 
+            rotorSpeed = 14f;
+            bladeCount = 4;
             rotorOffsetY = 1.5f;
 
             weapons.add(
@@ -140,7 +141,7 @@ public class UAWUnitTypes implements ContentList {
                         mirror = true;
                         shootCone = 100;
                         top = true;
-                        x = 6f;
+                        x = 7f;
                         y = -2f;
                         shootY = -1;
                         reload = 35f;
@@ -168,16 +169,16 @@ public class UAWUnitTypes implements ContentList {
                         rotate = false;
                         mirror = true;
                         shootCone = 90;
-                        x = 5f;
-                        y = 7f;
-                        shots = 8;
+                        x = 6f;
+                        y = 8.3f;
+                        shots = 9;
                         reload = 30f;
                         shootSound = Sounds.spark;
                         bullet =  new LightningBulletType() {{
                             lightningColor = hitColor = Pal.bulletYellow;
                             damage = 25f;
-                            lightningLength = 7;
-                            lightningLengthRand = 7;
+                            lightningLength = 8;
+                            lightningLengthRand = 8;
                             shootEffect = Fx.shootHealYellow;
 
                             lightningType = new BulletType(0.0001f, 0f){{
