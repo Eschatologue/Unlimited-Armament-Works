@@ -13,10 +13,10 @@ public class CopterAI extends FlyingAI {
     public void updateMovement(){
         if(target != null && unit.hasWeapons() && command() == UnitCommand.attack){
             if(!unit.type.circleTarget){
-                moveTo(target, unit.type.range * 4.5f);
+                moveTo(target, unit.type.range * 2.5f);
                 unit.lookAt(target);
             }
-            attack(unit.type.range * 2f);
+            attack(120f);
         }
 
         if(target == null && command() == UnitCommand.attack && state.rules.waves && unit.team == state.rules.defaultTeam){
