@@ -1,5 +1,6 @@
 package UAW.content;
 
+import UAW.ai.types.CopterAI;
 import UAW.entities.abilities.RazorRotorAbility;
 import UAW.entities.bullet.AntiBuildingBulletType;
 import UAW.entities.bullet.TorpedoBulletType;
@@ -47,13 +48,13 @@ public class UAWUnitTypes implements ContentList {
         aglovale = new HelicopterUnitType("aglovale") {{
             health = 450;
             hitSize = 18;
-            speed = 2.8f;
-            rotateSpeed = 5f;
-            accel = 0.5f;
-            drag = 0.01f;
+            speed = 2.6f;
+            accel = 0.04f;
+            drag = 0.016f;
             ammoType = new ItemAmmoType(Items.graphite);
+            circleTarget = true;
 
-            flying = true;
+            faceTarget = flying = true;
             range = 15 * tilesize;
             maxRange = range;
 
@@ -99,7 +100,7 @@ public class UAWUnitTypes implements ContentList {
                         top = false;
                         x = 6f;
                         y = 2.8f;
-                        reload = 4f;
+                        reload = 6f;
                         shootSound = Sounds.shoot;
                         ejectEffect = Fx.casing1;
                         bullet = new BasicBulletType(6f, 24) {{
@@ -109,6 +110,7 @@ public class UAWUnitTypes implements ContentList {
                             buildingDamageMultiplier = 0.4f;
                             width = 9f;
                             maxRange = range;
+                            homingRange = 60f;
                             lifetime = (range/speed) * 1.4f;
                             trailLength = 15;
                             trailWidth = 1.6f;
@@ -118,18 +120,18 @@ public class UAWUnitTypes implements ContentList {
             );
         }};
         bedivere = new HelicopterUnitType("bedivere") {{
-            health = 3500;
+            health = 4000;
             hitSize = 30;
-            speed = 2.3f;
-            rotateSpeed = 4.5f;
-            accel = 0.5f;
-            drag = 0.03f;
+            speed = 2.1f;
+            rotateSpeed = 2.5f;
+            accel = 0.08f;
+            drag = 0.05f;
             ammoType = new ItemAmmoType(Items.graphite);
+            circleTarget = true;
 
             flying = true;
             range = 24 * tilesize;
             maxRange = range;
-            circleTarget = true;
 
             rotorSpeed = 14f;
             bladeCount = 4;
@@ -169,7 +171,7 @@ public class UAWUnitTypes implements ContentList {
                         rotate = false;
                         mirror = true;
                         shootCone = 90;
-                        x = 6f;
+                        x = 7.5f;
                         y = 8.3f;
                         maxRange = range + 24;
                         shots = 9;
