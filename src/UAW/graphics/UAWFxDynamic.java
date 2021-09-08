@@ -71,7 +71,7 @@ public class UAWFxDynamic {
         return new Effect(35f, 90f, e -> {
             color(Pal.lightPyraFlame, Pal.darkPyraFlame, Color.gray, e.fin());
 
-            randLenVectors(e.id, 20, e.finpow() * (lifetime * 7), e.rotation, lifetime, (x, y) ->
+            randLenVectors(e.id, 20, e.finpow() * 75, e.rotation, lifetime, (x, y) ->
                     Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 2f));
         });
     }
