@@ -53,10 +53,9 @@ public class UAWUnitTypes implements ContentList {
             drag = 0.016f;
             ammoType = new ItemAmmoType(Items.graphite);
             circleTarget = true;
-            defaultController = FlyingAI::new;
 
             faceTarget = flying = true;
-            range = 15 * tilesize;
+            range = 20 * tilesize;
             maxRange = range;
 
             rotorSpeed = 12f;
@@ -70,7 +69,7 @@ public class UAWUnitTypes implements ContentList {
                         x = 5f;
                         y = -3f;
                         inaccuracy = 4;
-                        reload = 6;
+                        reload = 12;
                         shootSound = Sounds.missile;
                         bullet = new MissileBulletType(6f, 15){{
                             width = 6f;
@@ -81,7 +80,7 @@ public class UAWUnitTypes implements ContentList {
                             keepVelocity = false;
                             splashDamageRadius = 25f;
                             splashDamage = 8f;
-                            lifetime = 70f;
+                            lifetime = range / lifetime + 80;
                             backColor = Pal.bulletYellowBack;
                             frontColor = Pal.bulletYellow;
                             hitEffect = Fx.blastExplosion;
@@ -131,7 +130,7 @@ public class UAWUnitTypes implements ContentList {
             circleTarget = true;
 
             flying = true;
-            range = 24 * tilesize;
+            range = 25 * tilesize;
             maxRange = range;
 
             rotorSpeed = 14f;
@@ -148,7 +147,6 @@ public class UAWUnitTypes implements ContentList {
                         x = 7f;
                         y = -2f;
                         shootY = -1;
-                        shots = 2;
                         reload = 12f;
                         shootSound = Sounds.missile;
                         bullet = new MissileBulletType(6f, 95){{
@@ -181,7 +179,7 @@ public class UAWUnitTypes implements ContentList {
                         shootSound = Sounds.flame;
                         bullet = new BulletType(4f, 45f){{
                             hitSize = 7f;
-                            lifetime = 36f;
+                            lifetime = range/speed;
                             pierce = true;
                             collidesAir = false;
                             statusDuration = 60f * 10;
