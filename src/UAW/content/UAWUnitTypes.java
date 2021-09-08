@@ -124,7 +124,7 @@ public class UAWUnitTypes implements ContentList {
             health = 4000;
             hitSize = 30;
             speed = 2.1f;
-            rotateSpeed = 2.5f;
+            rotateSpeed = 2.6f;
             accel = 0.08f;
             drag = 0.05f;
             ammoType = new ItemAmmoType(Items.graphite);
