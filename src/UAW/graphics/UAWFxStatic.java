@@ -56,7 +56,6 @@ public class UAWFxStatic {
                 Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 1.6f));
     }),
     shootPlastFlame = new Effect(33f, 80f, e -> {
-        var Cock =
                 color(Pal.plastaniumFront, Pal.plastaniumBack, Color.gray, e.fin());
 
                 randLenVectors(e.id, 12, e.finpow() * 70f, e.rotation, 10f, (x, y) ->
