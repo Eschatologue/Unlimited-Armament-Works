@@ -67,6 +67,14 @@ public class UAWFxDynamic {
             Drawf.light(e.x, e.y, size * 1.6f, darkColor, e.fout());
         });
     }
+    public static Effect shootFlamethrower(float lifetime) {
+        return new Effect(35f, 90f, e -> {
+            color(Pal.lightPyraFlame, Pal.darkPyraFlame, Color.gray, e.fin());
+
+            randLenVectors(e.id, 20, e.finpow() * (lifetime * 7), e.rotation, lifetime, (x, y) ->
+                    Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 2f));
+        });
+    }
     /*
     public static Effect shootThermal(Color color, float size) {
         return new Effect(24.0F, size * 8, (e) -> {

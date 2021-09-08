@@ -177,16 +177,17 @@ public class UAWUnitTypes implements ContentList {
                         reload = 5;
                         recoil = 0f;
                         shootSound = Sounds.flame;
-                        bullet = new BulletType(4f, 45f){{
+                        bullet = new BulletType(4.1f, 35f){{
+                            ammoMultiplier = 3f;
                             hitSize = 7f;
-                            lifetime = range/speed;
+                            lifetime = (range/speed) + 16;
                             pierce = true;
-                            collidesAir = false;
-                            statusDuration = 60f * 10;
-                            shootEffect = Fx.shootPyraFlame;
+                            statusDuration = 60f * 8;
+                            shootEffect = UAWFxDynamic.shootFlamethrower(lifetime);
                             hitEffect = Fx.hitFlameSmall;
                             despawnEffect = Fx.none;
                             status = StatusEffects.burning;
+                            keepVelocity = false;
                             hittable = false;
                         }};
                     }}
