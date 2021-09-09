@@ -149,7 +149,7 @@ public class UAWUnitTypes implements ContentList {
                         recoil = 0f;
                         shots = 5;
                         shootSound = Sounds.flame;
-                        bullet = new BulletType(4.1f, 25f){{
+                        bullet = new BulletType(4.5f, 25f){{
                             ammoMultiplier = 3f;
                             hitSize = 14f;
                             lifetime = (range/speed);
