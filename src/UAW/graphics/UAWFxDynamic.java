@@ -68,10 +68,10 @@ public class UAWFxDynamic {
         });
     }
     public static Effect shootFlamethrower(float lifetime) {
-        return new Effect(35f, 90f, e -> {
+        return new Effect(lifetime / 1.7f, 90f, e -> {
             color(Pal.lightPyraFlame, Pal.darkPyraFlame, Color.gray, e.fin());
 
-            randLenVectors(e.id, 20, e.finpow() * 75, e.rotation, lifetime, (x, y) ->
+            randLenVectors(e.id, 26, e.finpow() * 75, e.rotation, 20, (x, y) ->
                     Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 2f));
         });
     }

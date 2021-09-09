@@ -123,7 +123,7 @@ public class UAWUnitTypes implements ContentList {
             health = 4000;
             hitSize = 30;
             speed = 2.1f;
-            rotateSpeed = 3f;
+            rotateSpeed = 3.5f;
             accel = 0.08f;
             drag = 0.05f;
             ammoType = new ItemAmmoType(Items.graphite);
@@ -138,6 +138,31 @@ public class UAWUnitTypes implements ContentList {
             rotorOffsetY = 1.5f;
 
             weapons.add(
+                    new Weapon("uaw-shotgun-medium-red") {{
+                        rotate = false;
+                        mirror = true;
+                        inaccuracy = shootCone = 90;
+                        x = 7.5f;
+                        y = 8.3f;
+                        maxRange = range + 24;
+                        reload = 4;
+                        recoil = 0f;
+                        shots = 5;
+                        shootSound = Sounds.flame;
+                        bullet = new BulletType(4.1f, 25f){{
+                            ammoMultiplier = 3f;
+                            hitSize = 14f;
+                            lifetime = (range/speed);
+                            pierce = true;
+                            statusDuration = 60f * 8;
+                            shootEffect = UAWFxDynamic.shootFlamethrower(lifetime);
+                            hitEffect = Fx.hitFlameSmall;
+                            despawnEffect = Fx.none;
+                            status = StatusEffects.burning;
+                            keepVelocity = false;
+                            hittable = false;
+                        }};
+                    }},
                     new Weapon("uaw-missile-medium-red") {{
                         shots = 2;
                         rotate = false;
@@ -165,32 +190,11 @@ public class UAWUnitTypes implements ContentList {
                             despawnEffect = Fx.blastExplosion;
                             trailColor = Color.gray;
                             trailChance = 0.7f;
-                        }};
-                    }},
-                    new Weapon("uaw-shotgun-medium-red") {{
-                        rotate = false;
-                        mirror = true;
-                        shootCone = 90;
-                        x = 7.5f;
-                        y = 8.3f;
-                        maxRange = range + 24;
-                        reload = 5;
-                        recoil = 0f;
-                        shootSound = Sounds.flame;
-                        bullet = new BulletType(4.1f, 35f){{
-                            ammoMultiplier = 3f;
-                            hitSize = 7f;
-                            lifetime = (range/speed) + 16;
-                            pierce = true;
-                            statusDuration = 60f * 8;
-                            shootEffect = UAWFxDynamic.shootFlamethrower(lifetime);
-                            hitEffect = Fx.hitFlameSmall;
-                            despawnEffect = Fx.none;
-                            status = StatusEffects.burning;
-                            keepVelocity = false;
-                            hittable = false;
+                            weaveMag = 4;
+                            weaveScale = 4;
                         }};
                     }}
+
             );
             abilities.add(new RazorRotorAbility(4, 10, 5 * tilesize));
         }};
