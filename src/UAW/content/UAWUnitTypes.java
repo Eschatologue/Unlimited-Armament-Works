@@ -3,6 +3,7 @@ package UAW.content;
 import UAW.ai.types.CopterAI;
 import UAW.entities.abilities.RazorRotorAbility;
 import UAW.entities.bullet.AntiBuildingBulletType;
+import UAW.entities.bullet.CruiseMissileBulletType;
 import UAW.entities.bullet.TorpedoBulletType;
 import UAW.graphics.*;
 import UAW.type.HelicopterUnitType;
@@ -141,15 +142,15 @@ public class UAWUnitTypes implements ContentList {
                     new Weapon("uaw-shotgun-medium-red") {{
                         rotate = false;
                         mirror = true;
-                        inaccuracy = shootCone = 90;
+                        inaccuracy = shootCone = 70;
                         x = 7.5f;
                         y = 8.3f;
                         maxRange = range + 24;
                         reload = 4;
                         recoil = 0f;
-                        shots = 5;
+                        shots = 4;
                         shootSound = Sounds.flame;
-                        bullet = new BulletType(4.5f, 25f){{
+                        bullet = new BulletType(4.5f, 35f){{
                             ammoMultiplier = 3f;
                             hitSize = 14f;
                             lifetime = (range/speed);
@@ -174,14 +175,12 @@ public class UAWUnitTypes implements ContentList {
                         shootY = -1;
                         reload = 12f;
                         shootSound = Sounds.missile;
-                        bullet = new MissileBulletType(6f, 95){{
-                            width = 9f;
-                            height = 16f;
-                            shrinkY = 0f;
+                        bullet = new CruiseMissileBulletType(6f, 95){{
+                            size = 17f;
                             drag = -0.003f;
                             homingRange = 60f;
                             keepVelocity = false;
-                            splashDamageRadius = 4 * tilesize;
+                            splashDamageRadius = 8 * tilesize;
                             splashDamage = damage;
                             lifetime = 70f;
                             backColor = Pal.bulletYellowBack;
