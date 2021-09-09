@@ -9,6 +9,7 @@ import arc.util.*;
 import mindustry.content.Fx;
 import mindustry.entities.Effect;
 import mindustry.gen.*;
+import mindustry.ai.types.*;
 import mindustry.graphics.Layer;
 import mindustry.graphics.*;
 import mindustry.type.UnitType;

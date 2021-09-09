@@ -17,7 +17,7 @@ public class CopterAI extends FlyingAI {
                 unit.lookAt(target);
             } else {
                 unit.lookAt(target);
-                attack(unit.type.range * 1.2f);
+                attack(unit.type.range * 0.8f);
             }
         }
 
