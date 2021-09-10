@@ -1,16 +1,15 @@
 package UAW.content;
 
-import UAW.ai.types.CopterAI;
 import UAW.entities.abilities.RazorRotorAbility;
 import UAW.entities.bullet.AntiBuildingBulletType;
 import UAW.entities.bullet.CruiseMissileBulletType;
 import UAW.entities.bullet.TorpedoBulletType;
 import UAW.graphics.*;
 import UAW.type.HelicopterUnitType;
+import UAW.type.Rotor;
 import UAW.type.TankUnitType;
 
 import arc.graphics.Color;
-import mindustry.ai.types.FlyingAI;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.bullet.*;
@@ -59,9 +58,13 @@ public class UAWUnitTypes implements ContentList {
             range = 20 * tilesize;
             maxRange = range;
 
-            rotorSpeed = 12f;
-            rotorOffsetY = 0.5f;
-
+            rotors.add(
+                    new Rotor("uaw-aglovale-blade"){{
+                        x = y = 0;
+                        rotationSpeed = -15f;
+                        bladeCount = 4;
+                    }}
+            );
             weapons.add(
                     new Weapon("uaw-missile-small-red") {{
                         rotate = false;
@@ -133,10 +136,6 @@ public class UAWUnitTypes implements ContentList {
             flying = true;
             range = 25 * tilesize;
             maxRange = range;
-
-            rotorSpeed = 14f;
-            bladeCount = 4;
-            rotorOffsetY = 1.5f;
 
             weapons.add(
                     new Weapon("uaw-shotgun-medium-red") {{
