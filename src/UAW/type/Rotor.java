@@ -28,9 +28,12 @@ public class Rotor {
     public Rotor(String name){
         this.name = name;
     }
+    public Rotor(){
+        this("");
+    }
 
     public void load(){
-        bladeRegion = Core.atlas.find(name + "-blade");
+        bladeRegion = Core.atlas.find(name);
         topRegion = Core.atlas.find(name + "-top");
     }
 
