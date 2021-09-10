@@ -18,7 +18,7 @@ import mindustry.world.meta.*;
 import static mindustry.Vars.*;
 
 public class Rotor {
-    public String name = "";
+    public String name;
     public TextureRegion bladeRegion;
     public TextureRegion topRegion;
     public int bladeCount = 4;
