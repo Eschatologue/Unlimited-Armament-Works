@@ -59,10 +59,10 @@ public class UAWUnitTypes implements ContentList {
             maxRange = range;
 
             rotors.add(
-                    new Rotor("uaw-aglovale-blade"){{
+                    new Rotor("aglovale-blade"){{
                         x = y = 0;
-                        rotationSpeed = -15f;
-                        bladeCount = 4;
+                        rotationSpeed = -12f;
+                        bladeCount = 3;
                     }}
             );
             weapons.add(

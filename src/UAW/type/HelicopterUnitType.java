@@ -19,7 +19,7 @@ import UAW.ai.types.*;
 
 //Possible thanks to iarkn#8872 help
 public class HelicopterUnitType extends UnitType {
-    public Seq<Rotor> rotors = new Seq<>();
+    public final Seq<Rotor> rotors = new Seq<>(4);
 
     public HelicopterUnitType(String name) {
         super(name);
