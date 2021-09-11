@@ -2,18 +2,15 @@ package UAW.type;
 
 import UAW.ai.types.CopterAI;
 import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.TextureRegion;
 import arc.struct.Seq;
 import arc.util.Time;
 import mindustry.gen.Unit;
 import mindustry.gen.UnitEntity;
 import mindustry.type.UnitType;
 
-//Possible thanks to iarkn#8872 help
 public class HelicopterUnitType extends UnitType {
     public final Seq<Rotor> rotors = new Seq<>();
     public boolean spinningFall = false;
-    Rotor rotor;
 
     public HelicopterUnitType(String name) {
         super(name);

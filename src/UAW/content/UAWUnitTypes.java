@@ -139,7 +139,8 @@ public class UAWUnitTypes implements ContentList {
 
             rotors.add(
                     new Rotor(name + "-blade"){{
-                        x = y = 0;
+                        x = 0;
+                        y = 2;
                         rotationSpeed = -14f;
                         bladeCount = 4;
                     }}
@@ -173,30 +174,29 @@ public class UAWUnitTypes implements ContentList {
                     new Weapon("uaw-missile-medium-red") {{
                         shots = 2;
                         rotate = false;
-                        mirror = true;
+                        alternate = mirror = true;
                         shootCone = 100;
                         top = true;
                         x = 7f;
                         y = -2f;
                         shootY = -1;
-                        reload = 12f;
-                        shootSound = Sounds.missile;
+                        reload = 115f;
+                        shotDelay = 8f;
+                        shootSound = UAWSounds.LauncherShot1;
                         bullet = new CruiseMissileBulletType(6f, 95){{
                             size = 17f;
                             drag = -0.003f;
-                            homingRange = 60f;
+                            homingRange = 120f;
                             keepVelocity = false;
                             splashDamageRadius = 8 * tilesize;
                             splashDamage = damage;
                             lifetime = 70f;
                             backColor = Pal.bulletYellowBack;
                             frontColor = Pal.bulletYellow;
-                            hitEffect = Fx.blastExplosion;
-                            despawnEffect = Fx.blastExplosion;
+                            hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(backColor, splashDamageRadius), Fx.smokeCloud);
                             trailColor = Color.gray;
                             trailChance = 0.7f;
-                            weaveMag = 4;
-                            weaveScale = 4;
+                            trailLength = 20;
                         }};
                     }}
 
