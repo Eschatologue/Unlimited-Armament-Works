@@ -125,16 +125,15 @@ public class UAWUnitTypes implements ContentList {
             );
         }};
         bedivere = new HelicopterUnitType("bedivere") {{
-            health = 4000;
+            health = 3800;
             hitSize = 30;
             speed = 2.5f;
             rotateSpeed = 3.5f;
             accel = 0.08f;
-            drag = 0.05f;
+            drag = 0.03f;
             ammoType = new ItemAmmoType(Items.graphite);
-            circleTarget = true;
+            spinningFall = faceTarget = flying = circleTarget =  true;
 
-            flying = true;
             range = 25 * tilesize;
             maxRange = range;
 
@@ -151,11 +150,10 @@ public class UAWUnitTypes implements ContentList {
                         rotate = top = false;
                         inaccuracy = shootCone = 70;
                         alternate = mirror = true;
-                        x = 8f;
-                        y = 7.8f;
+                        x = 10f;
+                        y = 7f;
                         reload = 4;
                         recoil = 0f;
-                        shots = 5;
                         shootSound = Sounds.shoot;
                         ejectEffect = Fx.casing1;
                         bullet = new BasicBulletType(8f, 36) {{
@@ -164,13 +162,11 @@ public class UAWUnitTypes implements ContentList {
                             pierceCap = 2;
                             buildingDamageMultiplier = 0.4f;
                             width = 9f;
-                            maxRange = range;
+                            maxRange = range - 8;
                             homingRange = 60f;
                             lifetime = (range/speed) * 1.4f;
                             trailLength = 15;
                             trailWidth = 1.5f;
-                            frontColor = Pal.lightPyraFlame;
-                            backColor = Pal.darkPyraFlame;
                             trailColor = backColor;
                             status = StatusEffects.burning;
                         }};
@@ -181,23 +177,23 @@ public class UAWUnitTypes implements ContentList {
                         shootCone = 100;
                         top = true;
                         x = 7f;
-                        y = -2f;
+                        y = -1.5f;
                         inaccuracy = 15;
+                        maxRange = range;
                         reload = 75f;
                         recoil = 3f;
-                        shotDelay = 16f;
-                        shootSound = UAWSounds.LauncherShot1;
-                        bullet = new CruiseMissileBulletType(6f, 45){{
+                        shootSound = UAWSounds.MissileLaunch1;
+                        bullet = new CruiseMissileBulletType(3f, 65){{
                             size = 6f;
-                            drag = -0.003f;
                             homingRange = 120f;
                             homingPower = 0.05f;
                             keepVelocity = false;
                             splashDamageRadius = 8 * tilesize;
                             splashDamage = damage;
-                            lifetime = 70f;
+                            lifetime = 60f;
                             backColor = Pal.bulletYellowBack;
                             frontColor = Pal.bulletYellow;
+                            shootEffect = UAWFxStatic.shootSurgeFlame;
                             hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(backColor, splashDamageRadius), Fx.smokeCloud);
                             trailColor = Color.gray;
                             trailLength = 6;
