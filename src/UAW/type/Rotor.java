@@ -14,8 +14,17 @@ public class Rotor {
     public float x = 0f;
     public float y = 0f;
     public float rotationSpeed = 12;
-
+    /*
+    public float size = 8;
+    public float width = size;
+    public float height = width * 4;
+    */
     public int bladeCount = 4;
+
+    public void load(){
+        bladeRegion = Core.atlas.find(name);
+        topRegion = Core.atlas.find(name + "-top");
+    }
 
     public Rotor(String name){
         this.name = name;
@@ -34,10 +43,5 @@ public class Rotor {
             Draw.rect(bladeRegion, rx, ry, bladeRegion.width * Draw.scl, bladeRegion.height * Draw.scl, angle);
         }
         Draw.rect(topRegion, rx, ry, topRegion.width * Draw.scl, topRegion.height * Draw.scl, unit.rotation - 90);
-    }
-
-    public void load(){
-        bladeRegion = Core.atlas.find(name);
-        topRegion = Core.atlas.find(name + "-top");
     }
 }
