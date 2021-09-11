@@ -31,9 +31,9 @@ public class Rotor {
 
         for(int i = 0; i < bladeCount; i++){
             float angle = ((i * 360f / bladeCount + (Time.time * rotationSpeed)) % 360);
-            Draw.rect(bladeRegion, rx, ry, angle);
+            Draw.rect(bladeRegion, rx, ry, bladeRegion.width, bladeRegion.height, angle);
         }
-        Draw.rect(topRegion, rx, ry, unit.rotation - 90);
+        Draw.rect(topRegion, rx, ry, topRegion.width, topRegion.height, unit.rotation - 90);
     }
 
     public void load(){
