@@ -137,6 +137,13 @@ public class UAWUnitTypes implements ContentList {
             range = 25 * tilesize;
             maxRange = range;
 
+            rotors.add(
+                    new Rotor(name + "-blade"){{
+                        x = y = 0;
+                        rotationSpeed = -14f;
+                        bladeCount = 4;
+                    }}
+            );
             weapons.add(
                     new Weapon("uaw-shotgun-medium-red") {{
                         rotate = false;
