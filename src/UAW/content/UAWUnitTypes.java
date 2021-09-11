@@ -2,6 +2,7 @@ package UAW.content;
 
 import UAW.entities.abilities.RazorRotorAbility;
 import UAW.entities.bullet.AntiBuildingBulletType;
+import UAW.entities.bullet.BuckshotBulletType;
 import UAW.entities.bullet.CruiseMissileBulletType;
 import UAW.entities.bullet.TorpedoBulletType;
 import UAW.graphics.*;
@@ -153,22 +154,20 @@ public class UAWUnitTypes implements ContentList {
                         x = 7.5f;
                         y = 8.3f;
                         maxRange = range + 24;
-                        reload = 4;
-                        recoil = 0f;
-                        shots = 4;
-                        shootSound = Sounds.flame;
-                        bullet = new BulletType(4.5f, 35f){{
-                            ammoMultiplier = 3f;
-                            hitSize = 14f;
-                            lifetime = (range/speed);
-                            pierce = true;
-                            statusDuration = 60f * 8;
-                            shootEffect = UAWFxDynamic.shootFlamethrower(lifetime);
-                            hitEffect = Fx.hitFlameSmall;
-                            despawnEffect = Fx.none;
+                        reload = 45;
+                        shots = 5;
+                        velocityRnd = 0.2f;
+                        shootSound = Sounds.artillery;
+                        bullet = new BuckshotBulletType(5f, 16f) {{
+                            height = width = 8;
+                            lifetime = (range / speed) * 0.75f;
+                            shootEffect = Fx.shootPyraFlame;
+                            smokeEffect = Fx.shootBigSmoke2;
+                            hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.burning);
+                            despawnEffect = UAWFxDynamic.thermalExplosion(frontColor, backColor);
+                            frontColor = Pal.lightishOrange;
+                            backColor = Pal.lightOrange;
                             status = StatusEffects.burning;
-                            keepVelocity = false;
-                            hittable = false;
                         }};
                     }},
                     new Weapon("uaw-missile-medium-red") {{
@@ -179,12 +178,13 @@ public class UAWUnitTypes implements ContentList {
                         top = true;
                         x = 7f;
                         y = -2f;
+                        inaccuracy = 15;
                         shootY = -1;
-                        reload = 115f;
-                        shotDelay = 8f;
+                        reload = 130f;
+                        shotDelay = 16f;
                         shootSound = UAWSounds.LauncherShot1;
                         bullet = new CruiseMissileBulletType(6f, 95){{
-                            size = 17f;
+                            size = 12f;
                             drag = -0.003f;
                             homingRange = 120f;
                             keepVelocity = false;
@@ -195,8 +195,7 @@ public class UAWUnitTypes implements ContentList {
                             frontColor = Pal.bulletYellow;
                             hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(backColor, splashDamageRadius), Fx.smokeCloud);
                             trailColor = Color.gray;
-                            trailChance = 0.7f;
-                            trailLength = 20;
+                            trailLength = 16;
                         }};
                     }}
 

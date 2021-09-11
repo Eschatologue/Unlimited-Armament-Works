@@ -34,7 +34,7 @@ public class RazorRotorAbility extends Ability{
         this.damage = damage;
         this.chance = chance;
         this.range = range;
-        this.bullet = new RotorBlade(4f, damage){{
+        this.bullet = new RotorBlade(5f, damage){{
             lifetime = range / speed;
             pierce = true;
             hittable = false;
@@ -44,7 +44,7 @@ public class RazorRotorAbility extends Ability{
     }
     @Override
     public void update(Unit unit){
-        float rotationAngle = Time.time + 15;
+        float rotationAngle = Time.time + 12;
         float scl = Mathf.clamp((unit.vel().len() - minSpeed) / (maxSpeed - minSpeed));
         if(Mathf.chance(Time.delta * chance * scl)) {
             float x = unit.x + Angles.trnsx(unit.rotation, 0, 0);

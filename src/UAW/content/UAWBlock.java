@@ -52,7 +52,6 @@ public class UAWBlock implements ContentList {
         /// Projectors
         statusFieldProjector,
         regenerator,
-        overclocker,
     // endregion
         // region UnitBlocks
         /// Reconstructors
