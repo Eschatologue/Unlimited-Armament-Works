@@ -17,17 +17,13 @@ public class Rotor {
 
     public int bladeCount = 4;
 
-    public void load(){
-        bladeRegion = Core.atlas.find(name + "-blade");
-        topRegion = Core.atlas.find(name + "-top");
-    }
-
     public Rotor(String name){
         this.name = name;
     }
 
-    public Rotor(){
-        this("");
+    public void load(){
+        bladeRegion = Core.atlas.find(name);
+        topRegion = Core.atlas.find(name + "-top");
     }
 
     public void draw(Unit unit){

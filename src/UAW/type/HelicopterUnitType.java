@@ -12,7 +12,6 @@ import mindustry.type.UnitType;
 //Possible thanks to iarkn#8872 help
 public class HelicopterUnitType extends UnitType {
     public final Seq<Rotor> rotors = new Seq<>();
-    public TextureRegion bladeRegion, topRegion;
     public boolean spinningFall = false;
     Rotor rotor;
 
