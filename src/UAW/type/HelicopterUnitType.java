@@ -43,9 +43,7 @@ public class HelicopterUnitType extends UnitType {
 
     public void drawRotor(Unit unit){
         applyColor(unit);
-        rotor = new Rotor();
-        rotor.draw(unit);
-        Draw.reset();
+        rotors.each(rotor -> rotor.draw(unit));
     }
 
     @Override

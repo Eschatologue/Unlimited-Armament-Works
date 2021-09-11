@@ -14,15 +14,11 @@ public class Rotor {
     public float x = 0f;
     public float y = 0f;
     public float rotationSpeed = 12;
-    /*
-    public float size = 8;
-    public float width = size;
-    public float height = width * 4;
-    */
+
     public int bladeCount = 4;
 
     public void load(){
-        bladeRegion = Core.atlas.find(name);
+        bladeRegion = Core.atlas.find(name + "-blade");
         topRegion = Core.atlas.find(name + "-top");
     }
 
