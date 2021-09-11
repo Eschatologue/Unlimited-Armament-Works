@@ -17,7 +17,7 @@ public class HelicopterUnitType extends UnitType {
         flying = lowAltitude = true;
         constructor = UnitEntity::create;
         engineSize = 0f;
-        rotateSpeed = 7f;
+        rotateSpeed = 6f;
         defaultController = CopterAI::new;
         fallSpeed = 0.008f;
     }
