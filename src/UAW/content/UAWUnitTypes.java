@@ -148,10 +148,10 @@ public class UAWUnitTypes implements ContentList {
             weapons.add(
                     new Weapon("uaw-machine-gun-small-red") {{
                         rotate = top = false;
-                        inaccuracy = shootCone = 70;
+                        shootCone = 70;
                         alternate = mirror = true;
-                        x = 10f;
-                        y = 7f;
+                        x = 8f;
+                        y = 10f;
                         reload = 4;
                         recoil = 0f;
                         shootSound = Sounds.shoot;
