@@ -54,12 +54,12 @@ public class UAWUnitTypes implements ContentList {
             ammoType = new ItemAmmoType(Items.graphite);
             circleTarget = true;
 
-            faceTarget = flying = true;
+            spinningFall = faceTarget = flying = true;
             range = 20 * tilesize;
             maxRange = range;
 
             rotors.add(
-                    new Rotor("aglovale-blade"){{
+                    new Rotor("uaw-aglovale-blade"){{
                         x = y = 0;
                         rotationSpeed = -12f;
                         bladeCount = 3;

@@ -1,25 +1,20 @@
 package UAW.type;
 
-import arc.Core;
-import arc.graphics.Color;
+import UAW.ai.types.CopterAI;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.TextureRegion;
-import arc.math.*;
 import arc.struct.Seq;
-import arc.util.*;
-import mindustry.content.Fx;
-import mindustry.entities.Effect;
-import mindustry.gen.*;
-import mindustry.ai.types.*;
-import mindustry.graphics.Layer;
-import mindustry.graphics.*;
+import arc.util.Time;
+import mindustry.gen.Unit;
+import mindustry.gen.UnitEntity;
 import mindustry.type.UnitType;
-
-import UAW.ai.types.*;
 
 //Possible thanks to iarkn#8872 help
 public class HelicopterUnitType extends UnitType {
-    public final Seq<Rotor> rotors = new Seq<>(4);
+    public final Seq<Rotor> rotors = new Seq<>();
+    public TextureRegion bladeRegion, topRegion;
+    public boolean spinningFall = false;
+    Rotor rotor;
 
     public HelicopterUnitType(String name) {
         super(name);
@@ -34,9 +29,29 @@ public class HelicopterUnitType extends UnitType {
     @Override
     public void update(Unit unit) {
         super.update(unit);
-        if(unit.health <= 0 || unit.dead()) {
-            unit.rotation += Time.delta * (fallSpeed * 1000);
+        if(unit.isFlying() || spinningFall) {
+            if(unit.health <= 0 || unit.dead()) {
+                unit.rotation += Time.delta * (fallSpeed * 1000);
+            }
         }
+    }
+    @Override
+    public void draw(Unit unit){
+        super.draw(unit);
+        drawRotor(unit);
+    }
+
+    public void drawRotor(Unit unit){
+        applyColor(unit);
+        rotor = new Rotor();
+        rotor.draw(unit);
+        Draw.reset();
+    }
+
+    @Override
+    public void load(){
+        super.load();
+        rotors.each(Rotor::load);
     }
 }
 

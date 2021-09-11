@@ -21,6 +21,10 @@ public class Rotor {
         this.name = name;
     }
 
+    public Rotor(){
+        this("");
+    }
+
     public void draw(Unit unit){
         float rx = unit.x + Angles.trnsx(unit.rotation - 90, x, y);
         float ry = unit.y + Angles.trnsy(unit.rotation - 90, x, y);
