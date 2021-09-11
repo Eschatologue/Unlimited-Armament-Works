@@ -152,23 +152,27 @@ public class UAWUnitTypes implements ContentList {
                         inaccuracy = shootCone = 70;
                         alternate = mirror = true;
                         x = 8f;
-                        y = 8.3f;
-                        reload = 6;
+                        y = 7.8f;
+                        reload = 4;
                         recoil = 0f;
                         shots = 5;
-                        shootSound = Sounds.flame;
-                        bullet = new BulletType(4.1f, 35f){{
-                            ammoMultiplier = 3f;
-                            hitSize = 8f;
-                            lifetime = 13f;
+                        shootSound = Sounds.shoot;
+                        ejectEffect = Fx.casing1;
+                        bullet = new BasicBulletType(8f, 36) {{
+                            height = 19f;
                             pierce = true;
-                            statusDuration = 60f * 4;
-                            shootEffect = Fx.shootSmallFlame;
-                            hitEffect = Fx.hitFlameSmall;
-                            despawnEffect = Fx.none;
+                            pierceCap = 2;
+                            buildingDamageMultiplier = 0.4f;
+                            width = 9f;
+                            maxRange = range;
+                            homingRange = 60f;
+                            lifetime = (range/speed) * 1.4f;
+                            trailLength = 15;
+                            trailWidth = 1.5f;
+                            frontColor = Pal.lightPyraFlame;
+                            backColor = Pal.darkPyraFlame;
+                            trailColor = backColor;
                             status = StatusEffects.burning;
-                            keepVelocity = false;
-                            hittable = false;
                         }};
                     }},
                     new Weapon("uaw-missile-medium-red-2") {{
@@ -179,13 +183,15 @@ public class UAWUnitTypes implements ContentList {
                         x = 7f;
                         y = -2f;
                         inaccuracy = 15;
-                        reload = 60f;
+                        reload = 75f;
+                        recoil = 3f;
                         shotDelay = 16f;
                         shootSound = UAWSounds.LauncherShot1;
-                        bullet = new CruiseMissileBulletType(6f, 35){{
-                            size = 9f;
+                        bullet = new CruiseMissileBulletType(6f, 45){{
+                            size = 6f;
                             drag = -0.003f;
                             homingRange = 120f;
+                            homingPower = 0.05f;
                             keepVelocity = false;
                             splashDamageRadius = 8 * tilesize;
                             splashDamage = damage;
@@ -194,7 +200,9 @@ public class UAWUnitTypes implements ContentList {
                             frontColor = Pal.bulletYellow;
                             hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(backColor, splashDamageRadius), Fx.smokeCloud);
                             trailColor = Color.gray;
-                            trailLength = 9;
+                            trailLength = 6;
+                            status = StatusEffects.slow;
+                            statusDuration = 2 * 60;
                         }};
                     }}
 
