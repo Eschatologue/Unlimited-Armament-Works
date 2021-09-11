@@ -27,7 +27,7 @@ public class HelicopterUnitType extends UnitType {
         super.update(unit);
         if(unit.isFlying() && spinningFall) {
             if(unit.health <= 0 || unit.dead()) {
-                unit.rotation += Time.delta * (fallSpeed * 1000);
+                unit.rotation += Time.delta * (fallSpeed * 1500);
             }
         }
     }

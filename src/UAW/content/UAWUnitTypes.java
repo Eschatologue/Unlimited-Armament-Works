@@ -49,7 +49,7 @@ public class UAWUnitTypes implements ContentList {
         aglovale = new HelicopterUnitType("aglovale") {{
             health = 450;
             hitSize = 18;
-            speed = 2.6f;
+            speed = 2.8f;
             accel = 0.04f;
             drag = 0.016f;
             ammoType = new ItemAmmoType(Items.graphite);
@@ -127,7 +127,7 @@ public class UAWUnitTypes implements ContentList {
         bedivere = new HelicopterUnitType("bedivere") {{
             health = 4000;
             hitSize = 30;
-            speed = 2.1f;
+            speed = 2.5f;
             rotateSpeed = 3.5f;
             accel = 0.08f;
             drag = 0.05f;
@@ -147,31 +147,31 @@ public class UAWUnitTypes implements ContentList {
                     }}
             );
             weapons.add(
-                    new Weapon("uaw-shotgun-medium-red") {{
-                        rotate = false;
-                        mirror = true;
+                    new Weapon("uaw-machine-gun-small-red") {{
+                        rotate = top = false;
                         inaccuracy = shootCone = 70;
-                        x = 7.5f;
+                        alternate = mirror = true;
+                        x = 8f;
                         y = 8.3f;
-                        maxRange = range + 24;
-                        reload = 45;
+                        reload = 6;
+                        recoil = 0f;
                         shots = 5;
-                        velocityRnd = 0.2f;
-                        shootSound = Sounds.artillery;
-                        bullet = new BuckshotBulletType(5f, 16f) {{
-                            height = width = 8;
-                            lifetime = (range / speed) * 0.75f;
-                            shootEffect = Fx.shootPyraFlame;
-                            smokeEffect = Fx.shootBigSmoke2;
-                            hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.burning);
-                            despawnEffect = UAWFxDynamic.thermalExplosion(frontColor, backColor);
-                            frontColor = Pal.lightishOrange;
-                            backColor = Pal.lightOrange;
+                        shootSound = Sounds.flame;
+                        bullet = new BulletType(4.1f, 35f){{
+                            ammoMultiplier = 3f;
+                            hitSize = 8f;
+                            lifetime = 13f;
+                            pierce = true;
+                            statusDuration = 60f * 4;
+                            shootEffect = Fx.shootSmallFlame;
+                            hitEffect = Fx.hitFlameSmall;
+                            despawnEffect = Fx.none;
                             status = StatusEffects.burning;
+                            keepVelocity = false;
+                            hittable = false;
                         }};
                     }},
-                    new Weapon("uaw-missile-medium-red") {{
-                        shots = 2;
+                    new Weapon("uaw-missile-medium-red-2") {{
                         rotate = false;
                         alternate = mirror = true;
                         shootCone = 100;
@@ -179,12 +179,11 @@ public class UAWUnitTypes implements ContentList {
                         x = 7f;
                         y = -2f;
                         inaccuracy = 15;
-                        shootY = -1;
-                        reload = 130f;
+                        reload = 60f;
                         shotDelay = 16f;
                         shootSound = UAWSounds.LauncherShot1;
-                        bullet = new CruiseMissileBulletType(6f, 95){{
-                            size = 12f;
+                        bullet = new CruiseMissileBulletType(6f, 35){{
+                            size = 9f;
                             drag = -0.003f;
                             homingRange = 120f;
                             keepVelocity = false;
@@ -195,7 +194,7 @@ public class UAWUnitTypes implements ContentList {
                             frontColor = Pal.bulletYellow;
                             hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(backColor, splashDamageRadius), Fx.smokeCloud);
                             trailColor = Color.gray;
-                            trailLength = 16;
+                            trailLength = 9;
                         }};
                     }}
 
