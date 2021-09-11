@@ -142,7 +142,7 @@ public class UAWFxStatic {
     cruiseMissileTrail = new Effect(33f, 80f, e -> {
         color(Pal.lightishOrange, Pal.lighterOrange, Color.gray, e.fin());
 
-        randLenVectors(e.id, 16, e.finpow() * 36f, e.rotation + 180, 8f, (x, y) -> {
+        randLenVectors(e.id, 16, e.finpow() * 36f, e.rotation + 180, 12f, (x, y) -> {
             Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 2f);
         });
     }),

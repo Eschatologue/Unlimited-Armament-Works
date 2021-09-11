@@ -19,7 +19,7 @@ public class HelicopterUnitType extends UnitType {
         engineSize = 0f;
         rotateSpeed = 6f;
         defaultController = CopterAI::new;
-        fallSpeed = 0.008f;
+        fallSpeed = 0.007f;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class HelicopterUnitType extends UnitType {
         super.update(unit);
         if(unit.isFlying() && spinningFall) {
             if(unit.health <= 0 || unit.dead()) {
-                unit.rotation += Time.delta * (fallSpeed * 1500);
+                unit.rotation += Time.delta * (fallSpeed * 1000);
             }
         }
     }

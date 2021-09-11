@@ -52,6 +52,7 @@ public class UAWUnitTypes implements ContentList {
             speed = 2.8f;
             accel = 0.04f;
             drag = 0.016f;
+            rotateSpeed = 5.5f;
             ammoType = new ItemAmmoType(Items.graphite);
             circleTarget = true;
 
@@ -125,10 +126,10 @@ public class UAWUnitTypes implements ContentList {
             );
         }};
         bedivere = new HelicopterUnitType("bedivere") {{
-            health = 3800;
+            health = 3500;
             hitSize = 30;
             speed = 2.5f;
-            rotateSpeed = 3.5f;
+            rotateSpeed = 4.5f;
             accel = 0.08f;
             drag = 0.03f;
             ammoType = new ItemAmmoType(Items.graphite);
@@ -152,7 +153,7 @@ public class UAWUnitTypes implements ContentList {
                         inaccuracy = 3f;
                         alternate = mirror = true;
                         x = 7f;
-                        y = 12f;
+                        y = 10f;
                         reload = 4;
                         recoil = 0f;
                         shootSound = Sounds.shoot;
@@ -183,10 +184,10 @@ public class UAWUnitTypes implements ContentList {
                         maxRange = range;
                         reload = 40f;
                         recoil = 3f;
-                        firstShotDelay = 15f;
+                        firstShotDelay = 20f;
                         shootSound = UAWSounds.MissileLaunch1;
                         bullet = new CruiseMissileBulletType(3f, 55){{
-                            size = 6f;
+                            size = 5f;
                             homingRange = 120f;
                             homingPower = 0.05f;
                             keepVelocity = false;
@@ -198,7 +199,7 @@ public class UAWUnitTypes implements ContentList {
                             shootEffect = UAWFxStatic.shootSurgeFlame;
                             hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(backColor, splashDamageRadius), Fx.smokeCloud);
                             trailColor = Color.gray;
-                            trailLength = 6;
+                            trailLength = 5;
                             status = StatusEffects.slow;
                             statusDuration = 2 * 60;
                         }};
