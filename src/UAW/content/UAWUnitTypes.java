@@ -182,10 +182,8 @@ public class UAWUnitTypes implements ContentList {
                         y = -1.5f;
                         inaccuracy = 15;
                         maxRange = range;
-                        reload = 90f;
-                        shots = 2;
-                        shotDelay = 15;
-                        recoil = 3f;
+                        reload = 60f;
+                        recoil = 2f;
                         firstShotDelay = 20f;
                         shootSound = UAWSounds.MissileLaunch1;
                         bullet = new CruiseMissileBulletType(3f, 65){{

@@ -791,6 +791,7 @@ public class UAWBlock implements ContentList {
             hasItems = true;
             hasLiquids = true;
             drawer = new DrawLiquid();
+            craftTime = 2.5f * tick;
             updateEffect = Fx.shieldBreak;
         }};
         coalLiquefier = new GenericCrafter("coal-liquefier") {{
@@ -813,6 +814,7 @@ public class UAWBlock implements ContentList {
             hasItems = true;
             hasLiquids = true;
             drawer = new DrawLiquid();
+            craftTime = 1.5f * tick;
             updateEffect = Fx.steam;
         }};
         // endregion
