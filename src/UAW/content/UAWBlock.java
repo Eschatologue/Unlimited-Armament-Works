@@ -3,6 +3,7 @@ package UAW.content;
 import UAW.entities.bullet.*;
 import UAW.graphics.*;
 import UAW.world.blocks.defense.EffectFieldProjector;
+import UAW.world.blocks.defense.TrickleMendProjector;
 import UAW.world.blocks.defense.turrets.StaticItemTurret;
 import UAW.world.blocks.defense.turrets.DynamicReloadTurret;
 import UAW.world.blocks.defense.walls.ShieldWall;
@@ -51,7 +52,7 @@ public class UAWBlock implements ContentList {
         shieldWall,
         /// Projectors
         statusFieldProjector,
-        regenerator,
+        regenerator, restorator,
     // endregion
         // region UnitBlocks
         /// Reconstructors
@@ -866,21 +867,37 @@ public class UAWBlock implements ContentList {
             );
             consumes.power(2.5f);
         }};
-        regenerator = new MendProjector("regenerator"){{
+        regenerator = new TrickleMendProjector("regenerator"){{
+            requirements(Category.effect, with(
+                    Items.lead, 100,
+                    Items.titanium, 35,
+                    Items.silicon, 15,
+                    Items.metaglass, 15
+            ));
+            consumes.power(1.6f);
+            size = 2;
+            reload = 15f;
+            range = 10 * tilesize;
+            healPercent = 0.5f;
+            phaseBoost = 15f;
+            health = 60 * size * size;
+            consumes.item(Items.phaseFabric).boost();
+        }};
+        restorator = new TrickleMendProjector("restorator"){{
             requirements(Category.effect, with(
                     Items.lead, 200,
                     Items.titanium, 100,
                     Items.silicon, 25,
                     Items.metaglass, 25
             ));
-            consumes.power(1.6f);
-            size = 2;
+            consumes.power(3f);
+            size = 3;
             reload = 15f;
-            range = 85f;
-            healPercent = 0.5f;
-            phaseBoost = 15f;
+            range = 25 * tilesize;
+            healPercent = 1f;
             health = 60 * size * size;
-            consumes.item(Items.phaseFabric).boost();
+            useTime = 5 * tick;
+            consumes.items(with(Items.phaseFabric, 1, Items.silicon, 1));
         }};
         // endregion projector
         // endregion Defense

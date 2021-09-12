@@ -170,6 +170,7 @@ public class UAWUnitTypes implements ContentList {
                             trailLength = 15;
                             trailWidth = 1.5f;
                             trailColor = backColor;
+                            hitEffect = new MultiEffect(Fx.hitBulletSmall, Fx.fireHit);
                             status = StatusEffects.burning;
                         }};
                     }},
