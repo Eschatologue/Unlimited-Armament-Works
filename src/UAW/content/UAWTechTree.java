@@ -121,13 +121,6 @@ public class UAWTechTree implements ContentList {
                     new Research(ripple)
             ));
         }));
-        vanillaNode(swarmer, () ->
-            /// Sparkler
-            node(sparkler, () ->
-                /// Sunspot
-                node(sunspot, Seq.with(new Research(meltdown)
-                ))
-        ));
         vanillaNode(ripple, () ->
                 node(zounderkite, Seq.with(
                         new Produce(Items.blastCompound),
