@@ -44,7 +44,7 @@ public class UAWBlock implements ContentList {
         /// TMDS
         zounderkite,
         // crafters
-        gelatinizer, carburizingFurnace, surgeMixer,
+        gelatinizer, carburizingFurnace, surgeMixer, coalLiquefier,
     // endregion
         // region Defense
         /// Walls
@@ -519,6 +519,7 @@ public class UAWBlock implements ContentList {
         }};
 
         // VLS
+        /*
         sparkler = new StaticItemTurret("sparkler") {{
             requirements(Category.turret, with(
                     Items.titanium, 250,
@@ -660,6 +661,7 @@ public class UAWBlock implements ContentList {
                     }}
             );
         }};
+         */
         // endregion Turret
         // region Mine Deployment
         zounderkite = new ItemTurret("zounderkite") {{
@@ -771,9 +773,10 @@ public class UAWBlock implements ContentList {
         }};
         surgeMixer = new GenericCrafter("surge-mixer") {{
             requirements(Category.crafting, with(
-                    Items.lead, 45,
-                    Items.graphite, 30,
-                    Items.thorium, 20
+                    Items.thorium, 60,
+                    Items.lead, 55,
+                    Items.silicon, 45,
+                    Items.metaglass, 30
             ));
             consumes.items(
                     new ItemStack(Items.surgeAlloy, 2),
@@ -789,6 +792,28 @@ public class UAWBlock implements ContentList {
             hasLiquids = true;
             drawer = new DrawLiquid();
             updateEffect = Fx.shieldBreak;
+        }};
+        coalLiquefier = new GenericCrafter("coal-liquefier") {{
+            requirements(Category.crafting, with(
+                    Items.lead, 50,
+                    Items.titanium, 50,
+                    Items.silicon, 35,
+                    Items.metaglass, 30
+            ));
+            consumes.items(
+                    new ItemStack(Items.coal, 8),
+                    new ItemStack(Items.thorium, 2)
+            );
+            consumes.liquid(Liquids.slag, 0.85f);
+            consumes.power(1.5f);
+            outputLiquid = new LiquidStack(Liquids.oil, 30f);
+            size = 3;
+            liquidCapacity = 120f;
+            outputsLiquid = true;
+            hasItems = true;
+            hasLiquids = true;
+            drawer = new DrawLiquid();
+            updateEffect = Fx.steam;
         }};
         // endregion
         // region Defense

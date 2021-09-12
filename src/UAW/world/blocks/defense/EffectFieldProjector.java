@@ -15,7 +15,7 @@ import static mindustry.Vars.tilesize;
 public class EffectFieldProjector extends StaticLiquidTurret {
 
     public Color color;
-    public int effectIntensity = 36;
+    public int effectIntensity = 64;
 
     public EffectFieldProjector(String name) {
         super(name);

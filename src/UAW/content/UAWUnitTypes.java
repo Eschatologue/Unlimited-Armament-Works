@@ -77,7 +77,7 @@ public class UAWUnitTypes implements ContentList {
                         inaccuracy = 4;
                         reload = 12;
                         shootSound = Sounds.missile;
-                        bullet = new MissileBulletType(6f, 15){{
+                        bullet = new MissileBulletType(6f, 35){{
                             width = 6f;
                             height = 12f;
                             shrinkY = 0f;
@@ -109,7 +109,7 @@ public class UAWUnitTypes implements ContentList {
                         reload = 6f;
                         shootSound = Sounds.shoot;
                         ejectEffect = Fx.casing1;
-                        bullet = new BasicBulletType(6f, 24) {{
+                        bullet = new BasicBulletType(6f, 20) {{
                             height = 18f;
                             pierce = true;
                             pierceCap = 2;
@@ -126,7 +126,7 @@ public class UAWUnitTypes implements ContentList {
             );
         }};
         bedivere = new HelicopterUnitType("bedivere") {{
-            health = 3500;
+            health = 4000;
             hitSize = 30;
             speed = 2.5f;
             rotateSpeed = 4.5f;
@@ -158,7 +158,7 @@ public class UAWUnitTypes implements ContentList {
                         recoil = 0f;
                         shootSound = Sounds.shoot;
                         ejectEffect = Fx.casing1;
-                        bullet = new BasicBulletType(8f, 36) {{
+                        bullet = new BasicBulletType(8f, 25) {{
                             height = 19f;
                             width = 9f;
                             pierce = true;
@@ -182,11 +182,13 @@ public class UAWUnitTypes implements ContentList {
                         y = -1.5f;
                         inaccuracy = 15;
                         maxRange = range;
-                        reload = 40f;
+                        reload = 90f;
+                        shots = 2;
+                        shotDelay = 15;
                         recoil = 3f;
                         firstShotDelay = 20f;
                         shootSound = UAWSounds.MissileLaunch1;
-                        bullet = new CruiseMissileBulletType(3f, 55){{
+                        bullet = new CruiseMissileBulletType(3f, 65){{
                             size = 5f;
                             homingRange = 120f;
                             homingPower = 0.05f;

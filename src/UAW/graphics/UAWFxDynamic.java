@@ -8,6 +8,7 @@ import arc.math.Angles;
 import arc.math.Mathf;
 import arc.util.Time;
 import arc.util.Tmp;
+import mindustry.content.Liquids;
 import mindustry.entities.Effect;
 import mindustry.graphics.*;
 
@@ -53,9 +54,10 @@ public class UAWFxDynamic {
             color(lightColor, darkColor, e.fin());
             stroke(e.fout() * 5f);
             Lines.circle(e.x, e.y, size + e.fout() * 4f);
+            /*
             Lines.poly(e.x, e.y, 8,e.finpow() * size, 45);
             Lines.square(e.x, e.y, e.foutpow() * (size - 5), 45);
-
+            */
             int points = 6;
             float offset = Mathf.randomSeed(e.id, 360f);
             for(int i = 0; i < points; i++){
@@ -95,10 +97,10 @@ public class UAWFxDynamic {
     public static Effect crossBlast(Color color, float size) {
         float length = size * 1.7f;
         float width = size / 13.3f;
-        return new Effect(15f, 100f, e -> {
+        return new Effect(20f, 100f, e -> {
             color(color);
             stroke(e.fout() * 4f);
-            Lines.circle(e.x, e.y, 4f + e.finpow() * size / 2f);
+            Lines.circle(e.x, e.y, 4f + e.finpow() * size / 1.5f);
 
             color(color);
             for (int i = 0; i < 4; i++) {
@@ -145,8 +147,9 @@ public class UAWFxDynamic {
         return new Effect(40f, e -> {
             color(color);
 
-            randLenVectors(e.id, 7, 1.5f + e.fin() * 2.3f, (x, y) ->
-                    Fill.square(e.x + x, e.y + y, e.fslope() * 1.8f, 45));
+            randLenVectors(e.id, 6, 1.5f + e.fin() * 2.5f, (x, y) -> {
+                Fill.circle(e.x + x, e.y + y, e.fout() * 1.5f);
+            });
         });
     }
 
