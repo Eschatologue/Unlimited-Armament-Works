@@ -70,7 +70,7 @@ public class TrickleMendProjector extends MendProjector {
             Draw.rect(topRegion, x, y);
             Draw.alpha(1f);
             Lines.stroke((2f * f + 0.2f) * heat);
-            Lines.square(x, y, Math.min(1f + (1f - f) * size * tilesize / 2f, size * tilesize / 2f), 45f);
+            Lines.square(x, y, Math.min(1f + (1f - f) * size * tilesize / 2f, size * tilesize / 2.5f), 45f);
         }
     }
 }
