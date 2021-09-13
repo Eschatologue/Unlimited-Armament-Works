@@ -879,7 +879,8 @@ public class UAWBlock implements ContentList {
             reload = 15f;
             range = 10 * tilesize;
             healPercent = 0.5f;
-            phaseBoost = 15f;
+            phaseBoost = 7.5f;
+            phaseRangeBoost = 0f;
             health = 60 * size * size;
             consumes.item(Items.phaseFabric).boost();
         }};
@@ -895,9 +896,10 @@ public class UAWBlock implements ContentList {
             reload = 15f;
             range = 25 * tilesize;
             healPercent = 1f;
+            phaseBoost = 0f;
             health = 60 * size * size;
             useTime = 5 * tick;
-            consumes.items(with(Items.phaseFabric, 1, Items.silicon, 1));
+            consumes.items(with(Items.phaseFabric, 1, Items.thorium, 2));
         }};
         // endregion projector
         // endregion Defense
