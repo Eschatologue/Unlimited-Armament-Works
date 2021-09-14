@@ -3,8 +3,7 @@ package UAW.content;
 import UAW.entities.bullet.*;
 import UAW.graphics.*;
 import UAW.world.blocks.defense.EffectFieldProjector;
-import UAW.world.blocks.defense.TrickleMendProjector;
-import UAW.world.blocks.defense.turrets.StaticItemTurret;
+import UAW.world.blocks.defense.EnhancementProjector;
 import UAW.world.blocks.defense.turrets.DynamicReloadTurret;
 import UAW.world.blocks.defense.walls.ShieldWall;
 import UAW.world.blocks.drawer.DrawLiquidInput;
@@ -18,7 +17,6 @@ import mindustry.gen.Sounds;
 import mindustry.graphics.Pal;
 import mindustry.type.*;
 import mindustry.world.Block;
-import mindustry.world.blocks.defense.MendProjector;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.units.Reconstructor;
@@ -867,7 +865,7 @@ public class UAWBlock implements ContentList {
             );
             consumes.power(2.5f);
         }};
-        regenerator = new TrickleMendProjector("regenerator"){{
+        regenerator = new EnhancementProjector("regenerator"){{
             requirements(Category.effect, with(
                     Items.lead, 100,
                     Items.titanium, 35,
@@ -884,7 +882,7 @@ public class UAWBlock implements ContentList {
             health = 60 * size * size;
             consumes.item(Items.phaseFabric).boost();
         }};
-        restorator = new TrickleMendProjector("restorator"){{
+        restorator = new EnhancementProjector("restorator"){{
             requirements(Category.effect, with(
                     Items.lead, 200,
                     Items.titanium, 100,
