@@ -41,9 +41,6 @@ public class RejuvenationProjector extends MendProjector {
     public void setStats(){
         stats.timePeriod = useTime;
         super.setStats();
-
-        stats.add(Stat.repairTime, (int)(100f / healPercent * reload / 60f), StatUnit.seconds);
-        stats.add(Stat.range, range / tilesize, StatUnit.blocks);
         stats.add(Stat.speedIncrease, "+" + (int)(boostMultiplier * 100f - 100) + "%");
 
         stats.remove(Stat.boostEffect);
