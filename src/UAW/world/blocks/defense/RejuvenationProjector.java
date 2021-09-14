@@ -45,6 +45,7 @@ public class RejuvenationProjector extends MendProjector {
         stats.add(Stat.speedIncrease, "+" + (int)(boostMultiplier * 100f - 100) + "%");
 
         stats.remove(Stat.boostEffect);
+        stats.remove(Stat.booster);
     }
     public class EnhancementProjectorBuild extends Building implements Ranged {
         float heat;
@@ -78,13 +79,13 @@ public class RejuvenationProjector extends MendProjector {
         public void draw() {
             super.draw();
 
-            float f = 1f - (Time.time / 100f) % 1f;
+            float f = 1f - (Time.time / 150f) % 1f;
 
             Draw.color(baseColor);
             Draw.alpha(heat * Mathf.absin(Time.time, 10f, 1f) * 0.5f);
             Draw.rect(topRegion, x, y);
             Draw.alpha(1f);
-            Lines.stroke((2f * f + 0.05f) * heat + 10);
+            Lines.stroke((2f * f + 0.005f) * heat);
             Lines.square(x, y, Math.min(1f + (1f - f) * size * tilesize / 2f, size * tilesize / 1.6f), 45f);
         }
     }

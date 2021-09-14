@@ -37,6 +37,7 @@ public class EffectFieldProjector extends StaticLiquidTurret {
     public void setStats(){
         super.setStats();
         stats.remove(Stat.inaccuracy);
+        stats.remove(Stat.shots);
     }
     public class EffectFieldProjectorBuild extends StaticLiquidTurretBuild {
         @Override
