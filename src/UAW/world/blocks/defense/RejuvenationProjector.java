@@ -18,9 +18,10 @@ import mindustry.world.meta.StatUnit;
 import static mindustry.Vars.indexer;
 import static mindustry.Vars.tilesize;
 
-public class EnhancementProjector extends MendProjector {
-    public float speedBoost = 1.5f;
-    public EnhancementProjector(String name){
+public class RejuvenationProjector extends MendProjector {
+    public float boostMultiplier = 3f;
+    public float boostDuration = 180f;
+    public RejuvenationProjector(String name){
         super(name);
         solid = true;
         update = true;
@@ -30,6 +31,9 @@ public class EnhancementProjector extends MendProjector {
         emitLight = true;
         range = 10 * 8;
         lightRadius = range / 2;
+        canOverdrive = false;
+        baseExplosiveness = 15;
+        researchCostMultiplier = 1.5f;
     }
     @Override
     public void setStats(){
@@ -38,12 +42,13 @@ public class EnhancementProjector extends MendProjector {
 
         stats.add(Stat.repairTime, (int)(100f / healPercent * reload / 60f), StatUnit.seconds);
         stats.add(Stat.range, range / tilesize, StatUnit.blocks);
-        stats.add(Stat.speedIncrease, "+" + (int)(speedBoost * 100f - 100) + "%");
+        stats.add(Stat.speedIncrease, "+" + (int)(boostMultiplier * 100f - 100) + "%");
+
+        stats.remove(Stat.boostEffect);
     }
     public class EnhancementProjectorBuild extends Building implements Ranged {
         float heat;
         float charge = Mathf.random(reload);
-        float smoothEfficiency;
 
         @Override
         public float range() {
@@ -52,7 +57,6 @@ public class EnhancementProjector extends MendProjector {
 
         @Override
         public void updateTile(){
-            smoothEfficiency = Mathf.lerpDelta(smoothEfficiency, efficiency(), 0.08f);
             heat = Mathf.lerpDelta(heat, consValid() || cheating() ? 1f : 0f, 0.08f);
             charge += heat * delta();
 
@@ -64,8 +68,8 @@ public class EnhancementProjector extends MendProjector {
                 charge = 0f;
                 indexer.eachBlock(this, range, Building::damaged, other -> {
                     other.heal(other.maxHealth() * (healPercent) / 100f * efficiency());
-                    if (other.health() > other.maxHealth / 1.05f) {
-                        other.applyBoost(speedBoost, reload + 1);
+                    if (other.health() > (other.maxHealth / 100) * 95) {
+                        other.applyBoost(boostMultiplier, boostDuration);
                     }
                 });
             }
@@ -80,7 +84,7 @@ public class EnhancementProjector extends MendProjector {
             Draw.alpha(heat * Mathf.absin(Time.time, 10f, 1f) * 0.5f);
             Draw.rect(topRegion, x, y);
             Draw.alpha(1f);
-            Lines.stroke((2f * f + 0.05f) * heat);
+            Lines.stroke((2f * f + 0.05f) * heat + 10);
             Lines.square(x, y, Math.min(1f + (1f - f) * size * tilesize / 2f, size * tilesize / 1.6f), 45f);
         }
     }

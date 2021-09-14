@@ -3,7 +3,7 @@ package UAW.content;
 import UAW.entities.bullet.*;
 import UAW.graphics.*;
 import UAW.world.blocks.defense.EffectFieldProjector;
-import UAW.world.blocks.defense.EnhancementProjector;
+import UAW.world.blocks.defense.RejuvenationProjector;
 import UAW.world.blocks.defense.turrets.DynamicReloadTurret;
 import UAW.world.blocks.defense.walls.ShieldWall;
 import UAW.world.blocks.drawer.DrawLiquidInput;
@@ -865,7 +865,7 @@ public class UAWBlock implements ContentList {
             );
             consumes.power(2.5f);
         }};
-        regenerator = new EnhancementProjector("regenerator"){{
+        regenerator = new RejuvenationProjector("regenerator"){{
             requirements(Category.effect, with(
                     Items.lead, 100,
                     Items.titanium, 35,
@@ -882,7 +882,7 @@ public class UAWBlock implements ContentList {
             health = 60 * size * size;
             consumes.item(Items.phaseFabric).boost();
         }};
-        restorator = new EnhancementProjector("restorator"){{
+        restorator = new RejuvenationProjector("restorator"){{
             requirements(Category.effect, with(
                     Items.lead, 200,
                     Items.titanium, 100,
