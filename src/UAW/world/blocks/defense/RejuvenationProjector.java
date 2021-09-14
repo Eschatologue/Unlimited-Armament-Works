@@ -1,5 +1,6 @@
 package UAW.world.blocks.defense;
 
+import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Lines;
 import arc.math.Mathf;
@@ -8,6 +9,7 @@ import arc.util.Tmp;
 import mindustry.content.Fx;
 import mindustry.entities.Units;
 import mindustry.gen.Building;
+import mindustry.gen.Sounds;
 import mindustry.graphics.Drawf;
 import mindustry.logic.Ranged;
 import mindustry.world.blocks.defense.MendProjector;
@@ -71,6 +73,8 @@ public class RejuvenationProjector extends MendProjector {
                     other.heal(other.maxHealth() * (healPercent) / 100f * efficiency());
                     if (other.health() > (other.maxHealth / 100) * 95) {
                         other.applyBoost(boostMultiplier, boostDuration);
+                        Fx.dooropenlarge.at(other.x, other.y, other.block.size, Color.valueOf("feb380"));
+                        Sounds.shield.at(other.x, other.y);
                     }
                 });
             }
@@ -85,7 +89,7 @@ public class RejuvenationProjector extends MendProjector {
             Draw.alpha(heat * Mathf.absin(Time.time, 10f, 1f) * 0.5f);
             Draw.rect(topRegion, x, y);
             Draw.alpha(1f);
-            Lines.stroke((2f * f + 0.005f) * heat);
+            Lines.stroke((2f * f + 0.0005f) * heat);
             Lines.square(x, y, Math.min(1f + (1f - f) * size * tilesize / 2f, size * tilesize / 1.6f), 45f);
         }
     }
