@@ -1,5 +1,6 @@
 package UAW.world.blocks.defense;
 
+import UAW.graphics.UAWFxStatic;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Lines;
@@ -40,8 +41,8 @@ public class RejuvenationProjector extends MendProjector {
     @Override
     public void setStats(){
         stats.timePeriod = useTime;
-        super.setStats();
         stats.add(Stat.speedIncrease, "+" + (int)(boostMultiplier * 100f - 100) + "%");
+        super.setStats();
 
         stats.remove(Stat.boostEffect);
         stats.remove(Stat.booster);
@@ -68,9 +69,9 @@ public class RejuvenationProjector extends MendProjector {
                 charge = 0f;
                 indexer.eachBlock(this, range, Building::damaged, other -> {
                     other.heal(other.maxHealth() * (healPercent) / 100f * efficiency());
-                    if (other.health() > (other.maxHealth / 100) * 95) {
+                    if (other.health() > (other.maxHealth / 100) * 90 && other.health() < (other.maxHealth / 100) * 95) {
                         other.applyBoost(boostMultiplier, boostDuration);
-                        Fx.dooropenlarge.at(other.x, other.y, other.block.size, Color.valueOf("feb380"));
+                        UAWFxStatic.applySquareOverclock.at(other.x, other.y, other.block.size, Color.valueOf("feb380"));
                         Sounds.shield.at(other.x, other.y);
                     }
                 });

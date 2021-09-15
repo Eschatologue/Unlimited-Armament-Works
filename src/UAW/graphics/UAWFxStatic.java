@@ -75,6 +75,12 @@ public class UAWFxStatic {
         float circleRad = 4f + e.finpow() * 55f;
         Lines.circle(e.x, e.y, circleRad);
     }).layer(Layer.debris),
+
+    applySquareOverclock = new Effect(30, e -> {
+        color(Color.valueOf("f4ba6e"));
+        stroke(2f * e.fout() + 0.5f);
+        Lines.square(e.x, e.y, 1f + (tilesize + e.fin() * e.rotation / 2f - 1f));
+    }),
     // endregion Hit
     // region Casings
     casing5 = new Effect(50f, e -> {
