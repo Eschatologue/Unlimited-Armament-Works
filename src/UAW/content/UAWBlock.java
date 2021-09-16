@@ -876,10 +876,9 @@ public class UAWBlock implements ContentList {
             size = 2;
             reload = 15f;
             range = 10 * tilesize;
-            healPercent = 0.5f;
-            phaseBoost = 7.5f;
-            phaseRangeBoost = 0f;
+            healPercent = 0.8f;
             health = 60 * size * size;
+            boostMultiplier = 3f;
         }};
         rejuvinationDome = new RejuvenationProjector("rejuvination-dome"){{
             requirements(Category.effect, with(
@@ -892,11 +891,11 @@ public class UAWBlock implements ContentList {
             size = 3;
             reload = 15f;
             range = 25 * tilesize;
-            healPercent = 1f;
-            phaseBoost = 0f;
+            healPercent = 1.2f;
             health = 60 * size * size;
-            useTime = 5 * tick;
+            useTime = 4 * tick;
             consumes.items(with(Items.phaseFabric, 1, Items.thorium, 2));
+            boostMultiplier = 6f;
         }};
         // endregion projector
         // endregion Defense

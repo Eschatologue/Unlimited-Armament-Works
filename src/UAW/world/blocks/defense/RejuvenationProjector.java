@@ -51,6 +51,7 @@ public class RejuvenationProjector extends MendProjector {
     public class RejuvinationProjectorBuild extends Building implements Ranged {
         float heat;
         float charge = Mathf.random(reload);
+        float speedStart = 60f;
 
         @Override
         public float range() {
@@ -70,9 +71,9 @@ public class RejuvenationProjector extends MendProjector {
                 charge = 0f;
                 indexer.eachBlock(this, range, Building::damaged, other -> {
                     other.heal(other.maxHealth() * (healPercent) / 100f * efficiency());
-                    if (other.health() > (other.maxHealth / 100) * 90 && other.health() < (other.maxHealth / 100) * 95) {
+                    if (other.health() > (other.maxHealth / 100) * speedStart && other.health() < (other.maxHealth / 100) * (speedStart + 5)) {
                         other.applyBoost(boostMultiplier, boostDuration);
-                        Fx.overdriven.at(other.x + Mathf.range(size * 4f), other.y + Mathf.range(size * 4f));
+                        Fx.overdriven.at(other.x + Mathf.range(size * 6f), other.y + Mathf.range(size * 6f));
                         Sounds.shield.at(other.x, other.y);
                     }
                 });
@@ -88,7 +89,7 @@ public class RejuvenationProjector extends MendProjector {
             Draw.alpha(heat * Mathf.absin(Time.time, 10f, 1f) * 0.5f);
             Draw.rect(topRegion, x, y);
             Draw.alpha(1f);
-            Lines.stroke((2f * f + 0.0005f) * heat);
+            Lines.stroke((2.2f * f - 0.01f) * heat);
             Lines.square(x, y, Math.min(1f + (1f - f) * size * tilesize / 2f, size * tilesize / 1.6f), 45f);
         }
     }
