@@ -46,7 +46,6 @@ public class RejuvenationProjector extends MendProjector {
         super.setStats();
 
         stats.remove(Stat.boostEffect);
-        stats.remove(Stat.booster);
     }
 
     public class RejuvinationProjectorBuild extends Building implements Ranged {

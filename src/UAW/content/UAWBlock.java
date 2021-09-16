@@ -880,7 +880,6 @@ public class UAWBlock implements ContentList {
             phaseBoost = 7.5f;
             phaseRangeBoost = 0f;
             health = 60 * size * size;
-            consumes.item(Items.phaseFabric).boost();
         }};
         rejuvinationDome = new RejuvenationProjector("rejuvination-dome"){{
             requirements(Category.effect, with(
