@@ -50,7 +50,7 @@ public class UAWBlock implements ContentList {
         shieldWall,
         /// Projectors
         statusFieldProjector,
-        regenerator, restorator,
+        rejuvinationProjector, rejuvinationDome,
     // endregion
         // region UnitBlocks
         /// Reconstructors
@@ -865,7 +865,7 @@ public class UAWBlock implements ContentList {
             );
             consumes.power(2.5f);
         }};
-        regenerator = new RejuvenationProjector("regenerator"){{
+        rejuvinationProjector = new RejuvenationProjector("rejuvination-projector"){{
             requirements(Category.effect, with(
                     Items.lead, 100,
                     Items.titanium, 35,
@@ -882,7 +882,7 @@ public class UAWBlock implements ContentList {
             health = 60 * size * size;
             consumes.item(Items.phaseFabric).boost();
         }};
-        restorator = new RejuvenationProjector("restorator"){{
+        rejuvinationDome = new RejuvenationProjector("rejuvination-dome"){{
             requirements(Category.effect, with(
                     Items.lead, 200,
                     Items.titanium, 100,

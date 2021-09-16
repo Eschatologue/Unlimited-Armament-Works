@@ -38,6 +38,7 @@ public class RejuvenationProjector extends MendProjector {
         baseExplosiveness = 15;
         researchCostMultiplier = 1.5f;
     }
+
     @Override
     public void setStats(){
         stats.timePeriod = useTime;
@@ -47,7 +48,8 @@ public class RejuvenationProjector extends MendProjector {
         stats.remove(Stat.boostEffect);
         stats.remove(Stat.booster);
     }
-    public class EnhancementProjectorBuild extends Building implements Ranged {
+
+    public class RejuvinationProjectorBuild extends Building implements Ranged {
         float heat;
         float charge = Mathf.random(reload);
 
@@ -71,7 +73,7 @@ public class RejuvenationProjector extends MendProjector {
                     other.heal(other.maxHealth() * (healPercent) / 100f * efficiency());
                     if (other.health() > (other.maxHealth / 100) * 90 && other.health() < (other.maxHealth / 100) * 95) {
                         other.applyBoost(boostMultiplier, boostDuration);
-                        UAWFxStatic.applySquareOverclock.at(other.x, other.y, other.block.size, Color.valueOf("feb380"));
+                        Fx.overdriven.at(other.x + Mathf.range(size * 4f), other.y + Mathf.range(size * 4f));
                         Sounds.shield.at(other.x, other.y);
                     }
                 });
