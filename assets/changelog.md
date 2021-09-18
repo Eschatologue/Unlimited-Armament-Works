@@ -1,5 +1,12 @@
 # Update 0.6
 Update 0.6 will feature minor adjustments, new units, and more crafters.
+## New Content
+1. New Unit Archetype : **Torpedo Destroyers**
+   - Fast moving units capable of launching deadly torpedo strikes against enemy.
+   - Currently there's only 1 unit placed at tier 3 : **Hatsuharu**
+2. New Defense Building
+   - Rejuvination Projector
+     - Rapidly heals buildings in its vicinity in small amount, after a building reach a certain percentage of their max HP, they will be overdriven.
 ## Adjustments
 **I obviously can't list every single small thing that is changed in v0.6, so these below is just the big thing**
 1. Multiplicative Petroleum Reconstructor
@@ -42,6 +49,12 @@ Update 0.6 will feature minor adjustments, new units, and more crafters.
     - Artillery building damage multiplier increased from **300% > 350%**
     - Artillery now cause big slag splashes
     - Point Defense Weapon effectiveness increased
+   
+5. Status Field Projector
+   - Effect change
+
+6. Sparkler & Sunspot
+   - Removed
     
     
 
