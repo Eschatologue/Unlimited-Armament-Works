@@ -700,26 +700,25 @@ public class UAWBlock implements ContentList {
             size = 2;
             reloadTime = 1.2f * 60;
             range = 24 * tilesize;
-            shootSound = Sounds.plasmaboom;
             ammo(
-                    Liquids.cryofluid, new StatusFieldBulletType(StatusEffects.freezing, 240) {{
+                    Liquids.cryofluid, new StatusFieldBulletType(StatusEffects.freezing, reloadTime * 1.5f) {{
                         shootEffect = UAWFxDynamic.circleApply(UAWPal.cryoFront, UAWPal.cryoBack, range);
                         despawnEffect = smokeEffect = UAWFxDynamic.statusHit(UAWPal.cryoMiddle);
                     }},
-                    Liquids.slag, new StatusFieldBulletType(StatusEffects.melting, 240){{
+                    Liquids.slag, new StatusFieldBulletType(StatusEffects.melting, reloadTime * 1.5f){{
                         shootEffect = UAWFxDynamic.circleApply(UAWPal.incendFront, UAWPal.incendBack, range);
                         despawnEffect = smokeEffect = Fx.melting;
                     }},
-                    Liquids.oil, new StatusFieldBulletType(StatusEffects.tarred, 240){{
+                    Liquids.oil, new StatusFieldBulletType(StatusEffects.tarred, reloadTime * 1.5f){{
                         shootEffect = UAWFxDynamic.circleApply(Pal.plastaniumFront, Pal.plastaniumBack, range);
                         despawnEffect = smokeEffect = UAWFxDynamic.statusHit(Pal.plastaniumFront);
                     }},
-                    UAWLiquid.surgeSolvent, new StatusFieldBulletType(StatusEffects.electrified, 240){{
+                    UAWLiquid.surgeSolvent, new StatusFieldBulletType(StatusEffects.electrified, reloadTime * 1.5f){{
                         shootEffect = UAWFxDynamic.circleApply(UAWPal.surgeFront, UAWPal.surgeBack, range);
                         despawnEffect = smokeEffect = UAWFxDynamic.statusHit(UAWPal.surgeMiddle);
                     }}
             );
-            consumes.power(2.5f);
+            consumes.power(2.4f);
         }};
         rejuvinationProjector = new RejuvenationProjector("rejuvination-projector"){{
             requirements(Category.effect, with(
