@@ -40,11 +40,37 @@ public class EffectFieldProjector extends StaticLiquidTurret {
     public void setStats(){
         super.setStats();
         stats.remove(Stat.inaccuracy);
+        stats.remove(Stat.reload);
     }
     public class EffectFieldProjectorBuild extends StaticLiquidTurretBuild {
+        boolean control = false;
 
         @Override
-        public void control(LAccess type, Object p1, double p2, double p3, double p4){}
+        public void control(LAccess type, double p1, double p2, double p3, double p4){
+            if (control) {
+            if(type == LAccess.shoot && (unit == null || !unit.isPlayer())){
+                targetPos.set(World.unconv((float)p1), World.unconv((float)p2));
+                logicControlTime = logicControlCooldown;
+                logicShooting = !Mathf.zero(p3);
+            }
+
+            super.control(type, p1, p2, p3, p4);
+        }}
+
+        @Override
+        public void control(LAccess type, Object p1, double p2, double p3, double p4){
+            if(control){
+            if(type == LAccess.shootp && (unit == null || !unit.isPlayer())){
+                logicControlTime = logicControlCooldown;
+                logicShooting = !Mathf.zero(p2);
+
+                if(p1 instanceof Posc){
+                    targetPosition((Posc)p1);
+                }
+            }
+
+            super.control(type, p1, p2, p3, p4);
+        }}
 
         @Override
         protected void effects() {
