@@ -5,9 +5,12 @@ import arc.graphics.Color;
 import arc.math.Angles;
 import arc.math.Mathf;
 import mindustry.content.Fx;
+import mindustry.core.World;
 import mindustry.entities.Effect;
 import mindustry.entities.bullet.BulletType;
+import mindustry.gen.Posc;
 import mindustry.gen.Sounds;
+import mindustry.logic.LAccess;
 import mindustry.world.meta.*;
 
 import static mindustry.Vars.tilesize;
@@ -39,6 +42,9 @@ public class EffectFieldProjector extends StaticLiquidTurret {
         stats.remove(Stat.inaccuracy);
     }
     public class EffectFieldProjectorBuild extends StaticLiquidTurretBuild {
+
+        @Override
+        public void control(LAccess type, Object p1, double p2, double p3, double p4){}
 
         @Override
         protected void effects() {

@@ -1,20 +1,14 @@
 package UAW.entities.bullet;
 
-import arc.graphics.Color;
-import arc.graphics.g2d.Draw;
-import arc.math.Angles;
-import arc.math.Mathf;
 import arc.util.Time;
 import arc.util.Tmp;
 import mindustry.content.Fx;
-import mindustry.entities.Effect;
 import mindustry.entities.Units;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.bullet.BulletType;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.gen.Bullet;
 import mindustry.gen.Sounds;
-import mindustry.graphics.Pal;
 
 public class CanisterBulletType extends BasicBulletType {
     public float burstRange = 80;
