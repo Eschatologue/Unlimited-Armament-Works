@@ -83,13 +83,13 @@ public class RejuvenationProjector extends MendProjector {
         public void draw() {
             super.draw();
 
-            float f = 1f - (Time.time / 150f) % 1f;
+            float f = 1f - (Time.time / 200f) % 1f;
 
             Draw.color(baseColor);
             Draw.alpha(heat * Mathf.absin(Time.time, 10f, 1f) * 0.5f);
             Draw.rect(topRegion, x, y);
             Draw.alpha(1f);
-            Lines.stroke((2.2f * f - 0.01f) * heat);
+            Lines.stroke((2f * f + 0.000001f) * heat);
             Lines.square(x, y, Math.min(1f + (1f - f) * size * tilesize / 2f, size * tilesize / 1.6f), 45f);
         }
     }
