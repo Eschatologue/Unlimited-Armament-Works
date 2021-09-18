@@ -13,7 +13,7 @@ main: "UAW.UAWModLoader",
 description: "A port and a sequel to Heavy-Armaments-Industries written in java."
 
 #the mod version
-version: 0.6 - Beta
+version: 0.6
 
 #the minimum game build required to run this mod
 minGameVersion: 129
