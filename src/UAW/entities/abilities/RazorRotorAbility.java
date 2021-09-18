@@ -1,23 +1,13 @@
 package UAW.entities.abilities;
 
-import UAW.content.UAWBullets;
 import UAW.entities.bullet.RotorBlade;
-import UAW.graphics.UAWPal;
-import arc.graphics.Blending;
-import arc.graphics.Color;
-import arc.graphics.g2d.*;
 import arc.math.Angles;
 import arc.math.Mathf;
 import arc.util.Time;
-import arc.util.Tmp;
 import mindustry.content.Fx;
 import mindustry.entities.abilities.Ability;
-import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.bullet.BulletType;
 import mindustry.gen.Unit;
-import mindustry.graphics.Drawf;
-import mindustry.graphics.Layer;
-import mindustry.graphics.Pal;
 
 import static mindustry.Vars.tilesize;
 

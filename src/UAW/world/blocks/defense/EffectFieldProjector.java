@@ -29,7 +29,7 @@ public class EffectFieldProjector extends StaticLiquidTurret {
         lightRadius = 50f;
         shootCone = 360;
         spread = 36;
-        shots = 54;
+        shots = 64;
         loopSound = Sounds.shield;
         logicConfigurable = canOverdrive = rotate = extinguish = false;
     }
@@ -37,16 +37,11 @@ public class EffectFieldProjector extends StaticLiquidTurret {
     public void setStats(){
         super.setStats();
         stats.remove(Stat.inaccuracy);
-        stats.remove(Stat.shots);
     }
     public class EffectFieldProjectorBuild extends StaticLiquidTurretBuild {
-        @Override
-        public void created(){
-            unit = null;
-        }
 
         @Override
-        protected void effects() { ;
+        protected void effects() {
             Effect shoot = shootEffect == Fx.none ? peekAmmo().shootEffect : shootEffect;
             Effect smoke = smokeEffect == Fx.none ? peekAmmo().smokeEffect : smokeEffect;
             for (int i = 0; i < (effectIntensity * 2); i++) {

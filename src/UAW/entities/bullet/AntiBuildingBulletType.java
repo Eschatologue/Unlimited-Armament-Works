@@ -31,7 +31,7 @@ public class AntiBuildingBulletType extends ArtilleryBulletType {
         smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
         despawnEffect = hitEffect = new MultiEffect(UAWFxDynamic.crossBombBlast(backColor, splashDamageRadius), Fx.nuclearsmoke);
         trailLength = Mathf.round(height) + 5;
-        trailWidth = width / 3f;
+        trailWidth = width / 3.2f;
         trailColor = backColor;
         trailMult = 0f;
         status = StatusEffects.melting;

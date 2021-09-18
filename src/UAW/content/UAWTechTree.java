@@ -140,11 +140,15 @@ public class UAWTechTree implements ContentList {
         /// Effects
         vanillaNode(mendProjector, () ->
             /// Status Field Projector
-                node(statusFieldProjector, Seq.with(
+            node(statusFieldProjector, Seq.with(
                     new Produce(Liquids.cryofluid),
                     new Produce(Liquids.oil),
                     new Produce(Liquids.slag)
         )));
+            /// Rejuvination Projector
+            node(rejuvinationProjector, Seq.with(new Research(overdriveProjector)),
+                    () -> node(rejuvinationDome, Seq.with(new Research(overdriveDome)
+                    )));
         //Crafter
         ///Gelatinizer
         vanillaNode(blastMixer, () -> node(gelatinizer, Seq.with(
@@ -160,6 +164,11 @@ public class UAWTechTree implements ContentList {
         vanillaNode(separator, () -> node(surgeMixer, Seq.with(
                 new Research(cryofluidMixer),
                 new Produce(surgeAlloy)
+        )));
+        /// Coal Liquefier
+        vanillaNode(oilExtractor, () -> node(coalLiquefier, Seq.with(
+                new Research(graphitePress),
+                new Produce(Liquids.oil)
         )));
         //Units Reconstuctors
         vanillaNode(multiplicativeReconstructor, () ->
@@ -177,6 +186,10 @@ public class UAWTechTree implements ContentList {
             node(clurit, Seq.with(new Research(atrax)), () ->
                     node(kujang, Seq.with(new Research(bryde))
             ));
+        });
+        vanillaNode(bryde, () -> {
+            node(hatsuharu, Seq.with(new Research(blastCompound))
+            );
         });
 
         //End Region
