@@ -442,14 +442,14 @@ public class UAWUnitTypes implements ContentList {
         gardlacz = new TankUnitType("gardlacz") {{
             health = 450;
             armor = 15;
-            hitSize = 13;
+            hitSize = 15;
             speed = 1.5f;
             flying = false;
             ammoType = new ItemAmmoType(Items.graphite);
 
             accel = 0.05f;
             drag = 0.05f;
-            range = 120;
+            range = 18 * tilesize;
             rotateShooting = false;
 
             weapons.add(
@@ -469,7 +469,7 @@ public class UAWUnitTypes implements ContentList {
                             shootEffect = Fx.sparkShoot;
                             hitEffect = Fx.pointHit;
                             maxRange = 10f * tilesize;
-                            damage = 10f;
+                            damage = 8f;
                         }};
                     }},
                     new TurretedWeapon(name + "-gun") {{
@@ -483,11 +483,11 @@ public class UAWUnitTypes implements ContentList {
                         reload = 40f;
                         recoil = 4f;
                         shootSound = UAWSounds.CannonShot1;
-                        ejectEffect = Fx.casing2;
-                        bullet = new BasicBulletType(4, 45) {{
+                        ejectEffect = UAWFxStatic.casing2Long;
+                        bullet = new BasicBulletType(5, 55) {{
                             height = 25f;
                             width = 10f;
-                            recoil = 0.05f;
+                            lifetime = range / speed;
                             buildingDamageMultiplier = 2f;
                             pierceBuilding = true;
                             pierce = true;

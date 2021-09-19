@@ -83,6 +83,19 @@ public class UAWFxStatic {
     }),
     // endregion Hit
     // region Casings
+    casing2Long = new Effect(36f, e -> {
+        color(Pal.lightOrange, Color.lightGray, Pal.lightishGray, e.fin());
+        alpha(e.fout(0.5f));
+        float rot = Math.abs(e.rotation) + 90f;
+        int i = -Mathf.sign(e.rotation);
+        float len = (2f + e.finpow() * 10f) * i;
+        float lr = rot + e.fin() * 20f * i;
+        rect(Core.atlas.find("casing"),
+                e.x + trnsx(lr, len) + Mathf.randomSeedRange(e.id + i + 7, 3f * e.fin()),
+                e.y + trnsy(lr, len) + Mathf.randomSeedRange(e.id + i + 8, 3f * e.fin()),
+                2f, 4.2f, rot + e.fin() * 50f * i
+        );
+    }).layer(Layer.bullet),
     casing5 = new Effect(50f, e -> {
                 color(Pal.lightOrange, Pal.lightishGray, Pal.lightishGray, e.fin());
                 alpha(e.fout(0.5f));
