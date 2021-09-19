@@ -441,7 +441,7 @@ public class UAWUnitTypes implements ContentList {
         // region Ground - Tanks
         gardlacz = new TankUnitType("gardlacz") {{
             health = 450;
-            armor = 15;
+            armor = 18;
             hitSize = 15;
             speed = 1.5f;
             flying = false;
@@ -450,6 +450,7 @@ public class UAWUnitTypes implements ContentList {
             accel = 0.05f;
             drag = 0.05f;
             range = 18 * tilesize;
+            maxRange = range;
             rotateShooting = false;
 
             weapons.add(
@@ -468,7 +469,7 @@ public class UAWUnitTypes implements ContentList {
                         bullet = new BulletType() {{
                             shootEffect = Fx.sparkShoot;
                             hitEffect = Fx.pointHit;
-                            maxRange = 10f * tilesize;
+                            maxRange = range / 2f;
                             damage = 8f;
                         }};
                     }},
@@ -484,15 +485,15 @@ public class UAWUnitTypes implements ContentList {
                         recoil = 4f;
                         shootSound = UAWSounds.CannonShot1;
                         ejectEffect = UAWFxStatic.casing2Long;
-                        bullet = new BasicBulletType(5, 55) {{
+                        shake = 1.5f;
+                        bullet = new BasicBulletType(6f, 55) {{
                             height = 25f;
                             width = 10f;
-                            lifetime = range / speed;
+                            lifetime = range / (speed + 3);
                             buildingDamageMultiplier = 2f;
                             pierceBuilding = true;
                             pierce = true;
                             pierceCap = 2;
-                            lifetime = 50f;
                             trailLength = 13;
                             trailWidth = 2.5f;
                             trailColor = backColor;
@@ -512,6 +513,7 @@ public class UAWUnitTypes implements ContentList {
                                 hitEffect = Fx.flakExplosion;
                                 splashDamage = damage;
                                 splashDamageRadius = 8f;
+                                hittable = false;
                             }};
                         }};
                     }}
