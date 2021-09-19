@@ -14,7 +14,7 @@ import mindustry.type.Weapon;
 
 public class TurretedWeapon extends Weapon {
     // Gonna use this later
-    public TextureRegion turret;
+    public TextureRegion turret, turretOutlineRegion;
 
     public TurretedWeapon(String name){
         super(name);
@@ -24,6 +24,7 @@ public class TurretedWeapon extends Weapon {
     public void load() {
         super.load();
         turret = Core.atlas.find(name + "-turret");
+        turretOutlineRegion = Core.atlas.find(name + "-turret-outline");
     }
 
     public void draw(Unit unit, WeaponMount mount){
