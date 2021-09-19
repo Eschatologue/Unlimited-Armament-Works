@@ -488,7 +488,7 @@ public class UAWUnitTypes implements ContentList {
                         y = -4.3f;
                         shootY = 16f;
                         reload = 40f;
-                        recoil = 0f;
+                        recoil = 4f;
                         shootSound = UAWSounds.CannonShot1;
                         ejectEffect = Fx.casing2;
                         bullet = new BasicBulletType(4, 45) {{

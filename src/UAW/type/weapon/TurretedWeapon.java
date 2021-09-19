@@ -32,7 +32,9 @@ public class TurretedWeapon extends Weapon {
                 weaponRotation  = rotation + (rotate ? mount.rotation : 0),
                 recoil = -((mount.reload) / reload * this.recoil),
                 wx = unit.x + Angles.trnsx(rotation, x, y) + Angles.trnsx(weaponRotation, 0, recoil),
-                wy = unit.y + Angles.trnsy(rotation, x, y) + Angles.trnsy(weaponRotation, 0, recoil);
+                wy = unit.y + Angles.trnsy(rotation, x, y) + Angles.trnsy(weaponRotation, 0, recoil),
+                tx = unit.x + Angles.trnsx(rotation, x, y) + Angles.trnsy(weaponRotation, 0, 0),
+                ty = unit.y + Angles.trnsy(rotation, x, y)+ Angles.trnsy(weaponRotation, 0, 0);
 
         if(shadow > 0){
             Drawf.shadow(wx, wy, shadow);
@@ -63,7 +65,7 @@ public class TurretedWeapon extends Weapon {
             Draw.blend();
             Draw.color();
         }
-        Draw.rect(turret, wx, wy, weaponRotation);
+        Draw.rect(turret, tx, ty, weaponRotation);
     }
 }
 
