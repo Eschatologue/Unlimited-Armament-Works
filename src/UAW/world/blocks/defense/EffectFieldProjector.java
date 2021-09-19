@@ -43,6 +43,7 @@ public class EffectFieldProjector extends StaticLiquidTurret {
         stats.remove(Stat.inaccuracy);
         stats.remove(Stat.reload);
     }
+
     public class EffectFieldProjectorBuild extends StaticLiquidTurretBuild {
 
         @Override
@@ -61,6 +62,7 @@ public class EffectFieldProjector extends StaticLiquidTurret {
                 );
             }
             shoot.at(x,y);
+            ammoUseEffect.at(x, y);
             shootSound.at(x, y, Mathf.random(0.9f, 1.1f));
         }
 

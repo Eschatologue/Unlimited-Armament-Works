@@ -685,6 +685,7 @@ public class UAWBlock implements ContentList {
             shieldHealth = 8500f;
             cooldown = 2f;
             cooldownBrokenShield = 1f;
+            researchCostMultiplier = 2f;
 
             consumes.power(0.5f);
         }};
@@ -700,6 +701,7 @@ public class UAWBlock implements ContentList {
             size = 2;
             reloadTime = 1.2f * 60;
             range = 24 * tilesize;
+            ammoUseEffect = Fx.doorcloselarge;
             ammo(
                     Liquids.cryofluid, new StatusFieldBulletType(StatusEffects.freezing, reloadTime * 1.5f) {{
                         shootEffect = UAWFxDynamic.circleApply(UAWPal.cryoFront, UAWPal.cryoBack, range);
@@ -775,8 +777,8 @@ public class UAWBlock implements ContentList {
             upgrades.addAll(
                     new UnitType[]{UnitTypes.horizon, UAWUnitTypes.aglovale},
                     new UnitType[]{UnitTypes.mace, UAWUnitTypes.gardlacz},
-                    new UnitType[]{UnitTypes.minke, UAWUnitTypes.clurit}
-                    //new UnitType[]{UnitTypes.bryde, UAWUnitTypes.hatsuharu}
+                    new UnitType[]{UnitTypes.minke, UAWUnitTypes.clurit},
+                    new UnitType[]{UnitTypes.bryde, UAWUnitTypes.hatsuharu}
             );
         }};
         exponentialPetroleumReconstructor = new Reconstructor("exponential-petroleum-reconstructor") {{

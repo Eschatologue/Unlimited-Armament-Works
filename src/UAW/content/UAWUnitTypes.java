@@ -275,7 +275,7 @@ public class UAWUnitTypes implements ContentList {
                         shots = 1;
                         bullet =  new AntiBuildingBulletType(2f, 35, 2.5f) {{
                             splashDamageRadius = 6 * tilesize;
-                            size = 32;
+                            size = 24;
                             lifetime = range / speed;
                             status = StatusEffects.burning;
                             incendChance = 0.5f;
