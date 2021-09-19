@@ -103,6 +103,7 @@ public class UAWUnitTypes implements ContentList {
             range = 30 * tilesize;
             maxRange = range;
             constructor = CopterUnitEntity::create;
+            engineSize = 0f;
 
             rotors.add(
                     new Rotor(name + "-blade"){{

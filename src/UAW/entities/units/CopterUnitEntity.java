@@ -11,7 +11,7 @@ import mindustry.gen.UnitEntity;
 import static mindustry.gen.Nulls.unit;
 
 public class CopterUnitEntity extends UnitEntity {
-
+    public final Seq<Rotor> rotors = new Seq<>();
     @Override
     public void update() {
         super.update();
@@ -20,5 +20,13 @@ public class CopterUnitEntity extends UnitEntity {
                 rotation += Time.delta * 6;
             }
         }
+    }
+    public void draw(Unit unit){
+        super.draw();
+        drawRotor(unit);
+    }
+    public void drawRotor(Unit unit){
+        rotors.each(rotor -> rotor.draw(unit));
+        Draw.reset();
     }
 }
