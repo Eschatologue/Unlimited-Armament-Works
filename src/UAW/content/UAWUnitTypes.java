@@ -460,7 +460,7 @@ public class UAWUnitTypes implements ContentList {
             rotateShooting = false;
 
             weapons.add(
-                    new PointDefenseWeapon("uaw-point-defense-blue") {{
+                    new PointDefenseWeapon("uaw-point-defense-red") {{
                         rotate = autoTarget = true;
                         mirror = controllable = false;
                         x = 0f;

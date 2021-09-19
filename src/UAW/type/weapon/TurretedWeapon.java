@@ -13,7 +13,6 @@ import mindustry.graphics.Drawf;
 import mindustry.type.Weapon;
 
 public class TurretedWeapon extends Weapon {
-    // Gonna use this later
     public TextureRegion turret, turretOutlineRegion;
 
     public TurretedWeapon(String name){
@@ -47,6 +46,8 @@ public class TurretedWeapon extends Weapon {
                     outlineRegion.width * Draw.scl * -Mathf.sign(flipSprite),
                     region.height * Draw.scl,
                     weaponRotation);
+            Draw.rect(turretOutlineRegion,
+                    tx, ty, weaponRotation);
         }
 
         Draw.rect(region,
@@ -54,6 +55,8 @@ public class TurretedWeapon extends Weapon {
                 region.width * Draw.scl * -Mathf.sign(flipSprite),
                 region.height * Draw.scl,
                 weaponRotation);
+
+        Draw.rect(turret, tx, ty, weaponRotation);
 
         if(heatRegion.found() && mount.heat > 0){
             Draw.color(heatColor, mount.heat);
@@ -66,7 +69,7 @@ public class TurretedWeapon extends Weapon {
             Draw.blend();
             Draw.color();
         }
-        Draw.rect(turret, tx, ty, weaponRotation);
+
     }
 }
 
