@@ -26,5 +26,19 @@ public class TankUnitType extends UnitType {
         mechFrontSway = mechSideSway = 0f;
         mechStride = 0.5f;
     }
+
+    @Override
+    public void draw(Unit unit) {
+        super.draw(unit);
+        if(unit instanceof Mechc){
+            drawTank(unit);
+        }
+    }
+    public void drawTank(Unit unit){
+        applyColor(unit);
+        Draw.rect(region, unit.x, unit.y, unit.rotation - 90);
+        Draw.reset();
+    }
+
 }
 

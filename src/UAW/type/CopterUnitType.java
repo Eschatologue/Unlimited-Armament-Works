@@ -8,11 +8,11 @@ import mindustry.gen.Unit;
 import mindustry.gen.UnitEntity;
 import mindustry.type.UnitType;
 
-public class HelicopterUnitType extends UnitType {
+public class CopterUnitType extends UnitType {
     public final Seq<Rotor> rotors = new Seq<>();
     public boolean spinningFall = false;
 
-    public HelicopterUnitType(String name) {
+    public CopterUnitType(String name) {
         super(name);
         flying = lowAltitude = true;
         constructor = UnitEntity::create;

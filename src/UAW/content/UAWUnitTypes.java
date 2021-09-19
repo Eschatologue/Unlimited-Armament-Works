@@ -2,15 +2,11 @@ package UAW.content;
 
 import UAW.entities.abilities.RazorRotorAbility;
 import UAW.entities.bullet.*;
-import UAW.entities.units.CopterUnitEntity;
 import UAW.graphics.*;
 import UAW.type.*;
 import UAW.type.weapon.TurretedWeapon;
 
-import arc.func.Prov;
 import arc.graphics.Color;
-import arc.struct.ObjectIntMap;
-import arc.struct.ObjectMap.Entry;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.bullet.*;
@@ -26,51 +22,6 @@ import static mindustry.Vars.tilesize;
 import static mindustry.content.Bullets.*;
 
 public class UAWUnitTypes implements ContentList {
-    //From sk7725/BetaMindy
-    private static Entry<Class<? extends Entityc>, Prov<? extends Entityc>>[] types = new Entry[]{
-            prov(CopterUnitEntity.class, CopterUnitEntity::new),
-    };
-    private static ObjectIntMap<Class<? extends Entityc>> idMap = new ObjectIntMap<>();
-    /**
-     * Internal function to flatmap {@code Class -> Prov} into an {@link Entry}.
-     * @author GlennFolker
-     */
-    private static <T extends Entityc> Entry<Class<T>, Prov<T>> prov(Class<T> type, Prov<T> prov){
-        Entry<Class<T>, Prov<T>> entry = new Entry<>();
-        entry.key = type;
-        entry.value = prov;
-        return entry;
-    }
-    /**
-     * Setups all entity IDs and maps them into {@link EntityMapping}.
-     * @author GlennFolker
-     */
-    private static void setupID(){
-        for(
-                int i = 0,
-                j = 0,
-                len = EntityMapping.idMap.length;
-
-                i < len;
-
-                i++
-        ){
-            if(EntityMapping.idMap[i] == null){
-                idMap.put(types[j].key, i);
-                EntityMapping.idMap[i] = types[j].value;
-
-                if(++j >= types.length) break;
-            }
-        }
-    }
-    /**
-     * Retrieves the class ID for a certain entity type.
-     * @author GlennFolker
-     */
-
-    public static <T extends Entityc> int classID(Class<T> type){
-        return idMap.get(type, -1);
-    }
     public static UnitType
     // Air
         // Attack Helicopters
@@ -89,7 +40,7 @@ public class UAWUnitTypes implements ContentList {
     @Override
     public void load () {
         // region Air - Helicopters
-        aglovale = new UAWUnitType("aglovale") {{
+        aglovale = new CopterUnitType("aglovale") {{
             health = 450;
             hitSize = 18;
             speed = 2.8f;
@@ -102,8 +53,6 @@ public class UAWUnitTypes implements ContentList {
             faceTarget = flying = true;
             range = 30 * tilesize;
             maxRange = range;
-            constructor = CopterUnitEntity::create;
-            engineSize = 0f;
 
             rotors.add(
                     new Rotor(name + "-blade"){{
@@ -170,7 +119,7 @@ public class UAWUnitTypes implements ContentList {
                     }}
             );
         }};
-        bedivere = new HelicopterUnitType("bedivere") {{
+        bedivere = new CopterUnitType("bedivere") {{
             health = 4000;
             hitSize = 30;
             speed = 2.5f;
