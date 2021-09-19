@@ -10,6 +10,7 @@ import UAW.type.HelicopterUnitType;
 import UAW.type.Rotor;
 import UAW.type.TankUnitType;
 
+import UAW.type.weapon.TurretedWeapon;
 import arc.graphics.Color;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
@@ -478,7 +479,7 @@ public class UAWUnitTypes implements ContentList {
                             damage = 10f;
                         }};
                     }},
-                    new Weapon(name + "-turret") {{
+                    new TurretedWeapon(name + "-gun") {{
                         targetFlags = new BlockFlag[]{BlockFlag.extinguisher, null};
                         rotate = true;
                         mirror = false;

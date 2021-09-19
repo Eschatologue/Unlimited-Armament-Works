@@ -10,13 +10,12 @@ import mindustry.gen.Unit;
 import mindustry.type.Weapon;
 
 public class TurretedWeapon extends Weapon {
-    public final TurretedWeapon turretedWeapon;
     // Gonna use this later
     public TextureRegion turret;
 
-    public TurretedWeapon(String name, TurretedWeapon tWeapon) {
+    public TurretedWeapon(String name){
         super(name);
-        turretedWeapon = tWeapon;
+        this.name = name;
     }
     @Override
     public void load() {
