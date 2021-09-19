@@ -1,22 +1,10 @@
 
 package UAW.type;
 
-import UAW.type.weapon.TurretedWeapon;
-import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.TextureRegion;
-import arc.math.Angles;
-import arc.math.Mathf;
-import arc.struct.Seq;
-import arc.util.Tmp;
-import mindustry.content.Blocks;
-import mindustry.entities.units.WeaponMount;
-import mindustry.gen.MechUnit;
-import mindustry.gen.Mechc;
-import mindustry.gen.Unit;
-import mindustry.gen.UnitEntity;
+import mindustry.gen.*;
+import mindustry.graphics.Layer;
 import mindustry.type.UnitType;
-import mindustry.world.blocks.environment.Floor;
 
 public class TankUnitType extends UnitType {
     public TankUnitType(String name) {
@@ -36,6 +24,7 @@ public class TankUnitType extends UnitType {
     }
     public void drawTank(Unit unit){
         applyColor(unit);
+        Draw.z(Layer.groundUnit - 0.1f);
         Draw.rect(region, unit.x, unit.y, unit.rotation - 90);
         Draw.reset();
     }
