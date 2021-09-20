@@ -100,7 +100,7 @@ public class UAWFxDynamic {
         return new Effect(20f, 100f, e -> {
             color(color);
             stroke(e.fout() * 4f);
-            Lines.circle(e.x, e.y, 4f + e.finpow() * size / 1.5f);
+            Lines.circle(e.x, e.y, 4f + e.finpow() * size);
 
             color(color);
             for (int i = 0; i < 4; i++) {
@@ -117,7 +117,7 @@ public class UAWFxDynamic {
         return new Effect(50f, 100, e -> {
             color(color);
             stroke(e.fout() * 2f);
-            Lines.circle(e.x, e.y, 4f + e.finpow() * (size / 1.5f));
+            Lines.circle(e.x, e.y, 4f + e.finpow() * size);
 
             color(Color.gray);
 

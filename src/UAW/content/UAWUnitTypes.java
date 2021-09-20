@@ -267,10 +267,10 @@ public class UAWUnitTypes implements ContentList {
                         reload = 1.5f * 60;
                         recoil = 2.2f;
                         shootSound = Sounds.artillery;
-                        shots = 1;
+                        shake = 2.5f;
                         bullet =  new AntiBuildingBulletType(2f, 35, 2.5f) {{
                             splashDamageRadius = 6 * tilesize;
-                            size = 24;
+                            size = 20;
                             lifetime = range / speed;
                             status = StatusEffects.burning;
                             incendChance = 0.5f;
@@ -354,9 +354,10 @@ public class UAWUnitTypes implements ContentList {
                         recoil = 3f;
                         shootSound = Sounds.artillery;
                         shootCone = 30f;
+                        shake = 5;
                         bullet =  new AntiBuildingBulletType(2f, 120, 3.5f) {{
                             splashDamageRadius = 12 * tilesize;
-                            size = 40;
+                            size = 38;
                             lifetime = range / speed;
                             status = StatusEffects.burning;
                             incendChance = 0.8f;
@@ -450,8 +451,7 @@ public class UAWUnitTypes implements ContentList {
 
             accel = 0.05f;
             drag = 0.05f;
-            range = 22 * tilesize;
-            maxRange = (range * 1.5f);
+            range = 25 * tilesize;
             rotateShooting = false;
             immunities = ObjectSet.with(StatusEffects.disarmed, StatusEffects.slow);
 
@@ -492,7 +492,7 @@ public class UAWUnitTypes implements ContentList {
                         shake = 1.6f;
                         bullet = new BasicBulletType(6f, 75) {{
                             height = 25f;
-                            width = 10f;
+                            width = 8f;
                             lifetime = range / (speed + 3);
                             buildingDamageMultiplier = 2f;
                             pierceBuilding = true;
@@ -500,7 +500,7 @@ public class UAWUnitTypes implements ContentList {
                             pierceCap = 2;
                             knockback = 4f;
                             trailLength = 13;
-                            trailWidth = 2.5f;
+                            trailWidth = width / 4;
                             trailColor = backColor;
                             shootSound = Sounds.shootBig;
                             shootEffect = new MultiEffect(UAWFxDynamic.railShoot(backColor, 22f), Fx.shootBigSmoke2);
