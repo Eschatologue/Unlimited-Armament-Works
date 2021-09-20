@@ -47,7 +47,10 @@ public class TurretedWeapon extends Weapon {
                     region.height * Draw.scl,
                     weaponRotation);
             Draw.rect(turretOutlineRegion,
-                    tx, ty, weaponRotation);
+                    tx, ty,
+                    outlineRegion.width * Draw.scl * -Mathf.sign(flipSprite),
+                    region.height * Draw.scl,
+                    weaponRotation);
         }
 
         Draw.rect(region,

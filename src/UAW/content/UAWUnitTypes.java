@@ -7,6 +7,7 @@ import UAW.type.*;
 import UAW.type.weapon.TurretedWeapon;
 
 import arc.graphics.Color;
+import arc.struct.ObjectSet;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.bullet.*;
@@ -440,8 +441,8 @@ public class UAWUnitTypes implements ContentList {
         // endregion naval - Torpedo Destroyers
         // region Ground - Tanks
         gardlacz = new TankUnitType("gardlacz") {{
-            health = 450;
-            armor = 18;
+            health = 750;
+            armor = 20;
             hitSize = 15;
             speed = 1.5f;
             flying = false;
@@ -449,9 +450,10 @@ public class UAWUnitTypes implements ContentList {
 
             accel = 0.05f;
             drag = 0.05f;
-            range = 18 * tilesize;
-            maxRange = range;
+            range = 22 * tilesize;
+            maxRange = (range * 1.5f);
             rotateShooting = false;
+            immunities = ObjectSet.with(StatusEffects.disarmed, StatusEffects.slow);
 
             weapons.add(
                     new PointDefenseWeapon("uaw-point-defense-red") {{
@@ -481,12 +483,14 @@ public class UAWUnitTypes implements ContentList {
                         x = 0f;
                         y = -4.3f;
                         shootY = 16f;
-                        reload = 40f;
-                        recoil = 4f;
+                        reload = 1.5f * 60;
+                        recoil = 4.5f;
                         shootSound = UAWSounds.CannonShot1;
+                        soundPitchMin = 1.2f;
+                        soundPitchMax = 1.5f;
                         ejectEffect = UAWFxStatic.casing2Long;
-                        shake = 1.5f;
-                        bullet = new BasicBulletType(6f, 55) {{
+                        shake = 1.6f;
+                        bullet = new BasicBulletType(6f, 75) {{
                             height = 25f;
                             width = 10f;
                             lifetime = range / (speed + 3);
@@ -494,6 +498,7 @@ public class UAWUnitTypes implements ContentList {
                             pierceBuilding = true;
                             pierce = true;
                             pierceCap = 2;
+                            knockback = 4f;
                             trailLength = 13;
                             trailWidth = 2.5f;
                             trailColor = backColor;
