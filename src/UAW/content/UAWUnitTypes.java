@@ -524,6 +524,69 @@ public class UAWUnitTypes implements ContentList {
                     }}
             );
         }};
+        arkabuz = new TankUnitType("arkabuz") {{
+            health = 750;
+            armor = 20;
+            hitSize = 15;
+            speed = 1.5f;
+            flying = false;
+            ammoType = new ItemAmmoType(Items.graphite);
+
+            accel = 0.05f;
+            drag = 0.05f;
+            range = 25 * tilesize;
+            rotateShooting = false;
+            immunities = ObjectSet.with(StatusEffects.disarmed, StatusEffects.slow);
+
+            weapons.add(
+                    new TurretedWeapon(name + "-gun") {{
+                        targetFlags = new BlockFlag[]{BlockFlag.extinguisher, null};
+                        rotate = true;
+                        mirror = false;
+                        rotateSpeed = 2.6f;
+                        x = 0f;
+                        y = 0f;
+                        shootY = 32f;
+                        reload = 2 * 60;
+                        recoil = 4.2f;
+                        shootSound = UAWSounds.CannonShot1;
+                        ejectEffect = UAWFxStatic.casing2Long;
+                        shake = 2.4f;
+                        bullet = new BasicBulletType(6f, 150) {{
+                            height = 35f;
+                            width = 9f;
+                            lifetime = range / (speed + 3);
+                            buildingDamageMultiplier = 2f;
+                            pierceBuilding = true;
+                            pierce = true;
+                            pierceCap = 2;
+                            knockback = 4f;
+                            trailLength = 16;
+                            trailWidth = width / 4;
+                            trailColor = backColor;
+                            shootSound = Sounds.shootBig;
+                            shootEffect = new MultiEffect(UAWFxDynamic.railShoot(backColor, 22f), Fx.shootBigSmoke2);
+                            hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootBigSmoke2);
+                            fragBullets = 6;
+                            fragLifeMin = 0f;
+                            fragCone = 30f;
+                            status = StatusEffects.melting;
+                            fragBullet = new BasicBulletType(7f, 9){{
+                                buildingDamageMultiplier = 1.5f;
+                                height = width = 8f;
+                                pierce = true;
+                                pierceBuilding = true;
+                                pierceCap = 3;
+                                lifetime = 30f;
+                                hitEffect = Fx.flakExplosion;
+                                splashDamage = damage;
+                                splashDamageRadius = 8f;
+                                hittable = false;
+                            }};
+                        }};
+                    }}
+            );
+        }};
         // endregion
     }
 }
