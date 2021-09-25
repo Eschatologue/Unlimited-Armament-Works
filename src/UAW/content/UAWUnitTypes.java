@@ -444,13 +444,13 @@ public class UAWUnitTypes implements ContentList {
         gardlacz = new TankUnitType("gardlacz") {{
             health = 750;
             armor = 20;
-            hitSize = 15;
+            hitSize = 18;
             speed = 1.5f;
             rotateSpeed = 4.5f;
             ammoType = new ItemAmmoType(Items.graphite);
 
             accel = 0.05f;
-            drag = 0.05f;
+            drag = 0.06f;
             range = 25 * tilesize;
             rotateShooting = false;
             immunities = ObjectSet.with(StatusEffects.disarmed, StatusEffects.slow);
@@ -543,7 +543,7 @@ public class UAWUnitTypes implements ContentList {
                         targetFlags = new BlockFlag[]{BlockFlag.extinguisher, null};
                         rotate = true;
                         mirror = false;
-                        rotateSpeed = 2.6f;
+                        rotateSpeed = 2.2f;
                         x = 0f;
                         y = 0f;
                         shootY = 32f;
@@ -556,13 +556,13 @@ public class UAWUnitTypes implements ContentList {
                         shake = 3f;
                         bullet = new BasicBulletType(7f, 180) {{
                             height = 35f;
-                            width = 9f;
+                            width = 10f;
                             lifetime = range / (speed + 3);
                             buildingDamageMultiplier = 2f;
                             pierceBuilding = true;
                             pierce = true;
                             pierceCap = 2;
-                            knockback = 4f;
+                            knockback = 6f;
                             trailLength = 16;
                             trailWidth = width / 4;
                             trailColor = backColor;

@@ -15,7 +15,7 @@ public class TankUnitType extends UnitType {
         super(name);
         flying = false;
         constructor = MechUnit::create;
-        mechFrontSway = mechSideSway = 0f;
+        mechStepShake = mechFrontSway = mechSideSway = 0f;
         mechStride = 1.2f;
         canDrown = true;
     }
