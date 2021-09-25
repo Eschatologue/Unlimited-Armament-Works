@@ -446,6 +446,7 @@ public class UAWUnitTypes implements ContentList {
             armor = 20;
             hitSize = 15;
             speed = 1.5f;
+            rotateSpeed = 4.5f;
             ammoType = new ItemAmmoType(Items.graphite);
 
             accel = 0.05f;
@@ -528,11 +529,12 @@ public class UAWUnitTypes implements ContentList {
             armor = 35;
             hitSize = 23;
             speed = 1.2f;
+            rotateSpeed = 3.5f;
             ammoType = new ItemAmmoType(Items.graphite);
 
-            accel = 0.05f;
-            drag = 0.05f;
-            range = 35 * tilesize;
+            accel = 0.04f;
+            drag = 0.08f;
+            range = 40 * tilesize;
             rotateShooting = false;
             immunities = ObjectSet.with(StatusEffects.disarmed, StatusEffects.slow);
 
@@ -548,9 +550,11 @@ public class UAWUnitTypes implements ContentList {
                         reload = 2 * 60;
                         recoil = 4.2f;
                         shootSound = UAWSounds.CannonShot1;
+                        soundPitchMin = 1.5f;
+                        soundPitchMax = 1.8f;
                         ejectEffect = UAWFxStatic.casing3Long;
-                        shake = 2.4f;
-                        bullet = new BasicBulletType(6f, 150) {{
+                        shake = 3f;
+                        bullet = new BasicBulletType(7f, 180) {{
                             height = 35f;
                             width = 9f;
                             lifetime = range / (speed + 3);
@@ -563,7 +567,7 @@ public class UAWUnitTypes implements ContentList {
                             trailWidth = width / 4;
                             trailColor = backColor;
                             shootSound = Sounds.shootBig;
-                            shootEffect = new MultiEffect(UAWFxDynamic.railShoot(backColor, 22f), Fx.shootBigSmoke2);
+                            shootEffect = new MultiEffect(UAWFxDynamic.railShoot(backColor, 30f), Fx.shootBigSmoke2);
                             hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootBigSmoke2);
                             fragBullets = 6;
                             fragLifeMin = 0f;
