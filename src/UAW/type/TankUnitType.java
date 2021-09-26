@@ -17,8 +17,7 @@ public class TankUnitType extends UnitType {
         immunities = ObjectSet.with(StatusEffects.disarmed, StatusEffects.slow, StatusEffects.freezing);
         flying = false;
         constructor = MechUnit::create;
-        mechStride = mechFrontSway = mechSideSway = 0f;
-        mechStepShake = 0.3f;
+        mechFrontSway = mechSideSway = 0f;
         mechStepParticles = true;
         canDrown = true;
     }
@@ -31,7 +30,7 @@ public class TankUnitType extends UnitType {
     }
 
     public void update(Unit unit){
-        unit.drownTime -= unit.drownTime / 2f;
+        unit.drownTime += (unit.drownTime / -2f);
         if(unit.hasEffect(StatusEffects.melting) ) {
             drag += drag / -0.5f;
         }
