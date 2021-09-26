@@ -446,7 +446,7 @@ public class UAWUnitTypes implements ContentList {
             armor = 20;
             hitSize = 18;
             speed = 1.5f;
-            rotateSpeed = 4.5f;
+            rotateSpeed = 3f;
             ammoType = new ItemAmmoType(Items.graphite);
 
             accel = 0.05f;
@@ -486,8 +486,6 @@ public class UAWUnitTypes implements ContentList {
                         reload = 1.5f * 60;
                         recoil = 4.5f;
                         shootSound = UAWSounds.CannonShot1;
-                        soundPitchMin = 1.2f;
-                        soundPitchMax = 1.5f;
                         ejectEffect = UAWFxStatic.casing2Long;
                         shake = 1.6f;
                         bullet = new BasicBulletType(6f, 75) {{
@@ -529,7 +527,7 @@ public class UAWUnitTypes implements ContentList {
             armor = 35;
             hitSize = 23;
             speed = 1.2f;
-            rotateSpeed = 3.5f;
+            rotateSpeed = 2f;
             ammoType = new ItemAmmoType(Items.graphite);
 
             accel = 0.04f;
@@ -550,8 +548,6 @@ public class UAWUnitTypes implements ContentList {
                         reload = 2 * 60;
                         recoil = 4.2f;
                         shootSound = UAWSounds.CannonShot1;
-                        soundPitchMin = 1.5f;
-                        soundPitchMax = 1.8f;
                         ejectEffect = UAWFxStatic.casing3Long;
                         shake = 3f;
                         bullet = new BasicBulletType(7f, 180) {{
