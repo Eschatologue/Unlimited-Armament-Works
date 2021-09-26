@@ -14,7 +14,7 @@ import mindustry.type.UnitType;
 import mindustry.world.blocks.environment.*;
 
 public class TankUnitType extends UnitType {
-    public float trailIntensity = 0.5f;
+    public float trailIntensity = 0.4f;
     public TankUnitType(String name) {
         super(name);
         immunities = ObjectSet.with(StatusEffects.disarmed, StatusEffects.slow, StatusEffects.freezing);
@@ -42,7 +42,7 @@ public class TankUnitType extends UnitType {
             unit.speedMultiplier = 0.5f;
             unit.healthMultiplier = 0.8f;
         }
-        if(Mathf.chanceDelta(trailIntensity)){
+        if(Mathf.chanceDelta(trailIntensity) && !floor.isLiquid && unit.moving()){
             Fx.unitLand.at(unit.x , unit.y, unit.hitSize / 7, floorColor);
         }
     }
