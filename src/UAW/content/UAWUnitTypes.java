@@ -451,7 +451,7 @@ public class UAWUnitTypes implements ContentList {
 
             accel = 0.05f;
             drag = 0.06f;
-            range = 25 * tilesize;
+            range = 35 * tilesize;
             rotateShooting = false;
 
             weapons.add(
@@ -487,7 +487,7 @@ public class UAWUnitTypes implements ContentList {
                         shootSound = UAWSounds.CannonShot1;
                         ejectEffect = UAWFxStatic.casing2Long;
                         shake = 2.4f;
-                        bullet = new BasicBulletType(6f, 75) {{
+                        bullet = new BasicBulletType(7f, 75) {{
                             height = 25f;
                             width = 8f;
                             lifetime = range / (speed + 3);
@@ -531,7 +531,7 @@ public class UAWUnitTypes implements ContentList {
 
             accel = 0.04f;
             drag = 0.08f;
-            range = 40 * tilesize;
+            range = 45 * tilesize;
             rotateShooting = false;
 
             weapons.add(
@@ -548,7 +548,7 @@ public class UAWUnitTypes implements ContentList {
                         shootSound = UAWSounds.CannonShot1;
                         ejectEffect = UAWFxStatic.casing3Long;
                         shake = 4f;
-                        bullet = new BasicBulletType(7f, 180) {{
+                        bullet = new BasicBulletType(8f, 180) {{
                             height = 35f;
                             width = 10f;
                             lifetime = range / (speed + 3);
@@ -557,7 +557,7 @@ public class UAWUnitTypes implements ContentList {
                             pierce = true;
                             pierceCap = 2;
                             knockback = 6f;
-                            trailLength = 16;
+                            trailLength = 25;
                             trailWidth = width / 4;
                             trailColor = backColor;
                             shootSound = Sounds.shootBig;

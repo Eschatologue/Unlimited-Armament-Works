@@ -30,11 +30,19 @@ public class TankUnitType extends UnitType {
         Draw.rect(region, unit.x, unit.y, unit.rotation - 90);
         Draw.reset();
     }
+
+    @Override
+    public void init(){
+        if(mechStride < 0){
+            mechStride = (4f + (hitSize -8f)/2.1f) / (speed / 2);
+        }
+    }
+
     @Override
     public void update(Unit unit){
         Floor floor = Vars.world.floorWorld(unit.x, unit.y);
         super.update(unit);
-        unit.drownTime = Mathf.lerpDelta(Time.delta / floor.drownTime, 0f, 0.03f);
+        unit.drownTime = Mathf.lerpDelta(Time.delta * floor.drownTime, 0f, 0.03f);
         if(unit.hasEffect(StatusEffects.melting) || unit.hasEffect(StatusEffects.burning) ) {
             unit.reloadMultiplier = 0.5f;
             unit.speedMultiplier = 0.5f;
