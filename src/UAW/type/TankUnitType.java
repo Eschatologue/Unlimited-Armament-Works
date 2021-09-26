@@ -24,7 +24,6 @@ public class TankUnitType extends UnitType {
         mechStride = -1f;
         canDrown = true;
     }
-
     @Override
     public void draw(Unit unit) {
         super.draw(unit);
@@ -39,6 +38,8 @@ public class TankUnitType extends UnitType {
         Draw.rect(region, unit.x, unit.y, unit.rotation - 90);
         Draw.reset();
     }
-
+    public void update(Unit unit){
+        unit.drownTime = unit.drownTime / 3;
+    }
 }
 

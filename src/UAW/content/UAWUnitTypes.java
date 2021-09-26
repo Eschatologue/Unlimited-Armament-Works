@@ -453,7 +453,6 @@ public class UAWUnitTypes implements ContentList {
             drag = 0.06f;
             range = 25 * tilesize;
             rotateShooting = false;
-            immunities = ObjectSet.with(StatusEffects.disarmed, StatusEffects.slow);
 
             weapons.add(
                     new PointDefenseWeapon("uaw-point-defense-red") {{
@@ -487,7 +486,7 @@ public class UAWUnitTypes implements ContentList {
                         recoil = 4.5f;
                         shootSound = UAWSounds.CannonShot1;
                         ejectEffect = UAWFxStatic.casing2Long;
-                        shake = 1.6f;
+                        shake = 2.4f;
                         bullet = new BasicBulletType(6f, 75) {{
                             height = 25f;
                             width = 8f;
@@ -534,7 +533,6 @@ public class UAWUnitTypes implements ContentList {
             drag = 0.08f;
             range = 40 * tilesize;
             rotateShooting = false;
-            immunities = ObjectSet.with(StatusEffects.disarmed, StatusEffects.slow);
 
             weapons.add(
                     new TurretedWeapon(name + "-gun") {{
@@ -546,10 +544,10 @@ public class UAWUnitTypes implements ContentList {
                         y = 0f;
                         shootY = 32f;
                         reload = 2 * 60;
-                        recoil = 4.2f;
+                        recoil = 4.4f;
                         shootSound = UAWSounds.CannonShot1;
                         ejectEffect = UAWFxStatic.casing3Long;
-                        shake = 3f;
+                        shake = 4f;
                         bullet = new BasicBulletType(7f, 180) {{
                             height = 35f;
                             width = 10f;
