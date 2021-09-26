@@ -7,19 +7,20 @@ import arc.math.Mathf;
 import arc.struct.ObjectSet;
 import arc.util.*;
 import mindustry.Vars;
-import mindustry.content.StatusEffects;
+import mindustry.content.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.UnitType;
 import mindustry.world.blocks.environment.*;
 
 public class TankUnitType extends UnitType {
+    public float trailIntensity = 0.5f;
     public TankUnitType(String name) {
         super(name);
         immunities = ObjectSet.with(StatusEffects.disarmed, StatusEffects.slow, StatusEffects.freezing);
         flying = false;
         constructor = MechUnit::create;
-        mechFrontSway = mechSideSway = 0f;
+        mechStride = mechFrontSway = mechSideSway = 0f;
         mechStepParticles = true;
         canDrown = true;
     }
@@ -32,21 +33,17 @@ public class TankUnitType extends UnitType {
     }
 
     @Override
-    public void init(){
-        if(mechStride < 0){
-            mechStride = (4f + (hitSize -8f)/2.1f) / (speed / 2);
-        }
-    }
-
-    @Override
     public void update(Unit unit){
         Floor floor = Vars.world.floorWorld(unit.x, unit.y);
+        Color floorColor = floor.mapColor;
         super.update(unit);
-        unit.drownTime = Mathf.lerpDelta(Time.delta * floor.drownTime, 0f, 0.03f);
         if(unit.hasEffect(StatusEffects.melting) || unit.hasEffect(StatusEffects.burning) ) {
             unit.reloadMultiplier = 0.5f;
             unit.speedMultiplier = 0.5f;
             unit.healthMultiplier = 0.8f;
+        }
+        if(Mathf.chanceDelta(trailIntensity)){
+            Fx.unitLand.at(unit.x , unit.y, unit.hitSize / 7, floorColor);
         }
     }
 }
