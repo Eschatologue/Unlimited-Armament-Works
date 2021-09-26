@@ -12,6 +12,7 @@ import mindustry.graphics.*;
 import mindustry.type.UnitType;
 
 public class TankUnitType extends UnitType {
+    public float drowningSpeed = 180f;
     public TankUnitType(String name) {
         super(name);
         immunities = ObjectSet.with(StatusEffects.disarmed, StatusEffects.slow, StatusEffects.freezing);
@@ -28,11 +29,13 @@ public class TankUnitType extends UnitType {
         Draw.rect(region, unit.x, unit.y, unit.rotation - 90);
         Draw.reset();
     }
-
+    @Override
     public void update(Unit unit){
-        unit.drownTime += (unit.drownTime / -2f);
+        super.update(unit);
+        unit.drownTime = drowningSpeed;
         if(unit.hasEffect(StatusEffects.melting) ) {
-            drag += drag / -0.5f;
+            unit.reloadMultiplier = 0.5f;
+            unit.speedMultiplier = 0.8f;
         }
     }
 }
