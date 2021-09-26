@@ -23,24 +23,13 @@ public class TankUnitType extends UnitType {
         canDrown = true;
     }
     @Override
-    public void draw(Unit unit) {
-        if(unit instanceof Mechc){
-            drawTank(unit);
-        }
-        drawOutline(unit);
-        drawWeaponOutlines(unit);
-        if(engineSize > 0) drawEngine(unit);
-        if(drawCell) drawCell(unit);
-        drawWeapons(unit);
-        if(drawItems) drawItems(unit);
-        drawLight(unit);
-    }
-    public void drawTank(Unit unit){
-        applyColor(unit);
+    public void drawMech(Mechc mech){
+        Unit unit = (Unit)mech;
         Draw.z(Layer.groundUnit - 0.1f);
         Draw.rect(region, unit.x, unit.y, unit.rotation - 90);
         Draw.reset();
     }
+
     public void update(Unit unit){
         unit.drownTime -= unit.drownTime / 2f;
         if(unit.hasEffect(StatusEffects.melting) ) {
