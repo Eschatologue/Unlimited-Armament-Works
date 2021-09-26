@@ -12,7 +12,7 @@ import mindustry.graphics.*;
 import mindustry.type.UnitType;
 
 public class TankUnitType extends UnitType {
-    public Color trackColor= Pal.darkMetal;
+    public Color trackColor = Pal.darkMetal;
     public TankUnitType(String name) {
         super(name);
         immunities = ObjectSet.with(StatusEffects.disarmed, StatusEffects.slow, StatusEffects.freezing);
@@ -33,13 +33,15 @@ public class TankUnitType extends UnitType {
     }
     public void drawTank(Unit unit){
         applyColor(unit);
-        Draw.mixcol(Tmp.c1.set(trackColor).lerp(Color.white, Mathf.clamp(unit.hitTime)), Math.max(Math.max(0, 4 * mechStride), unit.hitTime));
         Draw.z(Layer.groundUnit - 0.1f);
         Draw.rect(region, unit.x, unit.y, unit.rotation - 90);
         Draw.reset();
     }
     public void update(Unit unit){
-        unit.drownTime = unit.drownTime / 3;
+        unit.drownTime += unit.drownTime / 1.5f;
+        if(unit.hasEffect(StatusEffects.melting) ) {
+            drag += drag / -0.5f;
+        }
     }
 }
 
