@@ -93,11 +93,11 @@ public class UAWFxStatic {
         rect(Core.atlas.find("casing"),
                 e.x + trnsx(lr, len) + Mathf.randomSeedRange(e.id + i + 7, 3f * e.fin()),
                 e.y + trnsy(lr, len) + Mathf.randomSeedRange(e.id + i + 8, 3f * e.fin()),
-                2f, 4.2f, rot + e.fin() * 50f * i
+                2.5f, 5f, rot + e.fin() * 50f * i
         );
     }).layer(Layer.bullet),
 
-    casing3Long = new Effect(36f, e -> {
+    casing3Long = new Effect(45f, e -> {
         color(Pal.lightOrange, Color.lightGray, Pal.lightishGray, e.fin());
         alpha(e.fout(0.5f));
         float rot = Math.abs(e.rotation) + 90f;
@@ -107,7 +107,7 @@ public class UAWFxStatic {
         rect(Core.atlas.find("casing"),
                 e.x + trnsx(lr, len) + Mathf.randomSeedRange(e.id + i + 7, 3f * e.fin()),
                 e.y + trnsy(lr, len) + Mathf.randomSeedRange(e.id + i + 8, 3f * e.fin()),
-                2.5f, 5.4f, rot + e.fin() * 50f * i
+                3f, 6.5f, rot + e.fin() * 50f * i
         );
     }).layer(Layer.bullet),
 

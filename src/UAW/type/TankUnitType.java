@@ -38,6 +38,7 @@ public class TankUnitType extends UnitType {
         Floor floor = Vars.world.floorWorld(unit.x, unit.y);
         Color floorColor = floor.mapColor;
         super.update(unit);
+        unit.drownTime = Mathf.lerpDelta(unit.drownTime, 0, 0.05f);
         // Weak against fire
         if(unit.hasEffect(StatusEffects.melting) || unit.hasEffect(StatusEffects.burning) ) {
             unit.reloadMultiplier = 0.5f;
