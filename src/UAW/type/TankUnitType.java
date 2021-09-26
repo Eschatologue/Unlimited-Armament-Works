@@ -13,6 +13,7 @@ import mindustry.graphics.*;
 import mindustry.type.UnitType;
 import mindustry.world.blocks.environment.*;
 
+// Basically Mech with overrided draw method
 public class TankUnitType extends UnitType {
     public float trailIntensity = 0.4f;
     public TankUnitType(String name) {
@@ -37,13 +38,15 @@ public class TankUnitType extends UnitType {
         Floor floor = Vars.world.floorWorld(unit.x, unit.y);
         Color floorColor = floor.mapColor;
         super.update(unit);
+        // Weak against fire
         if(unit.hasEffect(StatusEffects.melting) || unit.hasEffect(StatusEffects.burning) ) {
             unit.reloadMultiplier = 0.5f;
             unit.speedMultiplier = 0.5f;
             unit.healthMultiplier = 0.8f;
         }
+        // Trail Effect
         if(Mathf.chanceDelta(trailIntensity) && !floor.isLiquid && unit.moving()){
-            Fx.unitLand.at(unit.x , unit.y, unit.hitSize / 7, floorColor);
+            Fx.unitLand.at(unit.x , unit.y, unit.hitSize / 14, floorColor);
         }
     }
 }

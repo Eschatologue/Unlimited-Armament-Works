@@ -500,7 +500,7 @@ public class UAWUnitTypes implements ContentList {
                             trailWidth = width / 4;
                             trailColor = backColor;
                             shootSound = Sounds.shootBig;
-                            shootEffect = new MultiEffect(UAWFxDynamic.railShoot(backColor, 22f), Fx.shootBigSmoke2);
+                            shootEffect = new MultiEffect(UAWFxDynamic.railShoot(backColor, 22f), Fx.shootPyraFlame);
                             hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootBigSmoke2);
                             fragBullets = 4;
                             fragLifeMin = 0f;
@@ -554,6 +554,7 @@ public class UAWUnitTypes implements ContentList {
                             lifetime = range / (speed + 3);
                             buildingDamageMultiplier = 2f;
                             pierceBuilding = true;
+                            absorbable = false;
                             pierce = true;
                             pierceCap = 2;
                             knockback = 6f;
@@ -561,7 +562,7 @@ public class UAWUnitTypes implements ContentList {
                             trailWidth = width / 4;
                             trailColor = backColor;
                             shootSound = Sounds.shootBig;
-                            shootEffect = new MultiEffect(UAWFxDynamic.railShoot(backColor, 30f), Fx.shootBigSmoke2);
+                            shootEffect = new MultiEffect(UAWFxDynamic.railShoot(backColor, 30f), Fx.shootPyraFlame);
                             hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootBigSmoke2);
                             fragBullets = 6;
                             fragLifeMin = 0f;
