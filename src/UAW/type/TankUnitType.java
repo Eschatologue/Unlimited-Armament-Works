@@ -12,24 +12,28 @@ import mindustry.graphics.*;
 import mindustry.type.UnitType;
 
 public class TankUnitType extends UnitType {
-    public Color trackColor = Pal.darkMetal;
     public TankUnitType(String name) {
         super(name);
         immunities = ObjectSet.with(StatusEffects.disarmed, StatusEffects.slow, StatusEffects.freezing);
         flying = false;
         constructor = MechUnit::create;
-        mechFrontSway = mechSideSway = 0f;
+        mechStride = mechFrontSway = mechSideSway = 0f;
         mechStepShake = 0.3f;
         mechStepParticles = true;
-        mechStride = -1f;
         canDrown = true;
     }
     @Override
     public void draw(Unit unit) {
-        super.draw(unit);
         if(unit instanceof Mechc){
             drawTank(unit);
         }
+        drawOutline(unit);
+        drawWeaponOutlines(unit);
+        if(engineSize > 0) drawEngine(unit);
+        if(drawCell) drawCell(unit);
+        drawWeapons(unit);
+        if(drawItems) drawItems(unit);
+        drawLight(unit);
     }
     public void drawTank(Unit unit){
         applyColor(unit);
@@ -38,7 +42,7 @@ public class TankUnitType extends UnitType {
         Draw.reset();
     }
     public void update(Unit unit){
-        unit.drownTime += unit.drownTime / 1.5f;
+        unit.drownTime -= unit.drownTime / 2f;
         if(unit.hasEffect(StatusEffects.melting) ) {
             drag += drag / -0.5f;
         }
