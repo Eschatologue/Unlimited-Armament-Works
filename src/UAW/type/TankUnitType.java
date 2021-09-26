@@ -5,14 +5,15 @@ import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.math.Mathf;
 import arc.struct.ObjectSet;
-import arc.util.Tmp;
+import arc.util.*;
+import mindustry.Vars;
 import mindustry.content.StatusEffects;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.UnitType;
+import mindustry.world.blocks.environment.*;
 
 public class TankUnitType extends UnitType {
-    public float drowningSpeed = 180f;
     public TankUnitType(String name) {
         super(name);
         immunities = ObjectSet.with(StatusEffects.disarmed, StatusEffects.slow, StatusEffects.freezing);
@@ -31,12 +32,15 @@ public class TankUnitType extends UnitType {
     }
     @Override
     public void update(Unit unit){
+        Floor floor = Vars.world.floorWorld(unit.x, unit.y);
         super.update(unit);
-        unit.drownTime = drowningSpeed;
-        if(unit.hasEffect(StatusEffects.melting) ) {
+        unit.drownTime = Mathf.lerpDelta(Time.delta / floor.drownTime, 0f, 0.03f);
+        if(unit.hasEffect(StatusEffects.melting) || unit.hasEffect(StatusEffects.burning) ) {
             unit.reloadMultiplier = 0.5f;
-            unit.speedMultiplier = 0.8f;
+            unit.speedMultiplier = 0.5f;
+            unit.healthMultiplier = 0.8f;
         }
     }
 }
+
 
