@@ -801,7 +801,8 @@ public class UAWBlock implements ContentList {
 
             upgrades.addAll(
                     new UnitType[]{UAWUnitTypes.aglovale, UAWUnitTypes.bedivere},
-                    new UnitType[]{UAWUnitTypes.clurit, UAWUnitTypes.kujang}
+                    new UnitType[]{UAWUnitTypes.clurit, UAWUnitTypes.kujang},
+                    new UnitType[]{UAWUnitTypes.gardlacz, UAWUnitTypes.arkabuz}
             );
         }};
         // endregion Units

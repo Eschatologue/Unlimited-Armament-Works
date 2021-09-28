@@ -1,4 +1,3 @@
-
 package UAW.type;
 
 import arc.graphics.Color;
@@ -38,7 +37,6 @@ public class TankUnitType extends UnitType {
         Floor floor = Vars.world.floorWorld(unit.x, unit.y);
         Color floorColor = floor.mapColor;
         super.update(unit);
-        unit.drownTime = Mathf.lerpDelta(unit.drownTime, 0, 0.05f);
         // Weak against fire
         if(unit.hasEffect(StatusEffects.melting) || unit.hasEffect(StatusEffects.burning) ) {
             unit.reloadMultiplier = 0.5f;
@@ -47,7 +45,7 @@ public class TankUnitType extends UnitType {
         }
         // Trail Effect
         if(Mathf.chanceDelta(trailIntensity) && !floor.isLiquid && unit.moving()){
-            Fx.unitLand.at(unit.x , unit.y, unit.hitSize / 14, floorColor);
+            Fx.unitLand.at(unit.x , unit.y, unit.hitSize / 7, floorColor);
         }
     }
 }

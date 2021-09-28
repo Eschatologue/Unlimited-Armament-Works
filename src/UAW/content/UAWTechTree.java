@@ -180,7 +180,7 @@ public class UAWTechTree implements ContentList {
         //Helis
         vanillaNode(horizon, () -> node(aglovale, () -> node(bedivere)));
         //Tanks
-        vanillaNode(mace, () -> node(gardlacz));
+        vanillaNode(mace, () -> node(gardlacz, () -> node(arkabuz)));
         //naval
         vanillaNode(minke, () -> {
             node(clurit, Seq.with(new Research(atrax)), () ->

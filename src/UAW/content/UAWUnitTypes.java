@@ -486,8 +486,8 @@ public class UAWUnitTypes implements ContentList {
                         recoil = 4.5f;
                         shootSound = UAWSounds.CannonShot1;
                         ejectEffect = UAWFxStatic.casing2Long;
-                        shake = 2.4f;
-                        bullet = new BasicBulletType(7f, 75) {{
+                        shake = 2.6f;
+                        bullet = new BasicBulletType(7f, 85) {{
                             height = 25f;
                             width = 8f;
                             lifetime = range / (speed + 3);
@@ -524,7 +524,7 @@ public class UAWUnitTypes implements ContentList {
         arkabuz = new TankUnitType("arkabuz") {{
             health = 6500;
             armor = 35;
-            hitSize = 23;
+            hitSize = 25;
             speed = 1.2f;
             rotateSpeed = 2f;
             ammoType = new ItemAmmoType(Items.graphite);
@@ -547,8 +547,8 @@ public class UAWUnitTypes implements ContentList {
                         recoil = 4.4f;
                         shootSound = UAWSounds.CannonShot1;
                         ejectEffect = UAWFxStatic.casing3Long;
-                        shake = 4f;
-                        bullet = new BasicBulletType(8f, 180) {{
+                        shake = 6f;
+                        bullet = new BasicBulletType(8f, 185) {{
                             height = 35f;
                             width = 10f;
                             lifetime = range / (speed + 3);
