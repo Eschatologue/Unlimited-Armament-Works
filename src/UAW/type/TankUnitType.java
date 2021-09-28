@@ -45,7 +45,7 @@ public class TankUnitType extends UnitType {
         }
         // Trail Effect
         if(Mathf.chanceDelta(trailIntensity) && !floor.isLiquid && unit.moving()){
-            Fx.unitLand.at(unit.x , unit.y, unit.hitSize / 7, floorColor);
+            Fx.unitLand.at(unit.x , unit.y, (unit.hitSize / 6) / unit.speed(), floorColor);
         }
     }
 }

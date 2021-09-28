@@ -9,7 +9,7 @@ import arc.math.Angles;
 import arc.math.Mathf;
 import mindustry.entities.units.WeaponMount;
 import mindustry.gen.Unit;
-import mindustry.graphics.Drawf;
+import mindustry.graphics.*;
 import mindustry.type.Weapon;
 
 public class TurretedWeapon extends Weapon {
@@ -72,7 +72,6 @@ public class TurretedWeapon extends Weapon {
             Draw.blend();
             Draw.color();
         }
-
     }
 }
 
