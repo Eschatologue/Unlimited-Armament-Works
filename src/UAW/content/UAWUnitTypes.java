@@ -451,7 +451,7 @@ public class UAWUnitTypes implements ContentList {
 
             accel = 0.05f;
             drag = 0.06f;
-            range = 35 * tilesize;
+            range = 36 * tilesize;
             rotateShooting = false;
 
             weapons.add(
@@ -486,7 +486,7 @@ public class UAWUnitTypes implements ContentList {
                         recoil = 4.5f;
                         shootSound = UAWSounds.CannonShot1;
                         ejectEffect = UAWFxStatic.casing2Long;
-                        shake = 2.6f;
+                        shake = 3f;
                         bullet = new BasicBulletType(7f, 85) {{
                             height = 25f;
                             width = 8f;
@@ -500,8 +500,8 @@ public class UAWUnitTypes implements ContentList {
                             trailWidth = width / 4;
                             trailColor = backColor;
                             shootSound = Sounds.shootBig;
-                            shootEffect = new MultiEffect(UAWFxDynamic.railShoot(backColor, 22f), Fx.shootPyraFlame);
-                            hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootBigSmoke2);
+                            shootEffect = new MultiEffect(UAWFxDynamic.railShoot(backColor, 22f), Fx.shootPyraFlame, Fx.shootSmallSmoke);
+                            hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootSmallSmoke);
                             fragBullets = 4;
                             fragLifeMin = 0f;
                             fragCone = 30f;
@@ -531,7 +531,7 @@ public class UAWUnitTypes implements ContentList {
 
             accel = 0.04f;
             drag = 0.08f;
-            range = 45 * tilesize;
+            range = 48 * tilesize;
             rotateShooting = false;
 
             weapons.add(
@@ -548,7 +548,7 @@ public class UAWUnitTypes implements ContentList {
                         shootSound = UAWSounds.CannonShot1;
                         ejectEffect = UAWFxStatic.casing3Long;
                         shake = 6f;
-                        bullet = new BasicBulletType(8f, 185) {{
+                        bullet = new BasicBulletType(8f, 215) {{
                             height = 35f;
                             width = 10f;
                             lifetime = range / (speed + 3);
@@ -562,7 +562,7 @@ public class UAWUnitTypes implements ContentList {
                             trailWidth = width / 4;
                             trailColor = backColor;
                             shootSound = Sounds.shootBig;
-                            shootEffect = new MultiEffect(UAWFxDynamic.railShoot(backColor, 30f), Fx.shootPyraFlame);
+                            shootEffect = new MultiEffect(UAWFxDynamic.railShoot(backColor, 30f), Fx.shootPyraFlame, Fx.shootBigSmoke2);
                             hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootBigSmoke2);
                             fragBullets = 6;
                             fragLifeMin = 0f;
