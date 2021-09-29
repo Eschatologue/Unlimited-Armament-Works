@@ -3,7 +3,7 @@ displayName: "Unlimited Armament Works"
 name: "uaw"
 
 #your name
-author: "[royal]Eschatologue[]"
+author: "Eschatologue"
 
 #the fully qualified main class of the mod
 main: "UAW.UAWModLoader",
