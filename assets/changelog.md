@@ -1,3 +1,19 @@
+# Update 0.7
+Update 0.7 is a small one, just overall polishing of tank units, I probably will do these type of updates more often instead of monthly huge update.
+
+## Whats new?
+1. Added Tier 4 UAW Ground unit the 'Arkabuz'
+   - Can be researched from the Gardlacz, Arkabuz is equipped with thick armor and a hard hitting gun
+2. Status Field projector now can't be manually controlled
+3. Slight buff and nerf to the Gardlacz
+4. Tank Units now suffer less movement penalty on liquid terrain and immune to slow, freeze, and disarm.
+5. Tank Units now have weakness to heat based effects, burning and melting with dampen their combat effectiveness
+6. Added recoiling gun to tank units
+7. Added ground trail effects to tank
+8. Tank unit Code cleanup
+9. Various fixed from the previous version
+
+
 # Update 0.6
 Update 0.6 will feature minor adjustments, new units, and more crafters.
 ## New Content
