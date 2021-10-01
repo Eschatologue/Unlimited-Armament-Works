@@ -1,6 +1,6 @@
 <div align="center">
 
-![UAW-Banner-Ex2.png](https://i.postimg.cc/nc9655q7/HAI-Banner-Ex2.png)
+![UAW-Banner-new-v3-readme.png](https://i.postimg.cc/156THzLY/UAW-Banner-new-v3-readme.png)
 [![MadeWithJava](https://img.shields.io/badge/Made%20with-java-red?style=for-the-badge&logo=java)](https://en.wikipedia.org/wiki/Java_%28programming_language%29)
 [![License](https://img.shields.io/github/license/Eschatologue/Unlimited-Armament-Works?color=important&logo=Github&style=for-the-badge)](https://mit-license.org/)
 [![Build](https://img.shields.io/github/workflow/status/Eschatologue/Unlimited-Armament-Works/Java%20CI?logo=Gradle&style=for-the-badge)](https://github.com/Eschatologue/Unlimited-Armament-Works/actions)
