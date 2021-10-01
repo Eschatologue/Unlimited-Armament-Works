@@ -443,8 +443,8 @@ public class UAWUnitTypes implements ContentList {
             health = 3500;
             speed = 1.5f;
             accel = 0.2f;
-            rotateSpeed = 1.9f;
-            drag = 0.05f;
+            rotateSpeed = 2f;
+            drag = 0.06f;
             hitSize = 18;
             range = 48 * tilesize;
             maxRange = range;
@@ -478,17 +478,16 @@ public class UAWUnitTypes implements ContentList {
                         }};
                     }},
                     new Weapon("uaw-machine-gun-medium-red") {{
-                        rotate = top = false;
-                        shootCone = 90;
+                        rotate = true;
                         inaccuracy = 3f;
                         alternate = mirror = true;
                         x = 8f;
                         y = -5f;
-                        reload = 5;
+                        reload = 10;
                         recoil = 1f;
                         shootSound = Sounds.shoot;
                         ejectEffect = Fx.casing2;
-                        bullet = new BasicBulletType(7f, 35) {{
+                        bullet = new BasicBulletType(7f, 25) {{
                             height = 19f;
                             width = 12f;
                             pierce = true;
@@ -505,11 +504,10 @@ public class UAWUnitTypes implements ContentList {
                     new Weapon() {{
                         rotate = false;
                         alternate = mirror = true;
-                        shootCone = 270;
-                        rotateSpeed = 2;
+                        shootCone = 220;
                         x = 8f;
                         y = 6f;
-                        reload = 4 * 60;
+                        reload = 3 * 60;
                         inaccuracy = 1f;
                         ammoType = new ItemAmmoType(Items.thorium);
 
@@ -519,6 +517,38 @@ public class UAWUnitTypes implements ContentList {
                             shootEffect = UAWFxStatic.shootWaterFlame;
                             lifetime = (range + 25 * tilesize) / speed;
                             homingRange = range;
+                        }};
+                    }},
+                    new Weapon("uaw-missile-medium-red-single"){{
+                        reload = 20f;
+                        x = 0f;
+                        y = -8f;
+                        rotateSpeed = 4f;
+                        rotate = true;
+                        shots = 2;
+                        shotDelay = 3f;
+                        inaccuracy = 5f;
+                        velocityRnd = 0.1f;
+                        shootSound = Sounds.missile;
+                        ammoType = new ItemAmmoType(Items.thorium);
+                        ejectEffect = Fx.none;
+                        bullet = new MissileBulletType(2.7f, 65){{
+                            width = 12f;
+                            height = 15f;
+                            shrinkY = 0f;
+                            drag = -0.003f;
+                            homingRange = 60f;
+                            keepVelocity = false;
+                            splashDamageRadius = 25f;
+                            splashDamage = 10f;
+                            lifetime = 70f;
+                            trailColor = Color.gray;
+                            backColor = Pal.bulletYellowBack;
+                            frontColor = Pal.bulletYellow;
+                            hitEffect = Fx.blastExplosion;
+                            despawnEffect = Fx.blastExplosion;
+                            weaveScale = 8f;
+                            weaveMag = 1f;
                         }};
                     }}
             );
