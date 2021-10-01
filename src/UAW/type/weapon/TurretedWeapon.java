@@ -2,18 +2,22 @@
 package UAW.type.weapon;
 
 import arc.Core;
-import arc.graphics.Blending;
+import arc.graphics.*;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.Angles;
 import arc.math.Mathf;
+import arc.util.*;
 import mindustry.entities.units.WeaponMount;
 import mindustry.gen.Unit;
 import mindustry.graphics.*;
 import mindustry.type.Weapon;
 
 public class TurretedWeapon extends Weapon {
-    public TextureRegion turret, turretOutlineRegion;
+    public TextureRegion turret, turretOutlineRegion, turretCell;
+    public Color turretCellColor;
+    public boolean drawTurretCell = false;
+
 
     public TurretedWeapon(String name){
         super(name);
@@ -24,6 +28,12 @@ public class TurretedWeapon extends Weapon {
         super.load();
         turret = Core.atlas.find(name + "-turret");
         turretOutlineRegion = Core.atlas.find(name + "-turret-outline");
+        turretCell = Core.atlas.find(name + "-turret-cell");
+    }
+
+    public Color cellColor(Unit unit){
+        float f = Mathf.clamp(unit.healthf());
+        return Tmp.c1.set(Color.black).lerp(unit.team.color, f + Mathf.absin(Time.time, Math.max(f * 5f, 1f), 1f - f));
     }
 
     public void draw(Unit unit, WeaponMount mount){
@@ -60,6 +70,11 @@ public class TurretedWeapon extends Weapon {
                 weaponRotation);
 
         Draw.rect(turret, tx, ty, weaponRotation);
+        if(drawTurretCell){
+            Draw.color(cellColor(unit));
+            Draw.rect(turretCell, tx, ty, weaponRotation);
+            Draw.reset();
+        }
 
         if(heatRegion.found() && mount.heat > 0){
             Draw.color(heatColor, mount.heat);

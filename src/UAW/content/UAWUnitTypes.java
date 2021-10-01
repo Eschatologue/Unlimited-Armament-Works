@@ -439,6 +439,90 @@ public class UAWUnitTypes implements ContentList {
             }}
             );
         }};
+        shiratsuyu = new UnitType("shiratsuyu") {{
+            health = 3500;
+            speed = 1.5f;
+            accel = 0.2f;
+            rotateSpeed = 1.9f;
+            drag = 0.05f;
+            hitSize = 18;
+            range = 48 * tilesize;
+            maxRange = range;
+            rotateShooting = false;
+            ammoType = new ItemAmmoType(Items.graphite,2);
+
+            trailLength = 25;
+            trailX = 7f;
+            trailY = -9f;
+            trailScl = 1.4f;
+
+            constructor = UnitWaterMove::create;
+
+            weapons.add(
+                    new PointDefenseWeapon("uaw-point-defense-red") {{
+                        rotate = autoTarget = true;
+                        mirror = controllable = false;
+                        x = 0f;
+                        y = 9f;
+                        reload = 3f;
+                        recoil = 0f;
+                        targetInterval = 3f;
+                        targetSwitchInterval = 3f;
+                        ejectEffect = Fx.casing1;
+                        bullet = new BulletType() {{
+                            shootEffect = Fx.sparkShoot;
+                            smokeEffect = Fx.shootSmallSmoke;
+                            hitEffect = Fx.pointHit;
+                            maxRange = range / 3f;
+                            damage = 15f;
+                        }};
+                    }},
+                    new Weapon("uaw-machine-gun-medium-red") {{
+                        rotate = top = false;
+                        shootCone = 90;
+                        inaccuracy = 3f;
+                        alternate = mirror = true;
+                        x = 8f;
+                        y = -5f;
+                        reload = 5;
+                        recoil = 1f;
+                        shootSound = Sounds.shoot;
+                        ejectEffect = Fx.casing2;
+                        bullet = new BasicBulletType(7f, 35) {{
+                            height = 19f;
+                            width = 12f;
+                            pierce = true;
+                            pierceCap = 2;
+                            buildingDamageMultiplier = 0.5f;
+                            maxRange = range - 8;
+                            lifetime = (range/speed) * 1.5f;
+                            trailLength = 15;
+                            trailWidth = width/4;
+                            trailColor = backColor;
+                            hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.fireHit);
+                        }};
+                    }},
+                    new Weapon() {{
+                        rotate = false;
+                        alternate = mirror = true;
+                        shootCone = 270;
+                        rotateSpeed = 2;
+                        x = 8f;
+                        y = 6f;
+                        reload = 4 * 60;
+                        inaccuracy = 1f;
+                        ammoType = new ItemAmmoType(Items.thorium);
+
+                        shootSound = UAWSounds.TorpedoFire1;
+
+                        bullet = new TorpedoBulletType(1.8f, 650) {{
+                            shootEffect = UAWFxStatic.shootWaterFlame;
+                            lifetime = (range + 25 * tilesize) / speed;
+                            homingRange = range;
+                        }};
+                    }}
+            );
+        }};
         // endregion naval - Torpedo Destroyers
         // region Ground - Tanks
         gardlacz = new TankUnitType("gardlacz") {{

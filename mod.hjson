@@ -1,22 +1,8 @@
-#the mod name as displayed in-game
 displayName: "Unlimited Armament Works"
 name: "uaw"
-
-#your name
 author: "Eschatologue"
-
-#the fully qualified main class of the mod
 main: "UAW.UAWModLoader",
-
-
-#the mod description as seen in the mod dialog
 description: "A port and a sequel to Heavy-Armaments-Industries written in java."
-
-#the mod version
-version: 0.7
-
-#the minimum game build required to run this mod
+version: 0.8 - beta
 minGameVersion: 129
-
-#this is a java mod
 java: true

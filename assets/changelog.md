@@ -13,7 +13,6 @@ Update 0.7 is a small one, just overall polishing of tank units, I probably will
 8. Tank unit Code cleanup
 9. Various fixed from the previous version
 
-
 # Update 0.6
 Update 0.6 will feature minor adjustments, new units, and more crafters.
 ## New Content
