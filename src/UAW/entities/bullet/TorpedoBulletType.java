@@ -24,6 +24,10 @@ import static mindustry.gen.Nulls.unit;
  * Modified by Eschatologue
  */
 public class TorpedoBulletType extends BulletType {
+    /** Damage increased based on enemy hitSize*/
+    public float hitSizeDamageScl = 1f;
+    /** Maximum enemy hitSize threshold*/
+    public float maxEnemyHitSize = 60f;
     public float groundDrag = 0.15f;
     public float deepDrag = -0.005f;
     public float rippleInterval = 7f;
@@ -50,6 +54,7 @@ public class TorpedoBulletType extends BulletType {
         despawnEffect = UAWFxStatic.torpedoRippleHit;
         status = StatusEffects.slow;
         statusDuration = 3 * 60;
+        hitSoundVolume = 2;
     }
     @Override
     public void drawTrail(Bullet b){
@@ -80,9 +85,13 @@ public class TorpedoBulletType extends BulletType {
         }
         super.update(b);
     }
+    @Override
     public void hitEntity(Bullet b, Hitboxc entity, float health){
         if(entity instanceof Healthc h){
-            h.damage(b.damage * (entity.hitSize()/100));
+            h.damage(b.damage * ((entity.hitSize() * hitSizeDamageScl) / 100));
+        }
+        if(entity.hitSize() > maxEnemyHitSize) {
+            b.damage -= b.damage / ((entity.hitSize() * 2.5f) / 100);
         }
        super.hitEntity(b, entity, health);
     }
