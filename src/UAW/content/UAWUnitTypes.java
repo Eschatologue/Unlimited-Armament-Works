@@ -431,7 +431,7 @@ public class UAWUnitTypes implements ContentList {
                         shootSound = UAWSounds.TorpedoFire1;
                         bullet = new TorpedoBulletType(1.8f, 650) {{
                             hitSizeDamageScl = 1;
-                            maxEnemyHitSize = 35;
+                            maxEnemyHitSize = 25;
                             shootEffect = UAWFxStatic.shootWaterFlame;
                             lifetime = (range + 22 * tilesize) / speed;
                 }};
@@ -476,7 +476,7 @@ public class UAWUnitTypes implements ContentList {
                             shootEffect = UAWFxStatic.shootWaterFlame;
                             lifetime = (range * tilesize) / speed;
                             homingRange = range;
-                            maxEnemyHitSize = 60;
+                            maxEnemyHitSize = 40;
                         }};
                     }},
                     new PointDefenseWeapon("uaw-point-defense-red") {{
@@ -515,7 +515,7 @@ public class UAWUnitTypes implements ContentList {
                             buildingDamageMultiplier = 0.3f;
                             maxRange = range - 16;
                             lifetime = (range/speed) * 1.5f;
-                            trailLength = 15;
+                            trailLength = 10;
                             trailWidth = width/3;
                             trailColor = backColor;
                             hitEffect = new MultiEffect(Fx.hitBulletSmall, Fx.shootSmallSmoke);

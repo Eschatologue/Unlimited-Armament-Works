@@ -18,6 +18,7 @@ public class UAWStatusEffects implements ContentList {
             speedMultiplier = 0.001f;
             reloadMultiplier = 0f;
             effect = Fx.hitFuse;
+
         }};
         breached = new StatusEffect("breached") {{
             healthMultiplier = 0.55f;
