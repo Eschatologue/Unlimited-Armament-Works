@@ -1,22 +1,23 @@
 package UAW.entities.bullet;
 
-import UAW.content.UAWStatusEffects;
 import UAW.graphics.*;
-import arc.*;
-import arc.graphics.*;
-import arc.graphics.g2d.*;
-import arc.math.*;
+import arc.Events;
+import arc.graphics.Color;
+import arc.graphics.g2d.Draw;
 import arc.util.*;
-import mindustry.*;
+import mindustry.Vars;
 import mindustry.content.*;
-import mindustry.entities.*;
-import mindustry.entities.bullet.*;
-import mindustry.entities.effect.*;
+import mindustry.entities.Effect;
+import mindustry.entities.bullet.BulletType;
+import mindustry.entities.effect.MultiEffect;
+import mindustry.game.EventType;
 import mindustry.gen.*;
-import mindustry.graphics.*;
-import mindustry.world.blocks.environment.*;
+import mindustry.graphics.Layer;
+import mindustry.world.blocks.defense.Wall;
+import mindustry.world.blocks.environment.Floor;
 
-import static mindustry.Vars.tilesize;
+import static mindustry.Vars.*;
+import static mindustry.gen.Nulls.unit;
 
 /**
  * Taken from Sk7725/BetaMindy - NavalBulletType
@@ -39,7 +40,7 @@ public class TorpedoBulletType extends BulletType {
         keepVelocity = collidesAir = absorbable = hittable = reflectable = false;
         lightColor = hitColor;
         trailLength = 36;
-        trailWidth = 2f;
+        trailWidth = 3f;
         trailColor = UAWPal.waterMiddle;
         trailInterval = 0.2f;
         shootEffect = UAWFxStatic.shootWaterFlame;
@@ -78,5 +79,11 @@ public class TorpedoBulletType extends BulletType {
             b.vel.scl(Math.max(1f - deepDrag * Time.delta, 0.01f));
         }
         super.update(b);
+    }
+    public void hitEntity(Bullet b, Hitboxc entity, float health){
+        if(entity instanceof Healthc h){
+            h.damage(b.damage * (entity.hitSize()/100));
+        }
+       super.hitEntity(b, entity, health);
     }
 }

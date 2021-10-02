@@ -194,10 +194,10 @@ public class UAWFxStatic {
         Lines.circle(e.x, e.y, 3 + e.finpow() * 12f);
     }).layer(Layer.debris),
 
-    torpedoCruiseTrail = new Effect(25f, e -> {
+    torpedoCruiseTrail = new Effect(30f, e -> {
         color(Color.valueOf("#f5f5f5"));
         randLenVectors(e.id, 16, 2f + e.fin() * 7f, (x, y) -> {
-            Fill.circle(e.x + x, e.y + y, 0.2f + e.fslope() * 1.5f);
+            Fill.circle(e.x + x, e.y + y, 0.5f + e.fslope() * 1.5f);
         });
     }).layer(Layer.debris + 0.002f)
         // endregion Trail

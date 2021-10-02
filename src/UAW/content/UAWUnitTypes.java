@@ -5,9 +5,7 @@ import UAW.entities.bullet.*;
 import UAW.graphics.*;
 import UAW.type.*;
 import UAW.type.weapon.TurretedWeapon;
-
 import arc.graphics.Color;
-import arc.struct.ObjectSet;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.bullet.*;
@@ -526,14 +524,15 @@ public class UAWUnitTypes implements ContentList {
                         y = -8f;
                         rotateSpeed = 4f;
                         rotate = true;
+                        mirror = false;
                         shots = 2;
                         shotDelay = 6f;
                         inaccuracy = 5f;
                         velocityRnd = 0.1f;
-                        shootSound = UAWSounds.MissileLaunch1;
+                        shootSound = Sounds.missile;
                         ammoType = new ItemAmmoType(Items.thorium);
                         ejectEffect = Fx.none;
-                        bullet = new MissileBulletType(2f, 60){{
+                        bullet = new MissileBulletType(5f, 60){{
                             height = 12;
                             width = height / 2;
                             homingRange = 60f;
@@ -546,6 +545,8 @@ public class UAWUnitTypes implements ContentList {
                             frontColor = Pal.bulletYellow;
                             despawnEffect = hitEffect = new MultiEffect(Fx.blastExplosion, Fx.blastsmoke);
                             buildingDamageMultiplier = 0.5f;
+                            weaveScale = 8f;
+                            weaveMag = 1f;
                         }};
                     }}
             );
