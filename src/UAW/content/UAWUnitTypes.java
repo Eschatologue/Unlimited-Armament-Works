@@ -480,7 +480,7 @@ public class UAWUnitTypes implements ContentList {
                     new Weapon("uaw-machine-gun-medium-red") {{
                         rotate = true;
                         inaccuracy = 3f;
-                        alternate = mirror = true;
+                        mirror = true;
                         x = 8f;
                         y = -5f;
                         reload = 10;
@@ -488,17 +488,17 @@ public class UAWUnitTypes implements ContentList {
                         shootSound = Sounds.shoot;
                         ejectEffect = Fx.casing2;
                         bullet = new BasicBulletType(7f, 25) {{
-                            height = 19f;
-                            width = 12f;
+                            height = 10f;
+                            width = 4f;
                             pierce = true;
                             pierceCap = 2;
-                            buildingDamageMultiplier = 0.5f;
+                            buildingDamageMultiplier = 0.3f;
                             maxRange = range - 8;
                             lifetime = (range/speed) * 1.5f;
                             trailLength = 15;
                             trailWidth = width/4;
                             trailColor = backColor;
-                            hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.fireHit);
+                            hitEffect = new MultiEffect(Fx.hitBulletSmall, Fx.shootSmallSmoke);
                         }};
                     }},
                     new Weapon() {{
@@ -515,7 +515,7 @@ public class UAWUnitTypes implements ContentList {
 
                         bullet = new TorpedoBulletType(1.8f, 650) {{
                             shootEffect = UAWFxStatic.shootWaterFlame;
-                            lifetime = (range + 25 * tilesize) / speed;
+                            lifetime = (range * tilesize) / speed;
                             homingRange = range;
                         }};
                     }},
@@ -529,26 +529,20 @@ public class UAWUnitTypes implements ContentList {
                         shotDelay = 3f;
                         inaccuracy = 5f;
                         velocityRnd = 0.1f;
-                        shootSound = Sounds.missile;
+                        shootSound = UAWSounds.MissileLaunch1;
                         ammoType = new ItemAmmoType(Items.thorium);
                         ejectEffect = Fx.none;
-                        bullet = new MissileBulletType(2.7f, 65){{
-                            width = 12f;
-                            height = 15f;
-                            shrinkY = 0f;
-                            drag = -0.003f;
+                        bullet = new CruiseMissileBulletType(2f, 125){{
+                            size = 13;
                             homingRange = 60f;
                             keepVelocity = false;
-                            splashDamageRadius = 25f;
-                            splashDamage = 10f;
-                            lifetime = 70f;
+                            splashDamageRadius = 4 * tilesize;
+                            splashDamage = 80f;
+                            lifetime = range / 3;
                             trailColor = Color.gray;
                             backColor = Pal.bulletYellowBack;
                             frontColor = Pal.bulletYellow;
-                            hitEffect = Fx.blastExplosion;
-                            despawnEffect = Fx.blastExplosion;
-                            weaveScale = 8f;
-                            weaveMag = 1f;
+                            despawnEffect = hitEffect = UAWFxDynamic.crossBlast(backColor, splashDamageRadius);
                         }};
                     }}
             );

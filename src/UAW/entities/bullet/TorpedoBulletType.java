@@ -35,7 +35,8 @@ public class TorpedoBulletType extends BulletType {
         homingRange = 20 * tilesize;
         hitShake = 16;
         knockback = 8f;
-        keepVelocity = collidesAir = absorbable = hittable = false;
+        hitSize = 16f;
+        keepVelocity = collidesAir = absorbable = hittable = reflectable = false;
         lightColor = hitColor;
         trailLength = 36;
         trailWidth = 2f;

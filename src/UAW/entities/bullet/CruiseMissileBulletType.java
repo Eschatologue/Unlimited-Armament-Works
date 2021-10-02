@@ -24,7 +24,7 @@ public class CruiseMissileBulletType extends BasicBulletType {
         homingPower = 0.15f;
         knockback = 8;
         hitShake = 12f;
-        hitSize = 14;
+        hitSize = 1.5f * 8;
         hitSoundVolume = 4f;
         hitSound = Sounds.explosionbig;
         backColor = Pal.missileYellowBack;

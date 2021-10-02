@@ -88,9 +88,8 @@ public class UAWBullets implements ContentList {
             ammoMultiplier = 2;
             pierce = true;
             trailLength = 12;
-            trailWidth = 1.8f;
+            trailWidth = width / 4;
             trailColor = backColor;
-            status = UAWStatusEffects.breached;
         }};
         heavySurge = new BasicBulletType(4f, 20f, "bullet") {{
             height = 24f;

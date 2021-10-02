@@ -83,7 +83,7 @@ public class UAWBlock implements ContentList {
             maxAmmo = 30;
 
             maxReloadScl = 5f;
-            speedupPerShot = 0.05f;
+            speedupPerShot = 0.1f;
             ammo(
                     Items.copper, Bullets.standardCopper,
                     Items.graphite, Bullets.standardDense,
@@ -589,10 +589,11 @@ public class UAWBlock implements ContentList {
                             Items.sand, 2
                     ));
             consumes.liquid(Liquids.cryofluid, 0.2f);
-            consumes.power(0.20f);
+            consumes.power(0.5f);
             outputItem = new ItemStack(
                     UAWItems.cryogel, 1
             );
+            craftTime = 60f;
             hasItems = true;
             hasLiquids = true;
             size = 2;
