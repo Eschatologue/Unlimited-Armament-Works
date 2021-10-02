@@ -387,7 +387,7 @@ public class UAWUnitTypes implements ContentList {
             rotateSpeed = 1.9f;
             drag = 0.05f;
             hitSize = 18;
-            range = 32 * tilesize;
+            range = 35 * tilesize;
             maxRange = range;
             rotateShooting = false;
             ammoType = new ItemAmmoType(Items.graphite,2);
@@ -433,7 +433,7 @@ public class UAWUnitTypes implements ContentList {
                             hitSizeDamageScl = 1;
                             maxEnemyHitSize = 25;
                             shootEffect = UAWFxStatic.shootWaterFlame;
-                            lifetime = (range + 22 * tilesize) / speed;
+                            lifetime = (range) / speed;
                 }};
             }}
             );
@@ -460,6 +460,7 @@ public class UAWUnitTypes implements ContentList {
 
             weapons.add(
                     new Weapon() {{
+                        maxRange = range;
                         rotate = false;
                         alternate = mirror = true;
                         shootCone = 220;
@@ -474,7 +475,7 @@ public class UAWUnitTypes implements ContentList {
 
                         bullet = new TorpedoBulletType(1.8f, 650) {{
                             shootEffect = UAWFxStatic.shootWaterFlame;
-                            lifetime = (range * tilesize) / speed;
+                            lifetime = range / speed;
                             homingRange = range;
                             maxEnemyHitSize = 40;
                         }};

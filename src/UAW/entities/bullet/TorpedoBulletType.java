@@ -24,11 +24,13 @@ import static mindustry.gen.Nulls.unit;
  * Modified by Eschatologue
  */
 public class TorpedoBulletType extends BulletType {
-    /** Damage increased based on enemy hitSize*/
+    /** Scaling damage based on enemy hitSize*/
     public float hitSizeDamageScl = 1f;
     /** Maximum enemy hitSize threshold*/
     public float maxEnemyHitSize = 60f;
+    /** Drag in non liquid terrain*/
     public float groundDrag = 0.15f;
+    /** Drag in non Deep liquid terrain*/
     public float deepDrag = -0.005f;
     public float rippleInterval = 7f;
     public Effect rippleEffect = UAWFxStatic.torpedoRippleTrail;
