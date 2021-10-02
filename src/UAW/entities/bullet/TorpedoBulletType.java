@@ -38,7 +38,7 @@ public class TorpedoBulletType extends BulletType {
         layer = Layer.debris + 0.001f;
         homingPower = 0.035f;
         homingRange = 20 * tilesize;
-        hitShake = 16;
+        hitShake = 24;
         knockback = 8f;
         hitSize = 16f;
         keepVelocity = collidesAir = absorbable = hittable = reflectable = false;
@@ -54,7 +54,8 @@ public class TorpedoBulletType extends BulletType {
         despawnEffect = UAWFxStatic.torpedoRippleHit;
         status = StatusEffects.slow;
         statusDuration = 3 * 60;
-        hitSoundVolume = 2;
+        hitSoundVolume = 4f;
+        hitSound = Sounds.explosionbig;
     }
     @Override
     public void drawTrail(Bullet b){
@@ -91,7 +92,7 @@ public class TorpedoBulletType extends BulletType {
             h.damage(b.damage * ((entity.hitSize() * hitSizeDamageScl) / 100));
         }
         if(entity.hitSize() > maxEnemyHitSize) {
-            b.damage -= b.damage / ((entity.hitSize() * 2.5f) / 100);
+            b.damage -= b.damage / ((entity.hitSize() * 3.5f) / 100);
         }
        super.hitEntity(b, entity, health);
     }

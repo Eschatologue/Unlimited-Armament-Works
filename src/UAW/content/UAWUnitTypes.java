@@ -447,7 +447,7 @@ public class UAWUnitTypes implements ContentList {
             hitSize = 20f;
             armor = 5f;
             rotateShooting = false;
-            range = 48 * tilesize;
+            range = 45 * tilesize;
             maxRange = range;
             ammoType = new ItemAmmoType(Items.graphite,2);
 
@@ -514,7 +514,7 @@ public class UAWUnitTypes implements ContentList {
                             pierceCap = 2;
                             buildingDamageMultiplier = 0.3f;
                             maxRange = range - 16;
-                            lifetime = (range/speed) * 1.5f;
+                            lifetime = (range/speed) * 0.5f;
                             trailLength = 10;
                             trailWidth = width/3;
                             trailColor = backColor;
@@ -542,7 +542,7 @@ public class UAWUnitTypes implements ContentList {
                             keepVelocity = false;
                             splashDamageRadius = 4 * tilesize;
                             splashDamage = damage * 1.5f;
-                            lifetime = range / 3;
+                            lifetime = range/speed * 0.8f;
                             trailColor = Color.gray;
                             backColor = Pal.bulletYellowBack;
                             frontColor = Pal.bulletYellow;
