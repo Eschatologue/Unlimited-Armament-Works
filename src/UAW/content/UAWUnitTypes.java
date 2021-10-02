@@ -383,7 +383,7 @@ public class UAWUnitTypes implements ContentList {
         // endregion
         // region naval - Torpedo Destroyers
         hatsuharu = new UnitType("hatsuharu") {{
-            health = 800;
+            health = 450;
             speed = 1.2f;
             accel = 0.2f;
             rotateSpeed = 1.9f;
@@ -394,10 +394,10 @@ public class UAWUnitTypes implements ContentList {
             rotateShooting = false;
             ammoType = new ItemAmmoType(Items.graphite,2);
 
-            trailLength = 25;
-            trailX = 7f;
-            trailY = -9f;
-            trailScl = 1.4f;
+            trailLength = 20;
+            trailX = 5.5f;
+            trailY = -4f;
+            trailScl = 1.9f;
 
             constructor = UnitWaterMove::create;
 
@@ -440,21 +440,22 @@ public class UAWUnitTypes implements ContentList {
             );
         }};
         shiratsuyu = new UnitType("shiratsuyu") {{
-            health = 3500;
-            speed = 1.5f;
+            health = 910;
+            speed = 1.2f;
             accel = 0.2f;
-            rotateSpeed = 2f;
-            drag = 0.06f;
-            hitSize = 18;
+            rotateSpeed = 1.8f;
+            drag = 0.17f;
+            hitSize = 20f;
+            armor = 5f;
+            rotateShooting = false;
             range = 48 * tilesize;
             maxRange = range;
-            rotateShooting = false;
             ammoType = new ItemAmmoType(Items.graphite,2);
 
             trailLength = 25;
             trailX = 7f;
             trailY = -9f;
-            trailScl = 1.4f;
+            trailScl = 2.2f;
 
             constructor = UnitWaterMove::create;
 
@@ -520,29 +521,31 @@ public class UAWUnitTypes implements ContentList {
                         }};
                     }},
                     new Weapon("uaw-missile-medium-red-single"){{
-                        reload = 20f;
+                        reload = 45f;
                         x = 0f;
                         y = -8f;
                         rotateSpeed = 4f;
                         rotate = true;
                         shots = 2;
-                        shotDelay = 3f;
+                        shotDelay = 6f;
                         inaccuracy = 5f;
                         velocityRnd = 0.1f;
                         shootSound = UAWSounds.MissileLaunch1;
                         ammoType = new ItemAmmoType(Items.thorium);
                         ejectEffect = Fx.none;
-                        bullet = new CruiseMissileBulletType(2f, 125){{
-                            size = 13;
+                        bullet = new MissileBulletType(2f, 60){{
+                            height = 12;
+                            width = height / 2;
                             homingRange = 60f;
                             keepVelocity = false;
                             splashDamageRadius = 4 * tilesize;
-                            splashDamage = 80f;
+                            splashDamage = damage * 1.5f;
                             lifetime = range / 3;
                             trailColor = Color.gray;
                             backColor = Pal.bulletYellowBack;
                             frontColor = Pal.bulletYellow;
-                            despawnEffect = hitEffect = UAWFxDynamic.crossBlast(backColor, splashDamageRadius);
+                            despawnEffect = hitEffect = new MultiEffect(Fx.blastExplosion, Fx.blastsmoke);
+                            buildingDamageMultiplier = 0.5f;
                         }};
                     }}
             );
