@@ -25,7 +25,7 @@ import static mindustry.gen.Nulls.unit;
  */
 public class TorpedoBulletType extends BulletType {
     /** Scaling damage based on enemy hitSize*/
-    public float hitSizeDamageScl = 1f;
+    public float hitSizeDamageScl = 1.5f;
     /** Maximum enemy hitSize threshold*/
     public float maxEnemyHitSize = 60f;
     /** Drag in non liquid terrain*/
@@ -52,7 +52,7 @@ public class TorpedoBulletType extends BulletType {
         shootEffect = UAWFxStatic.shootWaterFlame;
         trailEffect = UAWFxStatic.torpedoCruiseTrail;
         trailRotation = true;
-        hitEffect = new MultiEffect(Fx.flakExplosionBig, UAWFxStatic.torpedoRippleHit);
+        hitEffect = new MultiEffect(Fx.smokeCloud, Fx.blastExplosion, UAWFxStatic.torpedoRippleHit);
         despawnEffect = UAWFxStatic.torpedoRippleHit;
         status = StatusEffects.slow;
         statusDuration = 3 * 60;
@@ -90,11 +90,12 @@ public class TorpedoBulletType extends BulletType {
     }
     @Override
     public void hitEntity(Bullet b, Hitboxc entity, float health){
-        if(entity instanceof Healthc h){
-            h.damage(b.damage * ((entity.hitSize() * hitSizeDamageScl) / 100));
-        }
+        float damageReduction = 1;
         if(entity.hitSize() > maxEnemyHitSize) {
-            b.damage -= b.damage / ((entity.hitSize() * 3.5f) / 100);
+            damageReduction = ((entity.hitSize() * 3.5f) / 100);
+        }
+        if(entity instanceof Healthc h){
+            h.damage((b.damage * ((entity.hitSize() * hitSizeDamageScl) / 100)) * damageReduction);
         }
        super.hitEntity(b, entity, health);
     }

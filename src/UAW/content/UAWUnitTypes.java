@@ -400,11 +400,32 @@ public class UAWUnitTypes implements ContentList {
             constructor = UnitWaterMove::create;
 
             weapons.add(
+                    new Weapon() {{
+                        maxRange = range;
+                        rotate = false;
+                        alternate = mirror = false;
+                        shootCone = 180;
+                        x = 0f;
+                        y = 6f;
+                        reload = 2.5f * 60;
+                        inaccuracy = 1f;
+                        ammoType = new ItemAmmoType(Items.thorium);
+                        targetAir = false;
+
+                        shootSound = UAWSounds.TorpedoFire1;
+
+                        bullet = new TorpedoBulletType(1.8f, 650) {{
+                            shootEffect = UAWFxStatic.shootWaterFlame;
+                            lifetime = range / speed;
+                            homingRange = range;
+                            maxEnemyHitSize = 45;
+                        }};
+                    }},
                     new PointDefenseWeapon("uaw-point-defense-red") {{
                         rotate = autoTarget = true;
                         mirror = controllable = false;
                         x = 0f;
-                        y = 7f;
+                        y = -7f;
                         reload = 4f;
                         recoil = 0f;
                         targetInterval = 4f;
@@ -417,25 +438,7 @@ public class UAWUnitTypes implements ContentList {
                             maxRange = range / 3.5f;
                             damage = 15f;
                         }};
-                    }},
-                    new Weapon("uaw-torpedo-small-red") {{
-                        targetAir = false;
-                        rotate = true;
-                        mirror = false;
-                        rotateSpeed = 2;
-                        x = 0f;
-                        y = -8f;
-                        reload = 5 * 60;
-                        inaccuracy = 1f;
-                        ammoType = new ItemAmmoType(Items.thorium);
-                        shootSound = UAWSounds.TorpedoFire1;
-                        bullet = new TorpedoBulletType(1.8f, 500) {{
-                            hitSizeDamageScl = 1;
-                            maxEnemyHitSize = 25;
-                            shootEffect = UAWFxStatic.shootWaterFlame;
-                            lifetime = (range) / speed;
-                }};
-            }}
+                    }}
             );
         }};
         shiratsuyu = new UnitType("shiratsuyu") {{
@@ -444,7 +447,7 @@ public class UAWUnitTypes implements ContentList {
             accel = 0.2f;
             rotateSpeed = 1.8f;
             drag = 0.17f;
-            hitSize = 20f;
+            hitSize = 22f;
             armor = 5f;
             rotateShooting = false;
             range = 45 * tilesize;
@@ -473,11 +476,11 @@ public class UAWUnitTypes implements ContentList {
 
                         shootSound = UAWSounds.TorpedoFire1;
 
-                        bullet = new TorpedoBulletType(1.8f, 500) {{
+                        bullet = new TorpedoBulletType(1.8f, 750) {{
                             shootEffect = UAWFxStatic.shootWaterFlame;
                             lifetime = range / speed;
                             homingRange = range;
-                            maxEnemyHitSize = 40;
+                            maxEnemyHitSize = 45;
                         }};
                     }},
                     new PointDefenseWeapon("uaw-point-defense-red") {{
