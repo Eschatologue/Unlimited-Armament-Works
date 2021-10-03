@@ -292,7 +292,7 @@ public class UAWUnitTypes implements ContentList {
             );
         }};
         kujang = new UnitType("kujang") {{
-            health = 4500;
+            health = 7000;
             hitSize = 30;
             speed = 0.65f;
             drag = 0.05f;
@@ -381,7 +381,7 @@ public class UAWUnitTypes implements ContentList {
         // endregion
         // region naval - Torpedo Destroyers
         hatsuharu = new UnitType("hatsuharu") {{
-            health = 450;
+            health = 650;
             speed = 1.2f;
             accel = 0.2f;
             rotateSpeed = 1.9f;
@@ -425,11 +425,11 @@ public class UAWUnitTypes implements ContentList {
                         rotateSpeed = 2;
                         x = 0f;
                         y = -8f;
-                        reload = 6 * 60;
+                        reload = 5 * 60;
                         inaccuracy = 1f;
                         ammoType = new ItemAmmoType(Items.thorium);
                         shootSound = UAWSounds.TorpedoFire1;
-                        bullet = new TorpedoBulletType(1.8f, 650) {{
+                        bullet = new TorpedoBulletType(1.8f, 500) {{
                             hitSizeDamageScl = 1;
                             maxEnemyHitSize = 25;
                             shootEffect = UAWFxStatic.shootWaterFlame;
@@ -439,7 +439,7 @@ public class UAWUnitTypes implements ContentList {
             );
         }};
         shiratsuyu = new UnitType("shiratsuyu") {{
-            health = 910;
+            health = 6500;
             speed = 1f;
             accel = 0.2f;
             rotateSpeed = 1.8f;
@@ -463,17 +463,17 @@ public class UAWUnitTypes implements ContentList {
                         maxRange = range;
                         rotate = false;
                         alternate = mirror = true;
-                        shootCone = 220;
+                        shootCone = 180;
                         x = 8f;
                         y = 6f;
-                        reload = 3 * 60;
+                        reload = 2.5f * 60;
                         inaccuracy = 1f;
                         ammoType = new ItemAmmoType(Items.thorium);
                         targetAir = false;
 
                         shootSound = UAWSounds.TorpedoFire1;
 
-                        bullet = new TorpedoBulletType(1.8f, 650) {{
+                        bullet = new TorpedoBulletType(1.8f, 500) {{
                             shootEffect = UAWFxStatic.shootWaterFlame;
                             lifetime = range / speed;
                             homingRange = range;
@@ -638,7 +638,7 @@ public class UAWUnitTypes implements ContentList {
             );
         }};
         arkabuz = new TankUnitType("arkabuz") {{
-            health = 6500;
+            health = 7500;
             armor = 35;
             hitSize = 25;
             speed = 1.2f;

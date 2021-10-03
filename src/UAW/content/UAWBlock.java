@@ -736,7 +736,7 @@ public class UAWBlock implements ContentList {
             range = 10 * tilesize;
             healPercent = 0.8f;
             health = 60 * size * size;
-            boostMultiplier = 3f;
+            boostMultiplier = 2.5f;
         }};
         rejuvinationDome = new RejuvenationProjector("rejuvination-dome"){{
             requirements(Category.effect, with(
@@ -753,7 +753,7 @@ public class UAWBlock implements ContentList {
             health = 60 * size * size;
             useTime = 4 * tick;
             consumes.items(with(Items.phaseFabric, 1, Items.thorium, 2));
-            boostMultiplier = 6f;
+            boostMultiplier = 4.5f;
         }};
         // endregion projector
         // endregion Defense
@@ -803,7 +803,8 @@ public class UAWBlock implements ContentList {
             upgrades.addAll(
                     new UnitType[]{UAWUnitTypes.aglovale, UAWUnitTypes.bedivere},
                     new UnitType[]{UAWUnitTypes.clurit, UAWUnitTypes.kujang},
-                    new UnitType[]{UAWUnitTypes.gardlacz, UAWUnitTypes.arkabuz}
+                    new UnitType[]{UAWUnitTypes.gardlacz, UAWUnitTypes.arkabuz},
+                    new UnitType[]{UAWUnitTypes.hatsuharu, UAWUnitTypes.shiratsuyu}
             );
         }};
         // endregion Units
