@@ -98,7 +98,7 @@ public class TorpedoBulletType extends BulletType {
             damageReduction = ((entity.hitSize() * 20f) / 100);
         }
         if(entity instanceof Healthc h){
-            h.damage((b.damage * ((entity.hitSize() * hitSizeDamageScl) / 100)) * damageReduction);
+            h.damage((b.damage * ((entity.hitSize() * hitSizeDamageScl) / 100)) / damageReduction);
         }
        super.hitEntity(b, entity, health);
     }
