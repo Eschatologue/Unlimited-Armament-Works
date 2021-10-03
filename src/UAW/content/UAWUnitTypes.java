@@ -393,7 +393,7 @@ public class UAWUnitTypes implements ContentList {
             ammoType = new ItemAmmoType(Items.graphite,2);
 
             trailLength = 20;
-            trailX = 5.5f;
+            trailX = 6f;
             trailY = -4f;
             trailScl = 1.9f;
 
@@ -456,7 +456,7 @@ public class UAWUnitTypes implements ContentList {
             ammoType = new ItemAmmoType(Items.graphite,2);
 
             trailLength = 25;
-            trailX = 7f;
+            trailX = 8f;
             trailY = -9f;
             trailScl = 2.2f;
 
@@ -520,7 +520,7 @@ public class UAWUnitTypes implements ContentList {
                             pierceCap = 2;
                             buildingDamageMultiplier = 0.3f;
                             maxRange = range - 16;
-                            lifetime = (range/speed) * 0.5f;
+                            lifetime = (range/speed) * 0.7f;
                             trailLength = 10;
                             trailWidth = width/3;
                             trailColor = backColor;
