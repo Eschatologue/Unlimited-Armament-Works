@@ -418,7 +418,8 @@ public class UAWUnitTypes implements ContentList {
                             shootEffect = UAWFxStatic.shootWaterFlame;
                             lifetime = range / speed;
                             homingRange = range;
-                            maxEnemyHitSize = 45;
+                            hitSizeDamageScl = 2f;
+                            maxEnemyHitSize = 35;
                         }};
                     }},
                     new PointDefenseWeapon("uaw-point-defense-red") {{
@@ -481,6 +482,7 @@ public class UAWUnitTypes implements ContentList {
                             lifetime = range / speed;
                             homingRange = range;
                             maxEnemyHitSize = 45;
+                            hitSizeDamageScl = 3;
                         }};
                     }},
                     new PointDefenseWeapon("uaw-point-defense-red") {{

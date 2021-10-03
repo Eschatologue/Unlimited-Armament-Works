@@ -91,7 +91,7 @@ public class TorpedoBulletType extends BulletType {
     @Override
     public void hitEntity(Bullet b, Hitboxc entity, float health){
         float damageReduction = 1;
-        if(entity.hitSize() > maxEnemyHitSize) {
+        if(entity.hitSize() > maxEnemyHitSize || entity.hitSize() < maxEnemyHitSize / 3) {
             damageReduction = ((entity.hitSize() * 3.5f) / 100);
         }
         if(entity instanceof Healthc h){
