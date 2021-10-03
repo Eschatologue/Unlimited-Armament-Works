@@ -407,7 +407,7 @@ public class UAWUnitTypes implements ContentList {
                         shootCone = 180;
                         x = 0f;
                         y = 6f;
-                        reload = 2.5f * 60;
+                        reload = 4f * 60;
                         inaccuracy = 1f;
                         ammoType = new ItemAmmoType(Items.thorium);
                         targetAir = false;
@@ -470,7 +470,7 @@ public class UAWUnitTypes implements ContentList {
                         shootCone = 180;
                         x = 8f;
                         y = 6f;
-                        reload = 2.5f * 60;
+                        reload = 3f * 60;
                         inaccuracy = 1f;
                         ammoType = new ItemAmmoType(Items.thorium);
                         targetAir = false;

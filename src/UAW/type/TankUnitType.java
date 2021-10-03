@@ -16,7 +16,7 @@ import mindustry.world.blocks.environment.*;
 public class TankUnitType extends UnitType {
     public float trailIntensity = 0.4f;
     public float trailOffsetX = 0f, trailOffsetY = 0f;
-    public float liquidSpeedMultiplier = 1.3f;
+    public float liquidSpeedMultiplier = 1.2f;
     public TankUnitType(String name) {
         super(name);
         immunities = ObjectSet.with(StatusEffects.disarmed, StatusEffects.slow, StatusEffects.freezing);

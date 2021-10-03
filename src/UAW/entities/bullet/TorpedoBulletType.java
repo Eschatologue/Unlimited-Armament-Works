@@ -92,7 +92,7 @@ public class TorpedoBulletType extends BulletType {
     public void hitEntity(Bullet b, Hitboxc entity, float health){
         float damageReduction = 1;
         if(entity.hitSize() > maxEnemyHitSize) {
-            damageReduction = ((entity.hitSize() * 6f) / 100);
+            damageReduction = ((entity.hitSize() * 10f) / 100);
         }
         if(entity.hitSize() < maxEnemyHitSize / 3) {
             damageReduction = ((entity.hitSize() * 20f) / 100);
