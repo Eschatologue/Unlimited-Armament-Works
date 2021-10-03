@@ -414,7 +414,7 @@ public class UAWUnitTypes implements ContentList {
 
                         shootSound = UAWSounds.TorpedoFire1;
 
-                        bullet = new TorpedoBulletType(1.8f, 650) {{
+                        bullet = new TorpedoBulletType(1.8f, 450) {{
                             shootEffect = UAWFxStatic.shootWaterFlame;
                             lifetime = range / speed;
                             homingRange = range;
@@ -477,7 +477,7 @@ public class UAWUnitTypes implements ContentList {
 
                         shootSound = UAWSounds.TorpedoFire1;
 
-                        bullet = new TorpedoBulletType(1.8f, 750) {{
+                        bullet = new TorpedoBulletType(1.8f, 650) {{
                             shootEffect = UAWFxStatic.shootWaterFlame;
                             lifetime = range / speed;
                             homingRange = range;
