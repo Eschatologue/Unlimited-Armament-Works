@@ -443,7 +443,7 @@ public class UAWUnitTypes implements ContentList {
             );
         }};
         shiratsuyu = new UnitType("shiratsuyu") {{
-            health = 6500;
+            health = 5500;
             speed = 1f;
             accel = 0.2f;
             rotateSpeed = 1.8f;
@@ -513,7 +513,7 @@ public class UAWUnitTypes implements ContentList {
                         recoil = 1f;
                         shootSound = Sounds.shoot;
                         ejectEffect = Fx.casing2;
-                        bullet = new BasicBulletType(7f, 15) {{
+                        bullet = new BasicBulletType(7f, 25) {{
                             height = 10f;
                             width = 6f;
                             pierce = true;
