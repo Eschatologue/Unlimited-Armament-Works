@@ -768,7 +768,7 @@ public class UAWBlock implements ContentList {
 
             size = 5;
             consumes.power(4.5f);
-            consumes.items(with(Items.silicon, 100, Items.titanium, 100, Items.plastanium, 60));
+            consumes.items(with(Items.silicon, 90, Items.titanium, 130, Items.plastanium, 60));
             consumes.liquid(Liquids.oil, 1f);
 
             constructTime = 25 * tick;
@@ -793,7 +793,7 @@ public class UAWBlock implements ContentList {
 
             size = 7;
             consumes.power(7f);
-            consumes.items(with(Items.silicon, 250, Items.metaglass, 250, UAWItems.titaniumCarbide, 250, Items.plastanium, 550));
+            consumes.items(with(Items.silicon, 225, Items.metaglass, 225, UAWItems.titaniumCarbide, 250, Items.plastanium, 550));
             consumes.liquid(Liquids.oil, 1.5f);
 
             constructTime = 80 * tick;

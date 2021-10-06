@@ -1,3 +1,23 @@
+<div align="center">
+
+[![0-7-1.png](https://i.postimg.cc/W3QcKHdB/0-7-1.png)](https://postimg.cc/vgLKxXLh)
+
+</div>
+
+# Update 0.7.1
+An update that releases unexpectedly longer than expected.
+
+This update features some balance changes, overall polishing to torpedoes, and a new unit for the torpedo destroyer line
+
+## What's new?
+1. Added Tier 4 UAW Ground unit the 'Shiratsuyu'
+    - Can be researched from the Hatsuharu
+    - Equipped with more powerful torpedoes, along with machine-guns and missiles
+2. Slightly increases the movement penalty for tanks on liquid terrain
+3. Torpedo now deals increased damage depending on its target `hitSize` or `size`, the bigger they are, the more damage they take from torpedoes
+4. Slight changes reconstructors unit upgrade requirement
+5. New Sprite for [T3 Naval] 'Hatsuharu'
+
 # Update 0.7
 Update 0.7 is a small one, just overall polishing of tank units, I probably will do these type of updates more often instead of monthly huge update.
 
