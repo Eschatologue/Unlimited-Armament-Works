@@ -573,6 +573,9 @@ public class UAWBlock implements ContentList {
                         shootEffect = UAWFxStatic.shootSurgeFlame;
                         lifetime = range / speed;
                         ammoMultiplier = 3f;
+                    }},
+                    Items.copper, new DamageFieldBulletType(2f, 30f) {{
+                        lifetime = range / speed;
                     }}
             );
         }};

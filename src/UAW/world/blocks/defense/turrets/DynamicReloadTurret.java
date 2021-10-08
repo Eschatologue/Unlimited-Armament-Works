@@ -30,7 +30,8 @@ public class DynamicReloadTurret extends ItemTurret{
 			super.updateTile();
 			if(slowDownReload >= 1f){
 				slowDownReload -= Time.delta;
-			} else speedupScl = Mathf.lerpDelta(speedupScl, 0f, 0.05f);
+			} else
+				speedupScl = Mathf.lerpDelta(speedupScl, 0f, 0.05f);
 		}
 		
 		@Override

@@ -18,6 +18,9 @@ This update features some balance changes, overall polishing to torpedoes, and a
 4. Slight changes reconstructors unit upgrade requirement
 5. New Sprite for [T3 Naval] 'Hatsuharu'
 
+## Other Change
+1. Unlimited Armament Works is now licensed under GPL-3.0
+
 # Update 0.7
 Update 0.7 is a small one, just overall polishing of tank units, I probably will do these type of updates more often instead of monthly huge update.
 
