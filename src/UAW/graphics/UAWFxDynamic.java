@@ -77,21 +77,6 @@ public class UAWFxDynamic {
                     Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 2f));
         });
     }
-    /*
-    public static Effect shootThermal(Color color, float size) {
-        return new Effect(24.0F, size * 8, (e) -> {
-            e.scaled(10.0F, (b) -> {
-                Draw.color(Color.white, Color.lightGray, b.fin());
-                Lines.stroke(b.fout() * 3.0F + 0.2F);
-                Lines.circle(b.x, b.y, b.fin() * size);
-            });
-            Draw.color(color);
-
-            for (int i : Mathf.signs) {
-                Drawf.tri(e.x, e.y, (size * 0.26f) * e.fout(), (size * 1.7f), e.rotation + 90f * i);
-            }
-        });
-    }*/
     // endregion
     // region Hit
     public static Effect crossBlast(Color color, float size) {
@@ -143,10 +128,9 @@ public class UAWFxDynamic {
             Lines.circle(e.x, e.y, e.fin() * 5f);
         });
     }
-    public static Effect statusHit(Color color) {
-        return new Effect(40f, e -> {
+    public static Effect statusHit(Color color, float lifetime) {
+        return new Effect(lifetime, e -> {
             color(color);
-
             randLenVectors(e.id, 6, 1.5f + e.fin() * 2.5f, (x, y) -> {
                 Fill.circle(e.x + x, e.y + y, e.fout() * 1.5f);
             });

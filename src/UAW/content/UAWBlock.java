@@ -574,8 +574,7 @@ public class UAWBlock implements ContentList {
                         lifetime = range / speed;
                         ammoMultiplier = 3f;
                     }},
-                    Items.copper, new DamageFieldBulletType(2f, 30f) {{
-                        lifetime = range / speed;
+                    Items.copper, new DamageFieldBulletType(50f) {{
                     }}
             );
         }};
@@ -709,7 +708,7 @@ public class UAWBlock implements ContentList {
             ammo(
                     Liquids.cryofluid, new StatusFieldBulletType(StatusEffects.freezing, reloadTime * 1.5f) {{
                         shootEffect = UAWFxDynamic.statusFieldApply(UAWPal.cryoFront, UAWPal.cryoBack, range);
-                        despawnEffect = smokeEffect = UAWFxDynamic.statusHit(UAWPal.cryoMiddle);
+                        despawnEffect = smokeEffect = UAWFxDynamic.statusHit(UAWPal.cryoMiddle, 40f);
                     }},
                     Liquids.slag, new StatusFieldBulletType(StatusEffects.melting, reloadTime * 1.5f){{
                         shootEffect = UAWFxDynamic.statusFieldApply(UAWPal.incendFront, UAWPal.incendBack, range);
@@ -717,11 +716,11 @@ public class UAWBlock implements ContentList {
                     }},
                     Liquids.oil, new StatusFieldBulletType(StatusEffects.tarred, reloadTime * 1.5f){{
                         shootEffect = UAWFxDynamic.statusFieldApply(Pal.plastaniumFront, Pal.plastaniumBack, range);
-                        despawnEffect = smokeEffect = UAWFxDynamic.statusHit(Pal.plastaniumFront);
+                        despawnEffect = smokeEffect = UAWFxDynamic.statusHit(Pal.plastaniumFront, 40f);
                     }},
                     UAWLiquid.surgeSolvent, new StatusFieldBulletType(StatusEffects.electrified, reloadTime * 1.5f){{
                         shootEffect = UAWFxDynamic.statusFieldApply(UAWPal.surgeFront, UAWPal.surgeBack, range);
-                        despawnEffect = smokeEffect = UAWFxDynamic.statusHit(UAWPal.surgeMiddle);
+                        despawnEffect = smokeEffect = UAWFxDynamic.statusHit(UAWPal.surgeMiddle, 40f);
                     }}
             );
             consumes.power(2.4f);

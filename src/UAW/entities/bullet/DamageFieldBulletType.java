@@ -2,8 +2,9 @@ package UAW.entities.bullet;
 
 import UAW.graphics.UAWFxDynamic;
 import arc.audio.Sound;
+import arc.graphics.Color;
+import arc.math.*;
 import arc.util.Time;
-import mindustry.content.*;
 import mindustry.entities.*;
 import mindustry.entities.bullet.*;
 import mindustry.gen.*;
@@ -11,45 +12,45 @@ import mindustry.graphics.Pal;
 
 import static mindustry.Vars.*;
 
-public class DamageFieldBulletType extends ArtilleryBulletType {
-    public boolean continiousApply = true;
-    public Sound applySound = Sounds.plasmadrop;
-    public float radius = 4 * tilesize;
+/** Damages all enemies caught within its area of effect, should be used like fragBullets*/
+
+public class DamageFieldBulletType extends BulletType {
+    /**How big is the area, already multiplied with tilesize*/
+    public float blockRadius = 4;
+    /**Interval per splash*/
     public float splashDelay = 30f;
+    /**How many times it splashes*/
     public int splashAmount = 3;
+    public Sound applySound = Sounds.shotgun;
+    public Color frontColor = Pal.bulletYellow, backColor = Pal.bulletYellowBack;
 
-    public DamageFieldBulletType(float speed, float damage) {
-        super(speed, damage);
-        splashDamageRadius = radius;
+    public DamageFieldBulletType(float damage) {
+        splashDamage = damage;
+        splashDamageRadius = (blockRadius * tilesize);
         scaleVelocity = true;
-        height = 24f;
-        width = height / 2.5f;
+        hittable = false;
+        lifetime = splashDelay * splashAmount;
+        speed = 0f;
     }
-
     @Override
-    public void hit(Bullet b, float x, float y) {
+    public void update(Bullet b){
         Effect applyEffect = UAWFxDynamic.circleSplash(frontColor, backColor, splashDamageRadius);
-        super.hit(b, x, y);
-        // Modifies how splash damage are dealt
-        if (splashDamageRadius > 0 && !b.absorbed && continiousApply) {
-            // Thx to sh1penfire#0868 & iarkn#8872 for helping me with this
-            for (int i = 0; i < splashAmount; i++) {
-                Time.runTask(splashDelay * i, () -> {
-                    Damage.damage(b.team, x, y, splashDamageRadius, splashDamage * b.damageMultiplier(), collidesAir, collidesGround);
-                    applySound.at(b.x, b.y);
-                    applyEffect.at(b.x, b.y);
-
-                    if (status != StatusEffects.none) {
-                        Damage.status(b.team, x, y, splashDamageRadius, status, statusDuration, collidesAir, collidesGround);
-                    }
-                    if (healPercent > 0f) {
-                        indexer.eachBlock(b.team, x, y, splashDamageRadius, Building::damaged, other -> {
-                            Fx.healBlockFull.at(other.x, other.y, other.block.size, Pal.heal);
-                            other.heal(healPercent / 100f * other.maxHealth());
-                        });
-                    }
-                });
-            }
-        }
+        Effect particleEffect = UAWFxDynamic.statusHit(frontColor, 10f);
+        if (splashDamage > 0 && !b.absorbed()){
+        // Thanks to sh1penfire#0868 & iarkn#8872 for this
+        for (int i = 0; i < splashAmount; i++) {
+            Time.runTask(splashDelay * i, () -> {
+                Damage.damage(b.x, b.y, splashDamageRadius, splashDamage);
+                applyEffect.at(b.x, b.y);
+                applySound.at(b.x,b.y);
+                for (int j = 0; j < (splashAmount * 5); j++) {
+                    particleEffect.at(
+                            b.x + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius)),
+                            b.y + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius))
+                    );
+                }
+            });
+        }}
+        super.update(b);
     }
 }

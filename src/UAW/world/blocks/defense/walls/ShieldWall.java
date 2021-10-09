@@ -66,7 +66,7 @@ public class ShieldWall extends Wall {
     public class ShieldBuild extends Building implements Ranged{
         public boolean broken = true;
         public float buildup, radscl, hit, warmup;
-        //Shield Real radius
+        //Shield Real blockRadius
         @Override
         public float range(){
             return realRadius();
