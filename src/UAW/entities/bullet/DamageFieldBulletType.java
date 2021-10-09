@@ -4,7 +4,6 @@ import UAW.graphics.UAWFxDynamic;
 import arc.audio.Sound;
 import arc.graphics.Color;
 import arc.math.*;
-import arc.util.Time;
 import mindustry.entities.*;
 import mindustry.entities.bullet.BulletType;
 import mindustry.gen.*;
@@ -42,13 +41,10 @@ public class DamageFieldBulletType extends BulletType {
     }
 
     @Override
-    public void hit(Bullet b, float x, float y) {
-        super.hit(b, x, y);
+    public void update(Bullet b) {
         Effect applyEffect = UAWFxDynamic.circleSplash(frontColor, backColor, splashDamageRadius);
         Effect particleEffect = UAWFxDynamic.statusHit(frontColor, 10f);
-        // Thanks to sh1penfire#0868 & iarkn#8872 for this
-        for (int i = 0; i < splashAmount; i++) {
-            Time.runTask(splashDelay * i, () -> {
+        if (b.timer(1, splashDelay)) {
                 Damage.damage(b.team, b.x, b.y, splashDamageRadius, splashDamage);
                 applyEffect.at(b.x, b.y);
                 applySound.at(b.x, b.y);
@@ -58,7 +54,7 @@ public class DamageFieldBulletType extends BulletType {
                             b.y + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius))
                     );
                 }
-            });
-        }
+            }
+        super.update(b);
     }
 }
