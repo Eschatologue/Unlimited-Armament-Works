@@ -23,10 +23,10 @@ public class DamageFieldBulletType extends BasicBulletType {
 
     @Override
     public void hit(Bullet b, float x, float y) {
-        Effect applyEffect = UAWFxDynamic.circleApply(Pal.bulletYellow, Pal.bulletYellowBack, radius);
+        Effect applyEffect = Fx.doorcloselarge;
         super.hit(b, x, y);
         if (splashDamageRadius > 0 && !b.absorbed && continiousApply) {
-            if (b.timer(1, 15f)) {
+            if (b.timer(1, 30f)) {
                 Damage.damage(b.team, x, y, splashDamageRadius, splashDamage * b.damageMultiplier(), collidesAir, collidesGround);
                 applySound.at(b.x, b.y);
                 applyEffect.at(b.x,b.y);
