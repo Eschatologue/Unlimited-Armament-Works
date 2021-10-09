@@ -4,6 +4,7 @@ import UAW.graphics.UAWFxDynamic;
 import arc.audio.Sound;
 import arc.graphics.Color;
 import arc.math.*;
+import mindustry.content.Fx;
 import mindustry.entities.*;
 import mindustry.entities.bullet.BulletType;
 import mindustry.gen.*;
@@ -34,10 +35,10 @@ public class DamageFieldBulletType extends BulletType {
     public DamageFieldBulletType(float damage) {
         splashDamage = damage;
         splashDamageRadius = (blockRadius * tilesize);
-        scaleVelocity = true;
         hittable = false;
         lifetime = 60f;
-        speed = 2f;
+        speed = 0;
+        despawnEffect = Fx.none;
     }
 
     @Override
