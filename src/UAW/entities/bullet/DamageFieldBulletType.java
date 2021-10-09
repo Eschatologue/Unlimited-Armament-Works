@@ -13,11 +13,12 @@ import static mindustry.Vars.*;
 public class DamageFieldBulletType extends BasicBulletType {
     public boolean continiousApply = true;
     public Sound applySound = Sounds.shield;
-    public float radius = 4* tilesize;
+    public float radius = 4 * tilesize;
 
     public DamageFieldBulletType(float speed, float damage) {
         super(speed,damage);
         splashDamageRadius = radius;
+        scaleVelocity = true;
     }
 
     @Override
@@ -25,10 +26,11 @@ public class DamageFieldBulletType extends BasicBulletType {
         Effect applyEffect = UAWFxDynamic.circleApply(Pal.bulletYellow, Pal.bulletYellowBack, radius);
         super.hit(b, x, y);
         if (splashDamageRadius > 0 && !b.absorbed && continiousApply) {
-            if (b.timer(1, 3f)) {
+            if (b.timer(1, 15f)) {
                 Damage.damage(b.team, x, y, splashDamageRadius, splashDamage * b.damageMultiplier(), collidesAir, collidesGround);
                 applySound.at(b.x, b.y);
                 applyEffect.at(b.x,b.y);
+
                 if (status != StatusEffects.none) {
                     Damage.status(b.team, x, y, splashDamageRadius, status, statusDuration, collidesAir, collidesGround);
                 }
