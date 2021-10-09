@@ -708,19 +708,19 @@ public class UAWBlock implements ContentList {
             ammoUseEffect = Fx.doorcloselarge;
             ammo(
                     Liquids.cryofluid, new StatusFieldBulletType(StatusEffects.freezing, reloadTime * 1.5f) {{
-                        shootEffect = UAWFxDynamic.circleApply(UAWPal.cryoFront, UAWPal.cryoBack, range);
+                        shootEffect = UAWFxDynamic.statusFieldApply(UAWPal.cryoFront, UAWPal.cryoBack, range);
                         despawnEffect = smokeEffect = UAWFxDynamic.statusHit(UAWPal.cryoMiddle);
                     }},
                     Liquids.slag, new StatusFieldBulletType(StatusEffects.melting, reloadTime * 1.5f){{
-                        shootEffect = UAWFxDynamic.circleApply(UAWPal.incendFront, UAWPal.incendBack, range);
+                        shootEffect = UAWFxDynamic.statusFieldApply(UAWPal.incendFront, UAWPal.incendBack, range);
                         despawnEffect = smokeEffect = Fx.melting;
                     }},
                     Liquids.oil, new StatusFieldBulletType(StatusEffects.tarred, reloadTime * 1.5f){{
-                        shootEffect = UAWFxDynamic.circleApply(Pal.plastaniumFront, Pal.plastaniumBack, range);
+                        shootEffect = UAWFxDynamic.statusFieldApply(Pal.plastaniumFront, Pal.plastaniumBack, range);
                         despawnEffect = smokeEffect = UAWFxDynamic.statusHit(Pal.plastaniumFront);
                     }},
                     UAWLiquid.surgeSolvent, new StatusFieldBulletType(StatusEffects.electrified, reloadTime * 1.5f){{
-                        shootEffect = UAWFxDynamic.circleApply(UAWPal.surgeFront, UAWPal.surgeBack, range);
+                        shootEffect = UAWFxDynamic.statusFieldApply(UAWPal.surgeFront, UAWPal.surgeBack, range);
                         despawnEffect = smokeEffect = UAWFxDynamic.statusHit(UAWPal.surgeMiddle);
                     }}
             );

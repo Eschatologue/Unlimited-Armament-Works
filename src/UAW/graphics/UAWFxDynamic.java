@@ -49,7 +49,7 @@ public class UAWFxDynamic {
             }
         });
     }
-    public static Effect circleApply(Color lightColor, Color darkColor, float size) {
+    public static Effect statusFieldApply(Color lightColor, Color darkColor, float size) {
         return new Effect(50, e -> {
             color(lightColor, darkColor, e.fin());
             stroke(e.fout() * 5f);
@@ -150,6 +150,13 @@ public class UAWFxDynamic {
             randLenVectors(e.id, 6, 1.5f + e.fin() * 2.5f, (x, y) -> {
                 Fill.circle(e.x + x, e.y + y, e.fout() * 1.5f);
             });
+        });
+    }
+    public static Effect circleSplash(Color lightColor, Color darkColor, float size) {
+        return new Effect(30, e -> {
+            color(lightColor, darkColor, e.fin());
+            stroke(e.fout() * 5f);
+            Lines.circle(e.x, e.y, size + e.fout() * 4f);
         });
     }
 
