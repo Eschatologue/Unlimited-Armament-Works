@@ -24,7 +24,7 @@ public class DamageFieldBulletType extends BulletType {
     /**
      * Interval per splash
      */
-    public float splashDelay = 45f;
+    public float splashDelay = 30f;
     /**
      * How many times it splashes
      */
@@ -36,24 +36,23 @@ public class DamageFieldBulletType extends BulletType {
         splashDamage = damage;
         splashDamageRadius = (blockRadius * tilesize);
         hittable = false;
-        lifetime = 60f;
+        lifetime = (splashDelay * splashAmount) + (splashDelay / 2);
         speed = 0;
-        despawnEffect = Fx.none;
+        hitEffect = despawnEffect = Fx.none;
     }
 
     @Override
     public void update(Bullet b) {
         Effect applyEffect = UAWFxDynamic.circleSplash(frontColor, backColor, splashDamageRadius);
         Effect particleEffect = UAWFxDynamic.statusHit(frontColor, 10f);
+        float rangeX =  b.x + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius));
+        float rangeY =  b.y + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius));
         if (b.timer(1, splashDelay)) {
                 Damage.damage(b.team, b.x, b.y, splashDamageRadius, splashDamage);
                 applyEffect.at(b.x, b.y);
                 applySound.at(b.x, b.y);
-                for (int j = 0; j < (splashAmount * 5); j++) {
-                    particleEffect.at(
-                            b.x + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius)),
-                            b.y + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius))
-                    );
+                for (int j = 0; j < (splashAmount * 10); j++) {
+                    particleEffect.at(rangeX, rangeY);
                 }
             }
     }
