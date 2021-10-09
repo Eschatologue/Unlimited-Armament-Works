@@ -45,7 +45,7 @@ public class DamageFieldBulletType extends BulletType {
     public void update(Bullet b) {
         Effect applyEffect = UAWFxDynamic.circleSplash(frontColor, backColor, splashDamageRadius);
         Effect particleEffect = UAWFxDynamic.statusHit(frontColor, 10f);
-        if (Time.delta < lifetime) {
+        if ((Time.delta * 5) < lifetime) {
             // Thanks to sh1penfire#0868 & iarkn#8872 for this
             for (int i = 0; i < splashAmount; i++) {
                 Time.runTask(splashDelay * i, () -> {
