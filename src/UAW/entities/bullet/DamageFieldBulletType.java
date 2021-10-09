@@ -36,8 +36,8 @@ public class DamageFieldBulletType extends BulletType {
         splashDamageRadius = (blockRadius * tilesize);
         scaleVelocity = true;
         hittable = false;
-        lifetime = splashDelay * splashAmount;
-        speed = 0f;
+        lifetime = 60f;
+        speed = 2f;
     }
 
     @Override
@@ -55,6 +55,5 @@ public class DamageFieldBulletType extends BulletType {
                     );
                 }
             }
-        super.update(b);
     }
 }
