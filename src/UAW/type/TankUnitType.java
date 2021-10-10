@@ -16,6 +16,8 @@ public class TankUnitType extends UnitType {
     public float trailIntensity = 0.4f;
     public float trailOffsetX = 0f, trailOffsetY = 0f;
     public float liquidSpeedMultiplier = 1.2f;
+    public boolean engineSmoke = false;
+    public float engineOffsetX = 0f, engineOffsetY = 0f;
 
     public TankUnitType(String name) {
         super(name);
@@ -53,7 +55,16 @@ public class TankUnitType extends UnitType {
         }
         // Trail Effect
         if (Mathf.chanceDelta(trailIntensity) && !floor.isLiquid && unit.moving()) {
-            Fx.unitLand.at(offX, offY, unit.hitSize / 6, floorColor);
+            Fx.unitLand.at(
+                    unit.x + Angles.trnsx(unit.rotation - 90, trailOffsetX, trailOffsetY),
+                    unit.y + Angles.trnsy(unit.rotation - 90, trailOffsetX, trailOffsetY),
+                    unit.hitSize / 6, floorColor);
+        }
+        // Engine Smoke
+        if (Mathf.chanceDelta(trailIntensity / 2) && engineSmoke) {
+            Fx.formsmoke.at(
+                    Angles.trnsx(unit.rotation - 90, engineOffsetX, 0),
+                    Angles.trnsy(unit.rotation - 90, 0, engineOffsetY));
         }
     }
 }

@@ -6,15 +6,14 @@ import arc.util.Time;
 import mindustry.content.Fx;
 import mindustry.entities.abilities.Ability;
 import mindustry.entities.bullet.BulletType;
-import mindustry.gen.*;
+import mindustry.gen.Unit;
 
 import static mindustry.Vars.tilesize;
 
 public class RazorRotorAbility extends Ability {
     public float damage = 35f;
-    public float range = 4f * tilesize;
-    public float chance = 0.5f;
-    public float minSpeed = 0.8f, maxSpeed = 2.5f;
+    public float range = 5f * tilesize;
+    public float chance = 0.8f;
     public BulletType bullet;
 
     RazorRotorAbility() {
@@ -25,19 +24,16 @@ public class RazorRotorAbility extends Ability {
         this.chance = chance;
         this.range = range;
         this.bullet = new DamageFieldBulletType(damage, range) {{
-            hitEffect = Fx.hitBulletSmall;
-            despawnEffect = Fx.none;
             instantDisappear = true;
             speed = 0f;
             splashAmount = 1;
-            particleEffect = Fx.none;
+            hitEffect = despawnEffect = particleEffect = applyEffect = Fx.none;
         }};
     }
 
     @Override
     public void update(Unit unit) {
-        float scl = Mathf.clamp((unit.vel().len() - minSpeed) / (maxSpeed - minSpeed));
-        if(Mathf.chance(Time.delta * chance * scl)){
+        if (Mathf.chance(Time.delta * chance)) {
             bullet.create(unit, unit.team, unit.x, unit.y, 0);
         }
     }
