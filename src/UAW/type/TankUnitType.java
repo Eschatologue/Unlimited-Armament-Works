@@ -38,7 +38,7 @@ public class TankUnitType extends UnitType {
 
     @Override
     public void update(Unit unit) {
-        float engineSmokeIntensity = trailIntensity / 2;
+        float engineSmokeIntensity = trailIntensity;
         Floor floor = Vars.world.floorWorld(unit.x, unit.y);
         Color floorColor = floor.mapColor;
         super.update(unit);
@@ -60,7 +60,7 @@ public class TankUnitType extends UnitType {
                     unit.hitSize / 6, floorColor);
         }
         if (unit.moving()){
-            engineSmokeIntensity = trailIntensity * 3;
+            engineSmokeIntensity = trailIntensity * 4;
         }
         // Engine Smoke
         if (Mathf.chanceDelta((engineSmokeIntensity)) && engineSmoke) {

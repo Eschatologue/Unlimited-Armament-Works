@@ -655,8 +655,8 @@ public class UAWUnitTypes implements ContentList {
             range = 48 * tilesize;
             rotateShooting = false;
             engineSmoke = true;
-            engineOffsetX = 4 ;
-            engineOffsetY = -8f;
+            engineOffsetX = 5 ;
+            engineOffsetY = -9f;
 
             weapons.add(
                     new TurretedWeapon(name + "-gun") {{
