@@ -304,6 +304,7 @@ public class UAWBlock implements ContentList {
                     Items.surgeAlloy, 250,
                     Items.plastanium, 175,
                     Items.thorium, 250));
+            health = 100 * size * size;
             targetAir = false;
             size = 4;
             inaccuracy = 0f;
@@ -314,28 +315,29 @@ public class UAWBlock implements ContentList {
             velocityInaccuracy = 0.2f;
             restitution = 0.02f;
             recoilAmount = 6f;
-            shootShake = 8f;
+            shootShake = 36f;
             range = 50 * tilesize;
             minRange = range / 10;
 
-            health = 100 * size * size;
             shootSound = UAWSfx.artillertShootHuge;
             ammo(
                     Items.thorium, new ArtilleryBulletType() {{
                         damage = 1200;
                         splashDamage = 1550;
-                        splashDamageRadius = 8 * tilesize;
-                        speed = 4f;
-                        height = 35;
+                        splashDamageRadius = 12 * tilesize;
+                        speed = 2f;
+                        height = 48;
                         width = height / 2f;
                         lifetime = range / speed;
-                        shootEffect = new MultiEffect(UAWFxDynamic.railShoot(Pal.missileYellow, 32), Fx.blockExplosionSmoke);
-                        hitEffect = new MultiEffect(Fx.railHit, Fx.blockExplosionSmoke);
+                        shootEffect = new MultiEffect(UAWFxDynamic.railShoot(Pal.missileYellow, 64), Fx.impactcloud);
+                        hitEffect = new MultiEffect(Fx.impactReactorExplosion, Fx.impactcloud, Fx.impactShockwave);
                         hitSound = Sounds.explosionbig;
                         hitSoundVolume = 4f;
                         smokeEffect = Fx.smokeCloud;
-                        hitShake = 18f;
-                        fragBullet = new DamageFieldBulletType(splashDamage, splashDamageRadius){{
+                        hitShake = 34f;
+                        fragBullets = 1;
+                        restitution = 0.02f;
+                        fragBullet = new DamageFieldBulletType(splashDamage / 4, splashDamageRadius){{
                             splashAmount = 4;
                             status = StatusEffects.slow;
                             applySound = Sounds.explosionbig;
