@@ -335,7 +335,6 @@ public class UAWBlock implements ContentList {
                         hitSoundVolume = 4f;
                         smokeEffect = Fx.smokeCloud;
                         hitShake = 18f;
-                        ammoMultiplier = 0.5f;
                         fragBullet = new DamageFieldBulletType(splashDamage, splashDamageRadius){{
                             splashAmount = 4;
                             status = StatusEffects.slow;
