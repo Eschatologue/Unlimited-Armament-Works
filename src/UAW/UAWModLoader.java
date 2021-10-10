@@ -7,7 +7,7 @@ import mindustry.mod.*;
 
 public class UAWModLoader extends Mod{
     public UAWModLoader(){
-        Events.on(FileTreeInitEvent.class, e -> UAWSounds.load());
+        Events.on(FileTreeInitEvent.class, e -> UAWSfx.load());
     }
     @Override
     public void loadContent(){

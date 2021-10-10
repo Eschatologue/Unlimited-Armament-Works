@@ -179,7 +179,7 @@ public class UAWUnitTypes implements ContentList {
                         reload = 60f;
                         recoil = 2f;
                         firstShotDelay = 20f;
-                        shootSound = UAWSounds.MissileLaunch1;
+                        shootSound = UAWSfx.cruiseMissileShoot1;
                         bullet = new CruiseMissileBulletType(3f, 65){{
                             size = 5f;
                             homingRange = 120f;
@@ -412,7 +412,7 @@ public class UAWUnitTypes implements ContentList {
                         ammoType = new ItemAmmoType(Items.thorium);
                         targetAir = false;
 
-                        shootSound = UAWSounds.TorpedoFire1;
+                        shootSound = UAWSfx.torpedoShoot1;
 
                         bullet = new TorpedoBulletType(1.8f, 450) {{
                             shootEffect = UAWFxStatic.shootWaterFlame;
@@ -475,7 +475,7 @@ public class UAWUnitTypes implements ContentList {
                         ammoType = new ItemAmmoType(Items.thorium);
                         targetAir = false;
 
-                        shootSound = UAWSounds.TorpedoFire1;
+                        shootSound = UAWSfx.torpedoShoot1;
 
                         bullet = new TorpedoBulletType(1.8f, 650) {{
                             shootEffect = UAWFxStatic.shootWaterFlame;
@@ -605,7 +605,7 @@ public class UAWUnitTypes implements ContentList {
                         shootY = 16f;
                         reload = 1.5f * 60;
                         recoil = 4.5f;
-                        shootSound = UAWSounds.CannonShot1;
+                        shootSound = UAWSfx.cannonShoot1;
                         ejectEffect = UAWFxStatic.casing2Long;
                         shake = 3f;
                         bullet = new BasicBulletType(7f, 85) {{
@@ -669,7 +669,7 @@ public class UAWUnitTypes implements ContentList {
                         shootY = 32f;
                         reload = 2 * 60;
                         recoil = 4.4f;
-                        shootSound = UAWSounds.CannonShot1;
+                        shootSound = UAWSfx.cannonShoot1;
                         ejectEffect = UAWFxStatic.casing3Long;
                         shake = 6f;
                         bullet = new BasicBulletType(8f, 215) {{

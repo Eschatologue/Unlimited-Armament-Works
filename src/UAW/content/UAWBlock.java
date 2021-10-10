@@ -30,17 +30,19 @@ public class UAWBlock implements ContentList {
     public static Block
     // region Turret
         /// MG
-        quadra, spitfire,
+        quadra, spitfire, saintfire,
         /// Sniper
-        solo, longsword,
+        solo, longsword, deadeye,
         /// SG
         buckshot, tempest, strikeforce,
         /// VLS
         sparkler, sunspot,
         /// TMDS
         zounderkite,
+        /// Artillery
+        skyhammer,
     // crafters
-        gelatinizer, carburizingFurnace, surgeMixer, coalLiquefier,
+       gelatinizer, carburizingFurnace, surgeMixer, coalLiquefier,
     // endregion
     // region Defense
         /// Walls
@@ -294,6 +296,54 @@ public class UAWBlock implements ContentList {
             );
         }};
 
+        // Artillery
+        skyhammer = new ItemTurret("skyhammer") {{
+            requirements(Category.turret, with(
+                    Items.copper, 900,
+                    Items.graphite, 300,
+                    Items.surgeAlloy, 250,
+                    Items.plastanium, 175,
+                    Items.thorium, 250));
+            targetAir = false;
+            size = 4;
+            inaccuracy = 0f;
+            reloadTime = 8 * tick;
+            ammoEjectBack = 5f;
+            ammoUseEffect = UAWFxStatic.casing7;
+            ammoPerShot = 5;
+            velocityInaccuracy = 0.2f;
+            restitution = 0.02f;
+            recoilAmount = 6f;
+            shootShake = 8f;
+            range = 50 * tilesize;
+            minRange = range / 10;
+
+            health = 100 * size * size;
+            shootSound = UAWSfx.artillertShootHuge;
+            ammo(
+                    Items.thorium, new ArtilleryBulletType() {{
+                        damage = 1200;
+                        splashDamage = 1550;
+                        splashDamageRadius = 8 * tilesize;
+                        speed = 4f;
+                        height = 35;
+                        width = height / 2f;
+                        lifetime = range / speed;
+                        shootEffect = new MultiEffect(UAWFxDynamic.railShoot(Pal.missileYellow, 32), Fx.blockExplosionSmoke);
+                        hitEffect = new MultiEffect(Fx.railHit, Fx.blockExplosionSmoke);
+                        hitSound = Sounds.explosionbig;
+                        hitSoundVolume = 4f;
+                        smokeEffect = Fx.smokeCloud;
+                        hitShake = 18f;
+                        ammoMultiplier = 0.5f;
+                        fragBullet = new DamageFieldBulletType(splashDamage, splashDamageRadius){{
+                            splashAmount = 4;
+                            status = StatusEffects.slow;
+                            applySound = Sounds.explosionbig;
+                        }};
+                    }}
+            );
+        }};
         // SG
         buckshot = new ItemTurret("buckshot") {{
             requirements(Category.turret, with(
@@ -343,7 +393,7 @@ public class UAWBlock implements ContentList {
             shootCone = 2.3f;
             velocityInaccuracy = 0.2f;
             ammoUseEffect = Fx.casing3;
-            shootSound = UAWSounds.ShotgunShotAuto1;
+            shootSound = UAWSfx.shotgun_shoot_1;
             inaccuracy = 6f;
             rotateSpeed = 4f;
             maxAmmo = 60;
@@ -527,7 +577,7 @@ public class UAWBlock implements ContentList {
             minRange = range / 4;
             reloadTime = 3 * tick;
             size = 3;
-            shootSound = UAWSounds.LauncherShot1;
+            shootSound = UAWSfx.launcherShoot1;
             ammoUseEffect = UAWFxStatic.casingCanister;
             ammoPerShot = 15;
             acceptCoolant = false;
