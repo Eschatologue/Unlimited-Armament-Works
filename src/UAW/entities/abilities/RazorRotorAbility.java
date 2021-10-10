@@ -23,13 +23,12 @@ public class RazorRotorAbility extends Ability {
         this.damage = damage;
         this.chance = chance;
         this.range = range;
-        this.bullet = new DamageFieldBulletType(damage, range) {{
+        this.bullet = new BulletType(damage, range) {{
             hitEffect = Fx.hitBulletSmall;
             despawnEffect = Fx.none;
             instantDisappear = true;
             speed = 0f;
-            splashAmount = 1;
-            particleEffect = Fx.none;
+            hitSize = range;
         }};
     }
 

@@ -38,10 +38,9 @@ public class TankUnitType extends UnitType {
 
     @Override
     public void update(Unit unit) {
+        float engineSmokeIntensity = trailIntensity / 2;
         Floor floor = Vars.world.floorWorld(unit.x, unit.y);
         Color floorColor = floor.mapColor;
-        float offX = unit.x + Angles.trnsx(unit.rotation - 90, trailOffsetX, trailOffsetY);
-        float offY = unit.y + Angles.trnsy(unit.rotation - 90, trailOffsetX, trailOffsetY);
         super.update(unit);
         // Weak against fire
         if (unit.hasEffect(StatusEffects.melting) || unit.hasEffect(StatusEffects.burning)) {
@@ -60,11 +59,14 @@ public class TankUnitType extends UnitType {
                     unit.y + Angles.trnsy(unit.rotation - 90, trailOffsetX, trailOffsetY),
                     unit.hitSize / 6, floorColor);
         }
+        if (unit.moving()){
+            engineSmokeIntensity = trailIntensity * 2;
+        }
         // Engine Smoke
-        if (Mathf.chanceDelta(trailIntensity / 2) && engineSmoke) {
-            Fx.formsmoke.at(
-                    Angles.trnsx(unit.rotation - 90, engineOffsetX, 0),
-                    Angles.trnsy(unit.rotation - 90, 0, engineOffsetY));
+        if (Mathf.chanceDelta((engineSmokeIntensity)) && engineSmoke) {
+            Fx.fireSmoke.at(
+                    unit.x + Angles.trnsx(unit.rotation - 90, engineOffsetX, 0),
+                    unit.y + Angles.trnsy(unit.rotation - 90, 0, engineOffsetY));
         }
     }
 }
