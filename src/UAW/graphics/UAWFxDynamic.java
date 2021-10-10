@@ -49,15 +49,11 @@ public class UAWFxDynamic {
             }
         });
     }
-    public static Effect statusFieldApply(Color lightColor, Color darkColor, float size) {
+    public static Effect statusFieldApply(Color frontColor, Color backColor, float size) {
         return new Effect(50, e -> {
-            color(lightColor, darkColor, e.fin());
+            color(frontColor, backColor, e.fin());
             stroke(e.fout() * 5f);
             Lines.circle(e.x, e.y, size + e.fout() * 4f);
-            /*
-            Lines.poly(e.x, e.y, 8,e.finpow() * size, 45);
-            Lines.square(e.x, e.y, e.foutpow() * (size - 5), 45);
-            */
             int points = 6;
             float offset = Mathf.randomSeed(e.id, 360f);
             for(int i = 0; i < points; i++){
@@ -66,7 +62,7 @@ public class UAWFxDynamic {
                 Drawf.tri(
                         e.x + rx, e.y + ry, 48f, 28f * e.fout(), angle);
             }
-            Drawf.light(e.x, e.y, size * 1.6f, darkColor, e.fout());
+            Drawf.light(e.x, e.y, size * 1.6f, backColor, e.fout());
         });
     }
     public static Effect shootFlamethrower(float lifetime) {

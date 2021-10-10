@@ -65,14 +65,6 @@ public class EffectFieldProjector extends StaticLiquidTurret {
             ammoUseEffect.at(x, y);
             shootSound.at(x, y, Mathf.random(0.9f, 1.1f));
         }
-
-        @Override
-        protected void bullet(BulletType type, float angle) {
-            float lifeScl = type.scaleVelocity ? Mathf.clamp(Mathf.dst(x, y, targetPos.x, targetPos.y) / type.range(), minRange / type.range(), range / type.range()) : 1f;
-            float rndX = Angles.trnsx(Mathf.random(360), Mathf.random(range - 4));
-            float rndY = Angles.trnsy(Mathf.random(360), Mathf.random(range - 4));
-            type.create(this, team, x + rndX, y + rndY, angle, 1f, lifeScl);
-        }
     }
 }
 
