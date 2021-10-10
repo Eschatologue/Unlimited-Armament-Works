@@ -25,7 +25,7 @@ public class DamageFieldBulletType extends BulletType {
 
     public DamageFieldBulletType(float damage, float blockRadius) {
         splashDamage = damage;
-        splashDamageRadius = blockRadius * tilesize;
+        splashDamageRadius = blockRadius;
         hittable = false;
         lifetime = (splashDelay * splashAmount);
         hitSize = speed = 0;

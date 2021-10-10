@@ -2,12 +2,10 @@ package UAW.content;
 
 import UAW.entities.bullet.*;
 import UAW.graphics.*;
-import UAW.world.blocks.defense.EffectFieldProjector;
-import UAW.world.blocks.defense.RejuvenationProjector;
+import UAW.world.blocks.defense.*;
 import UAW.world.blocks.defense.turrets.DynamicReloadTurret;
 import UAW.world.blocks.defense.walls.ShieldWall;
 import UAW.world.blocks.drawer.DrawLiquidInput;
-
 import arc.graphics.Color;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
@@ -20,18 +18,17 @@ import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.units.Reconstructor;
-import mindustry.world.draw.DrawLiquid;
-import mindustry.world.draw.DrawSmelter;
+import mindustry.world.draw.*;
 
 import static UAW.content.UAWBullets.*;
 import static mindustry.Vars.tilesize;
-import static mindustry.type.ItemStack.with;
 import static mindustry.content.Bullets.*;
+import static mindustry.type.ItemStack.with;
 
 public class UAWBlock implements ContentList {
 
     public static Block
-        // region Turret
+    // region Turret
         /// MG
         quadra, spitfire,
         /// Sniper
@@ -42,23 +39,22 @@ public class UAWBlock implements ContentList {
         sparkler, sunspot,
         /// TMDS
         zounderkite,
-        // crafters
+    // crafters
         gelatinizer, carburizingFurnace, surgeMixer, coalLiquefier,
     // endregion
-        // region Defense
+    // region Defense
         /// Walls
         shieldWall,
         /// Projectors
-        statusFieldProjector,
-        rejuvinationProjector, rejuvinationDome,
+        statusFieldProjector, rejuvinationProjector, rejuvinationDome,
     // endregion
-        // region UnitBlocks
+    // region UnitBlocks
         /// Reconstructors
         multiplicativePetroleumReconstructor, exponentialPetroleumReconstructor, tetrativePetroleumReconstructor;
     // endregion
 
     @Override
-    public void load () {
+    public void load() {
         float tick = 60;
         // region Turrets
         // MG
@@ -119,7 +115,7 @@ public class UAWBlock implements ContentList {
             inaccuracyModifier = 0.4f;
 
             ammo(
-                    Items.graphite, new BasicBulletType(8,20) {{
+                    Items.graphite, new BasicBulletType(8, 20) {{
                         lifetime = range / speed;
                         pierceCap = 1;
                         height = 25;
@@ -133,7 +129,7 @@ public class UAWBlock implements ContentList {
 
                         status = StatusEffects.slow;
                     }},
-                    UAWItems.titaniumCarbide, new BasicBulletType(12,22) {{
+                    UAWItems.titaniumCarbide, new BasicBulletType(12, 22) {{
                         height = 30;
                         width = 8;
                         lifetime = range / speed + 8;
@@ -148,7 +144,7 @@ public class UAWBlock implements ContentList {
                         shootEffect = new MultiEffect(Fx.shootBig2, Fx.hitBulletBig);
                         status = UAWStatusEffects.breached;
                     }},
-                    Items.surgeAlloy, new BasicBulletType(8 ,18) {{
+                    Items.surgeAlloy, new BasicBulletType(8, 18) {{
                         height = 25;
                         width = 8;
                         lifetime = range / speed;
@@ -164,7 +160,7 @@ public class UAWBlock implements ContentList {
                         lightningDamage = 1.5f;
                         lightningLength = 12;
                     }},
-                    Items.pyratite, new BasicBulletType(7 ,15) {{
+                    Items.pyratite, new BasicBulletType(7, 15) {{
                         height = 25;
                         width = 10;
                         pierceCap = 1;
@@ -173,7 +169,7 @@ public class UAWBlock implements ContentList {
                         hitEffect = Fx.hitBulletBig;
                         despawnEffect = Fx.melting;
                         smokeEffect = Fx.shootBigSmoke2;
-                        shootEffect = new MultiEffect(Fx.shootPyraFlame,Fx.shootBig2);
+                        shootEffect = new MultiEffect(Fx.shootPyraFlame, Fx.shootBig2);
                         frontColor = UAWPal.incendFront;
                         backColor = UAWPal.incendBack;
                         status = StatusEffects.melting;
@@ -186,7 +182,7 @@ public class UAWBlock implements ContentList {
                         fragLifeMax = 0.8f;
                         fragBullet = Bullets.slagShot;
                     }},
-                    UAWItems.cryogel, new BasicBulletType(7 ,15) {{
+                    UAWItems.cryogel, new BasicBulletType(7, 15) {{
                         height = 25;
                         width = 10;
                         pierceCap = 1;
@@ -195,7 +191,7 @@ public class UAWBlock implements ContentList {
                         hitEffect = Fx.hitBulletBig;
                         despawnEffect = Fx.freezing;
                         smokeEffect = Fx.shootBigSmoke2;
-                        shootEffect = new MultiEffect(UAWFxStatic.shootCryoFlame,Fx.shootBig2);
+                        shootEffect = new MultiEffect(UAWFxStatic.shootCryoFlame, Fx.shootBig2);
                         frontColor = UAWPal.cryoFront;
                         backColor = UAWPal.cryoBack;
                         status = StatusEffects.freezing;
@@ -357,7 +353,7 @@ public class UAWBlock implements ContentList {
                         lifetime = range / speed;
                         knockback = 4f;
                     }},
-                    Items.pyratite,  new BuckshotBulletType(5f, 8f) {{
+                    Items.pyratite, new BuckshotBulletType(5f, 8f) {{
                         shootEffect = Fx.shootPyraFlame;
                         smokeEffect = Fx.shootBigSmoke2;
                         hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.burning);
@@ -406,7 +402,7 @@ public class UAWBlock implements ContentList {
                         splashDamage = damage / 2;
                         lifetime = range / speed;
                         fragBullets = 6;
-                        fragBullet = new BasicBulletType(3f, 3, "bullet"){{
+                        fragBullet = new BasicBulletType(3f, 3, "bullet") {{
                             width = 5f;
                             height = 12f;
                             shrinkY = 1f;
@@ -532,7 +528,7 @@ public class UAWBlock implements ContentList {
             reloadTime = 3 * tick;
             size = 3;
             shootSound = UAWSounds.LauncherShot1;
-            ammoUseEffect= UAWFxStatic.casingCanister;
+            ammoUseEffect = UAWFxStatic.casingCanister;
             ammoPerShot = 15;
             acceptCoolant = false;
             ammo(
@@ -707,25 +703,29 @@ public class UAWBlock implements ContentList {
             ammoUseEffect = Fx.doorcloselarge;
             ammo(
                     Liquids.cryofluid, new DamageFieldBulletType(10, range) {{
-                        applyEffect = UAWFxDynamic.statusFieldApply(UAWPal.cryoFront, UAWPal.cryoBack, range);
+                        shootEffect = UAWFxDynamic.statusFieldApply(UAWPal.cryoFront, UAWPal.cryoBack, range);
+                        smokeEffect = UAWFxDynamic.statusHit(UAWPal.cryoMiddle, 30);
                         status = StatusEffects.freezing;
                         statusDuration = reloadTime * 1.5f;
                         splashAmount = 1;
                     }},
                     Liquids.slag, new DamageFieldBulletType(10, range) {{
-                        applyEffect = UAWFxDynamic.statusFieldApply(Pal.lighterOrange, Pal.lightOrange, range);
+                        shootEffect = UAWFxDynamic.statusFieldApply(Pal.lighterOrange, Pal.lightOrange, range);
+                        smokeEffect = UAWFxDynamic.statusHit(Pal.orangeSpark, 30);
                         status = StatusEffects.melting;
                         statusDuration = reloadTime * 1.5f;
                         splashAmount = 1;
                     }},
                     Liquids.oil, new DamageFieldBulletType(10, range) {{
-                        applyEffect = UAWFxDynamic.statusFieldApply(Pal.plastaniumFront, Pal.plastaniumBack, range);
+                        shootEffect = UAWFxDynamic.statusFieldApply(Pal.plastaniumFront, Pal.plastaniumBack, range);
+                        smokeEffect = UAWFxDynamic.statusHit(Pal.plastanium, 30);
                         status = StatusEffects.tarred;
                         statusDuration = reloadTime * 1.5f;
                         splashAmount = 1;
                     }},
                     UAWLiquid.surgeSolvent, new DamageFieldBulletType(10, range) {{
-                        applyEffect = UAWFxDynamic.statusFieldApply(UAWPal.surgeFront, UAWPal.surgeBack, range);
+                        shootEffect = UAWFxDynamic.statusFieldApply(UAWPal.surgeFront, UAWPal.surgeBack, range);
+                        smokeEffect = UAWFxDynamic.statusHit(Pal.surge, 30);
                         status = StatusEffects.electrified;
                         statusDuration = reloadTime * 1.5f;
                         splashAmount = 1;
@@ -733,7 +733,7 @@ public class UAWBlock implements ContentList {
             );
             consumes.power(2.4f);
         }};
-        rejuvinationProjector = new RejuvenationProjector("rejuvination-projector"){{
+        rejuvinationProjector = new RejuvenationProjector("rejuvination-projector") {{
             requirements(Category.effect, with(
                     Items.lead, 100,
                     Items.titanium, 35,
@@ -748,7 +748,7 @@ public class UAWBlock implements ContentList {
             health = 60 * size * size;
             boostMultiplier = 2.5f;
         }};
-        rejuvinationDome = new RejuvenationProjector("rejuvination-dome"){{
+        rejuvinationDome = new RejuvenationProjector("rejuvination-dome") {{
             requirements(Category.effect, with(
                     Items.lead, 200,
                     Items.titanium, 100,
