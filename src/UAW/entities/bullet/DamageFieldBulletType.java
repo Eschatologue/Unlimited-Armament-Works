@@ -10,7 +10,7 @@ import mindustry.entities.bullet.BulletType;
 import mindustry.gen.*;
 import mindustry.graphics.Pal;
 
-import static mindustry.Vars.*;
+import static mindustry.Vars.indexer;
 
 /**
  * Damages all enemies caught within its area of effect
@@ -31,10 +31,9 @@ public class DamageFieldBulletType extends BulletType {
         hittable = false;
         lifetime = (splashDelay * splashAmount);
         hitSize = speed = 0;
-        smokeEffect = hitEffect = Fx.none;
+        smokeEffect = despawnEffect = hitEffect = Fx.none;
         applyEffect = UAWFxDynamic.circleSplash(frontColor, backColor, splashDamageRadius);
         particleEffect = UAWFxDynamic.statusHit(frontColor, 10f);
-        despawnEffect = applyEffect;
         displayAmmoMultiplier = false;
         hittable = false;
     }

@@ -13,7 +13,7 @@ import static mindustry.Vars.tilesize;
 public class RazorRotorAbility extends Ability {
     public float damage = 35f;
     public float range = 4f * tilesize;
-    public float chance = 1f;
+    public float chance = 0.5f;
     public float minSpeed = 0.8f, maxSpeed = 2.5f;
     public BulletType bullet;
 
@@ -26,6 +26,9 @@ public class RazorRotorAbility extends Ability {
         this.range = range;
         this.bullet = new DamageFieldBulletType(damage, range) {{
             hitEffect = Fx.hitBulletSmall;
+            despawnEffect = Fx.none;
+            instantDisappear = true;
+            speed = 0f;
             splashAmount = 1;
             particleEffect = Fx.none;
         }};
@@ -35,7 +38,7 @@ public class RazorRotorAbility extends Ability {
     public void update(Unit unit) {
         float scl = Mathf.clamp((unit.vel().len() - minSpeed) / (maxSpeed - minSpeed));
         if(Mathf.chance(Time.delta * chance * scl)){
-            bullet.create(unit, unit.team, unit.x, unit.y, unit.rotation);
+            bullet.create(unit, unit.team, unit.x, unit.y, 0);
         }
     }
 }
