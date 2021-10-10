@@ -1,6 +1,5 @@
 package UAW.entities.abilities;
 
-import UAW.entities.bullet.DamageFieldBulletType;
 import arc.math.Mathf;
 import arc.util.Time;
 import mindustry.content.Fx;
@@ -24,8 +23,7 @@ public class RazorRotorAbility extends Ability {
         this.chance = chance;
         this.range = range;
         this.bullet = new BulletType(damage, range) {{
-            hitEffect = Fx.hitBulletSmall;
-            despawnEffect = Fx.none;
+            hitEffect = despawnEffect = Fx.none;
             lifetime = 10;
             speed = 0f;
             pierce = true;
