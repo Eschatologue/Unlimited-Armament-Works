@@ -706,25 +706,25 @@ public class UAWBlock implements ContentList {
             range = 24 * tilesize;
             ammoUseEffect = Fx.doorcloselarge;
             ammo(
-                    Liquids.cryofluid, new DamageFieldBulletType(0, range) {{
+                    Liquids.cryofluid, new DamageFieldBulletType(10, range) {{
                         applyEffect = UAWFxDynamic.statusFieldApply(UAWPal.cryoFront, UAWPal.cryoBack, range);
                         status = StatusEffects.freezing;
                         statusDuration = reloadTime * 1.5f;
                         splashAmount = 1;
                     }},
-                    Liquids.slag, new DamageFieldBulletType(0, range) {{
+                    Liquids.slag, new DamageFieldBulletType(10, range) {{
                         applyEffect = UAWFxDynamic.statusFieldApply(Pal.lighterOrange, Pal.lightOrange, range);
                         status = StatusEffects.melting;
                         statusDuration = reloadTime * 1.5f;
                         splashAmount = 1;
                     }},
-                    Liquids.oil, new DamageFieldBulletType(0, range) {{
+                    Liquids.oil, new DamageFieldBulletType(10, range) {{
                         applyEffect = UAWFxDynamic.statusFieldApply(Pal.plastaniumFront, Pal.plastaniumBack, range);
                         status = StatusEffects.tarred;
                         statusDuration = reloadTime * 1.5f;
                         splashAmount = 1;
                     }},
-                    UAWLiquid.surgeSolvent, new DamageFieldBulletType(0, range) {{
+                    UAWLiquid.surgeSolvent, new DamageFieldBulletType(10, range) {{
                         applyEffect = UAWFxDynamic.statusFieldApply(UAWPal.surgeFront, UAWPal.surgeBack, range);
                         status = StatusEffects.electrified;
                         statusDuration = reloadTime * 1.5f;

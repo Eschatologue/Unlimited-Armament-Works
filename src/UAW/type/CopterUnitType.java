@@ -4,8 +4,7 @@ import UAW.ai.types.CopterAI;
 import arc.graphics.g2d.Draw;
 import arc.struct.Seq;
 import arc.util.Time;
-import mindustry.gen.Unit;
-import mindustry.gen.UnitEntity;
+import mindustry.gen.*;
 import mindustry.type.UnitType;
 
 public class CopterUnitType extends UnitType {
@@ -25,26 +24,27 @@ public class CopterUnitType extends UnitType {
     @Override
     public void update(Unit unit) {
         super.update(unit);
-        if(unit.isFlying() && spinningFall) {
-            if(unit.health <= 0 || unit.dead()) {
+        if (unit.isFlying() && spinningFall) {
+            if (unit.health <= 0 || unit.dead()) {
                 unit.rotation += Time.delta * (fallSpeed * 1000);
             }
         }
     }
+
     @Override
-    public void draw(Unit unit){
+    public void draw(Unit unit) {
         super.draw(unit);
         drawRotor(unit);
     }
 
-    public void drawRotor(Unit unit){
+    public void drawRotor(Unit unit) {
         applyColor(unit);
         rotors.each(rotor -> rotor.draw(unit));
         Draw.reset();
     }
 
     @Override
-    public void load(){
+    public void load() {
         super.load();
         rotors.each(Rotor::load);
     }

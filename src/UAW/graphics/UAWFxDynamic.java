@@ -1,22 +1,15 @@
 package UAW.graphics;
 
 import arc.graphics.Color;
-import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.Fill;
-import arc.graphics.g2d.Lines;
-import arc.math.Angles;
-import arc.math.Mathf;
+import arc.graphics.g2d.*;
+import arc.math.*;
 import arc.util.Time;
-import arc.util.Tmp;
-import mindustry.content.Liquids;
 import mindustry.entities.Effect;
 import mindustry.graphics.*;
 
 import static arc.graphics.g2d.Draw.color;
-import static arc.graphics.g2d.Lines.lineAngle;
-import static arc.graphics.g2d.Lines.stroke;
+import static arc.graphics.g2d.Lines.*;
 import static arc.math.Angles.randLenVectors;
-import static mindustry.Vars.*;
 
 public class UAWFxDynamic {
     // region Shooting
