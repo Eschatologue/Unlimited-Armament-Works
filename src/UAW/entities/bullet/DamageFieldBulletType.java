@@ -23,15 +23,18 @@ public class DamageFieldBulletType extends BulletType {
     public Color frontColor = Pal.bulletYellow, backColor = Pal.bulletYellowBack;
     public Effect applyEffect, particleEffect;
 
-    public DamageFieldBulletType(float damage, float blockRadius) {
-        splashDamage = damage;
-        splashDamageRadius = blockRadius;
+    public DamageFieldBulletType(float splashDamages, float radius) {
+        super(splashDamages, radius);
+        damage = 0f;
+        splashDamage = splashDamages;
+        splashDamageRadius = radius;
         hittable = false;
         lifetime = (splashDelay * splashAmount);
         hitSize = speed = 0;
-        smokeEffect = hitEffect = despawnEffect = Fx.none;
+        smokeEffect = hitEffect = Fx.none;
         applyEffect = UAWFxDynamic.circleSplash(frontColor, backColor, splashDamageRadius);
         particleEffect = UAWFxDynamic.statusHit(frontColor, 10f);
+        despawnEffect = applyEffect;
         displayAmmoMultiplier = false;
         hittable = false;
     }
@@ -42,7 +45,7 @@ public class DamageFieldBulletType extends BulletType {
             Damage.damage(b.team, b.x, b.y, splashDamageRadius, splashDamage, collidesAir, collidesGround);
             applyEffect.at(b.x, b.y);
             applySound.at(b.x, b.y);
-            for (int j = 0; j < (splashAmount * 10); j++) {
+            for (int j = 0; j < ((splashAmount - 1) * 10); j++) {
                 particleEffect.at(
                         b.x + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius)),
                         b.y + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius))
@@ -61,5 +64,6 @@ public class DamageFieldBulletType extends BulletType {
                 indexer.eachBlock(null, b.x, b.y, splashDamageRadius, other -> other.team != b.team, other -> Fires.create(other.tile));
             }
         }
+        super.update(b);
     }
 }

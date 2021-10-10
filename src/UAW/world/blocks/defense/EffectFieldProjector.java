@@ -31,8 +31,6 @@ public class EffectFieldProjector extends StaticLiquidTurret {
         emitLight = true;
         lightRadius = 50f;
         shootCone = 360;
-        spread = 36;
-        shots = 64;
         loopSound = Sounds.shield;
         shootSound = Sounds.plasmaboom;
         logicConfigurable = canOverdrive = rotate = extinguish = false;
