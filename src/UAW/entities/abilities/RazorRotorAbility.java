@@ -26,8 +26,9 @@ public class RazorRotorAbility extends Ability {
         this.bullet = new BulletType(damage, range) {{
             hitEffect = Fx.hitBulletSmall;
             despawnEffect = Fx.none;
-            instantDisappear = true;
+            lifetime = 10;
             speed = 0f;
+            pierce = true;
             hitSize = range;
         }};
     }

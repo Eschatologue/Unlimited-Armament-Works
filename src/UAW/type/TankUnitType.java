@@ -60,13 +60,13 @@ public class TankUnitType extends UnitType {
                     unit.hitSize / 6, floorColor);
         }
         if (unit.moving()){
-            engineSmokeIntensity = trailIntensity * 2;
+            engineSmokeIntensity = trailIntensity * 3;
         }
         // Engine Smoke
         if (Mathf.chanceDelta((engineSmokeIntensity)) && engineSmoke) {
             Fx.fireSmoke.at(
-                    unit.x + Angles.trnsx(unit.rotation - 90, engineOffsetX, 0),
-                    unit.y + Angles.trnsy(unit.rotation - 90, 0, engineOffsetY));
+                    unit.x + Angles.trnsx(unit.rotation - 90, engineOffsetX, engineOffsetY),
+                    unit.y + Angles.trnsy(unit.rotation - 90, engineOffsetX, engineOffsetY));
         }
     }
 }
