@@ -323,12 +323,12 @@ public class UAWBlock implements ContentList {
             ammo(
                     Items.thorium, new ArtilleryBulletType(2f ,1550) {{
                         splashDamage = damage;
-                        splashDamageRadius = 8 * tilesize;
+                        splashDamageRadius = 20 * tilesize;
                         height = 48;
                         width = height / 2f;
                         lifetime = range / speed;
-                        shootEffect = new MultiEffect(UAWFxDynamic.railShoot(frontColor, height + width), Fx.reactorsmoke);
-                        hitEffect = new MultiEffect(UAWFxDynamic.hugeExplosion(frontColor, backColor), Fx.reactorsmoke, Fx.nuclearShockwave);
+                        shootEffect = new MultiEffect(UAWFxDynamic.railShoot(frontColor, height + width), Fx.impactsmoke);
+                        hitEffect = new MultiEffect(UAWFxDynamic.hugeExplosion(frontColor, backColor), Fx.impactcloud, Fx.nuclearShockwave);
                         hitSound = UAWSfx.artilleryExplosionHuge;
                         hitSoundVolume = 3f;
                         smokeEffect = Fx.smokeCloud;
@@ -337,8 +337,11 @@ public class UAWBlock implements ContentList {
                         restitution = 0.02f;
                         fragBullet = new DamageFieldBulletType(splashDamage / 4, splashDamageRadius){{
                             splashAmount = 4;
+                            splashDelay = 45;
+                            hitShake = 28;
+                            shake = true;
                             status = StatusEffects.slow;
-                            applySound = Sounds.shootBig;
+                            applySound = Sounds.shotgun;
                         }};
                     }}
             );

@@ -116,7 +116,7 @@ public class UAWFxDynamic {
     }
 
     public static Effect hugeExplosion(Color frontColor, Color backColor) {
-        return new Effect(30, 500f, b -> {
+        return new Effect(60, 500f, b -> {
             float intensity = 6.8f;
             float baseLifetime = 25f + intensity * 11f;
             b.lifetime = 50f + intensity * 65f;

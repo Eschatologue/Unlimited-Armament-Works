@@ -19,6 +19,7 @@ import static mindustry.Vars.indexer;
 public class DamageFieldBulletType extends BulletType {
     public float splashDelay = 25f;
     public int splashAmount = 3;
+    public boolean shake = false;
     public Sound applySound = Sounds.shotgun;
     public Color frontColor = Pal.bulletYellow, backColor = Pal.bulletYellowBack;
     public Effect applyEffect, particleEffect;
@@ -44,6 +45,9 @@ public class DamageFieldBulletType extends BulletType {
             Damage.damage(b.team, b.x, b.y, splashDamageRadius, splashDamage, collidesAir, collidesGround);
             applyEffect.at(b.x, b.y);
             applySound.at(b.x, b.y);
+            if (shake){
+                Effect.shake(hitShake, hitShake, b.x, b.y);
+            }
             for (int j = 0; j < ((splashAmount - 1) * 10); j++) {
                 particleEffect.at(
                         b.x + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius)),
