@@ -18,6 +18,7 @@ public class UAWSfx {
 
         return sound;
     }
+
     public static Sound
             artilleryShootHuge = new Sound(),
             artilleryExplosionHuge = new Sound(),
@@ -27,10 +28,10 @@ public class UAWSfx {
             launcherShoot1 = new Sound(),
             shotgun_shoot_1 = new Sound(),
             suppressedShoot1 = new Sound(),
-            torpedoShoot1 = new Sound()
-                    ;
-    public static void load () {
-        if(Vars.headless) return;
+            torpedoShoot1 = new Sound();
+
+    public static void load() {
+        if (Vars.headless) return;
         artilleryShootHuge = loadSound("artillery_shoot_huge");
         artilleryExplosionHuge = loadSound("artillery_explosion_huge");
         cannonShoot1 = loadSound("cannon_shoot_1");

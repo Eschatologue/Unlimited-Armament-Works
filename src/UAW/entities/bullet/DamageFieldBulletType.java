@@ -45,7 +45,7 @@ public class DamageFieldBulletType extends BulletType {
             Damage.damage(b.team, b.x, b.y, splashDamageRadius, splashDamage, collidesAir, collidesGround);
             applyEffect.at(b.x, b.y);
             applySound.at(b.x, b.y);
-            if (shake){
+            if (shake) {
                 Effect.shake(hitShake, hitShake, b.x, b.y);
             }
             for (int j = 0; j < ((splashAmount - 1) * 10); j++) {

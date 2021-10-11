@@ -311,7 +311,7 @@ public class UAWBlock implements ContentList {
             reloadTime = 8 * tick;
             ammoEjectBack = 5f;
             ammoUseEffect = UAWFxStatic.casing7;
-            ammoPerShot = 5;
+            ammoPerShot = 15;
             velocityInaccuracy = 0.2f;
             restitution = 0.02f;
             recoilAmount = 6f;
@@ -321,7 +321,7 @@ public class UAWBlock implements ContentList {
 
             shootSound = UAWSfx.artilleryShootHuge;
             ammo(
-                    Items.thorium, new ArtilleryBulletType(2f ,1550) {{
+                    Items.thorium, new ArtilleryBulletType(2f ,5500) {{
                         splashDamage = damage;
                         splashDamageRadius = 20 * tilesize;
                         height = 48;
@@ -337,7 +337,7 @@ public class UAWBlock implements ContentList {
                         restitution = 0.02f;
                         fragBullet = new DamageFieldBulletType(splashDamage / 4, splashDamageRadius){{
                             splashAmount = 4;
-                            splashDelay = 45;
+                            splashDelay = 30;
                             hitShake = 28;
                             shake = true;
                             status = StatusEffects.slow;
