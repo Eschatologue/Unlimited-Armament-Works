@@ -99,9 +99,7 @@ public class UAWFxDynamic {
 
             color(Color.gray);
 
-            randLenVectors(e.id, 15, 1.5f + size * e.finpow(), (x, y) -> {
-                Fill.circle(e.x + x, e.y + y, e.fout() * 4f + 0.5f);
-            });
+            randLenVectors(e.id, 15, 1.5f + size * e.finpow(), (x, y) -> Fill.circle(e.x + x, e.y + y, e.fout() * 4f + 0.5f));
 
             color(color);
             for (int i = 0; i < 4; i++) {
@@ -124,17 +122,10 @@ public class UAWFxDynamic {
             color(backColor);
             alpha(0.7f);
             for (int i = 0; i < 4; i++) {
-                rand.setSeed(b.id * 2L + i);
-                float lenScl = rand.random(0.4f, 1f);
-                int fi = i;
-                b.scaled(b.lifetime * lenScl, e -> {
-                    randLenVectors(e.id + fi - 1, e.fin(Interp.pow10Out), (int) (2.9f * intensity), 22f * intensity, (x, y, in, out) -> {
-                        float fout = e.fout(Interp.pow5Out) * rand.random(0.5f, 1f);
-                        float rad = fout * ((2f + intensity) * 2.35f);
-
-                        Fill.circle(e.x + x, e.y + y, rad);
-                        Drawf.light(e.x + x, e.y + y, rad * 2.5f, frontColor, 0.5f);
-                    });
+                randLenVectors(b.id, 40, b.finpow() * 160f, (x, y) -> {
+                    float size = b.fout() * 15f;
+                    color(frontColor, Color.lightGray, b.fin());
+                    Fill.circle(b.x + x, b.y + y, size * 2f);
                 });
             }
 
@@ -161,9 +152,8 @@ public class UAWFxDynamic {
     public static Effect statusHit(Color color, float lifetime) {
         return new Effect(lifetime, e -> {
             color(color);
-            randLenVectors(e.id, 6, 1.5f + e.fin() * 2.5f, (x, y) -> {
-                Fill.circle(e.x + x, e.y + y, e.fout() * 1.5f);
-            });
+            randLenVectors(e.id, 6, 1.5f + e.fin() * 2.5f, (x, y) ->
+                    Fill.circle(e.x + x, e.y + y, e.fout() * 1.5f));
         });
     }
 
