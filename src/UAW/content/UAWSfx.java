@@ -19,7 +19,8 @@ public class UAWSfx {
         return sound;
     }
     public static Sound
-            artillertShootHuge = new Sound(),
+            artilleryShootHuge = new Sound(),
+            artilleryExplosionHuge = new Sound(),
             cannonShoot1 = new Sound(),
             cannonShoot2 = new Sound(),
             cruiseMissileShoot1 = new Sound(),
@@ -30,7 +31,8 @@ public class UAWSfx {
                     ;
     public static void load () {
         if(Vars.headless) return;
-        artillertShootHuge = loadSound("artillery_shoot_huge");
+        artilleryShootHuge = loadSound("artillery_shoot_huge");
+        artilleryExplosionHuge = loadSound("artillery_explosion_huge");
         cannonShoot1 = loadSound("cannon_shoot_1");
         cannonShoot2 = loadSound("cannon_shoot_2");
         cruiseMissileShoot1 = loadSound("cruisemissile_shoot_1");

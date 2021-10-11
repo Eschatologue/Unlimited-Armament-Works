@@ -307,7 +307,7 @@ public class UAWBlock implements ContentList {
             health = 100 * size * size;
             targetAir = false;
             size = 4;
-            inaccuracy = 0f;
+            inaccuracy = 4f;
             reloadTime = 8 * tick;
             ammoEjectBack = 5f;
             ammoUseEffect = UAWFxStatic.casing7;
@@ -315,24 +315,22 @@ public class UAWBlock implements ContentList {
             velocityInaccuracy = 0.2f;
             restitution = 0.02f;
             recoilAmount = 6f;
-            shootShake = 36f;
+            shootShake = 48f;
             range = 50 * tilesize;
             minRange = range / 10;
 
-            shootSound = UAWSfx.artillertShootHuge;
+            shootSound = UAWSfx.artilleryShootHuge;
             ammo(
-                    Items.thorium, new ArtilleryBulletType() {{
-                        damage = 1200;
-                        splashDamage = 1550;
-                        splashDamageRadius = 12 * tilesize;
-                        speed = 2f;
+                    Items.thorium, new ArtilleryBulletType(2f ,1550) {{
+                        splashDamage = damage;
+                        splashDamageRadius = 8 * tilesize;
                         height = 48;
                         width = height / 2f;
                         lifetime = range / speed;
-                        shootEffect = new MultiEffect(UAWFxDynamic.railShoot(Pal.missileYellow, 64), Fx.impactcloud);
-                        hitEffect = new MultiEffect(Fx.impactReactorExplosion, Fx.impactcloud, Fx.impactShockwave);
-                        hitSound = Sounds.explosionbig;
-                        hitSoundVolume = 4f;
+                        shootEffect = new MultiEffect(UAWFxDynamic.railShoot(frontColor, height + width), Fx.reactorsmoke);
+                        hitEffect = new MultiEffect(UAWFxDynamic.hugeExplosion(frontColor, backColor), Fx.reactorsmoke, Fx.nuclearShockwave);
+                        hitSound = UAWSfx.artilleryExplosionHuge;
+                        hitSoundVolume = 3f;
                         smokeEffect = Fx.smokeCloud;
                         hitShake = 34f;
                         fragBullets = 1;
@@ -340,7 +338,7 @@ public class UAWBlock implements ContentList {
                         fragBullet = new DamageFieldBulletType(splashDamage / 4, splashDamageRadius){{
                             splashAmount = 4;
                             status = StatusEffects.slow;
-                            applySound = Sounds.explosionbig;
+                            applySound = Sounds.shootBig;
                         }};
                     }}
             );

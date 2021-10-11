@@ -7,12 +7,13 @@ import arc.util.Time;
 import mindustry.entities.Effect;
 import mindustry.graphics.*;
 
-import static arc.graphics.g2d.Draw.color;
+import static arc.graphics.g2d.Draw.*;
 import static arc.graphics.g2d.Lines.*;
 import static arc.math.Angles.randLenVectors;
 
 public class UAWFxDynamic {
-    // region Shooting
+    private static final Rand rand = new Rand();
+
     public static Effect instShoot(Color color, float size) {
         return new Effect(24.0F, size * 8, (e) -> {
             e.scaled(10.0F, (b) -> {
@@ -28,6 +29,7 @@ public class UAWFxDynamic {
             }
         });
     }
+
     public static Effect railShoot(Color color, float size) {
         return new Effect(24.0F, size * 8, (e) -> {
             e.scaled(10.0F, (b) -> {
@@ -42,6 +44,7 @@ public class UAWFxDynamic {
             }
         });
     }
+
     public static Effect statusFieldApply(Color frontColor, Color backColor, float size) {
         return new Effect(50, e -> {
             color(frontColor, backColor, e.fin());
@@ -49,15 +52,16 @@ public class UAWFxDynamic {
             Lines.circle(e.x, e.y, size + e.fout() * 4f);
             int points = 6;
             float offset = Mathf.randomSeed(e.id, 360f);
-            for(int i = 0; i < points; i++){
+            for (int i = 0; i < points; i++) {
                 float angle = (i * 360f / points + (Time.time * 3)) + (offset + 4);
-                float rx = Angles.trnsx(angle, size), ry =  Angles.trnsy(angle, size);
+                float rx = Angles.trnsx(angle, size), ry = Angles.trnsy(angle, size);
                 Drawf.tri(
                         e.x + rx, e.y + ry, 48f, 28f * e.fout(), angle);
             }
             Drawf.light(e.x, e.y, size * 1.6f, backColor, e.fout());
         });
     }
+
     public static Effect shootFlamethrower(float lifetime) {
         return new Effect(lifetime * 2f, 90f, e -> {
             color(Pal.lightPyraFlame, Pal.darkPyraFlame, Color.gray, e.fin());
@@ -66,8 +70,7 @@ public class UAWFxDynamic {
                     Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 2f));
         });
     }
-    // endregion
-    // region Hit
+
     public static Effect crossBlast(Color color, float size) {
         float length = size * 1.7f;
         float width = size / 13.3f;
@@ -87,6 +90,7 @@ public class UAWFxDynamic {
             }
         });
     }
+
     public static Effect crossBombBlast(Color color, float size) {
         return new Effect(50f, 100, e -> {
             color(color);
@@ -110,13 +114,50 @@ public class UAWFxDynamic {
             }
         });
     }
-    public static Effect circleHit(Color color) {
-        return new Effect(8, e -> {
-            color(Color.white, color, e.fin());
-            stroke(0.5f + e.fout());
-            Lines.circle(e.x, e.y, e.fin() * 5f);
+
+    public static Effect hugeExplosion(Color frontColor, Color backColor) {
+        return new Effect(30, 500f, b -> {
+            float intensity = 6.8f;
+            float baseLifetime = 25f + intensity * 11f;
+            b.lifetime = 50f + intensity * 65f;
+
+            color(backColor);
+            alpha(0.7f);
+            for (int i = 0; i < 4; i++) {
+                rand.setSeed(b.id * 2L + i);
+                float lenScl = rand.random(0.4f, 1f);
+                int fi = i;
+                b.scaled(b.lifetime * lenScl, e -> {
+                    randLenVectors(e.id + fi - 1, e.fin(Interp.pow10Out), (int) (2.9f * intensity), 22f * intensity, (x, y, in, out) -> {
+                        float fout = e.fout(Interp.pow5Out) * rand.random(0.5f, 1f);
+                        float rad = fout * ((2f + intensity) * 2.35f);
+
+                        Fill.circle(e.x + x, e.y + y, rad);
+                        Drawf.light(e.x + x, e.y + y, rad * 2.5f, frontColor, 0.5f);
+                    });
+                });
+            }
+
+            b.scaled(baseLifetime, e -> {
+                Draw.color();
+                e.scaled(5 + intensity * 2f, i -> {
+                    stroke((3.1f + intensity / 5f) * i.fout());
+                    Lines.circle(e.x, e.y, (3f + i.fin() * 14f) * intensity);
+                    Drawf.light(e.x, e.y, i.fin() * 14f * 2f * intensity, Color.white, 0.9f * e.fout());
+                });
+
+                color(Pal.lighterOrange, frontColor, e.fin());
+                stroke((2f * e.fout()));
+
+                Draw.z(Layer.effect + 0.001f);
+                randLenVectors(e.id + 1, e.finpow() + 0.001f, (int) (8 * intensity), 28f * intensity, (x, y, in, out) -> {
+                    lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), 1f + out * 4 * (4f + intensity));
+                    Drawf.light(e.x + x, e.y + y, (out * 4 * (3f + intensity)) * 3.5f, Draw.getColor(), 0.8f);
+                });
+            });
         });
     }
+
     public static Effect statusHit(Color color, float lifetime) {
         return new Effect(lifetime, e -> {
             color(color);
@@ -125,6 +166,7 @@ public class UAWFxDynamic {
             });
         });
     }
+
     public static Effect circleSplash(Color lightColor, Color darkColor, float size) {
         return new Effect(30, e -> {
             color(lightColor, darkColor, e.fin());
@@ -158,7 +200,7 @@ public class UAWFxDynamic {
             Drawf.light(e.x, e.y, 45f, backColor, 0.8f * e.fout());
         });
     }
-    // endregion Hit
+
     public static Effect burstSmelt(float height, float width, float offset, int rotation, Color frontColor, Color backColor) {
         //Inspired, modified and translated to java from 'FlinTyX/DiverseTech'
         return new Effect(35, e -> {
