@@ -124,9 +124,10 @@ public class UAWFxDynamic {
                 color(Pal.lighterOrange, Color.lightGray, e.fin());
                 Fill.circle(e.x + x, e.y + y, smokeSize / 2f);
             });
-            randLenVectors(e.id, 35, e.finpow() * 160f, (x, y) -> {
-                color(Pal.darkishGray, Pal.darkerGray, e.fin());
+            randLenVectors(e.id, 35, e.finpow() * e.lifetime, (x, y) -> {
+                color(Color.lightGray, Pal.darkerGray, e.fin());
                 Fill.circle(e.x + x, e.y + y, smokeSize / 1.5f);
+                Drawf.light(e.x, e.y, smokeSize / 1.5f, Color.lightGray, 0.9f * e.fout());
             });
             Draw.color();
             e.scaled(5 + intensity * 2f, i -> {

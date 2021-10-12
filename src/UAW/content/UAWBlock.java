@@ -332,12 +332,14 @@ public class UAWBlock implements ContentList {
                         shootEffect = new MultiEffect(UAWFxDynamic.railShoot(frontColor, height + width), Fx.impactcloud, Fx.nuclearShockwave);
                         hitEffect = UAWFxDynamic.hugeExplosion(splashDamageRadius, frontColor, backColor);
                         hitSound = UAWSfx.artilleryExplosionHuge;
-                        trailEffect = UAWFxStatic.burnTrail;
                         hitSoundVolume = 3f;
                         smokeEffect = Fx.smokeCloud;
                         hitShake = 34f;
                         fragBullets = 1;
                         restitution = 0.02f;
+                        trailSize = width;
+                        trailEffect = UAWFxStatic.burnTrail;
+                        trailRotation = true;
                         fragBullet = new DamageFieldBulletType(splashDamage / 4, splashDamageRadius){{
                             splashAmount = 4;
                             splashDelay = 30;
