@@ -132,7 +132,7 @@ public class UAWFxDynamic {
             e.scaled(5 + intensity * 2f, i -> {
                 stroke((3.1f + intensity / 5f) * i.fout());
                 Lines.circle(e.x, e.y, (3f + i.fin() * 14f) * intensity);
-                Drawf.light(e.x, e.y, i.fin() * 14f * 2f * intensity, Color.white, 0.9f * e.fout());
+                Drawf.light(e.x, e.y, i.fin() * 14f * 2f * intensity, Color.lightGray, 0.9f * e.fout());
             });
 
             color(Pal.lighterOrange, frontColor, e.fin());
@@ -212,4 +212,13 @@ public class UAWFxDynamic {
         });
     }
 
+    public static Effect burnTrailDynamic(float size, Color frontColor, Color backColorBloom) {
+        return new Effect(33f, 80f, e -> {
+            color(Color.valueOf("ddcece"), frontColor, backColorBloom, e.fin() * e.fin());
+
+            randLenVectors(e.id, 16, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) -> {
+                Fill.circle(e.x + x, e.y + y, size + e.fout() * 2f);
+            });
+        });
+    }
 }
