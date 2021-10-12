@@ -113,16 +113,16 @@ public class UAWFxDynamic {
         });
     }
 
-    public static Effect hugeExplosion(Color frontColor, Color backColor) {
+    public static Effect hugeExplosion(float size, Color frontColor, Color backColor) {
         return new Effect(120, 500f, e -> {
-            float intensity = 6.8f;
-            float size = e.fout() * 15f;
+            float intensity = size / 19;
+            float smokeSize = e.fout() * size / 10;
 
             color(backColor);
             alpha(0.7f);
-            randLenVectors(e.id, 20, e.finpow() * 160f, (x, y) -> {
+            randLenVectors(e.id, 40, e.finpow() * 160f, (x, y) -> {
                 color(Pal.lighterOrange, Color.lightGray, e.fin());
-                Fill.circle(e.x + x, e.y + y, size / 2f);
+                Fill.circle(e.x + x, e.y + y, smokeSize / 2f);
             });
             Draw.color();
             e.scaled(5 + intensity * 2f, i -> {
@@ -139,6 +139,9 @@ public class UAWFxDynamic {
                 lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), 1f + out * 4 * (4f + intensity));
                 Drawf.light(e.x + x, e.y + y, (out * 4 * (3f + intensity)) * 3.5f, Draw.getColor(), 0.8f);
             });
+            color(Color.white, Color.lightGray, e.fin());
+            stroke(e.fout() * 3f + 0.2f);
+            Lines.circle(e.x, e.y, e.fin() * size);
         });
     }
 

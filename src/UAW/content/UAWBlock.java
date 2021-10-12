@@ -323,13 +323,14 @@ public class UAWBlock implements ContentList {
             ammo(
                     Items.thorium, new ArtilleryBulletType(2f ,5500) {{
                         splashDamage = damage;
-                        splashDamageRadius = 20 * tilesize;
+                        splashDamageRadius = 16 * tilesize;
                         height = 48;
                         width = height / 2f;
                         lifetime = range / speed;
-                        shootEffect = new MultiEffect(UAWFxDynamic.railShoot(frontColor, height + width), Fx.impactsmoke);
-                        hitEffect = new MultiEffect(UAWFxDynamic.hugeExplosion(frontColor, backColor), Fx.impactcloud, Fx.nuclearShockwave);
+                        shootEffect = new MultiEffect(UAWFxDynamic.railShoot(frontColor, height + width), Fx.impactcloud, Fx.nuclearShockwave);
+                        hitEffect = UAWFxDynamic.hugeExplosion(splashDamageRadius, frontColor, backColor);
                         hitSound = UAWSfx.artilleryExplosionHuge;
+                        trailEffect = UAWFxStatic.burnTrail;
                         hitSoundVolume = 3f;
                         smokeEffect = Fx.smokeCloud;
                         hitShake = 34f;

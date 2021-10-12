@@ -179,11 +179,11 @@ public class UAWFxStatic {
             }).layer(Layer.bullet),
     // endregion Casings
     // region Trail
-    cruiseMissileTrail = new Effect(33f, 80f, e -> {
-        color(Pal.lightishOrange, Pal.lighterOrange, Color.gray, e.fin());
+    burnTrail = new Effect(33f, 80f, e -> {
+        color(Color.valueOf("ddcece"), Pal.lighterOrange, UAWPal.darkPyraBloom, e.fin() * e.fin());
 
-        randLenVectors(e.id, 16, e.finpow() * 36f, e.rotation + 180, 12f, (x, y) -> {
-            Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 2f);
+        randLenVectors(e.id, 8, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) -> {
+            Fill.circle(e.x + x, e.y + y, 0.45f + e.fout() * 2f);
         });
     }),
 

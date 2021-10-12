@@ -1,7 +1,6 @@
 package UAW.entities.bullet;
 
 import UAW.graphics.UAWFxStatic;
-import mindustry.content.Fx;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.gen.Sounds;
 import mindustry.graphics.Pal;
@@ -33,7 +32,7 @@ public class CruiseMissileBulletType extends BasicBulletType {
         trailWidth = size / 14.6f;
         trailColor = Pal.lightPyraFlame;
         trailInterval = 0.8f;
-        trailEffect = UAWFxStatic.cruiseMissileTrail;
+        trailEffect = UAWFxStatic.burnTrail;
         trailRotation = true;
     }
 

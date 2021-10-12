@@ -1,6 +1,7 @@
 package UAW.graphics;
 
 import arc.graphics.*;
+import mindustry.graphics.Pal;
 
 public class UAWPal {
     // front = light, back = dark
@@ -13,6 +14,7 @@ public class UAWPal {
     //Incend
     incendFront = Color.valueOf("ffffa3"),
     incendBack = Color.valueOf("ffcd66"),
+    darkPyraBloom = new Color(Pal.darkPyraFlame).lerp(Color.white, 0.15f),
 
     // Titanium Blue
     titaniumBlueFront = Color.valueOf("a4b8fa"),
@@ -23,6 +25,7 @@ public class UAWPal {
     waterFront = Color.valueOf("8aa3f4"),
     waterMiddle = Color.valueOf("6974c4"),
     waterBack = Color.valueOf("5757c1"),
+    waterBloom = new Color(UAWPal.waterMiddle).lerp(Color.white, 0.15f),
 
     //Heal
     healFront = Color.valueOf("84f491"),
