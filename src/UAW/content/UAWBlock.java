@@ -308,6 +308,8 @@ public class UAWBlock implements ContentList {
             targetAir = false;
             size = 4;
             inaccuracy = 4f;
+            rotateSpeed = 1.4f;
+            unitSort = (unit, x, y) -> unit.hitSize;
             reloadTime = 8 * tick;
             ammoEjectBack = 5f;
             ammoUseEffect = UAWFxStatic.casing7;

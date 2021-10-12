@@ -116,13 +116,17 @@ public class UAWFxDynamic {
     public static Effect hugeExplosion(float size, Color frontColor, Color backColor) {
         return new Effect(120, 500f, e -> {
             float intensity = size / 19;
-            float smokeSize = e.fout() * size / 10;
+            float smokeSize = e.fout() * size / 5;
 
             color(backColor);
             alpha(0.7f);
             randLenVectors(e.id, 40, e.finpow() * 160f, (x, y) -> {
                 color(Pal.lighterOrange, Color.lightGray, e.fin());
                 Fill.circle(e.x + x, e.y + y, smokeSize / 2f);
+            });
+            randLenVectors(e.id, 35, e.finpow() * 160f, (x, y) -> {
+                color(Pal.darkishGray, Pal.darkerGray, e.fin());
+                Fill.circle(e.x + x, e.y + y, smokeSize / 1.5f);
             });
             Draw.color();
             e.scaled(5 + intensity * 2f, i -> {
