@@ -48,7 +48,7 @@ public class DamageFieldBulletType extends BulletType {
             if (shake) {
                 Effect.shake(hitShake, hitShake, b.x, b.y);
             }
-            for (int j = 0; j < ((splashAmount - 1) * 10); j++) {
+            for (int j = 0; j < ((splashAmount) * 10); j++) {
                 particleEffect.at(
                         b.x + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius)),
                         b.y + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius))

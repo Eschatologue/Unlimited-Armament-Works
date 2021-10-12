@@ -117,8 +117,6 @@ public class UAWFxDynamic {
         return new Effect(120, 500f, e -> {
             float intensity = size / 19;
             float smokeSize = e.fout() * size / 5;
-            float fout = e.fout(Interp.pow5Out) * rand.random(0.5f, 1f);
-            float rad = fout * ((2f + intensity) * 2.35f);
 
             color(backColor);
             alpha(0.7f);
@@ -129,7 +127,6 @@ public class UAWFxDynamic {
             randLenVectors(e.id, 35, e.finpow() * e.lifetime, (x, y) -> {
                 color(Color.lightGray, Pal.darkerGray, e.fin());
                 Fill.circle(e.x + x, e.y + y, smokeSize * 2);
-                Drawf.light(e.x + x, e.y + y, rad * 2.5f, Color.darkGray, 0.5f);
             });
             Draw.color();
             e.scaled(5 + intensity * 2f, i -> {

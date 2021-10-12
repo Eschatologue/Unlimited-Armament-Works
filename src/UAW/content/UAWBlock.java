@@ -341,7 +341,7 @@ public class UAWBlock implements ContentList {
                         trailEffect = UAWFxStatic.burnTrail;
                         trailRotation = true;
                         fragBullet = new DamageFieldBulletType(splashDamage / 4, splashDamageRadius){{
-                            splashAmount = 4;
+                            splashAmount = 3;
                             splashDelay = 30;
                             hitShake = 28;
                             shake = true;
