@@ -117,17 +117,19 @@ public class UAWFxDynamic {
         return new Effect(120, 500f, e -> {
             float intensity = size / 19;
             float smokeSize = e.fout() * size / 5;
+            float fout = e.fout(Interp.pow5Out) * rand.random(0.5f, 1f);
+            float rad = fout * ((2f + intensity) * 2.35f);
 
             color(backColor);
             alpha(0.7f);
             randLenVectors(e.id, 40, e.finpow() * 160f, (x, y) -> {
                 color(Pal.lighterOrange, Color.lightGray, e.fin());
-                Fill.circle(e.x + x, e.y + y, smokeSize / 2f);
+                Fill.circle(e.x + x, e.y + y, smokeSize / 1.5f);
             });
             randLenVectors(e.id, 35, e.finpow() * e.lifetime, (x, y) -> {
                 color(Color.lightGray, Pal.darkerGray, e.fin());
-                Fill.circle(e.x + x, e.y + y, smokeSize / 1.5f);
-                Drawf.light(e.x, e.y, smokeSize / 1.5f, Color.lightGray, 0.9f * e.fout());
+                Fill.circle(e.x + x, e.y + y, smokeSize * 2);
+                Drawf.light(e.x + x, e.y + y, rad * 2.5f, Color.darkGray, 0.5f);
             });
             Draw.color();
             e.scaled(5 + intensity * 2f, i -> {
@@ -144,9 +146,6 @@ public class UAWFxDynamic {
                 lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), 1f + out * 4 * (4f + intensity));
                 Drawf.light(e.x + x, e.y + y, (out * 4 * (3f + intensity)) * 3.5f, Draw.getColor(), 0.8f);
             });
-            color(Color.white, Color.lightGray, e.fin());
-            stroke(e.fout() * 3f + 0.2f);
-            Lines.circle(e.x, e.y, e.fin() * size);
         });
     }
 

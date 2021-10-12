@@ -304,9 +304,9 @@ public class UAWBlock implements ContentList {
                     Items.surgeAlloy, 250,
                     Items.plastanium, 175,
                     Items.thorium, 250));
+            size = 4;
             health = 100 * size * size;
             targetAir = false;
-            size = 4;
             inaccuracy = 4f;
             rotateSpeed = 1.4f;
             unitSort = (unit, x, y) -> unit.hitSize;
