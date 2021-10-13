@@ -340,12 +340,14 @@ public class UAWBlock implements ContentList {
                         trailSize = width;
                         trailEffect = UAWFxDynamic.burnTrailDynamic(4, Pal.lighterOrange, UAWPal.darkPyraBloom);
                         trailRotation = true;
+                        fragVelocityMin = fragVelocityMax = fragLifeMin = fragLifeMax = 1f;
                         fragBullet = new DamageFieldBulletType(splashDamage / 4, splashDamageRadius){{
-                            splashAmount = 3;
-                            splashDelay = 30;
+                            splashAmount = 5;
+                            splashDelay = 45;
                             hitShake = 28;
                             shake = true;
-                            status = StatusEffects.slow;
+                            status = UAWStatusEffects.concussion;
+                            statusDuration = 30f;
                             applySound = Sounds.shotgun;
                         }};
                     }}

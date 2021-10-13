@@ -166,7 +166,7 @@ public class UAWBullets implements ContentList {
             lightningLength = 16;
             backColor = Pal.missileYellowBack;
             frontColor = Pal.missileYellow;
-            status = UAWStatusEffects.EMP;
+            status = UAWStatusEffects.concussion;
             statusDuration = 30f;
         }};
         // endregion
