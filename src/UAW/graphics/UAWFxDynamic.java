@@ -132,7 +132,7 @@ public class UAWFxDynamic {
             e.scaled(5 + intensity * 2f, i -> {
                 stroke((3.1f + intensity / 5f) * i.fout());
                 Lines.circle(e.x, e.y, (3f + i.fin() * 14f) * intensity);
-                Drawf.light(e.x, e.y, i.fin() * 14f * 2f * intensity, Color.lightGray, 0.9f * e.fout());
+                Drawf.light(e.x, e.y, i.fin() * 14f * 2f * intensity, Color.lightGray, 0.3f * e.fout());
             });
 
             color(Pal.lighterOrange, frontColor, e.fin());

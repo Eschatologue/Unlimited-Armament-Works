@@ -338,7 +338,7 @@ public class UAWBlock implements ContentList {
                         fragBullets = 1;
                         restitution = 0.02f;
                         trailSize = width;
-                        trailEffect = UAWFxDynamic.burnTrailDynamic(4, Pal.lighterOrange, UAWPal.darkPyraBloom);
+                        trailEffect = UAWFxDynamic.burnTrailDynamic(0.8f, Pal.lighterOrange, UAWPal.darkPyraBloom);
                         trailRotation = true;
                         fragVelocityMin = fragVelocityMax = fragLifeMin = fragLifeMax = 1f;
                         fragBullet = new DamageFieldBulletType(splashDamage / 4, splashDamageRadius){{
