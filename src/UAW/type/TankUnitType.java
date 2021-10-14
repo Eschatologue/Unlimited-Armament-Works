@@ -37,6 +37,11 @@ public class TankUnitType extends UnitType {
     }
 
     @Override
+    public void setStats() {
+        super.setStats();
+    }
+
+    @Override
     public void update(Unit unit) {
         float engineSmokeIntensity = trailIntensity;
         Floor floor = Vars.world.floorWorld(unit.x, unit.y);
@@ -59,7 +64,7 @@ public class TankUnitType extends UnitType {
                     unit.y + Angles.trnsy(unit.rotation - 90, trailOffsetX, trailOffsetY),
                     unit.hitSize / 6, floorColor);
         }
-        if (unit.moving()){
+        if (unit.moving()) {
             engineSmokeIntensity = trailIntensity * 4;
         }
         // Engine Smoke

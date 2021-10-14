@@ -12,7 +12,6 @@ import static arc.graphics.g2d.Lines.*;
 import static arc.math.Angles.randLenVectors;
 
 public class UAWFxDynamic {
-    private static final Rand rand = new Rand();
 
     public static Effect instShoot(Color color, float size) {
         return new Effect(24.0F, size * 8, (e) -> {
@@ -125,7 +124,7 @@ public class UAWFxDynamic {
                 Fill.circle(e.x + x, e.y + y, smokeSize / 1.5f);
             });
             randLenVectors(e.id, 35, e.finpow() * e.lifetime, (x, y) -> {
-                color(Color.lightGray, Pal.darkerGray, e.fin());
+                color(Pal.darkerGray, e.fin());
                 Fill.circle(e.x + x, e.y + y, smokeSize * 2);
             });
             Draw.color();

@@ -1,19 +1,21 @@
-
 package UAW.type.weapon;
 
+import UAW.world.meta.UAWStatValues;
 import arc.Core;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
+import arc.scene.ui.layout.Table;
+import arc.struct.ObjectMap;
 import arc.util.*;
 import mindustry.entities.units.WeaponMount;
 import mindustry.gen.Unit;
 import mindustry.graphics.Drawf;
-import mindustry.type.Weapon;
+import mindustry.type.*;
+import mindustry.world.meta.*;
 
 public class TurretedWeapon extends Weapon {
     public TextureRegion turret, turretOutlineRegion, turretCell;
-    public Color turretCellColor;
     public boolean drawTurretCell = false;
 
 
@@ -33,6 +35,18 @@ public class TurretedWeapon extends Weapon {
     public Color cellColor(Unit unit) {
         float f = Mathf.clamp(unit.healthf());
         return Tmp.c1.set(Color.black).lerp(unit.team.color, f + Mathf.absin(Time.time, Math.max(f * 5f, 1f), 1f - f));
+    }
+
+    @Override
+    public void addStats(UnitType u, Table t) {
+        if (inaccuracy > 0) {
+            t.row();
+            t.add("[lightgray]" + Stat.inaccuracy.localized() + ": [white]" + (int) inaccuracy + " " + StatUnit.degrees.localized());
+        }
+        t.row();
+        t.add("[lightgray]" + Stat.reload.localized() + ": " + (mirror ? "2x " : "") + "[white]" + Strings.autoFixed(60f / reload * shots, 2) + " " + StatUnit.perSecond.localized());
+
+        UAWStatValues.ammo(ObjectMap.of(u, bullet)).display(t);
     }
 
     public void draw(Unit unit, WeaponMount mount) {

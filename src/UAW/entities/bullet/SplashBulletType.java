@@ -16,7 +16,7 @@ import static mindustry.Vars.indexer;
  * Damages all enemies caught within its area of effect
  */
 
-public class DamageFieldBulletType extends BulletType {
+public class SplashBulletType extends BulletType {
     public float splashDelay = 25f;
     public int splashAmount = 3;
     public boolean shake = false;
@@ -24,11 +24,11 @@ public class DamageFieldBulletType extends BulletType {
     public Color frontColor = Pal.bulletYellow, backColor = Pal.bulletYellowBack;
     public Effect applyEffect, particleEffect;
 
-    public DamageFieldBulletType(float splashDamages, float radius) {
-        super(splashDamages, radius);
-        damage = 0f;
-        splashDamage = splashDamages;
-        splashDamageRadius = radius;
+    public SplashBulletType(float splashDamage, float radius) {
+        super(splashDamage, radius);
+        this.damage = 0f;
+        this.splashDamage = splashDamage;
+        this.splashDamageRadius = radius;
         hittable = false;
         lifetime = (splashDelay * splashAmount);
         hitSize = speed = 0;

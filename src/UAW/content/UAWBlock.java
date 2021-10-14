@@ -341,7 +341,7 @@ public class UAWBlock implements ContentList {
                         trailEffect = UAWFxDynamic.burnTrailDynamic(0.8f, Pal.lighterOrange, UAWPal.darkPyraBloom);
                         trailRotation = true;
                         fragVelocityMin = fragVelocityMax = fragLifeMin = fragLifeMax = 1f;
-                        fragBullet = new DamageFieldBulletType(splashDamage / 4, splashDamageRadius){{
+                        fragBullet = new SplashBulletType(splashDamage / 4, splashDamageRadius){{
                             splashAmount = 5;
                             splashDelay = 45;
                             hitShake = 28;
@@ -629,7 +629,7 @@ public class UAWBlock implements ContentList {
                         lifetime = range / speed;
                         ammoMultiplier = 3f;
                     }},
-                    Items.copper, new DamageFieldBulletType(50f, 5) {{
+                    Items.copper, new SplashBulletType(50f, 5) {{
                     }}
             );
         }};
@@ -761,28 +761,28 @@ public class UAWBlock implements ContentList {
             range = 24 * tilesize;
             ammoUseEffect = Fx.doorcloselarge;
             ammo(
-                    Liquids.cryofluid, new DamageFieldBulletType(10, range) {{
+                    Liquids.cryofluid, new SplashBulletType(10, range) {{
                         shootEffect = UAWFxDynamic.statusFieldApply(UAWPal.cryoFront, UAWPal.cryoBack, range);
                         smokeEffect = UAWFxDynamic.statusHit(UAWPal.cryoMiddle, 30);
                         status = StatusEffects.freezing;
                         statusDuration = reloadTime * 1.5f;
                         splashAmount = 1;
                     }},
-                    Liquids.slag, new DamageFieldBulletType(10, range) {{
+                    Liquids.slag, new SplashBulletType(10, range) {{
                         shootEffect = UAWFxDynamic.statusFieldApply(Pal.lighterOrange, Pal.lightOrange, range);
                         smokeEffect = UAWFxDynamic.statusHit(Pal.orangeSpark, 30);
                         status = StatusEffects.melting;
                         statusDuration = reloadTime * 1.5f;
                         splashAmount = 1;
                     }},
-                    Liquids.oil, new DamageFieldBulletType(10, range) {{
+                    Liquids.oil, new SplashBulletType(10, range) {{
                         shootEffect = UAWFxDynamic.statusFieldApply(Pal.plastaniumFront, Pal.plastaniumBack, range);
                         smokeEffect = UAWFxDynamic.statusHit(Pal.plastanium, 30);
                         status = StatusEffects.tarred;
                         statusDuration = reloadTime * 1.5f;
                         splashAmount = 1;
                     }},
-                    UAWLiquid.surgeSolvent, new DamageFieldBulletType(10, range) {{
+                    UAWLiquid.surgeSolvent, new SplashBulletType(10, range) {{
                         shootEffect = UAWFxDynamic.statusFieldApply(UAWPal.surgeFront, UAWPal.surgeBack, range);
                         smokeEffect = UAWFxDynamic.statusHit(Pal.surge, 30);
                         status = StatusEffects.electrified;
