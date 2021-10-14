@@ -1,6 +1,7 @@
 package UAW.entities.bullet;
 
 import arc.Events;
+import arc.math.Mathf;
 import arc.util.Tmp;
 import mindustry.content.Fx;
 import mindustry.game.EventType;
@@ -13,7 +14,7 @@ public class ArmorPiercingBulletType extends TrailBulletType {
     /**
      * Percentage of damage that bypasses shields and armor, 1 equals to 100% bypass
      */
-    public float armorIgnoreScl = 0.5f;
+    public float armorIgnoreScl;
 
     public ArmorPiercingBulletType(float speed, float damage, float armorIgnoreScl) {
         this.speed = speed;
@@ -24,7 +25,6 @@ public class ArmorPiercingBulletType extends TrailBulletType {
         pierceBuilding = true;
         buildingDamageMultiplier = 0.5f;
     }
-
     public void hitEntity(Bullet b, Hitboxc entity, float health) {
         float realDamage = b.damage * armorIgnoreScl;
         if (entity instanceof Healthc h) {
@@ -47,3 +47,4 @@ public class ArmorPiercingBulletType extends TrailBulletType {
         }
     }
 }
+

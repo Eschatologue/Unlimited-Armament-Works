@@ -6,20 +6,20 @@ import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.scene.ui.layout.Table;
-import arc.struct.ObjectMap;
+import arc.struct.*;
 import arc.util.*;
 import mindustry.entities.units.WeaponMount;
-import mindustry.gen.Unit;
+import mindustry.gen.*;
 import mindustry.graphics.Drawf;
 import mindustry.type.*;
 import mindustry.world.meta.*;
 
-public class TurretedWeapon extends Weapon {
-    public TextureRegion turret, turretOutlineRegion, turretCell;
+public class RecoilingGunWeapon extends Weapon {
+    public TextureRegion turret, turretOutlineRegion, turretCell, weaponIcon;
     public boolean drawTurretCell = false;
 
 
-    public TurretedWeapon(String name) {
+    public RecoilingGunWeapon(String name) {
         super(name);
         this.name = name;
     }
@@ -30,6 +30,7 @@ public class TurretedWeapon extends Weapon {
         turret = Core.atlas.find(name + "-turret");
         turretOutlineRegion = Core.atlas.find(name + "-turret-outline");
         turretCell = Core.atlas.find(name + "-turret-cell");
+        weaponIcon = Core.atlas.find(name + "-turret-icon");
     }
 
     public Color cellColor(Unit unit) {
