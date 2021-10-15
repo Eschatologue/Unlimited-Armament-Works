@@ -30,7 +30,7 @@ public class RecoilingGunWeapon extends Weapon {
         turret = Core.atlas.find(name + "-turret");
         turretOutlineRegion = Core.atlas.find(name + "-turret-outline");
         turretCell = Core.atlas.find(name + "-turret-cell");
-        weaponIcon = Core.atlas.find(name + "-turret-icon");
+        weaponIcon = Core.atlas.find(name + "-icon");
     }
 
     public Color cellColor(Unit unit) {
