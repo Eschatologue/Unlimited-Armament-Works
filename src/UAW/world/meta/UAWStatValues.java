@@ -267,7 +267,7 @@ public class UAWStatValues {
                     continue;
                 }
 
-                TextureRegion region = !recoilingGunWeapon.name.equals("") && recoilingGunWeapon.weaponIcon.found() ? recoilingGunWeapon.outlineRegion : unit.fullIcon;
+                TextureRegion region = recoilingGunWeapon.weaponIcon.found() ? recoilingGunWeapon.outlineRegion : unit.fullIcon;
 
                 table.image(region).size(60).scaling(Scaling.bounded).right().top();
 
