@@ -12,9 +12,11 @@ import static mindustry.Vars.player;
 
 public class ArmorPiercingBulletType extends TrailBulletType {
     /**
-     * Percentage of damage that bypasses shields and armor, 1 equals to 100% bypass
+     * Percentage of damage that bypasses targets armor, 1 equals 100% penetration,
+     * Penetrate your enemy uwu
      */
     public float armorIgnoreScl;
+    public float shieldDamageMultiplier;
 
     public ArmorPiercingBulletType(float speed, float damage, float armorIgnoreScl) {
         this.speed = speed;
@@ -32,6 +34,9 @@ public class ArmorPiercingBulletType extends TrailBulletType {
             if (armorIgnoreScl < 1) {
                 h.damage(b.damage - realDamage);
             }
+        }
+        if (entity instanceof Shieldc h) {
+            h.damagePierce(b.damage * shieldDamageMultiplier);
         }
         if (entity instanceof Unit unit) {
             Tmp.v3.set(unit).sub(b).nor().scl(knockback * 80f);
