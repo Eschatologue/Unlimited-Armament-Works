@@ -15,10 +15,10 @@ public class ArmorPiercingBulletType extends TrailBulletType {
      * Percentage of damage that bypasses targets armor, 1 equals 100% penetration,
      * Penetrate your enemy uwu
      */
-    public float armorIgnoreScl;
+    public float armorIgnoreScl = 0.5f;
     public float shieldDamageMultiplier;
 
-    public ArmorPiercingBulletType(float speed, float damage, float armorIgnoreScl) {
+    public ArmorPiercingBulletType(float speed, float damage) {
         this.speed = speed;
         this.damage = damage;
         this.armorIgnoreScl = armorIgnoreScl;

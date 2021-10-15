@@ -608,11 +608,13 @@ public class UAWUnitTypes implements ContentList {
                         shootSound = UAWSfx.cannonShoot1;
                         ejectEffect = UAWFxStatic.casing2Long;
                         shake = 3f;
-                        bullet = new ArmorPiercingBulletType(7f, 85, 0.6f) {{
+                        bullet = new ArmorPiercingBulletType(7f, 85) {{
                             height = 25f;
                             width = 8f;
                             lifetime = range / (speed + 3);
                             knockback = 4f;
+                            armorIgnoreScl = 0.4f;
+                            shieldDamageMultiplier = 1.5f;
                             trailColor = backColor;
                             shootSound = Sounds.shootBig;
                             shootEffect = new MultiEffect(UAWFxDynamic.railShoot(backColor, 22f), Fx.shootPyraFlame, Fx.shootSmallSmoke);
@@ -666,16 +668,17 @@ public class UAWUnitTypes implements ContentList {
                         shootSound = UAWSfx.cannonShoot1;
                         ejectEffect = UAWFxStatic.casing3Long;
                         shake = 6f;
-                        bullet = new ArmorPiercingBulletType(8f, 215, 0.8f) {{
+                        bullet = new ArmorPiercingBulletType(8f, 215) {{
                             height = 35f;
                             width = 10f;
                             lifetime = range / (speed + 3);
-                            absorbable = false;
                             pierce = true;
                             pierceCap = 2;
                             knockback = 6f;
                             trailColor = backColor;
                             shootSound = Sounds.shootBig;
+                            armorIgnoreScl = 0.6f;
+                            shieldDamageMultiplier = 2f;
                             shootEffect = new MultiEffect(UAWFxDynamic.railShoot(backColor, 30f), Fx.shootPyraFlame, Fx.shootBigSmoke2);
                             hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootBigSmoke2);
                             fragBullets = 6;
