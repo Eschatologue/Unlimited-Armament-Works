@@ -256,31 +256,6 @@ public class UAWStatValues {
         };
     }
 
-    public static StatValue recoilingWeapon(UnitType unit, Seq<RecoilingGunWeapon> rWeapons) {
-        return table -> {
-            table.row();
-            for (int i = 0; i < rWeapons.size; i++) {
-                RecoilingGunWeapon recoilingGunWeapon = rWeapons.get(i);
-
-                if (recoilingGunWeapon.flipSprite) {
-                    //flipped weapons are not given stats
-                    continue;
-                }
-
-                TextureRegion region = recoilingGunWeapon.weaponIcon.found() ? recoilingGunWeapon.outlineRegion : unit.fullIcon;
-
-                table.image(region).size(60).scaling(Scaling.bounded).right().top();
-
-                table.table(Tex.underline, w -> {
-                    w.left().defaults().padRight(3).left();
-
-                    recoilingGunWeapon.addStats(unit, w);
-                }).padTop(-9).left();
-                table.row();
-            }
-        };
-    }
-
     public static <T extends UnlockableContent> StatValue ammo(ObjectMap<T, BulletType> map) {
         return ammo(map, 0);
     }

@@ -20,7 +20,7 @@ public class TrailBulletType extends BasicBulletType {
     public TrailBulletType(float speed, float damage, String bulletSprite) {
         super(speed, damage);
         this.sprite = bulletSprite;
-        trailWidth = width / 3.8f;
+        trailWidth = width / 3.5f;
         trailLength = Mathf.round(height * trailLenghtScl);
         trailRotation = true;
         trailColor = backColor;
