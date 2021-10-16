@@ -7,6 +7,7 @@ import UAW.world.blocks.defense.turrets.DynamicReloadTurret;
 import UAW.world.blocks.defense.walls.ShieldWall;
 import UAW.world.blocks.drawer.DrawLiquidInput;
 import arc.graphics.Color;
+import arc.math.Mathf;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.bullet.*;
@@ -340,6 +341,8 @@ public class UAWBlock implements ContentList {
                         trailSize = width;
                         trailEffect = UAWFxDynamic.burnTrailDynamic(0.8f, Pal.lighterOrange, UAWPal.darkPyraBloom);
                         trailRotation = true;
+                        trailWidth = width/ 3.5f;
+                        trailLength = Mathf.round(height);
                         fragVelocityMin = fragVelocityMax = fragLifeMin = fragLifeMax = 1f;
                         fragBullet = new SplashBulletType(splashDamage / 4, splashDamageRadius){{
                             splashAmount = 5;

@@ -1,15 +1,18 @@
 package UAW.type;
 
+import UAW.type.weapon.RecoilingGunWeapon;
+import UAW.world.meta.UAWStatValues;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.math.*;
-import arc.struct.ObjectSet;
+import arc.struct.*;
 import mindustry.Vars;
 import mindustry.content.*;
 import mindustry.gen.*;
 import mindustry.graphics.Layer;
-import mindustry.type.UnitType;
+import mindustry.type.*;
 import mindustry.world.blocks.environment.Floor;
+import mindustry.world.meta.Stat;
 
 // Basically Mech with overrided draw method
 public class TankUnitType extends UnitType {
@@ -18,6 +21,8 @@ public class TankUnitType extends UnitType {
     public float liquidSpeedMultiplier = 1.2f;
     public boolean engineSmoke = false;
     public float engineOffsetX = 0f, engineOffsetY = 0f;
+    public Seq<RecoilingGunWeapon> rWeapons = new Seq<>();
+    public Seq<Weapon> weapons = new Seq<>();
 
     public TankUnitType(String name) {
         super(name);
@@ -39,6 +44,9 @@ public class TankUnitType extends UnitType {
     @Override
     public void setStats() {
         super.setStats();
+        if (rWeapons.any()) {
+            stats.add(Stat.weapons, UAWStatValues.recoilingWeapons(this, rWeapons));
+        }
     }
 
     @Override

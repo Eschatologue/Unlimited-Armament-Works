@@ -623,7 +623,6 @@ public class UAWUnitTypes implements ContentList {
                             fragLifeMin = 0f;
                             fragCone = 30f;
                             fragBullet = new BasicBulletType(7f, 6){{
-                                buildingDamageMultiplier = 1.5f;
                                 height = width = 8f;
                                 pierce = true;
                                 pierceBuilding = true;

@@ -256,10 +256,36 @@ public class UAWStatValues {
         };
     }
 
+    public static StatValue recoilingWeapons(UnitType unit, Seq<RecoilingGunWeapon> recoilingGunWeapons) {
+        return table -> {
+            table.row();
+            for (int i = 0; i < recoilingGunWeapons.size; i++) {
+                RecoilingGunWeapon rWeapon = recoilingGunWeapons.get(i);
+
+                if (rWeapon.flipSprite) {
+                    //flipped weapons are not given stats
+                    continue;
+                }
+
+                TextureRegion region = !rWeapon.name.equals("") && rWeapon.weaponIcon.found() ? rWeapon.weaponIcon : unit.fullIcon;
+
+                table.image(region).size(60).scaling(Scaling.bounded).right().top();
+
+                table.table(Tex.underline, w -> {
+                    w.left().defaults().padRight(3).left();
+
+                    rWeapon.addStats(unit, w);
+                }).padTop(-9).left();
+                table.row();
+            }
+        };
+    }
+
     public static <T extends UnlockableContent> StatValue ammo(ObjectMap<T, BulletType> map) {
         return ammo(map, 0);
     }
-// Copy Paste from StatValues
+
+    // Copy Paste from StatValues
     public static <T extends UnlockableContent> StatValue ammo(ObjectMap<T, BulletType> map, int indent) {
         return table -> {
 
@@ -290,9 +316,9 @@ public class UAWStatValues {
                         }
                     }
 
-                    if(type instanceof ArmorPiercingBulletType types){
-                        sep(bt, Core.bundle.format("bullet.uaw-armorPenetration", (int)(types.armorIgnoreScl * 100)));
-                        sep(bt, Core.bundle.format("bullet.uaw-shieldDamageMultiplier", (int)(types.shieldDamageMultiplier)));
+                    if (type instanceof ArmorPiercingBulletType types) {
+                        sep(bt, Core.bundle.format("bullet.uaw-armorPenetration", (int) (types.armorIgnoreScl * 100)));
+                        sep(bt, Core.bundle.format("bullet.uaw-shieldDamageMultiplier", (int) (types.shieldDamageMultiplier)));
                     }
 
                     if (type.buildingDamageMultiplier != 1) {

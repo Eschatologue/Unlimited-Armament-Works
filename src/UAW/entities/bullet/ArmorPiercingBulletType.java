@@ -21,7 +21,6 @@ public class ArmorPiercingBulletType extends TrailBulletType {
     public ArmorPiercingBulletType(float speed, float damage) {
         this.speed = speed;
         this.damage = damage;
-        this.armorIgnoreScl = armorIgnoreScl;
         hitEffect = Fx.hitBulletBig;
         pierce = true;
         pierceBuilding = true;
