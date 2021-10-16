@@ -331,7 +331,7 @@ public class UAWBlock implements ContentList {
                         width = height / 2f;
                         lifetime = range / speed;
                         shootEffect = new MultiEffect(UAWFxDynamic.railShoot(frontColor, height + width), Fx.impactcloud, Fx.nuclearShockwave);
-                        hitEffect = UAWFxDynamic.hugeExplosion(splashDamageRadius, frontColor, backColor);
+                        hitEffect = UAWFxDynamic.hugeExplosion(splashDamageRadius, frontColor);
                         hitSound = UAWSfx.artilleryExplosionHuge;
                         hitSoundVolume = 3f;
                         smokeEffect = Fx.smokeCloud;
@@ -346,7 +346,6 @@ public class UAWBlock implements ContentList {
                             splashDelay = 45;
                             lifetime = (splashDelay * splashAmount);
                             hitShake = 28;
-                            shake = true;
                             status = UAWStatusEffects.concussion;
                             statusDuration = 30f;
                             applySound = Sounds.shotgun;
