@@ -66,8 +66,8 @@ public class DynamicReloadTurret extends ItemTurret {
         public void drawSelect() {
             super.drawSelect();
             Lines.stroke(speedupScl / maxReloadScl);
-            Draw.color(UAWPal.cryoFront, Pal.darkPyraFlame, speedupScl / 8);
-            Lines.polySeg(200, 0, (int) (200 * speedupScl / (maxReloadScl)), x, y, range / 15, rotation);
+            Draw.color(UAWPal.cryoFront, Pal.bulletYellow, Pal.lightPyraFlame, speedupScl / 8);
+            Lines.polySeg(200, 0, (int) (200 * speedupScl / (maxReloadScl)), x, y, range / 10, rotation);
 
             Draw.color();
         }
