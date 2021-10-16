@@ -29,8 +29,8 @@ public class SplashBulletType extends BulletType {
         this.damage = 0f;
         this.splashDamage = splashDamage;
         this.splashDamageRadius = radius;
+        this.lifetime = (splashDelay * splashAmount);
         hittable = false;
-        lifetime = (splashDelay * splashAmount);
         hitSize = speed = 0;
         smokeEffect = despawnEffect = hitEffect = Fx.none;
         applyEffect = UAWFxDynamic.circleSplash(frontColor, backColor, splashDamageRadius);

@@ -336,14 +336,13 @@ public class UAWBlock implements ContentList {
                         hitSoundVolume = 3f;
                         smokeEffect = Fx.smokeCloud;
                         hitShake = 34f;
-                        fragBullets = 1;
                         restitution = 0.02f;
                         trailSize = width;
-                        trailEffect = UAWFxDynamic.burnTrailDynamic(0.8f, Pal.lighterOrange, UAWPal.darkPyraBloom);
+                        trailEffect = Fx.fireSmoke;
                         trailRotation = true;
-                        trailWidth = width/ 3.5f;
+                        trailWidth = width / 3.5f;
                         trailLength = Mathf.round(height);
-                        fragVelocityMin = fragVelocityMax = fragLifeMin = fragLifeMax = 1f;
+                        fragBullets = 1;
                         fragBullet = new SplashBulletType(splashDamage / 4, splashDamageRadius){{
                             splashAmount = 5;
                             splashDelay = 45;

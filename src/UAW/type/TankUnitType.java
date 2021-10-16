@@ -21,8 +21,6 @@ public class TankUnitType extends UnitType {
     public float liquidSpeedMultiplier = 1.2f;
     public boolean engineSmoke = false;
     public float engineOffsetX = 0f, engineOffsetY = 0f;
-    public Seq<RecoilingGunWeapon> rWeapons = new Seq<>();
-    public Seq<Weapon> weapons = new Seq<>();
 
     public TankUnitType(String name) {
         super(name);
@@ -39,14 +37,6 @@ public class TankUnitType extends UnitType {
         Draw.z(Layer.groundUnit - 0.1f);
         Draw.rect(region, unit.x, unit.y, unit.rotation - 90);
         Draw.reset();
-    }
-
-    @Override
-    public void setStats() {
-        super.setStats();
-        if (rWeapons.any()) {
-            stats.add(Stat.weapons, UAWStatValues.recoilingWeapons(this, rWeapons));
-        }
     }
 
     @Override
