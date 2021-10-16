@@ -124,7 +124,7 @@ public class UAWFxDynamic {
                 Fill.circle(e.x + x, e.y + y, smokeSize / 1.5f);
             });
             randLenVectors(e.id, 35, e.finpow() * e.lifetime, (x, y) -> {
-                color(Pal.darkerGray);
+                color(Pal.darkerGray, Pal.darkishGray, e.fin());
                 Fill.circle(e.x + x, e.y + y, smokeSize * 2);
             });
             Draw.color();

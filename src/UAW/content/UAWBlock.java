@@ -296,7 +296,7 @@ public class UAWBlock implements ContentList {
             health = 100 * size * size;
             targetAir = false;
             inaccuracy = 4f;
-            rotateSpeed = 1.4f;
+            rotateSpeed = 1f;
             unitSort = (unit, x, y) -> unit.hitSize;
             reloadTime = 10 * tick;
             ammoEjectBack = 5f;
@@ -325,8 +325,6 @@ public class UAWBlock implements ContentList {
                         hitSound = UAWSfx.artilleryExplosionHuge;
                         hitSoundVolume = 3f;
                         hitShake = 34f;
-                        restitution = 0.02f;
-                        trailSize = width;
                         trailRotation = true;
                         makeFire = true;
                         trailEffect = Fx.artilleryTrail;
@@ -358,8 +356,6 @@ public class UAWBlock implements ContentList {
                         hitSound = UAWSfx.artilleryExplosionHuge;
                         hitSoundVolume = 3f;
                         hitShake = 34f;
-                        restitution = 0.02f;
-                        trailSize = width;
                         trailRotation = true;
                         makeFire = true;
                         trailEffect = Fx.artilleryTrail;
@@ -392,8 +388,6 @@ public class UAWBlock implements ContentList {
                         hitSound = UAWSfx.artilleryExplosionHuge;
                         hitSoundVolume = 3f;
                         hitShake = 34f;
-                        restitution = 0.02f;
-                        trailSize = width;
                         trailRotation = true;
                         trailEffect = Fx.artilleryTrail;
                         smokeEffect = Fx.smokeCloud;
