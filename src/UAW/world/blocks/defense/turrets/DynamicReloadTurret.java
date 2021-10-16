@@ -7,7 +7,7 @@ import arc.graphics.g2d.*;
 import arc.math.Mathf;
 import arc.util.Time;
 import mindustry.entities.bullet.BulletType;
-import mindustry.graphics.Pal;
+import mindustry.graphics.*;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.meta.Stat;
 
@@ -69,6 +69,7 @@ public class DynamicReloadTurret extends ItemTurret {
             Lines.stroke(speedupScl / maxReloadScl);
             Draw.color(UAWPal.cryoFront, Pal.bulletYellow, Pal.darkPyraFlame, speedupScl / 4);
             Lines.polySeg(250, 0, (int) (250 * speedupScl / (maxReloadScl)), x, y, range / 10, rotation);
+            Drawf.light(x, y, size * 1.6f, UAWPal.cryoFront, speedupScl / maxReloadScl );
             Draw.color();
         }
 
