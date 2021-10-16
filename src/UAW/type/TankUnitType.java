@@ -31,8 +31,8 @@ public class TankUnitType extends UnitType {
         constructor = MechUnit::create;
         mechStride = mechFrontSway = mechSideSway = 0f;
     }
-
-
+    /*
+    // This thing is broken
         @Override
         public void setStats(){
             Unit inst = constructor.get();
@@ -76,7 +76,7 @@ public class TankUnitType extends UnitType {
                 stats.add(Stat.weapons, UAWStatValues.weapons(this, weapons));
             }
         }
-
+*/
     // Modifies drawMech
     @Override
     public void drawMech(Mechc mech) {

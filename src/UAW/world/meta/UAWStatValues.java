@@ -1,6 +1,6 @@
 package UAW.world.meta;
 
-import UAW.entities.bullet.ArmorPiercingBulletType;
+import UAW.entities.bullet.*;
 import UAW.type.weapon.RecoilingWeapon;
 import arc.Core;
 import arc.func.Boolf;
@@ -231,6 +231,7 @@ public class UAWStatValues {
         };
     }
 
+    // This is broken, don't
     public static StatValue weapons(UnitType unit, Seq<Weapon> weapons) {
         return table -> {
             table.row();
@@ -265,7 +266,7 @@ public class UAWStatValues {
         return ammo(map, 0);
     }
 
-    // Copy Paste from StatValues
+    // Custom Stats for UAW units
     public static <T extends UnlockableContent> StatValue ammo(ObjectMap<T, BulletType> map, int indent) {
         return table -> {
 
