@@ -61,7 +61,7 @@ public class UAWBlock implements ContentList {
             alternate = true;
             reloadTime = 30f;
             restitution = 0.03f;
-            range = 140;
+            range = 20 * 8;
             shootCone = 15f;
             ammoUseEffect = Fx.casing2Double;
             inaccuracy = 4f;

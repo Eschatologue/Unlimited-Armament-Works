@@ -1,12 +1,13 @@
 package UAW.world.blocks.defense.turrets;
 
 import UAW.graphics.UAWPal;
-import arc.graphics.Color;
+import UAW.world.meta.UAWStatValues;
 import arc.graphics.g2d.*;
 import arc.math.Mathf;
 import arc.util.Time;
 import mindustry.entities.bullet.BulletType;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
+import mindustry.world.meta.Stat;
 
 // A small modification from Yuria-Shikibe/NewHorizonMod
 public class DynamicReloadTurret extends ItemTurret {
@@ -17,6 +18,14 @@ public class DynamicReloadTurret extends ItemTurret {
 
     public DynamicReloadTurret(String name) {
         super(name);
+    }
+
+    @Override
+    public void setStats() {
+        super.setStats();
+
+        stats.remove(Stat.ammo);
+        stats.add(Stat.ammo, UAWStatValues.ammo(ammoTypes));
     }
 
     public class DynamicReloadTurretBuild extends ItemTurretBuild {
@@ -53,14 +62,14 @@ public class DynamicReloadTurret extends ItemTurret {
         }
 
         @Override
-		public void drawSelect(){
-			super.drawSelect();
-			Lines.stroke(speedupScl * 1);
-			Draw.color(UAWPal.cryoMiddle);
-			Lines.polySeg(200, 0, (int) (200 * speedupScl / maxReloadScl), x, y, 1.5f * 8, rotation);
+        public void drawSelect() {
+            super.drawSelect();
+            Lines.stroke(speedupScl * 1);
+            Draw.color(UAWPal.cryoMiddle);
+            Lines.polySeg(200, 0, (int) (200 * speedupScl / (maxReloadScl * 2)), x, y, range / 18, rotation);
 
-			Draw.color();
-		}
+            Draw.color();
+        }
 
         @Override
         protected void bullet(BulletType type, float angle) {
