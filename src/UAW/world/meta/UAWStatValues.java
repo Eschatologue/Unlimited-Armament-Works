@@ -29,6 +29,7 @@ import static mindustry.Vars.*;
  * Utilities for displaying certain stats in a table.
  */
 public class UAWStatValues {
+    public TextureRegion weaponIcon;
 
     public static StatValue string(String value, Object... args) {
         String result = Strings.format(value, args);
@@ -236,6 +237,7 @@ public class UAWStatValues {
             table.row();
             for (int i = 0; i < weapons.size; i++) {
                 Weapon weapon = weapons.get(i);
+                RecoilingWeapon recoilingWeapon = (RecoilingWeapon) weapons.get(i);
 
                 if (weapon.flipSprite) {
                     //flipped weapons are not given stats
@@ -243,38 +245,21 @@ public class UAWStatValues {
                 }
 
                 TextureRegion region = !weapon.name.equals("") && weapon.outlineRegion.found() ? weapon.outlineRegion : unit.fullIcon;
+                TextureRegion icon = recoilingWeapon.weaponIcon.found() ? recoilingWeapon.weaponIcon : unit.fullIcon;
 
-                table.image(region).size(60).scaling(Scaling.bounded).right().top();
-
-                table.table(Tex.underline, w -> {
-                    w.left().defaults().padRight(3).left();
-
-                    weapon.addStats(unit, w);
-                }).padTop(-9).left();
-                table.row();
-            }
-        };
-    }
-
-    public static StatValue recoilingWeapons(UnitType unit, Seq<RecoilingWeapon> recoilingGunWeapons) {
-        return table -> {
-            table.row();
-            for (int i = 0; i < recoilingGunWeapons.size; i++) {
-                RecoilingWeapon rWeapon = recoilingGunWeapons.get(i);
-
-                if (rWeapon.flipSprite) {
-                    //flipped weapons are not given stats
-                    continue;
+                if (!recoilingWeapon.weaponIcon.found()) {
+                    table.image(region).size(60).scaling(Scaling.bounded).right().top();
+                } else {
+                    table.image(icon).size(64).scaling(Scaling.bounded).right().top();
                 }
 
-                TextureRegion region = !rWeapon.name.equals("") && rWeapon.weaponIcon.found() ? rWeapon.weaponIcon : unit.fullIcon;
-
-                table.image(region).size(60).scaling(Scaling.bounded).right().top();
-
                 table.table(Tex.underline, w -> {
                     w.left().defaults().padRight(3).left();
-
-                    rWeapon.addStats(unit, w);
+                    if (!recoilingWeapon.weaponIcon.found()) {
+                        weapon.addStats(unit, w);
+                    } else {
+                        recoilingWeapon.addStats(unit, w);
+                    }
                 }).padTop(-9).left();
                 table.row();
             }
@@ -387,4 +372,5 @@ public class UAWStatValues {
     private static TextureRegion icon(UnlockableContent t) {
         return t.uiIcon;
     }
+
 }

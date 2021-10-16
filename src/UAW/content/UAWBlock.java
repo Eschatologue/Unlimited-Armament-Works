@@ -361,16 +361,16 @@ public class UAWBlock implements ContentList {
                         trailEffect = Fx.artilleryTrail;
                         smokeEffect = Fx.smokeCloud;
                         fragBullets = 25;
-                        fragBullet =  new ArtilleryBulletType(2.2f, 250){{
+                        fragBullet =  new ArtilleryBulletType(2.2f, 1250){{
                             hitEffect = Fx.plasticExplosion;
                             knockback = 1f;
-                            lifetime = 90f;
+                            lifetime = 45f;
                             width = height = 28f;
                             collidesTiles = false;
                             splashDamageRadius = 35f * 0.75f;
                             splashDamage = 45f;
-                            fragBullet = artilleryPlasticFrag;
-                            fragBullets = 25;
+                            fragBullet = artilleryPlastic;
+                            fragBullets = 4;
                             backColor = Pal.plastaniumBack;
                             frontColor = Pal.plastaniumFront;
                         }};
