@@ -23,6 +23,8 @@ public class TankUnitType extends UnitType {
     public float trailOffsetX = 0f, trailOffsetY = 0f;
     public float liquidSpeedMultiplier = 1.2f;
     public boolean engineSmoke = false;
+    /** Whenever this unit should use custom weapon icon or not*/
+    public boolean useCustomWeaponIcon = false;
     public float engineOffsetX = 0f, engineOffsetY = 0f;
 
     public TankUnitType(String name) {
@@ -72,8 +74,10 @@ public class TankUnitType extends UnitType {
             stats.add(Stat.payloadCapacity, (payloadCapacity / (tilesize * tilesize)), StatUnit.blocksSquared);
         }
 
-        if(weapons.any()){
+        if(weapons.any() && useCustomWeaponIcon){
             stats.add(Stat.weapons, UAWStatValues.weapons(this, weapons));
+        } else {
+            stats.add(Stat.weapons, StatValues.weapons(this, weapons));
         }
     }
     // Modifies drawMech

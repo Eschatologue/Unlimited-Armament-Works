@@ -574,6 +574,7 @@ public class UAWUnitTypes implements ContentList {
             drag = 0.06f;
             range = 36 * tilesize;
             rotateShooting = false;
+            useCustomWeaponIcon = true;
 
             weapons.add(
                     new PointDefenseWeapon("uaw-point-defense-red") {{
@@ -649,9 +650,7 @@ public class UAWUnitTypes implements ContentList {
             drag = 0.08f;
             range = 48 * tilesize;
             rotateShooting = false;
-            engineSmoke = true;
-            engineOffsetX = 6 ;
-            engineOffsetY = -12f;
+            useCustomWeaponIcon = true;
 
             weapons.add(
                     new RecoilingWeapon(name + "-gun") {{
