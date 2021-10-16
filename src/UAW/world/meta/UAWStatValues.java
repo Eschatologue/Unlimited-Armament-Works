@@ -246,19 +246,15 @@ public class UAWStatValues {
                 TextureRegion region = !weapon.name.equals("") && weapon.outlineRegion.found() ? weapon.outlineRegion : unit.fullIcon;
                 TextureRegion icon = recoilingWeapon.weaponIcon.found() ? recoilingWeapon.weaponIcon : unit.fullIcon;
 
-                if (!recoilingWeapon.weaponIcon.found()) {
-                    table.image(region).size(60).scaling(Scaling.bounded).right().top();
-                } else {
-                    table.image(icon).size(64).scaling(Scaling.bounded).right().top();
-                }
+                table.image(region).size(60).scaling(Scaling.bounded).right().top();
+                table.image(icon).size(64).scaling(Scaling.bounded).right().top();
+
 
                 table.table(Tex.underline, w -> {
                     w.left().defaults().padRight(3).left();
-                    if (!recoilingWeapon.weaponIcon.found()) {
-                        weapon.addStats(unit, w);
-                    } else {
-                        recoilingWeapon.addStats(unit, w);
-                    }
+                    weapon.addStats(unit, w);
+                    recoilingWeapon.addStats(unit, w);
+
                 }).padTop(-9).left();
                 table.row();
             }

@@ -31,7 +31,7 @@ public class Rotor {
         float ry = unit.y + Angles.trnsy(unit.rotation - 90, x, y);
 
         if (unit.health() < 0 || unit.dead) {
-            deathRotorSpeedScl = Mathf.lerpDelta(0.9f, 0f, (unit.type().fallSpeed) * 100);
+            deathRotorSpeedScl = Mathf.lerpDelta(0.9f, 0f, (unit.type().fallSpeed) * 1000);
         }
 
         for (int i = 0; i < bladeCount; i++) {

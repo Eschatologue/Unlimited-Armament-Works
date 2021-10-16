@@ -5,27 +5,24 @@ import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.math.*;
-import arc.struct.*;
+import arc.struct.ObjectSet;
 import mindustry.Vars;
 import mindustry.content.*;
 import mindustry.entities.abilities.Ability;
 import mindustry.gen.*;
 import mindustry.graphics.Layer;
-import mindustry.type.*;
+import mindustry.type.UnitType;
 import mindustry.world.blocks.environment.Floor;
 import mindustry.world.meta.*;
 
-import static mindustry.Vars.tilesize;
+import static mindustry.Vars.*;
 
 // Basically Mech with overrided draw method
 public class TankUnitType extends UnitType {
     public float trailIntensity = 0.4f;
     public float trailOffsetX = 0f, trailOffsetY = 0f;
     public float liquidSpeedMultiplier = 1.2f;
-    public boolean engineSmoke = false;
-    /** Whenever this unit should use custom weapon icon or not*/
     public boolean useCustomWeaponIcon = false;
-    public float engineOffsetX = 0f, engineOffsetY = 0f;
 
     public TankUnitType(String name) {
         super(name);
@@ -35,51 +32,51 @@ public class TankUnitType extends UnitType {
         mechStride = mechFrontSway = mechSideSway = 0f;
     }
 
-    @Override
-    public void setStats(){
-        Unit inst = constructor.get();
 
-        stats.add(Stat.health, health);
-        stats.add(Stat.armor, armor);
-        stats.add(Stat.speed, speed * 60f / tilesize, StatUnit.tilesSecond);
-        stats.add(Stat.size, hitSize / tilesize, StatUnit.blocksSquared);
-        stats.add(Stat.itemCapacity, itemCapacity);
-        stats.add(Stat.range, (int)(maxRange / tilesize), StatUnit.blocks);
-        stats.add(Stat.commandLimit, commandLimit);
+        @Override
+        public void setStats(){
+            Unit inst = constructor.get();
 
-        if(abilities.any()){
-            var unique = new ObjectSet<String>();
+            stats.add(Stat.health, health);
+            stats.add(Stat.armor, armor);
+            stats.add(Stat.speed, speed * 60f / tilesize, StatUnit.tilesSecond);
+            stats.add(Stat.size, hitSize / tilesize, StatUnit.blocksSquared);
+            stats.add(Stat.itemCapacity, itemCapacity);
+            stats.add(Stat.range, (int)(maxRange / tilesize), StatUnit.blocks);
+            stats.add(Stat.commandLimit, commandLimit);
 
-            for(Ability a : abilities){
-                if(unique.add(a.localized())){
-                    stats.add(Stat.abilities, a.localized());
+            if(abilities.any()){
+                var unique = new ObjectSet<String>();
+
+                for(Ability a : abilities){
+                    if(unique.add(a.localized())){
+                        stats.add(Stat.abilities, a.localized());
+                    }
                 }
+            }
+
+            stats.add(Stat.flying, flying);
+
+            if(!flying){
+                stats.add(Stat.canBoost, canBoost);
+            }
+
+            if(mineTier >= 1){
+                stats.addPercent(Stat.mineSpeed, mineSpeed);
+                stats.add(Stat.mineTier, StatValues.blocks(b -> b instanceof Floor f && f.itemDrop != null && f.itemDrop.hardness <= mineTier && (!f.playerUnmineable || Core.settings.getBool("doubletapmine"))));
+            }
+            if(buildSpeed > 0){
+                stats.addPercent(Stat.buildSpeed, buildSpeed);
+            }
+            if(inst instanceof Payloadc){
+                stats.add(Stat.payloadCapacity, (payloadCapacity / (tilesize * tilesize)), StatUnit.blocksSquared);
+            }
+
+            if(weapons.any()){
+                stats.add(Stat.weapons, UAWStatValues.weapons(this, weapons));
             }
         }
 
-        stats.add(Stat.flying, flying);
-
-        if(!flying){
-            stats.add(Stat.canBoost, canBoost);
-        }
-
-        if(mineTier >= 1){
-            stats.addPercent(Stat.mineSpeed, mineSpeed);
-            stats.add(Stat.mineTier, StatValues.blocks(b -> b instanceof Floor f && f.itemDrop != null && f.itemDrop.hardness <= mineTier && (!f.playerUnmineable || Core.settings.getBool("doubletapmine"))));
-        }
-        if(buildSpeed > 0){
-            stats.addPercent(Stat.buildSpeed, buildSpeed);
-        }
-        if(inst instanceof Payloadc){
-            stats.add(Stat.payloadCapacity, (payloadCapacity / (tilesize * tilesize)), StatUnit.blocksSquared);
-        }
-
-        if(weapons.any() && useCustomWeaponIcon){
-            stats.add(Stat.weapons, UAWStatValues.weapons(this, weapons));
-        } else {
-            stats.add(Stat.weapons, StatValues.weapons(this, weapons));
-        }
-    }
     // Modifies drawMech
     @Override
     public void drawMech(Mechc mech) {
