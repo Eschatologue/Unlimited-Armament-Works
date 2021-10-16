@@ -1,7 +1,7 @@
 package UAW.world.meta;
 
 import UAW.entities.bullet.ArmorPiercingBulletType;
-import UAW.type.weapon.RecoilingGunWeapon;
+import UAW.type.weapon.RecoilingWeapon;
 import arc.Core;
 import arc.func.Boolf;
 import arc.graphics.g2d.TextureRegion;
@@ -256,11 +256,11 @@ public class UAWStatValues {
         };
     }
 
-    public static StatValue recoilingWeapons(UnitType unit, Seq<RecoilingGunWeapon> recoilingGunWeapons) {
+    public static StatValue recoilingWeapons(UnitType unit, Seq<RecoilingWeapon> recoilingGunWeapons) {
         return table -> {
             table.row();
             for (int i = 0; i < recoilingGunWeapons.size; i++) {
-                RecoilingGunWeapon rWeapon = recoilingGunWeapons.get(i);
+                RecoilingWeapon rWeapon = recoilingGunWeapons.get(i);
 
                 if (rWeapon.flipSprite) {
                     //flipped weapons are not given stats

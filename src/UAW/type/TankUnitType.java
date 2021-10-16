@@ -1,7 +1,5 @@
 package UAW.type;
 
-import UAW.type.weapon.RecoilingGunWeapon;
-import UAW.world.meta.UAWStatValues;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.math.*;
@@ -12,7 +10,6 @@ import mindustry.gen.*;
 import mindustry.graphics.Layer;
 import mindustry.type.*;
 import mindustry.world.blocks.environment.Floor;
-import mindustry.world.meta.Stat;
 
 // Basically Mech with overrided draw method
 public class TankUnitType extends UnitType {
@@ -41,7 +38,7 @@ public class TankUnitType extends UnitType {
 
     @Override
     public void update(Unit unit) {
-        float engineSmokeIntensity = trailIntensity;
+
         Floor floor = Vars.world.floorWorld(unit.x, unit.y);
         Color floorColor = floor.mapColor;
         super.update(unit);
@@ -61,15 +58,6 @@ public class TankUnitType extends UnitType {
                     unit.x + Angles.trnsx(unit.rotation - 90, trailOffsetX, trailOffsetY),
                     unit.y + Angles.trnsy(unit.rotation - 90, trailOffsetX, trailOffsetY),
                     unit.hitSize / 6, floorColor);
-        }
-        if (unit.moving()) {
-            engineSmokeIntensity = trailIntensity * 4;
-        }
-        // Engine Smoke
-        if (Mathf.chanceDelta((engineSmokeIntensity)) && engineSmoke) {
-            Fx.fireSmoke.at(
-                    unit.x + Angles.trnsx(unit.rotation - 90, engineOffsetX, engineOffsetY),
-                    unit.y + Angles.trnsy(unit.rotation - 90, engineOffsetX, engineOffsetY));
         }
     }
 }

@@ -14,12 +14,12 @@ import mindustry.graphics.Drawf;
 import mindustry.type.*;
 import mindustry.world.meta.*;
 
-public class RecoilingGunWeapon extends Weapon {
+public class RecoilingWeapon extends Weapon {
     public TextureRegion turret, turretOutlineRegion, turretCell, weaponIcon;
     public boolean drawTurretCell = false;
 
 
-    public RecoilingGunWeapon(String name) {
+    public RecoilingWeapon(String name) {
         super(name);
         this.name = name;
     }

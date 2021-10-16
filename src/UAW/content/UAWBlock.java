@@ -341,7 +341,7 @@ public class UAWBlock implements ContentList {
                         trailEffect = Fx.fireSmoke;
                         trailRotation = true;
                         fragBullets = 1;
-                        fragBullet = new SplashBulletType(splashDamage / 4, splashDamageRadius / 3){{
+                        fragBullet = new SplashBulletType(splashDamage / 4, splashDamageRadius / 1.2f){{
                             splashAmount = 5;
                             splashDelay = 45;
                             lifetime = (splashDelay * splashAmount);

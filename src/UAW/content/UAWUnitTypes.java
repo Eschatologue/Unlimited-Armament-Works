@@ -4,7 +4,7 @@ import UAW.entities.abilities.RazorRotorAbility;
 import UAW.entities.bullet.*;
 import UAW.graphics.*;
 import UAW.type.*;
-import UAW.type.weapon.RecoilingGunWeapon;
+import UAW.type.weapon.RecoilingWeapon;
 import arc.graphics.Color;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
@@ -595,7 +595,7 @@ public class UAWUnitTypes implements ContentList {
                             damage = 8f;
                         }};
                     }},
-                    new RecoilingGunWeapon(name + "-gun") {{
+                    new RecoilingWeapon(name + "-gun") {{
                         targetFlags = new BlockFlag[]{BlockFlag.extinguisher, null};
                         rotate = true;
                         mirror = false;
@@ -654,7 +654,7 @@ public class UAWUnitTypes implements ContentList {
             engineOffsetY = -12f;
 
             weapons.add(
-                    new RecoilingGunWeapon(name + "-gun") {{
+                    new RecoilingWeapon(name + "-gun") {{
                         targetFlags = new BlockFlag[]{BlockFlag.extinguisher, null};
                         rotate = true;
                         mirror = false;
