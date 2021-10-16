@@ -311,7 +311,7 @@ public class UAWBlock implements ContentList {
             inaccuracy = 4f;
             rotateSpeed = 1.4f;
             unitSort = (unit, x, y) -> unit.hitSize;
-            reloadTime = 8 * tick;
+            reloadTime = 10 * tick;
             ammoEjectBack = 5f;
             ammoUseEffect = UAWFxStatic.casing7;
             ammoPerShot = 15;
@@ -340,12 +340,11 @@ public class UAWBlock implements ContentList {
                         trailSize = width;
                         trailEffect = Fx.fireSmoke;
                         trailRotation = true;
-                        trailWidth = width / 3.5f;
-                        trailLength = Mathf.round(height);
                         fragBullets = 1;
-                        fragBullet = new SplashBulletType(splashDamage / 4, splashDamageRadius){{
+                        fragBullet = new SplashBulletType(splashDamage / 4, splashDamageRadius / 3){{
                             splashAmount = 5;
                             splashDelay = 45;
+                            lifetime = (splashDelay * splashAmount);
                             hitShake = 28;
                             shake = true;
                             status = UAWStatusEffects.concussion;
