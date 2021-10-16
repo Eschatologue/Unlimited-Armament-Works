@@ -73,8 +73,23 @@ public class UAWBlock implements ContentList {
             ammo(
                     Items.copper, Bullets.standardCopper,
                     Items.graphite, Bullets.standardDense,
-                    Items.pyratite, UAWBullets.basicMelt,
-                    Items.titanium, UAWBullets.basicPiercing
+                    Items.pyratite, new BasicBulletType(3f, 12f) {{
+                        height = 18f;
+                        width = 12f;
+                        frontColor = Pal.lightishOrange;
+                        backColor = Pal.lightOrange;
+                        status = StatusEffects.melting;
+                        inaccuracy = 3f;
+                        lifetime = range / speed;
+                    }},
+                    Items.titanium, new ArmorPiercingBulletType(12f, 25f) {{
+                        height = 30f;
+                        width = 10f;
+                        shootEffect = Fx.shootBig;
+                        smokeEffect = Fx.shootBigSmoke;
+                        ammoMultiplier = 2;
+                        pierce = true;
+                    }}
             );
         }};
         spitfire = new DynamicReloadTurret("spitfire") {{
@@ -231,7 +246,7 @@ public class UAWBlock implements ContentList {
             float brange = range = 55 * tilesize;
             requirements(Category.turret, with(
                     Items.thorium, 280,
-                    UAWItems.titaniumCarbide, 250,
+                    UAWItems.titaniumCarbide, 150,
                     Items.graphite, 200,
                     Items.silicon, 180,
                     Items.plastanium, 150
@@ -287,11 +302,14 @@ public class UAWBlock implements ContentList {
         // Artillery
         skyhammer = new ItemTurret("skyhammer") {{
             requirements(Category.turret, with(
-                    Items.copper, 900,
-                    Items.graphite, 300,
-                    Items.surgeAlloy, 250,
-                    Items.plastanium, 175,
-                    Items.thorium, 250));
+                    Items.copper, 1000,
+                    Items.lead, 600,
+                    Items.titanium, 550,
+                    Items.graphite, 500,
+                    Items.surgeAlloy, 350,
+                    Items.plastanium, 300,
+                    Items.thorium, 250,
+                    UAWItems.titaniumCarbide, 225));
             size = 4;
             health = 100 * size * size;
             targetAir = false;
