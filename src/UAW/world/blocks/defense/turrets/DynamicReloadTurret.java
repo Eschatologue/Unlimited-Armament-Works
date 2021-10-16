@@ -1,5 +1,6 @@
 package UAW.world.blocks.defense.turrets;
 
+import UAW.graphics.UAWPal;
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.Mathf;
@@ -55,8 +56,8 @@ public class DynamicReloadTurret extends ItemTurret {
 		public void drawSelect(){
 			super.drawSelect();
 			Lines.stroke(speedupScl * 1);
-			Draw.color(Color.valueOf("ffa665"));
-			Lines.polySeg(200, 0, (int) (200 * speedupScl), x, y, 1.5f * 8, rotation);
+			Draw.color(UAWPal.cryoMiddle);
+			Lines.polySeg(200, 0, (int) (200 * speedupScl / maxReloadScl), x, y, 1.5f * 8, rotation);
 
 			Draw.color();
 		}
