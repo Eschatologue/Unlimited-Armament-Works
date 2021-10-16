@@ -381,8 +381,6 @@ public class UAWBlock implements ContentList {
                         splashDamage = damage;
                         splashDamageRadius = 14 * tilesize;
                         lifetime = range / speed;
-                        frontColor = Pal.lightishOrange;
-                        backColor = Pal.lightOrange;
                         shootEffect = new MultiEffect(UAWFxDynamic.railShoot(frontColor, height + width), Fx.impactcloud, Fx.nuclearShockwave);
                         hitEffect = UAWFxDynamic.hugeExplosion(splashDamageRadius, frontColor);
                         hitSound = UAWSfx.artilleryExplosionHuge;
@@ -391,7 +389,6 @@ public class UAWBlock implements ContentList {
                         trailRotation = true;
                         trailEffect = Fx.artilleryTrail;
                         smokeEffect = Fx.smokeCloud;
-                        status = StatusEffects.burning;
                         fragBullets = 1;
                         fragBullet = new SplashBulletType(splashDamage / 4, splashDamageRadius / 1.2f) {{
                             splashAmount = 5;
