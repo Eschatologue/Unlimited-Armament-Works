@@ -12,7 +12,6 @@ import static arc.graphics.g2d.Lines.*;
 import static arc.math.Angles.randLenVectors;
 
 public class UAWFxDynamic {
-    private static final Rand rand = new Rand();
 
     public static Effect instShoot(Color color, float size) {
         return new Effect(24.0F, size * 8, (e) -> {
@@ -113,42 +112,20 @@ public class UAWFxDynamic {
         });
     }
 
-    public static Effect hugeExplosion(float size) {
+    public static Effect hugeExplosion(float size, Color color) {
         return new Effect(120, 500f, e -> {
             float intensity = size / 19;
-            float baseLifetime = 26f + intensity * 15f;
-            e.lifetime = 43f + intensity * 35f;
+            float smokeSize = e.fout() * size / 5;
 
             color(Color.gray);
-            //TODO awful borders with linear filtering here
-            alpha(0.9f);
-            for (int i = 0; i < 4; i++) {
-                rand.setSeed(e.id * 2 + i);
-                float lenScl = rand.random(0.4f, 1f);
-                int fi = i;
-                e.scaled(e.lifetime * lenScl, f -> {
-                    randLenVectors(f.id + fi - 1, e.fin(Interp.pow10Out), (int) (3f * intensity), 14f * intensity, (x, y, in, out) -> {
-                        float fout = f.fout(Interp.pow5Out) * rand.random(0.5f, 1f);
-                        Fill.circle(f.x + x, f.y + y, fout * ((2f + intensity) * 1.8f));
-                    });
-                });
-            }
-
-            e.scaled(baseLifetime, f -> {
-                f.scaled(5 + intensity * 2.5f, i -> {
-                    stroke((3.1f + intensity / 5f) * i.fout());
-                    Lines.circle(e.x, e.y, (3f + i.fin() * 14f) * intensity);
-                    Drawf.light(e.x, e.y, i.fin() * 14f * 2f * intensity, Color.white, 0.9f * e.fout());
-                });
-
-                color(Pal.lighterOrange, Pal.lightOrange, Color.gray, e.fin());
-                stroke((1.7f * e.fout()) * (1f + (intensity - 1f) / 2f));
-
-                Draw.z(Layer.effect + 0.001f);
-                randLenVectors(e.id + 1, e.finpow() + 0.001f, (int) (9 * intensity), 40f * intensity, (x, y, in, out) -> {
-                    lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), 1f + out * 4 * (3f + intensity));
-                    Drawf.light(e.x + x, e.y + y, (out * 4 * (3f + intensity)) * 3.5f, Draw.getColor(), 0.8f);
-                });
+            alpha(0.7f);
+            randLenVectors(e.id, 40, e.finpow() * 160f, (x, y) -> {
+                color(color);
+                Fill.circle(e.x + x, e.y + y, smokeSize / 1.5f);
+            });
+            randLenVectors(e.id, 35, e.finpow() * e.lifetime, (x, y) -> {
+                color(Pal.darkerGray);
+                Fill.circle(e.x + x, e.y + y, smokeSize * 2);
             });
             Draw.color();
             e.scaled(5 + intensity * 2f, i -> {
@@ -156,83 +133,91 @@ public class UAWFxDynamic {
                 Lines.circle(e.x, e.y, (3f + i.fin() * 14f) * intensity);
                 Drawf.light(e.x, e.y, i.fin() * 14f * 2f * intensity, Color.lightGray, 0.3f * e.fout());
             });
+
+            color(color, Color.gray, e.fin());
+            stroke((2f * e.fout()));
+
+            Draw.z(Layer.effect + 0.001f);
+            randLenVectors(e.id + 1, e.finpow() + 0.001f, (int) (8 * intensity), 28f * intensity, (x, y, in, out) -> {
+                lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), 1f + out * 4 * (4f + intensity));
+                Drawf.light(e.x + x, e.y + y, (out * 4 * (5f + intensity)) * 3.5f, Draw.getColor(), 0.8f);
+            });
         });
     }
 
-        public static Effect statusHit (Color color,float lifetime){
-            return new Effect(lifetime, e -> {
-                color(color);
-                randLenVectors(e.id, 6, 1.5f + e.fin() * 2.5f, (x, y) ->
-                        Fill.circle(e.x + x, e.y + y, e.fout() * 1.5f));
-            });
-        }
-
-        public static Effect circleSplash (Color lightColor, Color darkColor,float size){
-            return new Effect(30, e -> {
-                color(lightColor, darkColor, e.fin());
-                stroke(e.fout() * 2f);
-                Lines.circle(e.x, e.y, size + e.fout() * 3f);
-            });
-        }
-
-        public static Effect thermalExplosion (Color frontColor, Color backColor){
-            return new Effect(22, e -> {
-                color(frontColor);
-
-                e.scaled(6, i -> {
-                    stroke(3f * i.fout());
-                    Lines.circle(e.x, e.y, 3f + i.fin() * 15f);
-                });
-
-                color(Color.lightGray);
-
-                randLenVectors(e.id, 5, 2f + 23f * e.finpow(), (x, y) ->
-                        Fill.circle(e.x + x, e.y + y, e.fout() * 4f + 0.5f));
-
-                color(backColor);
-                stroke(e.fout());
-
-                randLenVectors(e.id + 1, 4, 1f + 23f * e.finpow(), (x, y) ->
-                        lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), 0.7f + e.fout() * 3f));
-
-                Drawf.light(e.x, e.y, 45f, backColor, 0.8f * e.fout());
-            });
-        }
-
-        public static Effect burstSmelt ( float height, float width, float offset, int rotation, Color frontColor, Color
-        backColor){
-            //Inspired, modified and translated to java from 'FlinTyX/DiverseTech'
-            return new Effect(35, e -> {
-                for (int i = 0; i < 2; i++) {
-                    //Darker Shade
-                    Draw.color(frontColor);
-
-                    float h = e.finpow() * height;
-                    float w = e.fout() * width;
-
-                    Drawf.tri(i == 0 ? e.x + (offset / 3) : e.x - (offset / 3), e.y, w, h, i == 0 ? (rotation - 90) : (rotation + 90));
-                    Drawf.tri(e.x, i == 0 ? e.y - (offset / 3) : e.y + (offset / 3), w, h, i == 0 ? -rotation : rotation);
-                    //Lighter Shade
-                    Draw.color(Color.gray, backColor, Color.white, e.fin());
-
-                    e.scaled(7, j -> {
-                        Lines.stroke(3 * j.fout());
-                        Lines.circle(e.x, e.y, 4 + j.fin() * 30);
-                    });
-                    Draw.color(backColor);
-                    Angles.randLenVectors(e.id, 8, 2 + 30 * e.finpow(), (x, y) ->
-                            Fill.circle(e.x + x, e.y + y, (float) (e.fout() * 2 + 0.5)));
-                }
-            });
-        }
-
-        public static Effect burnTrailDynamic ( float size, Color frontColor, Color backColorBloom){
-            return new Effect(33f, 80f, e -> {
-                color(Color.valueOf("ddcece"), frontColor, backColorBloom, e.fin() * e.fin());
-
-                randLenVectors(e.id, 16, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) -> {
-                    Fill.circle(e.x + x, e.y + y, size + e.fout() * 2f);
-                });
-            });
-        }
+    public static Effect statusHit(Color color, float lifetime) {
+        return new Effect(lifetime, e -> {
+            color(color);
+            randLenVectors(e.id, 6, 1.5f + e.fin() * 2.5f, (x, y) ->
+                    Fill.circle(e.x + x, e.y + y, e.fout() * 1.5f));
+        });
     }
+
+    public static Effect circleSplash(float size, float lifetime, Color lightColor, Color darkColor) {
+        return new Effect(lifetime, e -> {
+            color(lightColor, darkColor, e.fin());
+            stroke(e.fout() * 2f);
+            Lines.circle(e.x, e.y, size + e.fout() * 3f);
+        });
+    }
+
+    public static Effect thermalExplosion(Color frontColor, Color backColor) {
+        return new Effect(22, e -> {
+            color(frontColor);
+
+            e.scaled(6, i -> {
+                stroke(3f * i.fout());
+                Lines.circle(e.x, e.y, 3f + i.fin() * 15f);
+            });
+
+            color(Color.lightGray);
+
+            randLenVectors(e.id, 5, 2f + 23f * e.finpow(), (x, y) ->
+                    Fill.circle(e.x + x, e.y + y, e.fout() * 4f + 0.5f));
+
+            color(backColor);
+            stroke(e.fout());
+
+            randLenVectors(e.id + 1, 4, 1f + 23f * e.finpow(), (x, y) ->
+                    lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), 0.7f + e.fout() * 3f));
+
+            Drawf.light(e.x, e.y, 45f, backColor, 0.8f * e.fout());
+        });
+    }
+
+    public static Effect burstSmelt(float height, float width, float offset, int rotation, Color frontColor, Color backColor) {
+        //Inspired, modified and translated to java from 'FlinTyX/DiverseTech'
+        return new Effect(35, e -> {
+            for (int i = 0; i < 2; i++) {
+                //Darker Shade
+                Draw.color(frontColor);
+
+                float h = e.finpow() * height;
+                float w = e.fout() * width;
+
+                Drawf.tri(i == 0 ? e.x + (offset / 3) : e.x - (offset / 3), e.y, w, h, i == 0 ? (rotation - 90) : (rotation + 90));
+                Drawf.tri(e.x, i == 0 ? e.y - (offset / 3) : e.y + (offset / 3), w, h, i == 0 ? -rotation : rotation);
+                //Lighter Shade
+                Draw.color(Color.gray, backColor, Color.white, e.fin());
+
+                e.scaled(7, j -> {
+                    Lines.stroke(3 * j.fout());
+                    Lines.circle(e.x, e.y, 4 + j.fin() * 30);
+                });
+                Draw.color(backColor);
+                Angles.randLenVectors(e.id, 8, 2 + 30 * e.finpow(), (x, y) ->
+                        Fill.circle(e.x + x, e.y + y, (float) (e.fout() * 2 + 0.5)));
+            }
+        });
+    }
+
+    public static Effect burnTrailDynamic(float size, Color frontColor, Color backColorBloom) {
+        return new Effect(33f, 80f, e -> {
+            color(Color.valueOf("ddcece"), frontColor, backColorBloom, e.fin() * e.fin());
+
+            randLenVectors(e.id, 16, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) -> {
+                Fill.circle(e.x + x, e.y + y, size + e.fout() * 2f);
+            });
+        });
+    }
+}

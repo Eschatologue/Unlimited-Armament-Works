@@ -19,6 +19,7 @@ import static mindustry.Vars.indexer;
 public class SplashBulletType extends BulletType {
     public float splashDelay = 25f;
     public int splashAmount = 3;
+    public float splashDuration = (splashDelay * splashAmount);
     public boolean shake = false;
     public Sound applySound = Sounds.shotgun;
     public Color frontColor = Pal.bulletYellow, backColor = Pal.bulletYellowBack;
@@ -29,11 +30,11 @@ public class SplashBulletType extends BulletType {
         this.damage = 0f;
         this.splashDamage = splashDamage;
         this.splashDamageRadius = radius;
-        this.lifetime = (splashDelay * splashAmount);
+        this.lifetime = splashDuration;
         hittable = false;
         hitSize = speed = 0;
         smokeEffect = despawnEffect = hitEffect = Fx.none;
-        applyEffect = UAWFxDynamic.circleSplash(frontColor, backColor, splashDamageRadius);
+        applyEffect = UAWFxDynamic.circleSplash(splashDamageRadius, splashDelay, frontColor, backColor);
         particleEffect = UAWFxDynamic.statusHit(frontColor, 10f);
         displayAmmoMultiplier = false;
         hittable = false;
@@ -48,7 +49,7 @@ public class SplashBulletType extends BulletType {
             if (shake) {
                 Effect.shake(hitShake, hitShake, b.x, b.y);
             }
-            for (int j = 0; j < ((splashAmount) * 10); j++) {
+            for (int j = 0; j < ((splashAmount) * 15); j++) {
                 particleEffect.at(
                         b.x + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius)),
                         b.y + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius))

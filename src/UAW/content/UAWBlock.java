@@ -7,7 +7,6 @@ import UAW.world.blocks.defense.turrets.DynamicReloadTurret;
 import UAW.world.blocks.defense.walls.ShieldWall;
 import UAW.world.blocks.drawer.DrawLiquidInput;
 import arc.graphics.Color;
-import arc.math.Mathf;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.bullet.*;
@@ -27,33 +26,21 @@ import static mindustry.content.Bullets.*;
 import static mindustry.type.ItemStack.with;
 
 public class UAWBlock implements ContentList {
-
     public static Block
     // region Turret
-        /// MG
-        quadra, spitfire, saintfire,
-        /// Sniper
-        solo, longsword, deadeye,
-        /// SG
-        buckshot, tempest, strikeforce,
-        /// VLS
-        sparkler, sunspot,
-        /// TMDS
-        zounderkite,
-        /// Artillery
-        skyhammer,
-    // crafters
-       gelatinizer, carburizingFurnace, surgeMixer, coalLiquefier,
+    quadra, spitfire, saintfire,
+    solo, longsword, deadeye,
+    buckshot, tempest, strikeforce,
+    sparkler, sunspot,
+    zounderkite,
+    skyhammer,
+    gelatinizer, carburizingFurnace, surgeMixer, coalLiquefier,
     // endregion
     // region Defense
-        /// Walls
-        shieldWall,
-        /// Projectors
-        statusFieldProjector, rejuvinationProjector, rejuvinationDome,
+    shieldWall, statusFieldProjector, rejuvinationProjector, rejuvinationDome,
     // endregion
     // region UnitBlocks
-        /// Reconstructors
-        multiplicativePetroleumReconstructor, exponentialPetroleumReconstructor, tetrativePetroleumReconstructor;
+    multiplicativePetroleumReconstructor, exponentialPetroleumReconstructor, tetrativePetroleumReconstructor;
     // endregion
 
     @Override
@@ -314,7 +301,8 @@ public class UAWBlock implements ContentList {
             reloadTime = 10 * tick;
             ammoEjectBack = 5f;
             ammoUseEffect = UAWFxStatic.casing7;
-            ammoPerShot = 15;
+            ammoPerShot = 20;
+            itemCapacity = 60;
             velocityInaccuracy = 0.2f;
             restitution = 0.02f;
             recoilAmount = 6f;
@@ -324,31 +312,102 @@ public class UAWBlock implements ContentList {
 
             shootSound = UAWSfx.artilleryShootHuge;
             ammo(
-                    Items.thorium, new ArtilleryBulletType(2f ,5500) {{
-                        splashDamage = damage;
-                        splashDamageRadius = 16 * tilesize;
-                        height = 48;
+                    Items.pyratite, new ArtilleryBulletType(2f, 4000) {{
+                        height = 45;
                         width = height / 2f;
+                        splashDamage = damage;
+                        splashDamageRadius = 14 * tilesize;
                         lifetime = range / speed;
+                        frontColor = Pal.lightishOrange;
+                        backColor = Pal.lightOrange;
                         shootEffect = new MultiEffect(UAWFxDynamic.railShoot(frontColor, height + width), Fx.impactcloud, Fx.nuclearShockwave);
-                        hitEffect = UAWFxDynamic.hugeExplosion(splashDamageRadius);
+                        hitEffect = UAWFxDynamic.hugeExplosion(splashDamageRadius, frontColor);
                         hitSound = UAWSfx.artilleryExplosionHuge;
                         hitSoundVolume = 3f;
-                        smokeEffect = Fx.smokeCloud;
                         hitShake = 34f;
                         restitution = 0.02f;
                         trailSize = width;
-                        trailEffect = Fx.fireSmoke;
                         trailRotation = true;
+                        makeFire = true;
+                        trailEffect = Fx.artilleryTrail;
+                        smokeEffect = Fx.smokeCloud;
+                        status = StatusEffects.burning;
                         fragBullets = 1;
-                        fragBullet = new SplashBulletType(splashDamage / 4, splashDamageRadius / 1.2f){{
+                        fragBullet = new SplashBulletType(splashDamage / 4, splashDamageRadius / 1.2f) {{
+                            splashAmount = 3;
+                            splashDelay = 45;
+                            lifetime = (splashDelay * splashAmount);
+                            hitShake = 28;
+                            status = UAWStatusEffects.concussion;
+                            statusDuration = 30f;
+                            particleEffect = Fx.fireSmoke;
+                            makeFire = true;
+                            applySound = Sounds.fire;
+                        }};
+                    }},
+                    Items.plastanium, new ArtilleryBulletType(2f, 3500) {{
+                        height = 45;
+                        width = height / 2f;
+                        splashDamage = damage;
+                        splashDamageRadius = 14 * tilesize;
+                        lifetime = range / speed;
+                        frontColor = Pal.plastaniumFront;
+                        backColor = Pal.plastaniumBack;
+                        shootEffect = new MultiEffect(UAWFxDynamic.railShoot(frontColor, height + width), Fx.impactcloud, Fx.nuclearShockwave);
+                        hitEffect = UAWFxDynamic.hugeExplosion(splashDamageRadius, frontColor);
+                        hitSound = UAWSfx.artilleryExplosionHuge;
+                        hitSoundVolume = 3f;
+                        hitShake = 34f;
+                        restitution = 0.02f;
+                        trailSize = width;
+                        trailRotation = true;
+                        makeFire = true;
+                        trailEffect = Fx.artilleryTrail;
+                        smokeEffect = Fx.smokeCloud;
+                        fragBullets = 25;
+                        fragBullet =  new ArtilleryBulletType(2.2f, 250){{
+                            hitEffect = Fx.plasticExplosion;
+                            knockback = 1f;
+                            lifetime = 90f;
+                            width = height = 28f;
+                            collidesTiles = false;
+                            splashDamageRadius = 35f * 0.75f;
+                            splashDamage = 45f;
+                            fragBullet = artilleryPlasticFrag;
+                            fragBullets = 25;
+                            backColor = Pal.plastaniumBack;
+                            frontColor = Pal.plastaniumFront;
+                        }};
+                    }},
+                    Items.thorium, new ArtilleryBulletType(2f, 5500) {{
+                        height = 48;
+                        width = height / 2f;
+                        splashDamage = damage;
+                        splashDamageRadius = 14 * tilesize;
+                        lifetime = range / speed;
+                        frontColor = Pal.lightishOrange;
+                        backColor = Pal.lightOrange;
+                        shootEffect = new MultiEffect(UAWFxDynamic.railShoot(frontColor, height + width), Fx.impactcloud, Fx.nuclearShockwave);
+                        hitEffect = UAWFxDynamic.hugeExplosion(splashDamageRadius, frontColor);
+                        hitSound = UAWSfx.artilleryExplosionHuge;
+                        hitSoundVolume = 3f;
+                        hitShake = 34f;
+                        restitution = 0.02f;
+                        trailSize = width;
+                        trailRotation = true;
+                        trailEffect = Fx.artilleryTrail;
+                        smokeEffect = Fx.smokeCloud;
+                        status = StatusEffects.burning;
+                        fragBullets = 1;
+                        fragBullet = new SplashBulletType(splashDamage / 4, splashDamageRadius / 1.2f) {{
                             splashAmount = 5;
                             splashDelay = 45;
                             lifetime = (splashDelay * splashAmount);
                             hitShake = 28;
                             status = UAWStatusEffects.concussion;
                             statusDuration = 30f;
-                            applySound = Sounds.shotgun;
+                            particleEffect = Fx.fireSmoke;
+                            applySound = Sounds.explosionbig;
                         }};
                     }}
             );
