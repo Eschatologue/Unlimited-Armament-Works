@@ -29,7 +29,6 @@ import static mindustry.Vars.*;
  * Utilities for displaying certain stats in a table.
  */
 public class UAWStatValues {
-    public TextureRegion weaponIcon;
 
     public static StatValue string(String value, Object... args) {
         String result = Strings.format(value, args);
