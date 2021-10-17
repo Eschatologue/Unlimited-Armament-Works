@@ -61,15 +61,15 @@ public class UAWBlock implements ContentList {
             alternate = true;
             reloadTime = 30f;
             restitution = 0.03f;
-            range = 20 * 8;
+            range = 20 * tilesize;
             shootCone = 15f;
             ammoUseEffect = Fx.casing2Double;
             inaccuracy = 7.5f;
             rotateSpeed = 10f;
             maxAmmo = 30;
 
-            maxReloadScl = 5f;
-            speedupPerShot = 0.1f;
+            maxReloadScl = 8f;
+            speedupPerShot = 0.15f;
             inaccuracyModifier = 0.5f;
             ammo(
                     Items.copper, new BasicBulletType(4f, 9){{
@@ -121,7 +121,7 @@ public class UAWBlock implements ContentList {
             health = 150 * size * size;
             maxAmmo = 200;
             reloadTime = 30f;
-            range = 25 * tilesize;
+            range = 30 * tilesize;
             rotateSpeed = 7f;
             inaccuracy = 7.5f;
             recoilAmount = 3f;
@@ -130,8 +130,8 @@ public class UAWBlock implements ContentList {
             ammoUseEffect = Fx.casing2Double;
             xRand = 3;
 
-            maxReloadScl = 8f;
-            speedupPerShot = 0.05f;
+            maxReloadScl = 16f;
+            speedupPerShot = 0.1f;
             slowDownReloadTime = 90f;
             inaccuracyModifier = 0.5f;
 
@@ -234,11 +234,10 @@ public class UAWBlock implements ContentList {
             health = 160 * size;
             size = 2;
             spread = 0f;
-            shots = 1;
             reloadTime = 35f;
             shootShake = 3f;
             restitution = 0.05f;
-            range = 160;
+            range = 25 * tilesize;
             shootCone = 1f;
             ammoUseEffect = Fx.casing3;
             shootSound = Sounds.shootBig;
@@ -248,10 +247,46 @@ public class UAWBlock implements ContentList {
             maxAmmo = 20;
             ammoPerShot = 2;
             ammo(
-                    Items.copper, UAWBullets.heavyCopper,
-                    Items.graphite, Bullets.standardDenseBig,
-                    Items.thorium, Bullets.standardThoriumBig,
-                    UAWItems.titaniumCarbide, UAWBullets.heavyPiercing
+                    Items.copper, new TrailBulletType(10f, 55f) {{
+                        hitSize = 5;
+                        height = 30f;
+                        width = 10f;
+                        shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
+                        smokeEffect = Fx.shootBigSmoke;
+                        ammoMultiplier = 2;
+                        pierceCap = 2;
+                        lifetime = range/speed;
+                    }},
+                    Items.graphite, new TrailBulletType(8f, 90){{
+                        hitSize = 5;
+                        height = 25f;
+                        width = 15f;
+                        shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
+                        smokeEffect = Fx.shootBigSmoke;
+                        reloadMultiplier = 0.5f;
+                        ammoMultiplier = 2;
+                        knockback = 1.2f;
+                        lifetime = range/speed;
+                    }},
+                    Items.thorium, new TrailBulletType(8f, 80){{
+                        hitSize = 5;
+                        height = 30f;
+                        width = 16f;
+                        shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
+                        smokeEffect = Fx.shootBigSmoke;
+                        pierceCap = 2;
+                        pierceBuilding = true;
+                        knockback = 0.7f;
+                        lifetime = range/speed;
+                    }},
+                    Items.titanium, new ArmorPiercingBulletType(12f, 25f) {{
+                        height = 30f;
+                        width = 10f;
+                        shootEffect = new MultiEffect(Fx.shootBig2, Fx.hitBulletBig);
+                        smokeEffect = Fx.shootBigSmoke;
+                        ammoMultiplier = 2;
+                        lifetime = range + (5 * tilesize) / speed;
+                    }}
             );
         }};
         longsword = new ItemTurret("longsword") {{
