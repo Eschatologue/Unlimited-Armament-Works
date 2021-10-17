@@ -1,6 +1,6 @@
 package UAW.world.meta;
 
-import UAW.entities.bullet.*;
+import UAW.entities.bullet.UAWBulletType;
 import arc.Core;
 import arc.func.Boolf;
 import arc.graphics.g2d.TextureRegion;
@@ -275,7 +275,6 @@ public class UAWStatValues {
                 boolean compact = t instanceof UnitType || indent > 0;
 
                 BulletType type = map.get(t);
-                UAWBulletType UAWtype = (UAWBulletType) map.get(t);
 
                 //no point in displaying unit icon twice
                 if (!compact && !(t instanceof PowerTurret)) {
@@ -294,12 +293,14 @@ public class UAWStatValues {
                         }
                     }
 
-                    if (UAWtype.armorIgnoreScl > 0){
-                        sep(bt, Core.bundle.format("bullet.uaw-armorPenetration", (int) (UAWtype.armorIgnoreScl * 100)));
-                    }
-
-                    if (UAWtype.shieldDamageMultiplier > 1){
-                        sep(bt, Core.bundle.format("bullet.uaw-armorPenetration", (int) (UAWtype.armorIgnoreScl * 100)));
+                    if (type instanceof UAWBulletType types) {
+                        if (types.armorIgnoreScl > 0) {
+                            sep(bt, Core.bundle.format("bullet.uaw-armorPenetration", (int) (types.armorIgnoreScl * 100)));
+                        }
+                        if (types.shieldDamageMultiplier > 1) {
+                            sep(bt, Core.bundle.format
+                                    ("bullet.uaw-armorPenetration", (int) (types.armorIgnoreScl * 100)));
+                        }
                     }
 
                     if (type.buildingDamageMultiplier != 1) {
