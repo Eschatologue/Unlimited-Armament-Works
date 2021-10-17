@@ -4,10 +4,9 @@ import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.math.Mathf;
 import arc.util.Tmp;
-import mindustry.entities.bullet.BasicBulletType;
 import mindustry.gen.Bullet;
 
-public class TrailBulletType extends BasicBulletType {
+public class TrailBulletType extends StandardBulletType {
     /**
      * Draws the Bullet Sprite
      */

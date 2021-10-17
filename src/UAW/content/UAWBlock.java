@@ -98,7 +98,7 @@ public class UAWBlock implements ContentList {
                         inaccuracy = 3f;
                         lifetime = range / speed;
                     }},
-                    Items.titanium, new ArmorPiercingBulletType(12f, 10f) {{
+                    Items.titanium, new TrailBulletType(12f, 10f) {{
                         height = 30f;
                         width = 10f;
                         armorIgnoreScl = 0.2f;
@@ -151,7 +151,7 @@ public class UAWBlock implements ContentList {
 
                         status = StatusEffects.slow;
                     }},
-                    UAWItems.titaniumCarbide, new ArmorPiercingBulletType(12, 22) {{
+                    UAWItems.titaniumCarbide, new TrailBulletType(12, 22) {{
                         height = 30;
                         width = 8;
                         lifetime = range / speed + 8;
@@ -290,7 +290,7 @@ public class UAWBlock implements ContentList {
                         knockback = 0.7f;
                         lifetime = range / speed;
                     }},
-                    Items.titanium, new ArmorPiercingBulletType(12f, 25f) {{
+                    Items.titanium, new TrailBulletType(12f, 25f) {{
                         height = 30f;
                         width = 10f;
                         shootEffect = new MultiEffect(Fx.shootBig2, Fx.hitBulletBig, UAWFxStatic.shootSurgeFlame);
@@ -537,6 +537,7 @@ public class UAWBlock implements ContentList {
                     Items.graphite, new BuckshotBulletType(5f, 12f) {{
                         lifetime = range / speed;
                         knockback = 4f;
+                        shieldDamageMultiplier = 3f;
                     }},
                     Items.pyratite, new BuckshotBulletType(5f, 8f) {{
                         shootEffect = Fx.shootPyraFlame;
@@ -552,6 +553,7 @@ public class UAWBlock implements ContentList {
                         fragVelocityMax = fragVelocityMin * 1.2f;
                         fragLifeMin = 0.4f;
                         fragLifeMax = 0.8f;
+                        shieldDamageMultiplier = 1.4f;
                     }},
                     UAWItems.cryogel, new BuckshotBulletType(5f, 8f) {{
                         lifetime = range / speed;
@@ -568,26 +570,30 @@ public class UAWBlock implements ContentList {
                         fragVelocityMax = fragVelocityMin * 1.2f;
                         fragLifeMin = 0.4f;
                         fragLifeMax = 0.8f;
+                        shieldDamageMultiplier = 1.4f;
                     }},
-                    UAWItems.titaniumCarbide, new ArmorPiercingBulletType(6f, 10f) {{
+                    UAWItems.titaniumCarbide, new BuckshotBulletType(6f, 10f) {{
                         height = width = 15;
-                        pierceCap = 5;
-                        lifetime = (range / speed) + 8;
-                        knockback = 0f;
-                        shootEffect = Fx.shootBig2;
+                        shrinkX = shrinkY = 0.5f;
+                        splashDamageRadius = 1.6f * tilesize;
+                        splashDamage = damage / 1.8f;
+                        pierceCap = 2;
+                        knockback = 2;
+                        trailLength = 0;
+                        trailInterval = 4.5f;
+                        trailColor = Color.lightGray;
+                        shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
                         smokeEffect = Fx.shootBigSmoke2;
-                        trailLength = 9;
-                        trailWidth = 1.6f;
-                        trailChance = trailInterval = 0;
-                        armorIgnoreScl = 0.6f;
-                        hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.sparkShoot);
+                        hitEffect = Fx.hitBulletBig;
                         despawnEffect = UAWFxDynamic.thermalExplosion(frontColor, backColor);
+                        armorIgnoreScl = 0.4f;
                     }},
                     Items.metaglass, new BuckshotBulletType(5f, 8f) {{
                         splashDamageRadius = 1.8f * tilesize;
                         splashDamage = damage / 2;
                         lifetime = range / speed;
                         fragBullets = 6;
+                        shieldDamageMultiplier = 1.4f;
                         fragBullet = new BasicBulletType(3f, 3, "bullet") {{
                             width = 5f;
                             height = 12f;
@@ -600,7 +606,7 @@ public class UAWBlock implements ContentList {
                     }}
             );
         }};
-        strikeforce = new ItemTurret("strikeforce") {{
+        strikeforce = new CustomStatItemTurret("strikeforce") {{
             requirements(Category.turret, with(
                     Items.titanium, 350,
                     Items.graphite, 300,
@@ -643,6 +649,7 @@ public class UAWBlock implements ContentList {
                         fragVelocityMax = fragVelocityMin * 1.2f;
                         fragLifeMin = 0.4f;
                         fragLifeMax = 0.8f;
+                        shieldDamageMultiplier = 4f;
                     }},
                     UAWItems.cryogel, new BuckshotBulletType(6.5f, 30f) {{
                         height = width = 30;
@@ -661,6 +668,7 @@ public class UAWBlock implements ContentList {
                         fragVelocityMax = fragVelocityMin * 1.2f;
                         fragLifeMin = 0.4f;
                         fragLifeMax = 0.8f;
+                        shieldDamageMultiplier = 4f;
                     }},
                     Items.plastanium, new BuckshotBulletType(6.5f, 30f) {{
                         height = width = 30;
@@ -679,6 +687,7 @@ public class UAWBlock implements ContentList {
                         fragVelocityMax = fragVelocityMin * 1.2f;
                         fragLifeMin = 0.4f;
                         fragLifeMax = 0.8f;
+                        shieldDamageMultiplier = 4f;
                     }},
                     Items.surgeAlloy, new BuckshotBulletType(6.5f, 30f) {{
                         height = width = 30;
@@ -695,6 +704,7 @@ public class UAWBlock implements ContentList {
                         lightningDamage = 8;
                         lightning = 3;
                         lightningLength = 8;
+                        shieldDamageMultiplier = 4f;
                     }}
             );
         }};

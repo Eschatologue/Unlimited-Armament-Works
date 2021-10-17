@@ -3,23 +3,20 @@ package UAW.entities.bullet;
 import arc.Events;
 import arc.util.Tmp;
 import mindustry.content.Fx;
+import mindustry.entities.bullet.BulletType;
 import mindustry.game.EventType;
 import mindustry.gen.*;
 import mindustry.world.blocks.defense.Wall;
 
 import static mindustry.Vars.player;
 
-public class ArmorPiercingBulletType extends TrailBulletType {
-    public float armorIgnoreScl = 0.5f;
-    public float shieldDamageMultiplier;
+public class UAWBulletType extends BulletType {
+    public float armorIgnoreScl = 0f;
+    public float shieldDamageMultiplier = 1f;
 
-    public ArmorPiercingBulletType(float speed, float damage) {
+    public UAWBulletType(float speed, float damage) {
         this.speed = speed;
         this.damage = damage;
-        hitEffect = Fx.hitBulletBig;
-        pierce = true;
-        pierceBuilding = true;
-        buildingDamageMultiplier = 0.5f;
     }
 
     @Override
@@ -29,7 +26,7 @@ public class ArmorPiercingBulletType extends TrailBulletType {
             h.damagePierce(realDamage);
             if (armorIgnoreScl < 1) {
                 h.damage(b.damage - realDamage);
-            }
+            } else h.damage(b.damage);
         }
         if (entity instanceof Shieldc h) {
             h.damagePierce(b.damage * shieldDamageMultiplier);

@@ -609,7 +609,7 @@ public class UAWUnitTypes implements ContentList {
                         shootSound = UAWSfx.cannonShoot1;
                         ejectEffect = UAWFxStatic.casing2Long;
                         shake = 3f;
-                        bullet = new ArmorPiercingBulletType(7f, 85) {{
+                        bullet = new TrailBulletType(7f, 85) {{
                             height = 25f;
                             width = 8f;
                             lifetime = range / (speed + 3);
@@ -666,7 +666,7 @@ public class UAWUnitTypes implements ContentList {
                         shootSound = UAWSfx.cannonShoot1;
                         ejectEffect = UAWFxStatic.casing3Long;
                         shake = 6f;
-                        bullet = new ArmorPiercingBulletType(8f, 215) {{
+                        bullet = new TrailBulletType(8f, 215) {{
                             height = 35f;
                             width = 10f;
                             lifetime = range / (speed + 3);

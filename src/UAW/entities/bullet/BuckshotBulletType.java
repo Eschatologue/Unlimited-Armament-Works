@@ -8,7 +8,7 @@ import mindustry.entities.effect.MultiEffect;
 
 import static mindustry.Vars.tilesize;
 
-public class BuckshotBulletType extends BasicBulletType {
+public class BuckshotBulletType extends StandardBulletType {
 
     public BuckshotBulletType(float speed, float damage){
         super(speed, damage);
