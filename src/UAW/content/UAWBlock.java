@@ -33,7 +33,7 @@ public class UAWBlock implements ContentList {
     buckshot, tempest, strikeforce,
     sparkler, sunspot,
     zounderkite,
-    skyhammer,
+    steelneck, skyhammer,
     gelatinizer, carburizingFurnace, surgeMixer, coalLiquefier,
     // endregion
     // region Defense
@@ -64,31 +64,48 @@ public class UAWBlock implements ContentList {
             range = 20 * 8;
             shootCone = 15f;
             ammoUseEffect = Fx.casing2Double;
-            inaccuracy = 4f;
+            inaccuracy = 7.5f;
             rotateSpeed = 10f;
             maxAmmo = 30;
 
             maxReloadScl = 5f;
             speedupPerShot = 0.1f;
+            inaccuracyModifier = 0.5f;
             ammo(
-                    Items.copper, Bullets.standardCopper,
-                    Items.graphite, Bullets.standardDense,
-                    Items.pyratite, new BasicBulletType(3f, 12f) {{
+                    Items.copper, new BasicBulletType(4f, 9){{
+                        height = 14f;
+                        width = height / 1.8f;
+                        lifetime = range / speed;
+                        shootEffect = Fx.shootSmall;
+                        smokeEffect = Fx.shootSmallSmoke;
+                        ammoMultiplier = 2;
+                    }},
+                    Items.graphite, new BasicBulletType(3.5f, 18){{
                         height = 18f;
-                        width = 12f;
+                        width = height / 1.8f;
+                        knockback = 0.15f;
+                        reloadMultiplier = 0.6f;
+                        ammoMultiplier = 4;
+                        lifetime = range / speed;
+                    }},
+                    Items.pyratite, new BasicBulletType(4f, 12f) {{
+                        height = 18f;
+                        width = height / 1.8f;
                         frontColor = Pal.lightishOrange;
                         backColor = Pal.lightOrange;
                         status = StatusEffects.melting;
                         inaccuracy = 3f;
                         lifetime = range / speed;
                     }},
-                    Items.titanium, new ArmorPiercingBulletType(12f, 25f) {{
+                    Items.titanium, new ArmorPiercingBulletType(12f, 10f) {{
                         height = 30f;
                         width = 10f;
+                        armorIgnoreScl = 0.2f;
+                        shieldDamageMultiplier = 1.5f;
                         shootEffect = Fx.shootBig;
                         smokeEffect = Fx.shootBigSmoke;
                         ammoMultiplier = 2;
-                        pierce = true;
+                        lifetime = range / speed;
                     }}
             );
         }};
@@ -100,24 +117,23 @@ public class UAWBlock implements ContentList {
                     Items.plastanium, 250,
                     Items.silicon, 150
             ));
-
             size = 3;
             health = 150 * size * size;
             maxAmmo = 200;
-            reloadTime = 15f;
+            reloadTime = 30f;
             range = 25 * tilesize;
             rotateSpeed = 7f;
-            inaccuracy = 15;
+            inaccuracy = 7.5f;
             recoilAmount = 3f;
             restitution = 0.05f;
             shootSound = Sounds.shootBig;
             ammoUseEffect = Fx.casing2Double;
             xRand = 3;
 
-            maxReloadScl = 12f;
-            speedupPerShot = 0.1f;
+            maxReloadScl = 8f;
+            speedupPerShot = 0.05f;
             slowDownReloadTime = 90f;
-            inaccuracyModifier = 0.4f;
+            inaccuracyModifier = 0.5f;
 
             ammo(
                     Items.graphite, new BasicBulletType(8, 20) {{
@@ -134,20 +150,16 @@ public class UAWBlock implements ContentList {
 
                         status = StatusEffects.slow;
                     }},
-                    UAWItems.titaniumCarbide, new BasicBulletType(12, 22) {{
+                    UAWItems.titaniumCarbide, new ArmorPiercingBulletType(12, 22) {{
                         height = 30;
                         width = 8;
                         lifetime = range / speed + 8;
                         pierce = true;
                         reloadMultiplier = 1.2f;
-                        trailLength = 16;
-                        trailWidth = 1.8f;
-                        trailColor = backColor;
                         hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.generatespark);
                         despawnEffect = Fx.hitBulletBig;
                         smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.fireSmoke);
                         shootEffect = new MultiEffect(Fx.shootBig2, Fx.hitBulletBig);
-                        status = UAWStatusEffects.breached;
                     }},
                     Items.surgeAlloy, new BasicBulletType(8, 18) {{
                         height = 25;

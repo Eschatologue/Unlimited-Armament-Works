@@ -2,7 +2,6 @@ package UAW.world.blocks.defense.turrets;
 
 import UAW.graphics.UAWPal;
 import UAW.world.meta.UAWStatValues;
-import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.Mathf;
 import arc.util.Time;
@@ -25,7 +24,6 @@ public class DynamicReloadTurret extends ItemTurret {
     @Override
     public void setStats() {
         super.setStats();
-
         stats.remove(Stat.ammo);
         stats.add(Stat.ammo, UAWStatValues.ammo(ammoTypes));
     }
@@ -66,7 +64,7 @@ public class DynamicReloadTurret extends ItemTurret {
         @Override
         public void drawSelect() {
             super.drawSelect();
-            Draw.z(Layer.effect - 0.001f);
+            Draw.z(Layer.effect);
             Lines.stroke(speedupScl / maxReloadScl);
             Draw.color(UAWPal.cryoFront, Pal.bulletYellow, Pal.darkPyraFlame, speedupScl / 4);
             Lines.polySeg(250, 0, (int) (250 * speedupScl / (maxReloadScl)), x, y, range / 10, rotation);
