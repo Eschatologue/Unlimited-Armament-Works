@@ -73,7 +73,7 @@ public class UAWBlock implements ContentList {
             speedupPerShot = 0.15f;
             inaccuracyModifier = 0.5f;
             ammo(
-                    Items.copper, new StandardBulletType(4f, 9) {{
+                    Items.copper, new BasicBulletType(4f, 9) {{
                         height = 14f;
                         width = height / 1.8f;
                         lifetime = range / speed;
@@ -81,7 +81,7 @@ public class UAWBlock implements ContentList {
                         smokeEffect = Fx.shootSmallSmoke;
                         ammoMultiplier = 2;
                     }},
-                    Items.graphite, new StandardBulletType(3.5f, 18) {{
+                    Items.graphite, new BasicBulletType(3.5f, 18) {{
                         height = 18f;
                         width = height / 1.8f;
                         knockback = 0.15f;
@@ -89,7 +89,7 @@ public class UAWBlock implements ContentList {
                         ammoMultiplier = 4;
                         lifetime = range / speed;
                     }},
-                    Items.pyratite, new StandardBulletType(4f, 12f) {{
+                    Items.pyratite, new BasicBulletType(4f, 12f) {{
                         height = 18f;
                         width = height / 1.8f;
                         frontColor = Pal.lightishOrange;
@@ -98,11 +98,11 @@ public class UAWBlock implements ContentList {
                         inaccuracy = 3f;
                         lifetime = range / speed;
                     }},
-                    Items.titanium, new StandardBulletType(12f, 10f) {{
+                    Items.titanium, new ArmorPiercingBulletType(12f, 10f) {{
                         height = 30f;
                         width = 10f;
                         armorIgnoreScl = 0.2f;
-                        shieldDamageScl = 1.5f;
+                        shieldDamageMultiplier = 1.5f;
                         shootEffect = Fx.shootBig;
                         smokeEffect = Fx.shootBigSmoke;
                         ammoMultiplier = 2;
@@ -151,7 +151,7 @@ public class UAWBlock implements ContentList {
 
                         status = StatusEffects.slow;
                     }},
-                    UAWItems.titaniumCarbide, new StandardBulletType(12, 22) {{
+                    UAWItems.titaniumCarbide, new ArmorPiercingBulletType(12, 22) {{
                         height = 30;
                         width = 8;
                         lifetime = range / speed + 8;
@@ -247,7 +247,7 @@ public class UAWBlock implements ContentList {
             maxAmmo = 20;
             ammoPerShot = 2;
             ammo(
-                    Items.copper, new StandardBulletType(10f, 55f) {{
+                    Items.copper, new TrailBulletType(10f, 55f) {{
                         hitSize = 5;
                         height = 30f;
                         width = 10f;
@@ -255,10 +255,9 @@ public class UAWBlock implements ContentList {
                         smokeEffect = Fx.shootBigSmoke;
                         ammoMultiplier = 2;
                         pierceCap = 2;
-                        autoTrail = true;
                         lifetime = range / speed;
                     }},
-                    Items.graphite, new StandardBulletType(8f, 90) {{
+                    Items.graphite, new TrailBulletType(8f, 90) {{
                         hitSize = 5;
                         height = 25f;
                         width = 15f;
@@ -267,10 +266,9 @@ public class UAWBlock implements ContentList {
                         reloadMultiplier = 0.5f;
                         ammoMultiplier = 2;
                         knockback = 1.2f;
-                        autoTrail = true;
                         lifetime = range / speed;
                     }},
-                    Items.silicon, new StandardBulletType(10f, 55f) {{
+                    Items.silicon, new TrailBulletType(10f, 55f) {{
                         hitSize = 5;
                         height = 30f;
                         width = 10f;
@@ -279,10 +277,9 @@ public class UAWBlock implements ContentList {
                         smokeEffect = Fx.shootBigSmoke;
                         ammoMultiplier = 2;
                         pierceCap = 2;
-                        autoTrail = true;
                         lifetime = range / speed;
                     }},
-                    Items.thorium, new StandardBulletType(8f, 80) {{
+                    Items.thorium, new TrailBulletType(8f, 80) {{
                         hitSize = 5;
                         height = 30f;
                         width = 16f;
@@ -291,10 +288,9 @@ public class UAWBlock implements ContentList {
                         pierceCap = 2;
                         pierceBuilding = true;
                         knockback = 0.7f;
-                        autoTrail = true;
                         lifetime = range / speed;
                     }},
-                    Items.titanium, new StandardBulletType(12f, 25f) {{
+                    Items.titanium, new ArmorPiercingBulletType(12f, 25f) {{
                         height = 30f;
                         width = 10f;
                         shootEffect = new MultiEffect(Fx.shootBig2, Fx.hitBulletBig, UAWFxStatic.shootSurgeFlame);
