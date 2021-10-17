@@ -298,7 +298,7 @@ public class UAWStatValues {
                             sep(bt, Core.bundle.format("bullet.uaw-armorPenetration", (int) (types.armorIgnoreScl * 100)));
                         }
                         if (types.shieldDamageMultiplier >= 1) {
-                            sep(bt, Core.bundle.format("bullet.uaw-armorPenetration", (int) (types.shieldDamageMultiplier)));
+                            sep(bt, Core.bundle.format("bullet.uaw-shieldDamageMultiplier", (int) (types.shieldDamageMultiplier)));
                         }
                     }
 
