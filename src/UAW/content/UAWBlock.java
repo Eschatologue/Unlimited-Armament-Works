@@ -509,7 +509,7 @@ public class UAWBlock implements ContentList {
                     UAWItems.cryogel, UAWBullets.buckshotCryo
             );
         }};
-        tempest = new ItemTurret("tempest") {{
+        tempest = new CustomStatItemTurret("tempest") {{
             requirements(Category.turret, with(
                     Items.titanium, 200,
                     Items.graphite, 150,
@@ -569,7 +569,8 @@ public class UAWBlock implements ContentList {
                         fragLifeMin = 0.4f;
                         fragLifeMax = 0.8f;
                     }},
-                    UAWItems.titaniumCarbide, new BuckshotBulletType(6f, 10f) {{
+                    UAWItems.titaniumCarbide, new ArmorPiercingBulletType(6f, 10f) {{
+                        height = width = 15;
                         pierceCap = 5;
                         lifetime = (range / speed) + 8;
                         knockback = 0f;
@@ -578,9 +579,9 @@ public class UAWBlock implements ContentList {
                         trailLength = 9;
                         trailWidth = 1.6f;
                         trailChance = trailInterval = 0;
+                        armorIgnoreScl = 0.6f;
                         hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.sparkShoot);
                         despawnEffect = UAWFxDynamic.thermalExplosion(frontColor, backColor);
-                        status = UAWStatusEffects.breached;
                     }},
                     Items.metaglass, new BuckshotBulletType(5f, 8f) {{
                         splashDamageRadius = 1.8f * tilesize;

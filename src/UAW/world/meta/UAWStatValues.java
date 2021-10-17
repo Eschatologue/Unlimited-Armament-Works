@@ -295,7 +295,7 @@ public class UAWStatValues {
 
                     if (type instanceof ArmorPiercingBulletType type1) {
                         sep(bt, Core.bundle.format("bullet.uaw-armorPenetration", (int) (type1.armorIgnoreScl * 100)));
-                        sep(bt, Core.bundle.format("bullet.uaw-shieldDamageMultiplier", (int) (type1.shieldDamageMultiplier)));
+                        sep(bt, Core.bundle.format("bullet.uaw-shieldDamageMultiplier", (int) (type1.shieldDamageMultiplier * 100)));
                     }
 
                     if (type.buildingDamageMultiplier != 1) {
