@@ -1,6 +1,6 @@
 package UAW.world.meta;
 
-import UAW.entities.bullet.ArmorPiercingBulletType;
+import UAW.entities.bullet.ScalingDamageBullet;
 import arc.Core;
 import arc.func.Boolf;
 import arc.graphics.g2d.TextureRegion;
@@ -275,6 +275,7 @@ public class UAWStatValues {
                 boolean compact = t instanceof UnitType || indent > 0;
 
                 BulletType type = map.get(t);
+                ScalingDamageBullet UAWType = (ScalingDamageBullet) map.get(t);
 
                 //no point in displaying unit icon twice
                 if (!compact && !(t instanceof PowerTurret)) {
@@ -293,9 +294,20 @@ public class UAWStatValues {
                         }
                     }
 
-                    if (type instanceof ArmorPiercingBulletType types) {
-                        sep(bt, Core.bundle.format("bullet.uaw-armorPenetration", (int) (types.armorIgnoreScl * 100)));
-                        sep(bt, Core.bundle.format("bullet.uaw-shieldDamageMultiplier", (int) (types.shieldDamageMultiplier)));
+                    if (UAWType.armorIgnoreScl > 0) {
+                        sep(bt, Core.bundle.format("bullet.uaw-armorPenetration", (int) (UAWType.armorIgnoreScl * 100)));
+                    }
+
+                    if (UAWType.shieldDamageScl > 0) {
+                        sep(bt, Core.bundle.format("bullet.uaw-shieldDamageMultiplier", (int) (UAWType.shieldDamageScl)));
+                    }
+
+                    if (UAWType.hitSizeDamageScl > 0) {
+                        sep(bt, Core.bundle.format("bullet.uaw-sizeDamageMultiplier", (int) (UAWType.hitSizeDamageScl)));
+                    }
+
+                    if (UAWType.maxEnemyHitSize > 0) {
+                        sep(bt, Core.bundle.format("bullet.uaw-maxEnemyHitSize", (int) (UAWType.maxEnemyHitSize)));
                     }
 
                     if (type.buildingDamageMultiplier != 1) {

@@ -2,24 +2,39 @@ package UAW.entities.bullet;
 
 import arc.Events;
 import arc.util.Tmp;
-import mindustry.content.Fx;
+import mindustry.entities.bullet.RailBulletType;
 import mindustry.game.EventType;
 import mindustry.gen.*;
 import mindustry.world.blocks.defense.Wall;
 
 import static mindustry.Vars.player;
 
-public class ArmorPiercingBulletType extends TrailBulletType {
+public class ArmorPiercingRailBulletType extends RailBulletType {
+    static float furthest = 0;
     public float armorIgnoreScl = 0.5f;
     public float shieldDamageMultiplier;
 
-    public ArmorPiercingBulletType(float speed, float damage) {
-        this.speed = speed;
-        this.damage = damage;
-        hitEffect = Fx.hitBulletBig;
-        pierce = true;
-        pierceBuilding = true;
-        buildingDamageMultiplier = 0.5f;
+    void handle(Bullet b, Posc pos, float initialHealth) {
+        float sub = Math.max(initialHealth * pierceDamageFactor, 0);
+
+        if (b.damage <= 0) {
+            b.fdata = Math.min(b.fdata, b.dst(pos));
+            return;
+        }
+
+        if (b.damage > 0) {
+            pierceEffect.at(pos.getX(), pos.getY(), b.rotation());
+
+            hitEffect.at(pos.getX(), pos.getY());
+        }
+
+        //subtract health from each consecutive pierce
+        b.damage -= Math.min(b.damage, sub);
+
+        //bullet was stopped, decrease furthest distance
+        if (b.damage <= 0f) {
+            furthest = Math.min(furthest, b.dst(pos));
+        }
     }
 
     @Override
@@ -40,10 +55,10 @@ public class ArmorPiercingBulletType extends TrailBulletType {
             unit.impulse(Tmp.v3);
             unit.apply(status, statusDuration);
         }
-        //for achievements
+
         if (b.owner instanceof Wall.WallBuild && player != null && b.team == player.team() && entity instanceof Unit unit && unit.dead) {
             Events.fire(EventType.Trigger.phaseDeflectHit);
         }
+        handle(b, entity, health);
     }
 }
-
