@@ -238,10 +238,9 @@ public class UAWBlock implements ContentList {
             shootShake = 3f;
             restitution = 0.05f;
             range = 25 * tilesize;
-            shootCone = 1f;
             ammoUseEffect = Fx.casing3;
             shootSound = Sounds.shootBig;
-            inaccuracy = 2f;
+            inaccuracy = 1.5f;
             rotateSpeed = 5f;
             unitSort = (u, x, y) -> -u.health;
             maxAmmo = 20;
@@ -268,6 +267,17 @@ public class UAWBlock implements ContentList {
                         knockback = 1.2f;
                         lifetime = range/speed;
                     }},
+                    Items.silicon, new TrailBulletType(10f, 55f) {{
+                        hitSize = 5;
+                        height = 30f;
+                        width = 10f;
+                        homingPower = 0.16f;
+                        shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
+                        smokeEffect = Fx.shootBigSmoke;
+                        ammoMultiplier = 2;
+                        pierceCap = 2;
+                        lifetime = range/speed;
+                    }},
                     Items.thorium, new TrailBulletType(8f, 80){{
                         hitSize = 5;
                         height = 30f;
@@ -282,7 +292,7 @@ public class UAWBlock implements ContentList {
                     Items.titanium, new ArmorPiercingBulletType(12f, 25f) {{
                         height = 30f;
                         width = 10f;
-                        shootEffect = new MultiEffect(Fx.shootBig2, Fx.hitBulletBig);
+                        shootEffect = new MultiEffect(Fx.shootBig2, Fx.hitBulletBig, UAWFxStatic.shootSurgeFlame);
                         smokeEffect = Fx.shootBigSmoke;
                         ammoMultiplier = 2;
                         lifetime = range + (5 * tilesize) / speed;
