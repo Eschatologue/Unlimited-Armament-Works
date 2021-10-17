@@ -220,4 +220,13 @@ public class UAWFxDynamic {
             });
         });
     }
+
+    public static Effect smokeCloud(Color color) {
+        return new Effect(80f, e -> {
+            color(color);
+            randLenVectors(e.id, e.fin(), 12, 15f, (x, y, fin, fout) -> {
+                Fill.circle(e.x + x, e.y + y, 6f * fout);
+            });
+        });
+    }
 }

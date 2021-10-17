@@ -1,17 +1,14 @@
 package UAW.world.blocks.defense.turrets;
 
 import UAW.graphics.UAWPal;
-import UAW.world.meta.UAWStatValues;
 import arc.graphics.g2d.*;
 import arc.math.Mathf;
 import arc.util.Time;
 import mindustry.entities.bullet.BulletType;
 import mindustry.graphics.*;
-import mindustry.world.blocks.defense.turrets.ItemTurret;
-import mindustry.world.meta.Stat;
 
 // A small modification from Yuria-Shikibe/NewHorizonMod
-public class DynamicReloadTurret extends ItemTurret {
+public class DynamicReloadTurret extends CustomStatItemTurret {
     public float maxReloadScl = 0.5f;
     public float speedupPerShot = 0.075f;
     public float slowDownReloadTime = 90f;
@@ -19,13 +16,6 @@ public class DynamicReloadTurret extends ItemTurret {
 
     public DynamicReloadTurret(String name) {
         super(name);
-    }
-
-    @Override
-    public void setStats() {
-        super.setStats();
-        stats.remove(Stat.ammo);
-        stats.add(Stat.ammo, UAWStatValues.ammo(ammoTypes));
     }
 
     public class DynamicReloadTurretBuild extends ItemTurretBuild {
@@ -65,7 +55,7 @@ public class DynamicReloadTurret extends ItemTurret {
         public void drawSelect() {
             super.drawSelect();
             Lines.stroke(speedupScl / maxReloadScl);
-            Draw.color(UAWPal.cryoFront, Pal.missileYellowBack, Pal.darkPyraFlame, ((speedupScl / maxReloadScl)/4));
+            Draw.color(UAWPal.cryoFront, Pal.missileYellowBack, Pal.darkPyraFlame, ((speedupScl / maxReloadScl) / 4));
             Draw.z(Layer.effect);
             Lines.polySeg(200, 0, (int) (200 * speedupScl / maxReloadScl), x, y, range / 10, rotation);
             Draw.color();

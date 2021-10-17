@@ -1,7 +1,6 @@
 package UAW.world.meta;
 
-import UAW.entities.bullet.*;
-import UAW.type.weapon.RecoilingWeapon;
+import UAW.entities.bullet.ArmorPiercingBulletType;
 import arc.Core;
 import arc.func.Boolf;
 import arc.graphics.g2d.TextureRegion;
@@ -113,14 +112,18 @@ public class UAWStatValues {
         };
     }
 
-    public static StatValue floorEfficiency(Floor floor, float multiplier, boolean startZero) {
+    public static StatValue blockEfficiency(Block floor, float multiplier, boolean startZero) {
         return table -> table.stack(
                 new Image(floor.uiIcon).setScaling(Scaling.fit),
                 new Table(t -> t.top().right().add((multiplier < 0 ? "[scarlet]" : startZero ? "[accent]" : "[accent]+") + (int) ((multiplier) * 100) + "%").style(Styles.outlineLabel))
         );
     }
 
-    public static StatValue floors(Attribute attr, boolean floating, float scale, boolean startZero) {
+    public static StatValue blocks(Attribute attr, boolean floating, float scale, boolean startZero) {
+        return blocks(attr, floating, scale, startZero, true);
+    }
+
+    public static StatValue blocks(Attribute attr, boolean floating, float scale, boolean startZero, boolean checkFloors) {
         return table -> table.table(c -> {
             Runnable[] rebuild = {null};
             Map[] lastMap = {null};
@@ -131,14 +134,14 @@ public class UAWStatValues {
 
                 if (state.isGame()) {
                     var blocks = Vars.content.blocks()
-                            .select(block -> block instanceof Floor f && indexer.isBlockPresent(block) && f.attributes.get(attr) != 0 && !(f.isDeep() && !floating))
+                            .select(block -> (!checkFloors || block instanceof Floor) && indexer.isBlockPresent(block) && block.attributes.get(attr) != 0 && !((block instanceof Floor f && f.isDeep()) && !floating))
                             .<Floor>as().with(s -> s.sort(f -> f.attributes.get(attr)));
 
                     if (blocks.any()) {
                         int i = 0;
                         for (var block : blocks) {
 
-                            floorEfficiency(block, block.attributes.get(attr) * scale, startZero).display(c);
+                            blockEfficiency(block, block.attributes.get(attr) * scale, startZero).display(c);
                             if (++i % 5 == 0) {
                                 c.row();
                             }
@@ -231,13 +234,11 @@ public class UAWStatValues {
         };
     }
 
-    // This is broken, don't
     public static StatValue weapons(UnitType unit, Seq<Weapon> weapons) {
         return table -> {
             table.row();
             for (int i = 0; i < weapons.size; i++) {
                 Weapon weapon = weapons.get(i);
-                RecoilingWeapon recoilingWeapon = (RecoilingWeapon) weapons.get(i);
 
                 if (weapon.flipSprite) {
                     //flipped weapons are not given stats
@@ -245,17 +246,13 @@ public class UAWStatValues {
                 }
 
                 TextureRegion region = !weapon.name.equals("") && weapon.outlineRegion.found() ? weapon.outlineRegion : unit.fullIcon;
-                TextureRegion icon = recoilingWeapon.weaponIcon.found() ? recoilingWeapon.weaponIcon : unit.fullIcon;
 
                 table.image(region).size(60).scaling(Scaling.bounded).right().top();
-                table.image(icon).size(64).scaling(Scaling.bounded).right().top();
-
 
                 table.table(Tex.underline, w -> {
                     w.left().defaults().padRight(3).left();
-                    weapon.addStats(unit, w);
-                    recoilingWeapon.addStats(unit, w);
 
+                    weapon.addStats(unit, w);
                 }).padTop(-9).left();
                 table.row();
             }
@@ -266,7 +263,6 @@ public class UAWStatValues {
         return ammo(map, 0);
     }
 
-    // Custom Stats for UAW units
     public static <T extends UnlockableContent> StatValue ammo(ObjectMap<T, BulletType> map, int indent) {
         return table -> {
 
@@ -368,5 +364,5 @@ public class UAWStatValues {
     private static TextureRegion icon(UnlockableContent t) {
         return t.uiIcon;
     }
-
 }
+

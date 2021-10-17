@@ -3,7 +3,7 @@ package UAW.content;
 import UAW.entities.bullet.*;
 import UAW.graphics.*;
 import UAW.world.blocks.defense.*;
-import UAW.world.blocks.defense.turrets.DynamicReloadTurret;
+import UAW.world.blocks.defense.turrets.*;
 import UAW.world.blocks.defense.walls.ShieldWall;
 import UAW.world.blocks.drawer.DrawLiquidInput;
 import arc.graphics.Color;
@@ -27,27 +27,28 @@ import static mindustry.type.ItemStack.with;
 
 public class UAWBlock implements ContentList {
     public static Block
-    // region Turret
+
+    // Turret
     quadra, spitfire, saintfire,
     solo, longsword, deadeye,
     buckshot, tempest, strikeforce,
     sparkler, sunspot,
     zounderkite,
     steelneck, skyhammer,
+
+    // Production
     gelatinizer, carburizingFurnace, surgeMixer, coalLiquefier,
-    // endregion
-    // region Defense
+
+    // Defense
     shieldWall, statusFieldProjector, rejuvinationProjector, rejuvinationDome,
-    // endregion
-    // region UnitBlocks
+
+    // UnitBlocks
     multiplicativePetroleumReconstructor, exponentialPetroleumReconstructor, tetrativePetroleumReconstructor;
-    // endregion
 
     @Override
     public void load() {
         float tick = 60;
-        // region Turrets
-        // MG
+
         quadra = new DynamicReloadTurret("quadra") {{
             requirements(Category.turret, with(
                     Items.copper, 110,
@@ -72,7 +73,7 @@ public class UAWBlock implements ContentList {
             speedupPerShot = 0.15f;
             inaccuracyModifier = 0.5f;
             ammo(
-                    Items.copper, new BasicBulletType(4f, 9){{
+                    Items.copper, new BasicBulletType(4f, 9) {{
                         height = 14f;
                         width = height / 1.8f;
                         lifetime = range / speed;
@@ -80,7 +81,7 @@ public class UAWBlock implements ContentList {
                         smokeEffect = Fx.shootSmallSmoke;
                         ammoMultiplier = 2;
                     }},
-                    Items.graphite, new BasicBulletType(3.5f, 18){{
+                    Items.graphite, new BasicBulletType(3.5f, 18) {{
                         height = 18f;
                         width = height / 1.8f;
                         knockback = 0.15f;
@@ -224,8 +225,7 @@ public class UAWBlock implements ContentList {
             );
         }};
 
-        // SN
-        solo = new ItemTurret("solo") {{
+        solo = new CustomStatItemTurret("solo") {{
             requirements(Category.turret, with(
                     Items.copper, 150,
                     Items.graphite, 100,
@@ -254,9 +254,9 @@ public class UAWBlock implements ContentList {
                         smokeEffect = Fx.shootBigSmoke;
                         ammoMultiplier = 2;
                         pierceCap = 2;
-                        lifetime = range/speed;
+                        lifetime = range / speed;
                     }},
-                    Items.graphite, new TrailBulletType(8f, 90){{
+                    Items.graphite, new TrailBulletType(8f, 90) {{
                         hitSize = 5;
                         height = 25f;
                         width = 15f;
@@ -265,7 +265,7 @@ public class UAWBlock implements ContentList {
                         reloadMultiplier = 0.5f;
                         ammoMultiplier = 2;
                         knockback = 1.2f;
-                        lifetime = range/speed;
+                        lifetime = range / speed;
                     }},
                     Items.silicon, new TrailBulletType(10f, 55f) {{
                         hitSize = 5;
@@ -276,9 +276,9 @@ public class UAWBlock implements ContentList {
                         smokeEffect = Fx.shootBigSmoke;
                         ammoMultiplier = 2;
                         pierceCap = 2;
-                        lifetime = range/speed;
+                        lifetime = range / speed;
                     }},
-                    Items.thorium, new TrailBulletType(8f, 80){{
+                    Items.thorium, new TrailBulletType(8f, 80) {{
                         hitSize = 5;
                         height = 30f;
                         width = 16f;
@@ -287,7 +287,7 @@ public class UAWBlock implements ContentList {
                         pierceCap = 2;
                         pierceBuilding = true;
                         knockback = 0.7f;
-                        lifetime = range/speed;
+                        lifetime = range / speed;
                     }},
                     Items.titanium, new ArmorPiercingBulletType(12f, 25f) {{
                         height = 30f;
@@ -299,7 +299,7 @@ public class UAWBlock implements ContentList {
                     }}
             );
         }};
-        longsword = new ItemTurret("longsword") {{
+        longsword = new CustomStatItemTurret("longsword") {{
             float brange = range = 55 * tilesize;
             requirements(Category.turret, with(
                     Items.thorium, 280,
@@ -356,7 +356,6 @@ public class UAWBlock implements ContentList {
             );
         }};
 
-        // Artillery
         skyhammer = new ItemTurret("skyhammer") {{
             requirements(Category.turret, with(
                     Items.copper, 1000,
@@ -436,7 +435,7 @@ public class UAWBlock implements ContentList {
                         trailEffect = Fx.artilleryTrail;
                         smokeEffect = Fx.smokeCloud;
                         fragBullets = 25;
-                        fragBullet =  new ArtilleryBulletType(2.2f, 1250){{
+                        fragBullet = new ArtilleryBulletType(2.2f, 1250) {{
                             hitEffect = Fx.plasticExplosion;
                             knockback = 1f;
                             lifetime = 45f;
@@ -478,7 +477,7 @@ public class UAWBlock implements ContentList {
                     }}
             );
         }};
-        // SG
+
         buckshot = new ItemTurret("buckshot") {{
             requirements(Category.turret, with(
                     Items.copper, 120,
@@ -697,8 +696,6 @@ public class UAWBlock implements ContentList {
             );
         }};
 
-        // endregion Turret
-        // region Mine Deployment
         zounderkite = new ItemTurret("zounderkite") {{
             requirements(Category.turret, with(
                     Items.lead, 300,
@@ -753,13 +750,10 @@ public class UAWBlock implements ContentList {
                         shootEffect = UAWFxStatic.shootSurgeFlame;
                         lifetime = range / speed;
                         ammoMultiplier = 3f;
-                    }},
-                    Items.copper, new SplashBulletType(50f, 5) {{
                     }}
             );
         }};
-        // endregion Mine Deployment
-        // region Crafters
+
         gelatinizer = new GenericCrafter("gelatinizer") {{
             requirements(Category.crafting, with(
                     Items.lead, 45,
@@ -855,9 +849,7 @@ public class UAWBlock implements ContentList {
             craftTime = 1.5f * tick;
             updateEffect = Fx.steam;
         }};
-        // endregion
-        // region Defense
-        // region Walls
+
         shieldWall = new ShieldWall("force-wall") {{
             requirements(Category.defense, with(
                     Items.phaseFabric, 6,
@@ -872,8 +864,7 @@ public class UAWBlock implements ContentList {
 
             consumes.power(0.5f);
         }};
-        // endregion Walls
-        // region Projector
+
         statusFieldProjector = new EffectFieldProjector("status-field-projector") {{
             requirements(Category.effect, with(
                     Items.lead, 100,
@@ -949,9 +940,7 @@ public class UAWBlock implements ContentList {
             consumes.items(with(Items.phaseFabric, 1, Items.thorium, 2));
             boostMultiplier = 4.5f;
         }};
-        // endregion projector
-        // endregion Defense
-        // region Units
+
         multiplicativePetroleumReconstructor = new Reconstructor("multiplicative-petroleum-reconstructor") {{
             requirements(Category.units, with(
                     Items.lead, 500,
@@ -1001,6 +990,6 @@ public class UAWBlock implements ContentList {
                     new UnitType[]{UAWUnitTypes.hatsuharu, UAWUnitTypes.shiratsuyu}
             );
         }};
-        // endregion Units
+
     }
 }
