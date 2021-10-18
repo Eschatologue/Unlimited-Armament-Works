@@ -185,14 +185,13 @@ public class UAWFxStatic {
         color(Tmp.c1.set(e.color).mul(1.5f));
         stroke(e.fout() * 1.2f);
         Lines.circle(e.x, e.y, 3 + e.finpow() * 12f);
-    }).layer(Layer.scorch - 0.001f),
+    }).layer(Layer.scorch + 0.1f),
 
     torpedoCruiseTrail = new Effect(30f, e -> {
         color(Color.valueOf("#f5f5f5"));
-        randLenVectors(e.id, 16, 2f + e.fin() * 7f, (x, y) -> {
-            Fill.circle(e.x + x, e.y + y, 0.5f + e.fslope() * 1.5f);
-        });
-    }).layer(Layer.scorch + 0.001f),
+        randLenVectors(e.id, 16, 2f + e.fin() * 7f, (x, y) ->
+                Fill.circle(e.x + x, e.y + y, 0.5f + e.fslope() * 1.5f));
+    }).layer(Layer.scorch + 0.2f),
 
     torpedoTrailFade = new Effect(400f, e -> {
         if(!(e.data instanceof Trail trail)) return;

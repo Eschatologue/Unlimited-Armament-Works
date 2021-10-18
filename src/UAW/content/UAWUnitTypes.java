@@ -22,22 +22,13 @@ import static mindustry.content.Bullets.*;
 
 public class UAWUnitTypes implements ContentList {
     public static UnitType
-    // Air
-        // Attack Helicopters
-        aglovale, bedivere, calogrenant, dagonet, esclabor,
-        // Bombers
-
-    //Naval
-        // Monitors [5]
-        clurit, kujang, beladau, alamang, kerambit,
-        // Torpedo Boats [4]
-        hatsuharu, shiratsuyu, kagero, shimakaze,
-    //Ground
-        // Tanks
-        gardlacz, arkabuz, muszkiet, karabin, armata;
+            aglovale, bedivere, calogrenant, dagonet, esclabor,
+            clurit, kujang, beladau, alamang, kerambit,
+            hatsuharu, shiratsuyu, kagero, shimakaze,
+            gardlacz, arkabuz, muszkiet, karabin, armata;
 
     @Override
-    public void load () {
+    public void load() {
         // region Air - Helicopters
         aglovale = new CopterUnitType("aglovale") {{
             health = 450;
@@ -54,7 +45,7 @@ public class UAWUnitTypes implements ContentList {
             maxRange = range;
 
             rotors.add(
-                    new Rotor(name + "-blade"){{
+                    new Rotor(name + "-blade") {{
                         x = y = 0;
                         rotationSpeed = -12f;
                         bladeCount = 3;
@@ -70,7 +61,7 @@ public class UAWUnitTypes implements ContentList {
                         inaccuracy = 4;
                         reload = 12;
                         shootSound = Sounds.missile;
-                        bullet = new MissileBulletType(6f, 35){{
+                        bullet = new MissileBulletType(6f, 35) {{
                             width = 6f;
                             height = 12f;
                             shrinkY = 0f;
@@ -110,7 +101,7 @@ public class UAWUnitTypes implements ContentList {
                             width = 9f;
                             maxRange = range;
                             homingRange = 60f;
-                            lifetime = (range/speed) * 1.4f;
+                            lifetime = (range / speed) * 1.4f;
                             trailLength = 15;
                             trailWidth = 1.6f;
                             trailColor = backColor;
@@ -126,13 +117,13 @@ public class UAWUnitTypes implements ContentList {
             accel = 0.08f;
             drag = 0.03f;
             ammoType = new ItemAmmoType(Items.graphite);
-            spinningFall = faceTarget = flying = circleTarget =  true;
+            spinningFall = faceTarget = flying = circleTarget = true;
 
             range = 35 * tilesize;
             maxRange = range;
 
             rotors.add(
-                    new Rotor(name + "-blade"){{
+                    new Rotor(name + "-blade") {{
                         x = 0;
                         y = 2;
                         rotationSpeed = -14f;
@@ -159,7 +150,7 @@ public class UAWUnitTypes implements ContentList {
                             buildingDamageMultiplier = 0.4f;
                             maxRange = range - 8;
                             homingRange = 60f;
-                            lifetime = (range/speed) * 1.5f;
+                            lifetime = (range / speed) * 1.5f;
                             trailLength = 15;
                             trailWidth = 1.5f;
                             trailColor = backColor;
@@ -180,14 +171,14 @@ public class UAWUnitTypes implements ContentList {
                         recoil = 2f;
                         firstShotDelay = 20f;
                         shootSound = UAWSfx.cruiseMissileShoot1;
-                        bullet = new CruiseMissileBulletType(3f, 65){{
+                        bullet = new CruiseMissileBulletType(3f, 65) {{
                             size = 5f;
                             homingRange = 120f;
                             homingPower = 0.05f;
                             keepVelocity = false;
                             splashDamageRadius = 8 * tilesize;
                             splashDamage = damage;
-                            lifetime = range/speed + 45;
+                            lifetime = range / speed + 45;
                             backColor = Pal.bulletYellowBack;
                             frontColor = Pal.bulletYellow;
                             shootEffect = UAWFxStatic.shootSurgeFlame;
@@ -215,7 +206,7 @@ public class UAWUnitTypes implements ContentList {
             range = 30 * tilesize;
             maxRange = range;
             rotateShooting = false;
-            ammoType = new ItemAmmoType(Items.graphite,2);
+            ammoType = new ItemAmmoType(Items.graphite, 2);
 
             trailLength = 22;
             trailX = 7f;
@@ -266,7 +257,7 @@ public class UAWUnitTypes implements ContentList {
                         recoil = 2.2f;
                         shootSound = Sounds.artillery;
                         shake = 2.5f;
-                        bullet =  new AntiBuildingBulletType(2f, 35, 2.5f) {{
+                        bullet = new AntiBuildingBulletType(2f, 35, 2.5f) {{
                             splashDamageRadius = 6 * tilesize;
                             size = 20;
                             lifetime = range / speed;
@@ -279,7 +270,7 @@ public class UAWUnitTypes implements ContentList {
                             backColor = Pal.sapBulletBack;
                             shootEffect = new MultiEffect(Fx.shootBig2, UAWFxStatic.shootSporeFlame);
                             smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
-                            despawnEffect = hitEffect = new MultiEffect(UAWFxDynamic.crossBombBlast(backColor, splashDamageRadius), Fx.nuclearsmoke);
+                            despawnEffect = hitEffect = new MultiEffect(UAWFxDynamic.hugeExplosion(splashDamageRadius, backColor), Fx.nuclearsmoke);
 
                             fragBullets = 9;
                             fragBullet = slagShot;
@@ -353,7 +344,7 @@ public class UAWUnitTypes implements ContentList {
                         shootSound = Sounds.artillery;
                         shootCone = 30f;
                         shake = 5;
-                        bullet =  new AntiBuildingBulletType(2f, 120, 3.5f) {{
+                        bullet = new AntiBuildingBulletType(2f, 120, 3.5f) {{
                             splashDamageRadius = 12 * tilesize;
                             size = 38;
                             lifetime = range / speed;
@@ -366,7 +357,7 @@ public class UAWUnitTypes implements ContentList {
                             backColor = Pal.sapBulletBack;
                             shootEffect = new MultiEffect(Fx.shootBig2, UAWFxStatic.shootSporeFlame);
                             smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
-                            despawnEffect = hitEffect = new MultiEffect(UAWFxDynamic.crossBombBlast(backColor, splashDamageRadius), Fx.nuclearsmoke);
+                            despawnEffect = hitEffect = new MultiEffect(UAWFxDynamic.hugeExplosion(splashDamageRadius, backColor), Fx.nuclearsmoke);
 
                             fragBullets = 18;
                             fragBullet = heavySlagShot;
@@ -390,7 +381,7 @@ public class UAWUnitTypes implements ContentList {
             range = 35 * tilesize;
             maxRange = range;
             rotateShooting = false;
-            ammoType = new ItemAmmoType(Items.graphite,2);
+            ammoType = new ItemAmmoType(Items.graphite, 2);
 
             trailLength = 20;
             trailX = 6f;
@@ -453,7 +444,7 @@ public class UAWUnitTypes implements ContentList {
             rotateShooting = false;
             range = 45 * tilesize;
             maxRange = range;
-            ammoType = new ItemAmmoType(Items.graphite,2);
+            ammoType = new ItemAmmoType(Items.graphite, 2);
 
             trailLength = 25;
             trailX = 8f;
@@ -520,14 +511,14 @@ public class UAWUnitTypes implements ContentList {
                             pierceCap = 2;
                             buildingDamageMultiplier = 0.3f;
                             maxRange = range - 16;
-                            lifetime = (range/speed) * 0.7f;
+                            lifetime = (range / speed) * 0.7f;
                             trailLength = 10;
-                            trailWidth = width/3;
+                            trailWidth = width / 3;
                             trailColor = backColor;
                             hitEffect = new MultiEffect(Fx.hitBulletSmall, Fx.shootSmallSmoke);
                         }};
                     }},
-                    new Weapon("uaw-missile-medium-red-single"){{
+                    new Weapon("uaw-missile-medium-red-single") {{
                         reload = 45f;
                         x = 0f;
                         y = -8f;
@@ -541,14 +532,14 @@ public class UAWUnitTypes implements ContentList {
                         shootSound = Sounds.missile;
                         ammoType = new ItemAmmoType(Items.thorium);
                         ejectEffect = Fx.none;
-                        bullet = new MissileBulletType(5f, 60){{
+                        bullet = new MissileBulletType(5f, 60) {{
                             height = 12;
                             width = height / 2;
                             homingRange = 60f;
                             keepVelocity = false;
                             splashDamageRadius = 4 * tilesize;
                             splashDamage = damage * 1.5f;
-                            lifetime = range/speed * 0.8f;
+                            lifetime = range / speed * 0.8f;
                             trailColor = Color.gray;
                             backColor = Pal.bulletYellowBack;
                             frontColor = Pal.bulletYellow;
@@ -623,7 +614,7 @@ public class UAWUnitTypes implements ContentList {
                             fragBullets = 4;
                             fragLifeMin = 0f;
                             fragCone = 30f;
-                            fragBullet = new BasicBulletType(7f, 6){{
+                            fragBullet = new BasicBulletType(7f, 6) {{
                                 height = width = 8f;
                                 pierce = true;
                                 pierceBuilding = true;
@@ -683,7 +674,7 @@ public class UAWUnitTypes implements ContentList {
                             fragLifeMin = 0f;
                             fragCone = 30f;
                             status = StatusEffects.melting;
-                            fragBullet = new BasicBulletType(7f, 9){{
+                            fragBullet = new BasicBulletType(7f, 9) {{
                                 buildingDamageMultiplier = 1.5f;
                                 height = width = 8f;
                                 pierce = true;
