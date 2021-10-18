@@ -26,16 +26,15 @@ public class Rotor {
     }
 
     public void draw(Unit unit) {
-        float deathRotorSpeedScl = 1;
+        float RotorSpeedScl = rotationSpeed;
         float rx = unit.x + Angles.trnsx(unit.rotation - 90, x, y);
         float ry = unit.y + Angles.trnsy(unit.rotation - 90, x, y);
 
         if (unit.health() < 0 || unit.dead) {
-            deathRotorSpeedScl = Mathf.lerpDelta(0.9f, 0f, (unit.type().fallSpeed) * 1000);
+            RotorSpeedScl = Mathf.lerpDelta(rotationSpeed, 0f, 0.5f);
         }
-
         for (int i = 0; i < bladeCount; i++) {
-            float angle = ((i * 360f / bladeCount + ((Time.time * rotationSpeed) * deathRotorSpeedScl)) % 360);
+            float angle = ((i * 360f / bladeCount + (Mathf.random(-30, 30)) + (((Time.time * RotorSpeedScl))) % 360));
             Draw.rect(bladeRegion, rx, ry, bladeRegion.width * Draw.scl, bladeRegion.height * Draw.scl, angle);
         }
         Draw.rect(topRegion, rx, ry, topRegion.width * Draw.scl, topRegion.height * Draw.scl, unit.rotation - 90);
