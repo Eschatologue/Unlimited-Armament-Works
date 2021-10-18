@@ -34,7 +34,7 @@ public class Rotor {
             RotorSpeedScl = Mathf.lerpDelta(rotationSpeed, 0f, 0.5f);
         }
         for (int i = 0; i < bladeCount; i++) {
-            float angle = ((i * 360f / bladeCount + (Mathf.random(-30, 30)) + (((Time.time * RotorSpeedScl))) % 360));
+            float angle = ((i * 360f / bladeCount + (((Time.time * RotorSpeedScl))) % 360));
             Draw.rect(bladeRegion, rx, ry, bladeRegion.width * Draw.scl, bladeRegion.height * Draw.scl, angle);
         }
         Draw.rect(topRegion, rx, ry, topRegion.width * Draw.scl, topRegion.height * Draw.scl, unit.rotation - 90);
