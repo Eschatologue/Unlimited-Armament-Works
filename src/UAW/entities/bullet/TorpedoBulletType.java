@@ -94,13 +94,19 @@ public class TorpedoBulletType extends BulletType {
         float damageReduction = 1;
         if (entity.hitSize() > maxEnemyHitSize) {
             damageReduction = ((entity.hitSize() * 10f) / 100);
-        }
-        if (entity.hitSize() < maxEnemyHitSize / 3) {
+        } else if (entity.hitSize() < maxEnemyHitSize / 3) {
             damageReduction = ((entity.hitSize() * 20f) / 100);
         }
         if (entity instanceof Healthc h) {
             h.damage((b.damage * ((entity.hitSize() * hitSizeDamageScl) / 100)) / damageReduction);
         }
         super.hitEntity(b, entity, health);
+    }
+
+    @Override
+    public void removed(Bullet b) {
+        if (trailLength > 0 && b.trail != null && b.trail.size() > 0) {
+            UAWFxStatic.torpedoTrailFade.at(b.x, b.y, trailWidth, trailColor, b.trail.copy());
+        }
     }
 }

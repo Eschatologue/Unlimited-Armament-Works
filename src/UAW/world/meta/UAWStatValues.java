@@ -293,6 +293,14 @@ public class UAWStatValues {
                         }
                     }
 
+                    if (type.buildingDamageMultiplier != 1) {
+                        sep(bt, Core.bundle.format("bullet.buildingdamage", (int) (type.buildingDamageMultiplier * 100)));
+                    }
+
+                    if (type.splashDamage > 0) {
+                        sep(bt, Core.bundle.format("bullet.splashdamage", (int) type.splashDamage, Strings.fixed(type.splashDamageRadius / tilesize, 1)));
+                    }
+
                     if (type instanceof UAWBulletType types) {
                         if (types.armorIgnoreScl > 0) {
                             sep(bt, Core.bundle.format("bullet.uaw-armorPenetration", (int) (types.armorIgnoreScl * 100)));
@@ -300,14 +308,6 @@ public class UAWStatValues {
                         if (types.shieldDamageMultiplier != 1) {
                             sep(bt, Core.bundle.format("bullet.uaw-shieldDamageMultiplier", (int) (types.shieldDamageMultiplier * 100)));
                         }
-                    }
-
-                    if (type.buildingDamageMultiplier != 1) {
-                        sep(bt, Core.bundle.format("bullet.buildingdamage", (int) (type.buildingDamageMultiplier * 100)));
-                    }
-
-                    if (type.splashDamage > 0) {
-                        sep(bt, Core.bundle.format("bullet.splashdamage", (int) type.splashDamage, Strings.fixed(type.splashDamageRadius / tilesize, 1)));
                     }
 
                     if (!compact && !Mathf.equal(type.ammoMultiplier, 1f) && type.displayAmmoMultiplier) {

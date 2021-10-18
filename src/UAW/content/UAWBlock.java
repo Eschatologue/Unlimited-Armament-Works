@@ -649,7 +649,7 @@ public class UAWBlock implements ContentList {
                         fragVelocityMax = fragVelocityMin * 1.2f;
                         fragLifeMin = 0.4f;
                         fragLifeMax = 0.8f;
-                        shieldDamageMultiplier = 4f;
+                        shieldDamageMultiplier = 1.5f;
                     }},
                     UAWItems.cryogel, new BuckshotBulletType(6.5f, 30f) {{
                         height = width = 30;
@@ -668,7 +668,7 @@ public class UAWBlock implements ContentList {
                         fragVelocityMax = fragVelocityMin * 1.2f;
                         fragLifeMin = 0.4f;
                         fragLifeMax = 0.8f;
-                        shieldDamageMultiplier = 4f;
+                        shieldDamageMultiplier = 1.5f;
                     }},
                     Items.plastanium, new BuckshotBulletType(6.5f, 30f) {{
                         height = width = 30;
@@ -687,7 +687,7 @@ public class UAWBlock implements ContentList {
                         fragVelocityMax = fragVelocityMin * 1.2f;
                         fragLifeMin = 0.4f;
                         fragLifeMax = 0.8f;
-                        shieldDamageMultiplier = 4f;
+                        shieldDamageMultiplier = 2.8f;
                     }},
                     Items.surgeAlloy, new BuckshotBulletType(6.5f, 30f) {{
                         height = width = 30;
@@ -704,7 +704,7 @@ public class UAWBlock implements ContentList {
                         lightningDamage = 8;
                         lightning = 3;
                         lightningLength = 8;
-                        shieldDamageMultiplier = 4f;
+                        shieldDamageMultiplier = 3f;
                     }}
             );
         }};
@@ -890,28 +890,28 @@ public class UAWBlock implements ContentList {
             range = 24 * tilesize;
             ammoUseEffect = Fx.doorcloselarge;
             ammo(
-                    Liquids.cryofluid, new SplashBulletType(10, range) {{
+                    Liquids.cryofluid, new SplashBulletType(0, range) {{
                         shootEffect = UAWFxDynamic.statusFieldApply(UAWPal.cryoFront, UAWPal.cryoBack, range);
                         smokeEffect = UAWFxDynamic.statusHit(UAWPal.cryoMiddle, 30);
                         status = StatusEffects.freezing;
                         statusDuration = reloadTime * 1.5f;
                         splashAmount = 1;
                     }},
-                    Liquids.slag, new SplashBulletType(10, range) {{
+                    Liquids.slag, new SplashBulletType(0, range) {{
                         shootEffect = UAWFxDynamic.statusFieldApply(Pal.lighterOrange, Pal.lightOrange, range);
                         smokeEffect = UAWFxDynamic.statusHit(Pal.orangeSpark, 30);
                         status = StatusEffects.melting;
                         statusDuration = reloadTime * 1.5f;
                         splashAmount = 1;
                     }},
-                    Liquids.oil, new SplashBulletType(10, range) {{
+                    Liquids.oil, new SplashBulletType(0, range) {{
                         shootEffect = UAWFxDynamic.statusFieldApply(Pal.plastaniumFront, Pal.plastaniumBack, range);
                         smokeEffect = UAWFxDynamic.statusHit(Pal.plastanium, 30);
                         status = StatusEffects.tarred;
                         statusDuration = reloadTime * 1.5f;
                         splashAmount = 1;
                     }},
-                    UAWLiquid.surgeSolvent, new SplashBulletType(10, range) {{
+                    UAWLiquid.surgeSolvent, new SplashBulletType(0, range) {{
                         shootEffect = UAWFxDynamic.statusFieldApply(UAWPal.surgeFront, UAWPal.surgeBack, range);
                         smokeEffect = UAWFxDynamic.statusHit(Pal.surge, 30);
                         status = StatusEffects.electrified;
