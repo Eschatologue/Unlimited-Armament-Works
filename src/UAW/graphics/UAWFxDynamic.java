@@ -113,9 +113,9 @@ public class UAWFxDynamic {
     }
 
     public static Effect hugeExplosion(float size, Color color) {
-        return new Effect(120, 500f, e -> {
-            float intensity = size / 19;
-            float smokeSize = e.fout() * size / 5;
+        return new Effect(120, 450f, e -> {
+            float intensity = size / 19f;
+            float smokeSize = e.fout() * size / 6;
 
             color(Color.gray);
             alpha(0.7f);
@@ -125,7 +125,7 @@ public class UAWFxDynamic {
             });
             randLenVectors(e.id, 35, e.finpow() * e.lifetime, (x, y) -> {
                 color(Pal.darkerGray, Pal.darkishGray, e.fin());
-                Fill.circle(e.x + x, e.y + y, smokeSize * 2);
+                Fill.circle(e.x + x, e.y + y, smokeSize * 1.5f);
             });
             Draw.color();
             e.scaled(5 + intensity * 2f, i -> {
@@ -134,7 +134,7 @@ public class UAWFxDynamic {
                 Drawf.light(e.x, e.y, i.fin() * 14f * 2f * intensity, Color.lightGray, 0.3f * e.fout());
             });
 
-            color(color, Color.gray, e.fin());
+            color(Pal.bulletYellowBack, Color.gray, e.fin());
             stroke((2f * e.fout()));
 
             Draw.z(Layer.effect + 0.001f);
