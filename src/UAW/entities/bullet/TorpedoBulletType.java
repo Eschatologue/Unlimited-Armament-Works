@@ -15,10 +15,6 @@ import mindustry.world.blocks.environment.Floor;
 
 import static mindustry.Vars.tilesize;
 
-/**
- * Taken from Sk7725/BetaMindy - NavalBulletType
- * Modified by Eschatologue
- */
 public class TorpedoBulletType extends BulletType {
     /**
      * Scaling damage based on enemy hitSize
@@ -47,7 +43,7 @@ public class TorpedoBulletType extends BulletType {
         hitShake = 24;
         knockback = 8f;
         hitSize = 16f;
-        collideFloor = true;
+        collideTerrain = collideFloor = true;
         keepVelocity = collidesAir = absorbable = hittable = reflectable = false;
         lightColor = hitColor;
         trailLength = 36;
@@ -57,7 +53,7 @@ public class TorpedoBulletType extends BulletType {
         shootEffect = UAWFxStatic.shootWaterFlame;
         trailEffect = UAWFxStatic.torpedoCruiseTrail;
         trailRotation = true;
-        hitEffect = new MultiEffect(Fx.smokeCloud, Fx.blastExplosion, UAWFxStatic.torpedoRippleHit);
+        hitEffect = new MultiEffect(Fx.smokeCloud, Fx.blastExplosion, UAWFxStatic.torpedoRippleHit, UAWFxDynamic.smokeCloud(trailColor));
         despawnEffect = UAWFxStatic.torpedoRippleHit;
         status = StatusEffects.slow;
         statusDuration = 3 * 60;
@@ -79,6 +75,10 @@ public class TorpedoBulletType extends BulletType {
     public void update(Bullet b) {
         Floor floor = Vars.world.floorWorld(b.x, b.y);
         Color liquidColor = floor.mapColor.equals(Color.black) ? Blocks.water.mapColor : floor.mapColor;
+        /**
+         * Taken from Betamindy - NavalBulletType
+         * @Author Sk7725
+         */
         if (Time.time - b.fdata > rippleInterval) {
             b.fdata = Time.time;
             rippleEffect.at(b.x, b.y, hitSize / 3f, liquidColor);
