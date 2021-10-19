@@ -345,6 +345,7 @@ public class UAWUnitTypes implements ContentList {
                         shootCone = 30f;
                         shake = 5;
                         bullet = new AntiBuildingBulletType(2f, 120, 3.5f) {{
+
                             splashDamageRadius = 12 * tilesize;
                             size = 38;
                             lifetime = range / speed;
