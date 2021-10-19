@@ -14,6 +14,7 @@ public class Rotor {
     public float x = 0f;
     public float y = 0f;
     public float rotationSpeed = 12;
+    public float rotorDeathSpeedScl = 2f;
 
     public int bladeCount = 4;
 
@@ -34,7 +35,7 @@ public class Rotor {
         float ry = unit.y + Angles.trnsy(unit.rotation - 90, x, y);
 
         if (unit.health() < 0 || unit.dead) {
-            rotorSpeedScl = Mathf.lerpDelta(rotationSpeed, 1f, 0.05f);
+            rotorSpeedScl = rotorSpeedScl / rotorDeathSpeedScl;
         }
         for (int i = 0; i < bladeCount; i++) {
             float angle = ((i * 360f / bladeCount + (((Time.time * rotorSpeedScl))) % 360));

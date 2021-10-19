@@ -47,7 +47,7 @@ public class UAWUnitTypes implements ContentList {
             rotors.add(
                     new Rotor(name + "-blade") {{
                         x = y = 0;
-                        rotationSpeed = -12f;
+                        rotationSpeed = -14f;
                         bladeCount = 3;
                     }}
             );
@@ -126,7 +126,7 @@ public class UAWUnitTypes implements ContentList {
                     new Rotor(name + "-blade") {{
                         x = 0;
                         y = 2;
-                        rotationSpeed = -14f;
+                        rotationSpeed = -12f;
                         bladeCount = 4;
                     }}
             );
@@ -270,7 +270,7 @@ public class UAWUnitTypes implements ContentList {
                             backColor = Pal.sapBulletBack;
                             shootEffect = new MultiEffect(Fx.shootBig2, UAWFxStatic.shootSporeFlame);
                             smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
-                            despawnEffect = hitEffect = UAWFxDynamic.hugeExplosion(splashDamageRadius, backColor);
+                            despawnEffect = hitEffect = new MultiEffect(UAWFxDynamic.crossBlast(frontColor, splashDamageRadius), Fx.blockExplosion, Fx.blockExplosionSmoke);
 
                             fragBullets = 9;
                             fragBullet = slagShot;
@@ -357,7 +357,8 @@ public class UAWUnitTypes implements ContentList {
                             backColor = Pal.sapBulletBack;
                             shootEffect = new MultiEffect(Fx.shootBig2, UAWFxStatic.shootSporeFlame);
                             smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
-                            despawnEffect = hitEffect = UAWFxDynamic.hugeExplosion(splashDamageRadius, backColor);
+                            despawnEffect = hitEffect = new MultiEffect(UAWFxDynamic.crossBlast(frontColor, splashDamageRadius), Fx.blockExplosion, Fx.blockExplosionSmoke);
+                            ;
 
                             fragBullets = 18;
                             fragBullet = heavySlagShot;

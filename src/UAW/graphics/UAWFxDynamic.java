@@ -80,7 +80,7 @@ public class UAWFxDynamic {
 
             color(color);
             for (int i = 0; i < 4; i++) {
-                Drawf.tri(e.x, e.y, (width * 2), length * e.fout(), i * 90 + 45);
+                Drawf.tri(e.x, e.y, (width * 2), (length * 1.5f) * e.fout(), i * 90 + 45);
             }
 
             color();
@@ -119,11 +119,11 @@ public class UAWFxDynamic {
 
             color(Color.gray);
             alpha(0.7f);
-            randLenVectors(e.id, 35, e.finpow() * 160f, (x, y) -> {
+            randLenVectors(e.id, 45, e.finpow() * e.lifetime, (x, y) -> {
                 color(color);
                 Fill.circle(e.x + x, e.y + y, smokeSize / 1.5f);
             });
-            randLenVectors(e.id, 30, e.finpow() * (e.lifetime / 1.5f), (x, y) -> {
+            randLenVectors(e.id, 40, e.finpow() * (e.lifetime / 1.5f), (x, y) -> {
                 color(Pal.darkerGray, Pal.darkishGray, e.fin());
                 Fill.circle(e.x + x, e.y + y, smokeSize * 1.5f);
             });
