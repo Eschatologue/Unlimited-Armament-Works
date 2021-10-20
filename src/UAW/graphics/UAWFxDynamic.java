@@ -121,10 +121,6 @@ public class UAWFxDynamic {
             float baseLifetime = 26f + realSize * 15f;
             b.lifetime = 40f + realSize * 35f;
 
-            color(Color.white, Pal.gray, (b.lifetime / 2));
-            stroke(b.fout() * 4f);
-            Lines.circle(b.x, b.y, 4f + b.finpow() * size);
-
             color(Color.gray);
             alpha(0.9f);
             for (int i = 0; i < 4; i++) {
@@ -141,8 +137,8 @@ public class UAWFxDynamic {
 
             b.scaled(baseLifetime, e -> {
                 e.scaled(5 + realSize * 2.5f, i -> {
-                    stroke((3.1f + realSize / 5f) * i.fout());
-                    Lines.circle(e.x, e.y, (3f + i.fin() * 14f) * realSize);
+                    stroke((3.1f + realSize / 2f) * i.fout());
+                    Lines.circle(e.x, e.y, (3f + i.fout() * 14f) * realSize);
                     Drawf.light(e.x, e.y, i.fin() * 14f * 2f * realSize, Color.white, 0.9f * e.fout());
                 });
 
@@ -159,7 +155,7 @@ public class UAWFxDynamic {
     }
 
     public static Effect hugeExplosion(float size, Color color) {
-        return new Effect(120, 450f, e -> {
+        return new Effect(size * 8, 450f, e -> {
             float intensity = size / 20f;
             float smokeSize = e.fout() * size / 6;
 

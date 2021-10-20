@@ -271,7 +271,10 @@ public class UAWUnitTypes implements ContentList {
                             backColor = Pal.sapBulletBack;
                             shootEffect = new MultiEffect(Fx.shootBig2, UAWFxStatic.shootSporeFlame);
                             smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
-                            despawnEffect = hitEffect = new MultiEffect(UAWFxDynamic.dynamicExplosion(splashDamageRadius), Fx.blockExplosion, Fx.blockExplosionSmoke);
+                            despawnEffect = hitEffect = new MultiEffect(
+                                    UAWFxDynamic.dynamicExplosion(splashDamageRadius),
+                                    UAWFxDynamic.crossBombBlast(frontColor, splashDamageRadius)
+                            );
 
                             fragBullets = 9;
                             fragBullet = slagShot;
@@ -358,8 +361,10 @@ public class UAWUnitTypes implements ContentList {
                             backColor = Pal.sapBulletBack;
                             shootEffect = new MultiEffect(Fx.shootBig2, UAWFxStatic.shootSporeFlame);
                             smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
-                            despawnEffect = hitEffect = new MultiEffect(UAWFxDynamic.dynamicExplosion(splashDamageRadius), Fx.reactorsmoke);
-
+                            despawnEffect = hitEffect = new MultiEffect(
+                                    UAWFxDynamic.dynamicExplosion(splashDamageRadius),
+                                    UAWFxDynamic.crossBombBlast(frontColor, splashDamageRadius)
+                            );
                             fragBullets = 18;
                             fragBullet = heavySlagShot;
                             fragVelocityMin = 0.35f;
