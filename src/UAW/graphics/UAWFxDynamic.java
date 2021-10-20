@@ -137,7 +137,7 @@ public class UAWFxDynamic {
 
             b.scaled(baseLifetime, e -> {
                 e.scaled(5 + realSize * 2.5f, i -> {
-                    stroke((3.1f + realSize / 5f) * i.fout());
+                    stroke((3.1f + realSize / 2) * i.fout());
                     Lines.circle(e.x, e.y, (3f + i.fin() * 14f) * realSize);
                     Drawf.light(e.x, e.y, i.fin() * 14f * 2f * realSize, Color.white, 0.9f * e.fout());
                 });
@@ -155,17 +155,17 @@ public class UAWFxDynamic {
     }
 
     public static Effect hugeExplosion(float size, Color color) {
-        return new Effect(size * 8, 450f, e -> {
+        return new Effect(150, 450f, e -> {
             float intensity = size / 20f;
             float smokeSize = e.fout() * size / 6;
 
             color(Color.gray);
             alpha(0.7f);
-            randLenVectors(e.id, 35, e.finpow() * (size * 4), (x, y) -> {
+            randLenVectors(e.id, 35, e.finpow() * intensity, (x, y) -> {
                 color(color);
                 Fill.circle(e.x + x, e.y + y, smokeSize / 1.5f);
             });
-            randLenVectors(e.id, 30, e.finpow() * (size * 3), (x, y) -> {
+            randLenVectors(e.id, 30, e.finpow() * intensity, (x, y) -> {
                 color(Pal.darkerGray, Pal.darkishGray, e.fin());
                 Fill.circle(e.x + x, e.y + y, smokeSize * 1.5f);
             });
