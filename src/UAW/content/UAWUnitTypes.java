@@ -43,6 +43,7 @@ public class UAWUnitTypes implements ContentList {
             faceTarget = flying = true;
             range = 30 * tilesize;
             maxRange = range;
+            spinningFall = true;
 
             rotors.add(
                     new Rotor(name + "-blade") {{
@@ -270,7 +271,7 @@ public class UAWUnitTypes implements ContentList {
                             backColor = Pal.sapBulletBack;
                             shootEffect = new MultiEffect(Fx.shootBig2, UAWFxStatic.shootSporeFlame);
                             smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
-                            despawnEffect = hitEffect = new MultiEffect(UAWFxDynamic.crossBlast(frontColor, splashDamageRadius), Fx.blockExplosion, Fx.blockExplosionSmoke);
+                            despawnEffect = hitEffect = new MultiEffect(UAWFxDynamic.dynamicExplosion(splashDamageRadius), Fx.blockExplosion, Fx.blockExplosionSmoke);
 
                             fragBullets = 9;
                             fragBullet = slagShot;
@@ -345,8 +346,7 @@ public class UAWUnitTypes implements ContentList {
                         shootCone = 30f;
                         shake = 5;
                         bullet = new AntiBuildingBulletType(2f, 120, 3.5f) {{
-
-                            splashDamageRadius = 12 * tilesize;
+                            splashDamageRadius = 8 * tilesize;
                             size = 38;
                             lifetime = range / speed;
                             status = StatusEffects.burning;
@@ -358,8 +358,7 @@ public class UAWUnitTypes implements ContentList {
                             backColor = Pal.sapBulletBack;
                             shootEffect = new MultiEffect(Fx.shootBig2, UAWFxStatic.shootSporeFlame);
                             smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
-                            despawnEffect = hitEffect = new MultiEffect(UAWFxDynamic.crossBlast(frontColor, splashDamageRadius), Fx.blockExplosion, Fx.blockExplosionSmoke);
-                            ;
+                            despawnEffect = hitEffect = new MultiEffect(UAWFxDynamic.dynamicExplosion(splashDamageRadius), Fx.reactorsmoke);
 
                             fragBullets = 18;
                             fragBullet = heavySlagShot;

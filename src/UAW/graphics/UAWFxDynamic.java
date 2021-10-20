@@ -3,6 +3,7 @@ package UAW.graphics;
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.*;
+import arc.math.geom.Vec2;
 import arc.util.Time;
 import mindustry.entities.Effect;
 import mindustry.graphics.*;
@@ -12,6 +13,8 @@ import static arc.graphics.g2d.Lines.*;
 import static arc.math.Angles.randLenVectors;
 
 public class UAWFxDynamic {
+    private static final Rand rand = new Rand();
+    private static final Vec2 v = new Vec2();
 
     public static Effect instShoot(Color color, float size) {
         return new Effect(24.0F, size * 8, (e) -> {
@@ -109,6 +112,44 @@ public class UAWFxDynamic {
             for (int i = 0; i < 4; i++) {
                 Drawf.tri(e.x, e.y, size / 24, (size / 3) * e.fout(), i * 90);
             }
+        });
+    }
+
+    public static Effect dynamicExplosion(float size) {
+        return new Effect(30, 500f, b -> {
+            float baseLifetime = 26f + size * 15f;
+            b.lifetime = 43f + size * 35f;
+
+            color(Color.gray);
+            alpha(0.9f);
+            for (int i = 0; i < 4; i++) {
+                rand.setSeed(b.id * 2L + i);
+                float lenScl = rand.random(0.4f, 1f);
+                int fi = i;
+                b.scaled(b.lifetime * lenScl, e -> {
+                    randLenVectors(e.id + fi - 1, e.fin(Interp.pow10Out), (int) (3f * size), 14f * size, (x, y, in, out) -> {
+                        float fout = e.fout(Interp.pow5Out) * rand.random(0.5f, 1f);
+                        Fill.circle(e.x + x, e.y + y, fout * ((2f + size) * 1.8f));
+                    });
+                });
+            }
+
+            b.scaled(baseLifetime, e -> {
+                e.scaled(5 + size * 2.5f, i -> {
+                    stroke((3.1f + size / 5f) * i.fout());
+                    Lines.circle(e.x, e.y, (3f + i.fin() * 14f) * size);
+                    Drawf.light(e.x, e.y, i.fin() * 14f * 2f * size, Color.white, 0.9f * e.fout());
+                });
+
+                color(Pal.lighterOrange, Pal.lightOrange, Color.gray, e.fin());
+                stroke((1.7f * e.fout()) * (1f + (size - 1f) / 2f));
+
+                Draw.z(Layer.effect + 0.001f);
+                randLenVectors(e.id + 1, e.finpow() + 0.001f, (int) (9 * size), 40f * size, (x, y, in, out) -> {
+                    lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), 1f + out * 4 * (3f + size));
+                    Drawf.light(e.x + x, e.y + y, (out * 4 * (3f + size)) * 3.5f, Draw.getColor(), 0.8f);
+                });
+            });
         });
     }
 
