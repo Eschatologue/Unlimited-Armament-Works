@@ -404,8 +404,9 @@ public class UAWBlock implements ContentList {
                         hitShake = 34f;
                         trailRotation = true;
                         makeFire = true;
-                        trailInterval = 0.8f;
-                        trailSize = 8;
+                        trailInterval = 0.3f;
+                        trailMult = 2f;
+                        trailSize = 5;
                         trailEffect = Fx.artilleryTrail;
                         smokeEffect = Fx.smokeCloud;
                         status = StatusEffects.burning;
@@ -422,6 +423,28 @@ public class UAWBlock implements ContentList {
                             applySound = Sounds.fire;
                         }};
                     }},
+                    UAWItems.cryogel, new ArtilleryBulletType(2f, 4000) {{
+                        height = 45;
+                        width = height / 2f;
+                        splashDamage = damage;
+                        splashDamageRadius = 14 * tilesize;
+                        lifetime = range / speed;
+                        frontColor = UAWPal.cryoFront;
+                        backColor = UAWPal.cryoBack;
+                        shootEffect = new MultiEffect(UAWFxDynamic.railShoot(frontColor, height + width), Fx.impactcloud, Fx.nuclearShockwave);
+                        hitEffect = UAWFxDynamic.hugeExplosion(splashDamageRadius, frontColor);
+                        hitSound = UAWSfx.artilleryExplosionHuge;
+                        hitSoundVolume = 3f;
+                        hitShake = 34f;
+                        trailRotation = true;
+                        makeFire = true;
+                        trailInterval = 0.3f;
+                        trailMult = 2f;
+                        trailSize = 5;
+                        trailEffect = Fx.artilleryTrail;
+                        smokeEffect = Fx.smokeCloud;
+                        status = StatusEffects.freezing;
+                    }},
                     Items.plastanium, new ArtilleryBulletType(2f, 3500) {{
                         height = 45;
                         width = height / 2f;
@@ -437,7 +460,9 @@ public class UAWBlock implements ContentList {
                         hitShake = 34f;
                         trailRotation = true;
                         makeFire = true;
-                        trailSize = 8;
+                        trailInterval = 0.3f;
+                        trailMult = 2f;
+                        trailSize = 5;
                         trailEffect = Fx.artilleryTrail;
                         smokeEffect = Fx.smokeCloud;
                         fragBullets = 20;
@@ -467,8 +492,9 @@ public class UAWBlock implements ContentList {
                         hitSoundVolume = 3f;
                         hitShake = 34f;
                         trailRotation = true;
-                        trailInterval = 0.8f;
-                        trailSize = 8;
+                        trailInterval = 0.3f;
+                        trailMult = 2f;
+                        trailSize = 5;
                         trailEffect = Fx.artilleryTrail;
                         smokeEffect = Fx.smokeCloud;
                         fragBullets = 1;

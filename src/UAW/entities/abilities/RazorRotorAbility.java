@@ -32,6 +32,7 @@ public class RazorRotorAbility extends Ability {
             hitEffect = UAWFxDynamic.circleSplash(range, lifetime, Color.white, Pal.gray);
             speed = 0f;
             pierce = true;
+            hittable = absorbable = false;
             buildingDamageMultiplier = 0.4f;
         }};
     }
