@@ -1,7 +1,6 @@
 package UAW.type;
 
 import UAW.ai.types.CopterAI;
-import UAW.graphics.UAWFxDynamic;
 import arc.graphics.g2d.Draw;
 import arc.struct.Seq;
 import arc.util.Time;

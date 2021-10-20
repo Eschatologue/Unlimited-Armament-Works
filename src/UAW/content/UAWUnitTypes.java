@@ -272,16 +272,8 @@ public class UAWUnitTypes implements ContentList {
                             shootEffect = new MultiEffect(Fx.shootBig2, UAWFxStatic.shootSporeFlame);
                             smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
                             despawnEffect = hitEffect = new MultiEffect(
-                                    UAWFxDynamic.dynamicExplosion(splashDamageRadius),
-                                    UAWFxDynamic.crossBombBlast(frontColor, splashDamageRadius)
+                                    UAWFxDynamic.dynamicExplosion(splashDamageRadius)
                             );
-
-                            fragBullets = 9;
-                            fragBullet = slagShot;
-                            fragVelocityMin = 0.3f;
-                            fragVelocityMax = fragVelocityMin * 1.2f;
-                            fragLifeMin = 0.4f;
-                            fragLifeMax = fragLifeMin * 1.8f;
                         }};
                     }}
             );
@@ -362,15 +354,8 @@ public class UAWUnitTypes implements ContentList {
                             shootEffect = new MultiEffect(Fx.shootBig2, UAWFxStatic.shootSporeFlame);
                             smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
                             despawnEffect = hitEffect = new MultiEffect(
-                                    UAWFxDynamic.dynamicExplosion(splashDamageRadius),
-                                    UAWFxDynamic.crossBombBlast(frontColor, splashDamageRadius)
+                                    UAWFxDynamic.dynamicExplosion(splashDamageRadius)
                             );
-                            fragBullets = 18;
-                            fragBullet = heavySlagShot;
-                            fragVelocityMin = 0.35f;
-                            fragVelocityMax = fragVelocityMin * 1.2f;
-                            fragLifeMin = 0.6f;
-                            fragLifeMax = fragLifeMin * 1.8f;
                         }};
                     }}
             );
