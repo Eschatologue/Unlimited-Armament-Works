@@ -403,9 +403,7 @@ public class UAWBlock implements ContentList {
                         hitSoundVolume = 3f;
                         hitShake = 34f;
                         makeFire = true;
-                        trailInterval = 0.3f;
-                        trailSize = 6;
-                        trailMult = 2f;
+                        trailSize = 12;
                         trailEffect = Fx.artilleryTrail;
                         smokeEffect = Fx.smokeCloud;
                         status = StatusEffects.burning;
@@ -436,9 +434,7 @@ public class UAWBlock implements ContentList {
                         hitSoundVolume = 3f;
                         hitShake = 34f;
                         makeFire = true;
-                        trailInterval = 0.3f;
-                        trailSize = 6;
-                        trailMult = 2f;
+                        trailSize = 12;
                         trailEffect = Fx.artilleryTrail;
                         smokeEffect = Fx.smokeCloud;
                         status = StatusEffects.freezing;
@@ -457,9 +453,7 @@ public class UAWBlock implements ContentList {
                         hitSoundVolume = 3f;
                         hitShake = 34f;
                         makeFire = true;
-                        trailInterval = 0.3f;
-                        trailSize = 6;
-                        trailMult = 2f;
+                        trailSize = 12;
                         trailEffect = Fx.artilleryTrail;
                         smokeEffect = Fx.smokeCloud;
                         fragBullets = 20;
@@ -488,9 +482,7 @@ public class UAWBlock implements ContentList {
                         hitSound = UAWSfx.artilleryExplosionHuge;
                         hitSoundVolume = 3f;
                         hitShake = 34f;
-                        trailInterval = 0.3f;
-                        trailSize = 6;
-                        trailMult = 2f;
+                        trailSize = 12;
                         trailEffect = Fx.artilleryTrail;
                         smokeEffect = Fx.smokeCloud;
                         fragBullets = 1;
