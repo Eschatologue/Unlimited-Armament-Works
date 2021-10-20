@@ -216,7 +216,7 @@ public class UAWFxStatic {
         color(Color.valueOf("d0d0d0"), Color.valueOf("e8e8e8"), Color.valueOf("f5f5f5"), e.fout());
         randLenVectors(e.id, 16, 2f + e.fin() * 7f, (x, y) ->
                 Fill.circle(e.x + x, e.y + y, 0.5f + e.fslope() * 1.5f));
-    }).layer(Layer.debris),
+    }).layer(Layer.debris + 0.1f),
 
     torpedoTrailFade = new Effect(400f, e -> {
         if (!(e.data instanceof Trail trail)) return;

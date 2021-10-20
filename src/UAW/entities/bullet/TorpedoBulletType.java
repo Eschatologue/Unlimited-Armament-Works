@@ -37,7 +37,7 @@ public class TorpedoBulletType extends BulletType {
 
     public TorpedoBulletType(float speed, float damage) {
         super(speed, damage);
-        layer = Layer.scorch - 0.2f;
+        layer = Layer.debris;
         homingPower = 0.035f;
         homingRange = 20 * tilesize;
         hitShake = 24;
