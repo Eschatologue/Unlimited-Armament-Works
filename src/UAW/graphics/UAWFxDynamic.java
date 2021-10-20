@@ -166,7 +166,7 @@ public class UAWFxDynamic {
                 Fill.circle(e.x + x, e.y + y, smokeSize / 1.5f);
             });
             randLenVectors(e.id, 35, e.finpow() * e.lifetime, (x, y) -> {
-                color(Pal.darkerGray, Pal.darkishGray, e.fin());
+                color(Pal.lighterOrange, Pal.darkishGray, Color.gray, e.fin());
                 Fill.circle(e.x + x, e.y + y, smokeSize * 1.5f);
             });
             Draw.color();
@@ -198,7 +198,7 @@ public class UAWFxDynamic {
     public static Effect circleSplash(float size, float lifetime, Color lightColor, Color darkColor) {
         return new Effect(lifetime, e -> {
             color(lightColor, darkColor, e.fin());
-            stroke(e.fout() * 2f);
+            stroke(e.fout() * 1.5f);
             Lines.circle(e.x, e.y, size + e.fout() * 3f);
         });
     }

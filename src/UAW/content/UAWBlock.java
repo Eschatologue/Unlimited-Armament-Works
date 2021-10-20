@@ -402,9 +402,10 @@ public class UAWBlock implements ContentList {
                         hitSoundVolume = 3f;
                         hitShake = 34f;
                         trailRotation = true;
-                        trailSize = width / 4;
+                        trailSize = width / 2;
                         makeFire = true;
-                        trailEffect = Fx.artilleryTrail;
+                        trailInterval = 0.8f;
+                        trailEffect = new MultiEffect(UAWFxStatic.burnTrail, Fx.artilleryTrail);
                         smokeEffect = Fx.smokeCloud;
                         status = StatusEffects.burning;
                         fragBullets = 1;
@@ -435,7 +436,8 @@ public class UAWBlock implements ContentList {
                         hitShake = 34f;
                         trailRotation = true;
                         makeFire = true;
-                        trailEffect = Fx.artilleryTrail;
+                        trailInterval = 0.8f;
+                        trailEffect = new MultiEffect(UAWFxStatic.burnTrail, Fx.artilleryTrail);
                         smokeEffect = Fx.smokeCloud;
                         fragBullets = 25;
                         fragBullet = new ArtilleryBulletType(2.2f, 1250) {{
@@ -464,7 +466,8 @@ public class UAWBlock implements ContentList {
                         hitSoundVolume = 3f;
                         hitShake = 34f;
                         trailRotation = true;
-                        trailEffect = Fx.artilleryTrail;
+                        trailInterval = 0.8f;
+                        trailEffect = new MultiEffect(UAWFxStatic.burnTrail, Fx.artilleryTrail);
                         smokeEffect = Fx.smokeCloud;
                         fragBullets = 1;
                         fragBullet = new SplashBulletType(splashDamage / 4, splashDamageRadius / 1.2f) {{
