@@ -402,6 +402,7 @@ public class UAWBlock implements ContentList {
                         hitSoundVolume = 3f;
                         hitShake = 34f;
                         trailRotation = true;
+                        trailSize = width / 4;
                         makeFire = true;
                         trailEffect = Fx.artilleryTrail;
                         smokeEffect = Fx.smokeCloud;
