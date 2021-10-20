@@ -117,9 +117,13 @@ public class UAWFxDynamic {
 
     public static Effect dynamicExplosion(float size) {
         return new Effect((size * 10), 500f, b -> {
-            float realSize = size / 10;
+            float realSize = size / 15;
             float baseLifetime = 26f + realSize * 15f;
-            b.lifetime = 43f + realSize * 35f;
+            b.lifetime = 40f + realSize * 35f;
+
+            color(Color.white, Pal.gray, (b.lifetime / 2));
+            stroke(b.fout() * 4f);
+            Lines.circle(b.x, b.y, 4f + b.finpow() * size);
 
             color(Color.gray);
             alpha(0.9f);
@@ -146,7 +150,7 @@ public class UAWFxDynamic {
                 stroke((1.7f * e.fout()) * (1f + (realSize - 1f) / 2f));
 
                 Draw.z(Layer.effect + 0.001f);
-                randLenVectors(e.id + 1, e.finpow() + 0.001f, (int) (9 * realSize), 40f * realSize, (x, y, in, out) -> {
+                randLenVectors(e.id + 1, e.finpow() + 0.001f, (int) (9 * (realSize / 2)), 40f * realSize, (x, y, in, out) -> {
                     lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), 1f + out * 4 * (3f + realSize));
                     Drawf.light(e.x + x, e.y + y, (out * 4 * (3f + realSize)) * 3.5f, Draw.getColor(), 0.8f);
                 });
@@ -161,7 +165,7 @@ public class UAWFxDynamic {
 
             color(Color.gray);
             alpha(0.7f);
-            randLenVectors(e.id, 45, e.finpow() * e.lifetime, (x, y) -> {
+            randLenVectors(e.id, 45, e.finpow() * (e.lifetime / 1.2f), (x, y) -> {
                 color(color);
                 Fill.circle(e.x + x, e.y + y, smokeSize / 1.5f);
             });

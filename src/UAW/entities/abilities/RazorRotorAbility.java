@@ -8,13 +8,14 @@ import mindustry.content.Fx;
 import mindustry.entities.abilities.Ability;
 import mindustry.entities.bullet.BulletType;
 import mindustry.gen.Unit;
+import mindustry.graphics.Pal;
 
 import static mindustry.Vars.tilesize;
 
 public class RazorRotorAbility extends Ability {
     public float damage = 35f;
     public float range = 4f * tilesize;
-    public float chance = 0.5f;
+    public float chance = 0.4f;
     public BulletType bullet;
 
     RazorRotorAbility() {
@@ -25,12 +26,12 @@ public class RazorRotorAbility extends Ability {
         this.chance = chance;
         this.range = range;
         this.bullet = new BulletType(damage, range) {{
-            hitEffect = Fx.none;
-            despawnEffect = UAWFxDynamic.circleSplash(range, lifetime, Color.valueOf("ffffff"), Color.valueOf("f5f5f5"));
-            lifetime = 5;
+            despawnEffect = Fx.none;
+            lifetime = 10;
+            hitSize = range;
+            hitEffect = UAWFxDynamic.circleSplash(range, lifetime, Color.white, Pal.gray);
             speed = 0f;
             pierce = true;
-            hitSize = range;
             buildingDamageMultiplier = 0.2f;
         }};
     }
