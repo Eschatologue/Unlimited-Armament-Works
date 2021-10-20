@@ -1,11 +1,13 @@
 package UAW.entities.abilities;
 
+import UAW.graphics.UAWFxDynamic;
+import arc.graphics.Color;
 import arc.math.Mathf;
 import arc.util.Time;
 import mindustry.content.Fx;
 import mindustry.entities.abilities.Ability;
 import mindustry.entities.bullet.BulletType;
-import mindustry.gen.*;
+import mindustry.gen.Unit;
 
 import static mindustry.Vars.tilesize;
 
@@ -23,17 +25,19 @@ public class RazorRotorAbility extends Ability {
         this.chance = chance;
         this.range = range;
         this.bullet = new BulletType(damage, range) {{
-            hitEffect = despawnEffect = Fx.none;
-            lifetime = 10;
+            hitEffect = Fx.none;
+            despawnEffect = UAWFxDynamic.circleSplash(range, lifetime, Color.valueOf("ffffff"), Color.valueOf("f5f5f5"));
+            lifetime = 5;
             speed = 0f;
             pierce = true;
             hitSize = range;
+            buildingDamageMultiplier = 0.2f;
         }};
     }
 
     @Override
     public void update(Unit unit) {
-        if(Mathf.chance(Time.delta * chance)){
+        if (Mathf.chance(Time.delta * chance)) {
             bullet.create(unit, unit.team, unit.x, unit.y, 0);
         }
     }

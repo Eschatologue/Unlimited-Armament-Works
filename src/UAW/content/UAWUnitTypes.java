@@ -192,7 +192,7 @@ public class UAWUnitTypes implements ContentList {
                     }}
 
             );
-            abilities.add(new RazorRotorAbility(35, 0.8f, 5 * tilesize));
+            abilities.add(new RazorRotorAbility(35, 0.4f, 5 * tilesize));
         }};
         // endregion
         // region Naval - Monitor
