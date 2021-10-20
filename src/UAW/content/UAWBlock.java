@@ -404,6 +404,7 @@ public class UAWBlock implements ContentList {
                         hitShake = 34f;
                         makeFire = true;
                         trailInterval = 0.3f;
+                        trailSize = 6;
                         trailMult = 2f;
                         trailEffect = Fx.artilleryTrail;
                         smokeEffect = Fx.smokeCloud;
@@ -436,6 +437,7 @@ public class UAWBlock implements ContentList {
                         hitShake = 34f;
                         makeFire = true;
                         trailInterval = 0.3f;
+                        trailSize = 6;
                         trailMult = 2f;
                         trailEffect = Fx.artilleryTrail;
                         smokeEffect = Fx.smokeCloud;
@@ -456,6 +458,7 @@ public class UAWBlock implements ContentList {
                         hitShake = 34f;
                         makeFire = true;
                         trailInterval = 0.3f;
+                        trailSize = 6;
                         trailMult = 2f;
                         trailEffect = Fx.artilleryTrail;
                         smokeEffect = Fx.smokeCloud;
@@ -486,6 +489,7 @@ public class UAWBlock implements ContentList {
                         hitSoundVolume = 3f;
                         hitShake = 34f;
                         trailInterval = 0.3f;
+                        trailSize = 6;
                         trailMult = 2f;
                         trailEffect = Fx.artilleryTrail;
                         smokeEffect = Fx.smokeCloud;

@@ -15,7 +15,8 @@ import static mindustry.Vars.*;
 
 public class UAWFxStatic {
     public static final Effect
-            crossShoot = new Effect(15f, 90f, e -> {
+
+    crossShoot = new Effect(15f, 90f, e -> {
         color(Pal.orangeSpark);
         stroke(e.fout() * 4f);
         for (int i = 0; i < 4; i++) {
@@ -218,10 +219,10 @@ public class UAWFxStatic {
     }).layer(Layer.debris),
 
     torpedoTrailFade = new Effect(400f, e -> {
-        if(!(e.data instanceof Trail trail)) return;
+        if (!(e.data instanceof Trail trail)) return;
         e.lifetime = trail.length * 1.4f;
 
-        if(!state.isPaused()){
+        if (!state.isPaused()) {
             trail.shorten();
         }
         trail.drawCap(e.color, e.rotation);
