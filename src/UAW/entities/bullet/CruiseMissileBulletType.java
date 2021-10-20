@@ -32,7 +32,7 @@ public class CruiseMissileBulletType extends BasicBulletType {
         trailWidth = size / 14.6f;
         trailColor = Pal.lightPyraFlame;
         trailInterval = 0.8f;
-        trailEffect = UAWFxStatic.burnTrail;
+        trailEffect = UAWFxStatic.pyraSmokeTrail;
         trailRotation = true;
     }
 

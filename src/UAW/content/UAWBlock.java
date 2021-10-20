@@ -402,10 +402,9 @@ public class UAWBlock implements ContentList {
                         hitSoundVolume = 3f;
                         hitShake = 34f;
                         trailRotation = true;
-                        trailSize = width / 2;
                         makeFire = true;
                         trailInterval = 0.8f;
-                        trailEffect = new MultiEffect(UAWFxStatic.burnTrail, Fx.artilleryTrail);
+                        trailEffect = UAWFxStatic.pyraSmokeTrail;
                         smokeEffect = Fx.smokeCloud;
                         status = StatusEffects.burning;
                         fragBullets = 1;
@@ -437,13 +436,13 @@ public class UAWBlock implements ContentList {
                         trailRotation = true;
                         makeFire = true;
                         trailInterval = 0.8f;
-                        trailEffect = new MultiEffect(UAWFxStatic.burnTrail, Fx.artilleryTrail);
+                        trailEffect = UAWFxStatic.plastSmokeTrail;
                         smokeEffect = Fx.smokeCloud;
-                        fragBullets = 25;
-                        fragBullet = new ArtilleryBulletType(2.2f, 1250) {{
+                        fragBullets = 20;
+                        fragBullet = new ArtilleryBulletType(2f, 1250) {{
                             hitEffect = Fx.plasticExplosion;
                             knockback = 1f;
-                            lifetime = 45f;
+                            lifetime = 50f;
                             width = height = 28f;
                             collidesTiles = false;
                             splashDamageRadius = 35f * 0.75f;
@@ -467,7 +466,7 @@ public class UAWBlock implements ContentList {
                         hitShake = 34f;
                         trailRotation = true;
                         trailInterval = 0.8f;
-                        trailEffect = new MultiEffect(UAWFxStatic.burnTrail, Fx.artilleryTrail);
+                        trailEffect = UAWFxStatic.surgeSmokeTrail;
                         smokeEffect = Fx.smokeCloud;
                         fragBullets = 1;
                         fragBullet = new SplashBulletType(splashDamage / 4, splashDamageRadius / 1.2f) {{
