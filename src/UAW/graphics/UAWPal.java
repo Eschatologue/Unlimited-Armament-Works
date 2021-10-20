@@ -23,7 +23,7 @@ public class UAWPal {
             waterFront = Color.valueOf("8aa3f4"),
             waterMiddle = Color.valueOf("6974c4"),
             waterBack = Color.valueOf("5757c1"),
-            waterBloom = new Color(UAWPal.waterBack).lerp(Color.white, 0.15f),
+            waterBloom = new Color(UAWPal.waterMiddle).lerp(Color.white, 0.15f),
 
             healFront = Color.valueOf("84f491"),
             healMiddle = Color.valueOf("73d188"),

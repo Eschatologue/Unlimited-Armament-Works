@@ -37,7 +37,7 @@ public class TorpedoBulletType extends BulletType {
 
     public TorpedoBulletType(float speed, float damage) {
         super(speed, damage);
-        layer = Layer.scorch;
+        layer = Layer.scorch - 0.2f;
         homingPower = 0.035f;
         homingRange = 20 * tilesize;
         hitShake = 24;
@@ -47,7 +47,7 @@ public class TorpedoBulletType extends BulletType {
         keepVelocity = collidesAir = absorbable = hittable = reflectable = false;
         lightColor = hitColor;
         trailLength = 36;
-        trailWidth = 3f;
+        trailWidth = trailLength / 13f;
         trailColor = UAWPal.waterMiddle;
         trailInterval = 0.2f;
         shootEffect = UAWFxStatic.shootWaterFlame;

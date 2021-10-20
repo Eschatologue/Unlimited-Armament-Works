@@ -29,12 +29,13 @@ public class UAWBlock implements ContentList {
     public static Block
 
     // Turret
-    quadra, spitfire, saintfire,
+    quadra, spitfire, equalizer,
     solo, longsword, deadeye,
     buckshot, tempest, strikeforce,
     sparkler, sunspot,
     zounderkite,
-    steelneck, skyhammer,
+    ashlock, skyhammer,
+    trailblazer, gigavolt,
 
     // Production
     gelatinizer, carburizingFurnace, surgeMixer, coalLiquefier,
@@ -404,7 +405,8 @@ public class UAWBlock implements ContentList {
                         trailRotation = true;
                         makeFire = true;
                         trailInterval = 0.8f;
-                        trailEffect = UAWFxStatic.pyraSmokeTrail;
+                        trailSize = 8;
+                        trailEffect = Fx.artilleryTrail;
                         smokeEffect = Fx.smokeCloud;
                         status = StatusEffects.burning;
                         fragBullets = 1;
@@ -435,8 +437,8 @@ public class UAWBlock implements ContentList {
                         hitShake = 34f;
                         trailRotation = true;
                         makeFire = true;
-                        trailInterval = 0.8f;
-                        trailEffect = UAWFxStatic.plastSmokeTrail;
+                        trailSize = 8;
+                        trailEffect = Fx.artilleryTrail;
                         smokeEffect = Fx.smokeCloud;
                         fragBullets = 20;
                         fragBullet = new ArtilleryBulletType(2f, 1250) {{
@@ -466,7 +468,8 @@ public class UAWBlock implements ContentList {
                         hitShake = 34f;
                         trailRotation = true;
                         trailInterval = 0.8f;
-                        trailEffect = UAWFxStatic.surgeSmokeTrail;
+                        trailSize = 8;
+                        trailEffect = Fx.artilleryTrail;
                         smokeEffect = Fx.smokeCloud;
                         fragBullets = 1;
                         fragBullet = new SplashBulletType(splashDamage / 4, splashDamageRadius / 1.2f) {{
