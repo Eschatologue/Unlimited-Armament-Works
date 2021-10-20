@@ -138,7 +138,7 @@ public class UAWFxDynamic {
             b.scaled(baseLifetime, e -> {
                 e.scaled(5 + realSize * 2.5f, i -> {
                     stroke((3.1f + realSize / 5f) * i.fout());
-                    Lines.circle(e.x, e.y, (3f + i.fout() * 14f) * realSize);
+                    Lines.circle(e.x, e.y, (3f + i.fin() * 14f) * realSize);
                     Drawf.light(e.x, e.y, i.fin() * 14f * 2f * realSize, Color.white, 0.9f * e.fout());
                 });
 
@@ -161,11 +161,11 @@ public class UAWFxDynamic {
 
             color(Color.gray);
             alpha(0.7f);
-            randLenVectors(e.id, 45, e.finpow() * (e.lifetime * 1.2f), (x, y) -> {
+            randLenVectors(e.id, 35, e.finpow() * (size * 4), (x, y) -> {
                 color(color);
                 Fill.circle(e.x + x, e.y + y, smokeSize / 1.5f);
             });
-            randLenVectors(e.id, 40, e.finpow() * (e.lifetime * 1.5f), (x, y) -> {
+            randLenVectors(e.id, 30, e.finpow() * (size * 3), (x, y) -> {
                 color(Pal.darkerGray, Pal.darkishGray, e.fin());
                 Fill.circle(e.x + x, e.y + y, smokeSize * 1.5f);
             });
