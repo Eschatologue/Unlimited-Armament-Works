@@ -410,13 +410,12 @@ public class UAWBlock implements ContentList {
                         status = StatusEffects.burning;
                         fragBullets = 1;
                         fragBullet = new SplashBulletType(splashDamage / 4, splashDamageRadius / 1.2f) {{
-                            splashAmount = 3;
+                            splashAmount = 4;
                             splashDelay = 45;
                             lifetime = (splashDelay * splashAmount);
-                            hitShake = 28;
                             status = UAWStatusEffects.concussion;
                             statusDuration = 30f;
-                            particleEffect = Fx.fireSmoke;
+                            particleEffect = Fx.burning;
                             makeFire = true;
                             applySound = Sounds.fire;
                         }};
@@ -439,6 +438,17 @@ public class UAWBlock implements ContentList {
                         trailEffect = Fx.artilleryTrail;
                         smokeEffect = Fx.smokeCloud;
                         status = StatusEffects.freezing;
+                        fragBullets = 1;
+                        fragBullet = new SplashBulletType(splashDamage / 4, splashDamageRadius / 1.2f) {{
+                            splashAmount = 4;
+                            splashDelay = 45;
+                            lifetime = (splashDelay * splashAmount);
+                            status = UAWStatusEffects.concussion;
+                            statusDuration = 30f;
+                            particleEffect = Fx.freezing;
+                            makeFire = true;
+                            applySound = Sounds.plasmaboom;
+                        }};
                     }},
                     Items.plastanium, new ArtilleryBulletType(2f, 3500) {{
                         height = 45;
