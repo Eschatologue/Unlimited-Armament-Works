@@ -32,10 +32,8 @@ public class UAWBlock implements ContentList {
     quadra, spitfire, equalizer,
     solo, longsword, deadeye,
     buckshot, tempest, strikeforce,
-    sparkler, sunspot,
-    zounderkite,
-    ashlock, skyhammer,
-    trailblazer, gigavolt,
+    ashlock, zounderkite, skyhammer,
+    heavylight, trailblazer, gigavolt,
 
     // Production
     gelatinizer, carburizingFurnace, surgeMixer, coalLiquefier,
@@ -358,6 +356,63 @@ public class UAWBlock implements ContentList {
                     }}
             );
         }};
+        zounderkite = new ItemTurret("zounderkite") {{
+            requirements(Category.turret, with(
+                    Items.lead, 300,
+                    Items.titanium, 280,
+                    Items.graphite, 325,
+                    Items.silicon, 250,
+                    Items.plastanium, 125
+            ));
+            range = 32 * tilesize;
+            minRange = range / 4;
+            reloadTime = 3 * tick;
+            size = 3;
+            shootSound = UAWSfx.launcherShoot1;
+            ammoUseEffect = UAWFxStatic.casingCanister;
+            ammoPerShot = 15;
+            acceptCoolant = false;
+            ammo(
+                    Items.graphite, new CanisterBulletType(2f, 30, 4, mineBasic) {{
+                        lifetime = range / speed;
+                        ammoMultiplier = 4f;
+                    }},
+                    Items.pyratite, new CanisterBulletType(2f, 30, 3, mineIncend) {{
+                        frontColor = UAWPal.incendFront;
+                        backColor = UAWPal.incendBack;
+                        shootEffect = Fx.shootPyraFlame;
+                        lifetime = 160f;
+                        ammoMultiplier = 3f;
+                    }},
+                    UAWItems.cryogel, new CanisterBulletType(2f, 30, 3, mineCryo) {{
+                        frontColor = UAWPal.cryoFront;
+                        backColor = UAWPal.cryoMiddle;
+                        lifetime = range / speed;
+                        ammoMultiplier = 3f;
+                    }},
+                    Items.plastanium, new CanisterBulletType(2f, 30, 3, mineOil) {{
+                        frontColor = Pal.plastaniumFront;
+                        backColor = Pal.plastaniumBack;
+                        shootEffect = UAWFxStatic.shootPlastFlame;
+                        lifetime = range / speed;
+                        ammoMultiplier = 3f;
+                    }},
+                    Items.sporePod, new CanisterBulletType(2f, 30, 3, mineSpore) {{
+                        frontColor = Pal.spore;
+                        backColor = UAWPal.sporeMiddle;
+                        shootEffect = UAWFxStatic.shootSporeFlame;
+                        lifetime = range / speed;
+                        ammoMultiplier = 3f;
+                    }},
+                    Items.surgeAlloy, new CanisterBulletType(2f, 30, 3, mineEMP) {{
+                        frontColor = UAWPal.surgeFront;
+                        backColor = UAWPal.surgeBack;
+                        shootEffect = UAWFxStatic.shootSurgeFlame;
+                        lifetime = range / speed;
+                        ammoMultiplier = 3f;
+                    }}
+            );
+        }};
 
         skyhammer = new ItemTurret("skyhammer") {{
             requirements(Category.turret, with(
@@ -397,7 +452,7 @@ public class UAWBlock implements ContentList {
                         lifetime = range / speed;
                         frontColor = Pal.lightishOrange;
                         backColor = Pal.lightOrange;
-                        shootEffect = new MultiEffect(UAWFxDynamic.railShoot(frontColor, height + width), Fx.impactcloud, Fx.nuclearShockwave);
+                        shootEffect = new MultiEffect(UAWFxDynamic.railShoot(Pal.lightOrange, height + (width * 1.5f)), Fx.impactcloud, Fx.nuclearShockwave);
                         hitEffect = UAWFxDynamic.hugeExplosion(splashDamageRadius, frontColor);
                         hitSound = UAWSfx.artilleryExplosionHuge;
                         hitSoundVolume = 3f;
@@ -419,7 +474,7 @@ public class UAWBlock implements ContentList {
                             statusDuration = 30f;
                             particleEffect = Fx.burning;
                             makeFire = true;
-                            applySound = Sounds.fire;
+                            applySound = Sounds.flame2;
                         }};
                     }},
                     UAWItems.cryogel, new ArtilleryBulletType(2f, 4000) {{
@@ -430,7 +485,7 @@ public class UAWBlock implements ContentList {
                         lifetime = range / speed;
                         frontColor = UAWPal.cryoFront;
                         backColor = UAWPal.cryoBack;
-                        shootEffect = new MultiEffect(UAWFxDynamic.railShoot(frontColor, height + width), Fx.impactcloud, Fx.nuclearShockwave);
+                        shootEffect = new MultiEffect(UAWFxDynamic.railShoot(UAWPal.cryoBackBloom, height + (width * 1.5f)), Fx.impactcloud, Fx.nuclearShockwave);
                         hitEffect = UAWFxDynamic.hugeExplosion(splashDamageRadius, frontColor);
                         hitSound = UAWSfx.artilleryExplosionHuge;
                         hitSoundVolume = 3f;
@@ -462,7 +517,7 @@ public class UAWBlock implements ContentList {
                         lifetime = range / speed;
                         frontColor = Pal.plastaniumFront;
                         backColor = Pal.plastaniumBack;
-                        shootEffect = new MultiEffect(UAWFxDynamic.railShoot(frontColor, height + width), Fx.impactcloud, Fx.nuclearShockwave);
+                        shootEffect = new MultiEffect(UAWFxDynamic.railShoot(UAWPal.plastBackBloom, height + width), Fx.impactcloud, Fx.nuclearShockwave);
                         hitEffect = UAWFxDynamic.hugeExplosion(splashDamageRadius, frontColor);
                         hitSound = UAWSfx.artilleryExplosionHuge;
                         hitSoundVolume = 3f;
@@ -492,7 +547,7 @@ public class UAWBlock implements ContentList {
                         splashDamage = damage;
                         splashDamageRadius = 14 * tilesize;
                         lifetime = range / speed;
-                        shootEffect = new MultiEffect(UAWFxDynamic.railShoot(frontColor, height + width), Fx.impactcloud, Fx.nuclearShockwave);
+                        shootEffect = new MultiEffect(UAWFxDynamic.railShoot(UAWPal.surgeBackBloom, height + width), Fx.impactcloud, Fx.nuclearShockwave);
                         hitEffect = UAWFxDynamic.hugeExplosion(splashDamageRadius, frontColor);
                         hitSound = UAWSfx.artilleryExplosionHuge;
                         hitSoundVolume = 3f;
@@ -743,64 +798,6 @@ public class UAWBlock implements ContentList {
                         lightning = 3;
                         lightningLength = 8;
                         shieldDamageMultiplier = 3f;
-                    }}
-            );
-        }};
-
-        zounderkite = new ItemTurret("zounderkite") {{
-            requirements(Category.turret, with(
-                    Items.lead, 300,
-                    Items.titanium, 280,
-                    Items.graphite, 325,
-                    Items.silicon, 250,
-                    Items.plastanium, 125
-            ));
-            range = 32 * tilesize;
-            minRange = range / 4;
-            reloadTime = 3 * tick;
-            size = 3;
-            shootSound = UAWSfx.launcherShoot1;
-            ammoUseEffect = UAWFxStatic.casingCanister;
-            ammoPerShot = 15;
-            acceptCoolant = false;
-            ammo(
-                    Items.graphite, new CanisterBulletType(2f, 30, 4, mineBasic) {{
-                        lifetime = range / speed;
-                        ammoMultiplier = 4f;
-                    }},
-                    Items.pyratite, new CanisterBulletType(2f, 30, 3, mineIncend) {{
-                        frontColor = UAWPal.incendFront;
-                        backColor = UAWPal.incendBack;
-                        shootEffect = Fx.shootPyraFlame;
-                        lifetime = 160f;
-                        ammoMultiplier = 3f;
-                    }},
-                    UAWItems.cryogel, new CanisterBulletType(2f, 30, 3, mineCryo) {{
-                        frontColor = UAWPal.cryoFront;
-                        backColor = UAWPal.cryoMiddle;
-                        lifetime = range / speed;
-                        ammoMultiplier = 3f;
-                    }},
-                    Items.plastanium, new CanisterBulletType(2f, 30, 3, mineOil) {{
-                        frontColor = Pal.plastaniumFront;
-                        backColor = Pal.plastaniumBack;
-                        shootEffect = UAWFxStatic.shootPlastFlame;
-                        lifetime = range / speed;
-                        ammoMultiplier = 3f;
-                    }},
-                    Items.sporePod, new CanisterBulletType(2f, 30, 3, mineSpore) {{
-                        frontColor = Pal.spore;
-                        backColor = UAWPal.sporeMiddle;
-                        shootEffect = UAWFxStatic.shootSporeFlame;
-                        lifetime = range / speed;
-                        ammoMultiplier = 3f;
-                    }},
-                    Items.surgeAlloy, new CanisterBulletType(2f, 30, 3, mineEMP) {{
-                        frontColor = UAWPal.surgeFront;
-                        backColor = UAWPal.surgeBack;
-                        shootEffect = UAWFxStatic.shootSurgeFlame;
-                        lifetime = range / speed;
-                        ammoMultiplier = 3f;
                     }}
             );
         }};

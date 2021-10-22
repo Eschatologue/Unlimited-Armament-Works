@@ -15,9 +15,14 @@ import static mindustry.Vars.indexer;
 /**
  * Damages all enemies caught within its area of effect
  */
-
 public class SplashBulletType extends BulletType {
+    /**
+     * Delays in tick between splashes
+     */
     public float splashDelay = 25f;
+    /**
+     * How many times splash damage occurs
+     */
     public int splashAmount = 3;
     public float splashDuration = (splashDelay * splashAmount);
     public Sound applySound = Sounds.shotgun;
