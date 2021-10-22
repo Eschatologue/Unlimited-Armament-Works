@@ -200,7 +200,7 @@ public class UAWFxDynamic {
             color(lightColor, darkColor, e.fin());
             stroke(e.fout() * 4f);
             Lines.circle(e.x, e.y, size + e.fout() * 3f);
-            Fill.light(e.x, e.y, circleVertices(size), size, Color.white.cpy().a(0f), Tmp.c4.set(Color.white).a(e.fout()));
+            Fill.light(e.x, e.y, circleVertices(size / 2), size, Color.white.cpy().a(0f), Tmp.c4.set(lightColor).a(e.fout()));
         });
     }
 
