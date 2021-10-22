@@ -55,10 +55,9 @@ public class DynamicReloadTurret extends CustomStatItemTurret {
         public void drawSelect() {
             super.drawSelect();
 
-            Draw.z(Layer.effect + 0.001f);
+            Draw.z(Layer.bullet);
             Draw.color(UAWPal.cryoFront, Pal.darkPyraFlame, speedupScl / maxReloadScl);
             Lines.stroke(speedupScl / maxReloadScl);
-            Draw.z(Layer.effect + 0.001f);
             Lines.polySeg(200, 0, (int) (200 * speedupScl / maxReloadScl), x, y, range / 10, rotation);
             Draw.color();
         }
