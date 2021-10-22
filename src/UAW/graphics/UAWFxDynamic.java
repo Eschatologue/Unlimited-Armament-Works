@@ -4,7 +4,7 @@ import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.math.geom.Vec2;
-import arc.util.Time;
+import arc.util.*;
 import mindustry.entities.Effect;
 import mindustry.graphics.*;
 
@@ -199,9 +199,8 @@ public class UAWFxDynamic {
         return new Effect(lifetime, e -> {
             color(lightColor, darkColor, e.fin());
             stroke(e.fout() * 4f);
-            Draw.alpha(0.05f * e.fout());
-            Fill.circle(e.x, e.y, size + e.fout() * 3f);
             Lines.circle(e.x, e.y, size + e.fout() * 3f);
+            Fill.light(e.x, e.y, circleVertices(size), size, Color.white.cpy().a(0f), Tmp.c4.set(Color.white).a(e.fout()));
         });
     }
 
