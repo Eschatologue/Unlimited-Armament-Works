@@ -21,8 +21,8 @@ public class SplashBulletType extends BulletType {
     public int splashAmount = 3;
     public float splashDuration = (splashDelay * splashAmount);
     public Sound applySound = Sounds.shotgun;
-    public Color frontColor = Pal.bulletYellow, backColor = Pal.bulletYellowBack;
-    public Effect applyEffect, particleEffect;
+    public Color frontColor, backColor;
+    public Effect particleEffect;
 
     public SplashBulletType(float splashDamage, float radius) {
         super(splashDamage, radius);
@@ -33,7 +33,6 @@ public class SplashBulletType extends BulletType {
         hittable = false;
         hitSize = speed = 0;
         smokeEffect = despawnEffect = hitEffect = Fx.none;
-        applyEffect = UAWFxDynamic.circleSplash(splashDamageRadius, splashDelay, frontColor, backColor);
         particleEffect = UAWFxDynamic.statusHit(frontColor, 10f);
         displayAmmoMultiplier = false;
         hittable = false;
@@ -44,7 +43,10 @@ public class SplashBulletType extends BulletType {
     public void update(Bullet b) {
         if (b.timer(1, splashDelay) && splashAmount > 1) {
             Damage.damage(b.team, b.x, b.y, splashDamageRadius, splashDamage, collidesAir, collidesGround);
-            applyEffect.at(b.x, b.y);
+            UAWFxDynamic.circleSplash(
+                    splashDamageRadius,
+                    splashDelay,
+                    frontColor, backColor, backColor).at(b.x, b.y);
             applySound.at(b.x, b.y);
             for (int j = 0; j < ((splashAmount) * 15); j++) {
                 particleEffect.at(

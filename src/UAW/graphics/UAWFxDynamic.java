@@ -195,12 +195,12 @@ public class UAWFxDynamic {
         });
     }
 
-    public static Effect circleSplash(float size, float lifetime, Color lightColor, Color darkColor) {
+    public static Effect circleSplash(float size, float lifetime, Color lightColor, Color darkColor, Color splashColor) {
         return new Effect(lifetime, e -> {
             color(lightColor, darkColor, e.fin());
             stroke(e.fout() * 4f);
-            Lines.circle(e.x, e.y, size + e.fout() * 3f);
-            Fill.light(e.x, e.y, circleVertices(size / 2), size, Color.white.cpy().a(0f), Tmp.c4.set(lightColor).a(e.fout()));
+            Lines.circle(e.x, e.y, size + e.fin() * 3f);
+            Fill.light(e.x, e.y, circleVertices(size / 2), size, Color.white.cpy().a(0f), Tmp.c4.set(splashColor).a(e.fout()));
         });
     }
 

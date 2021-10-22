@@ -415,7 +415,6 @@ public class UAWBlock implements ContentList {
                             lifetime = (splashDelay * splashAmount);
                             frontColor = Pal.lightishOrange;
                             backColor = Pal.lightOrange;
-                            applyEffect = UAWFxDynamic.circleSplash(splashDamageRadius, splashDelay, Pal.lightishOrange, Pal.lightOrange);
                             status = StatusEffects.melting;
                             statusDuration = 30f;
                             particleEffect = Fx.burning;
@@ -446,7 +445,8 @@ public class UAWBlock implements ContentList {
                             splashAmount = 4;
                             splashDelay = 45;
                             lifetime = (splashDelay * splashAmount);
-                            applyEffect = UAWFxDynamic.circleSplash(splashDamageRadius, splashDelay, UAWPal.cryoFront, UAWPal.cryoBack);
+                            frontColor = UAWPal.cryoFront;
+                            backColor = UAWPal.cryoBack;
                             status = StatusEffects.freezing;
                             statusDuration = 30f;
                             particleEffect = Fx.freezing;
@@ -506,6 +506,8 @@ public class UAWBlock implements ContentList {
                             splashAmount = 5;
                             splashDelay = 45;
                             lifetime = (splashDelay * splashAmount);
+                            frontColor = Pal.bulletYellow;
+                            backColor = Pal.bulletYellowBack;
                             hitShake = 28;
                             status = UAWStatusEffects.concussion;
                             statusDuration = 30f;

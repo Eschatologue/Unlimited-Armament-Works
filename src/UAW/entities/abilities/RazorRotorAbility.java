@@ -29,7 +29,7 @@ public class RazorRotorAbility extends Ability {
             despawnEffect = Fx.none;
             lifetime = 10;
             hitSize = range;
-            hitEffect = UAWFxDynamic.circleSplash(range, lifetime, Color.white, Pal.gray);
+            hitEffect = UAWFxDynamic.circleSplash(range, lifetime, Color.white, Pal.gray, Pal.gray);
             speed = 0f;
             pierce = true;
             hittable = absorbable = false;
