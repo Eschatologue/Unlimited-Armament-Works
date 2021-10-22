@@ -198,7 +198,9 @@ public class UAWFxDynamic {
     public static Effect circleSplash(float size, float lifetime, Color lightColor, Color darkColor) {
         return new Effect(lifetime, e -> {
             color(lightColor, darkColor, e.fin());
-            stroke(e.fout() * 2f);
+            stroke(e.fout() * 4f);
+            Draw.alpha(0.05f * e.fout());
+            Fill.circle(e.x, e.y, size + e.fout() * 3f);
             Lines.circle(e.x, e.y, size + e.fout() * 3f);
         });
     }
