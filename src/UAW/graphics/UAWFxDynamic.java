@@ -255,21 +255,21 @@ public class UAWFxDynamic {
         });
     }
 
-    public static Effect burnTrailDynamic(float size, Color frontColor, Color backColorBloom) {
-        return new Effect(33f, 80f, e -> {
-            color(Color.valueOf("ddcece"), frontColor, backColorBloom, e.fin() * e.fin());
-
-            randLenVectors(e.id, 16, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) -> {
-                Fill.circle(e.x + x, e.y + y, size + e.fout() * 2f);
-            });
-        });
-    }
-
     public static Effect smokeCloud(Color color) {
         return new Effect(80f, e -> {
             color(color);
             randLenVectors(e.id, e.fin(), 12, 15f, (x, y, fin, fout) -> {
                 Fill.circle(e.x + x, e.y + y, 6f * fout);
+            });
+        });
+    }
+
+    public static Effect effectCloud(Color color) {
+        return new Effect(140, 400f, e -> {
+            randLenVectors(e.id, 20, e.finpow() * 160f, (x, y) -> {
+                float size = e.fout() * 15f;
+                color(color, Color.lightGray, e.fin());
+                Fill.circle(e.x + x, e.y + y, size / 2f);
             });
         });
     }

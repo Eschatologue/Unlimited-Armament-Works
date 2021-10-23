@@ -16,7 +16,7 @@ import static mindustry.Vars.*;
 public class UAWFxStatic {
     public static final Effect
 
-    crossShoot = new Effect(15f, 90f, e -> {
+            crossShoot = new Effect(15f, 90f, e -> {
         color(Pal.orangeSpark, Pal.lightOrange, e.fin());
         stroke(e.fout() * 4f);
         for (int i = 0; i < 4; i++) {
@@ -80,9 +80,7 @@ public class UAWFxStatic {
     cryoHit = new Effect(40f, e -> {
         color(UAWPal.cryoFront, UAWPal.cryoBack, e.fin());
 
-        randLenVectors(e.id, 4, 2f + e.fin() * 10f, (x, y) -> {
-            Fill.circle(e.x + x, e.y + y, 0.2f + e.fout() * 1.6f);
-        });
+        randLenVectors(e.id, 4, 2f + e.fin() * 10f, (x, y) -> Fill.circle(e.x + x, e.y + y, 0.2f + e.fout() * 1.6f));
 
         color();
     }),
@@ -179,7 +177,7 @@ public class UAWFxStatic {
         );
     }).layer(Layer.bullet),
 
-    casing7 = new Effect(55f, e -> {
+    casing7 = new Effect(75f, e -> {
         color(Pal.lightOrange, Pal.lightishGray, Pal.lightishGray, e.fin());
         alpha(e.fout(0.5f));
         float rot = Math.abs(e.rotation) + 90f;
