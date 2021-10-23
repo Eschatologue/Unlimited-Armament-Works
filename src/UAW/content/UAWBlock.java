@@ -50,7 +50,7 @@ public class UAWBlock implements ContentList {
 
         quadra = new DynamicReloadTurret("quadra") {{
             requirements(Category.turret, with(
-                    Items.copper, 110,
+                    Items.copper, 115,
                     Items.lead, 120,
                     Items.graphite, 80
             ));
@@ -70,7 +70,6 @@ public class UAWBlock implements ContentList {
 
             maxReloadScl = 8f;
             speedupPerShot = 0.15f;
-            inaccuracyModifier = 0.5f;
             ammo(
                     Items.copper, new BasicBulletType(4f, 9) {{
                         height = 14f;
@@ -135,7 +134,6 @@ public class UAWBlock implements ContentList {
             maxReloadScl = 16f;
             speedupPerShot = 0.1f;
             slowDownReloadTime = 90f;
-            inaccuracyModifier = 0.5f;
 
             ammo(
                     Items.graphite, new BasicBulletType(8, 20) {{
@@ -216,7 +214,7 @@ public class UAWBlock implements ContentList {
             );
         }};
 
-        solo = new CustomStatItemTurret("solo") {{
+        solo = new CustomItemTurret("solo") {{
             requirements(Category.turret, with(
                     Items.copper, 150,
                     Items.graphite, 100,
@@ -291,7 +289,7 @@ public class UAWBlock implements ContentList {
                     }}
             );
         }};
-        longsword = new CustomStatItemTurret("longsword") {{
+        longsword = new CustomItemTurret("longsword") {{
             float brange = range = 55 * tilesize;
             requirements(Category.turret, with(
                     Items.thorium, 280,
@@ -429,7 +427,7 @@ public class UAWBlock implements ContentList {
             recoilAmount = 6f;
             shootShake = 48f;
             range = 50 * tilesize;
-            minRange = range / 10;
+            minRange = range / 12;
 
             shootSound = UAWSfx.artilleryShootHuge;
             ammo(
@@ -591,7 +589,7 @@ public class UAWBlock implements ContentList {
                     UAWItems.cryogel, UAWBullets.buckshotCryo
             );
         }};
-        tempest = new CustomStatItemTurret("tempest") {{
+        tempest = new CustomItemTurret("tempest") {{
             requirements(Category.turret, with(
                     Items.titanium, 200,
                     Items.graphite, 150,
@@ -665,7 +663,7 @@ public class UAWBlock implements ContentList {
                     }}
             );
         }};
-        strikeforce = new CustomStatItemTurret("strikeforce") {{
+        strikeforce = new CustomItemTurret("strikeforce") {{
             requirements(Category.turret, with(
                     Items.titanium, 350,
                     Items.graphite, 300,

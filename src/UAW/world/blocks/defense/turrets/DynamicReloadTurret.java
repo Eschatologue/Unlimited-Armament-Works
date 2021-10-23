@@ -8,11 +8,10 @@ import mindustry.entities.bullet.BulletType;
 import mindustry.graphics.*;
 
 // A small modification from Yuria-Shikibe/NewHorizonMod
-public class DynamicReloadTurret extends CustomStatItemTurret {
+public class DynamicReloadTurret extends CustomItemTurret {
     public float maxReloadScl = 0.5f;
     public float speedupPerShot = 0.075f;
     public float slowDownReloadTime = 90f;
-    public float inaccuracyModifier = 0f;
 
     public DynamicReloadTurret(String name) {
         super(name);
@@ -56,14 +55,9 @@ public class DynamicReloadTurret extends CustomStatItemTurret {
             super.drawSelect();
             Lines.stroke(speedupScl / maxReloadScl);
             Draw.color(UAWPal.cryoFront, UAWPal.surgeFront, Pal.lightPyraFlame, (speedupScl / maxReloadScl) * 0.9f);
-            Draw.z(Layer.bullet - 1);
+            Draw.z(Layer.bullet);
             Lines.polySeg(200, 0, (int) (200 * speedupScl / maxReloadScl), x, y, range / 10, rotation);
             Draw.color();
-        }
-
-        @Override
-        protected void bullet(BulletType type, float angle) {
-            super.bullet(type, angle + (speedupScl * inaccuracyModifier));
         }
     }
 }
