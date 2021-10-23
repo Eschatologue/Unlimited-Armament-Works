@@ -944,11 +944,9 @@ public class UAWBlock implements ContentList {
                         splashAmount = 1;
                     }},
                     Liquids.oil, new SplashBulletType(0, range) {{
-                        shootEffect = UAWFxDynamic.statusFieldApply(Pal.plastaniumFront, Pal.plastaniumBack, range);
+                        shootEffect = UAWFxDynamic.statusFieldApply(Pal.darkerMetal, Pal.darkerMetal, range);
                         smokeEffect = UAWFxDynamic.statusHit(Pal.plastanium, 30);
                         status = StatusEffects.tarred;
-                        frontColor = Pal.plastaniumFront;
-                        backColor = Pal.plastaniumBack;
                         statusDuration = reloadTime * 1.5f;
                         splashAmount = 1;
                     }},
