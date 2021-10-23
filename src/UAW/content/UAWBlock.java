@@ -305,7 +305,7 @@ public class UAWBlock implements ContentList {
             maxAmmo = 30;
             ammoPerShot = 10;
             rotateSpeed = 2.5f;
-            reloadTime = 75;
+            reloadTime = 60;
             ammoUseEffect = UAWFxStatic.casing6;
             recoilAmount = 4f;
             restitution = 0.01f;
@@ -329,11 +329,10 @@ public class UAWBlock implements ContentList {
                         buildingDamageMultiplier = 0.5f;
                         hitShake = 6f;
                         ammoMultiplier = 1f;
-                        reloadMultiplier = 1.5f;
                         status = StatusEffects.electrified;
                     }},
                     UAWItems.titaniumCarbide, new StandardRailBulletType() {{
-                        damage = 550;
+                        damage = 400;
                         length = 450;
                         shootEffect = new MultiEffect(UAWFxDynamic.railShoot(Pal.missileYellow, 32), Fx.blockExplosionSmoke);
                         hitEffect = pierceEffect = new MultiEffect(Fx.railHit, Fx.blockExplosionSmoke);
@@ -343,7 +342,6 @@ public class UAWBlock implements ContentList {
                         armorIgnoreScl = buildingDamageMultiplier = 0.5f;
                         hitShake = 6f;
                         ammoMultiplier = 1f;
-                        status = UAWStatusEffects.breached;
                     }}
             );
         }};

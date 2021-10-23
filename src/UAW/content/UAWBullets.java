@@ -16,30 +16,26 @@ import static mindustry.content.Bullets.*;
 
 public class UAWBullets implements ContentList {
     public static BulletType
-    // Normal Bullets
     basicPiercing, basicMelt, basicCryo,
     mediumStandard, mediumSurge, mediumPiercing,
     heavyCopper, heavyPiercing, heavySurge, heavyMelt, heavyCryo, heavyHoming,
-    // Beam
+
     basicBeam, heavyBeam,
-    // Artillery
+
     EMPartillery,
-    // Missiles
-    standardMissile,
+
     standardCruiseMissile, piercingCruiseMissile, cryoCruiseMissile, incendCruiseMissile, surgeCruiseMissile,
-    // Buckshot
+
     buckshotLead, buckshotIncend, buckshotCryo,
-    /// Mines
+
     mineBasic, mineIncend, mineCryo, mineOil, mineEMP, mineSpore,
-    // Unit Weapons
-    standardMG,
-    // Canister
+
     canisterBasic, canisterIncend, canisterCryo, canisterOil, canisterEMP, canisterSpore, canisterNuke
     ;
 
     @Override
     public void load () {
-        // region Basic
+
         basicPiercing = new BasicBulletType(6f, 10f, "bullet") {{
             height = 15f;
             width = 8f;
@@ -71,8 +67,7 @@ public class UAWBullets implements ContentList {
             inaccuracy = 3f;
             lifetime = 90f;
         }};
-        // endregion
-        // region Heavy
+
         heavyCopper = new BasicBulletType(6f, 30f, "bullet") {{
             height = 24f;
             width = 12f;
@@ -129,8 +124,7 @@ public class UAWBullets implements ContentList {
             homingRange = 64;
             homingDelay = 30;
         }};
-        // endregion
-        // region Beam
+
         basicBeam = new LaserBoltBulletType(6f, 10f) {{
             height = 14f;
             width = 7f;
@@ -152,8 +146,7 @@ public class UAWBullets implements ContentList {
             shootEffect = Fx.lancerLaserShoot;
             smokeEffect = Fx.lancerLaserShootSmoke;
         }};
-        // endregion
-        // region Artillery
+
         EMPartillery = new ArtilleryBulletType(2f, 20f, "shell") {{
             hitEffect = Fx.hitYellowLaser;
             lifetime = 80f;
@@ -169,8 +162,7 @@ public class UAWBullets implements ContentList {
             status = UAWStatusEffects.concussion;
             statusDuration = 30f;
         }};
-        // endregion
-        // region Buckshots
+
         buckshotLead = new BasicBulletType(4.5f, 10f) {{
             pierceCap = 3;
             lifetime = 30f;
@@ -204,8 +196,7 @@ public class UAWBullets implements ContentList {
             backColor = UAWPal.cryoBack;
             status = StatusEffects.freezing;
         }};
-        // endregion
-        // region Cruise Missile
+
         standardCruiseMissile = new CruiseMissileBulletType(1.8f, 225) {{
             splashDamage = damage;
             splashDamageRadius = 8 * tilesize;
@@ -263,8 +254,7 @@ public class UAWBullets implements ContentList {
             lightningLength = 8;
             lightningDamage = splashDamage / 5;
         }};
-        // endregion
-        // region Mine
+
         mineBasic = new MineBulletType(100, 90, 9) {{
             frontColor = Pal.bulletYellow;
             backColor = Pal.bulletYellowBack;
@@ -317,10 +307,6 @@ public class UAWBullets implements ContentList {
             status = StatusEffects.sporeSlowed;
             hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(backColor, splashDamageRadius),Fx.sporeSlowed, Fx.blockExplosionSmoke);
         }};
-        // endregion
-        // region Unit Bullets
-        // endregion
-        // region Carriers
 
         canisterBasic = new CanisterBulletType(2f, 30, 4, mineBasic) {{
             lifetime =
@@ -361,6 +347,5 @@ public class UAWBullets implements ContentList {
             ammoMultiplier = 3f;
         }};
 
-        // endregion
     }
 }

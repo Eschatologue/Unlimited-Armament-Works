@@ -16,10 +16,5 @@ public class UAWStatusEffects implements ContentList {
             color = Pal.lightishGray;
             reloadMultiplier = speedMultiplier = 0.4f;
         }};
-        breached = new StatusEffect("breached") {{
-            healthMultiplier = 0.55f;
-            permanent = true;
-            effect = Fx.shieldBreak;
-        }};
     }
 }
