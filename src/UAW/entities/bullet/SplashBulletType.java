@@ -24,8 +24,9 @@ public class SplashBulletType extends BulletType {
      * How many times splash damage occurs
      */
     public int splashAmount = 3;
+    public boolean customSplashEffect = false;
     public Sound applySound = Sounds.shotgun;
-    public Color frontColor, backColor, splashColor;
+    public Color frontColor, backColor;
     public Effect particleEffect;
 
     float splashDuration = (splashDelay * splashAmount);
@@ -49,10 +50,12 @@ public class SplashBulletType extends BulletType {
     public void update(Bullet b) {
         if (b.timer(1, splashDelay) && splashAmount > 1) {
             Damage.damage(b.team, b.x, b.y, splashDamageRadius, splashDamage, collidesAir, collidesGround);
-            UAWFxDynamic.circleSplash(
-                    splashDamageRadius,
-                    splashDelay,
-                    frontColor, backColor, splashColor).at(b.x, b.y);
+            if (!customSplashEffect) {
+                UAWFxDynamic.circleSplash(
+                        splashDamageRadius,
+                        splashDelay,
+                        frontColor, backColor, backColor).at(b.x, b.y);
+            }
             applySound.at(b.x, b.y);
             for (int j = 0; j < ((splashAmount) * 15); j++) {
                 particleEffect.at(
