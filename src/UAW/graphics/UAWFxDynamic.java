@@ -51,7 +51,7 @@ public class UAWFxDynamic {
         return new Effect(50, e -> {
             color(frontColor, backColor, e.fin());
             stroke(e.fout() * 5f);
-            Lines.circle(e.x, e.y, size + e.fout() * 4f);
+            Lines.circle(e.x, e.y, size + e.fin() * 4f);
             int points = 6;
             float offset = Mathf.randomSeed(e.id, 360f);
             for (int i = 0; i < points; i++) {

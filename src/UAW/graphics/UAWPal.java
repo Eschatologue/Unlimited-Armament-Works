@@ -6,7 +6,6 @@ import mindustry.graphics.Pal;
 public class UAWPal {
     // front = light, back = dark
     public static Color
-            // cryo
             cryoFront = Color.valueOf("c0ecff"),
             cryoMiddle = Color.valueOf("87ceeb"),
             cryoBack = Color.valueOf("6586b0"),
@@ -40,7 +39,10 @@ public class UAWPal {
             surgeBackBloom = new Color(UAWPal.surgeBack).lerp(Color.white, 0.15f),
 
             plastBackBloom = new Color(Pal.plastaniumBack).lerp(Color.white, 0.15f),
+            plastDarker = Color.valueOf("6f873b"),
 
             coalFront = Color.valueOf("404040"),
-            coalBack = Color.valueOf("2a2a2a");
+            coalBack = Color.valueOf("2a2a2a"),
+            coalBackB0lom = new Color(Color.valueOf("2a2a2a")).lerp(Color.white, 0.15f);
+
 }
