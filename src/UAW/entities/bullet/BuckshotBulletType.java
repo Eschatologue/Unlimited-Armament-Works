@@ -23,6 +23,5 @@ public class BuckshotBulletType extends StandardBulletType {
         shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
         smokeEffect = Fx.shootBigSmoke2;
         hitEffect = Fx.hitBulletBig;
-        despawnEffect = UAWFxDynamic.thermalExplosion(frontColor, backColor);
     }
 }

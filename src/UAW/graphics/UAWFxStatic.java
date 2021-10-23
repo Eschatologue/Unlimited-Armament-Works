@@ -17,7 +17,7 @@ public class UAWFxStatic {
     public static final Effect
 
     crossShoot = new Effect(15f, 90f, e -> {
-        color(Pal.orangeSpark);
+        color(Pal.orangeSpark, Pal.lightOrange, e.fin());
         stroke(e.fout() * 4f);
         for (int i = 0; i < 4; i++) {
             Drawf.tri(e.x, e.y, 6f, 80f * e.fout(), i * 90);
@@ -77,6 +77,26 @@ public class UAWFxStatic {
         Lines.circle(e.x, e.y, circleRad);
     }).layer(Layer.debris),
 
+    cryoHit = new Effect(40f, e -> {
+        color(UAWPal.cryoFront, UAWPal.cryoBack, e.fin());
+
+        randLenVectors(e.id, 4, 2f + e.fin() * 10f, (x, y) -> {
+            Fill.circle(e.x + x, e.y + y, 0.2f + e.fout() * 1.6f);
+        });
+
+        color();
+    }),
+
+    plastHit = new Effect(40f, e -> {
+        color(Pal.plastaniumFront, Pal.plastaniumBack, e.fin());
+
+        randLenVectors(e.id, 4, 2f + e.fin() * 10f, (x, y) -> {
+            Fill.circle(e.x + x, e.y + y, 0.2f + e.fout() * 1.6f);
+        });
+
+        color();
+    }),
+
     applySquareOverclock = new Effect(30, e -> {
         color(Color.valueOf("f4ba6e"));
         stroke(2f * e.fout() + 0.5f);
@@ -126,52 +146,54 @@ public class UAWFxStatic {
                 rot + e.fin() * 50f * i
         );
     }).layer(Layer.bullet),
-            casingCanister = new Effect(50f, e -> {
-                color(Pal.lightOrange, Pal.lightishGray, Pal.lightishGray, e.fin());
-                alpha(e.fout(0.5f));
-                float rot = Math.abs(e.rotation) + 90f;
-                int i = -Mathf.sign(e.rotation);
-                float len = (4f + e.finpow() * 9f) * i;
-                float lr = rot + Mathf.randomSeedRange(e.id + i + 6, 20f * e.fin()) * i;
 
-                rect(Core.atlas.find("casing"),
-                        e.x + trnsx(lr, len) + Mathf.randomSeedRange(e.id + i + 7, 3f * e.fin()),
-                        e.y + trnsy(lr, len) + Mathf.randomSeedRange(e.id + i + 8, 3f * e.fin()),
-                        5.4f, 9f,
-                        rot + e.fin() * 50f * i
-                );
-            }).layer(Layer.bullet),
-            casing6 = new Effect(55f, e -> {
-                color(Pal.lightOrange, Pal.lightishGray, Pal.lightishGray, e.fin());
-                alpha(e.fout(0.5f));
-                float rot = Math.abs(e.rotation) + 90f;
-                int i = -Mathf.sign(e.rotation);
-                float len = (4f + e.finpow() * 9f) * i;
-                float lr = rot + Mathf.randomSeedRange(e.id + i + 6, 20f * e.fin()) * i;
+    casingCanister = new Effect(50f, e -> {
+        color(Pal.lightOrange, Pal.lightishGray, Pal.lightishGray, e.fin());
+        alpha(e.fout(0.5f));
+        float rot = Math.abs(e.rotation) + 90f;
+        int i = -Mathf.sign(e.rotation);
+        float len = (4f + e.finpow() * 9f) * i;
+        float lr = rot + Mathf.randomSeedRange(e.id + i + 6, 20f * e.fin()) * i;
 
-                rect(Core.atlas.find("casing"),
-                        e.x + trnsx(lr, len) + Mathf.randomSeedRange(e.id + i + 7, 3f * e.fin()),
-                        e.y + trnsy(lr, len) + Mathf.randomSeedRange(e.id + i + 8, 3f * e.fin()),
-                        4.5f, 10f,
-                        rot + e.fin() * 50f * i
-                );
-            }).layer(Layer.bullet),
-            casing7 = new Effect(55f, e -> {
-                color(Pal.lightOrange, Pal.lightishGray, Pal.lightishGray, e.fin());
-                alpha(e.fout(0.5f));
-                float rot = Math.abs(e.rotation) + 90f;
-                int i = -Mathf.sign(e.rotation);
-                float len = (4f + e.finpow() * 9f) * i;
-                float lr = rot + Mathf.randomSeedRange(e.id + i + 6, 20f * e.fin()) * i;
+        rect(Core.atlas.find("casing"),
+                e.x + trnsx(lr, len) + Mathf.randomSeedRange(e.id + i + 7, 3f * e.fin()),
+                e.y + trnsy(lr, len) + Mathf.randomSeedRange(e.id + i + 8, 3f * e.fin()),
+                5.4f, 9f,
+                rot + e.fin() * 50f * i
+        );
+    }).layer(Layer.bullet),
 
-                rect(Core.atlas.find("casing"),
-                        e.x + trnsx(lr, len) + Mathf.randomSeedRange(e.id + i + 7, 3f * e.fin()),
-                        e.y + trnsy(lr, len) + Mathf.randomSeedRange(e.id + i + 8, 3f * e.fin()),
-                        5.5f, 12f,
-                        rot + e.fin() * 50f * i
-                );
-            }).layer(Layer.bullet),
+    casing6 = new Effect(55f, e -> {
+        color(Pal.lightOrange, Pal.lightishGray, Pal.lightishGray, e.fin());
+        alpha(e.fout(0.5f));
+        float rot = Math.abs(e.rotation) + 90f;
+        int i = -Mathf.sign(e.rotation);
+        float len = (4f + e.finpow() * 9f) * i;
+        float lr = rot + Mathf.randomSeedRange(e.id + i + 6, 20f * e.fin()) * i;
 
+        rect(Core.atlas.find("casing"),
+                e.x + trnsx(lr, len) + Mathf.randomSeedRange(e.id + i + 7, 3f * e.fin()),
+                e.y + trnsy(lr, len) + Mathf.randomSeedRange(e.id + i + 8, 3f * e.fin()),
+                4.5f, 10f,
+                rot + e.fin() * 50f * i
+        );
+    }).layer(Layer.bullet),
+
+    casing7 = new Effect(55f, e -> {
+        color(Pal.lightOrange, Pal.lightishGray, Pal.lightishGray, e.fin());
+        alpha(e.fout(0.5f));
+        float rot = Math.abs(e.rotation) + 90f;
+        int i = -Mathf.sign(e.rotation);
+        float len = (4f + e.finpow() * 9f) * i;
+        float lr = rot + Mathf.randomSeedRange(e.id + i + 6, 20f * e.fin()) * i;
+
+        rect(Core.atlas.find("casing"),
+                e.x + trnsx(lr, len) + Mathf.randomSeedRange(e.id + i + 7, 3f * e.fin()),
+                e.y + trnsy(lr, len) + Mathf.randomSeedRange(e.id + i + 8, 3f * e.fin()),
+                5.5f, 12f,
+                rot + e.fin() * 50f * i
+        );
+    }).layer(Layer.bullet),
 
     pyraSmokeTrail = new Effect(33f, 80f, e -> {
         color(Color.valueOf("ddcece"), Pal.lighterOrange, UAWPal.darkPyraBloom, e.fin() * e.fin());

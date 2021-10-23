@@ -78,7 +78,7 @@ public class UAWBlock implements ContentList {
                         lifetime = range / speed;
                         shootEffect = Fx.shootSmall;
                         smokeEffect = Fx.shootSmallSmoke;
-                        ammoMultiplier = 2;
+                        ammoMultiplier = 3;
                     }},
                     Items.graphite, new BasicBulletType(3.5f, 18) {{
                         height = 18f;
@@ -93,18 +93,20 @@ public class UAWBlock implements ContentList {
                         width = height / 1.8f;
                         frontColor = Pal.lightishOrange;
                         backColor = Pal.lightOrange;
-                        status = StatusEffects.melting;
+                        hitEffect = new MultiEffect(Fx.hitBulletSmall, Fx.fireHit);
+                        status = StatusEffects.burning;
                         inaccuracy = 3f;
                         lifetime = range / speed;
+                        ammoMultiplier = 4f;
                     }},
                     Items.titanium, new TrailBulletType(12f, 10f) {{
                         height = 30f;
                         width = 10f;
-                        armorIgnoreScl = 0.2f;
+                        armorIgnoreScl = 0.25f;
                         shieldDamageMultiplier = 1.5f;
                         shootEffect = Fx.shootBig;
                         smokeEffect = Fx.shootBigSmoke;
-                        ammoMultiplier = 2;
+                        ammoMultiplier = 3;
                         lifetime = range / speed;
                     }}
             );
@@ -188,6 +190,7 @@ public class UAWBlock implements ContentList {
                         despawnEffect = Fx.melting;
                         smokeEffect = Fx.shootBigSmoke2;
                         shootEffect = new MultiEffect(Fx.shootPyraFlame, Fx.shootBig2);
+                        hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.fireHit);
                         frontColor = UAWPal.incendFront;
                         backColor = UAWPal.incendBack;
                         status = StatusEffects.melting;
@@ -356,6 +359,7 @@ public class UAWBlock implements ContentList {
                     }}
             );
         }};
+
         zounderkite = new ItemTurret("zounderkite") {{
             requirements(Category.turret, with(
                     Items.lead, 300,
@@ -413,7 +417,6 @@ public class UAWBlock implements ContentList {
                     }}
             );
         }};
-
         skyhammer = new ItemTurret("skyhammer") {{
             requirements(Category.turret, with(
                     Items.copper, 1000,
@@ -611,7 +614,7 @@ public class UAWBlock implements ContentList {
             ));
             health = 120 * size * size;
             size = 3;
-            spread = 1.8f;
+            spread = 2f;
             shots = 4;
             xRand = 3;
             reloadTime = 7f;
@@ -630,39 +633,26 @@ public class UAWBlock implements ContentList {
                     Items.graphite, new BuckshotBulletType(5f, 12f) {{
                         lifetime = range / speed;
                         knockback = 4f;
-                        shieldDamageMultiplier = 3f;
+                        despawnEffect = hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.burning, Fx.coalSmeltsmoke);
+                        shieldDamageMultiplier = 2.5f;
                     }},
                     Items.pyratite, new BuckshotBulletType(5f, 8f) {{
                         shootEffect = Fx.shootPyraFlame;
                         smokeEffect = Fx.shootBigSmoke2;
-                        hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.burning);
-                        despawnEffect = UAWFxDynamic.thermalExplosion(frontColor, backColor);
                         frontColor = Pal.lightishOrange;
                         backColor = Pal.lightOrange;
-                        status = StatusEffects.melting;
-                        fragBullets = 6;
-                        fragBullet = slagShot;
-                        fragVelocityMin = 0.3f;
-                        fragVelocityMax = fragVelocityMin * 1.2f;
-                        fragLifeMin = 0.4f;
-                        fragLifeMax = 0.8f;
+                        despawnEffect = hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.burning, Fx.fireHit);
+                        status = StatusEffects.burning;
                         shieldDamageMultiplier = 1.4f;
                     }},
                     UAWItems.cryogel, new BuckshotBulletType(5f, 8f) {{
                         lifetime = range / speed;
                         shootEffect = UAWFxStatic.shootCryoFlame;
                         smokeEffect = Fx.shootBigSmoke2;
-                        hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.freezing);
-                        despawnEffect = UAWFxDynamic.thermalExplosion(frontColor, backColor);
                         frontColor = UAWPal.cryoFront;
                         backColor = UAWPal.cryoMiddle;
+                        despawnEffect = hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.freezing, UAWFxStatic.cryoHit);
                         status = StatusEffects.freezing;
-                        fragBullets = 6;
-                        fragBullet = cryoShot;
-                        fragVelocityMin = 0.3f;
-                        fragVelocityMax = fragVelocityMin * 1.2f;
-                        fragLifeMin = 0.4f;
-                        fragLifeMax = 0.8f;
                         shieldDamageMultiplier = 1.4f;
                     }},
                     UAWItems.titaniumCarbide, new BuckshotBulletType(6f, 10f) {{
@@ -675,10 +665,9 @@ public class UAWBlock implements ContentList {
                         trailLength = 0;
                         trailInterval = 4.5f;
                         trailColor = Color.lightGray;
-                        shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
+                        despawnEffect = shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
                         smokeEffect = Fx.shootBigSmoke2;
                         hitEffect = Fx.hitBulletBig;
-                        despawnEffect = UAWFxDynamic.thermalExplosion(frontColor, backColor);
                         armorIgnoreScl = 0.4f;
                     }},
                     Items.metaglass, new BuckshotBulletType(5f, 8f) {{
@@ -686,16 +675,7 @@ public class UAWBlock implements ContentList {
                         splashDamage = damage / 2;
                         lifetime = range / speed;
                         fragBullets = 6;
-                        shieldDamageMultiplier = 1.4f;
-                        fragBullet = new BasicBulletType(3f, 3, "bullet") {{
-                            width = 5f;
-                            height = 12f;
-                            shrinkY = 1f;
-                            lifetime = 20f;
-                            backColor = Pal.gray;
-                            frontColor = Color.white;
-                            despawnEffect = Fx.none;
-                        }};
+                        fragBullet = fragGlass;
                     }}
             );
         }};
