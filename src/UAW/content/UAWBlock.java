@@ -196,12 +196,6 @@ public class UAWBlock implements ContentList {
                         status = StatusEffects.melting;
                         trailChance = 0.4f;
                         trailColor = Color.lightGray;
-                        fragBullets = 8;
-                        fragVelocityMin = 0.3f;
-                        fragVelocityMax = fragVelocityMin * 1.2f;
-                        fragLifeMin = 0.4f;
-                        fragLifeMax = 0.8f;
-                        fragBullet = Bullets.slagShot;
                     }},
                     UAWItems.cryogel, new BasicBulletType(7, 15) {{
                         height = 25;
@@ -213,17 +207,12 @@ public class UAWBlock implements ContentList {
                         despawnEffect = Fx.freezing;
                         smokeEffect = Fx.shootBigSmoke2;
                         shootEffect = new MultiEffect(UAWFxStatic.shootCryoFlame, Fx.shootBig2);
+                        hitEffect = new MultiEffect(Fx.hitBulletBig, UAWFxStatic.cryoHit);
                         frontColor = UAWPal.cryoFront;
                         backColor = UAWPal.cryoBack;
                         status = StatusEffects.freezing;
                         trailChance = 0.4f;
                         trailColor = Color.lightGray;
-                        fragBullets = 8;
-                        fragVelocityMin = 0.3f;
-                        fragVelocityMax = fragVelocityMin * 1.2f;
-                        fragLifeMin = 0.4f;
-                        fragLifeMax = 0.8f;
-                        fragBullet = Bullets.cryoShot;
                     }}
             );
         }};

@@ -3,14 +3,13 @@ package UAW.content;
 import arc.struct.Seq;
 import mindustry.content.*;
 import mindustry.content.TechTree.TechNode;
-import mindustry.ctype.ContentList;
-import mindustry.ctype.UnlockableContent;
+import mindustry.ctype.*;
 import mindustry.game.Objectives.*;
 import mindustry.type.ItemStack;
 
 import static UAW.content.UAWBlock.*;
 import static UAW.content.UAWItems.*;
-import static UAW.content.UAWLiquid.*;
+import static UAW.content.UAWLiquid.surgeSolvent;
 import static UAW.content.UAWUnitTypes.*;
 import static mindustry.content.Blocks.*;
 import static mindustry.content.Items.*;
@@ -19,12 +18,12 @@ import static mindustry.content.UnitTypes.*;
 public class UAWTechTree implements ContentList {
     static TechTree.TechNode context = null;
 
-    private static void vanillaNode (UnlockableContent parent, Runnable children) {
+    private static void vanillaNode(UnlockableContent parent, Runnable children) {
         context = TechTree.all.find(t -> t.content == parent);
         children.run();
     }
 
-    private static void node (UnlockableContent content, ItemStack[] requirements, Seq <Objective> objectives, Runnable children) {
+    private static void node(UnlockableContent content, ItemStack[] requirements, Seq<Objective> objectives, Runnable children) {
         TechNode node = new TechNode(context, content, requirements);
         if (objectives != null) node.objectives = objectives;
 
@@ -34,58 +33,58 @@ public class UAWTechTree implements ContentList {
         context = prev;
     }
 
-    private static void node (UnlockableContent content, ItemStack[] requirements, Seq <Objective> objectives) {
+    private static void node(UnlockableContent content, ItemStack[] requirements, Seq<Objective> objectives) {
         node(content, requirements, objectives, () -> {
         });
     }
 
-    private static void node (UnlockableContent content, Seq <Objective> objectives) {
+    private static void node(UnlockableContent content, Seq<Objective> objectives) {
         node(content, content.researchRequirements(), objectives, () -> {
         });
     }
 
-    private static void node (UnlockableContent content, ItemStack[] requirements) {
+    private static void node(UnlockableContent content, ItemStack[] requirements) {
         node(content, requirements, Seq.with(), () -> {
         });
     }
 
-    private static void node (UnlockableContent content, ItemStack[] requirements, Runnable children) {
+    private static void node(UnlockableContent content, ItemStack[] requirements, Runnable children) {
         node(content, requirements, null, children);
     }
 
-    private static void node (UnlockableContent content, Seq <Objective> objectives, Runnable children) {
+    private static void node(UnlockableContent content, Seq<Objective> objectives, Runnable children) {
         node(content, content.researchRequirements(), objectives, children);
     }
 
-    private static void node (UnlockableContent content, Runnable children) {
+    private static void node(UnlockableContent content, Runnable children) {
         node(content, content.researchRequirements(), children);
     }
 
-    private static void node (UnlockableContent block) {
+    private static void node(UnlockableContent block) {
         node(block, () -> {
         });
     }
 
-    private static void nodeProduce (UnlockableContent content, Seq <Objective> objectives, Runnable children) {
+    private static void nodeProduce(UnlockableContent content, Seq<Objective> objectives, Runnable children) {
         node(content, content.researchRequirements(), objectives.and(new Produce(content)), children);
     }
 
-    private static void nodeProduce (UnlockableContent content, Seq <Objective> objectives) {
+    private static void nodeProduce(UnlockableContent content, Seq<Objective> objectives) {
         nodeProduce(content, objectives, () -> {
         });
     }
 
-    private static void nodeProduce (UnlockableContent content, Runnable children) {
+    private static void nodeProduce(UnlockableContent content, Runnable children) {
         nodeProduce(content, Seq.with(), children);
     }
 
-    private static void nodeProduce (UnlockableContent content) {
+    private static void nodeProduce(UnlockableContent content) {
         nodeProduce(content, Seq.with(), () -> {
         });
     }
 
     @Override
-    public void load () {
+    public void load() {
         // Consumables
         /// Cryogel
         vanillaNode(pyratite, () ->
@@ -111,7 +110,7 @@ public class UAWTechTree implements ContentList {
                     new Research(fuse)
             )));
         });
-        vanillaNode(hail, () -> node(buckshot, () -> {
+        vanillaNode(salvo, () -> node(buckshot, () -> {
             // Tempest
             node(tempest, Seq.with(
                     new Research(ripple)
@@ -121,34 +120,38 @@ public class UAWTechTree implements ContentList {
                     new Research(ripple)
             ));
         }));
-        vanillaNode(ripple, () ->
-                node(zounderkite, Seq.with(
-                        new Produce(Items.blastCompound),
-                        new Produce(Items.pyratite),
-                        new Produce(UAWItems.cryogel),
-                        new Produce(Items.plastanium),
-                        new Produce(Items.sporePod),
-                        new Produce(Items.surgeAlloy)
-        )));
+        vanillaNode(ripple, () -> {
+            node(zounderkite, Seq.with(
+                    new Produce(Items.blastCompound),
+                    new Produce(Items.pyratite),
+                    new Produce(UAWItems.cryogel),
+                    new Produce(Items.plastanium),
+                    new Produce(Items.sporePod),
+                    new Produce(Items.surgeAlloy)
+            ));
+            node(skyhammer, Seq.with(
+                    new Research(spectre)
+            ));
+        });
         /// Walls
         vanillaNode(phaseWall, () ->
-            /// Shield Wall
+                /// Shield Wall
                 node(shieldWall, Seq.with(
-                    new Research(forceProjector),
-                    new Research(mendProjector)
+                        new Research(forceProjector),
+                        new Research(mendProjector)
                 )));
         /// Effects
         vanillaNode(mendProjector, () ->
-            /// Status Field Projector
-            node(statusFieldProjector, Seq.with(
-                    new Produce(Liquids.cryofluid),
-                    new Produce(Liquids.oil),
-                    new Produce(Liquids.slag)
-        )));
-            /// Rejuvination Projector
-            node(rejuvinationProjector, Seq.with(new Research(overdriveProjector)),
-                    () -> node(rejuvinationDome, Seq.with(new Research(overdriveDome)
-                    )));
+                /// Status Field Projector
+                node(statusFieldProjector, Seq.with(
+                        new Produce(Liquids.cryofluid),
+                        new Produce(Liquids.oil),
+                        new Produce(Liquids.slag)
+                )));
+        /// Rejuvination Projector
+        node(rejuvinationProjector, Seq.with(new Research(overdriveProjector)),
+                () -> node(rejuvinationDome, Seq.with(new Research(overdriveDome)
+                )));
         //Crafter
         ///Gelatinizer
         vanillaNode(blastMixer, () -> node(gelatinizer, Seq.with(
@@ -174,7 +177,7 @@ public class UAWTechTree implements ContentList {
         vanillaNode(multiplicativeReconstructor, () ->
                 node(multiplicativePetroleumReconstructor, () ->
                         node(exponentialPetroleumReconstructor, () -> {
-        })));
+                        })));
 
         //Units
         //Helis
@@ -191,11 +194,11 @@ public class UAWTechTree implements ContentList {
         vanillaNode(minke, () ->
                 node(clurit, Seq.with(new Research(atrax)), () ->
                         node(kujang, Seq.with(new Research(spiroct))
-        )));
+                        )));
         vanillaNode(bryde, () ->
                 node(hatsuharu, Seq.with(new Research(blastCompound)), () ->
                         node(shiratsuyu)
-        ));
+                ));
 
         //End Region
     }
