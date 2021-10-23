@@ -39,7 +39,7 @@ public class UAWPal {
             surgeBackBloom = new Color(UAWPal.surgeBack).lerp(Color.white, 0.15f),
 
             plastBackBloom = new Color(Pal.plastaniumBack).lerp(Color.white, 0.15f),
-            plastDarker = Color.valueOf("6f873b"),
+            plastDarker = Color.valueOf("84a147"),
 
             coalFront = Color.valueOf("404040"),
             coalBack = Color.valueOf("2a2a2a"),
