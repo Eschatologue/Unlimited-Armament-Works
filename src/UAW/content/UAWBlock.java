@@ -470,6 +470,7 @@ public class UAWBlock implements ContentList {
                             lifetime = (splashDelay * splashAmount);
                             frontColor = Pal.lightishOrange;
                             backColor = Pal.lightOrange;
+                            splashColor = Pal.lighterOrange;
                             status = StatusEffects.melting;
                             statusDuration = 30f;
                             particleEffect = Fx.burning;
@@ -502,6 +503,7 @@ public class UAWBlock implements ContentList {
                             lifetime = (splashDelay * splashAmount);
                             frontColor = UAWPal.cryoFront;
                             backColor = UAWPal.cryoBack;
+                            splashColor = UAWPal.cryoBack;
                             status = StatusEffects.freezing;
                             statusDuration = 30f;
                             particleEffect = Fx.freezing;
@@ -563,6 +565,7 @@ public class UAWBlock implements ContentList {
                             lifetime = (splashDelay * splashAmount);
                             frontColor = Pal.bulletYellow;
                             backColor = Pal.bulletYellowBack;
+                            splashColor = Pal.missileYellowBack;
                             hitShake = 28;
                             status = UAWStatusEffects.concussion;
                             statusDuration = 30f;
@@ -929,6 +932,9 @@ public class UAWBlock implements ContentList {
                         shootEffect = UAWFxDynamic.statusFieldApply(UAWPal.cryoFront, UAWPal.cryoBack, range);
                         smokeEffect = UAWFxDynamic.statusHit(UAWPal.cryoMiddle, 30);
                         status = StatusEffects.freezing;
+                        frontColor = UAWPal.cryoFront;
+                        backColor = UAWPal.cryoBack;
+                        splashColor = backColor;
                         statusDuration = reloadTime * 1.5f;
                         splashAmount = 1;
                     }},
@@ -936,6 +942,9 @@ public class UAWBlock implements ContentList {
                         shootEffect = UAWFxDynamic.statusFieldApply(Pal.lighterOrange, Pal.lightOrange, range);
                         smokeEffect = UAWFxDynamic.statusHit(Pal.orangeSpark, 30);
                         status = StatusEffects.melting;
+                        frontColor = Pal.lighterOrange;
+                        backColor = Pal.lightOrange;
+                        splashColor = backColor;
                         statusDuration = reloadTime * 1.5f;
                         splashAmount = 1;
                     }},
@@ -943,6 +952,9 @@ public class UAWBlock implements ContentList {
                         shootEffect = UAWFxDynamic.statusFieldApply(Pal.plastaniumFront, Pal.plastaniumBack, range);
                         smokeEffect = UAWFxDynamic.statusHit(Pal.plastanium, 30);
                         status = StatusEffects.tarred;
+                        frontColor = Pal.plastaniumFront;
+                        backColor = Pal.plastaniumBack;
+                        splashColor = backColor;
                         statusDuration = reloadTime * 1.5f;
                         splashAmount = 1;
                     }},
@@ -950,6 +962,9 @@ public class UAWBlock implements ContentList {
                         shootEffect = UAWFxDynamic.statusFieldApply(Pal.missileYellow, Pal.missileYellowBack, range);
                         smokeEffect = UAWFxDynamic.statusHit(Pal.surge, 30);
                         status = StatusEffects.electrified;
+                        frontColor = Pal.missileYellow;
+                        backColor = Pal.missileYellowBack;
+                        splashColor = backColor;
                         statusDuration = reloadTime * 1.5f;
                         splashAmount = 1;
                     }}

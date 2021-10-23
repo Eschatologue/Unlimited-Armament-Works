@@ -25,7 +25,7 @@ public class SplashBulletType extends BulletType {
      */
     public int splashAmount = 3;
     public Sound applySound = Sounds.shotgun;
-    public Color frontColor, backColor;
+    public Color frontColor, backColor, splashColor;
     public Effect particleEffect;
 
     float splashDuration = (splashDelay * splashAmount);
@@ -52,7 +52,7 @@ public class SplashBulletType extends BulletType {
             UAWFxDynamic.circleSplash(
                     splashDamageRadius,
                     splashDelay,
-                    frontColor, backColor, backColor).at(b.x, b.y);
+                    frontColor, backColor, splashColor).at(b.x, b.y);
             applySound.at(b.x, b.y);
             for (int j = 0; j < ((splashAmount) * 15); j++) {
                 particleEffect.at(

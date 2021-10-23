@@ -60,7 +60,6 @@ public class UAWFxDynamic {
                 Drawf.tri(
                         e.x + rx, e.y + ry, 48f, 28f * e.fout(), angle);
             }
-            Fill.light(e.x, e.y, circleVertices(size / 2), size, Color.white.cpy().a(0f), Tmp.c4.set(backColor).a(e.fout()));
             Drawf.light(e.x, e.y, size * 1.6f, backColor, e.fout());
         });
     }

@@ -28,15 +28,14 @@ public class RazorRotorAbility extends Ability {
         this.bullet = new BulletType(damage, range) {{
             despawnEffect = Fx.none;
             lifetime = 10;
-            hitSize = range * 2;
+            hitSize = range;
             hitEffect = UAWFxDynamic.circleSplash(range, lifetime, Color.white, Pal.gray, Pal.gray);
             speed = 0f;
-            pierce = true;
-            hittable = absorbable = false;
-            buildingDamageMultiplier = 0.4f;
+            absorbable = hittable = false;
+            pierceBuilding = pierce = true;
+            buildingDamageMultiplier = 0.2f;
         }};
     }
-
     @Override
     public void update(Unit unit) {
         if (Mathf.chance(Time.delta * chance)) {
