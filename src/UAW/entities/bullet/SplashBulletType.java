@@ -24,23 +24,24 @@ public class SplashBulletType extends BulletType {
      * How many times splash damage occurs
      */
     public int splashAmount = 3;
-    public float splashDuration = (splashDelay * splashAmount);
     public Sound applySound = Sounds.shotgun;
     public Color frontColor, backColor;
     public Effect particleEffect;
+
+    float splashDuration = (splashDelay * splashAmount);
 
     public SplashBulletType(float splashDamage, float radius) {
         super(splashDamage, radius);
         this.damage = 0f;
         this.splashDamage = splashDamage;
         this.splashDamageRadius = radius;
-        this.lifetime = splashDuration;
+        lifetime = splashDuration;
         hittable = false;
         hitSize = speed = 0;
         smokeEffect = despawnEffect = hitEffect = Fx.none;
         particleEffect = UAWFxDynamic.statusHit(frontColor, 10f);
         displayAmmoMultiplier = false;
-        hittable = false;
+        absorbable = hittable = false;
         pierceBuilding = pierce = true;
     }
 
