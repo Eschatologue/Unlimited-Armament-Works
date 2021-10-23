@@ -107,12 +107,7 @@ public class UAWTechTree implements ContentList {
             ));
             // Solo
             node(solo, () -> node(longsword, Seq.with(
-                    new Research(fuse)), () ->
-                    node(skyhammer, Seq.with(
-                            new Research(spectre),
-                            new SectorComplete(SectorPresets.impact0078),
-                            new SectorComplete(SectorPresets.nuclearComplex)
-                    ))
+                    new Research(fuse))
             ));
         });
         vanillaNode(salvo, () -> node(buckshot, () -> {
@@ -133,7 +128,12 @@ public class UAWTechTree implements ContentList {
                     new Produce(Items.plastanium),
                     new Produce(Items.sporePod),
                     new Produce(Items.surgeAlloy)
-            ));
+            ), () ->
+                    node(skyhammer, Seq.with(
+                            new Research(spectre),
+                            new SectorComplete(SectorPresets.impact0078),
+                            new SectorComplete(SectorPresets.nuclearComplex)
+                    )));
         });
         /// Walls
         vanillaNode(phaseWall, () ->

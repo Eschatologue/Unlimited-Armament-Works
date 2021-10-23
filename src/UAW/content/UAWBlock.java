@@ -401,7 +401,7 @@ public class UAWBlock implements ContentList {
                     }}
             );
         }};
-        skyhammer = new ItemTurret("skyhammer") {{
+        skyhammer = new CustomItemTurret("skyhammer") {{
             requirements(Category.turret, with(
                     Items.copper, 1000,
                     Items.lead, 600,
