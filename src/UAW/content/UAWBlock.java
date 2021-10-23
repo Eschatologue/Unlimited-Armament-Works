@@ -93,7 +93,7 @@ public class UAWBlock implements ContentList {
                         width = height / 1.8f;
                         frontColor = Pal.lightishOrange;
                         backColor = Pal.lightOrange;
-                        hitEffect = new MultiEffect(Fx.hitBulletSmall, Fx.fireHit);
+                        hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletSmall, Fx.fireHit);
                         status = StatusEffects.burning;
                         inaccuracy = 3f;
                         lifetime = range / speed;
@@ -168,7 +168,7 @@ public class UAWBlock implements ContentList {
                         height = 25;
                         width = 8;
                         lifetime = range / speed;
-                        hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.lightning);
+                        hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletBig, Fx.lightning);
                         smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.fireSmoke);
                         shootEffect = new MultiEffect(Fx.shootBig, Fx.sparkShoot);
                         status = StatusEffects.electrified;
@@ -187,10 +187,9 @@ public class UAWBlock implements ContentList {
                         lifetime = range / speed;
                         knockback = 1.2f;
                         hitEffect = Fx.hitBulletBig;
-                        despawnEffect = Fx.melting;
                         smokeEffect = Fx.shootBigSmoke2;
                         shootEffect = new MultiEffect(Fx.shootPyraFlame, Fx.shootBig2);
-                        hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.fireHit);
+                        hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletBig, Fx.fireHit);
                         frontColor = UAWPal.incendFront;
                         backColor = UAWPal.incendBack;
                         status = StatusEffects.melting;
@@ -207,7 +206,7 @@ public class UAWBlock implements ContentList {
                         despawnEffect = Fx.freezing;
                         smokeEffect = Fx.shootBigSmoke2;
                         shootEffect = new MultiEffect(UAWFxStatic.shootCryoFlame, Fx.shootBig2);
-                        hitEffect = new MultiEffect(Fx.hitBulletBig, UAWFxStatic.cryoHit);
+                        hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletBig, UAWFxStatic.cryoHit);
                         frontColor = UAWPal.cryoFront;
                         backColor = UAWPal.cryoBack;
                         status = StatusEffects.freezing;
@@ -316,24 +315,24 @@ public class UAWBlock implements ContentList {
             shootSound = Sounds.artillery;
             unitSort = (u, x, y) -> -u.health;
             ammo(
-                    Items.surgeAlloy, new PointBulletType() {{
+                    Items.surgeAlloy, new StandardPointBulletType() {{
                         damage = 400;
                         speed = brange;
                         splashDamage = 200;
                         splashDamageRadius = 3 * 8;
                         shootEffect = new MultiEffect(UAWFxDynamic.railShoot(Pal.missileYellow, 32), Fx.blockExplosionSmoke);
-                        hitEffect = Fx.railHit;
                         smokeEffect = Fx.smokeCloud;
                         trailEffect = Fx.railTrail;
                         hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(Pal.bulletYellow, splashDamageRadius), Fx.smokeCloud);
                         trailSpacing = 20f;
+                        shieldDamageMultiplier = 1.5f;
                         buildingDamageMultiplier = 0.5f;
                         hitShake = 6f;
                         ammoMultiplier = 1f;
                         reloadMultiplier = 1.5f;
                         status = StatusEffects.electrified;
                     }},
-                    UAWItems.titaniumCarbide, new RailBulletType() {{
+                    UAWItems.titaniumCarbide, new StandardRailBulletType() {{
                         damage = 550;
                         length = 450;
                         shootEffect = new MultiEffect(UAWFxDynamic.railShoot(Pal.missileYellow, 32), Fx.blockExplosionSmoke);
@@ -341,7 +340,7 @@ public class UAWBlock implements ContentList {
                         smokeEffect = Fx.smokeCloud;
                         updateEffect = Fx.railTrail;
                         updateEffectSeg = 30f;
-                        buildingDamageMultiplier = 0.5f;
+                        armorIgnoreScl = buildingDamageMultiplier = 0.5f;
                         hitShake = 6f;
                         ammoMultiplier = 1f;
                         status = UAWStatusEffects.breached;

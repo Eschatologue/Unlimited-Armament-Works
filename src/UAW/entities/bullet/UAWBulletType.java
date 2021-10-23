@@ -19,6 +19,9 @@ public class UAWBulletType extends BulletType {
         this.damage = damage;
     }
 
+    public UAWBulletType() {
+    }
+
     @Override
     public void hitEntity(Bullet b, Hitboxc entity, float health) {
         float realDamage = b.damage * armorIgnoreScl;
@@ -28,7 +31,7 @@ public class UAWBulletType extends BulletType {
                 h.damage(b.damage - realDamage);
             } else h.damage(b.damage);
         }
-        if (entity instanceof Shieldc h) {
+        if (entity instanceof Shieldc h && shieldDamageMultiplier > 1) {
             h.damagePierce(b.damage * shieldDamageMultiplier);
         }
         if (entity instanceof Unit unit) {
