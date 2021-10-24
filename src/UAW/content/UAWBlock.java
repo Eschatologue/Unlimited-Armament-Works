@@ -122,7 +122,7 @@ public class UAWBlock implements ContentList {
             health = 150 * size * size;
             maxAmmo = 200;
             reloadTime = 30f;
-            range = 30 * tilesize;
+            range = 35 * tilesize;
             rotateSpeed = 7f;
             inaccuracy = 7.5f;
             recoilAmount = 3f;
@@ -226,7 +226,7 @@ public class UAWBlock implements ContentList {
             reloadTime = 35f;
             shootShake = 3f;
             restitution = 0.05f;
-            range = 25 * tilesize;
+            range = 30 * tilesize;
             ammoUseEffect = Fx.casing3;
             shootSound = Sounds.shootBig;
             inaccuracy = 1.5f;
@@ -426,8 +426,8 @@ public class UAWBlock implements ContentList {
             restitution = 0.02f;
             recoilAmount = 6f;
             shootShake = 48f;
-            range = 50 * tilesize;
-            minRange = range / 3.5f;
+            range = 65 * tilesize;
+            minRange = range / 2.5f;
             acceptCoolant = false;
 
             shootSound = UAWSfx.artilleryShootHuge;
