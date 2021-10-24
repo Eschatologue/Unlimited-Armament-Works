@@ -427,7 +427,7 @@ public class UAWBlock implements ContentList {
             recoilAmount = 6f;
             shootShake = 48f;
             range = 65 * tilesize;
-            minRange = range / 2.5f;
+            minRange = range / 4f;
             acceptCoolant = false;
 
             shootSound = UAWSfx.artilleryShootHuge;
