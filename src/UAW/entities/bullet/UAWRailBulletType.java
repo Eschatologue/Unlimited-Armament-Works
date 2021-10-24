@@ -6,7 +6,7 @@ import mindustry.content.Fx;
 import mindustry.entities.*;
 import mindustry.gen.*;
 
-public class StandardRailBulletType extends UAWBulletType {
+public class UAWRailBulletType extends UAWBulletType {
     //for calculating the furthest point
     static float furthest = 0;
 
@@ -20,7 +20,7 @@ public class StandardRailBulletType extends UAWBulletType {
 
     public float updateEffectSeg = 20f;
 
-    public StandardRailBulletType() {
+    public UAWRailBulletType() {
         speed = 0f;
         pierceBuilding = true;
         pierce = true;

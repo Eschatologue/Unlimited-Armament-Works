@@ -6,7 +6,7 @@ import arc.math.Mathf;
 import arc.util.Tmp;
 import mindustry.gen.Bullet;
 
-public class TrailBulletType extends StandardBulletType {
+public class TrailBulletType extends UAWBasicBulletType {
     /**
      * Draws the Bullet Sprite
      */

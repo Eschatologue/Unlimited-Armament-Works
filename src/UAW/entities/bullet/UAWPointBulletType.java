@@ -6,13 +6,13 @@ import mindustry.Vars;
 import mindustry.entities.Units;
 import mindustry.gen.*;
 
-public class StandardPointBulletType extends UAWBulletType {
+public class UAWPointBulletType extends UAWBulletType {
     private static float cdist = 0f;
     private static Unit result;
 
     public float trailSpacing = 10f;
 
-    public StandardPointBulletType() {
+    public UAWPointBulletType() {
         scaleVelocity = true;
         lifetime = 100f;
         collides = false;

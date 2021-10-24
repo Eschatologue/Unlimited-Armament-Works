@@ -8,7 +8,7 @@ import arc.util.Tmp;
 import mindustry.gen.Bullet;
 import mindustry.graphics.Pal;
 
-public class StandardBulletType extends UAWBulletType {
+public class UAWBasicBulletType extends UAWBulletType {
     public Color backColor = Pal.bulletYellowBack, frontColor = Pal.bulletYellow;
     public Color mixColorFrom = new Color(1f, 1f, 1f, 0f), mixColorTo = new Color(1f, 1f, 1f, 0f);
     public float width = 5f, height = 7f;
@@ -19,19 +19,19 @@ public class StandardBulletType extends UAWBulletType {
     public TextureRegion backRegion;
     public TextureRegion frontRegion;
 
-    public StandardBulletType(float speed, float damage, String bulletSprite) {
+    public UAWBasicBulletType(float speed, float damage, String bulletSprite) {
         super(speed, damage);
         this.sprite = bulletSprite;
     }
 
-    public StandardBulletType(float speed, float damage) {
+    public UAWBasicBulletType(float speed, float damage) {
         this(speed, damage, "bullet");
     }
 
     /**
      * For mods.
      */
-    public StandardBulletType() {
+    public UAWBasicBulletType() {
         this(1f, 1f, "bullet");
     }
 

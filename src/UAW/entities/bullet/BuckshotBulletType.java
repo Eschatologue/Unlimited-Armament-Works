@@ -1,14 +1,12 @@
 package UAW.entities.bullet;
 
-import UAW.graphics.UAWFxDynamic;
 import arc.graphics.Color;
 import mindustry.content.Fx;
-import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.effect.MultiEffect;
 
 import static mindustry.Vars.tilesize;
 
-public class BuckshotBulletType extends StandardBulletType {
+public class BuckshotBulletType extends UAWBasicBulletType {
 
     public BuckshotBulletType(float speed, float damage){
         super(speed, damage);

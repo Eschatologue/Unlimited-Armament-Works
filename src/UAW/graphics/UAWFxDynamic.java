@@ -16,6 +16,7 @@ public class UAWFxDynamic {
     private static final Rand rand = new Rand();
     private static final Vec2 v = new Vec2();
 
+    // region Rails & Inst
     public static Effect instShoot(Color color, float size) {
         return new Effect(24.0F, size * 8, (e) -> {
             e.scaled(10.0F, (b) -> {
@@ -32,6 +33,52 @@ public class UAWFxDynamic {
         });
     }
 
+    public static Effect instTrail(Color frontColor, Color backColor) {
+        return new Effect(30, e -> {
+            for (int i = 0; i < 2; i++) {
+                color(i == 0 ? backColor : frontColor);
+
+                float m = i == 0 ? 1f : 0.5f;
+
+                float rot = e.rotation + 180f;
+                float w = 15f * e.fout() * m;
+                Drawf.tri(e.x, e.y, w, (30f + Mathf.randomSeedRange(e.id, 15f)) * m, rot);
+                Drawf.tri(e.x, e.y, w, 10f * m, rot + 180f);
+            }
+
+            Drawf.light(e.x, e.y, 60f, backColor, 0.6f * e.fout());
+        });
+    }
+
+    public static Effect instHit(Color frontColor, Color backColor) {
+        return new Effect(20f, 200f, e -> {
+            color(backColor);
+            for (int i = 0; i < 2; i++) {
+                color(i == 0 ? backColor : frontColor);
+
+                float m = i == 0 ? 1f : 0.5f;
+
+                for (int j = 0; j < 5; j++) {
+                    float rot = e.rotation + Mathf.randomSeedRange(e.id + j, 50f);
+                    float w = 23f * e.fout() * m;
+                    Drawf.tri(e.x, e.y, w, (80f + Mathf.randomSeedRange(e.id + j, 40f)) * m, rot);
+                    Drawf.tri(e.x, e.y, w, 20f * m, rot + 180f);
+                }
+            }
+            e.scaled(10f, c -> {
+                color(frontColor);
+                stroke(c.fout() * 2f + 0.2f);
+                Lines.circle(e.x, e.y, c.fin() * 30f);
+            });
+            e.scaled(12f, c -> {
+                color(backColor);
+                randLenVectors(e.id, 25, 5f + e.fin() * 80f, e.rotation, 60f, (x, y) -> {
+                    Fill.square(e.x + x, e.y + y, c.fout() * 3f, 45f);
+                });
+            });
+        });
+    }
+
     public static Effect railShoot(Color color, float size) {
         return new Effect(24.0F, size * 8, (e) -> {
             e.scaled(10.0F, (b) -> {
@@ -40,12 +87,31 @@ public class UAWFxDynamic {
                 Lines.circle(b.x, b.y, b.fin() * size);
             });
             Draw.color(color);
-
             for (int i : Mathf.signs) {
                 Drawf.tri(e.x, e.y, (size * 0.26f) * e.fout(), (size * 1.7f), e.rotation + 90f * i);
             }
         });
     }
+
+    public static Effect railTrail(Color color) {
+        return new Effect(16f, e -> {
+            color(color);
+            for (int i : Mathf.signs) {
+                Drawf.tri(e.x, e.y, 10f * e.fout(), 24f, e.rotation + 90 + 90f * i);
+            }
+            Drawf.light(e.x, e.y, 60f * e.fout(), Pal.orangeSpark, 0.5f);
+        });
+    }
+
+    public static Effect railHit(Color color) {
+        return new Effect(18f, 200f, e -> {
+            color(color);
+            for (int i : Mathf.signs) {
+                Drawf.tri(e.x, e.y, 10f * e.fout(), 60f, e.rotation + 140f * i);
+            }
+        });
+    }
+    // endregion Rails & inst
 
     public static Effect statusFieldApply(Color frontColor, Color backColor, float size) {
         return new Effect(50, e -> {

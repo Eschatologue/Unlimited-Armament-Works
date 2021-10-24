@@ -291,6 +291,7 @@ public class UAWBlock implements ContentList {
         }};
         longsword = new CustomItemTurret("longsword") {{
             float brange = range = 55 * tilesize;
+            Color bulletColor = Pal.bulletYellow;
             requirements(Category.turret, with(
                     Items.thorium, 280,
                     UAWItems.titaniumCarbide, 150,
@@ -311,17 +312,17 @@ public class UAWBlock implements ContentList {
 
             shootCone = 1f;
             shootSound = Sounds.artillery;
-            //unitSort = (u, x, y) -> -u.health;
+            unitSort = (u, x, y) -> -u.health;
             ammo(
-                    Items.surgeAlloy, new StandardPointBulletType() {{
+                    Items.surgeAlloy, new UAWPointBulletType() {{
                         damage = 400;
                         speed = brange;
                         splashDamage = 200;
                         splashDamageRadius = 3 * 8;
-                        shootEffect = new MultiEffect(UAWFxDynamic.railShoot(Pal.missileYellow, 32), Fx.blockExplosionSmoke);
+                        shootEffect = new MultiEffect(UAWFxDynamic.railShoot(bulletColor, 32), Fx.blockExplosionSmoke);
                         smokeEffect = Fx.smokeCloud;
-                        trailEffect = Fx.railTrail;
-                        hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(Pal.bulletYellow, splashDamageRadius), Fx.smokeCloud);
+                        trailEffect = UAWFxDynamic.instTrail(bulletColor, Pal.bulletYellowBack);
+                        hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(bulletColor, splashDamageRadius), Fx.smokeCloud);
                         trailSpacing = 20f;
                         shieldDamageMultiplier = 1.5f;
                         buildingDamageMultiplier = 0.5f;
@@ -329,13 +330,14 @@ public class UAWBlock implements ContentList {
                         ammoMultiplier = 1f;
                         status = StatusEffects.electrified;
                     }},
-                    UAWItems.titaniumCarbide, new StandardRailBulletType() {{
+                    UAWItems.titaniumCarbide, new UAWRailBulletType() {{
                         damage = 400;
                         length = 450;
-                        shootEffect = new MultiEffect(UAWFxDynamic.railShoot(Pal.missileYellow, 32), Fx.blockExplosionSmoke);
-                        hitEffect = pierceEffect = new MultiEffect(Fx.railHit, Fx.blockExplosionSmoke);
+                        shootEffect = new MultiEffect(UAWFxDynamic.railShoot(bulletColor, 32), Fx.blockExplosionSmoke);
+                        hitEffect = pierceEffect = new MultiEffect(UAWFxDynamic.railHit(bulletColor), Fx.blockExplosionSmoke);
                         smokeEffect = Fx.smokeCloud;
-                        updateEffect = Fx.railTrail;
+                        updateEffect = UAWFxDynamic.railTrail(bulletColor);
+                        pierce = true;
                         updateEffectSeg = 30f;
                         armorIgnoreScl = buildingDamageMultiplier = 0.5f;
                         hitShake = 6f;
