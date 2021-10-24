@@ -321,7 +321,7 @@ public class UAWBlock implements ContentList {
                         splashDamageRadius = 3 * 8;
                         shootEffect = new MultiEffect(UAWFxDynamic.railShoot(bulletColor, 32), Fx.blockExplosionSmoke);
                         smokeEffect = Fx.smokeCloud;
-                        trailEffect = UAWFxDynamic.instTrail(bulletColor, Pal.bulletYellowBack);
+                        trailEffect = UAWFxDynamic.railTrail(bulletColor);
                         hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(bulletColor, splashDamageRadius), Fx.smokeCloud);
                         trailSpacing = 20f;
                         shieldDamageMultiplier = 1.5f;
