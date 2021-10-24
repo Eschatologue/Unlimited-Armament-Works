@@ -311,7 +311,7 @@ public class UAWBlock implements ContentList {
 
             shootCone = 1f;
             shootSound = Sounds.artillery;
-            unitSort = (u, x, y) -> -u.health;
+            //unitSort = (u, x, y) -> -u.health;
             ammo(
                     Items.surgeAlloy, new StandardPointBulletType() {{
                         damage = 400;
@@ -404,13 +404,12 @@ public class UAWBlock implements ContentList {
         skyhammer = new CustomItemTurret("skyhammer") {{
             requirements(Category.turret, with(
                     Items.copper, 1000,
-                    Items.lead, 600,
-                    Items.titanium, 550,
+                    Items.lead, 650,
                     Items.graphite, 500,
-                    Items.surgeAlloy, 350,
-                    Items.plastanium, 300,
-                    Items.thorium, 250,
-                    UAWItems.titaniumCarbide, 225));
+                    Items.plastanium, 325,
+                    Items.silicon, 325,
+                    UAWItems.titaniumCarbide, 250
+            ));
             size = 4;
             health = 100 * size * size;
             targetAir = false;
@@ -427,11 +426,12 @@ public class UAWBlock implements ContentList {
             recoilAmount = 6f;
             shootShake = 48f;
             range = 50 * tilesize;
-            minRange = range / 4;
+            minRange = range / 3.5f;
+            acceptCoolant = false;
 
             shootSound = UAWSfx.artilleryShootHuge;
             ammo(
-                    Items.pyratite, new ArtilleryBulletType(2f, 4000) {{
+                    Items.pyratite, new ArtilleryBulletType(2f, 2500) {{
                         height = 45;
                         width = height / 2f;
                         splashDamage = damage;
@@ -468,7 +468,7 @@ public class UAWBlock implements ContentList {
                             applySound = Sounds.flame2;
                         }};
                     }},
-                    UAWItems.cryogel, new ArtilleryBulletType(2f, 4000) {{
+                    UAWItems.cryogel, new ArtilleryBulletType(2f, 3200) {{
                         height = 45;
                         width = height / 2f;
                         splashDamage = damage;
@@ -504,7 +504,7 @@ public class UAWBlock implements ContentList {
                             applySound = Sounds.plasmaboom;
                         }};
                     }},
-                    Items.plastanium, new ArtilleryBulletType(2f, 3500) {{
+                    Items.plastanium, new ArtilleryBulletType(2f, 3200) {{
                         height = 45;
                         width = height / 2f;
                         splashDamage = damage;
@@ -540,7 +540,7 @@ public class UAWBlock implements ContentList {
                             frontColor = Pal.plastaniumFront;
                         }};
                     }},
-                    Items.thorium, new ArtilleryBulletType(2f, 5500) {{
+                    Items.thorium, new ArtilleryBulletType(2f, 4250) {{
                         height = 48;
                         width = height / 2f;
                         splashDamage = damage;
