@@ -291,7 +291,6 @@ public class UAWBlock implements ContentList {
         }};
         longsword = new CustomItemTurret("longsword") {{
             float brange = range = 55 * tilesize;
-            Color bulletColor = Pal.bulletYellow;
             requirements(Category.turret, with(
                     Items.thorium, 280,
                     UAWItems.titaniumCarbide, 150,
@@ -319,10 +318,10 @@ public class UAWBlock implements ContentList {
                         speed = brange;
                         splashDamage = 200;
                         splashDamageRadius = 3 * 8;
-                        shootEffect = new MultiEffect(UAWFxDynamic.railShoot(bulletColor, 32), Fx.blockExplosionSmoke);
+                        shootEffect = new MultiEffect(UAWFxDynamic.railShoot(Pal.bulletYellow, 32), Fx.blockExplosionSmoke);
                         smokeEffect = Fx.smokeCloud;
-                        trailEffect = UAWFxDynamic.railTrail(bulletColor);
-                        hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(bulletColor, splashDamageRadius), Fx.smokeCloud);
+                        trailEffect = UAWFxDynamic.railTrail(Pal.bulletYellow);
+                        hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(Pal.bulletYellow, splashDamageRadius), Fx.smokeCloud);
                         trailSpacing = 20f;
                         shieldDamageMultiplier = 1.5f;
                         buildingDamageMultiplier = 0.5f;
@@ -333,10 +332,10 @@ public class UAWBlock implements ContentList {
                     UAWItems.titaniumCarbide, new UAWRailBulletType() {{
                         damage = 400;
                         length = 450;
-                        shootEffect = new MultiEffect(UAWFxDynamic.railShoot(bulletColor, 32), Fx.blockExplosionSmoke);
-                        hitEffect = pierceEffect = new MultiEffect(UAWFxDynamic.railHit(bulletColor), Fx.blockExplosionSmoke);
+                        shootEffect = new MultiEffect(UAWFxDynamic.railShoot(Pal.bulletYellow, 32), Fx.blockExplosionSmoke);
+                        hitEffect = pierceEffect = new MultiEffect(UAWFxDynamic.railHit(Pal.bulletYellow), Fx.blockExplosionSmoke);
                         smokeEffect = Fx.smokeCloud;
-                        updateEffect = UAWFxDynamic.railTrail(bulletColor);
+                        updateEffect = UAWFxDynamic.railTrail(Pal.bulletYellow);
                         pierce = true;
                         updateEffectSeg = 30f;
                         armorIgnoreScl = buildingDamageMultiplier = 0.5f;
