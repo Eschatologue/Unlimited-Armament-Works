@@ -1,5 +1,6 @@
 package UAW.content;
 
+import UAW.ai.types.*;
 import UAW.entities.abilities.RazorRotorAbility;
 import UAW.entities.bullet.*;
 import UAW.graphics.*;
@@ -23,7 +24,7 @@ import static mindustry.content.Bullets.*;
 public class UAWUnitTypes implements ContentList {
     public static UnitType
             aglovale, bedivere, calogrenant, dagonet, esclabor,
-            clurit, kujang, beladau, alamang, kerambit,
+            clurit, kujang, kerambit, cetbang, kiamuk,
             hatsuharu, shiratsuyu, kagero, shimakaze,
             gardlacz, arkabuz, muszkiet, karabin, armata;
 
@@ -551,6 +552,7 @@ public class UAWUnitTypes implements ContentList {
             speed = 1.3f;
             rotateSpeed = 2.5f;
             ammoType = new ItemAmmoType(Items.graphite);
+            defaultController = TankAI::new;
 
             accel = 0.05f;
             drag = 0.06f;
