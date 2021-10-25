@@ -24,7 +24,7 @@ import static mindustry.content.Bullets.*;
 public class UAWUnitTypes implements ContentList {
     public static UnitType
             aglovale, bedivere, calogrenant, dagonet, esclabor,
-            clurit, kujang, kerambit, cetbang, kiamuk,
+            clurit, kujang, kerambit, cetbang, kiAmuk,
             hatsuharu, shiratsuyu, kagero, shimakaze,
             gardlacz, arkabuz, muszkiet, karabin, armata;
 
