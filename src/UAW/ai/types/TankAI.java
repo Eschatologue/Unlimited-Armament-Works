@@ -17,17 +17,14 @@ public class TankAI extends AIController {
 
         if (target != null && unit.hasWeapons() && command() == UnitCommand.attack) {
             attack(unit.range() / 3);
-            pathfind(Pathfinder.fieldCore);
         }
 
         if (target == null && command() == UnitCommand.attack && state.rules.waves && unit.team == state.rules.defaultTeam) {
             moveTo(getClosestSpawner(), state.rules.dropZoneRadius + 120f);
-            pathfind(Pathfinder.fieldCore);
         }
 
         if (command() == UnitCommand.rally) {
             moveTo(targetFlag(unit.x, unit.y, BlockFlag.rally, false), 60f);
-            pathfind(Pathfinder.fieldCore);
         }
 
         if ((core == null || !unit.within(core, unit.type.range * 0.5f)) && command() == UnitCommand.attack) {
