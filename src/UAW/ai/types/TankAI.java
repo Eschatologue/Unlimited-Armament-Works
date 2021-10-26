@@ -1,12 +1,12 @@
 package UAW.ai.types;
 
-import arc.math.*;
-import mindustry.ai.*;
+import arc.math.Mathf;
+import mindustry.ai.Pathfinder;
 import mindustry.ai.types.GroundAI;
-import mindustry.entities.units.*;
+import mindustry.entities.units.UnitCommand;
 import mindustry.gen.*;
-import mindustry.world.*;
-import mindustry.world.meta.*;
+import mindustry.world.Tile;
+import mindustry.world.meta.BlockFlag;
 
 import static mindustry.Vars.*;
 
@@ -25,17 +25,12 @@ public class TankAI extends GroundAI {
             }
         }
 
-        if((core == null || !unit.within(core, unit.type.range * 0.5f)) && command() == UnitCommand.attack){
+        if((!(core == null) || unit.within(core, unit.type.range * 0.5f)) && command() == UnitCommand.attack){
             boolean move = true;
 
             if(state.rules.waves && unit.team == state.rules.defaultTeam){
                 Tile spawner = getClosestSpawner();
                 if(spawner != null && unit.within(spawner, state.rules.dropZoneRadius + 120f)) move = false;
-            }
-            // dis
-            if(target == null && command() == UnitCommand.attack && state.rules.waves && unit.team == state.rules.defaultTeam){
-                moveTo(getClosestSpawner(), state.rules.dropZoneRadius + 120f);
-                move = false;
             }
 
             if(move) pathfind(Pathfinder.fieldCore);
