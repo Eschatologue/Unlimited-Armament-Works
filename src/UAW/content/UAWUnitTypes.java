@@ -553,6 +553,7 @@ public class UAWUnitTypes implements ContentList {
             rotateSpeed = 2.5f;
             ammoType = new ItemAmmoType(Items.graphite);
 
+
             accel = 0.05f;
             drag = 0.06f;
             range = 36 * tilesize;

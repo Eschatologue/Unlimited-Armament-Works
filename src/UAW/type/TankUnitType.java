@@ -29,6 +29,8 @@ public class TankUnitType extends UnitType {
         immunities = ObjectSet.with(StatusEffects.disarmed, StatusEffects.slow, StatusEffects.freezing);
         flying = false;
         constructor = MechUnit::create;
+        playerTargetFlags = new BlockFlag[]{null};
+        targetFlags = new BlockFlag[]{BlockFlag.factory, null};
         mechStride = mechFrontSway = mechSideSway = 0f;
     }
     /*
