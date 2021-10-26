@@ -25,12 +25,12 @@ public class TankAI extends GroundAI {
             }
         }
 
-        if((!(core == null) || unit.within(core, unit.type.range * 0.5f)) && command() == UnitCommand.attack){
-            boolean move = true;
+        if((core == null || !unit.within(core, unit.type.range * 0.5f)) && command() == UnitCommand.attack){
+            boolean move = false;
 
             if(state.rules.waves && unit.team == state.rules.defaultTeam){
                 Tile spawner = getClosestSpawner();
-                if(spawner != null && unit.within(spawner, state.rules.dropZoneRadius + 120f)) move = false;
+                if(spawner != null && unit.within(spawner, state.rules.dropZoneRadius + 120f)) move = true;
             }
 
             if(move) pathfind(Pathfinder.fieldCore);
