@@ -30,7 +30,6 @@ public class TankUnitType extends UnitType {
         immunities = ObjectSet.with(StatusEffects.disarmed, StatusEffects.slow, StatusEffects.freezing);
         flying = false;
         constructor = MechUnit::create;
-        defaultController = TankAI::new;
         playerTargetFlags = new BlockFlag[]{null};
         targetFlags = new BlockFlag[]{BlockFlag.turret, BlockFlag.repair, BlockFlag.extinguisher};
         mechStride = mechFrontSway = mechSideSway = 0f;
@@ -96,12 +95,6 @@ public class TankUnitType extends UnitType {
         Floor floor = Vars.world.floorWorld(unit.x, unit.y);
         Color floorColor = floor.mapColor;
         super.update(unit);
-        // Weak against fire
-        if (unit.hasEffect(StatusEffects.melting) || unit.hasEffect(StatusEffects.burning)) {
-            unit.reloadMultiplier = 0.5f;
-            unit.speedMultiplier = 0.5f;
-            unit.healthMultiplier = 0.8f;
-        }
         // Increased Speed in Liquid
         if (floor.isLiquid) {
             unit.speedMultiplier = liquidSpeedMultiplier;
@@ -112,6 +105,9 @@ public class TankUnitType extends UnitType {
                     unit.x + Angles.trnsx(unit.rotation - 90, trailOffsetX, trailOffsetY),
                     unit.y + Angles.trnsy(unit.rotation - 90, trailOffsetX, trailOffsetY),
                     unit.hitSize / 6, floorColor);
+        }
+        if (unit.isShooting){
+            unit.speedMultiplier = 0.8f;
         }
     }
 }
