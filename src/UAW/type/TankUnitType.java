@@ -1,5 +1,6 @@
 package UAW.type;
 
+import UAW.ai.types.TankAI;
 import UAW.world.meta.UAWStatValues;
 import arc.Core;
 import arc.graphics.Color;
@@ -29,8 +30,9 @@ public class TankUnitType extends UnitType {
         immunities = ObjectSet.with(StatusEffects.disarmed, StatusEffects.slow, StatusEffects.freezing);
         flying = false;
         constructor = MechUnit::create;
+        defaultController = TankAI::new;
         playerTargetFlags = new BlockFlag[]{null};
-        targetFlags = new BlockFlag[]{BlockFlag.factory, null};
+        targetFlags = new BlockFlag[]{BlockFlag.turret, BlockFlag.repair, BlockFlag.extinguisher};
         mechStride = mechFrontSway = mechSideSway = 0f;
     }
     /*
