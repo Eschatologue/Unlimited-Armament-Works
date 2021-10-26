@@ -34,52 +34,6 @@ public class TankUnitType extends UnitType {
         targetFlags = new BlockFlag[]{BlockFlag.turret, BlockFlag.repair, BlockFlag.extinguisher};
         mechStride = mechFrontSway = mechSideSway = 0f;
     }
-    /*
-    // This thing is broken
-        @Override
-        public void setStats(){
-            Unit inst = constructor.get();
-
-            stats.add(Stat.health, health);
-            stats.add(Stat.armor, armor);
-            stats.add(Stat.speed, speed * 60f / tilesize, StatUnit.tilesSecond);
-            stats.add(Stat.size, hitSize / tilesize, StatUnit.blocksSquared);
-            stats.add(Stat.itemCapacity, itemCapacity);
-            stats.add(Stat.range, (int)(maxRange / tilesize), StatUnit.blocks);
-            stats.add(Stat.commandLimit, commandLimit);
-
-            if(abilities.any()){
-                var unique = new ObjectSet<String>();
-
-                for(Ability a : abilities){
-                    if(unique.add(a.localized())){
-                        stats.add(Stat.abilities, a.localized());
-                    }
-                }
-            }
-
-            stats.add(Stat.flying, flying);
-
-            if(!flying){
-                stats.add(Stat.canBoost, canBoost);
-            }
-
-            if(mineTier >= 1){
-                stats.addPercent(Stat.mineSpeed, mineSpeed);
-                stats.add(Stat.mineTier, StatValues.blocks(b -> b instanceof Floor f && f.itemDrop != null && f.itemDrop.hardness <= mineTier && (!f.playerUnmineable || Core.settings.getBool("doubletapmine"))));
-            }
-            if(buildSpeed > 0){
-                stats.addPercent(Stat.buildSpeed, buildSpeed);
-            }
-            if(inst instanceof Payloadc){
-                stats.add(Stat.payloadCapacity, (payloadCapacity / (tilesize * tilesize)), StatUnit.blocksSquared);
-            }
-
-            if(weapons.any()){
-                stats.add(Stat.weapons, UAWStatValues.weapons(this, weapons));
-            }
-        }
-*/
     // Modifies drawMech
     @Override
     public void drawMech(Mechc mech) {
@@ -107,7 +61,7 @@ public class TankUnitType extends UnitType {
                     unit.hitSize / 6, floorColor);
         }
         if (unit.isShooting){
-            unit.speedMultiplier = 0.8f;
+            unit.speedMultiplier = 0f;
         }
     }
 }
