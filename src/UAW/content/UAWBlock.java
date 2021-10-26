@@ -301,7 +301,7 @@ public class UAWBlock implements ContentList {
             size = 3;
             health = 150 * size * size;
             maxAmmo = 30;
-            ammoPerShot = 10;
+            ammoPerShot = 6;
             rotateSpeed = 2.5f;
             reloadTime = 60;
             ammoUseEffect = UAWFxStatic.casing6;
@@ -427,7 +427,7 @@ public class UAWBlock implements ContentList {
             recoilAmount = 6f;
             shootShake = 48f;
             range = 65 * tilesize;
-            minRange = range / 4f;
+            minRange = range / 4.5f;
             acceptCoolant = false;
 
             shootSound = UAWSfx.artilleryShootHuge;
