@@ -11,7 +11,7 @@ import mindustry.world.meta.BlockFlag;
 
 import static mindustry.Vars.*;
 
-public class TankAI extends AIController {
+public class SeekAI extends AIController {
 
     @Override
     public void updateMovement() {
@@ -47,11 +47,9 @@ public class TankAI extends AIController {
                 if (unit.within(target, unit.range() / 1.5f)) {
                     //seek out target
                     unit.movePref(vec.set(target).sub(unit).setLength(unit.speed() * 0));
-                    pathfind(Pathfinder.costGround);
                 } else {
                     //move toward target in a straight line
                     unit.movePref(vec.set(target).sub(unit).limit(unit.speed()));
-                    pathfind(Pathfinder.costGround);
                 }
             } else if (move) {
                 pathfind(Pathfinder.fieldCore);
