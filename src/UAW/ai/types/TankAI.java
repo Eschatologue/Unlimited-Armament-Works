@@ -4,6 +4,7 @@ import arc.math.Mathf;
 import arc.math.geom.*;
 import mindustry.Vars;
 import mindustry.ai.Pathfinder;
+import mindustry.entities.Sized;
 import mindustry.entities.units.*;
 import mindustry.gen.*;
 import mindustry.world.Tile;
@@ -14,56 +15,57 @@ import static mindustry.Vars.*;
 public class TankAI extends AIController {
 
     @Override
-    public void updateMovement() {
+    public void updateMovement(){
 
         Building core = unit.closestEnemyCore();
 
-        if (core != null && unit.within(core, unit.range() / 1.1f + core.block.size * tilesize / 2f)) {
+        if(core != null && unit.within(core, unit.range() / 1.1f + core.block.size * tilesize / 2f)){
             target = core;
-            for (var mount : unit.mounts) {
-                if (mount.weapon.controllable && mount.weapon.bullet.collidesGround) {
+            for(var mount : unit.mounts){
+                if(mount.weapon.controllable && mount.weapon.bullet.collidesGround){
                     mount.target = core;
                 }
             }
         }
 
-        if (command() == UnitCommand.attack) {
+        if(command() == UnitCommand.attack){
             boolean move = true;
 
-            if (state.rules.waves && unit.team == state.rules.defaultTeam) {
+            if(state.rules.waves && unit.team == state.rules.defaultTeam){
                 Tile spawner = getClosestSpawner();
-                if (spawner != null && unit.within(spawner, state.rules.dropZoneRadius + 120f)) move = false;
+                if(spawner != null && unit.within(spawner, state.rules.dropZoneRadius + 120f)) move = false;
             }
 
             //raycast for target
-            if (target != null && unit.within(target, unit.type.range) && !Vars.world.raycast(unit.tileX(), unit.tileY(), target.tileX(), target.tileY(), (x, y) -> {
-                for (Point2 p : Geometry.d4c) {
-                    if (!unit.canPass(x + p.x, y + p.y)) {
+            if(target != null && unit.within(target, unit.type.range) && !Vars.world.raycast(unit.tileX(), unit.tileY(), target.tileX(), target.tileY(), (x, y) -> {
+                for(Point2 p : Geometry.d4c){
+                    if(!unit.canPass(x + p.x, y + p.y)){
                         return true;
                     }
                 }
                 return false;
-            })) {
-                if (unit.within(target, unit.range())) {
-                    unit.movePref(vec.set(target).sub(unit).limit(unit.range() / 4));
-                } else {
+            })){
+                if(unit.within(target, unit.range() / 4)){
+                    //circle target
+                    unit.movePref(vec.set(target).sub(unit).rotate(90f).setLength(unit.speed() * 0));
+                }else{
                     //move toward target in a straight line
                     unit.movePref(vec.set(target).sub(unit).limit(unit.speed()));
                 }
-            } else if (move) {
+            }else if(move){
                 pathfind(Pathfinder.fieldCore);
             }
         }
 
-        if (command() == UnitCommand.rally) {
+        if(command() == UnitCommand.rally){
             Teamc target = targetFlag(unit.x, unit.y, BlockFlag.rally, false);
 
-            if (target != null && !unit.within(target, 70f)) {
+            if(target != null && !unit.within(target, 70f)){
                 pathfind(Pathfinder.fieldRally);
             }
         }
 
-        if (unit.type.canBoost && unit.elevation > 0.001f && !unit.onSolid()) {
+        if(unit.type.canBoost && unit.elevation > 0.001f && !unit.onSolid()){
             unit.elevation = Mathf.approachDelta(unit.elevation, 0f, unit.type.riseSpeed);
         }
 
