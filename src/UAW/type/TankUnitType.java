@@ -56,7 +56,7 @@ public class TankUnitType extends UnitType {
                     unit.hitSize / 6, floorColor);
         }
         if (unit.isShooting) {
-            speed = speed * shootingSpeedMultiplier;
+            unit.speedMultiplier = shootingSpeedMultiplier;
         }
     }
 }
