@@ -7,6 +7,7 @@ import UAW.graphics.*;
 import UAW.type.*;
 import UAW.type.weapon.RecoilingWeapon;
 import arc.graphics.Color;
+import mindustry.ai.types.HugAI;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.bullet.*;
@@ -552,7 +553,7 @@ public class UAWUnitTypes implements ContentList {
             speed = 1.3f;
             rotateSpeed = 2.5f;
             ammoType = new ItemAmmoType(Items.graphite);
-            shootingSpeedMultiplier = 0.4f;
+            defaultController = HugAI::new;
 
             accel = 0.05f;
             drag = 0.06f;
@@ -629,7 +630,6 @@ public class UAWUnitTypes implements ContentList {
             speed = 1.2f;
             rotateSpeed = 2f;
             ammoType = new ItemAmmoType(Items.graphite);
-            shootingSpeedMultiplier = 0.5f;
 
             accel = 0.04f;
             drag = 0.08f;

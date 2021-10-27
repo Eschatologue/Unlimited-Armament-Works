@@ -55,9 +55,6 @@ public class TankUnitType extends UnitType {
                     unit.y + Angles.trnsy(unit.rotation - 90, trailOffsetX, trailOffsetY),
                     unit.hitSize / 6, floorColor);
         }
-        if (unit.isShooting) {
-            unit.speedMultiplier = shootingSpeedMultiplier;
-        }
     }
 }
 
