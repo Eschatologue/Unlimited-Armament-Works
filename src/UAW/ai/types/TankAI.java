@@ -44,12 +44,11 @@ public class TankAI extends AIController {
                 }
                 return false;
             })) {
-                if (unit.within(target, unit.range() / 4)) {
-                    unit.speedMultiplier = 0f;
+                if (unit.within(target, unit.range())) {
+                    unit.movePref(vec.set(target).sub(unit).limit(unit.range() / 4));
                 } else {
                     //move toward target in a straight line
                     unit.movePref(vec.set(target).sub(unit).limit(unit.speed()));
-                    pathfind(Pathfinder.costGround);
                 }
             } else if (move) {
                 pathfind(Pathfinder.fieldCore);
