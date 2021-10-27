@@ -45,8 +45,7 @@ public class SeekAI extends AIController {
                 return false;
             })) {
                 if (unit.within(target, unit.range() / 1.5f)) {
-                    //seek out target
-                    unit.movePref(vec.set(target).sub(unit).setLength(unit.speed() * 0));
+                    unit.movePref(vec.set(target).sub(unit).rotate(90f).setLength(unit.speed() * 0));
                 } else {
                     //move toward target in a straight line
                     unit.movePref(vec.set(target).sub(unit).limit(unit.speed()));
