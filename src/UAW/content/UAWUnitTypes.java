@@ -555,7 +555,7 @@ public class UAWUnitTypes implements ContentList {
             ammoType = new ItemAmmoType(Items.graphite);
 
             accel = 0.05f;
-            drag = 0.06f;
+            drag = 0.055f;
             range = 36 * tilesize;
             rotateShooting = false;
             useCustomWeaponIcon = true;
