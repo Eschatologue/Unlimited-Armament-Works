@@ -1,6 +1,8 @@
 package UAW.ai.types;
 
 import arc.math.Mathf;
+import arc.math.geom.*;
+import mindustry.Vars;
 import mindustry.ai.Pathfinder;
 import mindustry.entities.units.*;
 import mindustry.gen.*;
@@ -16,7 +18,7 @@ public class TankAI extends AIController {
 
         Building core = unit.closestEnemyCore();
 
-        if (core != null && unit.within(core, unit.range() / 1.3f + core.block.size * tilesize / 2f)) {
+        if (core != null && unit.within(core, unit.range() / 1.1f + core.block.size * tilesize / 2f)) {
             target = core;
             for (var mount : unit.mounts) {
                 if (mount.weapon.controllable && mount.weapon.bullet.collidesGround) {
@@ -25,15 +27,33 @@ public class TankAI extends AIController {
             }
         }
 
-        if ((core == null || !unit.within(core, unit.type.range * 0.5f)) && command() == UnitCommand.attack) {
+        if (command() == UnitCommand.attack) {
             boolean move = true;
 
             if (state.rules.waves && unit.team == state.rules.defaultTeam) {
                 Tile spawner = getClosestSpawner();
-                if (spawner != null && unit.within(spawner, state.rules.dropZoneRadius + 250f)) move = false;
+                if (spawner != null && unit.within(spawner, state.rules.dropZoneRadius + 120f)) move = false;
             }
 
-            if (move) pathfind(Pathfinder.fieldCore);
+            //raycast for target
+            if (target != null && unit.within(target, unit.type.range) && !Vars.world.raycast(unit.tileX(), unit.tileY(), target.tileX(), target.tileY(), (x, y) -> {
+                for (Point2 p : Geometry.d4c) {
+                    if (!unit.canPass(x + p.x, y + p.y)) {
+                        return true;
+                    }
+                }
+                return false;
+            })) {
+                if (unit.within(target, unit.range() / 4)) {
+                    unit.speedMultiplier = 0f;
+                } else {
+                    //move toward target in a straight line
+                    unit.movePref(vec.set(target).sub(unit).limit(unit.speed()));
+                    pathfind(Pathfinder.costGround);
+                }
+            } else if (move) {
+                pathfind(Pathfinder.fieldCore);
+            }
         }
 
         if (command() == UnitCommand.rally) {
