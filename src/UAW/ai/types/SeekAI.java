@@ -48,9 +48,9 @@ public class SeekAI extends AIController {
                     unit.movePref(vec.set(target).sub(unit).rotate(90f).setLength(unit.speed() * 0));
                 } else {
                     unit.movePref(vec.set(target).sub(unit).limit(unit.speed()));
-                    if (floor.isDeep()) {
-                        pathfind(Pathfinder.costGround);
-                    }
+                }
+                if (floor.isDeep() && unit().canDrown()) {
+                    pathfind(Pathfinder.fieldCore);
                 }
             } else if (move) {
                 pathfind(Pathfinder.fieldCore);

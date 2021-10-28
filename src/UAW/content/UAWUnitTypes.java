@@ -23,15 +23,13 @@ import static mindustry.content.Bullets.*;
 public class UAWUnitTypes implements ContentList {
     public static UnitType
             aglovale, bedivere, calogrenant, dagonet, esclabor,
+            escutcheon,
             clurit, kujang, kerambit, cetbang, kiAmuk,
             hatsuharu, shiratsuyu, kagero, shimakaze,
-            gardlacz, arkabuz, muszkiet, karabin, armata,
-            escutcheon
-            ;
+            gardlacz, arkabuz, muszkiet, armata, twardy;
 
     @Override
     public void load() {
-        // region Air - Helicopters
         aglovale = new CopterUnitType("aglovale") {{
             health = 450;
             hitSize = 18;
@@ -196,8 +194,7 @@ public class UAWUnitTypes implements ContentList {
             );
             abilities.add(new RazorRotorAbility(35, 0.3f, 4 * tilesize));
         }};
-        // endregion
-        // region Naval - Monitor
+
         clurit = new UnitType("clurit") {{
             health = 750;
             speed = 0.75f;
@@ -362,8 +359,7 @@ public class UAWUnitTypes implements ContentList {
                     }}
             );
         }};
-        // endregion
-        // region naval - Torpedo Destroyers
+
         hatsuharu = new UnitType("hatsuharu") {{
             health = 650;
             speed = 1.2f;
@@ -544,8 +540,7 @@ public class UAWUnitTypes implements ContentList {
                     }}
             );
         }};
-        // endregion naval - Torpedo Destroyers
-        // region Ground - Tanks
+
         gardlacz = new TankUnitType("gardlacz") {{
             health = 750;
             armor = 20;
@@ -685,6 +680,5 @@ public class UAWUnitTypes implements ContentList {
                     }}
             );
         }};
-        // endregion
     }
 }
