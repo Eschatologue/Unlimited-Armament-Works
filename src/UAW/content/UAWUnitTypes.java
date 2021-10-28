@@ -1,13 +1,11 @@
 package UAW.content;
 
-import UAW.ai.types.*;
 import UAW.entities.abilities.RazorRotorAbility;
 import UAW.entities.bullet.*;
 import UAW.graphics.*;
 import UAW.type.*;
 import UAW.type.weapon.RecoilingWeapon;
 import arc.graphics.Color;
-import mindustry.ai.types.HugAI;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.bullet.*;
@@ -27,7 +25,9 @@ public class UAWUnitTypes implements ContentList {
             aglovale, bedivere, calogrenant, dagonet, esclabor,
             clurit, kujang, kerambit, cetbang, kiAmuk,
             hatsuharu, shiratsuyu, kagero, shimakaze,
-            gardlacz, arkabuz, muszkiet, karabin, armata;
+            gardlacz, arkabuz, muszkiet, karabin, armata,
+            escutcheon
+            ;
 
     @Override
     public void load() {
