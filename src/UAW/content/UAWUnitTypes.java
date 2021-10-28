@@ -630,6 +630,7 @@ public class UAWUnitTypes implements ContentList {
             speed = 1.2f;
             rotateSpeed = 2f;
             ammoType = new ItemAmmoType(Items.graphite);
+            targetAir = false;
 
             accel = 0.04f;
             drag = 0.08f;

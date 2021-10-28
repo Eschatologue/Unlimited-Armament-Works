@@ -7,6 +7,7 @@ import mindustry.ai.Pathfinder;
 import mindustry.entities.units.*;
 import mindustry.gen.*;
 import mindustry.world.Tile;
+import mindustry.world.blocks.environment.Floor;
 import mindustry.world.meta.BlockFlag;
 
 import static mindustry.Vars.*;
@@ -17,6 +18,7 @@ public class SeekAI extends AIController {
     public void updateMovement() {
 
         Building core = unit.closestEnemyCore();
+        Floor floor = Vars.world.floorWorld(unit.x, unit.y);
 
         if (core != null && unit.within(core, unit.range() / 1.1f + core.block.size * tilesize / 2f)) {
             target = core;
@@ -42,10 +44,13 @@ public class SeekAI extends AIController {
                 }
                 return false;
             })) {
-                if (unit.within(target, unit.range() / 1.5f)) {
+                if (unit.within(target, unit.range() / 2)) {
                     unit.movePref(vec.set(target).sub(unit).rotate(90f).setLength(unit.speed() * 0));
                 } else {
                     unit.movePref(vec.set(target).sub(unit).limit(unit.speed()));
+                    if(floor.isDeep()){
+                        pathfind(Pathfinder.costGround);
+                    }
                 }
             } else if (move) {
                 pathfind(Pathfinder.fieldCore);
