@@ -18,7 +18,6 @@ public class TankUnitType extends UnitType {
     public float trailIntensity = 0.4f;
     public float trailOffsetX = 0f, trailOffsetY = 0f;
     public float liquidSpeedMultiplier = 1.2f;
-    public float shootingSpeedMultiplier = 1f;
     public boolean useCustomWeaponIcon = false;
 
     public TankUnitType(String name) {
@@ -27,7 +26,6 @@ public class TankUnitType extends UnitType {
         flying = false;
         constructor = MechUnit::create;
         defaultController = SeekAI::new;
-        targetAir = false;
         targetFlags = new BlockFlag[]{BlockFlag.turret, BlockFlag.repair, BlockFlag.extinguisher};
         mechStride = mechFrontSway = mechSideSway = 0f;
     }

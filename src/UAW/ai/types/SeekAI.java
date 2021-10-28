@@ -34,8 +34,6 @@ public class SeekAI extends AIController {
                 Tile spawner = getClosestSpawner();
                 if (spawner != null && unit.within(spawner, state.rules.dropZoneRadius + 120f)) move = false;
             }
-
-            //raycast for target
             if (target != null && unit.within(target, unit.type.range) && !Vars.world.raycast(unit.tileX(), unit.tileY(), target.tileX(), target.tileY(), (x, y) -> {
                 for (Point2 p : Geometry.d4c) {
                     if (!unit.canPass(x + p.x, y + p.y)) {
@@ -45,10 +43,10 @@ public class SeekAI extends AIController {
                 return false;
             })) {
                 if (unit.within(target, unit.range() / 1.5f)) {
-                    unit.movePref(vec.set(target).sub(unit).rotate(90f).setLength(unit.speed() * 0));
+                    unit.movePref(vec.set(target).sub(unit).rotate(90f).setLength(unit.speed() * 0.2f));
                 } else {
-                    //move toward target in a straight line
                     unit.movePref(vec.set(target).sub(unit).limit(unit.speed()));
+                    pathfind(Pathfinder.costGround);
                 }
             } else if (move) {
                 pathfind(Pathfinder.fieldCore);
