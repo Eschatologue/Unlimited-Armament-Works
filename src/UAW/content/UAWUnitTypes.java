@@ -197,7 +197,7 @@ public class UAWUnitTypes implements ContentList {
         calogrenant = new CopterUnitType("calogrenant") {{
             float rotX = 18;
             float rotY = 8;
-            float rotSpeed = 14f;
+            float rotSpeed = 12f;
             health = 9500;
             hitSize = 32;
             speed = 2f;
@@ -216,6 +216,7 @@ public class UAWUnitTypes implements ContentList {
                         y = rotY;
                         rotationSpeed = -rotSpeed;
                         bladeCount = 3;
+                        drawRotorTop = false;
                     }},
                     new Rotor("uaw-short-blade") {{
                         x = -rotX;
@@ -228,6 +229,7 @@ public class UAWUnitTypes implements ContentList {
                         y = rotY;
                         rotationSpeed = rotSpeed;
                         bladeCount = 3;
+                        drawRotorTop = false;
                     }},
                     new Rotor("uaw-short-blade") {{
                         x = rotX;
