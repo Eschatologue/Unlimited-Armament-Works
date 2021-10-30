@@ -194,12 +194,20 @@ public class UAWFxStatic {
     }).layer(Layer.bullet),
 
     pyraSmokeTrail = new Effect(33f, 80f, e -> {
-        color(Color.valueOf("ddcece"), Pal.lighterOrange, UAWPal.darkPyraBloom, e.fin() * e.fin());
+        color(UAWPal.darkPyraBloom, Pal.lighterOrange, Color.valueOf("ddcece"),  e.fin() * e.fin());
 
         randLenVectors(e.id, 8, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) -> {
             Fill.circle(e.x + x, e.y + y, 0.45f + e.fout() * 2f);
         });
     }),
+
+    pyraSmokeTrailUnder = new Effect(33f, 80f, e -> {
+        color(UAWPal.darkPyraBloom, Pal.lighterOrange, Color.valueOf("ddcece"),  e.fin() * e.fin());
+
+        randLenVectors(e.id, 8, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) -> {
+            Fill.circle(e.x + x, e.y + y, 0.45f + e.fout() * 2f);
+        });
+    }).layer(Layer.flyingUnitLow - 1),
 
     surgeSmokeTrail = new Effect(33f, 80f, e -> {
         color(Color.valueOf("ddcece"), UAWPal.surgeFront, UAWPal.surgeBackBloom, e.fin() * e.fin());

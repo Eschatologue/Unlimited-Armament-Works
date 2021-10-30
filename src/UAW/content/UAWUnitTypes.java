@@ -206,7 +206,7 @@ public class UAWUnitTypes implements ContentList {
             ammoType = new ItemAmmoType(Items.graphite);
             faceTarget = flying = true;
 
-            range = 30 * tilesize;
+            range = 35 * tilesize;
             maxRange = range;
 
             itemCapacity = 15;
@@ -253,11 +253,11 @@ public class UAWUnitTypes implements ContentList {
                             hitEffect = new MultiEffect(Fx.hitBulletSmall, Fx.shootSmallSmoke);
                         }};
                     }},
-                    new Weapon("uaw-artillery-small-purple") {{
+                    new Weapon("uaw-artillery-small-red") {{
                         mirror = alternate = true;
                         rotate = false;
-                        x = 5.5f;
-                        y = -8f;
+                        x = 11f;
+                        y = 0f;
                         inaccuracy = 8f;
                         shootCone = 30;
                         rotateSpeed = 2.2f;
@@ -265,21 +265,21 @@ public class UAWUnitTypes implements ContentList {
                         recoil = 2.2f;
                         shootSound = Sounds.shootBig;
                         shake = 2.5f;
+                        ejectEffect = UAWFxStatic.casing3Long;
                         bullet = new UAWPointBulletType() {{
                             damage = 400;
                             speed = range;
                             splashDamage = 200;
                             splashDamageRadius = 3 * 8;
-                            shootEffect = new MultiEffect(UAWFxDynamic.railShoot(Pal.bulletYellow, 32), Fx.blockExplosionSmoke);
+                            shootEffect = new MultiEffect(UAWFxDynamic.railShoot(Pal.bulletYellowBack, 16), Fx.blockExplosionSmoke);
                             smokeEffect = Fx.smokeCloud;
-                            trailEffect = UAWFxDynamic.railTrail(Pal.bulletYellow);
-                            hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(Pal.bulletYellow, splashDamageRadius), UAWFxDynamic.dynamicExplosion(splashDamageRadius));
+                            trailEffect = UAWFxDynamic.railTrail(Pal.bulletYellowBack);
+                            hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(Pal.bulletYellowBack, splashDamageRadius), UAWFxDynamic.dynamicExplosion(splashDamageRadius));
                             trailSpacing = 20f;
                             shieldDamageMultiplier = 1.5f;
                             buildingDamageMultiplier = 0.5f;
                             hitShake = 6f;
                             ammoMultiplier = 1f;
-                            status = StatusEffects.electrified;
                         }};
                     }},
                     new Weapon() {{
@@ -303,6 +303,7 @@ public class UAWUnitTypes implements ContentList {
                             lifetime = range / speed + 45;
                             shootEffect = UAWFxStatic.shootSurgeFlame;
                             hitEffect = despawnEffect = UAWFxDynamic.dynamicExplosion(splashDamageRadius);
+                            trailEffect = UAWFxStatic.pyraSmokeTrailUnder;
                             status = StatusEffects.slow;
                             statusDuration = 2 * 60;
                         }};
