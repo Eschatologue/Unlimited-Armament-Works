@@ -1,8 +1,11 @@
 package UAW.entities.bullet;
 
 import arc.Core;
+import arc.graphics.Color;
+import arc.graphics.g2d.Draw;
+import arc.util.Tmp;
 import mindustry.entities.bullet.BasicBulletType;
-import mindustry.gen.Sounds;
+import mindustry.gen.*;
 import mindustry.graphics.Pal;
 
 import static mindustry.Vars.tilesize;
@@ -26,7 +29,6 @@ public class CruiseMissileBulletType extends BasicBulletType {
         trailWidth = trailLength / 14.6f;
         trailColor = Pal.bulletYellowBack;
         trailInterval = 0.5f;
-        trailRotation = true;
     }
 
     public CruiseMissileBulletType(float speed, float damage) {
@@ -42,5 +44,14 @@ public class CruiseMissileBulletType extends BasicBulletType {
     public void load() {
         super.load();
         backRegion = Core.atlas.find(sprite + "-outline");
+    }
+
+    @Override
+    public void draw(Bullet b) {
+        super.draw(b);
+        Draw.rect(backRegion, b.x, b.y, b.rotation() - 90);
+        Draw.rect(frontRegion, b.x, b.y, b.rotation() - 90);
+
+        Draw.reset();
     }
 }

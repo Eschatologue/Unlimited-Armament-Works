@@ -183,11 +183,8 @@ public class UAWUnitTypes implements ContentList {
                             splashDamageRadius = 8 * tilesize;
                             splashDamage = damage;
                             lifetime = range / speed + 45;
-                            backColor = Pal.bulletYellowBack;
-                            frontColor = Pal.bulletYellow;
                             shootEffect = UAWFxStatic.shootSurgeFlame;
                             hitEffect = despawnEffect = UAWFxDynamic.dynamicExplosion(splashDamageRadius);
-                            trailColor = Color.gray;
                             trailLength = 5;
                             status = StatusEffects.slow;
                             statusDuration = 2 * 60;
