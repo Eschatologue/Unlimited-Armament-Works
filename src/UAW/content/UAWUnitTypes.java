@@ -26,7 +26,7 @@ public class UAWUnitTypes implements ContentList {
             escutcheon,
             clurit, kujang, kerambit, cetbang, kiAmuk,
             hatsuharu, shiratsuyu, kagero, shimakaze,
-            gardlacz, arkabuz, muszkiet, armata, twardy;
+            gardlacz, arkabuz, armata, twardy;
 
     @Override
     public void load() {
@@ -193,6 +193,34 @@ public class UAWUnitTypes implements ContentList {
 
             );
             abilities.add(new RazorRotorAbility(35, 0.3f, 4 * tilesize));
+        }};
+        calogrenant = new CopterUnitType("calogrenant") {{
+            health = 4000;
+            hitSize = 30;
+            speed = 2.5f;
+            rotateSpeed = 4.5f;
+            accel = 0.08f;
+            drag = 0.03f;
+            ammoType = new ItemAmmoType(Items.graphite);
+            faceTarget = flying = true;
+
+            range = 35 * tilesize;
+            maxRange = range;
+
+            rotors.add(
+                    new Rotor("uaw-short-blade") {{
+                        x = -4;
+                        y = 2;
+                        rotationSpeed = -12f;
+                        bladeCount = 3;
+                    }},
+                    new Rotor("short-blade") {{
+                        x = 4;
+                        y = 2;
+                        rotationSpeed = 12f;
+                        bladeCount = 3;
+                    }}
+            );
         }};
 
         clurit = new UnitType("clurit") {{
@@ -554,7 +582,7 @@ public class UAWUnitTypes implements ContentList {
             drag = 0.055f;
             range = 36 * tilesize;
             rotateShooting = false;
-            useCustomWeaponIcon = true;
+            trailChance = 0.3f;
 
             weapons.add(
                     new PointDefenseWeapon("uaw-point-defense-red") {{
@@ -631,7 +659,7 @@ public class UAWUnitTypes implements ContentList {
             drag = 0.08f;
             range = 48 * tilesize;
             rotateShooting = false;
-            useCustomWeaponIcon = true;
+            trailChance = 0.6f;
 
             weapons.add(
                     new RecoilingWeapon(name + "-gun") {{

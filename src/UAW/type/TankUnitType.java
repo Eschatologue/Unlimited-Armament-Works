@@ -15,7 +15,7 @@ import mindustry.world.meta.BlockFlag;
 
 // Basically Mech with overrided draw method
 public class TankUnitType extends UnitType {
-    public float trailIntensity = 0.4f;
+    public float trailChance = 0.5f;
     public float trailOffsetX = 0f, trailOffsetY = 0f;
     public float liquidSpeedMultiplier = 1.2f;
     public boolean useCustomWeaponIcon = false;
@@ -41,7 +41,6 @@ public class TankUnitType extends UnitType {
 
     @Override
     public void update(Unit unit) {
-
         Floor floor = Vars.world.floorWorld(unit.x, unit.y);
         Color floorColor = floor.mapColor;
         super.update(unit);
@@ -50,7 +49,7 @@ public class TankUnitType extends UnitType {
             unit.speedMultiplier = liquidSpeedMultiplier;
         }
         // Trail Effect
-        if (Mathf.chanceDelta(trailIntensity) && !floor.isLiquid && unit.moving()) {
+        if (Mathf.chanceDelta(trailChance) && !floor.isLiquid && unit.moving()) {
             Fx.unitLand.at(
                     unit.x + Angles.trnsx(unit.rotation - 90, trailOffsetX, trailOffsetY),
                     unit.y + Angles.trnsy(unit.rotation - 90, trailOffsetX, trailOffsetY),

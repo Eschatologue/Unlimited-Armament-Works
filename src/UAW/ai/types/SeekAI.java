@@ -45,17 +45,13 @@ public class SeekAI extends AIController {
                 return false;
             })) {
                 if (unit.within(target, unit.range() / 2)) {
-                    if (floor.isDeep() && unit().canDrown()) {
+                    if (floor.isLiquid && unit().canDrown()) {
                         pathfind(Pathfinder.fieldCore);
                     } else {
                         unit.movePref(vec.set(target).sub(unit).rotate(90f).setLength(unit.speed() * 0));
                     }
                 } else {
-                    if (floor.isDeep() && unit().canDrown()) {
-                        pathfind(Pathfinder.fieldCore);
-                    } else {
                         unit.movePref(vec.set(target).sub(unit).limit(unit.speed()));
-                    }
                 }
             } else if (move) {
                 pathfind(Pathfinder.fieldCore);
