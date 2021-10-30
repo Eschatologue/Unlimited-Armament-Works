@@ -1,6 +1,6 @@
 package UAW.entities.bullet;
 
-import UAW.graphics.UAWFxStatic;
+import arc.Core;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.gen.Sounds;
 import mindustry.graphics.Pal;
@@ -8,20 +8,14 @@ import mindustry.graphics.Pal;
 import static mindustry.Vars.tilesize;
 
 public class CruiseMissileBulletType extends BasicBulletType {
-    public float size = 35;
-
     public CruiseMissileBulletType(float speed, float damage, String sprite) {
         super(speed, damage, sprite);
-        height = size;
-        width = size / 1.5f;
         shrinkX = shrinkY = 0;
         drag = -0.015f;
         homingRange = 30 * tilesize;
         splashDamage = damage;
         splashDamageRadius = 12 * tilesize;
-        lifetime = 6 * 60;
         homingPower = 0.15f;
-        knockback = 8;
         hitShake = 12f;
         hitSize = 1.5f * 8;
         hitSoundVolume = 4f;
@@ -29,19 +23,24 @@ public class CruiseMissileBulletType extends BasicBulletType {
         backColor = Pal.missileYellowBack;
         frontColor = Pal.missileYellow;
         trailLength = 35;
-        trailWidth = size / 14.6f;
-        trailColor = Pal.lightPyraFlame;
-        trailInterval = 0.8f;
-        trailEffect = UAWFxStatic.pyraSmokeTrail;
+        trailWidth = trailLength / 14.6f;
+        trailColor = Pal.bulletYellowBack;
+        trailInterval = 0.5f;
         trailRotation = true;
     }
 
     public CruiseMissileBulletType(float speed, float damage) {
-        this(speed, damage,"uaw-cruise-missile");
+        this(speed, damage, "uaw-cruise-missile");
 
     }
-    public CruiseMissileBulletType(){
+
+    public CruiseMissileBulletType() {
         this(1.8f, 225);
     }
 
+    @Override
+    public void load() {
+        super.load();
+        backRegion = Core.atlas.find(sprite + "-outline");
+    }
 }

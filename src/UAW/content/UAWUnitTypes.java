@@ -45,6 +45,8 @@ public class UAWUnitTypes implements ContentList {
             maxRange = range;
             spinningFall = true;
 
+            itemCapacity = 5;
+
             rotors.add(
                     new Rotor(name + "-blade") {{
                         x = y = 0;
@@ -123,6 +125,8 @@ public class UAWUnitTypes implements ContentList {
             range = 35 * tilesize;
             maxRange = range;
 
+            itemCapacity = 10;
+
             rotors.add(
                     new Rotor(name + "-blade") {{
                         x = 0;
@@ -173,7 +177,6 @@ public class UAWUnitTypes implements ContentList {
                         firstShotDelay = 20f;
                         shootSound = UAWSfx.cruiseMissileShoot1;
                         bullet = new CruiseMissileBulletType(3f, 65) {{
-                            size = 5f;
                             homingRange = 120f;
                             homingPower = 0.05f;
                             keepVelocity = false;
@@ -183,7 +186,7 @@ public class UAWUnitTypes implements ContentList {
                             backColor = Pal.bulletYellowBack;
                             frontColor = Pal.bulletYellow;
                             shootEffect = UAWFxStatic.shootSurgeFlame;
-                            hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(backColor, splashDamageRadius), Fx.smokeCloud);
+                            hitEffect = despawnEffect = UAWFxDynamic.dynamicExplosion(splashDamageRadius);
                             trailColor = Color.gray;
                             trailLength = 5;
                             status = StatusEffects.slow;
@@ -195,7 +198,7 @@ public class UAWUnitTypes implements ContentList {
             abilities.add(new RazorRotorAbility(35, 0.3f, 4 * tilesize));
         }};
         calogrenant = new CopterUnitType("calogrenant") {{
-            float rotX = 18;
+            float rotX = 17;
             float rotY = 8;
             float rotSpeed = 12f;
             health = 9500;
@@ -209,6 +212,8 @@ public class UAWUnitTypes implements ContentList {
 
             range = 30 * tilesize;
             maxRange = range;
+
+            itemCapacity = 15;
 
             rotors.add(
                     new Rotor("uaw-short-blade") {{
