@@ -11,7 +11,7 @@ import mindustry.ctype.ContentList;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.gen.*;
-import mindustry.graphics.Pal;
+import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.type.ammo.ItemAmmoType;
 import mindustry.type.weapons.PointDefenseWeapon;
@@ -172,11 +172,11 @@ public class UAWUnitTypes implements ContentList {
                         y = -1.5f;
                         inaccuracy = 15;
                         maxRange = range;
-                        reload = 60f;
+                        reload = 80f;
                         recoil = 2f;
                         firstShotDelay = 20f;
                         shootSound = UAWSfx.cruiseMissileShoot1;
-                        bullet = new CruiseMissileBulletType(3f, 65) {{
+                        bullet = new CruiseMissileBulletType(3f, 80) {{
                             homingRange = 120f;
                             homingPower = 0.05f;
                             keepVelocity = false;
@@ -185,7 +185,6 @@ public class UAWUnitTypes implements ContentList {
                             lifetime = range / speed + 45;
                             shootEffect = UAWFxStatic.shootSurgeFlame;
                             hitEffect = despawnEffect = UAWFxDynamic.dynamicExplosion(splashDamageRadius);
-                            trailLength = 5;
                             status = StatusEffects.slow;
                             statusDuration = 2 * 60;
                         }};
@@ -211,7 +210,104 @@ public class UAWUnitTypes implements ContentList {
             maxRange = range;
 
             itemCapacity = 15;
-
+            weapons.add(
+                    new PointDefenseWeapon("uaw-point-defense-red") {{
+                        rotate = autoTarget = true;
+                        mirror = controllable = false;
+                        x = 0f;
+                        y = 3f;
+                        reload = 2f;
+                        recoil = 0f;
+                        targetInterval = 3f;
+                        targetSwitchInterval = 3f;
+                        ejectEffect = Fx.casing1;
+                        bullet = new BulletType() {{
+                            shootEffect = Fx.sparkShoot;
+                            smokeEffect = Fx.shootSmallSmoke;
+                            hitEffect = Fx.pointHit;
+                            maxRange = range / 2f;
+                            damage = 25f;
+                        }};
+                    }},
+                    new Weapon("uaw-machine-gun-medium-red") {{
+                        rotate = false;
+                        inaccuracy = 3f;
+                        mirror = true;
+                        x = 8f;
+                        y = 12f;
+                        reload = 7;
+                        recoil = 1f;
+                        shootSound = Sounds.shoot;
+                        ejectEffect = Fx.casing2;
+                        bullet = new BasicBulletType(7f, 25) {{
+                            height = 10f;
+                            width = 6f;
+                            pierce = true;
+                            pierceCap = 2;
+                            buildingDamageMultiplier = 0.3f;
+                            maxRange = range - 16;
+                            lifetime = (range / speed) * 0.7f;
+                            trailLength = 10;
+                            trailWidth = width / 3;
+                            trailColor = backColor;
+                            hitEffect = new MultiEffect(Fx.hitBulletSmall, Fx.shootSmallSmoke);
+                        }};
+                    }},
+                    new Weapon("uaw-artillery-small-purple") {{
+                        mirror = alternate = true;
+                        rotate = false;
+                        x = 5.5f;
+                        y = -8f;
+                        inaccuracy = 8f;
+                        shootCone = 30;
+                        rotateSpeed = 2.2f;
+                        reload = 1.5f * 60;
+                        recoil = 2.2f;
+                        shootSound = Sounds.shootBig;
+                        shake = 2.5f;
+                        bullet = new UAWPointBulletType() {{
+                            damage = 400;
+                            speed = range;
+                            splashDamage = 200;
+                            splashDamageRadius = 3 * 8;
+                            shootEffect = new MultiEffect(UAWFxDynamic.railShoot(Pal.bulletYellow, 32), Fx.blockExplosionSmoke);
+                            smokeEffect = Fx.smokeCloud;
+                            trailEffect = UAWFxDynamic.railTrail(Pal.bulletYellow);
+                            hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(Pal.bulletYellow, splashDamageRadius), UAWFxDynamic.dynamicExplosion(splashDamageRadius));
+                            trailSpacing = 20f;
+                            shieldDamageMultiplier = 1.5f;
+                            buildingDamageMultiplier = 0.5f;
+                            hitShake = 6f;
+                            ammoMultiplier = 1f;
+                            status = StatusEffects.electrified;
+                        }};
+                    }},
+                    new Weapon() {{
+                        rotate = false;
+                        shootCone = 45;
+                        top = true;
+                        x = y = 0f;
+                        inaccuracy = 15;
+                        maxRange = range;
+                        reload = 80f;
+                        recoil = 2f;
+                        firstShotDelay = 20f;
+                        shootSound = UAWSfx.cruiseMissileShoot1;
+                        bullet = new CruiseMissileBulletType(3f, 260) {{
+                            layer = Layer.flyingUnitLow - 1;
+                            homingRange = 120f;
+                            homingPower = 0.05f;
+                            keepVelocity = false;
+                            splashDamageRadius = 8 * tilesize;
+                            splashDamage = damage;
+                            lifetime = range / speed + 45;
+                            shootEffect = UAWFxStatic.shootSurgeFlame;
+                            hitEffect = despawnEffect = UAWFxDynamic.dynamicExplosion(splashDamageRadius);
+                            status = StatusEffects.slow;
+                            statusDuration = 2 * 60;
+                        }};
+                    }}
+            );
             rotors.add(
                     new Rotor("uaw-short-blade") {{
                         x = -rotX;

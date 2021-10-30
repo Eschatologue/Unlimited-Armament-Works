@@ -6,13 +6,14 @@ import arc.graphics.g2d.Draw;
 import arc.util.Tmp;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.gen.*;
-import mindustry.graphics.Pal;
+import mindustry.graphics.*;
 
 import static mindustry.Vars.tilesize;
 
 public class CruiseMissileBulletType extends BasicBulletType {
     public CruiseMissileBulletType(float speed, float damage, String sprite) {
         super(speed, damage, sprite);
+        layer = Layer.bullet - 1;
         shrinkX = shrinkY = 0;
         drag = -0.015f;
         homingRange = 30 * tilesize;
@@ -25,8 +26,8 @@ public class CruiseMissileBulletType extends BasicBulletType {
         hitSound = Sounds.explosionbig;
         backColor = Pal.missileYellowBack;
         frontColor = Pal.missileYellow;
-        trailLength = 35;
-        trailWidth = trailLength / 14.6f;
+        trailLength = 36;
+        trailWidth = trailLength / 13f;
         trailColor = Pal.bulletYellowBack;
         trailInterval = 0.5f;
     }
