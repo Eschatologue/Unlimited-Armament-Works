@@ -206,7 +206,7 @@ public class UAWUnitTypes implements ContentList {
             ammoType = new ItemAmmoType(Items.graphite);
             faceTarget = flying = true;
 
-            range = 35 * tilesize;
+            range = 40 * tilesize;
             maxRange = range;
 
             itemCapacity = 15;
@@ -283,7 +283,7 @@ public class UAWUnitTypes implements ContentList {
                         }};
                     }},
                     new Weapon() {{
-                        rotate = false;
+                        rotate = true;
                         shootCone = 45;
                         top = true;
                         x = y = 0f;

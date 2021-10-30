@@ -2,10 +2,7 @@ package UAW.entities.bullet;
 
 import UAW.graphics.UAWFxStatic;
 import arc.Core;
-import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
-import arc.math.Mathf;
-import arc.util.Tmp;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.gen.*;
 import mindustry.graphics.*;
@@ -14,6 +11,7 @@ import static mindustry.Vars.tilesize;
 
 public class CruiseMissileBulletType extends BasicBulletType {
     public float size = 35;
+
     public CruiseMissileBulletType(float speed, float damage, String sprite) {
         super(speed, damage, sprite);
         height = size;
@@ -54,18 +52,10 @@ public class CruiseMissileBulletType extends BasicBulletType {
     }
 
     @Override
-    public void draw(Bullet b){
+    public void draw(Bullet b) {
         super.draw(b);
-        float offset = -90 + (spin != 0 ? Mathf.randomSeed(b.id, 360f) + b.time * spin : 0f);
-
-        Color mix = Tmp.c1.set(mixColorFrom).lerp(mixColorTo, b.fin());
-
-        Draw.mixcol(mix, mix.a);
-
-        Draw.color(backColor);
-        Draw.rect(backRegion, b.x, b.y, width, height, b.rotation() + offset);
-        Draw.color(frontColor);
-        Draw.rect(frontRegion, b.x, b.y, width, height, b.rotation() + offset);
+        Draw.rect(backRegion, b.x, b.y, width, height, b.rotation() - 90);
+        Draw.rect(frontRegion, b.x, b.y, width, height, b.rotation() - 90);
 
         Draw.reset();
     }
