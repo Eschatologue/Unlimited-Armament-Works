@@ -195,8 +195,9 @@ public class UAWUnitTypes implements ContentList {
             abilities.add(new RazorRotorAbility(35, 0.3f, 4 * tilesize));
         }};
         calogrenant = new CopterUnitType("calogrenant") {{
-            float rotX = 16;
-            float rotY = 6;
+            float rotX = 18;
+            float rotY = 8;
+            float rotSpeed = 14f;
             health = 9500;
             hitSize = 32;
             speed = 2f;
@@ -213,13 +214,25 @@ public class UAWUnitTypes implements ContentList {
                     new Rotor("uaw-short-blade") {{
                         x = -rotX;
                         y = rotY;
-                        rotationSpeed = -12f;
+                        rotationSpeed = -rotSpeed;
+                        bladeCount = 3;
+                    }},
+                    new Rotor("uaw-short-blade") {{
+                        x = -rotX;
+                        y = rotY;
+                        rotationSpeed = rotSpeed;
                         bladeCount = 3;
                     }},
                     new Rotor("uaw-short-blade") {{
                         x = rotX;
                         y = rotY;
-                        rotationSpeed = 12f;
+                        rotationSpeed = rotSpeed;
+                        bladeCount = 3;
+                    }},
+                    new Rotor("uaw-short-blade") {{
+                        x = rotX;
+                        y = rotY;
+                        rotationSpeed = -rotSpeed;
                         bladeCount = 3;
                     }}
             );
