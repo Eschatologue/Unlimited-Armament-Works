@@ -195,28 +195,30 @@ public class UAWUnitTypes implements ContentList {
             abilities.add(new RazorRotorAbility(35, 0.3f, 4 * tilesize));
         }};
         calogrenant = new CopterUnitType("calogrenant") {{
-            health = 4000;
-            hitSize = 30;
-            speed = 2.5f;
-            rotateSpeed = 4.5f;
-            accel = 0.08f;
-            drag = 0.03f;
+            float rotX = 16;
+            float rotY = 6;
+            health = 9500;
+            hitSize = 32;
+            speed = 2f;
+            rotateSpeed = 4f;
+            accel = 0.06f;
+            drag = 0.04f;
             ammoType = new ItemAmmoType(Items.graphite);
             faceTarget = flying = true;
 
-            range = 35 * tilesize;
+            range = 30 * tilesize;
             maxRange = range;
 
             rotors.add(
                     new Rotor("uaw-short-blade") {{
-                        x = -4;
-                        y = 2;
+                        x = -rotX;
+                        y = rotY;
                         rotationSpeed = -12f;
                         bladeCount = 3;
                     }},
-                    new Rotor("short-blade") {{
-                        x = 4;
-                        y = 2;
+                    new Rotor("uaw-short-blade") {{
+                        x = rotX;
+                        y = rotY;
                         rotationSpeed = 12f;
                         bladeCount = 3;
                     }}
