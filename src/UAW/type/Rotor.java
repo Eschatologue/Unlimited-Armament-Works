@@ -31,7 +31,7 @@ public class Rotor {
     }
 
     public void draw(Unit unit) {
-        float rotorSpeedScl = 1;
+        float rotorSpeedScl = rotationSpeed;
         float rx = unit.x + Angles.trnsx(unit.rotation - 90, x, y);
         float ry = unit.y + Angles.trnsy(unit.rotation - 90, x, y);
 
