@@ -163,35 +163,75 @@ public class UAWUnitTypes implements ContentList {
                             status = StatusEffects.burning;
                         }};
                     }},
-                    new Weapon("uaw-missile-medium-red-2") {{
+                    new Weapon("uaw-launcher-medium-red-2") {{
                         rotate = false;
                         alternate = mirror = true;
                         shootCone = 45;
                         top = true;
                         x = 7f;
                         y = -1.5f;
-                        inaccuracy = 15;
+                        reload = 60f;
+                        recoil = 5f;
+                        shake = 2f;
+                        ejectEffect = Fx.casing3;
+                        shootSound = Sounds.shootBig;
+                        shots = 3;
+                        inaccuracy = 3f;
+                        shotDelay = 4f;
+                        bullet = new BasicBulletType(7f, 50) {{
+                            width = 11f;
+                            height = 20f;
+                            lifetime = 25f;
+                            shootEffect = Fx.shootBig;
+                            hitEffect = Fx.blastExplosion;
+                            splashDamage = 16f;
+                            splashDamageRadius = 13f;
+                            fragBullets = 3;
+                            fragLifeMin = 0f;
+                            fragCone = 30f;
+                            fragBullet = new BasicBulletType(9f, 5) {{
+                                width = 10f;
+                                height = 10f;
+                                pierce = true;
+                                pierceBuilding = true;
+                                pierceCap = 3;
+
+                                lifetime = 20f;
+                                hitEffect = Fx.flakExplosion;
+                                splashDamage = 10;
+                                splashDamageRadius = 1.5f * tilesize;
+                            }};
+                        }};
+                    }},
+                    new Weapon() {{
+                        rotate = true;
+                        mirror = false;
+                        shootCone = 45;
+                        top = true;
+                        x = y = 0f;
                         maxRange = range;
                         reload = 80f;
-                        recoil = 2f;
-                        firstShotDelay = 20f;
                         shootSound = UAWSfx.cruiseMissileShoot1;
-                        bullet = new CruiseMissileBulletType(3f, 80) {{
+                        bullet = new CruiseMissileBulletType(3f, 260) {{
+                            layer = Layer.flyingUnitLow - 1;
                             size = 25;
+                            sprite = "uaw-cruise-missile-cryo";
                             homingRange = 120f;
                             homingPower = 0.05f;
                             keepVelocity = false;
                             splashDamageRadius = 8 * tilesize;
                             splashDamage = damage;
-                            lifetime = range / speed + 45;
-                            shootEffect = UAWFxStatic.shootSurgeFlame;
-                            hitEffect = despawnEffect = UAWFxDynamic.dynamicExplosion(splashDamageRadius, Color.gray);
-                            status = StatusEffects.slow;
-                            statusDuration = 2 * 60;
+                            lifetime = (range - 5) / speed;
+                            shootEffect = UAWFxStatic.shootCryoFlame;
+                            trailColor = UAWPal.cryoFront;
+                            hitEffect = despawnEffect = UAWFxDynamic.dynamicExplosion(splashDamageRadius, UAWPal.cryoBack);
+                            trailEffect = UAWFxStatic.cryoSmokeTrailUnder;
+                            status = StatusEffects.freezing;
+                            statusDuration = 4 * 60;
                         }};
                     }}
             );
-            abilities.add(new RazorRotorAbility(35, 0.3f, 4 * tilesize));
+            abilities.add(new RazorRotorAbility(25, 0.3f, 4 * tilesize));
         }};
         calogrenant = new CopterUnitType("calogrenant") {{
             health = 9500;
@@ -285,25 +325,23 @@ public class UAWUnitTypes implements ContentList {
                         x = y = 0f;
                         inaccuracy = 0;
                         maxRange = range;
-                        reload = 80f;
+                        reload = 120f;
                         shootSound = UAWSfx.cruiseMissileShoot1;
                         bullet = new CruiseMissileBulletType(3f, 260) {{
                             layer = Layer.flyingUnitLow - 1;
-                            size = 30;
-                            sprite = "uaw-cruise-missile-cryo";
+                            size = 25;
                             homingRange = 120f;
                             homingPower = 0.05f;
                             keepVelocity = false;
                             splashDamageRadius = 8 * tilesize;
                             splashDamage = damage;
-                            lifetime = range / speed + 45;
+                            lifetime = (range - 5) / speed;
                             shootEffect = UAWFxStatic.shootCryoFlame;
                             trailColor = UAWPal.cryoFront;
-                            trailLength = 28;
                             hitEffect = despawnEffect = UAWFxDynamic.dynamicExplosion(splashDamageRadius, UAWPal.cryoBack);
                             trailEffect = UAWFxStatic.cryoSmokeTrailUnder;
                             status = StatusEffects.freezing;
-                            statusDuration = 2 * 60;
+                            statusDuration = 4 * 60;
                         }};
                     }}
             );

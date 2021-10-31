@@ -28,8 +28,6 @@ public class CruiseMissileBulletType extends UAWBasicBulletType {
         hitSound = Sounds.explosionbig;
         backColor = Pal.missileYellowBack;
         frontColor = Pal.missileYellow;
-        trailLength = 36;
-        trailWidth = trailLength / 13f;
         trailInterval = 0.5f;
         trailEffect = UAWFxStatic.pyraSmokeTrail;
         trailRotation = true;
@@ -52,8 +50,9 @@ public class CruiseMissileBulletType extends UAWBasicBulletType {
     @Override
     public void draw(Bullet b) {
         super.draw(b);
-        Draw.rect(backRegion, b.x, b.y, width, height, b.rotation() - 90);
         Draw.rect(frontRegion, b.x, b.y, width, height, b.rotation() - 90);
+        Draw.z(layer - 2);
+        Draw.rect(backRegion, b.x, b.y, width, height, b.rotation() - 90);
 
         Draw.reset();
     }

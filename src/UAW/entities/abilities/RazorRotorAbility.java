@@ -8,7 +8,7 @@ import mindustry.content.Fx;
 import mindustry.entities.abilities.Ability;
 import mindustry.entities.bullet.BulletType;
 import mindustry.gen.Unit;
-import mindustry.graphics.Pal;
+import mindustry.graphics.*;
 
 import static mindustry.Vars.tilesize;
 
@@ -26,6 +26,7 @@ public class RazorRotorAbility extends Ability {
         this.chance = chance;
         this.range = range;
         this.bullet = new BulletType(damage, range) {{
+            layer = Layer.flyingUnitLow - 1;
             despawnEffect = Fx.none;
             lifetime = 10;
             hitSize = range;
