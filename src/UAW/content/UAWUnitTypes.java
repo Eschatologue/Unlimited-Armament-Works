@@ -177,7 +177,7 @@ public class UAWUnitTypes implements ContentList {
                         firstShotDelay = 20f;
                         shootSound = UAWSfx.cruiseMissileShoot1;
                         bullet = new CruiseMissileBulletType(3f, 80) {{
-                            size = 30;
+                            size = 25;
                             homingRange = 120f;
                             homingPower = 0.05f;
                             keepVelocity = false;
@@ -290,6 +290,7 @@ public class UAWUnitTypes implements ContentList {
                         shootSound = UAWSfx.cruiseMissileShoot1;
                         bullet = new CruiseMissileBulletType(3f, 260) {{
                             layer = Layer.flyingUnitLow - 1;
+                            size = 30;
                             sprite = "uaw-cruise-missile-cryo";
                             homingRange = 120f;
                             homingPower = 0.05f;
