@@ -37,6 +37,7 @@ public class RazorRotorAbility extends Ability {
             buildingDamageMultiplier = 0.2f;
         }};
     }
+
     @Override
     public void update(Unit unit) {
         if (Mathf.chance(Time.delta * chance)) {
