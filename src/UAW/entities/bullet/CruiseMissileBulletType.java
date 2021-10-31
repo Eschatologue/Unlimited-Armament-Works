@@ -24,7 +24,7 @@ public class CruiseMissileBulletType extends UAWBasicBulletType {
         homingPower = 0.15f;
         hitShake = 12f;
         hitSize = 1.5f * 8;
-        hitSoundVolume = 4f;
+        hitSoundVolume = 2f;
         hitSound = Sounds.explosionbig;
         backColor = Pal.missileYellowBack;
         frontColor = Pal.missileYellow;
@@ -52,7 +52,7 @@ public class CruiseMissileBulletType extends UAWBasicBulletType {
         super.draw(b);
         Draw.rect(frontRegion, b.x, b.y, width, height, b.rotation() - 90);
 
-        Draw.z(Layer.flyingUnitLow);
+        Draw.z(Layer.groundUnit);
         Draw.rect(backRegion, b.x, b.y, width, height, b.rotation() - 90);
 
         Draw.reset();

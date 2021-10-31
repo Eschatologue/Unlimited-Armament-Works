@@ -1,19 +1,17 @@
 package UAW.ai.types;
 
-import arc.math.*;
 import mindustry.ai.types.FlyingAI;
-import mindustry.entities.units.*;
-import mindustry.gen.*;
-import mindustry.world.meta.*;
+import mindustry.entities.units.UnitCommand;
+import mindustry.world.meta.BlockFlag;
 
-import static mindustry.Vars.*;
+import static mindustry.Vars.state;
 
 public class CopterAI extends FlyingAI {
     @Override
-    public void updateMovement(){
-        if(target != null && unit.hasWeapons() && command() == UnitCommand.attack){
-            if(!unit.type.circleTarget){
-                moveTo(target, unit.type.range * 0.5f);
+    public void updateMovement() {
+        if (target != null && unit.hasWeapons() && command() == UnitCommand.attack) {
+            if (!unit.type.circleTarget) {
+                moveTo(target, unit.type.range * 0.75f);
                 unit.lookAt(target);
             } else {
                 unit.lookAt(target);
@@ -21,11 +19,11 @@ public class CopterAI extends FlyingAI {
             }
         }
 
-        if(target == null && command() == UnitCommand.attack && state.rules.waves && unit.team == state.rules.defaultTeam){
+        if (target == null && command() == UnitCommand.attack && state.rules.waves && unit.team == state.rules.defaultTeam) {
             moveTo(getClosestSpawner(), state.rules.dropZoneRadius + 120f);
         }
 
-        if(command() == UnitCommand.rally){
+        if (command() == UnitCommand.rally) {
             moveTo(targetFlag(unit.x, unit.y, BlockFlag.rally, false), 60f);
         }
     }

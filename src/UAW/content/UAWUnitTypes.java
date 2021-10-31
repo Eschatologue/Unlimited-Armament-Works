@@ -172,20 +172,21 @@ public class UAWUnitTypes implements ContentList {
                         shake = 2f;
                         ejectEffect = Fx.casing3;
                         shootSound = Sounds.shootBig;
-                        shots = 3;
+                        shots = 4;
                         inaccuracy = 3f;
-                        shotDelay = 4f;
+                        shotDelay = 3f;
                         bullet = new TrailBulletType(7f, 50) {{
                             height = 25f;
                             width = 15f;
-                            lifetime = (range / speed) * 0.8f;
+                            lifetime = (range / speed) * 1.5f;
                             shootEffect = Fx.shootBig;
                             hitEffect = Fx.blastExplosion;
-                            frontColor = Pal.lightPyraFlame;
-                            backColor = Pal.darkPyraFlame;
+                            hitSound = Sounds.boom;
+                            frontColor = Pal.plastaniumFront;
+                            backColor = Pal.plastaniumBack;
                             splashDamage = 16f;
-                            splashDamageRadius = 13f;
-                            fragBullets = 3;
+                            splashDamageRadius = 2 * tilesize;
+                            fragBullets = 5;
                             fragLifeMin = 0f;
                             fragCone = 30f;
                             fragBullet = new BasicBulletType(9f, 5) {{
@@ -194,7 +195,6 @@ public class UAWUnitTypes implements ContentList {
                                 pierce = true;
                                 pierceBuilding = true;
                                 pierceCap = 3;
-
                                 lifetime = 20f;
                                 hitEffect = Fx.flakExplosion;
                                 splashDamage = 10;
@@ -203,25 +203,24 @@ public class UAWUnitTypes implements ContentList {
                         }};
                     }},
                     new Weapon() {{
-                        rotate = true;
+                        rotate = false;
                         mirror = false;
-                        shootCone = 45;
+                        shootCone = 90;
                         top = true;
                         x = y = 0f;
                         maxRange = range;
                         reload = 80f;
                         shootSound = UAWSfx.cruiseMissileShoot1;
-                        bullet = new CruiseMissileBulletType(3f, 260) {{
+                        bullet = new CruiseMissileBulletType(3f, 100) {{
                             layer = Layer.flyingUnitLow - 1;
                             size = 20;
-                            homingRange = 120f;
-                            homingPower = 0.05f;
+                            homingRange = range;
+                            homingPower = 0.035f;
                             keepVelocity = false;
                             splashDamageRadius = 8 * tilesize;
                             splashDamage = damage;
                             lifetime = (range - 5) / speed;
-                            shootEffect = UAWFxStatic.shootCryoFlame;
-                            trailColor = UAWPal.cryoFront;
+                            shootEffect = UAWFxStatic.shootPyraFlame;
                             hitEffect = despawnEffect = UAWFxDynamic.dynamicExplosion(splashDamageRadius, Color.gray);
                             trailEffect = UAWFxStatic.pyraSmokeTrailUnder;
                             status = StatusEffects.burning;
