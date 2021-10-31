@@ -185,7 +185,7 @@ public class UAWUnitTypes implements ContentList {
                             splashDamage = damage;
                             lifetime = range / speed + 45;
                             shootEffect = UAWFxStatic.shootSurgeFlame;
-                            hitEffect = despawnEffect = UAWFxDynamic.dynamicExplosion(splashDamageRadius);
+                            hitEffect = despawnEffect = UAWFxDynamic.dynamicExplosion(splashDamageRadius, Color.gray);
                             status = StatusEffects.slow;
                             statusDuration = 2 * 60;
                         }};
@@ -272,7 +272,7 @@ public class UAWUnitTypes implements ContentList {
                             shootEffect = new MultiEffect(UAWFxDynamic.railShoot(Pal.bulletYellowBack, 16), Fx.blockExplosionSmoke);
                             smokeEffect = Fx.smokeCloud;
                             trailEffect = UAWFxDynamic.railTrail(Pal.bulletYellowBack);
-                            hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(Pal.bulletYellowBack, splashDamageRadius), UAWFxDynamic.dynamicExplosion(splashDamageRadius));
+                            hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(Pal.bulletYellowBack, splashDamageRadius), UAWFxDynamic.dynamicExplosion(splashDamageRadius, Color.gray));
                             trailSpacing = 20f;
                             shieldDamageMultiplier = 1.5f;
                             buildingDamageMultiplier = 0.5f;
@@ -298,7 +298,7 @@ public class UAWUnitTypes implements ContentList {
                             splashDamage = damage;
                             lifetime = range / speed + 45;
                             shootEffect = UAWFxStatic.shootCryoFlame;
-                            hitEffect = despawnEffect = UAWFxDynamic.dynamicExplosionCryo(splashDamageRadius);
+                            hitEffect = despawnEffect = UAWFxDynamic.dynamicExplosion(splashDamageRadius, UAWPal.cryoBack);
                             trailEffect = UAWFxStatic.cryoSmokeTrailUnder;
                             status = StatusEffects.freezing;
                             statusDuration = 2 * 60;
@@ -414,7 +414,7 @@ public class UAWUnitTypes implements ContentList {
                             shootEffect = new MultiEffect(Fx.shootBig2, UAWFxStatic.shootSporeFlame);
                             smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
                             despawnEffect = hitEffect = new MultiEffect(
-                                    UAWFxDynamic.dynamicExplosion(splashDamageRadius)
+                                    UAWFxDynamic.dynamicExplosion(splashDamageRadius, Color.gray)
                             );
                         }};
                     }}
@@ -496,7 +496,7 @@ public class UAWUnitTypes implements ContentList {
                             shootEffect = new MultiEffect(Fx.shootBig2, UAWFxStatic.shootSporeFlame);
                             smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
                             despawnEffect = hitEffect = new MultiEffect(
-                                    UAWFxDynamic.dynamicExplosion(splashDamageRadius)
+                                    UAWFxDynamic.dynamicExplosion(splashDamageRadius, Color.gray)
                             );
                         }};
                     }}

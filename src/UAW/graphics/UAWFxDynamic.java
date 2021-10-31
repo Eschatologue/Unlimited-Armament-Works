@@ -182,52 +182,13 @@ public class UAWFxDynamic {
         });
     }
 
-    public static Effect dynamicExplosion(float size) {
+    public static Effect dynamicExplosion(float size, Color smokeColor) {
         return new Effect((size * 10), 500f, b -> {
             float realSize = size / 15;
             float baseLifetime = 26f + realSize * 15f;
             b.lifetime = 39f + realSize * 30f;
 
-            color(Color.gray);
-            alpha(0.9f);
-            for (int i = 0; i < 4; i++) {
-                rand.setSeed(b.id * 2L + i);
-                float lenScl = rand.random(0.4f, 1f);
-                int fi = i;
-                b.scaled(b.lifetime * lenScl, e -> {
-                    randLenVectors(e.id + fi - 1, e.fin(Interp.pow10Out), (int) (3f * realSize), 14f * realSize, (x, y, in, out) -> {
-                        float fout = e.fout(Interp.pow5Out) * rand.random(0.5f, 1f);
-                        Fill.circle(e.x + x, e.y + y, fout * ((2f + realSize) * 1.8f));
-                    });
-                });
-            }
-
-            b.scaled(baseLifetime, e -> {
-                e.scaled(5 + realSize * 2.5f, i -> {
-                    stroke((3.1f + realSize / 2) * i.fout());
-                    Lines.circle(e.x, e.y, (3f + i.fin() * 14f) * realSize);
-                    Drawf.light(e.x, e.y, i.fin() * 14f * 2f * realSize, Color.white, 0.9f * e.fout());
-                });
-
-                color(Pal.lighterOrange, Pal.lightOrange, Color.gray, e.fin());
-                stroke((1.7f * e.fout()) * (1f + (realSize - 1f) / 2f));
-
-                Draw.z(Layer.effect + 0.001f);
-                randLenVectors(e.id + 1, e.finpow() + 0.001f, (int) (9 * (realSize / 2)), 40f * realSize, (x, y, in, out) -> {
-                    lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), 1f + out * 4 * (3f + realSize));
-                    Drawf.light(e.x + x, e.y + y, (out * 4 * (3f + realSize)) * 3.5f, Draw.getColor(), 0.8f);
-                });
-            });
-        });
-    }
-
-    public static Effect dynamicExplosionCryo(float size) {
-        return new Effect((size * 10), 500f, b -> {
-            float realSize = size / 15;
-            float baseLifetime = 26f + realSize * 15f;
-            b.lifetime = 39f + realSize * 30f;
-
-            color(UAWPal.cryoBackBloom);
+            color(smokeColor);
             alpha(0.9f);
             for (int i = 0; i < 4; i++) {
                 rand.setSeed(b.id * 2L + i);
