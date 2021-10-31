@@ -3,7 +3,7 @@ package UAW.type;
 import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
-import arc.math.Angles;
+import arc.math.*;
 import arc.util.Time;
 import mindustry.gen.Unit;
 
@@ -31,15 +31,15 @@ public class Rotor {
     }
 
     public void draw(Unit unit) {
-        float rotorSpeedScl = rotationSpeed;
+        float rotorSpeedScl = 1;
         float rx = unit.x + Angles.trnsx(unit.rotation - 90, x, y);
         float ry = unit.y + Angles.trnsy(unit.rotation - 90, x, y);
 
         if (unit.health() < 0 || unit.dead) {
-            rotorSpeedScl = rotorSpeedScl / rotorDeathSpeedScl;
+            rotorSpeedScl = Mathf.approachDelta(1,0.4f, unit.type().fallSpeed);
         }
         for (int i = 0; i < bladeCount; i++) {
-            float angle = ((i * 360f / bladeCount + (((Time.time * rotorSpeedScl))) % 360));
+            float angle = ((i * 360f / bladeCount + (((Time.time * (rotationSpeed * rotorSpeedScl)))) % 360));
             Draw.rect(bladeOutlineRegion, rx, ry, bladeOutlineRegion.width * Draw.scl, bladeOutlineRegion.height * Draw.scl, angle);
             Draw.mixcol(Color.white, unit.hitTime);
             Draw.rect(bladeRegion, rx, ry, bladeRegion.width * Draw.scl, bladeRegion.height * Draw.scl, angle);

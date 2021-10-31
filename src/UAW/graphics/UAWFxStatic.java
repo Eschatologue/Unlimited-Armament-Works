@@ -64,7 +64,7 @@ public class UAWFxStatic {
     }),
 
     shootPyraFlame = new Effect(35f, 80f, e -> {
-        color(UAWPal.sporeFront, UAWPal.sporeBack, Color.gray, e.fin());
+        color(Pal.darkPyraFlame, Pal.lightPyraFlame, Color.gray, e.fin());
 
         randLenVectors(e.id, 13, e.finpow() * 70f, e.rotation, 10f, (x, y) ->
                 Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 1.6f));
