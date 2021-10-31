@@ -14,7 +14,7 @@ public class CruiseMissileBulletType extends UAWBasicBulletType {
     public CruiseMissileBulletType(float speed, float damage, String sprite) {
         super(speed, damage, sprite);
         height = size;
-        width = size / 1.5f;
+        width = size / 2f;
         layer = Layer.effect + 1;
         shrinkX = shrinkY = 0;
         drag = -0.015f;
