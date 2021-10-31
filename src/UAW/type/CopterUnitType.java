@@ -23,10 +23,12 @@ public class CopterUnitType extends UnitType {
 
     @Override
     public void update(Unit unit) {
+        float unitFallSpin;
         super.update(unit);
         if (unit.isFlying() && spinningFall) {
             if (unit.health <= 0 || unit.dead()) {
-                unit.rotation += Time.delta * (fallSpeed * 1200);
+                unitFallSpin = Time.delta * (fallSpeed * 1200);
+                unit.rotation += unitFallSpin;
             }
         }
     }
