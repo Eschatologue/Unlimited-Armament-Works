@@ -177,6 +177,7 @@ public class UAWUnitTypes implements ContentList {
                         firstShotDelay = 20f;
                         shootSound = UAWSfx.cruiseMissileShoot1;
                         bullet = new CruiseMissileBulletType(3f, 80) {{
+                            size = 30;
                             homingRange = 120f;
                             homingPower = 0.05f;
                             keepVelocity = false;
@@ -194,9 +195,6 @@ public class UAWUnitTypes implements ContentList {
             abilities.add(new RazorRotorAbility(35, 0.3f, 4 * tilesize));
         }};
         calogrenant = new CopterUnitType("calogrenant") {{
-            float rotX = 17;
-            float rotY = 8;
-            float rotSpeed = 12f;
             health = 9500;
             hitSize = 32;
             speed = 2f;
@@ -284,31 +282,32 @@ public class UAWUnitTypes implements ContentList {
                     }},
                     new Weapon() {{
                         rotate = true;
-                        shootCone = 45;
-                        top = true;
+                        shootCone = 90;
                         x = y = 0f;
-                        inaccuracy = 15;
+                        inaccuracy = 0;
                         maxRange = range;
                         reload = 80f;
-                        recoil = 2f;
-                        firstShotDelay = 20f;
                         shootSound = UAWSfx.cruiseMissileShoot1;
                         bullet = new CruiseMissileBulletType(3f, 260) {{
                             layer = Layer.flyingUnitLow - 1;
+                            sprite = "uaw-cruise-missile-cryo";
                             homingRange = 120f;
                             homingPower = 0.05f;
                             keepVelocity = false;
                             splashDamageRadius = 8 * tilesize;
                             splashDamage = damage;
                             lifetime = range / speed + 45;
-                            shootEffect = UAWFxStatic.shootSurgeFlame;
-                            hitEffect = despawnEffect = UAWFxDynamic.dynamicExplosion(splashDamageRadius);
-                            trailEffect = UAWFxStatic.pyraSmokeTrailUnder;
-                            status = StatusEffects.slow;
+                            shootEffect = UAWFxStatic.shootCryoFlame;
+                            hitEffect = despawnEffect = UAWFxDynamic.dynamicExplosionCryo(splashDamageRadius);
+                            trailEffect = UAWFxStatic.cryoSmokeTrailUnder;
+                            status = StatusEffects.freezing;
                             statusDuration = 2 * 60;
                         }};
                     }}
             );
+            float rotX = 17;
+            float rotY = 8;
+            float rotSpeed = 12f;
             rotors.add(
                     new Rotor("uaw-short-blade") {{
                         x = -rotX;

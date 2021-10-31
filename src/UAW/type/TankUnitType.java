@@ -13,12 +13,13 @@ import mindustry.type.UnitType;
 import mindustry.world.blocks.environment.Floor;
 import mindustry.world.meta.BlockFlag;
 
-// Basically Mech with overrided draw method
+/**
+ * MechUnit but with modified drawMech method
+ */
 public class TankUnitType extends UnitType {
     public float trailChance = 0.5f;
     public float trailOffsetX = 0f, trailOffsetY = 0f;
     public float liquidSpeedMultiplier = 1.2f;
-    public boolean useCustomWeaponIcon = false;
 
     public TankUnitType(String name) {
         super(name);

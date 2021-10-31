@@ -3,20 +3,19 @@ package UAW.entities.bullet;
 import UAW.graphics.UAWFxStatic;
 import arc.Core;
 import arc.graphics.g2d.Draw;
-import mindustry.entities.bullet.BasicBulletType;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 
 import static mindustry.Vars.tilesize;
 
-public class CruiseMissileBulletType extends BasicBulletType {
+public class CruiseMissileBulletType extends UAWBasicBulletType {
     public float size = 35;
 
     public CruiseMissileBulletType(float speed, float damage, String sprite) {
         super(speed, damage, sprite);
         height = size;
         width = size / 1.5f;
-        layer = Layer.bullet - 1;
+        layer = Layer.effect + 1;
         shrinkX = shrinkY = 0;
         drag = -0.015f;
         homingRange = 30 * tilesize;
@@ -37,8 +36,7 @@ public class CruiseMissileBulletType extends BasicBulletType {
     }
 
     public CruiseMissileBulletType(float speed, float damage) {
-        this(speed, damage, "uaw-cruise-missile");
-
+        this(speed, damage, "uaw-cruise-missile-basic");
     }
 
     public CruiseMissileBulletType() {

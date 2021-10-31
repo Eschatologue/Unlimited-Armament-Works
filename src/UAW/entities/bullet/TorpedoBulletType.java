@@ -15,6 +15,9 @@ import mindustry.world.blocks.environment.Floor;
 
 import static mindustry.Vars.tilesize;
 
+/**
+ * Water based bullet that deals extra damage based one enemy hitSize
+ */
 public class TorpedoBulletType extends BulletType {
     /**
      * Scaling damage based on enemy hitSize
@@ -24,10 +27,6 @@ public class TorpedoBulletType extends BulletType {
      * Maximum enemy hitSize threshold
      */
     public float maxEnemyHitSize = 60f;
-    /**
-     * Drag in non liquid terrain
-     */
-    public float groundDrag = 0.15f;
     /**
      * Drag in non Deep liquid terrain
      */

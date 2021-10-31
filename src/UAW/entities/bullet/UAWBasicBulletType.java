@@ -8,6 +8,9 @@ import arc.util.Tmp;
 import mindustry.gen.Bullet;
 import mindustry.graphics.Pal;
 
+/**
+ * Basically BasicBulletType that extends of UAWBulletType, adding damage multiplier such as armor penetration and shield daamge multiplier
+ */
 public class UAWBasicBulletType extends UAWBulletType {
     public Color backColor = Pal.bulletYellowBack, frontColor = Pal.bulletYellow;
     public Color mixColorFrom = new Color(1f, 1f, 1f, 0f), mixColorTo = new Color(1f, 1f, 1f, 0f);
