@@ -190,7 +190,6 @@ public class UAWUnitTypes implements ContentList {
                             statusDuration = 2 * 60;
                         }};
                     }}
-
             );
             abilities.add(new RazorRotorAbility(35, 0.3f, 4 * tilesize));
         }};
@@ -299,6 +298,8 @@ public class UAWUnitTypes implements ContentList {
                             splashDamage = damage;
                             lifetime = range / speed + 45;
                             shootEffect = UAWFxStatic.shootCryoFlame;
+                            trailColor = UAWPal.cryoFront;
+                            trailLength = 28;
                             hitEffect = despawnEffect = UAWFxDynamic.dynamicExplosion(splashDamageRadius, UAWPal.cryoBack);
                             trailEffect = UAWFxStatic.cryoSmokeTrailUnder;
                             status = StatusEffects.freezing;
