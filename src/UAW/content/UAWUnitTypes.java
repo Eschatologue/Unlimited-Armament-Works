@@ -147,7 +147,7 @@ public class UAWUnitTypes implements ContentList {
                         recoil = 0f;
                         shootSound = Sounds.shoot;
                         ejectEffect = Fx.casing1;
-                        bullet = new BasicBulletType(8f, 25) {{
+                        bullet = new TrailBulletType(8f, 25) {{
                             height = 19f;
                             width = 9f;
                             pierce = true;
@@ -156,11 +156,8 @@ public class UAWUnitTypes implements ContentList {
                             maxRange = range - 8;
                             homingRange = 60f;
                             lifetime = (range / speed) * 0.8f;
-                            trailLength = 15;
-                            trailWidth = 1.5f;
                             trailColor = backColor;
-                            hitEffect = new MultiEffect(Fx.hitBulletSmall, Fx.fireHit);
-                            status = StatusEffects.burning;
+                            hitEffect = new MultiEffect(Fx.hitBulletSmall, Fx.shootSmallSmoke);
                         }};
                     }},
                     new Weapon("uaw-launcher-medium-red-2") {{
@@ -179,8 +176,8 @@ public class UAWUnitTypes implements ContentList {
                         inaccuracy = 3f;
                         shotDelay = 4f;
                         bullet = new TrailBulletType(7f, 50) {{
-                            width = 11f;
-                            height = 20f;
+                            height = 25f;
+                            width = 15f;
                             lifetime = (range / speed) * 0.8f;
                             shootEffect = Fx.shootBig;
                             hitEffect = Fx.blastExplosion;
@@ -329,7 +326,7 @@ public class UAWUnitTypes implements ContentList {
                         reload = 120f;
                         shootSound = UAWSfx.cruiseMissileShoot1;
                         bullet = new CruiseMissileBulletType(3f, 260) {{
-                            sprite = "uaw-cruise-missle-cryo";
+                            sprite = "uaw-cruise-missile-cryo";
                             layer = Layer.flyingUnitLow - 1;
                             size = 25;
                             homingRange = 120f;
