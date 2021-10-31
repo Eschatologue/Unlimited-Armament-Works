@@ -207,7 +207,7 @@ public class UAWFxStatic {
         randLenVectors(e.id, 8, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) -> {
             Fill.circle(e.x + x, e.y + y, 0.45f + e.fout() * 2f);
         });
-    }).layer(Layer.flyingUnitLow - 1.5f),
+    }).layer(Layer.flyingUnitLow - 1.05f),
 
     cryoSmokeTrail = new Effect(33f, 80f, e -> {
         color(UAWPal.cryoBack, UAWPal.cryoFront, Color.valueOf("ddcece"), e.fin() * e.fin());
@@ -223,7 +223,7 @@ public class UAWFxStatic {
         randLenVectors(e.id, 8, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) -> {
             Fill.circle(e.x + x, e.y + y, 0.45f + e.fout() * 2f);
         });
-    }).layer(Layer.flyingUnitLow - 1.5f),
+    }).layer(Layer.flyingUnitLow - 1.05f),
 
     torpedoRippleTrail = new Effect(180, e -> {
         e.lifetime = 30f * e.rotation;
