@@ -36,10 +36,10 @@ public class Rotor {
         float ry = unit.y + Angles.trnsy(unit.rotation - 90, x, y);
 
         if (unit.health() < 0 || unit.dead) {
-            rotorSpeedScl = Mathf.lerpDelta(rotationSpeed, (rotationSpeed / 4),(unit.type.fallSpeed * 100));
+            rotorSpeedScl = Mathf.lerpDelta(rotationSpeed, (rotationSpeed / 4), 0.5f);
         }
         for (int i = 0; i < bladeCount; i++) {
-            float angle = ((i * 360f / bladeCount + (((Time.time * rotorSpeedScl))) % 360));
+            float angle = ((i * 360f / bladeCount + (((Time.delta * rotorSpeedScl))) % 360));
             Draw.rect(bladeOutlineRegion, rx, ry, bladeOutlineRegion.width * Draw.scl, bladeOutlineRegion.height * Draw.scl, angle);
             Draw.mixcol(Color.white, unit.hitTime);
             Draw.rect(bladeRegion, rx, ry, bladeRegion.width * Draw.scl, bladeRegion.height * Draw.scl, angle);
