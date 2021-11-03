@@ -37,8 +37,7 @@ public class Rotor {
 
         if (unit.health() < 0 || unit.dead) {
             rotorSpeed = Time.delta * (Mathf.lerpDelta(rotationSpeed, (rotationSpeed / 4), 0.5f));
-        }
-        if (!(unit.health() < 0) || !unit.dead) {
+        } else if (!(unit.health() < 0) || !unit.dead) {
             rotorSpeed = Time.time * rotationSpeed;
         }
         for (int i = 0; i < bladeCount; i++) {
