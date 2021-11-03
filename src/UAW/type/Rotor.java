@@ -31,15 +31,18 @@ public class Rotor {
     }
 
     public void draw(Unit unit) {
-        float rotorSpeedScl = rotationSpeed;
+        float rotorSpeed = 0;
         float rx = unit.x + Angles.trnsx(unit.rotation - 90, x, y);
         float ry = unit.y + Angles.trnsy(unit.rotation - 90, x, y);
 
         if (unit.health() < 0 || unit.dead) {
-            rotorSpeedScl = Mathf.lerpDelta(rotationSpeed, (rotationSpeed / 4), 0.5f);
+            rotorSpeed = Time.delta * (Mathf.lerpDelta(rotationSpeed, (rotationSpeed / 4), 0.5f));
+        }
+        if (!(unit.health() < 0) || !unit.dead) {
+            rotorSpeed = Time.time * rotationSpeed;
         }
         for (int i = 0; i < bladeCount; i++) {
-            float angle = ((i * 360f / bladeCount + (Time.delta * rotorSpeedScl) % 360));
+            float angle = ((i * 360f / bladeCount + rotorSpeed % 360));
             Draw.rect(bladeOutlineRegion, rx, ry, bladeOutlineRegion.width * Draw.scl, bladeOutlineRegion.height * Draw.scl, angle);
             Draw.mixcol(Color.white, unit.hitTime);
             Draw.rect(bladeRegion, rx, ry, bladeRegion.width * Draw.scl, bladeRegion.height * Draw.scl, angle);
