@@ -36,7 +36,7 @@ public class Rotor {
         float ry = unit.y + Angles.trnsy(unit.rotation - 90, x, y);
 
         if (unit.health() < 0 || unit.dead) {
-            rotorSpeedScl = Mathf.lerpDelta(rotationSpeed, (rotationSpeed / 4), unit.type.fallSpeed);
+            rotorSpeedScl = Mathf.lerpDelta(rotationSpeed, (rotationSpeed / 4),(unit.type.fallSpeed * 100));
         }
         for (int i = 0; i < bladeCount; i++) {
             float angle = ((i * 360f / bladeCount + (((Time.time * rotorSpeedScl))) % 360));
