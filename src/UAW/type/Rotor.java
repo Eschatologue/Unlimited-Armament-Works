@@ -36,7 +36,7 @@ public class Rotor {
         float ry = unit.y + Angles.trnsy(unit.rotation - 90, x, y);
 
         if (unit.health() < 0 || unit.dead) {
-            rotorSpeed = Time.time * (Mathf.approach(rotationSpeed, (rotationSpeed / 4), 0.5f));
+            rotorSpeed = Time.time * (Mathf.approach(rotationSpeed, (rotationSpeed / 4), 1f));
         } else if (!(unit.health() < 0) || !unit.dead) {
             rotorSpeed = Time.time * rotationSpeed;
         }
