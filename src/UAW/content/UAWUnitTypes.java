@@ -43,7 +43,7 @@ public class UAWUnitTypes implements ContentList {
             faceTarget = flying = true;
             range = 30 * tilesize;
             maxRange = range;
-            spinningFall = true;
+            spinningFallSpeed = 4;
 
             itemCapacity = 5;
 
@@ -120,7 +120,8 @@ public class UAWUnitTypes implements ContentList {
             accel = 0.08f;
             drag = 0.03f;
             ammoType = new ItemAmmoType(Items.graphite);
-            spinningFall = faceTarget = flying = circleTarget = true;
+            faceTarget = flying = circleTarget = true;
+            spinningFallSpeed = 5f;
 
             range = 35 * tilesize;
             maxRange = range;

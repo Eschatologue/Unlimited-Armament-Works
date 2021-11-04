@@ -10,7 +10,6 @@ import mindustry.type.*;
 
 public class CopterUnitType extends UnitType {
     public final Seq<Rotor> rotors = new Seq<>();
-    public boolean spinningFall = false;
     public float spinningFallSpeed = 0;
 
     public CopterUnitType(String name) {
