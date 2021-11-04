@@ -15,8 +15,8 @@ public class Rotor {
     public float y = 0f;
     public float rotationSpeed = 12;
     public boolean drawRotorTop = true;
-
     public int bladeCount = 4;
+    public float rotorSlowdown = 1;
 
     public Rotor(String name) {
         this.name = name;
@@ -31,7 +31,7 @@ public class Rotor {
 
     public void update(Unit unit) {
         if (unit.health() < 0 || unit.dead) {
-            rotationSpeed = Time.time * (Mathf.approachDelta(rotationSpeed, (rotationSpeed / 4), 1f));
+            rotorSlowdown = Mathf.approachDelta(1, 0.25f, unit.type.fallSpeed * 100);
         }
     }
 
@@ -40,7 +40,7 @@ public class Rotor {
         float ry = unit.y + Angles.trnsy(unit.rotation - 90, x, y);
 
         for (int i = 0; i < bladeCount; i++) {
-            float angle = ((i * 360f / bladeCount + (Time.time * rotationSpeed) % 360));
+            float angle = ((i * 360f / bladeCount + (Time.time * (rotationSpeed * rotorSlowdown)) % 360));
             Draw.rect(bladeOutlineRegion, rx, ry, bladeOutlineRegion.width * Draw.scl, bladeOutlineRegion.height * Draw.scl, angle);
             Draw.mixcol(Color.white, unit.hitTime);
             Draw.rect(bladeRegion, rx, ry, bladeRegion.width * Draw.scl, bladeRegion.height * Draw.scl, angle);
