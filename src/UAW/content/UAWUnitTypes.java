@@ -50,7 +50,7 @@ public class UAWUnitTypes implements ContentList {
             rotors.add(
                     new Rotor(name + "-blade") {{
                         x = y = 0;
-                        rotationSpeed = -16f;
+                        rotorSpeed = -16f;
                         bladeCount = 3;
                     }}
             );
@@ -131,7 +131,7 @@ public class UAWUnitTypes implements ContentList {
                     new Rotor(name + "-blade") {{
                         x = 0;
                         y = 2;
-                        rotationSpeed = -14f;
+                        rotorSpeed = -14f;
                         bladeCount = 4;
                     }}
             );
@@ -350,27 +350,27 @@ public class UAWUnitTypes implements ContentList {
                     new Rotor("uaw-short-blade") {{
                         x = -rotX;
                         y = rotY;
-                        rotationSpeed = -rotSpeed;
+                        rotorSpeed = -rotSpeed;
                         bladeCount = 3;
                         drawRotorTop = false;
                     }},
                     new Rotor("uaw-short-blade") {{
                         x = -rotX;
                         y = rotY;
-                        rotationSpeed = rotSpeed;
+                        rotorSpeed = rotSpeed;
                         bladeCount = 3;
                     }},
                     new Rotor("uaw-short-blade") {{
                         x = rotX;
                         y = rotY;
-                        rotationSpeed = rotSpeed;
+                        rotorSpeed = rotSpeed;
                         bladeCount = 3;
                         drawRotorTop = false;
                     }},
                     new Rotor("uaw-short-blade") {{
                         x = rotX;
                         y = rotY;
-                        rotationSpeed = -rotSpeed;
+                        rotorSpeed = -rotSpeed;
                         bladeCount = 3;
                     }}
             );
