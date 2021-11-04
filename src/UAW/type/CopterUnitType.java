@@ -34,7 +34,7 @@ public class CopterUnitType extends UnitType {
         }
         if (unit.dead() || unit.health < 0) {
             for(Rotor rotor : rotors){
-                rotor.rotorSpeed = Mathf.lerpDelta(rotor.rotorSpeed, 0, spinningFallSpeed);
+                rotor.rotorSpeed = Time.time * Mathf.lerpDelta(rotor.rotorSpeed, 0, spinningFallSpeed);
             }
         }
     }
