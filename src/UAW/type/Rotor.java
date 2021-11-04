@@ -14,7 +14,6 @@ public class Rotor {
     public float x = 0f;
     public float y = 0f;
     public float rotationSpeed = 12;
-    public float rotorDeathSpeedScl = 2f;
     public boolean drawRotorTop = true;
 
     public int bladeCount = 4;
@@ -30,18 +29,18 @@ public class Rotor {
         topRegionOutline = Core.atlas.find(name + "-top-outline");
     }
 
+    public void update(Unit unit) {
+        if (unit.health() < 0 || unit.dead) {
+            rotationSpeed = Time.time * (Mathf.approachDelta(rotationSpeed, (rotationSpeed / 4), 1f));
+        }
+    }
+
     public void draw(Unit unit) {
-        float rotorSpeed = 0;
         float rx = unit.x + Angles.trnsx(unit.rotation - 90, x, y);
         float ry = unit.y + Angles.trnsy(unit.rotation - 90, x, y);
 
-        if (unit.health() < 0 || unit.dead) {
-            rotorSpeed = Time.time * (Mathf.approach(rotationSpeed, (rotationSpeed / 4), 2f));
-        } else {
-            rotorSpeed = Time.time * rotationSpeed;
-        }
         for (int i = 0; i < bladeCount; i++) {
-            float angle = ((i * 360f / bladeCount + rotorSpeed % 360));
+            float angle = ((i * 360f / bladeCount + (Time.time * rotationSpeed) % 360));
             Draw.rect(bladeOutlineRegion, rx, ry, bladeOutlineRegion.width * Draw.scl, bladeOutlineRegion.height * Draw.scl, angle);
             Draw.mixcol(Color.white, unit.hitTime);
             Draw.rect(bladeRegion, rx, ry, bladeRegion.width * Draw.scl, bladeRegion.height * Draw.scl, angle);
