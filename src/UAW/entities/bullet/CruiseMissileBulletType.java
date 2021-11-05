@@ -19,9 +19,9 @@ public class CruiseMissileBulletType extends UAWBasicBulletType {
         shrinkX = shrinkY = 0;
         drag = -0.015f;
         homingRange = 30 * tilesize;
+        homingPower = 0.035f;
         splashDamage = damage;
         splashDamageRadius = 12 * tilesize;
-        homingPower = 0.15f;
         hitShake = 12f;
         hitSize = 1.5f * 8;
         hitSoundVolume = 2f;
@@ -52,7 +52,6 @@ public class CruiseMissileBulletType extends UAWBasicBulletType {
         super.draw(b);
         Draw.rect(frontRegion, b.x, b.y, width, height, b.rotation() - 90);
         Draw.rect(backRegion, b.x, b.y, width, height, b.rotation() - 90);
-
         Draw.reset();
     }
 }

@@ -12,7 +12,7 @@ import mindustry.type.UnitType;
 public class CopterUnitType extends UnitType {
     public final Seq<Rotor> rotors = new Seq<>();
     public float spinningFallSpeed = 0;
-    public float fallSmokeX = 0f, fallSmokeY = -5f, fallSmokeChance = 0.5f;
+    public float fallSmokeX = 0f, fallSmokeY = -5f, fallSmokeChance = 0.1f;
 
     public CopterUnitType(String name) {
         super(name);

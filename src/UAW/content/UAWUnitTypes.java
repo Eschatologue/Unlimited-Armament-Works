@@ -44,6 +44,7 @@ public class UAWUnitTypes implements ContentList {
             range = 30 * tilesize;
             maxRange = range;
             spinningFallSpeed = 4;
+            fallSmokeY = -10f;
 
             itemCapacity = 5;
 
@@ -122,6 +123,7 @@ public class UAWUnitTypes implements ContentList {
             ammoType = new ItemAmmoType(Items.graphite);
             faceTarget = flying = circleTarget = true;
             spinningFallSpeed = 5f;
+            fallSmokeY = -15f;
 
             range = 35 * tilesize;
             maxRange = range;
@@ -206,13 +208,12 @@ public class UAWUnitTypes implements ContentList {
                     new Weapon() {{
                         rotate = false;
                         mirror = false;
-                        shootCone = 90;
-                        top = true;
+                        shootCone = 1800;
                         x = y = 0f;
                         maxRange = range;
-                        reload = 80f;
+                        reload = 5 * 60;
                         shootSound = UAWSfx.cruiseMissileShoot1;
-                        bullet = new CruiseMissileBulletType(3f, 100) {{
+                        bullet = new CruiseMissileBulletType(3f, 120) {{
                             layer = Layer.flyingUnitLow - 1;
                             size = 20;
                             homingRange = range;
@@ -243,6 +244,7 @@ public class UAWUnitTypes implements ContentList {
 
             range = 40 * tilesize;
             maxRange = range;
+            fallSmokeChance = 0;
 
             itemCapacity = 15;
             weapons.add(
@@ -301,29 +303,27 @@ public class UAWUnitTypes implements ContentList {
                         shootSound = Sounds.shootBig;
                         shake = 2.5f;
                         ejectEffect = UAWFxStatic.casing3Long;
-                        bullet = new UAWPointBulletType() {{
-                            damage = 400;
-                            speed = range;
-                            splashDamage = 200;
-                            splashDamageRadius = 3 * 8;
-                            shootEffect = new MultiEffect(UAWFxDynamic.railShoot(Pal.bulletYellowBack, 16), Fx.blockExplosionSmoke);
+                        bullet = new UAWRailBulletType() {{
+                            damage = 250;
+                            length = range;
+                            shootEffect = new MultiEffect(UAWFxDynamic.railShoot(Pal.bulletYellow, 32), Fx.blockExplosionSmoke);
+                            hitEffect = pierceEffect = new MultiEffect(UAWFxDynamic.railHit(Pal.bulletYellow), Fx.blockExplosionSmoke);
                             smokeEffect = Fx.smokeCloud;
-                            trailEffect = UAWFxDynamic.railTrail(Pal.bulletYellowBack);
-                            hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(Pal.bulletYellowBack, splashDamageRadius), UAWFxDynamic.dynamicExplosion(splashDamageRadius, Color.gray));
-                            trailSpacing = 20f;
-                            shieldDamageMultiplier = 1.5f;
-                            buildingDamageMultiplier = 0.5f;
+                            updateEffect = UAWFxDynamic.railTrail(Pal.bulletYellow);
+                            pierceCap = 2;
+                            updateEffectSeg = 30f;
+                            armorIgnoreScl = buildingDamageMultiplier = 0.5f;
                             hitShake = 6f;
                             ammoMultiplier = 1f;
                         }};
                     }},
                     new Weapon() {{
-                        rotate = true;
-                        shootCone = 90;
+                        rotate = false;
+                        shootCone = 180;
                         x = y = 0f;
                         inaccuracy = 0;
                         maxRange = range;
-                        reload = 120f;
+                        reload = 3 * 60;
                         shootSound = UAWSfx.cruiseMissileShoot1;
                         bullet = new CruiseMissileBulletType(3f, 260) {{
                             sprite = "uaw-cruise-missile-cryo";
