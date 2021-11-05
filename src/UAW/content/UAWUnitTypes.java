@@ -208,12 +208,15 @@ public class UAWUnitTypes implements ContentList {
                     new Weapon() {{
                         rotate = false;
                         mirror = false;
-                        shootCone = 1800;
+                        shootCone = 180;
+                        shots = 4;
+                        shotDelay = 30f;
+                        firstShotDelay = 20f;
                         x = y = 0f;
                         maxRange = range;
-                        reload = 5 * 60;
+                        reload = 8 * 60;
                         shootSound = UAWSfx.cruiseMissileShoot1;
-                        bullet = new CruiseMissileBulletType(3f, 120) {{
+                        bullet = new CruiseMissileBulletType(3f, 60) {{
                             layer = Layer.flyingUnitLow - 1;
                             size = 20;
                             homingRange = range;
@@ -230,7 +233,7 @@ public class UAWUnitTypes implements ContentList {
                         }};
                     }}
             );
-            abilities.add(new RazorRotorAbility(25, 0.3f, 4 * tilesize));
+            abilities.add(new RazorRotorAbility(25, 0.2f, 4 * tilesize));
         }};
         calogrenant = new CopterUnitType("calogrenant") {{
             health = 9500;
