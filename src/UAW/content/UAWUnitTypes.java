@@ -175,9 +175,9 @@ public class UAWUnitTypes implements ContentList {
                         shake = 2f;
                         ejectEffect = Fx.casing3;
                         shootSound = Sounds.shootBig;
-                        shots = 4;
-                        inaccuracy = 3f;
-                        shotDelay = 3f;
+                        shots = 5;
+                        inaccuracy = 6f;
+                        shotDelay = 5f;
                         bullet = new TrailBulletType(7f, 50) {{
                             height = 25f;
                             width = 15f;
@@ -187,6 +187,7 @@ public class UAWUnitTypes implements ContentList {
                             hitSound = Sounds.boom;
                             frontColor = Pal.plastaniumFront;
                             backColor = Pal.plastaniumBack;
+                            trailColor = frontColor;
                             splashDamage = 16f;
                             splashDamageRadius = 2 * tilesize;
                             fragBullets = 5;
@@ -207,19 +208,19 @@ public class UAWUnitTypes implements ContentList {
                     }},
                     new Weapon() {{
                         rotate = false;
-                        mirror = false;
-                        shootCone = 180;
-                        shots = 4;
-                        shotDelay = 30f;
-                        firstShotDelay = 20f;
-                        x = y = 0f;
+                        mirror = true;
+                        shootCone = 45;
+                        x = 8f;
+                        y = 0f;
+                        shots = 2;
+                        shotDelay = 15f;
                         maxRange = range;
-                        reload = 8 * 60;
+                        reload = 5 * 60;
                         shootSound = UAWSfx.cruiseMissileShoot1;
                         bullet = new CruiseMissileBulletType(3f, 60) {{
                             layer = Layer.flyingUnitLow - 1;
                             size = 20;
-                            homingRange = range;
+                            homingRange = range * 2;
                             homingPower = 0.035f;
                             keepVelocity = false;
                             splashDamageRadius = 8 * tilesize;
