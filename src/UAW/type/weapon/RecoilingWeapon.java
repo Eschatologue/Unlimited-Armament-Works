@@ -14,7 +14,7 @@ import mindustry.graphics.Drawf;
 import mindustry.type.*;
 import mindustry.world.meta.*;
 
-public class RecoilingWeapon extends Weapon {
+public class RecoilingWeapon extends UAWWeapon {
     public TextureRegion turret, turretOutlineRegion, turretCell, weaponIcon;
     public boolean drawTurretCell = false;
 
@@ -35,18 +35,6 @@ public class RecoilingWeapon extends Weapon {
     public Color cellColor(Unit unit) {
         float f = Mathf.clamp(unit.healthf());
         return Tmp.c1.set(Color.black).lerp(unit.team.color, f + Mathf.absin(Time.time, Math.max(f * 5f, 1f), 1f - f));
-    }
-
-    @Override
-    public void addStats(UnitType u, Table t) {
-        if (inaccuracy > 0) {
-            t.row();
-            t.add("[lightgray]" + Stat.inaccuracy.localized() + ": [white]" + (int) inaccuracy + " " + StatUnit.degrees.localized());
-        }
-        t.row();
-        t.add("[lightgray]" + Stat.reload.localized() + ": " + (mirror ? "2x " : "") + "[white]" + Strings.autoFixed(60f / reload * shots, 2) + " " + StatUnit.perSecond.localized());
-
-        UAWStatValues.ammo(ObjectMap.of(u, bullet)).display(t);
     }
 
     public void draw(Unit unit, WeaponMount mount) {

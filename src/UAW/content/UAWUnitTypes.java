@@ -4,7 +4,7 @@ import UAW.entities.abilities.RazorRotorAbility;
 import UAW.entities.bullet.*;
 import UAW.graphics.*;
 import UAW.type.*;
-import UAW.type.weapon.RecoilingWeapon;
+import UAW.type.weapon.*;
 import arc.graphics.Color;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
@@ -179,8 +179,8 @@ public class UAWUnitTypes implements ContentList {
                         inaccuracy = 6f;
                         shotDelay = 5f;
                         bullet = new TrailBulletType(7f, 50) {{
-                            height = 25f;
-                            width = 15f;
+                            height = 30f;
+                            width = 20f;
                             lifetime = (range / speed) * 1.5f;
                             shootEffect = Fx.shootBig;
                             hitEffect = Fx.blastExplosion;
@@ -209,10 +209,12 @@ public class UAWUnitTypes implements ContentList {
                     new Weapon() {{
                         rotate = false;
                         mirror = true;
+                        alternate = true;
                         shootCone = 30;
                         x = 8f;
                         y = 0f;
-                        shots = 2;
+                        shots = 3;
+                        shotDelay = 15;
                         maxRange = range;
                         reload = 3 * 60;
                         shootSound = UAWSfx.cruiseMissileShoot1;
@@ -275,49 +277,46 @@ public class UAWUnitTypes implements ContentList {
                         mirror = true;
                         x = 8f;
                         y = 12f;
-                        reload = 7;
+                        reload = 5;
                         recoil = 1f;
-                        shootSound = Sounds.shoot;
+                        shootSound = Sounds.shootBig;
                         ejectEffect = Fx.casing2;
-                        bullet = new BasicBulletType(7f, 25) {{
-                            height = 10f;
-                            width = 6f;
+                        bullet = new TrailBulletType(7f, 25) {{
+                            height = 20f;
+                            width = 10f;
                             pierce = true;
                             pierceCap = 2;
                             buildingDamageMultiplier = 0.3f;
                             maxRange = range - 16;
-                            lifetime = (range / speed) * 0.7f;
-                            trailLength = 10;
-                            trailWidth = width / 3;
-                            trailColor = backColor;
+                            lifetime = range / speed;
                             hitEffect = new MultiEffect(Fx.hitBulletSmall, Fx.shootSmallSmoke);
                         }};
                     }},
-                    new Weapon("uaw-artillery-small-red") {{
+                    new UAWWeapon("uaw-artillery-small-red") {{
                         mirror = alternate = true;
                         rotate = false;
                         x = 11f;
                         y = 0f;
-                        inaccuracy = 8f;
+                        inaccuracy = 0;
                         shootCone = 30;
                         rotateSpeed = 2.2f;
                         reload = 1.5f * 60;
                         recoil = 2.2f;
-                        shootSound = Sounds.shootBig;
-                        shake = 2.5f;
+                        shootSound = Sounds.railgun;
+                        shake = 3.5f;
                         ejectEffect = UAWFxStatic.casing3Long;
                         bullet = new UAWRailBulletType() {{
                             damage = 250;
                             length = range;
-                            shootEffect = new MultiEffect(UAWFxDynamic.railShoot(Pal.bulletYellow, 32), Fx.blockExplosionSmoke);
-                            hitEffect = pierceEffect = new MultiEffect(UAWFxDynamic.railHit(Pal.bulletYellow), Fx.blockExplosionSmoke);
+                            shootEffect = new MultiEffect(UAWFxDynamic.railShoot(Pal.bulletYellowBack, 32), Fx.blockExplosionSmoke);
+                            hitEffect = pierceEffect = new MultiEffect(UAWFxDynamic.railHit(Pal.bulletYellowBack), Fx.blockExplosionSmoke);
                             smokeEffect = Fx.smokeCloud;
-                            updateEffect = UAWFxDynamic.railTrail(Pal.bulletYellow);
+                            updateEffect = UAWFxDynamic.railTrail(Pal.bulletYellowBack);
                             pierceCap = 2;
                             updateEffectSeg = 30f;
-                            armorIgnoreScl = buildingDamageMultiplier = 0.5f;
+                            armorIgnoreScl = 0.4f;
+                            buildingDamageMultiplier = 0.5f;
                             hitShake = 6f;
-                            ammoMultiplier = 1f;
                         }};
                     }},
                     new Weapon() {{
