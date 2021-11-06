@@ -41,7 +41,7 @@ public class UAWUnitTypes implements ContentList {
             circleTarget = true;
 
             faceTarget = flying = true;
-            range = 30 * tilesize;
+            range = 35 * tilesize;
             maxRange = range;
             spinningFallSpeed = 4;
             fallSmokeY = -10f;
@@ -125,7 +125,7 @@ public class UAWUnitTypes implements ContentList {
             spinningFallSpeed = 5f;
             fallSmokeY = -15f;
 
-            range = 35 * tilesize;
+            range = 40 * tilesize;
             maxRange = range;
 
             itemCapacity = 10;
@@ -166,7 +166,6 @@ public class UAWUnitTypes implements ContentList {
                     new Weapon("uaw-launcher-medium-red-2") {{
                         rotate = false;
                         alternate = mirror = true;
-                        shootCone = 45;
                         top = true;
                         x = 7f;
                         y = -1.5f;

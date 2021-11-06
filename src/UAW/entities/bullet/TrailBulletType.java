@@ -19,6 +19,8 @@ public class TrailBulletType extends UAWBasicBulletType {
     public TrailBulletType(float speed, float damage, String bulletSprite) {
         super(speed, damage);
         this.sprite = bulletSprite;
+        height = 7f;
+        width = 5f;
         trailWidth = width / 3.4f;
         trailLength = Mathf.round(height * trailLenghtScl);
         trailRotation = true;
