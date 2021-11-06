@@ -6,6 +6,7 @@ import UAW.graphics.*;
 import UAW.type.*;
 import UAW.type.weapon.*;
 import arc.graphics.Color;
+import arc.math.Mathf;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.bullet.*;
@@ -186,7 +187,6 @@ public class UAWUnitTypes implements ContentList {
                             hitSound = Sounds.boom;
                             frontColor = Pal.plastaniumFront;
                             backColor = Pal.plastaniumBack;
-                            trailColor = frontColor;
                             splashDamage = 16f;
                             splashDamageRadius = 2 * tilesize;
                             fragBullets = 5;
@@ -212,7 +212,7 @@ public class UAWUnitTypes implements ContentList {
                         shootCone = 30;
                         x = 8f;
                         y = 0f;
-                        shots = 3;
+                        shots = 2;
                         shotDelay = 15;
                         maxRange = range;
                         reload = 3 * 60;
@@ -322,14 +322,16 @@ public class UAWUnitTypes implements ContentList {
                         rotate = false;
                         x = y = 0f;
                         inaccuracy = 0;
-                        maxRange = range;
+                        maxRange = range / 1.5f;
                         reload = 5 * 60;
+                        shots = 2;
+                        shotDelay = 15f;
                         shootSound = UAWSfx.cruiseMissileShoot1;
-                        bullet = new CruiseMissileBulletType(3f, 260) {{
+                        bullet = new CruiseMissileBulletType(3f, 250) {{
                             sprite = "uaw-cruise-missile-cryo";
                             layer = Layer.flyingUnitLow - 1;
-                            size = 45;
-                            homingRange = 120f;
+                            size = 50;
+                            homingRange = range;
                             homingPower = 0.05f;
                             keepVelocity = false;
                             splashDamageRadius = 12 * tilesize;

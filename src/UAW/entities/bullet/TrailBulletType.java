@@ -21,10 +21,7 @@ public class TrailBulletType extends UAWBasicBulletType {
         this.sprite = bulletSprite;
         height = 7f;
         width = 5f;
-        trailWidth = width / 3.4f;
-        trailLength = Mathf.round(height * trailLenghtScl);
         trailRotation = true;
-        trailColor = backColor;
     }
 
     public TrailBulletType(float speed, float damage) {
@@ -33,6 +30,16 @@ public class TrailBulletType extends UAWBasicBulletType {
 
     public TrailBulletType() {
         this(1f, 1f, "bullet");
+    }
+
+    @Override
+    public void update(Bullet b) {
+        super.update(b);
+        if (trailLenghtScl > 0) {
+            trailWidth = width / 3.4f;
+            trailLength = Mathf.round(height * trailLenghtScl);
+            trailColor = backColor;
+        }
     }
 
     @Override
