@@ -209,19 +209,18 @@ public class UAWUnitTypes implements ContentList {
                     new Weapon() {{
                         rotate = false;
                         mirror = true;
-                        shootCone = 45;
+                        shootCone = 30;
                         x = 8f;
                         y = 0f;
                         shots = 2;
-                        shotDelay = 15f;
                         maxRange = range;
-                        reload = 5 * 60;
+                        reload = 3 * 60;
                         shootSound = UAWSfx.cruiseMissileShoot1;
                         bullet = new CruiseMissileBulletType(3f, 60) {{
                             layer = Layer.flyingUnitLow - 1;
                             size = 20;
                             homingRange = range * 2;
-                            homingPower = 0.035f;
+                            homingPower = 0.05f;
                             keepVelocity = false;
                             splashDamageRadius = 8 * tilesize;
                             splashDamage = damage;
@@ -246,7 +245,7 @@ public class UAWUnitTypes implements ContentList {
             ammoType = new ItemAmmoType(Items.graphite);
             faceTarget = flying = true;
 
-            range = 40 * tilesize;
+            range = 45 * tilesize;
             maxRange = range;
             fallSmokeChance = 0;
 
@@ -332,11 +331,11 @@ public class UAWUnitTypes implements ContentList {
                         bullet = new CruiseMissileBulletType(3f, 260) {{
                             sprite = "uaw-cruise-missile-cryo";
                             layer = Layer.flyingUnitLow - 1;
-                            size = 25;
+                            size = 35;
                             homingRange = 120f;
                             homingPower = 0.05f;
                             keepVelocity = false;
-                            splashDamageRadius = 8 * tilesize;
+                            splashDamageRadius = 10 * tilesize;
                             splashDamage = damage;
                             lifetime = (range - 5) / speed;
                             shootEffect = UAWFxStatic.shootCryoFlame;
