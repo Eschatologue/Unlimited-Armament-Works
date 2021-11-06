@@ -238,7 +238,7 @@ public class UAWUnitTypes implements ContentList {
         }};
         calogrenant = new CopterUnitType("calogrenant") {{
             health = 9500;
-            hitSize = 32;
+            hitSize = 35;
             speed = 2f;
             rotateSpeed = 4f;
             accel = 0.06f;
@@ -266,7 +266,7 @@ public class UAWUnitTypes implements ContentList {
                             shootEffect = Fx.sparkShoot;
                             smokeEffect = Fx.shootSmallSmoke;
                             hitEffect = Fx.pointHit;
-                            maxRange = range / 2f;
+                            maxRange = range / 1.5f;
                             damage = 25f;
                         }};
                     }},
@@ -320,20 +320,19 @@ public class UAWUnitTypes implements ContentList {
                     }},
                     new Weapon() {{
                         rotate = false;
-                        shootCone = 180;
                         x = y = 0f;
                         inaccuracy = 0;
                         maxRange = range;
-                        reload = 3 * 60;
+                        reload = 5 * 60;
                         shootSound = UAWSfx.cruiseMissileShoot1;
                         bullet = new CruiseMissileBulletType(3f, 260) {{
                             sprite = "uaw-cruise-missile-cryo";
                             layer = Layer.flyingUnitLow - 1;
-                            size = 35;
+                            size = 45;
                             homingRange = 120f;
                             homingPower = 0.05f;
                             keepVelocity = false;
-                            splashDamageRadius = 10 * tilesize;
+                            splashDamageRadius = 12 * tilesize;
                             splashDamage = damage;
                             lifetime = (range - 5) / speed;
                             shootEffect = UAWFxStatic.shootCryoFlame;
@@ -347,7 +346,7 @@ public class UAWUnitTypes implements ContentList {
             );
             float rotX = 17;
             float rotY = 8;
-            float rotSpeed = 14f;
+            float rotSpeed = 13f;
             rotors.add(
                     new Rotor("uaw-short-blade") {{
                         x = -rotX;
