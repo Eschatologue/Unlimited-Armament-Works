@@ -28,12 +28,12 @@ import static mindustry.type.ItemStack.with;
 public class UAWBlock implements ContentList {
     public static Block
 
-    // Turret
-    quadra, spitfire, equalizer,
-    solo, longsword, deadeye,
-    buckshot, tempest, strikeforce,
-    ashlock, zounderkite, skyhammer,
-    heavylight, trailblazer, gigavolt,
+            // Turret
+            quadra, spitfire, equalizer,
+            solo, longsword, deadeye,
+            buckshot, tempest, strikeforce,
+            ashlock, zounderkite, skyhammer,
+            heavylight, trailblazer, gigavolt,
 
     // Production
     gelatinizer, carburizingFurnace, surgeMixer, coalLiquefier,
@@ -443,6 +443,7 @@ public class UAWBlock implements ContentList {
                         shootEffect = new MultiEffect(
                                 UAWFxDynamic.railShoot(Pal.lightOrange, height + (width * 1.5f)),
                                 UAWFxDynamic.effectCloud(frontColor),
+                                UAWFxDynamic.shootMassiveSmoke(5, 30, backColor),
                                 Fx.nuclearShockwave
                         );
                         hitEffect = UAWFxDynamic.hugeExplosion(splashDamageRadius, frontColor);
@@ -469,7 +470,7 @@ public class UAWBlock implements ContentList {
                             applySound = Sounds.flame2;
                         }};
                     }},
-                    UAWItems.cryogel, new ArtilleryBulletType(2f, 3200) {{
+                    UAWItems.cryogel, new ArtilleryBulletType(2f, 2500) {{
                         height = 45;
                         width = height / 2f;
                         splashDamage = damage;
@@ -480,6 +481,7 @@ public class UAWBlock implements ContentList {
                         shootEffect = new MultiEffect(
                                 UAWFxDynamic.railShoot(UAWPal.cryoBackBloom, height + (width * 1.5f)),
                                 UAWFxDynamic.effectCloud(frontColor),
+                                UAWFxDynamic.shootMassiveSmoke(5, 30, frontColor),
                                 Fx.nuclearShockwave
                         );
                         hitEffect = UAWFxDynamic.hugeExplosion(splashDamageRadius, frontColor);
@@ -505,7 +507,7 @@ public class UAWBlock implements ContentList {
                             applySound = Sounds.plasmaboom;
                         }};
                     }},
-                    Items.plastanium, new ArtilleryBulletType(2f, 3200) {{
+                    Items.plastanium, new ArtilleryBulletType(2f, 3500) {{
                         height = 45;
                         width = height / 2f;
                         splashDamage = damage;
@@ -516,6 +518,7 @@ public class UAWBlock implements ContentList {
                         shootEffect = new MultiEffect(
                                 UAWFxDynamic.railShoot(UAWPal.plastBackBloom, height + width),
                                 UAWFxDynamic.effectCloud(frontColor),
+                                UAWFxDynamic.shootMassiveSmoke(5, 30, frontColor),
                                 Fx.nuclearShockwave
                         );
                         hitEffect = UAWFxDynamic.hugeExplosion(splashDamageRadius, frontColor);
@@ -550,6 +553,7 @@ public class UAWBlock implements ContentList {
                         shootEffect = new MultiEffect(
                                 UAWFxDynamic.railShoot(UAWPal.surgeBackBloom, height + width),
                                 UAWFxDynamic.effectCloud(frontColor),
+                                UAWFxDynamic.shootMassiveSmoke(5, 30, frontColor),
                                 Fx.nuclearShockwave
                         );
                         hitEffect = UAWFxDynamic.hugeExplosion(splashDamageRadius, frontColor);

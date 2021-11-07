@@ -40,7 +40,6 @@ public class CopterUnitType extends UnitType {
         }
     }
 
-
     @Override
     public void draw(Unit unit) {
         super.draw(unit);

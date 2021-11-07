@@ -111,10 +111,12 @@ public class UAWFxDynamic {
         });
     }
 
-    public static Effect adjustableTrail(float size, float lifetime, Color color) {
+    public static Effect shootMassiveSmoke(float size, float lifetime, Color color) {
         return new Effect(lifetime, e -> {
-            color(color);
-            Fill.circle(e.x, e.y, size * e.fout());
+            color(color, Color.lightGray, Color.gray, e.fin());
+
+            randLenVectors(e.id, 12, e.finpow() * 23f, e.rotation, size * 8, (x, y) ->
+                    Fill.circle(e.x + x, e.y + y, e.fout() * size));
         });
     }
 

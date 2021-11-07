@@ -6,7 +6,6 @@ import UAW.graphics.*;
 import UAW.type.*;
 import UAW.type.weapon.*;
 import arc.graphics.Color;
-import arc.math.Mathf;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.bullet.*;
@@ -27,7 +26,7 @@ public class UAWUnitTypes implements ContentList {
             escutcheon,
             clurit, kujang, kerambit, cetbang, kiAmuk,
             hatsuharu, shiratsuyu, kagero, shimakaze,
-            gardlacz, arkabuz, armata, twardy;
+            gardlacz, arkabuz, armata, zemsta;
 
     @Override
     public void load() {
@@ -116,7 +115,7 @@ public class UAWUnitTypes implements ContentList {
             );
         }};
         bedivere = new CopterUnitType("bedivere") {{
-            health = 4000;
+            health = 4500;
             hitSize = 30;
             speed = 2.5f;
             rotateSpeed = 4.5f;
@@ -170,7 +169,7 @@ public class UAWUnitTypes implements ContentList {
                         rotate = false;
                         alternate = mirror = true;
                         top = true;
-                        targetAir = false;
+                        shootCone = 15;
                         x = 7f;
                         y = -1.5f;
                         reload = 60f;
@@ -184,6 +183,7 @@ public class UAWUnitTypes implements ContentList {
                         bullet = new ArtilleryBulletType(5, 50) {{
                             height = 20f;
                             width = 15f;
+                            collidesAir = true;
                             trailSize = 5;
                             lifetime = (range / speed) * 1.5f;
                             shootEffect = Fx.shootBig;
@@ -229,7 +229,8 @@ public class UAWUnitTypes implements ContentList {
             abilities.add(new RazorRotorAbility(25, 0.2f, 4 * tilesize));
         }};
         calogrenant = new CopterUnitType("calogrenant") {{
-            health = 9500;
+            health = 9000;
+            armor = 10;
             hitSize = 35;
             speed = 2f;
             rotateSpeed = 4f;
@@ -242,6 +243,7 @@ public class UAWUnitTypes implements ContentList {
             range = 45 * tilesize;
             maxRange = range;
             fallSmokeChance = 0;
+            targetFlags = new BlockFlag[]{BlockFlag.turret, BlockFlag.battery, BlockFlag.core, null};
 
             itemCapacity = 15;
             weapons.add(
@@ -267,18 +269,19 @@ public class UAWUnitTypes implements ContentList {
                         rotate = false;
                         inaccuracy = 6f;
                         mirror = true;
+                        shootCone = 30f;
                         x = 8f;
                         y = 12f;
                         reload = 5;
                         shootSound = Sounds.shootBig;
                         ejectEffect = Fx.casing2;
                         bullet = new TrailBulletType(8f, 25) {{
-                            height = 15f;
-                            width = 6f;
+                            height = 16f;
+                            width = 8f;
                             splashDamage = damage;
                             splashDamageRadius = 16;
-                            frontColor = Pal.lightishOrange;
-                            backColor = Pal.lightOrange;
+                            frontColor = Pal.missileYellow;
+                            backColor = Pal.missileYellowBack;
                             buildingDamageMultiplier = 0.3f;
                             maxRange = range - 16;
                             lifetime = range / speed;
@@ -316,16 +319,17 @@ public class UAWUnitTypes implements ContentList {
                     new Weapon() {{
                         rotate = false;
                         x = y = 0f;
-                        inaccuracy = 0;
+                        inaccuracy = 12;
+                        shootCone = 60f;
                         maxRange = range / 1.5f;
                         reload = 5 * 60;
-                        shots = 2;
+                        shots = 3;
                         shotDelay = 15f;
                         shootSound = UAWSfx.cruiseMissileShoot1;
                         bullet = new CruiseMissileBulletType(3f, 250) {{
                             sprite = "uaw-cruise-missile-cryo";
                             layer = Layer.flyingUnitLow - 1;
-                            size = 50;
+                            size = 45;
                             homingRange = range;
                             homingPower = 0.05f;
                             keepVelocity = false;
