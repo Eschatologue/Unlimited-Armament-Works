@@ -11,8 +11,8 @@ public class CopterAI extends FlyingAI {
     public void updateMovement() {
         if (target != null && unit.hasWeapons() && command() == UnitCommand.attack) {
             if (!unit.type.circleTarget) {
-                moveTo(target, unit.type.range * 0.75f);
                 unit.lookAt(target);
+                moveTo(target, unit.type.range * 0.75f);
             } else {
                 unit.lookAt(target);
                 attack(unit.type.range * 0.8f);

@@ -34,8 +34,8 @@ public class CopterUnitType extends UnitType {
                 unit.rotation += Time.delta * spinningFallSpeed + unit.vel.len();
                 if (Mathf.chanceDelta(fallSmokeChance)) {
                     Fx.fallSmoke.at(rx, ry);
+                    Fx.burning.at(rx, ry);
                 }
-                Fx.burning.at(unit.x, unit.y);
             }
         }
     }

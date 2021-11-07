@@ -40,6 +40,7 @@ public class UAWUnitTypes implements ContentList {
             rotateSpeed = 5.5f;
             ammoType = new ItemAmmoType(Items.graphite);
             circleTarget = true;
+            commandLimit = 3;
 
             faceTarget = flying = true;
             range = 35 * tilesize;
@@ -125,6 +126,7 @@ public class UAWUnitTypes implements ContentList {
             faceTarget = flying = circleTarget = true;
             spinningFallSpeed = 5f;
             fallSmokeY = -15f;
+            commandLimit = 3;
 
             range = 40 * tilesize;
             maxRange = range;
@@ -142,8 +144,8 @@ public class UAWUnitTypes implements ContentList {
             weapons.add(
                     new Weapon("uaw-machine-gun-small-red") {{
                         rotate = top = false;
-                        shootCone = 90;
-                        inaccuracy = 3f;
+                        shootCone = 30;
+                        inaccuracy = 5f;
                         alternate = mirror = true;
                         x = 7f;
                         y = 10f;
@@ -151,14 +153,14 @@ public class UAWUnitTypes implements ContentList {
                         recoil = 0f;
                         shootSound = Sounds.shoot;
                         ejectEffect = Fx.casing1;
-                        bullet = new TrailBulletType(10f, 25) {{
+                        bullet = new TrailBulletType(10f, 15) {{
                             height = 10f;
                             width = 5f;
                             pierce = true;
                             pierceCap = 2;
                             buildingDamageMultiplier = 0.4f;
                             maxRange = range - 8;
-                            homingRange = 60f;
+                            homingPower = 0.02f;
                             lifetime = (range / speed) * 0.8f;
                             trailColor = backColor;
                             hitEffect = new MultiEffect(Fx.hitBulletSmall, Fx.shootSmallSmoke);
@@ -179,10 +181,10 @@ public class UAWUnitTypes implements ContentList {
                         shots = 5;
                         inaccuracy = 6f;
                         shotDelay = 5f;
-                        bullet = new ArtilleryBulletType(7f, 50) {{
-                            height = 30f;
-                            width = 20f;
-                            trailMult = 1.2f;
+                        bullet = new ArtilleryBulletType(5, 50) {{
+                            height = 20f;
+                            width = 15f;
+                            trailSize = 5;
                             lifetime = (range / speed) * 1.5f;
                             shootEffect = Fx.shootBig;
                             hitEffect = Fx.blastExplosion;
@@ -192,7 +194,7 @@ public class UAWUnitTypes implements ContentList {
                             splashDamage = 16f;
                             splashDamageRadius = 2 * tilesize;
                             fragBullets = 5;
-                            fragBullet = fragPlasticFrag;
+                            fragBullet = artilleryPlasticFrag;
                         }};
                     }},
                     new Weapon() {{
@@ -203,11 +205,11 @@ public class UAWUnitTypes implements ContentList {
                         x = 8f;
                         y = 0f;
                         shots = 2;
-                        shotDelay = 15;
+                        shotDelay = 20;
                         maxRange = range;
                         reload = 3 * 60;
                         shootSound = UAWSfx.cruiseMissileShoot1;
-                        bullet = new CruiseMissileBulletType(3f, 60) {{
+                        bullet = new CruiseMissileBulletType(3f, 100) {{
                             layer = Layer.flyingUnitLow - 1;
                             size = 20;
                             homingRange = range * 2;
@@ -235,6 +237,7 @@ public class UAWUnitTypes implements ContentList {
             drag = 0.04f;
             ammoType = new ItemAmmoType(Items.graphite);
             faceTarget = flying = true;
+            commandLimit = 4;
 
             range = 45 * tilesize;
             maxRange = range;
@@ -262,24 +265,25 @@ public class UAWUnitTypes implements ContentList {
                     }},
                     new Weapon("uaw-machine-gun-medium-red") {{
                         rotate = false;
-                        inaccuracy = 3f;
+                        inaccuracy = 6f;
                         mirror = true;
                         x = 8f;
                         y = 12f;
                         reload = 5;
-                        recoil = 1f;
                         shootSound = Sounds.shootBig;
                         ejectEffect = Fx.casing2;
-                        bullet = new TrailBulletType(12F, 25) {{
+                        bullet = new TrailBulletType(8f, 25) {{
                             height = 15f;
                             width = 6f;
-                            pierce = true;
-                            pierceCap = 2;
+                            splashDamage = damage;
+                            splashDamageRadius = 16;
+                            frontColor = Pal.lightishOrange;
+                            backColor = Pal.lightOrange;
                             buildingDamageMultiplier = 0.3f;
                             maxRange = range - 16;
                             lifetime = range / speed;
                             status = StatusEffects.burning;
-                            hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.fireHit);
+                            hitEffect = new MultiEffect(Fx.blastExplosion, Fx.fireHit, Fx.blastsmoke);
                         }};
                     }},
                     new UAWWeapon("uaw-artillery-small-red") {{

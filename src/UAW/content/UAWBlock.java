@@ -99,8 +99,8 @@ public class UAWBlock implements ContentList {
                         ammoMultiplier = 4f;
                     }},
                     Items.titanium, new TrailBulletType(12f, 10f) {{
-                        height = 30f;
-                        width = 10f;
+                        height = 15f;
+                        width = 5f;
                         armorIgnoreScl = 0.25f;
                         shieldDamageMultiplier = 1.5f;
                         shootEffect = Fx.shootBig;
@@ -151,8 +151,8 @@ public class UAWBlock implements ContentList {
                         status = StatusEffects.slow;
                     }},
                     UAWItems.titaniumCarbide, new TrailBulletType(12, 22) {{
-                        height = 30;
-                        width = 8;
+                        height = 20;
+                        width = 5;
                         lifetime = range / speed + 8;
                         pierce = true;
                         reloadMultiplier = 1.2f;

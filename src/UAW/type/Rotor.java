@@ -14,7 +14,6 @@ public class Rotor {
     public float x = 0f;
     public float y = 0f;
     public float rotorSpeed = 12;
-    public float rotorDeathSlowdown = 0.5f;
     public boolean drawRotorTop = true;
     public int bladeCount = 4;
 
