@@ -321,7 +321,7 @@ public class UAWBlock implements ContentList {
                         shootEffect = new MultiEffect(UAWFxDynamic.railShoot(Pal.bulletYellow, 32), Fx.blockExplosionSmoke);
                         smokeEffect = Fx.smokeCloud;
                         trailEffect = UAWFxDynamic.railTrail(Pal.bulletYellow);
-                        hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(Pal.bulletYellow, splashDamageRadius), Fx.smokeCloud);
+                        hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(splashDamageRadius, Pal.bulletYellow), Fx.smokeCloud);
                         trailSpacing = 20f;
                         shieldDamageMultiplier = 1.5f;
                         buildingDamageMultiplier = 0.5f;
@@ -714,7 +714,7 @@ public class UAWBlock implements ContentList {
                         backColor = Pal.lightOrange;
                         smokeEffect = new MultiEffect(Fx.smokeCloud, Fx.shootBigSmoke2);
                         hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.melting);
-                        shootEffect = new MultiEffect(UAWFxDynamic.instShoot(backColor, 64), Fx.shootPyraFlame);
+                        shootEffect = new MultiEffect(UAWFxDynamic.instShoot(64, backColor), Fx.shootPyraFlame);
                         despawnEffect = UAWFxDynamic.thermalExplosion(frontColor, backColor);
                         status = StatusEffects.melting;
                         fragBullets = 8;
@@ -733,7 +733,7 @@ public class UAWBlock implements ContentList {
                         backColor = UAWPal.cryoBack;
                         smokeEffect = new MultiEffect(Fx.smokeCloud, Fx.shootBigSmoke2);
                         hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.freezing);
-                        shootEffect = new MultiEffect(UAWFxDynamic.instShoot(frontColor, 64), UAWFxStatic.shootCryoFlame);
+                        shootEffect = new MultiEffect(UAWFxDynamic.instShoot(64, frontColor), UAWFxStatic.shootCryoFlame);
                         despawnEffect = UAWFxDynamic.thermalExplosion(frontColor, backColor);
                         status = StatusEffects.freezing;
                         fragBullets = 8;
@@ -752,7 +752,7 @@ public class UAWBlock implements ContentList {
                         backColor = Pal.plastaniumBack;
                         smokeEffect = new MultiEffect(Fx.smokeCloud, Fx.shootBigSmoke2);
                         hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.oily);
-                        shootEffect = new MultiEffect(UAWFxDynamic.instShoot(backColor, 64), Fx.shootPyraFlame);
+                        shootEffect = new MultiEffect(UAWFxDynamic.instShoot(64, backColor), Fx.shootPyraFlame);
                         despawnEffect = UAWFxDynamic.thermalExplosion(frontColor, backColor);
                         status = StatusEffects.tarred;
                         fragBullets = 8;
@@ -771,7 +771,7 @@ public class UAWBlock implements ContentList {
                         backColor = UAWPal.surgeBack;
                         smokeEffect = new MultiEffect(Fx.smokeCloud, Fx.shootBigSmoke2);
                         hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.freezing);
-                        shootEffect = new MultiEffect(UAWFxDynamic.instShoot(backColor, 64), UAWFxStatic.shootSurgeFlame);
+                        shootEffect = new MultiEffect(UAWFxDynamic.instShoot(64, backColor), UAWFxStatic.shootSurgeFlame);
                         despawnEffect = UAWFxDynamic.thermalExplosion(frontColor, backColor);
                         status = StatusEffects.electrified;
 
@@ -908,7 +908,7 @@ public class UAWBlock implements ContentList {
             ammo(
                     Liquids.cryofluid, new SplashBulletType(0, range) {{
                         shootEffect = UAWFxDynamic.statusFieldApply(UAWPal.cryoFront, UAWPal.cryoBack, range);
-                        smokeEffect = UAWFxDynamic.statusHit(UAWPal.cryoMiddle, 30);
+                        smokeEffect = UAWFxDynamic.statusHit(30, UAWPal.cryoMiddle);
                         status = StatusEffects.freezing;
                         frontColor = UAWPal.cryoFront;
                         backColor = UAWPal.cryoBack;
@@ -917,7 +917,7 @@ public class UAWBlock implements ContentList {
                     }},
                     Liquids.slag, new SplashBulletType(0, range) {{
                         shootEffect = UAWFxDynamic.statusFieldApply(Pal.lighterOrange, Pal.lightOrange, range);
-                        smokeEffect = UAWFxDynamic.statusHit(Pal.orangeSpark, 30);
+                        smokeEffect = UAWFxDynamic.statusHit(30, Pal.orangeSpark);
                         status = StatusEffects.melting;
                         frontColor = Pal.lighterOrange;
                         backColor = Pal.lightOrange;
@@ -926,14 +926,14 @@ public class UAWBlock implements ContentList {
                     }},
                     Liquids.oil, new SplashBulletType(0, range) {{
                         shootEffect = UAWFxDynamic.statusFieldApply(Pal.plastaniumFront, UAWPal.plastDarker, range);
-                        smokeEffect = UAWFxDynamic.statusHit(Pal.plastanium, 30);
+                        smokeEffect = UAWFxDynamic.statusHit(30, Pal.plastanium);
                         status = StatusEffects.tarred;
                         statusDuration = reloadTime * 1.5f;
                         splashAmount = 1;
                     }},
                     UAWLiquid.surgeSolvent, new SplashBulletType(0, range) {{
                         shootEffect = UAWFxDynamic.statusFieldApply(Pal.missileYellow, Pal.missileYellowBack, range);
-                        smokeEffect = UAWFxDynamic.statusHit(Pal.surge, 30);
+                        smokeEffect = UAWFxDynamic.statusHit(30, Pal.surge);
                         status = StatusEffects.electrified;
                         frontColor = Pal.missileYellow;
                         backColor = Pal.missileYellowBack;

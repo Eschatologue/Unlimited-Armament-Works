@@ -168,7 +168,7 @@ public class UAWBullets implements ContentList {
             lifetime = 30f;
             knockback = 6f;
             despawnEffect = hitEffect = Fx.flakExplosion;
-            shootEffect = UAWFxDynamic.instShoot(Pal.bulletYellowBack, 32);
+            shootEffect = UAWFxDynamic.instShoot(32, Pal.bulletYellowBack);
             smokeEffect = Fx.shootSmallSmoke;
             ammoMultiplier = 3;
         }};
@@ -177,7 +177,7 @@ public class UAWBullets implements ContentList {
             pierceCap = 3;
             lifetime = 30f;
             knockback = 4f;
-            shootEffect = UAWFxDynamic.instShoot(Pal.lightishOrange, 32);
+            shootEffect = UAWFxDynamic.instShoot(32, Pal.lightishOrange);
             smokeEffect = Fx.shootSmallSmoke;
             despawnEffect = hitEffect = Fx.blastExplosion;
             frontColor = Pal.lightishOrange;
@@ -189,7 +189,7 @@ public class UAWBullets implements ContentList {
             pierceCap = 3;
             lifetime = 30f;
             knockback = 4f;
-            shootEffect = UAWFxDynamic.instShoot(Color.valueOf("87CEEB"), 32);
+            shootEffect = UAWFxDynamic.instShoot(32, Color.valueOf("87CEEB"));
             smokeEffect = Fx.shootSmallSmoke;
             despawnEffect = hitEffect = UAWFxDynamic.thermalExplosion(UAWPal.cryoFront, UAWPal.cryoMiddle);
             frontColor = UAWPal.cryoFront;
@@ -202,7 +202,7 @@ public class UAWBullets implements ContentList {
             splashDamageRadius = 8 * tilesize;
             homingRange = 60 * tilesize;
             homingPower = 0.5f;
-            hitEffect = new MultiEffect(UAWFxDynamic.crossBlast(backColor, splashDamageRadius), Fx.blastExplosion, Fx.blockExplosionSmoke);
+            hitEffect = new MultiEffect(UAWFxDynamic.crossBlast(splashDamageRadius, backColor), Fx.blastExplosion, Fx.blockExplosionSmoke);
             status = StatusEffects.blasted;
         }};
         piercingCruiseMissile = new CruiseMissileBulletType(2.2f, 325) {{
@@ -229,7 +229,7 @@ public class UAWBullets implements ContentList {
             homingRange = 60 * tilesize;
             frontColor = UAWPal.cryoFront;
             backColor = UAWPal.cryoBack;
-            hitEffect = new MultiEffect(UAWFxDynamic.crossBlast(backColor, splashDamageRadius), Fx.blastExplosion, Fx.blockExplosionSmoke);
+            hitEffect = new MultiEffect(UAWFxDynamic.crossBlast(splashDamageRadius, backColor), Fx.blastExplosion, Fx.blockExplosionSmoke);
             status = StatusEffects.freezing;
         }};
         incendCruiseMissile = new CruiseMissileBulletType(1.8f, 200) {{
@@ -238,7 +238,7 @@ public class UAWBullets implements ContentList {
             homingRange = 60 * tilesize;
             frontColor = UAWPal.incendFront;
             backColor = UAWPal.incendBack;
-            hitEffect = new MultiEffect(UAWFxDynamic.crossBlast(frontColor, splashDamageRadius), Fx.blastExplosion, Fx.blockExplosionSmoke);
+            hitEffect = new MultiEffect(UAWFxDynamic.crossBlast(splashDamageRadius, frontColor), Fx.blastExplosion, Fx.blockExplosionSmoke);
             status = StatusEffects.melting;
         }};
         surgeCruiseMissile = new CruiseMissileBulletType(1.8f, 350) {{
@@ -247,7 +247,7 @@ public class UAWBullets implements ContentList {
             homingRange = 60 * tilesize;
             frontColor = UAWPal.surgeFront;
             backColor = UAWPal.surgeBack;
-            hitEffect = new MultiEffect(UAWFxDynamic.crossBlast(frontColor, splashDamageRadius), Fx.blastExplosion, Fx.blockExplosionSmoke);
+            hitEffect = new MultiEffect(UAWFxDynamic.crossBlast(splashDamageRadius, frontColor), Fx.blastExplosion, Fx.blockExplosionSmoke);
             status = StatusEffects.electrified;
 
             lightning = 8;
@@ -258,7 +258,7 @@ public class UAWBullets implements ContentList {
         mineBasic = new MineBulletType(100, 90, 9) {{
             frontColor = Pal.bulletYellow;
             backColor = Pal.bulletYellowBack;
-            hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(backColor, splashDamageRadius), Fx.blockExplosionSmoke);
+            hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(splashDamageRadius, backColor), Fx.blockExplosionSmoke);
             status = StatusEffects.blasted;
             fragBullets = 16;
             fragBullet = flakGlassFrag;
@@ -266,7 +266,7 @@ public class UAWBullets implements ContentList {
         mineIncend = new MineBulletType(75, 60, 7) {{
             frontColor = UAWPal.incendFront;
             backColor = UAWPal.incendBack;
-            hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(frontColor, splashDamageRadius), Fx.blockExplosionSmoke);
+            hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(splashDamageRadius, frontColor), Fx.blockExplosionSmoke);
             fragBullets = 16;
             fragAngle = 360;
             status = StatusEffects.burning;
@@ -275,7 +275,7 @@ public class UAWBullets implements ContentList {
         mineCryo = new MineBulletType(75, 60, 7) {{
             frontColor = UAWPal.cryoFront;
             backColor = UAWPal.cryoMiddle;
-            hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(backColor, splashDamageRadius), Fx.blockExplosionSmoke);
+            hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(splashDamageRadius, backColor), Fx.blockExplosionSmoke);
             fragBullets = 16;
             fragAngle = 360;
             status = StatusEffects.freezing;
@@ -284,7 +284,7 @@ public class UAWBullets implements ContentList {
         mineOil = new MineBulletType(75, 60, 7) {{
             frontColor = Pal.plastaniumFront;
             backColor = Pal.plastaniumBack;
-            hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(backColor, splashDamageRadius), Fx.blockExplosionSmoke);
+            hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(splashDamageRadius, backColor), Fx.blockExplosionSmoke);
             fragBullets = 16;
             fragAngle = 360;
             status = StatusEffects.tarred;
@@ -297,7 +297,7 @@ public class UAWBullets implements ContentList {
             lightningDamage = 7;
             lightningLength = 6;
             lightningColor = Pal.lancerLaser;
-            hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(backColor, splashDamageRadius),Fx.hitYellowLaser, Fx.blockExplosionSmoke);
+            hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(splashDamageRadius, backColor),Fx.hitYellowLaser, Fx.blockExplosionSmoke);
             blockDetonationRange = 5;
             status = StatusEffects.electrified;
         }};
@@ -305,7 +305,7 @@ public class UAWBullets implements ContentList {
             frontColor = Pal.spore;
             backColor = UAWPal.sporeMiddle;
             status = StatusEffects.sporeSlowed;
-            hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(backColor, splashDamageRadius),Fx.sporeSlowed, Fx.blockExplosionSmoke);
+            hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(splashDamageRadius ,backColor),Fx.sporeSlowed, Fx.blockExplosionSmoke);
         }};
 
         canisterBasic = new CanisterBulletType(2f, 30, 4, mineBasic) {{

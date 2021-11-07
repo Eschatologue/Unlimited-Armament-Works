@@ -40,7 +40,7 @@ public class SplashBulletType extends BulletType {
         hittable = false;
         hitSize = speed = 0;
         smokeEffect = despawnEffect = hitEffect = Fx.none;
-        particleEffect = UAWFxDynamic.statusHit(frontColor, 10f);
+        particleEffect = UAWFxDynamic.statusHit(10f, frontColor);
         displayAmmoMultiplier = false;
         absorbable = hittable = false;
         pierceBuilding = pierce = true;

@@ -16,8 +16,7 @@ public class UAWFxDynamic {
     private static final Rand rand = new Rand();
     private static final Vec2 v = new Vec2();
 
-    // region Rails & Inst
-    public static Effect instShoot(Color color, float size) {
+    public static Effect instShoot(float size, Color color) {
         return new Effect(24.0F, size * 8, (e) -> {
             e.scaled(10.0F, (b) -> {
                 Draw.color(Color.white, color, b.fin());
@@ -111,7 +110,13 @@ public class UAWFxDynamic {
             }
         });
     }
-    // endregion Rails & inst
+
+    public static Effect adjustableTrail(float size, float lifetime, Color color) {
+        return new Effect(lifetime, e -> {
+            color(color);
+            Fill.circle(e.x, e.y, size * e.fout());
+        });
+    }
 
     public static Effect statusFieldApply(Color frontColor, Color backColor, float size) {
         return new Effect(50, e -> {
@@ -131,16 +136,7 @@ public class UAWFxDynamic {
         });
     }
 
-    public static Effect shootFlamethrower(float lifetime) {
-        return new Effect(lifetime * 2f, 90f, e -> {
-            color(Pal.lightPyraFlame, Pal.darkPyraFlame, Color.gray, e.fin());
-
-            randLenVectors(e.id, 26, e.finpow() * 75, e.rotation, 20, (x, y) ->
-                    Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 2f));
-        });
-    }
-
-    public static Effect crossBlast(Color color, float size) {
+    public static Effect crossBlast(float size, Color color) {
         float length = size * 1.7f;
         float width = size / 13.3f;
         return new Effect(20f, 100f, e -> {
@@ -160,7 +156,7 @@ public class UAWFxDynamic {
         });
     }
 
-    public static Effect crossBombBlast(Color color, float size) {
+    public static Effect crossBombBlast(float size, Color color) {
         return new Effect(50f, 100, e -> {
             color(color);
             stroke(e.fout() * 2f);
@@ -182,13 +178,13 @@ public class UAWFxDynamic {
         });
     }
 
-    public static Effect dynamicExplosion(float size, Color smokeColor) {
+    public static Effect dynamicExplosion(float size, Color color) {
         return new Effect((size * 10), 500f, b -> {
             float realSize = size / 15;
             float baseLifetime = 26f + realSize * 15f;
             b.lifetime = 39f + realSize * 30f;
 
-            color(smokeColor);
+            color(color);
             alpha(0.9f);
             for (int i = 0; i < 4; i++) {
                 rand.setSeed(b.id * 2L + i);
@@ -254,7 +250,7 @@ public class UAWFxDynamic {
         });
     }
 
-    public static Effect statusHit(Color color, float lifetime) {
+    public static Effect statusHit(float lifetime, Color color) {
         return new Effect(lifetime, e -> {
             color(color);
             randLenVectors(e.id, 6, 1.5f + e.fin() * 2.5f, (x, y) ->

@@ -178,7 +178,7 @@ public class UAWUnitTypes implements ContentList {
                         shots = 5;
                         inaccuracy = 6f;
                         shotDelay = 5f;
-                        bullet = new TrailBulletType(7f, 50) {{
+                        bullet = new BasicBulletType(7f, 50) {{
                             height = 30f;
                             width = 20f;
                             lifetime = (range / speed) * 1.5f;
@@ -187,6 +187,8 @@ public class UAWUnitTypes implements ContentList {
                             hitSound = Sounds.boom;
                             frontColor = Pal.plastaniumFront;
                             backColor = Pal.plastaniumBack;
+                            trailChance = 0.5f;
+                            trailEffect = Fx.rocketSmoke;
                             splashDamage = 16f;
                             splashDamageRadius = 2 * tilesize;
                             fragBullets = 5;
