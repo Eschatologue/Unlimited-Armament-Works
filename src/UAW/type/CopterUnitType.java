@@ -29,10 +29,13 @@ public class CopterUnitType extends UnitType {
         float rx = unit.x + Angles.trnsx(unit.rotation - 90, fallSmokeX, fallSmokeY);
         float ry = unit.y + Angles.trnsy(unit.rotation - 90, fallSmokeX, fallSmokeY);
         super.update(unit);
-        if (unit.isFlying() && spinningFallSpeed > 0 || unit.dead() || unit.health < 0) {
-            unit.rotation += Time.delta * spinningFallSpeed;
-            if (Mathf.chanceDelta(fallSmokeChance)) {
-                Fx.fallSmoke.at(rx, ry);
+        if (unit.isFlying() && spinningFallSpeed > 0) {
+            if (unit.dead() || unit.health < 0) {
+                unit.rotation += Time.delta * spinningFallSpeed + unit.vel.len();
+                if (Mathf.chanceDelta(fallSmokeChance)) {
+                    Fx.fallSmoke.at(rx, ry);
+                }
+                Fx.burning.at(unit.x, unit.y);
             }
         }
     }
