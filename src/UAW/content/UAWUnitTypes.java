@@ -151,7 +151,7 @@ public class UAWUnitTypes implements ContentList {
                         recoil = 0f;
                         shootSound = Sounds.shoot;
                         ejectEffect = Fx.casing1;
-                        bullet = new TrailBulletType(8f, 25) {{
+                        bullet = new TrailBulletType(10f, 25) {{
                             height = 19f;
                             width = 9f;
                             pierce = true;
@@ -178,9 +178,11 @@ public class UAWUnitTypes implements ContentList {
                         shots = 5;
                         inaccuracy = 6f;
                         shotDelay = 5f;
-                        bullet = new BasicBulletType(7f, 50) {{
+                        bullet = new TrailBulletType(7f, 50) {{
                             height = 30f;
                             width = 20f;
+                            trailLenghtScl = 0;
+                            trailMult = 1.2f;
                             lifetime = (range / speed) * 1.5f;
                             shootEffect = Fx.shootBig;
                             hitEffect = Fx.blastExplosion;
@@ -259,7 +261,7 @@ public class UAWUnitTypes implements ContentList {
                         mirror = controllable = false;
                         x = 0f;
                         y = 3f;
-                        reload = 2f;
+                        reload = 3f;
                         recoil = 0f;
                         targetInterval = 3f;
                         targetSwitchInterval = 3f;
@@ -269,7 +271,7 @@ public class UAWUnitTypes implements ContentList {
                             smokeEffect = Fx.shootSmallSmoke;
                             hitEffect = Fx.pointHit;
                             maxRange = range / 1.5f;
-                            damage = 25f;
+                            damage = 20f;
                         }};
                     }},
                     new Weapon("uaw-machine-gun-medium-red") {{
@@ -282,7 +284,7 @@ public class UAWUnitTypes implements ContentList {
                         recoil = 1f;
                         shootSound = Sounds.shootBig;
                         ejectEffect = Fx.casing2;
-                        bullet = new TrailBulletType(7f, 25) {{
+                        bullet = new TrailBulletType(12F, 25) {{
                             height = 20f;
                             width = 10f;
                             pierce = true;
@@ -290,7 +292,8 @@ public class UAWUnitTypes implements ContentList {
                             buildingDamageMultiplier = 0.3f;
                             maxRange = range - 16;
                             lifetime = range / speed;
-                            hitEffect = new MultiEffect(Fx.hitBulletSmall, Fx.shootSmallSmoke);
+                            status = StatusEffects.burning;
+                            hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.fireHit);
                         }};
                     }},
                     new UAWWeapon("uaw-artillery-small-red") {{

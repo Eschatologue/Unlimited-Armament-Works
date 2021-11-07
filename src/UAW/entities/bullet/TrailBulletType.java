@@ -4,17 +4,22 @@ import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.math.Mathf;
 import arc.util.Tmp;
+import mindustry.content.Fx;
 import mindustry.gen.Bullet;
 
 public class TrailBulletType extends UAWBasicBulletType {
     /**
-     * Draws the Bullet Sprite
+     * Whenever should the bullet sprite will be drawn
      */
     public boolean drawBullet = true;
     /**
-     * Trail Length scales based on bullet height
+     * How long is the generated trail based on height multiplied by this
+     * <p>
+     * any value <= 0 to disable, enabled by default
+     * </p>
      */
-    public float trailLenghtScl = 1;
+    public float trailLenghtScl = 1f;
+    public float trailMult = 0, trailSize = 4f;
 
     public TrailBulletType(float speed, float damage, String bulletSprite) {
         super(speed, damage);
@@ -22,6 +27,7 @@ public class TrailBulletType extends UAWBasicBulletType {
         height = 7f;
         width = 5f;
         trailRotation = true;
+        trailEffect = Fx.artilleryTrail;
     }
 
     public TrailBulletType(float speed, float damage) {
@@ -39,6 +45,9 @@ public class TrailBulletType extends UAWBasicBulletType {
             trailWidth = width / 3.4f;
             trailLength = Mathf.round(height * trailLenghtScl);
             trailColor = backColor;
+        }
+        if (b.timer(0, (3 + b.fslope() * 2f) * trailMult) && trailMult > 0) {
+            trailEffect.at(b.x, b.y, b.fslope() * trailSize, backColor);
         }
     }
 

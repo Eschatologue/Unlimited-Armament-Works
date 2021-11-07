@@ -9,7 +9,7 @@ import mindustry.gen.Bullet;
 import mindustry.graphics.Pal;
 
 /**
- * Basically BasicBulletType that extends of UAWBulletType, adding damage multiplier such as armor penetration and shield daamge multiplier
+ * Basically BasicBulletType that extends of UAWBulletType, adding damage multiplier such as armor penetration and shield damage multiplier
  */
 public class UAWBasicBulletType extends UAWBulletType {
     public Color backColor = Pal.bulletYellowBack, frontColor = Pal.bulletYellow;
@@ -27,17 +27,13 @@ public class UAWBasicBulletType extends UAWBulletType {
         this.sprite = bulletSprite;
     }
 
+    /**
+     * BasicBulletType that extends of UAWBulletType, adding damage multiplier such as armor penetration and shield damage multiplier
+     */
     public UAWBasicBulletType(float speed, float damage) {
         this(speed, damage, "bullet");
     }
-
-    /**
-     * For mods.
-     */
-    public UAWBasicBulletType() {
-        this(1f, 1f, "bullet");
-    }
-
+    
     @Override
     public void load() {
         backRegion = Core.atlas.find(sprite + "-back");
