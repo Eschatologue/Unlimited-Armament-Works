@@ -26,17 +26,13 @@ public class CopterUnitType extends UnitType {
 
     @Override
     public void update(Unit unit) {
-        float unitFallSpin;
         float rx = unit.x + Angles.trnsx(unit.rotation - 90, fallSmokeX, fallSmokeY);
         float ry = unit.y + Angles.trnsy(unit.rotation - 90, fallSmokeX, fallSmokeY);
         super.update(unit);
         if (unit.isFlying() && spinningFallSpeed > 0 || unit.dead() || unit.health < 0) {
-            if (unit.dead() || unit.health < 0) {
-                unitFallSpin = Time.delta * spinningFallSpeed;
-                unit.rotation += unitFallSpin;
-                if (Mathf.chanceDelta(fallSmokeChance)) {
-                    Fx.fallSmoke.at(rx, ry);
-                }
+            unit.rotation += Time.delta * spinningFallSpeed;
+            if (Mathf.chanceDelta(fallSmokeChance)) {
+                Fx.fallSmoke.at(rx, ry);
             }
         }
     }

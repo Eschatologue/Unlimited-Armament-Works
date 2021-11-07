@@ -152,8 +152,8 @@ public class UAWUnitTypes implements ContentList {
                         shootSound = Sounds.shoot;
                         ejectEffect = Fx.casing1;
                         bullet = new TrailBulletType(10f, 25) {{
-                            height = 19f;
-                            width = 9f;
+                            height = 10f;
+                            width = 5f;
                             pierce = true;
                             pierceCap = 2;
                             buildingDamageMultiplier = 0.4f;
@@ -168,6 +168,7 @@ public class UAWUnitTypes implements ContentList {
                         rotate = false;
                         alternate = mirror = true;
                         top = true;
+                        targetAir = false;
                         x = 7f;
                         y = -1.5f;
                         reload = 60f;
@@ -178,10 +179,9 @@ public class UAWUnitTypes implements ContentList {
                         shots = 5;
                         inaccuracy = 6f;
                         shotDelay = 5f;
-                        bullet = new TrailBulletType(7f, 50) {{
+                        bullet = new ArtilleryBulletType(7f, 50) {{
                             height = 30f;
                             width = 20f;
-                            trailLenghtScl = 0;
                             trailMult = 1.2f;
                             lifetime = (range / speed) * 1.5f;
                             shootEffect = Fx.shootBig;
@@ -189,24 +189,10 @@ public class UAWUnitTypes implements ContentList {
                             hitSound = Sounds.boom;
                             frontColor = Pal.plastaniumFront;
                             backColor = Pal.plastaniumBack;
-                            trailChance = 0.5f;
-                            trailEffect = Fx.rocketSmoke;
                             splashDamage = 16f;
                             splashDamageRadius = 2 * tilesize;
                             fragBullets = 5;
-                            fragLifeMin = 0f;
-                            fragCone = 30f;
-                            fragBullet = new BasicBulletType(9f, 5) {{
-                                width = 10f;
-                                height = 10f;
-                                pierce = true;
-                                pierceBuilding = true;
-                                pierceCap = 3;
-                                lifetime = 20f;
-                                hitEffect = Fx.flakExplosion;
-                                splashDamage = 10;
-                                splashDamageRadius = 1.5f * tilesize;
-                            }};
+                            fragBullet = fragPlasticFrag;
                         }};
                     }},
                     new Weapon() {{
@@ -285,8 +271,8 @@ public class UAWUnitTypes implements ContentList {
                         shootSound = Sounds.shootBig;
                         ejectEffect = Fx.casing2;
                         bullet = new TrailBulletType(12F, 25) {{
-                            height = 20f;
-                            width = 10f;
+                            height = 15f;
+                            width = 6f;
                             pierce = true;
                             pierceCap = 2;
                             buildingDamageMultiplier = 0.3f;

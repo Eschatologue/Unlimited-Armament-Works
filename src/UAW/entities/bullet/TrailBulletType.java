@@ -46,9 +46,6 @@ public class TrailBulletType extends UAWBasicBulletType {
             trailLength = Mathf.round(height * trailLenghtScl);
             trailColor = backColor;
         }
-        if (b.timer(0, (3 + b.fslope() * 2f) * trailMult) && trailMult > 0) {
-            trailEffect.at(b.x, b.y, b.fslope() * trailSize, backColor);
-        }
     }
 
     @Override
