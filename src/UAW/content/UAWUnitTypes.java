@@ -23,7 +23,7 @@ import static mindustry.content.Bullets.*;
 public class UAWUnitTypes implements ContentList {
     public static UnitType
             aglovale, bedivere, calogrenant, dagonet, esclabor,
-            escutcheon,
+            decade, century, millenium, eon,
             clurit, kujang, kerambit, cetbang, kiAmuk,
             hatsuharu, shiratsuyu, kagero, shimakaze,
             gardlacz, arkabuz, armata, zemsta;
@@ -154,7 +154,7 @@ public class UAWUnitTypes implements ContentList {
                         ejectEffect = Fx.casing1;
                         bullet = new TrailBulletType(10f, 15) {{
                             height = 10f;
-                            width = 5f;
+                            width = 6f;
                             pierce = true;
                             pierceCap = 2;
                             buildingDamageMultiplier = 0.4f;

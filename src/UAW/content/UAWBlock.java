@@ -27,7 +27,6 @@ import static mindustry.type.ItemStack.with;
 
 public class UAWBlock implements ContentList {
     public static Block
-
             // Turret
             quadra, spitfire, equalizer,
             solo, longsword, deadeye,
@@ -990,12 +989,16 @@ public class UAWBlock implements ContentList {
 
             size = 5;
             consumes.power(4.5f);
-            consumes.items(with(Items.silicon, 90, Items.titanium, 130, Items.plastanium, 60));
-            consumes.liquid(Liquids.oil, 1f);
+            consumes.items(with(
+                    Items.silicon, 90,
+                    Items.titanium, 130,
+                    Items.plastanium, 60)
+            );
+            consumes.liquid(Liquids.oil, 0.5f);
 
             constructTime = 25 * tick;
             liquidCapacity = 120f;
-            floating = true;
+            placeableLiquid = true;
 
             upgrades.addAll(
                     new UnitType[]{UnitTypes.horizon, UAWUnitTypes.aglovale},
@@ -1010,23 +1013,61 @@ public class UAWBlock implements ContentList {
                     Items.titanium, 2000,
                     Items.thorium, 550,
                     Items.plastanium, 500,
-                    UAWItems.titaniumCarbide, 700
+                    UAWItems.titaniumCarbide, 550
             ));
 
             size = 7;
             consumes.power(7f);
-            consumes.items(with(Items.silicon, 225, Items.metaglass, 225, UAWItems.titaniumCarbide, 250, Items.plastanium, 550));
+            consumes.items(with(
+                    Items.silicon, 425,
+                    Items.metaglass, 325,
+                    UAWItems.titaniumCarbide, 250,
+                    Items.plastanium, 225
+            ));
             consumes.liquid(Liquids.oil, 1.5f);
 
             constructTime = 80 * tick;
             liquidCapacity = 240f;
-            floating = true;
+            placeableLiquid = true;
 
             upgrades.addAll(
                     new UnitType[]{UAWUnitTypes.aglovale, UAWUnitTypes.bedivere},
                     new UnitType[]{UAWUnitTypes.clurit, UAWUnitTypes.kujang},
                     new UnitType[]{UAWUnitTypes.gardlacz, UAWUnitTypes.arkabuz},
                     new UnitType[]{UAWUnitTypes.hatsuharu, UAWUnitTypes.shiratsuyu}
+            );
+        }};
+        tetrativePetroleumReconstructor = new Reconstructor("tetrative-petroleum-reconstructor") {{
+            requirements(Category.units, with(
+                    Items.lead, 3500,
+                    Items.titanium, 2500,
+                    Items.silicon, 1250,
+                    Items.metaglass, 500,
+                    Items.plastanium, 600,
+                    UAWItems.titaniumCarbide, 500,
+                    Items.surgeAlloy, 800
+            ));
+
+            size = 9;
+            consumes.power(20f);
+            consumes.items(with(
+                    Items.silicon, 650,
+                    Items.metaglass, 450,
+                    Items.plastanium, 300,
+                    Items.surgeAlloy, 350,
+                    UAWItems.titaniumCarbide, 350
+            ));
+            consumes.liquid(Liquids.oil, 3.5f);
+
+            constructTime = 225 * tick;
+            liquidCapacity = 480f;
+            placeableLiquid = true;
+
+            upgrades.addAll(
+                    new UnitType[]{UAWUnitTypes.bedivere, UAWUnitTypes.calogrenant}
+                    //new UnitType[]{UAWUnitTypes.kujang, UAWUnitTypes.cetbang},
+                    //new UnitType[]{UAWUnitTypes.arkabuz, UAWUnitTypes.armata},
+                    //new UnitType[]{UAWUnitTypes.shiratsuyu, UAWUnitTypes.kagero}
             );
         }};
 
