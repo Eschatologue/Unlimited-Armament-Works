@@ -1,11 +1,9 @@
 package UAW.world.blocks.drawer;
 
-import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.TextureRegion;
+import arc.graphics.g2d.*;
 import mindustry.world.Block;
 import mindustry.world.blocks.production.GenericCrafter;
-import mindustry.world.consumers.ConsumeLiquid;
-import mindustry.world.consumers.ConsumeType;
+import mindustry.world.consumers.*;
 import mindustry.world.draw.DrawMixer;
 
 public class DrawLiquidInput extends DrawMixer {
@@ -16,7 +14,7 @@ public class DrawLiquidInput extends DrawMixer {
 			Draw.color(entity.block.consumes.<ConsumeLiquid>get(ConsumeType.liquid).liquid.color, entity.liquids.get(entity.block.consumes.<ConsumeLiquid>get(ConsumeType.liquid).liquid) / entity.block.liquidCapacity);
 			Draw.rect(this.liquid, entity.x, entity.y, rotation);
 			Draw.color();
-		}	
+		}
 		Draw.rect(this.top, entity.x, entity.y, rotation);
 	}
 

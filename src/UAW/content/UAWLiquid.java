@@ -6,15 +6,15 @@ import mindustry.graphics.Pal;
 import mindustry.type.Liquid;
 
 public class UAWLiquid implements ContentList {
-    public static Liquid
-            surgeSolvent, thoriumAcid;
+	public static Liquid
+		surgeSolvent, thoriumAcid;
 
-    @Override
-    public void load () {
-        surgeSolvent = new Liquid("surge-solvent", Pal.surge) {{
-            viscosity = 0.65f;
-            barColor = Pal.surge;
-            effect = StatusEffects.electrified;
-        }};
-    }
+	@Override
+	public void load() {
+		surgeSolvent = new Liquid("surge-solvent", Pal.surge) {{
+			viscosity = 0.65f;
+			barColor = Pal.surge;
+			effect = StatusEffects.electrified;
+		}};
+	}
 }

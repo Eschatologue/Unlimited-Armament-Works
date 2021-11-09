@@ -10,53 +10,53 @@ import mindustry.gen.*;
 import mindustry.type.UnitType;
 
 public class CopterUnitType extends UnitType {
-    public final Seq<Rotor> rotors = new Seq<>();
-    public float spinningFallSpeed = 0;
-    public float fallSmokeX = 0f, fallSmokeY = -5f, fallSmokeChance = 0.1f;
+	public final Seq<Rotor> rotors = new Seq<>();
+	public float spinningFallSpeed = 0;
+	public float fallSmokeX = 0f, fallSmokeY = -5f, fallSmokeChance = 0.1f;
 
-    public CopterUnitType(String name) {
-        super(name);
-        flying = lowAltitude = true;
-        constructor = UnitEntity::create;
-        engineSize = 0f;
-        rotateSpeed = 6f;
-        defaultController = CopterAI::new;
-        fallSpeed = 0.007f;
-    }
+	public CopterUnitType(String name) {
+		super(name);
+		flying = lowAltitude = true;
+		constructor = UnitEntity::create;
+		engineSize = 0f;
+		rotateSpeed = 6f;
+		defaultController = CopterAI::new;
+		fallSpeed = 0.007f;
+	}
 
-    @Override
-    public void update(Unit unit) {
-        float rx = unit.x + Angles.trnsx(unit.rotation - 90, fallSmokeX, fallSmokeY);
-        float ry = unit.y + Angles.trnsy(unit.rotation - 90, fallSmokeX, fallSmokeY);
-        super.update(unit);
-        if (unit.isFlying() && spinningFallSpeed > 0) {
-            if (unit.dead() || unit.health < 0) {
-                unit.rotation += Time.delta * spinningFallSpeed + unit.vel.len();
-                if (Mathf.chanceDelta(fallSmokeChance)) {
-                    Fx.fallSmoke.at(rx, ry);
-                    Fx.burning.at(rx, ry);
-                }
-            }
-        }
-    }
+	@Override
+	public void update(Unit unit) {
+		float rx = unit.x + Angles.trnsx(unit.rotation - 90, fallSmokeX, fallSmokeY);
+		float ry = unit.y + Angles.trnsy(unit.rotation - 90, fallSmokeX, fallSmokeY);
+		super.update(unit);
+		if (unit.isFlying() && spinningFallSpeed > 0) {
+			if (unit.dead() || unit.health < 0) {
+				unit.rotation += Time.delta * spinningFallSpeed + unit.vel.len();
+				if (Mathf.chanceDelta(fallSmokeChance)) {
+					Fx.fallSmoke.at(rx, ry);
+					Fx.burning.at(rx, ry);
+				}
+			}
+		}
+	}
 
-    @Override
-    public void draw(Unit unit) {
-        super.draw(unit);
-        drawRotor(unit);
-    }
+	@Override
+	public void draw(Unit unit) {
+		super.draw(unit);
+		drawRotor(unit);
+	}
 
-    public void drawRotor(Unit unit) {
-        applyColor(unit);
-        rotors.each(rotor -> rotor.draw(unit));
-        Draw.reset();
-    }
+	public void drawRotor(Unit unit) {
+		applyColor(unit);
+		rotors.each(rotor -> rotor.draw(unit));
+		Draw.reset();
+	}
 
-    @Override
-    public void load() {
-        super.load();
-        rotors.each(Rotor::load);
-    }
+	@Override
+	public void load() {
+		super.load();
+		rotors.each(Rotor::load);
+	}
 }
 
 
