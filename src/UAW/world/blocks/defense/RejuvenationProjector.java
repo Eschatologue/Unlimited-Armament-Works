@@ -2,6 +2,7 @@ package UAW.world.blocks.defense;
 
 import arc.graphics.g2d.*;
 import arc.math.Mathf;
+import arc.math.geom.Geometry;
 import arc.util.Time;
 import mindustry.content.Fx;
 import mindustry.gen.*;
@@ -11,6 +12,9 @@ import mindustry.world.meta.*;
 
 import static mindustry.Vars.*;
 
+/**
+ * Heals and overdrives unit
+ */
 public class RejuvenationProjector extends MendProjector {
 	public float boostMultiplier = 3f;
 	public float boostDuration = 180f;
@@ -80,9 +84,19 @@ public class RejuvenationProjector extends MendProjector {
 			Draw.color(baseColor);
 			Draw.alpha(heat * Mathf.absin(Time.time, 10f, 1f) * 0.5f);
 			Draw.rect(topRegion, x, y);
-			Draw.alpha(1f);
-			Lines.stroke((2f * f + (0.1f / 200000)) * heat);
-			Lines.square(x, y, Math.min(1f + (1f - f) * size * tilesize / 2f, size * tilesize / 1.6f), 45f);
+			Draw.alpha(0.8f);
+			Lines.stroke((2f * f + 0.1f) * heat);
+
+			float r = Math.max(0f, Mathf.clamp(2f - f * 2f) * size * tilesize / 2f - f - 0.2f), w = Mathf.clamp(0.5f - f) * size * tilesize;
+			Lines.beginLine();
+			for (int i = 0; i < 4; i++) {
+				Lines.linePoint(x + Geometry.d4(i).x * r + Geometry.d4(i).y * w, y + Geometry.d4(i).y * r - Geometry.d4(i).x * w);
+				if (f < 0.5f)
+					Lines.linePoint(x + Geometry.d4(i).x * r - Geometry.d4(i).y * w, y + Geometry.d4(i).y * r + Geometry.d4(i).x * w);
+			}
+			Lines.endLine(true);
+
+			Draw.reset();
 		}
 	}
 }
