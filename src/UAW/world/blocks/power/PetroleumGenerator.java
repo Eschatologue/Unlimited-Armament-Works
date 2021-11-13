@@ -1,10 +1,8 @@
 package UAW.world.blocks.power;
 
 import arc.Core;
-import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.Mathf;
-import arc.util.Time;
 import mindustry.content.Fx;
 import mindustry.entities.Effect;
 import mindustry.entities.effect.MultiEffect;
@@ -33,7 +31,7 @@ public class PetroleumGenerator extends ImpactReactor {
 		return new TextureRegion[]{bottomRegion, topRegion};
 	}
 
-	public class LiquidGeneratorBuild extends ImpactReactorBuild {
+	public class PetroleumGeneratorBuild extends ImpactReactorBuild {
 		@Override
 		public void updateTile() {
 			super.updateTile();
@@ -49,9 +47,11 @@ public class PetroleumGenerator extends ImpactReactor {
 			Draw.rect(bottomRegion, x, y);
 			Drawf.liquid(liquidRegion, x, y, liquids.total() / liquidCapacity, liquids.current().color);
 			Draw.rect(topRegion, x, y);
+			/*
 			Draw.color(Color.valueOf("ff9b59"));
 			Draw.alpha((0.3f + Mathf.absin(Time.time, 2f, 0.05f)) * warmup);
 			Draw.rect(heatRegion, x, y);
+			 */
 			Draw.reset();
 		}
 	}
