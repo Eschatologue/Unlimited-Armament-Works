@@ -16,7 +16,7 @@ import mindustry.graphics.Pal;
 import mindustry.type.*;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
-import mindustry.world.blocks.power.ItemLiquidGenerator;
+import mindustry.world.blocks.power.*;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.units.Reconstructor;
 import mindustry.world.draw.*;
@@ -818,8 +818,8 @@ public class UAWBlock implements ContentList {
 				Items.graphite, 95
 			));
 			consumes.items(
-				new ItemStack(Items.titanium, 6),
-				new ItemStack(Items.coal, 12)
+				new ItemStack(Items.titanium, 5),
+				new ItemStack(Items.coal, 10)
 			);
 			consumes.liquid(Liquids.slag, 0.75f);
 			outputItem = new ItemStack(
@@ -829,10 +829,10 @@ public class UAWBlock implements ContentList {
 			hasItems = true;
 			hasLiquids = true;
 			size = 3;
-			itemCapacity = 36;
+			itemCapacity = 30;
 			craftTime = 4.5f * tick;
 			drawer = new DrawSmelter();
-			craftEffect = UAWFxDynamic.burstSmelt(23f, 10f, 21f, 90, Color.valueOf("FFB499"), Color.valueOf("FFE4CC"));
+			craftEffect = new MultiEffect(UAWFxDynamic.burstSmelt(23f, 15f, 6, Pal.missileYellow, Pal.missileYellowBack), Fx.blockExplosion);
 			updateEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
 		}};
 		surgeMixer = new GenericCrafter("surge-mixer") {{
@@ -881,7 +881,7 @@ public class UAWBlock implements ContentList {
 			craftTime = 1.5f * tick;
 			updateEffect = Fx.steam;
 		}};
-		petroleumGenerator = new ItemLiquidGenerator("petroleum-generator") {{
+		petroleumGenerator = new ImpactReactor("petroleum-generator") {{
 			requirements(Category.power, with(
 				Items.copper, 80,
 				Items.titanium, 60,
@@ -889,7 +889,7 @@ public class UAWBlock implements ContentList {
 				Items.silicon, 125,
 				Items.metaglass, 80
 			));
-			powerProduction = 7.5f;
+			powerProduction = 6f;
 			hasLiquids = true;
 			hasItems = false;
 			liquidCapacity = 30f;
@@ -897,7 +897,8 @@ public class UAWBlock implements ContentList {
 			ambientSound = Sounds.steam;
 			ambientSoundVolume = 0.03f;
 
-			consumes.liquid(Liquids.oil, 0.1f).optional(false,false);
+			consumes.power(1.5f);
+			consumes.liquid(Liquids.oil, 0.5f);
 		}};
 
 		shieldWall = new ShieldWall("force-wall") {{
