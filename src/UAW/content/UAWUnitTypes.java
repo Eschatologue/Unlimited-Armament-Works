@@ -552,7 +552,7 @@ public class UAWUnitTypes implements ContentList {
 			speed = 0.65f;
 			drag = 0.17f;
 			accel = 0.2f;
-			rotateSpeed = 1.5f;
+			rotateSpeed = 1f;
 			rotateShooting = false;
 			range = 55 * tilesize;
 			maxRange = range;
@@ -560,14 +560,14 @@ public class UAWUnitTypes implements ContentList {
 
 			trailLength = 50;
 			trailX = 18f;
-			trailY = -17f;
+			trailY = -15f;
 			trailScl = 3.2f;
 
 			constructor = UnitWaterMove::create;
 
 			weapons.add(
 				new PointDefenseWeapon("uaw-point-defense-purple") {{
-					mirror = false;
+					mirror = true;
 					targetAir = true;
 					x = 9f;
 					y = 12f;
@@ -583,7 +583,7 @@ public class UAWUnitTypes implements ContentList {
 					}};
 				}},
 				new PointDefenseWeapon("uaw-point-defense-purple") {{
-					mirror = false;
+					mirror = true;
 					targetAir = true;
 					x = 18f;
 					y = -11f;
@@ -603,25 +603,30 @@ public class UAWUnitTypes implements ContentList {
 					controllable = false;
 					x = 12f;
 					y = 2.5f;
-					inaccuracy = 4f;
-					reload = 6f;
+					inaccuracy = 16f;
+					reload = 12f;
 					shootSound = Sounds.shootBig;
 					ejectEffect = Fx.casing2;
 					bullet = new FlakBulletType(8f, 0) {{
+						splashDamage = 30;
 						height = 16f;
 						width = 8f;
 						homingPower = 0.035f;
 						homingRange = 5 * tilesize;
-						splashDamage = 25;
-						explodeRange = splashDamageRadius = 2.5f * tilesize;
-						explodeDelay = 15f;
+						explodeRange = splashDamageRadius = 3f * tilesize;
+						explodeDelay = 10f;
 						buildingDamageMultiplier = 0.5f;
 						maxRange = range - 16;
 						lifetime = range / speed;
 						trailWidth = width / 3.4f;
 						trailLength = Mathf.round(height);
 						trailColor = backColor;
-						hitEffect = new MultiEffect(Fx.blastExplosion, Fx.fireHit, Fx.blastsmoke);
+						hitEffect = new MultiEffect(
+							Fx.blastExplosion,
+							Fx.fireHit,
+							Fx.blastsmoke,
+							Fx.flakExplosionBig
+						);
 						ammoMultiplier = 8f;
 						fragBullets = 8;
 						fragBullet = flakGlass;
@@ -635,33 +640,47 @@ public class UAWUnitTypes implements ContentList {
 					y = -3f;
 					targetFlags = new BlockFlag[]{BlockFlag.turret, null};
 					inaccuracy = 10f;
-					velocityRnd = 0.8f;
-					reload = 6f * 60;
+					reload = 5f * 60;
 					recoil = 3f;
-					shootSound = Sounds.artillery;
+					shootSound = UAWSfx.artilleryShootHuge;
 					shake = 10;
 					shootStatusDuration = reload * 1.2f;
 					shootStatus = StatusEffects.unmoving;
-					bullet = new AntiBuildingBulletType(2f, 120, 3.5f) {{
+					bullet = new AntiBuildingBulletType(2f, 350, 4.5f) {{
 						splashDamageRadius = 8 * tilesize;
-						size = 45;
+						size = 48f;
 						lifetime = range / speed;
 						status = StatusEffects.burning;
 						incendChance = 0.8f;
 						incendSpread = 16f;
 						makeFire = true;
+						hitSound = UAWSfx.artilleryExplosionHuge;
 
 						frontColor = Pal.sapBullet;
 						backColor = Pal.sapBulletBack;
 						shootEffect = new MultiEffect(
-							Fx.shootBig2,
 							UAWFxStatic.shootSporeFlame,
-							UAWFxDynamic.instShoot(30f, Pal.sapBullet)
+							UAWFxDynamic.instShoot(65, Pal.sapBullet),
+							UAWFxDynamic.shootMassiveSmoke(5, 30, backColor)
 						);
 						smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
 						despawnEffect = hitEffect = new MultiEffect(
 							UAWFxDynamic.dynamicExplosion(splashDamageRadius, Color.gray)
 						);
+						fragBullets = 1;
+						fragBullet = new SplashBulletType(splashDamage / 4, splashDamageRadius / 1.2f) {{
+							splashAmount = 3;
+							splashDelay = 60;
+							buildingDamageMultiplier = 3.5f;
+							lifetime = (splashDelay * splashAmount);
+							frontColor = Pal.sapBullet;
+							backColor = Pal.sapBulletBack;
+							status = StatusEffects.melting;
+							statusDuration = 30f;
+							particleEffect = Fx.burning;
+							makeFire = true;
+							applySound = Sounds.flame2;
+						}};
 					}};
 				}}
 			);

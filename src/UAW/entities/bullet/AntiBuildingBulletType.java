@@ -19,7 +19,7 @@ public class AntiBuildingBulletType extends ArtilleryBulletType {
 	public AntiBuildingBulletType(float speed, float damage, float damageMult, String bulletSprite) {
 		super(speed, damage, bulletSprite);
 		this.buildingDamageMultiplier = damageMult;
-		splashDamage = damage * 2.5f;
+		splashDamage = damage;
 		splashDamageRadius = 10 * tilesize;
 		height = size;
 		width = size / 2.1f;
