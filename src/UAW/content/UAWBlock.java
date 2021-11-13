@@ -6,7 +6,7 @@ import UAW.world.blocks.defense.*;
 import UAW.world.blocks.defense.turrets.*;
 import UAW.world.blocks.defense.walls.ShieldWall;
 import UAW.world.blocks.drawer.DrawLiquidInput;
-import UAW.world.blocks.power.PetroleumGenerator;
+import UAW.world.blocks.power.WarmUpGenerator;
 import arc.graphics.Color;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
@@ -37,7 +37,7 @@ public class UAWBlock implements ContentList {
 	// Crafters
 	gelatinizer, carburizingFurnace, surgeMixer, coalLiquefier,
 	// Power
-	petroleumGenerator,
+	combustionGenerator, combustionTurbine,
 	// Defense
 	shieldWall, statusFieldProjector, rejuvinationProjector, rejuvinationDome,
 	// Units
@@ -881,24 +881,24 @@ public class UAWBlock implements ContentList {
 			craftTime = 1.5f * tick;
 			updateEffect = Fx.steam;
 		}};
-		petroleumGenerator = new PetroleumGenerator("petroleum-generator") {{
+
+		combustionGenerator = new WarmUpGenerator("combustion-generator") {{
 			requirements(Category.power, with(
-				Items.copper, 80,
-				Items.titanium, 60,
-				Items.lead, 80,
+				Items.copper, 160,
+				Items.titanium, 100,
+				Items.lead, 250,
 				Items.silicon, 125,
 				Items.metaglass, 80
 			));
-			powerProduction = 6f;
+			size = 2;
+			health = 600 * size;
+			powerProduction = 8f;
 			hasLiquids = true;
 			hasItems = false;
-			liquidCapacity = 30f;
-			size = 2;
-			ambientSound = Sounds.steam;
-			ambientSoundVolume = 0.03f;
-			warmupSpeed = 0.001f;
+			liquidCapacity = 180f;
+			buildCostMultiplier = 1.5f;
 
-			consumes.power(1f);
+			consumes.power(0.5f);
 			consumes.liquid(Liquids.oil, 0.5f);
 		}};
 

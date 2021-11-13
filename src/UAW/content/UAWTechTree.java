@@ -85,7 +85,7 @@ public class UAWTechTree implements ContentList {
 
 	@Override
 	public void load() {
-		// Consumables
+		// region Consumables
 		/// Cryogel
 		vanillaNode(pyratite, () ->
 			node(cryogel)
@@ -98,8 +98,8 @@ public class UAWTechTree implements ContentList {
 		vanillaNode(surgeAlloy, () ->
 			node(surgeSolvent)
 		);
-		// Defense
-		/// Turrets
+		// endregion
+		// region Turrets
 		vanillaNode(duo, () -> {
 			// Quadra
 			node(quadra, () -> node(spitfire, Seq.with(
@@ -135,57 +135,73 @@ public class UAWTechTree implements ContentList {
 					new SectorComplete(SectorPresets.nuclearComplex)
 				)));
 		});
-		/// Walls
+		// endregion
+		// region Walls
 		vanillaNode(phaseWall, () ->
 			/// Shield Wall
 			node(shieldWall, Seq.with(
 				new Research(forceProjector),
 				new Research(mendProjector)
 			)));
-		/// Effects
+		// endregion
+		// region Effects
 		vanillaNode(mendProjector, () -> {
+			// Status Field
 			node(statusFieldProjector, Seq.with(
 				new Produce(Liquids.cryofluid),
 				new Produce(Liquids.oil),
 				new Produce(Liquids.slag)
 			));
+			// Rejuvinator
 			node(rejuvinationProjector, Seq.with(new Research(overdriveProjector)), () ->
 				node(rejuvinationDome, Seq.with(new Research(overdriveDome)
 				)));
 		});
-		//Crafter
-		///Gelatinizer
+		// endregion
+		// region Crafters
+		// Gelatinizer
 		vanillaNode(blastMixer, () ->
 			node(gelatinizer, Seq.with(
 				new SectorComplete(SectorPresets.frozenForest),
 				new Research(cryofluidMixer)
 			)));
-		///Carburizing Furnace
+		// Carburizing Furnace
 		vanillaNode(surgeSmelter, () ->
 			node(carburizingFurnace, Seq.with(
 				new SectorComplete(SectorPresets.windsweptIslands),
 				new Research(siliconCrucible),
 				new Research(titaniumCarbide)
 			)));
-		///Surge Mixer
+		// Surge Mixer
 		vanillaNode(separator, () ->
 			node(surgeMixer, Seq.with(
 				new Research(cryofluidMixer),
 				new Produce(surgeAlloy)
 			)));
-		/// Coal Liquefier
+		// Coal Liquefier
 		vanillaNode(oilExtractor, () ->
 			node(coalLiquefier, Seq.with(
 				new Research(graphitePress),
 				new Produce(Liquids.oil)
 			)));
-		//Units Reconstuctors
+		// endregion
+		// region Power
+		vanillaNode(thermalGenerator, () ->
+			node(UAWBlock.combustionGenerator, Seq.with(
+				new Research(oilExtractor),
+				new Research(differentialGenerator)
+			))
+		);
+		// endregion
+		// region Unit Blocks
+		// Units Reconstuctors
 		vanillaNode(multiplicativeReconstructor, () ->
 			node(multiplicativePetroleumReconstructor, () ->
 				node(exponentialPetroleumReconstructor, Seq.with(new Research(exponentialReconstructor)), () ->
 					node(tetrativePetroleumReconstructor, Seq.with(new Research(tetrativeReconstructor))
 					))));
-		//Helis
+		// endregion
+		// Helis
 		vanillaNode(zenith, () ->
 			node(aglovale, () ->
 				node(bedivere, () ->
@@ -194,12 +210,12 @@ public class UAWTechTree implements ContentList {
 						new Research(antumbra)
 					))
 				)));
-		//Tanks
+		// Tanks
 		vanillaNode(mace, () ->
 			node(gardlacz, () ->
 				node(arkabuz)
 			));
-		//naval
+		// naval
 		vanillaNode(minke, () ->
 			node(clurit, Seq.with(new Research(atrax)), () ->
 				node(kujang, Seq.with(new Research(spiroct)
@@ -209,6 +225,6 @@ public class UAWTechTree implements ContentList {
 				node(shiratsuyu)
 			));
 
-		//End Region
+		//  Region
 	}
 }

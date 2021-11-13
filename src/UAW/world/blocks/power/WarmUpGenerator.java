@@ -13,14 +13,16 @@ import mindustry.world.blocks.power.ImpactReactor;
 
 import static mindustry.Vars.tilesize;
 
-public class PetroleumGenerator extends ImpactReactor {
+public class WarmUpGenerator extends ImpactReactor {
 	public TextureRegion liquidRegion, heatRegion, topRegion;
 	public Effect smokeEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
 
-	public PetroleumGenerator(String name) {
+	public WarmUpGenerator(String name) {
 		super(name);
 		warmupSpeed = 0.05f;
 		hasItems = false;
+		explosionRadius = size * 4;
+		explosionDamage = size * 125;
 	}
 
 	@Override
@@ -41,7 +43,7 @@ public class PetroleumGenerator extends ImpactReactor {
 		public void updateTile() {
 			super.updateTile();
 			if (warmup >= 0.001) {
-				if (Mathf.chance(warmup / 8)) {
+				if (Mathf.chance(warmup / 5)) {
 					smokeEffect.at(x, y);
 				}
 			}
