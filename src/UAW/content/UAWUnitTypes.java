@@ -6,6 +6,7 @@ import UAW.graphics.*;
 import UAW.type.*;
 import UAW.type.weapon.*;
 import arc.graphics.Color;
+import arc.math.Mathf;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.bullet.*;
@@ -439,7 +440,7 @@ public class UAWUnitTypes implements ContentList {
 					recoil = 2.2f;
 					shootSound = Sounds.artillery;
 					shake = 2.5f;
-					shootStatusDuration = reload;
+					shootStatusDuration = reload * 1.2f;
 					shootStatus = StatusEffects.unmoving;
 					bullet = new AntiBuildingBulletType(2f, 35, 2.5f) {{
 						splashDamageRadius = 6 * tilesize;
@@ -523,7 +524,7 @@ public class UAWUnitTypes implements ContentList {
 					shootSound = Sounds.artillery;
 					shootCone = 30f;
 					shake = 5;
-					shootStatusDuration = reload;
+					shootStatusDuration = reload * 1.2f;
 					shootStatus = StatusEffects.unmoving;
 					bullet = new AntiBuildingBulletType(2f, 120, 3.5f) {{
 						splashDamageRadius = 8 * tilesize;
@@ -537,6 +538,126 @@ public class UAWUnitTypes implements ContentList {
 						frontColor = Pal.sapBullet;
 						backColor = Pal.sapBulletBack;
 						shootEffect = new MultiEffect(Fx.shootBig2, UAWFxStatic.shootSporeFlame);
+						smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
+						despawnEffect = hitEffect = new MultiEffect(
+							UAWFxDynamic.dynamicExplosion(splashDamageRadius, Color.gray)
+						);
+					}};
+				}}
+			);
+		}};
+		kerambit = new UnitType("kerambit") {{
+			health = 16000;
+			hitSize = 44;
+			speed = 0.65f;
+			drag = 0.17f;
+			accel = 0.2f;
+			rotateSpeed = 1.5f;
+			rotateShooting = false;
+			range = 55 * tilesize;
+			maxRange = range;
+			ammoType = new ItemAmmoType(Items.thorium, 2);
+
+			trailLength = 50;
+			trailX = 18f;
+			trailY = -17f;
+			trailScl = 3.2f;
+
+			constructor = UnitWaterMove::create;
+
+			weapons.add(
+				new PointDefenseWeapon("uaw-point-defense-purple") {{
+					mirror = false;
+					targetAir = true;
+					x = 9f;
+					y = 12f;
+					recoil = 0f;
+					reload = 4f;
+					ejectEffect = UAWFxStatic.casing1Double;
+
+					bullet = new BulletType() {{
+						shootEffect = Fx.sparkShoot;
+						hitEffect = Fx.pointHit;
+						maxRange = range / 3;
+						damage = 8f;
+					}};
+				}},
+				new PointDefenseWeapon("uaw-point-defense-purple") {{
+					mirror = false;
+					targetAir = true;
+					x = 18f;
+					y = -11f;
+					recoil = 0f;
+					reload = 4f;
+					ejectEffect = UAWFxStatic.casing1Double;
+
+					bullet = new BulletType() {{
+						shootEffect = Fx.sparkShoot;
+						hitEffect = Fx.pointHit;
+						maxRange = range / 3;
+						damage = 8f;
+					}};
+				}},
+				new Weapon("uaw-machine-gun-medium-purple") {{
+					rotate = mirror = autoTarget = alternate = true;
+					controllable = false;
+					x = 12f;
+					y = 2.5f;
+					inaccuracy = 4f;
+					reload = 6f;
+					shootSound = Sounds.shootBig;
+					ejectEffect = Fx.casing2;
+					bullet = new FlakBulletType(8f, 0) {{
+						height = 16f;
+						width = 8f;
+						homingPower = 0.035f;
+						homingRange = 5 * tilesize;
+						splashDamage = 25;
+						explodeRange = splashDamageRadius = 2.5f * tilesize;
+						explodeDelay = 15f;
+						buildingDamageMultiplier = 0.5f;
+						maxRange = range - 16;
+						lifetime = range / speed;
+						trailWidth = width / 3.4f;
+						trailLength = Mathf.round(height);
+						trailColor = backColor;
+						hitEffect = new MultiEffect(Fx.blastExplosion, Fx.fireHit, Fx.blastsmoke);
+						ammoMultiplier = 8f;
+						fragBullets = 8;
+						fragBullet = flakGlass;
+					}};
+				}},
+				new Weapon("uaw-artillery-large-purple") {{
+					rotate = true;
+					mirror = false;
+					rotateSpeed = 1f;
+					x = 0f;
+					y = -3f;
+					targetFlags = new BlockFlag[]{BlockFlag.turret, null};
+					inaccuracy = 10f;
+					velocityRnd = 0.8f;
+					reload = 6f * 60;
+					recoil = 3f;
+					shootSound = Sounds.artillery;
+					shake = 10;
+					shootStatusDuration = reload * 1.2f;
+					shootStatus = StatusEffects.unmoving;
+					bullet = new AntiBuildingBulletType(2f, 120, 3.5f) {{
+						splashDamageRadius = 8 * tilesize;
+						size = 45;
+						lifetime = range / speed;
+						status = StatusEffects.burning;
+						incendChance = 0.8f;
+						incendSpread = 16f;
+						makeFire = true;
+
+						frontColor = Pal.sapBullet;
+						backColor = Pal.sapBulletBack;
+						shootEffect = new MultiEffect(
+							Fx.shootBig2,
+							UAWFxStatic.shootSporeFlame,
+							UAWFxDynamic.instShoot(30f, Pal.sapBullet)
+						);
 						smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
 						despawnEffect = hitEffect = new MultiEffect(
 							UAWFxDynamic.dynamicExplosion(splashDamageRadius, Color.gray)

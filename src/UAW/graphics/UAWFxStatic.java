@@ -101,6 +101,22 @@ public class UAWFxStatic {
 		Lines.square(e.x, e.y, 1f + (tilesize + e.fin() * e.rotation / 2f - 1f));
 	}),
 
+	casing1Double = new Effect(32f, e -> {
+		color(Pal.lightOrange, Color.lightGray, Pal.lightishGray, e.fin());
+		alpha(e.fout(0.5f));
+		float rot = Math.abs(e.rotation) + 90f;
+		for (int i : Mathf.signs) {
+			float len = (2f + e.finpow() * 10f) * i;
+			float lr = rot + e.fin() * 20f * i;
+			rect(Core.atlas.find("casing"),
+				e.x + trnsx(lr, len) + Mathf.randomSeedRange(e.id + i + 7, 3f * e.fin()),
+				e.y + trnsy(lr, len) + Mathf.randomSeedRange(e.id + i + 8, 3f * e.fin()),
+				1f, 2f, rot + e.fin() * 50f * i
+			);
+		}
+
+	}).layer(Layer.bullet),
+
 	casing2Long = new Effect(36f, e -> {
 		color(Pal.lightOrange, Color.lightGray, Pal.lightishGray, e.fin());
 		alpha(e.fout(0.5f));

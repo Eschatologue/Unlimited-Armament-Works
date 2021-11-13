@@ -1,16 +1,24 @@
 package UAW.world.blocks.power;
 
+import UAW.graphics.UAWFxDynamic;
 import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.Mathf;
 import arc.util.Time;
 import mindustry.content.Fx;
-import mindustry.entities.Effect;
+import mindustry.entities.*;
 import mindustry.entities.effect.MultiEffect;
-import mindustry.graphics.Drawf;
+import mindustry.graphics.*;
 import mindustry.world.blocks.power.ImpactReactor;
 
+/**
+ * Modified version of ImpactReactor
+ * <p>
+ * Power generation block which can use items, liquids or both as input sources for power production.
+ * Can have rotators
+ * </p>
+ */
 public class WarmUpGenerator extends ImpactReactor {
 	public TextureRegion liquidRegion, rotatorRegion, heatRegion, topRegion;
 	public Effect smokeEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
@@ -23,6 +31,7 @@ public class WarmUpGenerator extends ImpactReactor {
 		hasItems = false;
 		explosionRadius = size * 4;
 		explosionDamage = size * 125;
+		explodeEffect = UAWFxDynamic.dynamicExplosion(explosionRadius, Pal.gray);
 	}
 
 	@Override
@@ -59,8 +68,8 @@ public class WarmUpGenerator extends ImpactReactor {
 		public void draw() {
 			Draw.rect(bottomRegion, x, y);
 			Drawf.liquid(liquidRegion, x, y, liquids.total() / liquidCapacity, liquids.current().color);
-			if (drawRotator){
-				Draw.rect(topRegion, x, y, Time.time * (maxRotationSpeed * warmup));
+			if (drawRotator) {
+				Draw.rect(rotatorRegion, x, y, Time.time * (maxRotationSpeed * warmup));
 			}
 			Draw.rect(topRegion, x, y);
 			Draw.color(Color.valueOf("ff9b59"));
@@ -68,6 +77,12 @@ public class WarmUpGenerator extends ImpactReactor {
 			Draw.rect(heatRegion, x, y);
 
 			Draw.reset();
+		}
+
+		@Override
+		public void onDestroyed() {
+			super.onDestroyed();
+			Fires.create(tile);
 		}
 	}
 }
