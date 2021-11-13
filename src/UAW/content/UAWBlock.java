@@ -6,6 +6,7 @@ import UAW.world.blocks.defense.*;
 import UAW.world.blocks.defense.turrets.*;
 import UAW.world.blocks.defense.walls.ShieldWall;
 import UAW.world.blocks.drawer.DrawLiquidInput;
+import UAW.world.blocks.power.PetroleumGenerator;
 import arc.graphics.Color;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
@@ -16,7 +17,6 @@ import mindustry.graphics.Pal;
 import mindustry.type.*;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
-import mindustry.world.blocks.power.*;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.units.Reconstructor;
 import mindustry.world.draw.*;
@@ -881,7 +881,7 @@ public class UAWBlock implements ContentList {
 			craftTime = 1.5f * tick;
 			updateEffect = Fx.steam;
 		}};
-		petroleumGenerator = new ImpactReactor("petroleum-generator") {{
+		petroleumGenerator = new PetroleumGenerator("petroleum-generator") {{
 			requirements(Category.power, with(
 				Items.copper, 80,
 				Items.titanium, 60,
@@ -896,8 +896,9 @@ public class UAWBlock implements ContentList {
 			size = 2;
 			ambientSound = Sounds.steam;
 			ambientSoundVolume = 0.03f;
+			warmupSpeed = 0.001f;
 
-			consumes.power(1.5f);
+			consumes.power(1f);
 			consumes.liquid(Liquids.oil, 0.5f);
 		}};
 
