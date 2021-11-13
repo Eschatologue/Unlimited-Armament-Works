@@ -11,11 +11,11 @@ import mindustry.entities.effect.MultiEffect;
 import mindustry.graphics.Drawf;
 import mindustry.world.blocks.power.ImpactReactor;
 
-import static mindustry.Vars.tilesize;
-
 public class WarmUpGenerator extends ImpactReactor {
-	public TextureRegion liquidRegion, heatRegion, topRegion;
+	public TextureRegion liquidRegion, rotatorRegion, heatRegion, topRegion;
 	public Effect smokeEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
+	public float maxRotationSpeed = 15f;
+	public boolean drawRotator = false;
 
 	public WarmUpGenerator(String name) {
 		super(name);
@@ -29,13 +29,19 @@ public class WarmUpGenerator extends ImpactReactor {
 	public void load() {
 		bottomRegion = Core.atlas.find(name + "-bottom");
 		liquidRegion = Core.atlas.find(name + "-liquid");
-		heatRegion = Core.atlas.find(name + "-heat");
+		if (drawRotator) {
+			rotatorRegion = Core.atlas.find(name + "-rotator");
+		}
 		topRegion = Core.atlas.find(name + "-top");
+		heatRegion = Core.atlas.find(name + "-heat");
 	}
 
 	@Override
 	public TextureRegion[] icons() {
-		return new TextureRegion[]{bottomRegion, topRegion};
+		if (drawRotator) {
+			return new TextureRegion[]{bottomRegion, rotatorRegion, topRegion};
+		} else
+			return new TextureRegion[]{bottomRegion, topRegion};
 	}
 
 	public class PetroleumGeneratorBuild extends ImpactReactorBuild {
@@ -51,9 +57,11 @@ public class WarmUpGenerator extends ImpactReactor {
 
 		@Override
 		public void draw() {
-			float r = size * tilesize;
 			Draw.rect(bottomRegion, x, y);
 			Drawf.liquid(liquidRegion, x, y, liquids.total() / liquidCapacity, liquids.current().color);
+			if (drawRotator){
+				Draw.rect(topRegion, x, y, Time.time * (maxRotationSpeed * warmup));
+			}
 			Draw.rect(topRegion, x, y);
 			Draw.color(Color.valueOf("ff9b59"));
 			Draw.alpha((0.3f + Mathf.absin(Time.time, 2f, 0.05f)) * warmup);

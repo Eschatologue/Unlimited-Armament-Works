@@ -23,7 +23,6 @@ import static mindustry.content.Bullets.*;
 public class UAWUnitTypes implements ContentList {
 	public static UnitType
 		aglovale, bedivere, calogrenant, dagonet, esclabor,
-		decade, century, millenium, eon,
 		clurit, kujang, kerambit, cetbang, kiAmuk,
 		hatsuharu, shiratsuyu, kagero, shimakaze,
 		gardlacz, arkabuz, armata, zemsta;
@@ -440,6 +439,8 @@ public class UAWUnitTypes implements ContentList {
 					recoil = 2.2f;
 					shootSound = Sounds.artillery;
 					shake = 2.5f;
+					shootStatusDuration = reload;
+					shootStatus = StatusEffects.unmoving;
 					bullet = new AntiBuildingBulletType(2f, 35, 2.5f) {{
 						splashDamageRadius = 6 * tilesize;
 						size = 20;
@@ -522,6 +523,8 @@ public class UAWUnitTypes implements ContentList {
 					shootSound = Sounds.artillery;
 					shootCone = 30f;
 					shake = 5;
+					shootStatusDuration = reload;
+					shootStatus = StatusEffects.unmoving;
 					bullet = new AntiBuildingBulletType(2f, 120, 3.5f) {{
 						splashDamageRadius = 8 * tilesize;
 						size = 38;

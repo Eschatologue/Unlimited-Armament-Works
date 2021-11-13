@@ -13,6 +13,7 @@ public class UAWStatusEffects implements ContentList {
 		concussion = new StatusEffect("concussion") {{
 			color = Pal.lightishGray;
 			reloadMultiplier = speedMultiplier = 0.4f;
+			show = false;
 		}};
 	}
 }
