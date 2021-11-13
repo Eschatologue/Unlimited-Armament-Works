@@ -25,7 +25,7 @@
 4. Tier 4 Helicopter : Bedivere
     * New Artillery weapon are added to bedievere, 
     * New Cruise Missile Sprite
-   
+5. Some changes in bundle.properties   
 # Update 0.7.1
 
 <div align="center">

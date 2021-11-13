@@ -16,6 +16,7 @@ import mindustry.graphics.Pal;
 import mindustry.type.*;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
+import mindustry.world.blocks.power.ItemLiquidGenerator;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.units.Reconstructor;
 import mindustry.world.draw.*;
@@ -35,6 +36,8 @@ public class UAWBlock implements ContentList {
 		heavylight, trailblazer, gigavolt,
 	// Crafters
 	gelatinizer, carburizingFurnace, surgeMixer, coalLiquefier,
+	// Power
+	petroleumGenerator,
 	// Defense
 	shieldWall, statusFieldProjector, rejuvinationProjector, rejuvinationDome,
 	// Units
@@ -877,6 +880,22 @@ public class UAWBlock implements ContentList {
 			drawer = new DrawLiquid();
 			craftTime = 1.5f * tick;
 			updateEffect = Fx.steam;
+		}};
+		petroleumGenerator = new ItemLiquidGenerator("petroleum-generator") {{
+			requirements(Category.power, with(
+				Items.copper, 80,
+				Items.titanium, 60,
+				Items.lead, 80,
+				Items.silicon, 125,
+				Items.metaglass, 80));
+			powerProduction = 7.5f;
+			hasLiquids = true;
+			hasItems = false;
+			size = 2;
+			ambientSound = Sounds.steam;
+			ambientSoundVolume = 0.03f;
+
+			consumes.liquid(Liquids.oil, 0.1f);
 		}};
 
 		shieldWall = new ShieldWall("force-wall") {{

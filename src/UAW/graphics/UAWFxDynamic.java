@@ -295,27 +295,21 @@ public class UAWFxDynamic {
 
 	public static Effect burstSmelt(float height, float width, float offset, int rotation, Color frontColor, Color backColor) {
 		//Inspired, modified and translated to java from 'FlinTyX/DiverseTech'
-		return new Effect(35, e -> {
-			for (int i = 0; i < 2; i++) {
-				//Darker Shade
-				Draw.color(frontColor);
+		return new Effect(24f, e -> {
+			e.scaled(10f, b -> {
+				color(Color.white, frontColor, b.fin());
+				stroke(b.fout() * 3f + 0.2f);
+				Lines.circle(b.x, b.y, b.fin() * 50f);
+			});
 
-				float h = e.finpow() * height;
-				float w = e.fout() * width;
+			color(backColor);
 
-				Drawf.tri(i == 0 ? e.x + (offset / 3) : e.x - (offset / 3), e.y, w, h, i == 0 ? (rotation - 90) : (rotation + 90));
-				Drawf.tri(e.x, i == 0 ? e.y - (offset / 3) : e.y + (offset / 3), w, h, i == 0 ? -rotation : rotation);
-				//Lighter Shade
-				Draw.color(Color.gray, backColor, Color.white, e.fin());
-
-				e.scaled(7, j -> {
-					Lines.stroke(3 * j.fout());
-					Lines.circle(e.x, e.y, 4 + j.fin() * 30);
-				});
-				Draw.color(backColor);
-				Angles.randLenVectors(e.id, 8, 2 + 30 * e.finpow(), (x, y) ->
-					Fill.circle(e.x + x, e.y + y, (float) (e.fout() * 2 + 0.5)));
+			for (int i = 0; i < 4; i++) {
+				float angle = (i * 360f / 4);
+				Drawf.tri(e.x, e.y, 13f * e.fout(), 85f, angle);
 			}
+
+			Drawf.light(e.x, e.y, 180f, Pal.bulletYellowBack, 0.9f * e.fout());
 		});
 	}
 
