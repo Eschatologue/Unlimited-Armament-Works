@@ -19,7 +19,7 @@ public class WarmUpGenerator extends ImpactReactor {
 
 	public WarmUpGenerator(String name) {
 		super(name);
-		warmupSpeed = 0.05f;
+		warmupSpeed = 0.005f;
 		hasItems = false;
 		explosionRadius = size * 4;
 		explosionDamage = size * 125;
