@@ -887,15 +887,17 @@ public class UAWBlock implements ContentList {
 				Items.titanium, 60,
 				Items.lead, 80,
 				Items.silicon, 125,
-				Items.metaglass, 80));
+				Items.metaglass, 80
+			));
 			powerProduction = 7.5f;
 			hasLiquids = true;
 			hasItems = false;
+			liquidCapacity = 30f;
 			size = 2;
 			ambientSound = Sounds.steam;
 			ambientSoundVolume = 0.03f;
 
-			consumes.liquid(Liquids.oil, 0.1f);
+			consumes.liquid(Liquids.oil, 0.1f).optional(false,false);
 		}};
 
 		shieldWall = new ShieldWall("force-wall") {{
