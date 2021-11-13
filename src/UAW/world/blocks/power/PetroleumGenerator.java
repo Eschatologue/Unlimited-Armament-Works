@@ -27,6 +27,7 @@ public class PetroleumGenerator extends ImpactReactor {
 	public void load() {
 		bottomRegion = Core.atlas.find(name + "-bottom");
 		liquidRegion = Core.atlas.find(name + "-liquid");
+		heatRegion = Core.atlas.find(name + "-heat");
 		topRegion = Core.atlas.find(name + "-top");
 	}
 
@@ -54,7 +55,7 @@ public class PetroleumGenerator extends ImpactReactor {
 			Draw.rect(topRegion, x, y);
 			Draw.color(Color.valueOf("ff9b59"));
 			Draw.alpha((0.3f + Mathf.absin(Time.time, 2f, 0.05f)) * warmup);
-			Draw.rect(heatRegion, x, y, r, r);
+			Draw.rect(heatRegion, x, y);
 
 			Draw.reset();
 		}
