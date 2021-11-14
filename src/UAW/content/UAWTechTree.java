@@ -218,8 +218,12 @@ public class UAWTechTree implements ContentList {
 		// naval
 		vanillaNode(minke, () ->
 			node(clurit, Seq.with(new Research(atrax)), () ->
-				node(kujang, Seq.with(new Research(spiroct)
-				))));
+				node(kujang, Seq.with(new Research(spiroct)), () ->
+					node(kerambit, Seq.with(
+						new Research(aegires),
+						new Research(forceProjector)
+					))
+				)));
 		vanillaNode(bryde, () ->
 			node(hatsuharu, Seq.with(new Research(blastCompound)), () ->
 				node(shiratsuyu)

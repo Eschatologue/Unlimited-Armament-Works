@@ -35,6 +35,7 @@ public class AntiBuildingBulletType extends ArtilleryBulletType {
 		trailWidth = width / 4f;
 		trailColor = backColor;
 		trailMult = 0f;
+		pierceBuilding = true;
 		status = StatusEffects.melting;
 		makeFire = true;
 	}

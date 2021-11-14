@@ -9,6 +9,7 @@ import arc.graphics.Color;
 import arc.math.Mathf;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
+import mindustry.entities.abilities.ForceFieldAbility;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.gen.*;
@@ -564,7 +565,7 @@ public class UAWUnitTypes implements ContentList {
 			trailScl = 3.2f;
 
 			constructor = UnitWaterMove::create;
-
+			abilities.add(new ForceFieldAbility(range / 6, 0.5f, health / 4, 12f * 60f));
 			weapons.add(
 				new PointDefenseWeapon("uaw-point-defense-purple") {{
 					mirror = true;
@@ -611,16 +612,18 @@ public class UAWUnitTypes implements ContentList {
 						splashDamage = 30;
 						height = 16f;
 						width = 8f;
-						homingPower = 0.035f;
-						homingRange = 5 * tilesize;
+						homingPower = 0.05f;
+						homingRange = 6 * tilesize;
 						explodeRange = splashDamageRadius = 3f * tilesize;
 						explodeDelay = 10f;
 						buildingDamageMultiplier = 0.5f;
 						maxRange = range - 16;
-						lifetime = range / speed;
+						lifetime = (range / speed) / 2;
 						trailWidth = width / 3.4f;
 						trailLength = Mathf.round(height);
 						trailColor = backColor;
+						shootEffect = Fx.shootBig;
+						smokeEffect = Fx.shootBigSmoke;
 						hitEffect = new MultiEffect(
 							Fx.blastExplosion,
 							Fx.fireHit,
@@ -628,7 +631,9 @@ public class UAWUnitTypes implements ContentList {
 							Fx.flakExplosionBig
 						);
 						ammoMultiplier = 8f;
-						fragBullets = 8;
+						fragBullets = 4;
+						fragLifeMin = 0.3f;
+						fragLifeMax = 0.6f;
 						fragBullet = flakGlass;
 					}};
 				}},
@@ -646,9 +651,10 @@ public class UAWUnitTypes implements ContentList {
 					shake = 10;
 					shootStatusDuration = reload * 1.2f;
 					shootStatus = StatusEffects.unmoving;
-					bullet = new AntiBuildingBulletType(2f, 350, 4.5f) {{
+					bullet = new UAWArtilleryBulletType(2f, 350) {{
 						splashDamageRadius = 8 * tilesize;
-						size = 48f;
+						buildingDamageMultiplier = 3.5f;
+						shieldDamageMultiplier = 4f;
 						lifetime = range / speed;
 						status = StatusEffects.burning;
 						incendChance = 0.8f;
@@ -668,7 +674,7 @@ public class UAWUnitTypes implements ContentList {
 							UAWFxDynamic.dynamicExplosion(splashDamageRadius, Color.gray)
 						);
 						fragBullets = 1;
-						fragBullet = new SplashBulletType(splashDamage / 4, splashDamageRadius / 1.2f) {{
+						fragBullet = new SplashBulletType(splashDamage / 2, splashDamageRadius / 1.2f) {{
 							splashAmount = 3;
 							splashDelay = 60;
 							buildingDamageMultiplier = 3.5f;
@@ -677,7 +683,7 @@ public class UAWUnitTypes implements ContentList {
 							backColor = Pal.sapBulletBack;
 							status = StatusEffects.melting;
 							statusDuration = 30f;
-							particleEffect = Fx.burning;
+							particleEffect = new MultiEffect(Fx.sporeSlowed, Fx.fire);
 							makeFire = true;
 							applySound = Sounds.flame2;
 						}};

@@ -24,6 +24,9 @@ public class SplashBulletType extends BulletType {
 	 * How many times splash damage occurs
 	 */
 	public int splashAmount = 3;
+	/**
+	 * Whenever to use a custom splash effect instead of circlesplash
+	 */
 	public boolean customSplashEffect = false;
 	public Sound applySound = Sounds.shotgun;
 	public Color frontColor, backColor;

@@ -892,13 +892,13 @@ public class UAWBlock implements ContentList {
 			));
 			size = 2;
 			health = 600 * size;
-			powerProduction = 8f;
+			powerProduction = 8.5f;
 			hasLiquids = true;
 			hasItems = false;
 			liquidCapacity = 180f;
 			buildCostMultiplier = 1.5f;
 
-			consumes.power(0.5f);
+			consumes.power(1f);
 			consumes.liquid(Liquids.oil, 0.5f);
 		}};
 
@@ -1084,8 +1084,8 @@ public class UAWBlock implements ContentList {
 			placeableLiquid = true;
 
 			upgrades.addAll(
-				new UnitType[]{UAWUnitTypes.bedivere, UAWUnitTypes.calogrenant}
-				//new UnitType[]{UAWUnitTypes.kujang, UAWUnitTypes.cetbang},
+				new UnitType[]{UAWUnitTypes.bedivere, UAWUnitTypes.calogrenant},
+				new UnitType[]{UAWUnitTypes.kujang, UAWUnitTypes.kerambit}
 				//new UnitType[]{UAWUnitTypes.arkabuz, UAWUnitTypes.armata},
 				//new UnitType[]{UAWUnitTypes.shiratsuyu, UAWUnitTypes.kagero}
 			);
