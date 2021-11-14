@@ -444,9 +444,10 @@ public class UAWUnitTypes implements ContentList {
 					shake = 2.5f;
 					shootStatusDuration = reload * 1.2f;
 					shootStatus = StatusEffects.unmoving;
+					ejectEffect = Fx.casing3;
 					bullet = new UAWArtilleryBulletType(2f, 35) {{
 						splashDamageRadius = 6 * tilesize;
-						height = 20;
+						height = 18;
 						width = height / 1.8f;
 						lifetime = range / speed;
 						status = StatusEffects.burning;
@@ -530,9 +531,10 @@ public class UAWUnitTypes implements ContentList {
 					shootStatusDuration = reload * 1.2f;
 					shootStatus = StatusEffects.unmoving;
 					xRand = 3;
-					shots = 3;
-					shotDelay = 15f;
+					shots = 6;
+					shotDelay = 6.5f;
 					velocityRnd = 0.4f;
+					ejectEffect = Fx.casing4;
 					bullet = new UAWArtilleryBulletType(1.8f, 90) {{
 						splashDamageRadius = 5 * tilesize;
 						height = 24;
@@ -550,10 +552,8 @@ public class UAWUnitTypes implements ContentList {
 						despawnEffect = hitEffect = new MultiEffect(
 							UAWFxDynamic.dynamicExplosion(splashDamageRadius, Color.gray)
 						);
-						fragBullets = 3;
-						fragBullet = artilleryIncendiary;
-						fragLifeMin = 0.2f;
-						fragLifeMax = 0.4f;
+						fragBullets = 4;
+						fragBullet = fragPlasticFrag;
 					}};
 				}}
 			);
@@ -663,6 +663,7 @@ public class UAWUnitTypes implements ContentList {
 					shake = 14;
 					shootStatusDuration = reload * 1.2f;
 					shootStatus = StatusEffects.unmoving;
+					ejectEffect = UAWFxStatic.casing5;
 					bullet = new UAWArtilleryBulletType(1.7f, 550) {{
 						damage = 550f;
 						height = 42;

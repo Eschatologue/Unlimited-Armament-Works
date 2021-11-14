@@ -145,7 +145,7 @@ public class UAWFxStatic {
 		);
 	}).layer(Layer.bullet),
 
-	casing5 = new Effect(50f, e -> {
+	casing5 = new Effect(65f, e -> {
 		color(Pal.lightOrange, Pal.lightishGray, Pal.lightishGray, e.fin());
 		alpha(e.fout(0.5f));
 		float rot = Math.abs(e.rotation) + 90f;
