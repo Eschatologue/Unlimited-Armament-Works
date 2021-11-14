@@ -6,14 +6,14 @@ import mindustry.gen.*;
 
 public class UAWArtilleryBulletType extends UAWBasicBulletType {
 
-	public float size = 20f, trailMult = 1.5f, trailSize = 4f;
+	public float trailMult = 1.5f, trailSize = 4f;
 
 	public UAWArtilleryBulletType(float speed, float splashDamage, String bulletSprite) {
 		super(speed, splashDamage, bulletSprite);
 		this.splashDamage = splashDamage;
-		this.height = size;
-		this.width = size / 2;
-		damage = 0f;
+		height = 20;
+		width = height / 2;
+		damage = splashDamage;
 		collides = collidesTiles = collidesAir = false;
 		pierceBuilding = scaleVelocity = true;
 		hitShake = 5f;

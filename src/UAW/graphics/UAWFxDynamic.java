@@ -180,6 +180,12 @@ public class UAWFxDynamic {
 		});
 	}
 
+	/**
+	 * Vanilla DynamicExplosion with adjustable color
+	 *
+	 * @param size  How big is the explosion
+	 * @param color The SMOKE color
+	 */
 	public static Effect dynamicExplosion(float size, Color color) {
 		return new Effect((size * 10), 500f, b -> {
 			float realSize = size / 15;
@@ -216,9 +222,18 @@ public class UAWFxDynamic {
 					Drawf.light(e.x + x, e.y + y, (out * 4 * (3f + realSize)) * 3.5f, Draw.getColor(), 0.8f);
 				});
 			});
-		});
+		}).layer(Layer.effect + 1);
 	}
 
+	/**
+	 * Vanilla Reactor Explosion with adjustable color
+	 * <p>
+	 * Use this with CircleApply
+	 * </p>
+	 *
+	 * @param size  How big is the explosion, calculated in world unit
+	 * @param color The spark color
+	 */
 	public static Effect hugeExplosion(float size, Color color) {
 		return new Effect(120, 450f, e -> {
 			float intensity = size / 19f;
@@ -249,7 +264,7 @@ public class UAWFxDynamic {
 				lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), 1f + out * 4 * (4f + intensity));
 				Drawf.light(e.x + x, e.y + y, (out * 4 * (5f + intensity)) * 3.5f, Draw.getColor(), 0.8f);
 			});
-		});
+		}).layer(Layer.effect + 1);
 	}
 
 	public static Effect statusHit(float lifetime, Color color) {
@@ -293,8 +308,12 @@ public class UAWFxDynamic {
 		});
 	}
 
+	/**
+	 * Converted to Java by Eschatologue
+	 *
+	 * @author FlinTyX
+	 */
 	public static Effect burstSmelt(float height, float width, float offset, Color frontColor, Color backColor) {
-		//Inspired, modified and translated to java from 'FlinTyX/DiverseTech'
 		return new Effect(35, e -> {
 			for (int i = 0; i < 2; i++) {
 				//Darker Shade

@@ -9,7 +9,6 @@ import arc.graphics.Color;
 import arc.math.Mathf;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
-import mindustry.entities.abilities.ForceFieldAbility;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.gen.*;
@@ -255,12 +254,14 @@ public class UAWUnitTypes implements ContentList {
 					y = 3f;
 					reload = 3f;
 					recoil = 0f;
+					targetInterval = 4f;
+					targetSwitchInterval = 4f;
 					ejectEffect = Fx.casing1;
 					bullet = new BulletType() {{
 						shootEffect = Fx.sparkShoot;
 						smokeEffect = Fx.shootSmallSmoke;
 						hitEffect = Fx.pointHit;
-						maxRange = range / 1.5f;
+						maxRange = range / 2f;
 						damage = 15f;
 					}};
 				}},
@@ -339,7 +340,7 @@ public class UAWUnitTypes implements ContentList {
 						lifetime = (range - 5) / speed;
 						shootEffect = UAWFxStatic.shootCryoFlame;
 						trailColor = UAWPal.cryoFront;
-						hitEffect = despawnEffect = UAWFxDynamic.dynamicExplosion(splashDamageRadius, UAWPal.cryoBack);
+						hitEffect = despawnEffect = UAWFxDynamic.hugeExplosion(splashDamageRadius, UAWPal.cryoBack);
 						trailEffect = UAWFxStatic.cryoSmokeTrailUnder;
 						status = StatusEffects.freezing;
 						statusDuration = 4 * 60;
@@ -433,7 +434,7 @@ public class UAWUnitTypes implements ContentList {
 					mirror = rotate = alternate = true;
 					x = 5.5f;
 					y = -8f;
-					targetFlags = new BlockFlag[]{BlockFlag.turret, null};
+					targetFlags = new BlockFlag[]{BlockFlag.turret, BlockFlag.extinguisher, BlockFlag.repair, BlockFlag.core};
 					inaccuracy = 8f;
 					shootCone = 30;
 					rotateSpeed = 2.2f;
@@ -465,29 +466,28 @@ public class UAWUnitTypes implements ContentList {
 		}};
 		kujang = new UnitType("kujang") {{
 			health = 7000;
-			hitSize = 30;
+			hitSize = 22;
 			speed = 0.65f;
-			drag = 0.05f;
-			accel = 0.2f;
+			accel = 0.20f;
 			rotateSpeed = 1.5f;
 			rotateShooting = false;
 			range = 40 * tilesize;
 			maxRange = range;
 			ammoType = new ItemAmmoType(Items.graphite, 2);
 
-			trailLength = 45;
+			trailLength = 23;
 			trailX = 9f;
 			trailY = -9f;
-			trailScl = 2.8f;
+			trailScl = 2f;
 
 			constructor = UnitWaterMove::create;
 
 			weapons.add(
 				new PointDefenseWeapon("uaw-point-defense-purple") {{
-					mirror = false;
-					targetAir = true;
+					rotate = autoTarget = true;
+					mirror = controllable = false;
 					x = 0f;
-					y = 13f;
+					y = 10f;
 					recoil = 0.5f;
 					reload = 3f;
 					targetInterval = 10f;
@@ -504,38 +504,41 @@ public class UAWUnitTypes implements ContentList {
 				new Weapon("uaw-machine-gun-small-purple") {{
 					rotate = mirror = autoTarget = alternate = true;
 					controllable = false;
-					x = 8f;
-					y = 0.4f;
+					x = 7f;
+					y = 5f;
 					inaccuracy = 4f;
 					reload = 12f;
 					shootSound = Sounds.shoot;
 					ejectEffect = Fx.casing2;
 					bullet = fragGlass;
 				}},
-				new Weapon("uaw-artillery-medium-purple") {{
+				new Weapon("uaw-missile-large-purple") {{
 					rotate = true;
 					mirror = false;
 					rotateSpeed = 1f;
 					x = 0f;
-					y = -12f;
-					targetFlags = new BlockFlag[]{BlockFlag.turret, null};
+					y = -7f;
+					targetFlags = new BlockFlag[]{BlockFlag.turret, BlockFlag.extinguisher, BlockFlag.repair, BlockFlag.core};
 					inaccuracy = 8f;
-					reload = 4f * 60;
+					reload = 5f * 60;
 					recoil = 3f;
 					shootSound = Sounds.artillery;
-					shootCone = 30f;
-					shake = 5;
+					shake = 6;
 					shootStatusDuration = reload * 1.2f;
 					shootStatus = StatusEffects.unmoving;
-					bullet = new AntiBuildingBulletType(2f, 120, 3.5f) {{
-						splashDamageRadius = 8 * tilesize;
-						size = 38;
+					xRand = 3;
+					shots = 6;
+					shotDelay = 15f;
+					velocityRnd = 0.2f;
+					bullet = new UAWArtilleryBulletType(2f, 80) {{
+						splashDamageRadius = 6 * tilesize;
+						height = 30;
+						width = height / 2;
 						lifetime = range / speed;
 						status = StatusEffects.burning;
 						incendChance = 0.8f;
 						incendSpread = 16f;
 						makeFire = true;
-
 						frontColor = Pal.sapBullet;
 						backColor = Pal.sapBulletBack;
 						shootEffect = new MultiEffect(Fx.shootBig2, UAWFxStatic.shootSporeFlame);
@@ -543,6 +546,10 @@ public class UAWUnitTypes implements ContentList {
 						despawnEffect = hitEffect = new MultiEffect(
 							UAWFxDynamic.dynamicExplosion(splashDamageRadius, Color.gray)
 						);
+						fragBullets = 3;
+						fragBullet = artilleryIncendiary;
+						fragLifeMin = 0.2f;
+						fragLifeMax = 0.4f;
 					}};
 				}}
 			);
@@ -567,12 +574,14 @@ public class UAWUnitTypes implements ContentList {
 			constructor = UnitWaterMove::create;
 			weapons.add(
 				new PointDefenseWeapon("uaw-point-defense-purple") {{
-					mirror = true;
-					targetAir = true;
+					mirror = rotate = autoTarget = true;
+					controllable = false;
 					x = 9f;
 					y = 12f;
 					recoil = 0f;
 					reload = 4f;
+					targetInterval = 10f;
+					targetSwitchInterval = 15f;
 					ejectEffect = UAWFxStatic.casing1Double;
 
 					bullet = new BulletType() {{
@@ -583,12 +592,14 @@ public class UAWUnitTypes implements ContentList {
 					}};
 				}},
 				new PointDefenseWeapon("uaw-point-defense-purple") {{
-					mirror = true;
-					targetAir = true;
+					mirror = rotate = autoTarget = true;
+					controllable = false;
 					x = 18f;
 					y = -11f;
 					recoil = 0f;
 					reload = 4f;
+					targetInterval = 10f;
+					targetSwitchInterval = 15f;
 					ejectEffect = UAWFxStatic.casing1Double;
 
 					bullet = new BulletType() {{
@@ -642,7 +653,7 @@ public class UAWUnitTypes implements ContentList {
 					rotateSpeed = 1f;
 					x = 0f;
 					y = -3f;
-					targetFlags = new BlockFlag[]{BlockFlag.turret, null};
+					targetFlags = new BlockFlag[]{BlockFlag.turret, BlockFlag.extinguisher, BlockFlag.repair, BlockFlag.core};
 					inaccuracy = 10f;
 					reload = 5f * 60;
 					recoil = 5f;
@@ -650,12 +661,13 @@ public class UAWUnitTypes implements ContentList {
 					shake = 14;
 					shootStatusDuration = reload * 1.2f;
 					shootStatus = StatusEffects.unmoving;
-					bullet = new UAWArtilleryBulletType(2f, 350) {{
-						damage = 250f;
-						size = 40f;
+					bullet = new UAWArtilleryBulletType(1.7f, 350) {{
+						damage = 550f;
+						height = 42;
+						width = height / 2f;
 						splashDamageRadius = 12 * tilesize;
 						buildingDamageMultiplier = 3.5f;
-						shieldDamageMultiplier = 5f;
+						shieldDamageMultiplier = 4f;
 						lifetime = range / speed;
 						status = StatusEffects.burning;
 						incendChance = 0.8f;
@@ -672,7 +684,7 @@ public class UAWUnitTypes implements ContentList {
 						);
 						smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
 						despawnEffect = hitEffect = new MultiEffect(
-							UAWFxDynamic.dynamicExplosion(splashDamageRadius, Color.gray)
+							UAWFxDynamic.hugeExplosion(splashDamageRadius, backColor)
 						);
 						fragBullets = 1;
 						fragBullet = new SplashBulletType(splashDamage / 2, splashDamageRadius / 1.2f) {{
