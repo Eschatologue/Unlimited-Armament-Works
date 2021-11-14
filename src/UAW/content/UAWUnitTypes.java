@@ -261,7 +261,7 @@ public class UAWUnitTypes implements ContentList {
 						shootEffect = Fx.sparkShoot;
 						smokeEffect = Fx.shootSmallSmoke;
 						hitEffect = Fx.pointHit;
-						maxRange = range / 1.5f;
+						maxRange = 15 * tilesize;
 						damage = 15f;
 					}};
 				}},
@@ -444,14 +444,17 @@ public class UAWUnitTypes implements ContentList {
 					shake = 2.5f;
 					shootStatusDuration = reload * 1.2f;
 					shootStatus = StatusEffects.unmoving;
-					bullet = new AntiBuildingBulletType(2f, 35, 2.5f) {{
+					bullet = new UAWArtilleryBulletType(2f, 35) {{
 						splashDamageRadius = 6 * tilesize;
-						size = 20;
+						height = 20;
+						width = height / 1.8f;
 						lifetime = range / speed;
 						status = StatusEffects.burning;
 						incendChance = 0.5f;
 						incendSpread = 16f;
 						makeFire = true;
+						trailMult = 1.5f;
+						trailSize = width / 2.3f;
 
 						frontColor = Pal.sapBullet;
 						backColor = Pal.sapBulletBack;
@@ -528,10 +531,10 @@ public class UAWUnitTypes implements ContentList {
 					shootStatusDuration = reload * 1.2f;
 					shootStatus = StatusEffects.unmoving;
 					xRand = 3;
-					shots = 4;
-					shotDelay = 7.5f;
+					shots = 3;
+					shotDelay = 15f;
 					velocityRnd = 0.4f;
-					bullet = new UAWArtilleryBulletType(1.8f, 150) {{
+					bullet = new UAWArtilleryBulletType(1.8f, 90) {{
 						splashDamageRadius = 5 * tilesize;
 						height = 24;
 						width = height / 2;
@@ -542,6 +545,8 @@ public class UAWUnitTypes implements ContentList {
 						makeFire = true;
 						frontColor = Pal.sapBullet;
 						backColor = Pal.sapBulletBack;
+						trailMult = 1.5f;
+						trailSize = width / 2.3f;
 						shootEffect = new MultiEffect(Fx.shootBig2, UAWFxStatic.shootSporeFlame);
 						smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
 						despawnEffect = hitEffect = new MultiEffect(
@@ -575,7 +580,7 @@ public class UAWUnitTypes implements ContentList {
 			constructor = UnitWaterMove::create;
 			weapons.add(
 				new PointDefenseWeapon("uaw-point-defense-purple") {{
-					mirror = rotate = autoTarget = true;
+					mirror = true;
 					controllable = false;
 					x = 9f;
 					y = 12f;
@@ -584,16 +589,15 @@ public class UAWUnitTypes implements ContentList {
 					targetInterval = 10f;
 					targetSwitchInterval = 15f;
 					ejectEffect = UAWFxStatic.casing1Double;
-
 					bullet = new BulletType() {{
 						shootEffect = Fx.sparkShoot;
 						hitEffect = Fx.pointHit;
-						maxRange = range / 1.5f;
-						damage = 8f;
+						maxRange = 20 * tilesize;
+						damage = 24;
 					}};
 				}},
 				new PointDefenseWeapon("uaw-point-defense-purple") {{
-					mirror = rotate = autoTarget = true;
+					mirror = true;
 					controllable = false;
 					x = 18f;
 					y = -11f;
@@ -605,8 +609,8 @@ public class UAWUnitTypes implements ContentList {
 					bullet = new BulletType() {{
 						shootEffect = Fx.sparkShoot;
 						hitEffect = Fx.pointHit;
-						maxRange = range / 1.5f;
-						damage = 8f;
+						maxRange = 20 * tilesize;
+						damage = 24;
 					}};
 				}},
 				new Weapon("uaw-machine-gun-medium-purple") {{
@@ -661,7 +665,7 @@ public class UAWUnitTypes implements ContentList {
 					shake = 14;
 					shootStatusDuration = reload * 1.2f;
 					shootStatus = StatusEffects.unmoving;
-					bullet = new UAWArtilleryBulletType(1.7f, 350) {{
+					bullet = new UAWArtilleryBulletType(1.7f, 550) {{
 						damage = 550f;
 						height = 42;
 						width = height / 2f;
@@ -674,6 +678,8 @@ public class UAWUnitTypes implements ContentList {
 						incendSpread = 16f;
 						makeFire = true;
 						hitSound = UAWSfx.artilleryExplosionHuge;
+						trailMult = 1.5f;
+						trailSize = width / 2.3f;
 
 						frontColor = Pal.sapBullet;
 						backColor = Pal.sapBulletBack;
