@@ -248,8 +248,7 @@ public class UAWUnitTypes implements ContentList {
 
 			weapons.add(
 				new PointDefenseWeapon("uaw-point-defense-red") {{
-					rotate = autoTarget = true;
-					mirror = controllable = false;
+					mirror = false;
 					x = 0f;
 					y = 3f;
 					reload = 3f;
@@ -428,10 +427,12 @@ public class UAWUnitTypes implements ContentList {
 					x = 5f;
 					y = 0.4f;
 					inaccuracy = 4f;
-					reload = 10f;
+					reload = 30f;
 					shootSound = Sounds.shoot;
 					ejectEffect = Fx.casing2;
-					bullet = standardHoming;
+					shots = 4;
+					shotDelay = 7.5f;
+					bullet = flakLead;
 				}},
 				new Weapon("uaw-artillery-small-purple") {{
 					mirror = rotate = alternate = true;
@@ -449,14 +450,10 @@ public class UAWUnitTypes implements ContentList {
 					shootStatus = StatusEffects.unmoving;
 					ejectEffect = Fx.casing3;
 					bullet = new UAWArtilleryBulletType(2f, 35) {{
-						splashDamageRadius = 6 * tilesize;
-						height = 18;
+						splashDamageRadius = 4 * tilesize;
+						height = 15;
 						width = height / 1.8f;
 						lifetime = range / speed;
-						status = StatusEffects.burning;
-						incendChance = 0.5f;
-						incendSpread = 16f;
-						makeFire = true;
 						trailMult = 1.5f;
 
 						frontColor = Pal.sapBullet;
@@ -537,7 +534,7 @@ public class UAWUnitTypes implements ContentList {
 					shots = 6;
 					shotDelay = 6.5f;
 					velocityRnd = 0.4f;
-					ejectEffect = new MultiEffect(Fx.casing3Double, Fx.casing2Double);
+					ejectEffect = new MultiEffect(Fx.casing3Double, Fx.casing3Double, Fx.casing3Double);
 					bullet = new UAWArtilleryBulletType(1.8f, 90) {{
 						splashDamageRadius = 5 * tilesize;
 						height = 24;
@@ -579,39 +576,40 @@ public class UAWUnitTypes implements ContentList {
 			trailScl = 3.2f;
 
 			constructor = UnitWaterMove::create;
+			forceMultiTarget = true;
 			weapons.add(
 				new PointDefenseWeapon("uaw-point-defense-purple") {{
 					mirror = true;
-					controllable = false;
 					x = 9f;
 					y = 12f;
+					reload = 6f;
 					recoil = 0f;
-					reload = 4f;
-					targetInterval = 10f;
-					targetSwitchInterval = 15f;
-					ejectEffect = UAWFxStatic.casing1Double;
+					targetInterval = 4f;
+					targetSwitchInterval = 4f;
+					ejectEffect = Fx.casing1;
 					bullet = new BulletType() {{
 						shootEffect = Fx.sparkShoot;
+						smokeEffect = Fx.shootSmallSmoke;
 						hitEffect = Fx.pointHit;
-						maxRange = 20 * tilesize;
-						damage = 24;
+						maxRange = 15 * tilesize;
+						damage = 15f;
 					}};
 				}},
 				new PointDefenseWeapon("uaw-point-defense-purple") {{
 					mirror = true;
-					controllable = false;
 					x = 18f;
 					y = -11f;
+					reload = 6f;
 					recoil = 0f;
-					reload = 4f;
-					targetInterval = 10f;
-					targetSwitchInterval = 15f;
-					ejectEffect = UAWFxStatic.casing1Double;
+					targetInterval = 4f;
+					targetSwitchInterval = 4f;
+					ejectEffect = Fx.casing1;
 					bullet = new BulletType() {{
 						shootEffect = Fx.sparkShoot;
+						smokeEffect = Fx.shootSmallSmoke;
 						hitEffect = Fx.pointHit;
-						maxRange = 20 * tilesize;
-						damage = 24;
+						maxRange = 15 * tilesize;
+						damage = 15f;
 					}};
 				}},
 				new Weapon("uaw-machine-gun-medium-purple") {{

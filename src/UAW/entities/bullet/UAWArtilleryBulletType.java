@@ -38,7 +38,7 @@ public class UAWArtilleryBulletType extends UAWBasicBulletType {
 		super.update(b);
 
 		if (b.timer(0, (3 + b.fslope() * 2f) * trailMult)) {
-			trailEffect.at(b.x, b.y, b.fslope() * (width / 2.3f), backColor);
+			trailEffect.at(b.x, b.y, b.fslope() * (width / 2.4f), backColor);
 		}
 	}
 
