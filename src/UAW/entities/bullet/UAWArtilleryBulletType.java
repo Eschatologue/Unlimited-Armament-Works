@@ -6,7 +6,7 @@ import mindustry.gen.*;
 
 public class UAWArtilleryBulletType extends UAWBasicBulletType {
 
-	public float trailMult = 1.5f, trailSize = width / 2.3f;
+	public float trailMult = 1.5f;
 
 	public UAWArtilleryBulletType(float speed, float splashDamage, String bulletSprite) {
 		super(speed, splashDamage, bulletSprite);
@@ -38,7 +38,7 @@ public class UAWArtilleryBulletType extends UAWBasicBulletType {
 		super.update(b);
 
 		if (b.timer(0, (3 + b.fslope() * 2f) * trailMult)) {
-			trailEffect.at(b.x, b.y, b.fslope() * trailSize, backColor);
+			trailEffect.at(b.x, b.y, b.fslope() * (width / 2.3f), backColor);
 		}
 	}
 

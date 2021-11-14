@@ -454,7 +454,6 @@ public class UAWUnitTypes implements ContentList {
 						incendSpread = 16f;
 						makeFire = true;
 						trailMult = 1.5f;
-						trailSize = width / 2.3f;
 
 						frontColor = Pal.sapBullet;
 						backColor = Pal.sapBulletBack;
@@ -470,7 +469,7 @@ public class UAWUnitTypes implements ContentList {
 		kujang = new UnitType("kujang") {{
 			health = 7000;
 			hitSize = 22;
-			speed = 0.65f;
+			speed = 0.8f;
 			accel = 0.20f;
 			rotateSpeed = 1.5f;
 			rotateShooting = false;
@@ -546,7 +545,6 @@ public class UAWUnitTypes implements ContentList {
 						frontColor = Pal.sapBullet;
 						backColor = Pal.sapBulletBack;
 						trailMult = 1.5f;
-						trailSize = width / 2.3f;
 						shootEffect = new MultiEffect(Fx.shootBig2, UAWFxStatic.shootSporeFlame);
 						smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
 						despawnEffect = hitEffect = new MultiEffect(
@@ -679,7 +677,6 @@ public class UAWUnitTypes implements ContentList {
 						makeFire = true;
 						hitSound = UAWSfx.artilleryExplosionHuge;
 						trailMult = 1.5f;
-						trailSize = width / 2.3f;
 
 						frontColor = Pal.sapBullet;
 						backColor = Pal.sapBulletBack;
