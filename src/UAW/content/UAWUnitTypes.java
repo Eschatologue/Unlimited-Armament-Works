@@ -340,7 +340,10 @@ public class UAWUnitTypes implements ContentList {
 						lifetime = (range - 5) / speed;
 						shootEffect = UAWFxStatic.shootCryoFlame;
 						trailColor = UAWPal.cryoFront;
-						hitEffect = despawnEffect = UAWFxDynamic.dynamicExplosion(splashDamageRadius, Color.valueOf("8ba2ab"));
+						hitEffect = despawnEffect = new MultiEffect(
+							UAWFxDynamic.dynamicExplosion(splashDamageRadius, Pal.gray),
+							UAWFxDynamic.crossBombBlast(splashDamageRadius, UAWPal.cryoMiddle)
+						);
 						trailEffect = UAWFxStatic.cryoSmokeTrailUnder;
 						status = StatusEffects.freezing;
 						statusDuration = 4 * 60;
@@ -478,9 +481,9 @@ public class UAWUnitTypes implements ContentList {
 			maxRange = range;
 			ammoType = new ItemAmmoType(Items.graphite, 2);
 
-			trailLength = 30;
+			trailLength = 35;
 			trailX = 9f;
-			trailY = -12f;
+			trailY = -15f;
 			trailScl = 2f;
 
 			constructor = UnitWaterMove::create;
@@ -534,7 +537,7 @@ public class UAWUnitTypes implements ContentList {
 					shots = 6;
 					shotDelay = 6.5f;
 					velocityRnd = 0.4f;
-					ejectEffect = Fx.casing4;
+					ejectEffect = new MultiEffect(Fx.casing3Double, Fx.casing2Double);
 					bullet = new UAWArtilleryBulletType(1.8f, 90) {{
 						splashDamageRadius = 5 * tilesize;
 						height = 24;
