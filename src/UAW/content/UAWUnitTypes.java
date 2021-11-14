@@ -565,7 +565,6 @@ public class UAWUnitTypes implements ContentList {
 			trailScl = 3.2f;
 
 			constructor = UnitWaterMove::create;
-			abilities.add(new ForceFieldAbility(range / 6, 0.5f, health / 4, 12f * 60f));
 			weapons.add(
 				new PointDefenseWeapon("uaw-point-defense-purple") {{
 					mirror = true;
@@ -646,15 +645,17 @@ public class UAWUnitTypes implements ContentList {
 					targetFlags = new BlockFlag[]{BlockFlag.turret, null};
 					inaccuracy = 10f;
 					reload = 5f * 60;
-					recoil = 3f;
+					recoil = 5f;
 					shootSound = UAWSfx.artilleryShootHuge;
-					shake = 10;
+					shake = 14;
 					shootStatusDuration = reload * 1.2f;
 					shootStatus = StatusEffects.unmoving;
 					bullet = new UAWArtilleryBulletType(2f, 350) {{
-						splashDamageRadius = 8 * tilesize;
+						damage = 250f;
+						size = 40f;
+						splashDamageRadius = 12 * tilesize;
 						buildingDamageMultiplier = 3.5f;
-						shieldDamageMultiplier = 4f;
+						shieldDamageMultiplier = 5f;
 						lifetime = range / speed;
 						status = StatusEffects.burning;
 						incendChance = 0.8f;

@@ -11,8 +11,8 @@ public class UAWArtilleryBulletType extends UAWBasicBulletType {
 	public UAWArtilleryBulletType(float speed, float splashDamage, String bulletSprite) {
 		super(speed, splashDamage, bulletSprite);
 		this.splashDamage = splashDamage;
-		height = size;
-		width = size / 2;
+		this.height = size;
+		this.width = size / 2;
 		damage = 0f;
 		collides = collidesTiles = collidesAir = false;
 		pierceBuilding = scaleVelocity = true;
