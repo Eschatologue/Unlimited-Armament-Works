@@ -475,12 +475,13 @@ public class UAWUnitTypes implements ContentList {
 			maxRange = range;
 			ammoType = new ItemAmmoType(Items.graphite, 2);
 
-			trailLength = 23;
+			trailLength = 30;
 			trailX = 9f;
-			trailY = -9f;
+			trailY = -12f;
 			trailScl = 2f;
 
 			constructor = UnitWaterMove::create;
+			commandLimit = 4;
 
 			weapons.add(
 				new PointDefenseWeapon("uaw-point-defense-purple") {{
@@ -519,19 +520,19 @@ public class UAWUnitTypes implements ContentList {
 					x = 0f;
 					y = -7f;
 					targetFlags = new BlockFlag[]{BlockFlag.turret, BlockFlag.extinguisher, BlockFlag.repair, BlockFlag.core};
-					inaccuracy = 10f;
-					reload = 5f * 60;
-					recoil = 3f;
+					inaccuracy = 8f;
+					reload = 4f * 60;
+					recoil = 4;
 					shootSound = Sounds.artillery;
 					shake = 6;
 					shootStatusDuration = reload * 1.2f;
 					shootStatus = StatusEffects.unmoving;
 					xRand = 3;
-					shots = 6;
+					shots = 4;
 					shotDelay = 7.5f;
 					velocityRnd = 0.4f;
-					bullet = new UAWArtilleryBulletType(2f, 80) {{
-						splashDamageRadius = 6 * tilesize;
+					bullet = new UAWArtilleryBulletType(1.8f, 150) {{
+						splashDamageRadius = 5 * tilesize;
 						height = 24;
 						width = height / 2;
 						lifetime = range / speed;
