@@ -6,7 +6,7 @@ import mindustry.gen.*;
 
 public class UAWArtilleryBulletType extends UAWBasicBulletType {
 
-	public float trailMult = 1.5f, trailSize = 4f;
+	public float trailMult = 1.5f, trailSize = width / 2.3f;
 
 	public UAWArtilleryBulletType(float speed, float splashDamage, String bulletSprite) {
 		super(speed, splashDamage, bulletSprite);

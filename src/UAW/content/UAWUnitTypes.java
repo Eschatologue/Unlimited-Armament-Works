@@ -261,7 +261,7 @@ public class UAWUnitTypes implements ContentList {
 						shootEffect = Fx.sparkShoot;
 						smokeEffect = Fx.shootSmallSmoke;
 						hitEffect = Fx.pointHit;
-						maxRange = range / 2f;
+						maxRange = range / 1.5f;
 						damage = 15f;
 					}};
 				}},
@@ -340,7 +340,7 @@ public class UAWUnitTypes implements ContentList {
 						lifetime = (range - 5) / speed;
 						shootEffect = UAWFxStatic.shootCryoFlame;
 						trailColor = UAWPal.cryoFront;
-						hitEffect = despawnEffect = UAWFxDynamic.hugeExplosion(splashDamageRadius, UAWPal.cryoBack);
+						hitEffect = despawnEffect = UAWFxDynamic.dynamicExplosion(splashDamageRadius, Color.valueOf("8ba2ab"));
 						trailEffect = UAWFxStatic.cryoSmokeTrailUnder;
 						status = StatusEffects.freezing;
 						statusDuration = 4 * 60;
@@ -519,7 +519,7 @@ public class UAWUnitTypes implements ContentList {
 					x = 0f;
 					y = -7f;
 					targetFlags = new BlockFlag[]{BlockFlag.turret, BlockFlag.extinguisher, BlockFlag.repair, BlockFlag.core};
-					inaccuracy = 8f;
+					inaccuracy = 10f;
 					reload = 5f * 60;
 					recoil = 3f;
 					shootSound = Sounds.artillery;
@@ -528,11 +528,11 @@ public class UAWUnitTypes implements ContentList {
 					shootStatus = StatusEffects.unmoving;
 					xRand = 3;
 					shots = 6;
-					shotDelay = 15f;
-					velocityRnd = 0.2f;
+					shotDelay = 7.5f;
+					velocityRnd = 0.4f;
 					bullet = new UAWArtilleryBulletType(2f, 80) {{
 						splashDamageRadius = 6 * tilesize;
-						height = 30;
+						height = 24;
 						width = height / 2;
 						lifetime = range / speed;
 						status = StatusEffects.burning;
@@ -587,7 +587,7 @@ public class UAWUnitTypes implements ContentList {
 					bullet = new BulletType() {{
 						shootEffect = Fx.sparkShoot;
 						hitEffect = Fx.pointHit;
-						maxRange = range / 3;
+						maxRange = range / 1.5f;
 						damage = 8f;
 					}};
 				}},
@@ -601,11 +601,10 @@ public class UAWUnitTypes implements ContentList {
 					targetInterval = 10f;
 					targetSwitchInterval = 15f;
 					ejectEffect = UAWFxStatic.casing1Double;
-
 					bullet = new BulletType() {{
 						shootEffect = Fx.sparkShoot;
 						hitEffect = Fx.pointHit;
-						maxRange = range / 3;
+						maxRange = range / 1.5f;
 						damage = 8f;
 					}};
 				}},
@@ -688,7 +687,7 @@ public class UAWUnitTypes implements ContentList {
 						);
 						fragBullets = 1;
 						fragBullet = new SplashBulletType(splashDamage / 2, splashDamageRadius / 1.2f) {{
-							splashAmount = 3;
+							splashAmount = 5;
 							splashDelay = 60;
 							buildingDamageMultiplier = 3.5f;
 							lifetime = (splashDelay * splashAmount);
