@@ -18,15 +18,15 @@ public class UAWFxDynamic {
 
 	public static Effect instShoot(float size, Color color) {
 		return new Effect(24.0F, size * 8, (e) -> {
-			e.scaled(10.0F, (b) -> {
+			e.scaled(12.0F, (b) -> {
 				Draw.color(Color.white, color, b.fin());
-				Lines.stroke(b.fout() * 3.0F + 0.2F);
+				Lines.stroke(b.fout() * 3.0F + 0.4F);
 				Lines.circle(b.x, b.y, b.fin() * size);
 			});
 			Draw.color(color);
 
 			for (int i : Mathf.signs) {
-				Drawf.tri(e.x, e.y, size / 4 * e.fout(), size, e.rotation + 90.0F * i);
+				Drawf.tri(e.x, e.y, size / 2.5f * e.fout(), size, e.rotation + 90.0F * i);
 				Drawf.tri(e.x, e.y, size / 4 * e.fout(), size, e.rotation + 20.0F * i);
 			}
 		});

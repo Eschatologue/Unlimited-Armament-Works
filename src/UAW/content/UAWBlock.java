@@ -10,7 +10,7 @@ import UAW.world.blocks.power.WarmUpGenerator;
 import arc.graphics.Color;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
-import mindustry.entities.bullet.*;
+import mindustry.entities.bullet.ArtilleryBulletType;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.gen.Sounds;
 import mindustry.graphics.Pal;
@@ -69,44 +69,12 @@ public class UAWBlock implements ContentList {
 
 			maxReloadScl = 8f;
 			speedupPerShot = 0.15f;
+			limitRange();
 			ammo(
-				Items.copper, new BasicBulletType(4f, 9) {{
-					height = 14f;
-					width = height / 1.8f;
-					lifetime = range / speed;
-					shootEffect = Fx.shootSmall;
-					smokeEffect = Fx.shootSmallSmoke;
-					ammoMultiplier = 3;
-				}},
-				Items.graphite, new BasicBulletType(3.5f, 18) {{
-					height = 18f;
-					width = height / 1.8f;
-					knockback = 0.15f;
-					reloadMultiplier = 0.6f;
-					ammoMultiplier = 4;
-					lifetime = range / speed;
-				}},
-				Items.pyratite, new BasicBulletType(4f, 12f) {{
-					height = 18f;
-					width = height / 1.8f;
-					frontColor = Pal.lightishOrange;
-					backColor = Pal.lightOrange;
-					hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletSmall, Fx.fireHit);
-					status = StatusEffects.burning;
-					inaccuracy = 3f;
-					lifetime = range / speed;
-					ammoMultiplier = 4f;
-				}},
-				Items.titanium, new TrailBulletType(12f, 10f) {{
-					height = 15f;
-					width = 5f;
-					armorIgnoreScl = 0.25f;
-					shieldDamageMultiplier = 1.5f;
-					shootEffect = Fx.shootBig;
-					smokeEffect = Fx.shootBigSmoke;
-					ammoMultiplier = 3;
-					lifetime = range / speed;
-				}}
+				Items.copper, standardCopper,
+				Items.graphite, standardDense,
+				Items.pyratite, standardIncendiary,
+				Items.titanium, standardPiercing
 			);
 		}};
 		spitfire = new DynamicReloadTurret("spitfire") {{
@@ -133,83 +101,14 @@ public class UAWBlock implements ContentList {
 			maxReloadScl = 16f;
 			speedupPerShot = 0.1f;
 			slowDownReloadTime = 90f;
+			limitRange(2 * tilesize);
 
 			ammo(
-				Items.graphite, new BasicBulletType(8, 20) {{
-					lifetime = range / speed;
-					pierceCap = 1;
-					height = 25;
-					width = 12;
-					knockback = 1.2f;
-					hitEffect = Fx.hitBulletBig;
-					smokeEffect = Fx.shootBigSmoke2;
-					shootEffect = Fx.shootBig2;
-					trailChance = 0.4f;
-					trailColor = Color.lightGray;
-
-					status = StatusEffects.slow;
-				}},
-				UAWItems.titaniumCarbide, new TrailBulletType(12, 22) {{
-					height = 20;
-					width = 5;
-					lifetime = range / speed + 8;
-					pierce = true;
-					reloadMultiplier = 1.2f;
-					armorIgnoreScl = 0.5f;
-					hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.generatespark);
-					despawnEffect = Fx.hitBulletBig;
-					smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.fireSmoke);
-					shootEffect = new MultiEffect(Fx.shootBig2, Fx.hitBulletBig);
-				}},
-				Items.surgeAlloy, new BasicBulletType(8, 18) {{
-					height = 25;
-					width = 8;
-					lifetime = range / speed;
-					hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletBig, Fx.lightning);
-					smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.fireSmoke);
-					shootEffect = new MultiEffect(Fx.shootBig, Fx.sparkShoot);
-					status = StatusEffects.electrified;
-					trailChance = 0.4f;
-					trailColor = Color.lightGray;
-
-					lightning = 3;
-					lightningAngle = 360;
-					lightningDamage = 1.5f;
-					lightningLength = 12;
-				}},
-				Items.pyratite, new BasicBulletType(7, 15) {{
-					height = 25;
-					width = 10;
-					pierceCap = 1;
-					lifetime = range / speed;
-					knockback = 1.2f;
-					hitEffect = Fx.hitBulletBig;
-					smokeEffect = Fx.shootBigSmoke2;
-					shootEffect = new MultiEffect(Fx.shootPyraFlame, Fx.shootBig2);
-					hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletBig, Fx.fireHit);
-					frontColor = UAWPal.incendFront;
-					backColor = UAWPal.incendBack;
-					status = StatusEffects.melting;
-					trailChance = 0.4f;
-					trailColor = Color.lightGray;
-				}},
-				UAWItems.cryogel, new BasicBulletType(7, 15) {{
-					height = 25;
-					width = 10;
-					pierceCap = 1;
-					lifetime = range / speed;
-					knockback = 1.2f;
-					hitEffect = Fx.hitBulletBig;
-					despawnEffect = Fx.freezing;
-					smokeEffect = Fx.shootBigSmoke2;
-					shootEffect = new MultiEffect(UAWFxStatic.shootCryoFlame, Fx.shootBig2);
-					hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletBig, UAWFxStatic.cryoHit);
-					frontColor = UAWPal.cryoFront;
-					backColor = UAWPal.cryoBack;
-					status = StatusEffects.freezing;
-					trailChance = 0.4f;
-					trailColor = Color.lightGray;
-				}}
+				Items.graphite, mediumStandard,
+				UAWItems.titaniumCarbide, mediumPiercing,
+				Items.surgeAlloy, mediumSurge,
+				Items.pyratite, mediumIncendiary,
+				UAWItems.cryogel, mediumCryo
 			);
 		}};
 
@@ -233,59 +132,13 @@ public class UAWBlock implements ContentList {
 			unitSort = (u, x, y) -> -u.health;
 			maxAmmo = 20;
 			ammoPerShot = 2;
+			limitRange();
 			ammo(
-				Items.copper, new TrailBulletType(10f, 55f) {{
-					hitSize = 5;
-					height = 30f;
-					width = 10f;
-					shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
-					smokeEffect = Fx.shootBigSmoke;
-					ammoMultiplier = 2;
-					pierceCap = 2;
-					lifetime = range / speed;
-				}},
-				Items.graphite, new TrailBulletType(8f, 90) {{
-					hitSize = 5;
-					height = 25f;
-					width = 15f;
-					shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
-					smokeEffect = Fx.shootBigSmoke;
-					reloadMultiplier = 0.5f;
-					ammoMultiplier = 2;
-					knockback = 1.2f;
-					lifetime = range / speed;
-				}},
-				Items.silicon, new TrailBulletType(10f, 55f) {{
-					hitSize = 5;
-					height = 30f;
-					width = 10f;
-					homingPower = 0.16f;
-					shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
-					smokeEffect = Fx.shootBigSmoke;
-					ammoMultiplier = 2;
-					pierceCap = 2;
-					lifetime = range / speed;
-				}},
-				Items.thorium, new TrailBulletType(8f, 80) {{
-					hitSize = 5;
-					height = 30f;
-					width = 16f;
-					shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
-					smokeEffect = Fx.shootBigSmoke;
-					pierceCap = 2;
-					pierceBuilding = true;
-					knockback = 0.7f;
-					lifetime = range / speed;
-				}},
-				Items.titanium, new TrailBulletType(12f, 25f) {{
-					height = 30f;
-					width = 10f;
-					shootEffect = new MultiEffect(Fx.shootBig2, Fx.hitBulletBig, UAWFxStatic.shootSurgeFlame);
-					armorIgnoreScl = 0.6f;
-					smokeEffect = Fx.shootBigSmoke;
-					ammoMultiplier = 2;
-					lifetime = range + (5 * tilesize) / speed;
-				}}
+				Items.copper, heavyCopper,
+				Items.graphite, heavyDense,
+				Items.silicon, heavyHoming,
+				Items.thorium, heavyThorium,
+				Items.titanium, heavyPiercing
 			);
 		}};
 		longsword = new CustomItemTurret("longsword") {{
@@ -604,9 +457,9 @@ public class UAWBlock implements ContentList {
 			range = 100f;
 			targetAir = false;
 			ammo(
-				Items.lead, UAWBullets.buckshotLead,
-				Items.pyratite, UAWBullets.buckshotIncend,
-				UAWItems.cryogel, UAWBullets.buckshotCryo
+				Items.lead, buckshotLead,
+				Items.pyratite, buckshotIncend,
+				UAWItems.cryogel, buckshotCryo
 			);
 		}};
 		tempest = new CustomItemTurret("tempest") {{

@@ -429,10 +429,10 @@ public class UAWUnitTypes implements ContentList {
 					inaccuracy = 4f;
 					reload = 30f;
 					shootSound = Sounds.shoot;
-					ejectEffect = Fx.casing2;
+					ejectEffect = Fx.casing1;
 					shots = 4;
-					shotDelay = 7.5f;
-					bullet = flakLead;
+					shotDelay = 5f;
+					bullet = flakGlass;
 				}},
 				new Weapon("uaw-artillery-small-purple") {{
 					mirror = rotate = alternate = true;
@@ -451,6 +451,7 @@ public class UAWUnitTypes implements ContentList {
 					ejectEffect = Fx.casing3;
 					bullet = new UAWArtilleryBulletType(2f, 35) {{
 						splashDamageRadius = 4 * tilesize;
+						buildingDamageMultiplier = 2f;
 						height = 15;
 						width = height / 1.8f;
 						lifetime = range / speed;
@@ -537,6 +538,7 @@ public class UAWUnitTypes implements ContentList {
 					ejectEffect = new MultiEffect(Fx.casing3Double, Fx.casing3Double, Fx.casing3Double);
 					bullet = new UAWArtilleryBulletType(1.8f, 90) {{
 						splashDamageRadius = 5 * tilesize;
+						buildingDamageMultiplier = 2f;
 						height = 24;
 						width = height / 2;
 						lifetime = range / speed;
@@ -656,7 +658,12 @@ public class UAWUnitTypes implements ContentList {
 					rotateSpeed = 1f;
 					x = 0f;
 					y = -3f;
-					targetFlags = new BlockFlag[]{BlockFlag.turret, BlockFlag.extinguisher, BlockFlag.repair, BlockFlag.core};
+					targetFlags = new BlockFlag[]{
+						BlockFlag.turret,
+						BlockFlag.extinguisher,
+						BlockFlag.repair,
+						BlockFlag.core
+					};
 					inaccuracy = 10f;
 					reload = 5f * 60;
 					recoil = 5f;
@@ -666,7 +673,6 @@ public class UAWUnitTypes implements ContentList {
 					shootStatus = StatusEffects.unmoving;
 					ejectEffect = UAWFxStatic.casing5;
 					bullet = new UAWArtilleryBulletType(1.7f, 550) {{
-						damage = 550f;
 						height = 42;
 						width = height / 2f;
 						splashDamageRadius = 12 * tilesize;

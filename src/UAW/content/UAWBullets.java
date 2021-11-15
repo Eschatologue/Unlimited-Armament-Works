@@ -7,7 +7,6 @@ import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
-import mindustry.gen.Sounds;
 import mindustry.graphics.Pal;
 
 import static mindustry.Vars.tilesize;
@@ -15,242 +14,152 @@ import static mindustry.content.Bullets.*;
 
 public class UAWBullets implements ContentList {
 	public static BulletType
-		basicPiercing, basicMelt, basicCryo,
-		mediumStandard, mediumSurge, mediumPiercing,
-		heavyCopper, heavyPiercing, heavySurge, heavyMelt, heavyCryo, heavyHoming,
-
-	basicBeam, heavyBeam,
-
-	EMPartillery,
-
-	standardCruiseMissile, piercingCruiseMissile, cryoCruiseMissile, incendCruiseMissile, surgeCruiseMissile,
-
-	buckshotLead, buckshotIncend, buckshotCryo,
-
-	mineBasic, mineIncend, mineCryo, mineOil, mineEMP, mineSpore,
-
-	canisterBasic, canisterIncend, canisterCryo, canisterOil, canisterEMP, canisterSpore, canisterNuke;
+		standardPiercing, standardCryo,
+		mediumPiercing, mediumStandard, mediumSurge, mediumIncendiary, mediumCryo,
+		heavyCopper, heavyDense, heavyHoming, heavyThorium, heavySurge, heavyPiercing, heavyIncendiary, heavyCryo,
+		basicBeam, heavyBeam,
+		EMPartillery,
+		standardCruiseMissile, piercingCruiseMissile, cryoCruiseMissile, incendCruiseMissile, surgeCruiseMissile,
+		buckshotLead, buckshotIncend, buckshotCryo,
+		mineBasic, mineIncend, mineCryo, mineOil, mineEMP, mineSpore,
+		canisterBasic, canisterIncend, canisterCryo, canisterOil, canisterEMP, canisterSpore, canisterNuke;
 
 	@Override
 	public void load() {
-
-		basicPiercing = new BasicBulletType(6f, 10f, "bullet") {{
+		standardPiercing = new TrailBulletType(12f, 10f) {{
 			height = 15f;
-			width = 8f;
-			lifetime = 120f;
-			pierce = true;
-			shootEffect = Fx.shootSmall;
-			smokeEffect = Fx.shootSmallSmoke;
-			ammoMultiplier = 2;
-			reloadMultiplier = 0.8f;
-			trailLength = 10;
-			trailWidth = 0.8f;
-			trailColor = backColor;
-		}};
-		basicMelt = new BasicBulletType(3f, 12f, "bullet") {{
-			height = 18f;
-			width = 12f;
-			frontColor = Pal.lightishOrange;
-			backColor = Pal.lightOrange;
-			status = StatusEffects.melting;
-			inaccuracy = 3f;
-			lifetime = 90f;
-		}};
-		basicCryo = new BasicBulletType(3f, 12f, "bullet") {{
-			height = 18f;
-			width = 12f;
-			frontColor = Color.valueOf("C0ECFF");
-			backColor = Color.valueOf("87CEEB");
-			status = StatusEffects.freezing;
-			inaccuracy = 3f;
-			lifetime = 90f;
+			width = 5f;
+			armorIgnoreScl = 0.25f;
+			shieldDamageMultiplier = 1.5f;
+			shootEffect = Fx.shootBig;
+			smokeEffect = Fx.shootBigSmoke;
+			ammoMultiplier = 3;
 		}};
 
-		heavyCopper = new BasicBulletType(6f, 30f, "bullet") {{
-			height = 24f;
-			width = 12f;
-			shootEffect = Fx.shootBig;
-			smokeEffect = Fx.shootBigSmoke;
-			ammoMultiplier = 3;
+		mediumStandard = new BasicBulletType(8, 20) {{
+			pierceCap = 2;
+			height = 25;
+			width = 12;
+			knockback = 1.2f;
+			hitEffect = Fx.hitBulletBig;
+			smokeEffect = Fx.shootBigSmoke2;
+			shootEffect = Fx.shootBig2;
+			trailChance = 0.4f;
+			trailColor = Color.lightGray;
+
+			status = StatusEffects.slow;
 		}};
-		heavyPiercing = new BasicBulletType(12f, 25f, "bullet") {{
-			height = 30f;
-			width = 10f;
-			shootEffect = Fx.shootBig;
-			smokeEffect = Fx.shootBigSmoke;
-			ammoMultiplier = 2;
+		mediumPiercing = new TrailBulletType(12, 22) {{
+			height = 20;
+			width = 5;
 			pierce = true;
-			trailLength = 12;
-			trailWidth = width / 4;
-			trailColor = backColor;
+			reloadMultiplier = 1.2f;
+			armorIgnoreScl = 0.5f;
+			hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.generatespark);
+			despawnEffect = Fx.hitBulletBig;
+			smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.fireSmoke);
+			shootEffect = new MultiEffect(Fx.shootBig2, Fx.hitBulletBig);
 		}};
-		heavySurge = new BasicBulletType(4f, 20f, "bullet") {{
-			height = 24f;
-			width = 11f;
-			shootEffect = Fx.shootBig;
-			smokeEffect = Fx.shootBigSmoke;
-			ammoMultiplier = 3;
-			lifetime = 80f;
+		mediumSurge = new BasicBulletType(8, 15) {{
+			height = 25;
+			width = 8;
+			hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletBig, Fx.lightning);
+			smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.fireSmoke);
+			shootEffect = new MultiEffect(Fx.shootBig, Fx.sparkShoot);
+			status = StatusEffects.electrified;
+			trailChance = 0.4f;
+			trailColor = Color.lightGray;
+
 			lightning = 3;
-			lightningLength = 14;
+			lightningAngle = 360;
+			lightningDamage = 1.5f;
+			lightningLength = 12;
 		}};
-		heavyMelt = new BasicBulletType(7f, 60, "bullet") {{
-			height = 24f;
-			width = 14f;
-			frontColor = Pal.lightishOrange;
-			backColor = Pal.lightOrange;
-			status = StatusEffects.melting;
-			inaccuracy = 3f;
-		}};
-		heavyCryo = new BasicBulletType(7f, 60f, "bullet") {{
-			height = 24f;
-			width = 14f;
-			frontColor = Color.valueOf("C0ECFF");
-			backColor = Color.valueOf("87CEEB");
-			status = StatusEffects.freezing;
-			inaccuracy = 3f;
-		}};
-		heavyHoming = new FlakBulletType(6f, 55f) {{
-			height = 24f;
-			width = 14f;
-			splashDamageRadius = 16;
-			splashDamage = 40;
-			explodeRange = 8 * 2.5f;
-			trailChance = 0.8f;
-			trailColor = Color.gray;
-			homingPower = 4;
-			homingRange = 64;
-			homingDelay = 30;
-		}};
-
-		basicBeam = new LaserBoltBulletType(6f, 10f) {{
-			height = 14f;
-			width = 7f;
-			lifetime = 45f;
-			frontColor = UAWPal.titaniumBlueFront;
-			backColor = UAWPal.titaniumBlueBack;
-			hitEffect = Fx.hitLaser;
-			shootEffect = Fx.shootSmall;
-			smokeEffect = Fx.shootSmallSmoke;
-		}};
-		heavyBeam = new BasicBulletType(2.5f, 50f) {{
-			height = 32f;
-			width = 15f;
-			lifetime = 280f;
-			frontColor = UAWPal.titaniumBlueFront;
-			backColor = UAWPal.titaniumBlueBack;
-			status = StatusEffects.melting;
-			hitEffect = Fx.hitLaser;
-			shootEffect = Fx.lancerLaserShoot;
-			smokeEffect = Fx.lancerLaserShootSmoke;
-		}};
-
-		EMPartillery = new ArtilleryBulletType(2f, 20f, "shell") {{
-			hitEffect = Fx.hitYellowLaser;
-			lifetime = 80f;
-			width = height = 14f;
-			collidesTiles = false;
-			ammoMultiplier = 4f;
-			splashDamageRadius = 45f;
-			splashDamage = 50f;
-			lightning = 8;
-			lightningLength = 16;
-			backColor = Pal.missileYellowBack;
-			frontColor = Pal.missileYellow;
-			status = UAWStatusEffects.concussion;
-			statusDuration = 30f;
-		}};
-
-		buckshotLead = new BasicBulletType(4.5f, 10f) {{
-			pierceCap = 3;
-			lifetime = 30f;
-			knockback = 6f;
-			despawnEffect = hitEffect = Fx.flakExplosion;
-			shootEffect = UAWFxDynamic.instShoot(32, Pal.bulletYellowBack);
-			smokeEffect = Fx.shootSmallSmoke;
-			ammoMultiplier = 3;
-		}};
-		buckshotIncend = new BasicBulletType(4.5f, 8f) {{
-			height = width = 12f;
-			pierceCap = 3;
-			lifetime = 30f;
-			knockback = 4f;
-			shootEffect = UAWFxDynamic.instShoot(32, Pal.lightishOrange);
-			smokeEffect = Fx.shootSmallSmoke;
-			despawnEffect = hitEffect = Fx.blastExplosion;
-			frontColor = Pal.lightishOrange;
-			backColor = Pal.lightOrange;
-			status = StatusEffects.burning;
-		}};
-		buckshotCryo = new BasicBulletType(4.5f, 8f) {{
-			height = width = 12f;
-			pierceCap = 3;
-			lifetime = 30f;
-			knockback = 4f;
-			shootEffect = UAWFxDynamic.instShoot(32, Color.valueOf("87CEEB"));
-			smokeEffect = Fx.shootSmallSmoke;
-			despawnEffect = hitEffect = UAWFxDynamic.thermalExplosion(UAWPal.cryoFront, UAWPal.cryoMiddle);
-			frontColor = UAWPal.cryoFront;
-			backColor = UAWPal.cryoBack;
-			status = StatusEffects.freezing;
-		}};
-
-		standardCruiseMissile = new CruiseMissileBulletType(1.8f, 225) {{
-			splashDamage = damage;
-			splashDamageRadius = 8 * tilesize;
-			homingRange = 60 * tilesize;
-			homingPower = 0.5f;
-			hitEffect = new MultiEffect(UAWFxDynamic.crossBlast(splashDamageRadius, backColor), Fx.blastExplosion, Fx.blockExplosionSmoke);
-			status = StatusEffects.blasted;
-		}};
-		piercingCruiseMissile = new CruiseMissileBulletType(2.2f, 325) {{
-			splashDamage = damage;
-			splashDamageRadius = 3 * tilesize;
-			homingRange = 60 * tilesize;
-			hitEffect = new MultiEffect(Fx.hitFuse, Fx.blastExplosion, Fx.smokeCloud, Fx.shootLiquid);
-			hitSound = Sounds.plasmaboom;
-			fragBullets = 1;
-			fragCone = 0.001f;
-			fragBullet = new ShrapnelBulletType() {{
-				serrations = 1;
-				splashDamageRadius = 16;
-				damage = 400;
-				length = 64;
-				width = 12;
-				fromColor = Pal.lightOrange;
-				toColor = Pal.lightishOrange;
-			}};
-		}};
-		cryoCruiseMissile = new CruiseMissileBulletType(1.8f, 200) {{
-			splashDamage = damage;
-			splashDamageRadius = 8 * tilesize;
-			homingRange = 60 * tilesize;
-			frontColor = UAWPal.cryoFront;
-			backColor = UAWPal.cryoBack;
-			hitEffect = new MultiEffect(UAWFxDynamic.crossBlast(splashDamageRadius, backColor), Fx.blastExplosion, Fx.blockExplosionSmoke);
-			status = StatusEffects.freezing;
-		}};
-		incendCruiseMissile = new CruiseMissileBulletType(1.8f, 200) {{
-			splashDamage = damage;
-			splashDamageRadius = 8 * tilesize;
-			homingRange = 60 * tilesize;
+		mediumIncendiary = new BasicBulletType(7, 15) {{
+			height = 25;
+			width = 10;
+			knockback = 1.2f;
+			hitEffect = Fx.hitBulletBig;
+			smokeEffect = Fx.shootBigSmoke2;
+			shootEffect = new MultiEffect(Fx.shootPyraFlame, Fx.shootBig2);
+			hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletBig, Fx.fireHit);
 			frontColor = UAWPal.incendFront;
 			backColor = UAWPal.incendBack;
-			hitEffect = new MultiEffect(UAWFxDynamic.crossBlast(splashDamageRadius, frontColor), Fx.blastExplosion, Fx.blockExplosionSmoke);
-			status = StatusEffects.melting;
+			status = StatusEffects.burning;
+			makeFire = true;
+			trailChance = 0.4f;
+			trailColor = Color.lightGray;
 		}};
-		surgeCruiseMissile = new CruiseMissileBulletType(1.8f, 350) {{
-			splashDamage = damage;
-			splashDamageRadius = 8 * tilesize;
-			homingRange = 60 * tilesize;
-			frontColor = UAWPal.surgeFront;
-			backColor = UAWPal.surgeBack;
-			hitEffect = new MultiEffect(UAWFxDynamic.crossBlast(splashDamageRadius, frontColor), Fx.blastExplosion, Fx.blockExplosionSmoke);
-			status = StatusEffects.electrified;
+		mediumCryo = new BasicBulletType(7, 15) {{
+			height = 25;
+			width = 10;
+			knockback = 1.2f;
+			hitEffect = Fx.hitBulletBig;
+			despawnEffect = Fx.freezing;
+			smokeEffect = Fx.shootBigSmoke2;
+			shootEffect = new MultiEffect(UAWFxStatic.shootCryoFlame, Fx.shootBig2);
+			hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletBig, UAWFxStatic.cryoHit);
+			frontColor = UAWPal.cryoFront;
+			backColor = UAWPal.cryoBack;
+			status = StatusEffects.freezing;
+			trailChance = 0.4f;
+			trailColor = Color.lightGray;
+		}};
 
-			lightning = 8;
-			lightningLength = 8;
-			lightningDamage = splashDamage / 5;
+		heavyCopper = new TrailBulletType(10f, 55f) {{
+			hitSize = 5;
+			height = 30f;
+			width = 10f;
+			shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
+			smokeEffect = Fx.shootBigSmoke;
+			ammoMultiplier = 2;
+			pierceCap = 2;
+		}};
+		heavyDense = new TrailBulletType(8f, 90) {{
+			hitSize = 5;
+			height = 25f;
+			width = 15f;
+			shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
+			smokeEffect = Fx.shootBigSmoke;
+			reloadMultiplier = 0.5f;
+			ammoMultiplier = 2;
+			knockback = 1.2f;
+		}};
+		heavyHoming = new TrailBulletType(10f, 55f) {{
+			hitSize = 5;
+			height = 30f;
+			width = 10f;
+			homingPower = 0.16f;
+			shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
+			smokeEffect = Fx.shootBigSmoke;
+			ammoMultiplier = 2;
+			pierceCap = 2;
+		}};
+		heavyThorium = new TrailBulletType(8f, 80) {{
+			hitSize = 5;
+			height = 30f;
+			width = 16f;
+			shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
+			smokeEffect = Fx.shootBigSmoke;
+			pierceCap = 2;
+			pierceBuilding = true;
+			knockback = 0.7f;
+		}};
+		heavySurge = new TrailBulletType(12f, 25f) {{
+			height = 30f;
+			width = 10f;
+			shootEffect = new MultiEffect(Fx.shootBig2, Fx.hitBulletBig, UAWFxStatic.shootSurgeFlame);
+			armorIgnoreScl = 0.6f;
+			smokeEffect = Fx.shootBigSmoke;
+			ammoMultiplier = 2;
+		}};
+		heavyPiercing = new TrailBulletType(12f, 25f) {{
+			height = 30f;
+			width = 10f;
+			shootEffect = new MultiEffect(Fx.shootBig2, Fx.hitBulletBig, UAWFxStatic.shootSurgeFlame);
+			armorIgnoreScl = 0.6f;
+			smokeEffect = Fx.shootBigSmoke;
+			ammoMultiplier = 2;
 		}};
 
 		mineBasic = new MineBulletType(100, 90, 9) {{
