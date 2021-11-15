@@ -13,19 +13,56 @@ import static mindustry.content.Bullets.*;
 
 public class UAWBullets implements ContentList {
 	public static BulletType
-		standardPiercing, standardCryo,
+		smallCopper, smallDense, smallPiercing, smallIncendiary, smallCryo,
 		mediumPiercing, mediumStandard, mediumSurge, mediumIncendiary, mediumCryo,
 		heavyCopper, heavyDense, heavyHoming, heavyThorium, heavySurge, heavyPiercing, heavyIncendiary, heavyCryo,
-		basicBeam, heavyBeam,
-		EMPartillery,
-		standardCruiseMissile, piercingCruiseMissile, cryoCruiseMissile, incendCruiseMissile, surgeCruiseMissile,
 		buckshotLead, buckshotIncend, buckshotCryo,
 		mineBasic, mineIncend, mineCryo, mineOil, mineEMP, mineSpore,
 		canisterBasic, canisterIncend, canisterCryo, canisterOil, canisterEMP, canisterSpore, canisterNuke;
 
 	@Override
 	public void load() {
-		standardPiercing = new TrailBulletType(12f, 10f) {{
+		smallCopper = new BasicBulletType(4f, 9){{
+			width = 7f;
+			height = 9f;
+			lifetime = 60f;
+			shootEffect = Fx.shootSmall;
+			smokeEffect = Fx.shootSmallSmoke;
+			ammoMultiplier = 2;
+		}};
+		smallDense = new BasicBulletType(5.5f, 18){{
+			width = 9f;
+			height = 12f;
+			reloadMultiplier = 0.6f;
+			ammoMultiplier = 4;
+			lifetime = 60f;
+		}};
+		smallIncendiary = new BasicBulletType(4.2f, 16){{
+			width = 10f;
+			height = 12f;
+			frontColor = Pal.lightishOrange;
+			backColor = Pal.lightOrange;
+			status = StatusEffects.burning;
+			hitEffect = new MultiEffect(Fx.hitBulletSmall, Fx.fireHit);
+			ammoMultiplier = 5;
+			splashDamage = 10f;
+			splashDamageRadius = 22f;
+			makeFire = true;
+			lifetime = 60f;
+		}};
+		smallCryo = new BasicBulletType(4.2f, 16){{
+			width = 10f;
+			height = 12f;
+			frontColor = UAWPal.cryoFront;
+			backColor = UAWPal.cryoBack;
+			status = StatusEffects.freezing;
+			hitEffect = new MultiEffect(Fx.hitBulletSmall, UAWFxStatic.cryoHit);
+			ammoMultiplier = 5;
+			splashDamage = 10f;
+			splashDamageRadius = 22f;
+			lifetime = 60f;
+		}};
+		smallPiercing = new TrailBulletType(10f, 10f) {{
 			height = 15f;
 			width = 5f;
 			armorIgnoreScl = 0.25f;

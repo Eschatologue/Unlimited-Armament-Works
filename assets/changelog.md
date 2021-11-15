@@ -7,9 +7,11 @@
 
 **Update 0.7.4** features some balance changes, content polishing, reworked unit, new Tier 5 Naval Monitor Warship - Kerambit, and a way of generating power from oil.
 
+UAW now requires Mindustry Build `134.1`to play, please update your Mindustry
+
 ## What's New?
 1. **Kerambit** Tier 5 Naval - Monitor Warship
-	* "_Its shell shatters even the most formidable defenses_"
+	* _"Its shell shatters even the most formidable defenses"_
 	* Finally, the 5th Iteration of Majapahit's Monitor Warship, like the previous iteration these naval "Monitor Warships" archetype are specialized in destroying enemy structures. Especially this one, it'll causes repeating aftershocks in its affected area, denying any building to be built while its still in effect.
 	* Can be acquired by upgrading the **Kujang** inside the **Tetrative Petroleum Reconstructor**
 	* Added lore regarding of its origin in `details`
@@ -20,8 +22,10 @@
 ## Changes
 1. The **Kujang** has been reworked	
 	* New Sprite
-	* Its main cannon will now fires a quick burst of arillery shells instead of 1 huge one
-
+	* Its main cannon will now fires a quick burst of arillery shells instead of 1 huge one.
+2. Fixed Quadra outline
+3. Code cleanup
+4. Some content description changes, especially units
 
 
 # Update 0.7.3

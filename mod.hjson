@@ -2,7 +2,7 @@ displayName: "Unlimited Armament Works"
 name: "uaw"
 author: "Eschatologue"
 main: "UAW.UAWModLoader",
-description: "A port and a sequel to Heavy-Armaments-Industries written in java, expands your mindustry arsenal"
-version: 0.7.3
-minGameVersion: 132
+description: "A port and a sequel to Heavy-Armaments-Industries written in java, expands your Mindustry arsenal"
+version: 0.7.4
+minGameVersion: 134
 java: true

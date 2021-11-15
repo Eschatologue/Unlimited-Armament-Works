@@ -70,10 +70,11 @@ public class UAWBlock implements ContentList {
 			maxReloadScl = 8f;
 			speedupPerShot = 0.15f;
 			ammo(
-				Items.copper, standardCopper,
-				Items.graphite, standardDense,
-				Items.pyratite, standardIncendiary,
-				Items.titanium, standardPiercing
+				Items.copper, smallCopper,
+				Items.graphite, smallDense,
+				Items.pyratite, smallIncendiary,
+				UAWItems.cryogel, smallCryo,
+				Items.titanium, smallPiercing
 			);
 			limitRange();
 		}};
