@@ -9,7 +9,6 @@ import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.graphics.Pal;
 
-import static mindustry.Vars.tilesize;
 import static mindustry.content.Bullets.*;
 
 public class UAWBullets implements ContentList {
@@ -112,6 +111,8 @@ public class UAWBullets implements ContentList {
 			width = 10f;
 			shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
 			smokeEffect = Fx.shootBigSmoke;
+			hitEffect = Fx.hitBulletBig;
+			despawnHit = true;
 			ammoMultiplier = 2;
 			pierceCap = 2;
 		}};
@@ -120,6 +121,8 @@ public class UAWBullets implements ContentList {
 			height = 25f;
 			width = 15f;
 			shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
+			hitEffect = Fx.hitBulletBig;
+			despawnHit = true;
 			smokeEffect = Fx.shootBigSmoke;
 			reloadMultiplier = 0.5f;
 			ammoMultiplier = 2;
@@ -132,6 +135,8 @@ public class UAWBullets implements ContentList {
 			homingPower = 0.16f;
 			shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
 			smokeEffect = Fx.shootBigSmoke;
+			hitEffect = Fx.hitBulletBig;
+			despawnHit = true;
 			ammoMultiplier = 2;
 			pierceCap = 2;
 		}};
@@ -141,25 +146,32 @@ public class UAWBullets implements ContentList {
 			width = 16f;
 			shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
 			smokeEffect = Fx.shootBigSmoke;
+			hitEffect = Fx.hitBulletBig;
+			despawnHit = true;
 			pierceCap = 2;
 			pierceBuilding = true;
 			knockback = 0.7f;
 		}};
-		heavySurge = new TrailBulletType(12f, 25f) {{
-			height = 30f;
+		heavySurge = new TrailBulletType(10f, 25f) {{
+			hitSize = 6f;
+			height = 22f;
 			width = 10f;
 			shootEffect = new MultiEffect(Fx.shootBig2, Fx.hitBulletBig, UAWFxStatic.shootSurgeFlame);
 			armorIgnoreScl = 0.6f;
 			smokeEffect = Fx.shootBigSmoke;
 			ammoMultiplier = 2;
 		}};
-		heavyPiercing = new TrailBulletType(12f, 25f) {{
-			height = 30f;
-			width = 10f;
+		heavyPiercing = new TrailBulletType(11f, 45f) {{
+			hitSize = 6f;
+			height = 20f;
+			width = 8f;
 			shootEffect = new MultiEffect(Fx.shootBig2, Fx.hitBulletBig, UAWFxStatic.shootSurgeFlame);
+			hitEffect = Fx.hitBulletBig;
+			despawnHit = true;
 			armorIgnoreScl = 0.6f;
 			smokeEffect = Fx.shootBigSmoke;
 			ammoMultiplier = 2;
+			pierce = true;
 		}};
 
 		mineBasic = new MineBulletType(100, 90, 9) {{

@@ -69,13 +69,13 @@ public class UAWBlock implements ContentList {
 
 			maxReloadScl = 8f;
 			speedupPerShot = 0.15f;
-			limitRange();
 			ammo(
 				Items.copper, standardCopper,
 				Items.graphite, standardDense,
 				Items.pyratite, standardIncendiary,
 				Items.titanium, standardPiercing
 			);
+			limitRange();
 		}};
 		spitfire = new DynamicReloadTurret("spitfire") {{
 			requirements(Category.turret, with(
@@ -101,8 +101,6 @@ public class UAWBlock implements ContentList {
 			maxReloadScl = 16f;
 			speedupPerShot = 0.1f;
 			slowDownReloadTime = 90f;
-			limitRange(2 * tilesize);
-
 			ammo(
 				Items.graphite, mediumStandard,
 				UAWItems.titaniumCarbide, mediumPiercing,
@@ -110,6 +108,7 @@ public class UAWBlock implements ContentList {
 				Items.pyratite, mediumIncendiary,
 				UAWItems.cryogel, mediumCryo
 			);
+			limitRange(2 * tilesize);
 		}};
 
 		solo = new CustomItemTurret("solo") {{
@@ -132,7 +131,6 @@ public class UAWBlock implements ContentList {
 			unitSort = (u, x, y) -> -u.health;
 			maxAmmo = 20;
 			ammoPerShot = 2;
-			limitRange();
 			ammo(
 				Items.copper, heavyCopper,
 				Items.graphite, heavyDense,
@@ -140,6 +138,7 @@ public class UAWBlock implements ContentList {
 				Items.thorium, heavyThorium,
 				Items.titanium, heavyPiercing
 			);
+			limitRange();
 		}};
 		longsword = new CustomItemTurret("longsword") {{
 			float brange = range = 55 * tilesize;

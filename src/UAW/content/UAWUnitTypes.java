@@ -456,6 +456,7 @@ public class UAWUnitTypes implements ContentList {
 						width = height / 1.8f;
 						lifetime = range / speed;
 						trailMult = 1.5f;
+						hitShake = 4.5f;
 
 						frontColor = Pal.sapBullet;
 						backColor = Pal.sapBulletBack;
@@ -545,6 +546,7 @@ public class UAWUnitTypes implements ContentList {
 						status = StatusEffects.burning;
 						incendChance = 0.8f;
 						incendSpread = 16f;
+						hitShake = 6f;
 						makeFire = true;
 						frontColor = Pal.sapBullet;
 						backColor = Pal.sapBulletBack;
@@ -668,7 +670,7 @@ public class UAWUnitTypes implements ContentList {
 					reload = 5f * 60;
 					recoil = 5f;
 					shootSound = UAWSfx.artilleryShootHuge;
-					shake = 14;
+					shake = 16;
 					shootStatusDuration = reload * 1.2f;
 					shootStatus = StatusEffects.unmoving;
 					ejectEffect = UAWFxStatic.casing5;
@@ -685,6 +687,7 @@ public class UAWUnitTypes implements ContentList {
 						makeFire = true;
 						hitSound = UAWSfx.artilleryExplosionHuge;
 						trailMult = 1.5f;
+						hitShake = 15f;
 
 						frontColor = Pal.sapBullet;
 						backColor = Pal.sapBulletBack;

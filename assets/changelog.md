@@ -1,3 +1,29 @@
+# Update 0.7.4
+<div align="center">
+
+[![0.7.3](https://i.postimg.cc/nLDR0KPG/image.png)](https://postimg.cc/CZwsK8YR)
+
+</div>
+
+**Update 0.7.4** features some balance changes, content polishing, reworked unit, new Tier 5 Naval Monitor Warship - Kerambit, and a way of generating power from oil.
+
+## What's New?
+1. **Kerambit** Tier 5 Naval - Monitor Warship
+	* "_Its shell shatters even the most formidable defenses_"
+	* Finally, the 5th Iteration of Majapahit's Monitor Warship, like the previous iteration these naval "Monitor Warships" archetype are specialized in destroying enemy structures. Especially this one, it'll causes repeating aftershocks in its affected area, denying any building to be built while its still in effect.
+	* Can be acquired by upgrading the **Kujang** inside the **Tetrative Petroleum Reconstructor**
+	* Added lore regarding of its origin in `details`
+2.  **Combustion Generator**
+	* Generates massive amount of power from burning oil, will explode violently if destroyed, its filled with oil afterall
+	* Situational, they can be useful in places with abundant shale and oil lakes, though useless when those resources are scare. 
+	* Still in the process of balancing, might be completly worthless, might be overpowerd. Though Im gonna release it just to watch the world burns
+## Changes
+1. The **Kujang** has been reworked	
+	* New Sprite
+	* Its main cannon will now fires a quick burst of arillery shells instead of 1 huge one
+
+
+
 # Update 0.7.3
 
 <div align="center">
