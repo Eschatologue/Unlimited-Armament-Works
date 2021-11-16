@@ -1,7 +1,7 @@
 # Update 0.7.4
 <div align="center">
 
-[![0.7.3](https://i.postimg.cc/nLDR0KPG/image.png)](https://postimg.cc/CZwsK8YR)
+![0.7.4](https://i.postimg.cc/3wc74c81/image.png)
 
 </div>
 
