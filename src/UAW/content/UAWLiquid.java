@@ -7,7 +7,7 @@ import mindustry.type.Liquid;
 
 public class UAWLiquid implements ContentList {
 	public static Liquid
-		surgeSolvent, thoriumAcid;
+		surgeSolvent;
 
 	@Override
 	public void load() {

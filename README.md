@@ -97,7 +97,8 @@ If you have any questions, ideas, or feedback, please DM `Geschiedenis#4783` at 
 
 <div align="center">
 
-[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/it-works-why.svg)](https://forthebadge.com)
+[![Built With](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
+[![Uses](https://forthebadge.com/images/badges/uses-badges.svg)](https://forthebadge.com)
+
 
 </div>
