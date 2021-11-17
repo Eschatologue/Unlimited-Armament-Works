@@ -41,6 +41,8 @@ Also available in the in-game mod browser, where installation is automatic, just
 For unreleased builds you can find it at the [Actions](https://github.com/Eschatologue/Unlimited-Armament-Works/actions) tab and open the last workflow with a green ✅. The zip will contain the latest unreleased build of **UAW** which you  should install with caution since it may crashes your game.
 
 Only compatible on Desktop and Android, both Java and JavaScript mod doesn't work on iOS.
+   
+![Esch](https://github.com/Eschatologue/Unlimited-Armament-Works/blob/master/markdown-resources/made-by-eschatologue.svg)
 
 </div>
 
@@ -99,6 +101,6 @@ If you have any questions, ideas, or feedback, please DM `Geschiedenis#4783` at 
 
 [![Built With](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 [![Uses](https://forthebadge.com/images/badges/uses-badges.svg)](https://forthebadge.com)
-
+[![Mindustry](https://github.com/Eschatologue/Unlimited-Armament-Works/blob/master/markdown-resources/made-for-mindustry.svg)](https://github.com/Anuken/Mindustry)
 
 </div>
