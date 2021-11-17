@@ -101,6 +101,6 @@ If you have any questions, ideas, or feedback, please DM `Geschiedenis#4783` at 
 
 [![Built With](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 [![Uses](https://forthebadge.com/images/badges/uses-badges.svg)](https://forthebadge.com)
-[![Mindustry](https://github.com/Eschatologue/Unlimited-Armament-Works/blob/master/markdown-resources/made-for-mindustry.svg)](https://github.com/Anuken/Mindustry)
+[![Mindustry](https://github.com/Eschatologue/Unlimited-Armament-Works/blob/master/markdown-resources/mod-for-mindustry.svg)](https://github.com/Anuken/Mindustry)
 
 </div>
