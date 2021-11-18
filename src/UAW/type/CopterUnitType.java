@@ -48,7 +48,7 @@ public class CopterUnitType extends UnitType {
 
 	public void drawRotor(Unit unit) {
 		applyColor(unit);
-		rotors.each(rotor -> rotor.draw(unit));
+		rotors.each(rotor -> rotor.update(unit));
 		Draw.reset();
 	}
 
