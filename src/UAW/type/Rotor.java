@@ -29,19 +29,20 @@ public class Rotor {
 		topRegionOutline = Core.atlas.find(name + "-top-outline");
 	}
 
-	public void update(Unit unit) {
+	public void draw(Unit unit) {
 		float rx = unit.x + Angles.trnsx(unit.rotation - 90, x, y);
 		float ry = unit.y + Angles.trnsy(unit.rotation - 90, x, y);
-		float rotSpeed;
-		if (unit.health() < 0 || unit.dead()) {
-			rotSpeed = Time.delta * (Mathf.lerpDelta(rotorSpeed, rotorSpeed / 4, rotorSpeed / 15));
-		} else rotSpeed = Time.delta * rotorSpeed;
 
 		for (int i = 0; i < bladeCount; i++) {
-			float angle = initialRotation + ((i * 360f / bladeCount + rotSpeed % 360));
+			float angle = initialRotation + ((i * 360f / bladeCount + (Time.time * rotorSpeed) % 360));
 			Draw.rect(bladeOutlineRegion, rx, ry, bladeOutlineRegion.width * Draw.scl, bladeOutlineRegion.height * Draw.scl, angle);
 			Draw.mixcol(Color.white, unit.hitTime);
 			Draw.rect(bladeRegion, rx, ry, bladeRegion.width * Draw.scl, bladeRegion.height * Draw.scl, angle);
+			if (doubleRotor) {
+				Draw.rect(bladeOutlineRegion, rx, ry, bladeOutlineRegion.width * Draw.scl * -Mathf.sign(false), bladeOutlineRegion.height * Draw.scl, -angle);
+				Draw.mixcol(Color.white, unit.hitTime);
+				Draw.rect(bladeRegion, rx, ry, bladeRegion.width * Draw.scl * -Mathf.sign(false), bladeRegion.height * Draw.scl, -angle);
+			}
 		}
 		if (drawRotorTop) {
 			Draw.rect(topRegionOutline, rx, ry, topRegionOutline.width * Draw.scl, topRegionOutline.height * Draw.scl, unit.rotation - 90);
