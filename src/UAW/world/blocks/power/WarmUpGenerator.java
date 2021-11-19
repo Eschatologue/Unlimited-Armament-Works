@@ -53,7 +53,7 @@ public class WarmUpGenerator extends ImpactReactor {
 			return new TextureRegion[]{bottomRegion, topRegion};
 	}
 
-	public class PetroleumGeneratorBuild extends ImpactReactorBuild {
+	public class WarmUpGeneratorBuild extends ImpactReactorBuild {
 		@Override
 		public void updateTile() {
 			super.updateTile();
