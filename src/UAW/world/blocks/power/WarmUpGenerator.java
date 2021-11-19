@@ -54,6 +54,7 @@ public class WarmUpGenerator extends ImpactReactor {
 	}
 
 	public class WarmUpGeneratorBuild extends ImpactReactorBuild {
+
 		@Override
 		public void updateTile() {
 			super.updateTile();
