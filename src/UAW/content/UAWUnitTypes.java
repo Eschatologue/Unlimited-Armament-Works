@@ -403,6 +403,9 @@ public class UAWUnitTypes implements ContentList {
 
 			lowAltitude = omniMovement = false;
 			range = 55 * tilesize;
+
+			trailLength = 8;
+			trailWidth = 3;
 		}};
 
 		clurit = new UnitType("clurit") {{
