@@ -394,8 +394,7 @@ public class UAWUnitTypes implements ContentList {
 			health = 450;
 			hitSize = 18;
 			speed = 3.5f;
-			accel = 0.02f;
-			drag = 0.016f;
+			accel = 0.005f;
 			rotateSpeed = 5.5f;
 			ammoType = new ItemAmmoType(Items.graphite);
 			circleTarget = true;
@@ -404,8 +403,8 @@ public class UAWUnitTypes implements ContentList {
 			lowAltitude = omniMovement = false;
 			range = 55 * tilesize;
 
-			trailY = -2;
-			trailLength = 8;
+			trailY = 0;
+			trailLength = 12;
 			trailWidth = 2f;
 		}};
 
@@ -500,7 +499,7 @@ public class UAWUnitTypes implements ContentList {
 			health = 7000;
 			hitSize = 22;
 			speed = 0.8f;
-			accel = 0.20f;
+			accel = 0.10f;
 			rotateSpeed = 1.5f;
 			rotateShooting = false;
 			range = 40 * tilesize;

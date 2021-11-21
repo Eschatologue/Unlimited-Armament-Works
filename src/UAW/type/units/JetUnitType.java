@@ -10,7 +10,7 @@ import mindustry.type.UnitType;
 
 public class JetUnitType extends UnitType {
 	public float trailX = 5f;
-	public float trailY = -1f;
+	public float trailY = 0f;
 	public int trailLength = 15;
 	public float trailWidth = 4f;
 	public Color trailColor = Pal.bulletYellowBack;
@@ -33,10 +33,10 @@ public class JetUnitType extends UnitType {
 		super.update(unit);
 		float cx = unit.x + Angles.trnsx(unit.rotation - 90, -trailX, trailY);
 		float cy = unit.y + Angles.trnsx(unit.rotation - 90, -trailX, trailY);
-		float cx2 = unit.x + Angles.trnsx(unit.rotation - 90, trailX, trailY);
-		float cy2 = unit.y + Angles.trnsx(unit.rotation - 90, trailX, trailY);
+		float cx2 = unit.x + Angles.trnsx(unit.rotation - 90, trailX, -trailY);
+		float cy2 = unit.y + Angles.trnsx(unit.rotation - 90, trailX, -trailY);
 		if (unit.moving()) {
-			if (Mathf.chanceDelta(1)) {
+			if (Mathf.chanceDelta(1.5f)) {
 				UAWFxDynamic.jetTrail(trailLength).at(cx, cy, trailWidth, trailColor);
 				UAWFxDynamic.jetTrail(trailLength).at(cx2, cy2, trailWidth, trailColor);
 			}
