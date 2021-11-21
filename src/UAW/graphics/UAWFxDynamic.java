@@ -111,6 +111,14 @@ public class UAWFxDynamic {
 		});
 	}
 
+	public static Effect jetTrail(float length){
+		return new Effect(length, e -> {
+			color(e.color);
+			Fill.circle(e.x, e.y, e.rotation * e.fout());
+		});
+	}
+
+
 	public static Effect shootMassiveSmoke(float size, float lifetime, Color color) {
 		return new Effect(lifetime, e -> {
 			color(color, Color.lightGray, Color.gray, e.fin());
