@@ -5,7 +5,7 @@ import arc.graphics.g2d.Draw;
 import arc.math.geom.Vec2;
 import arc.struct.Seq;
 import arc.util.Tmp;
-import mindustry.gen.Unit;
+import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.UnitType;
 
@@ -25,6 +25,7 @@ public class JetUnitType extends UnitType {
 		flying = true;
 		omniMovement = false;
 		lowAltitude = false;
+		constructor = UnitEntity::create;
 	}
 
 	@Override
