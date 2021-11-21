@@ -2,7 +2,7 @@ package UAW.type.units;
 
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
-import arc.math.geom.Vec2;
+import arc.math.geom.*;
 import arc.struct.Seq;
 import arc.util.Tmp;
 import mindustry.gen.*;
@@ -33,15 +33,19 @@ public class JetUnitType extends UnitType {
 		super.update(unit);
 		// Code from Sh1penfire Stingray
 		Tmp.v1.set(trailPos.get(0)).rotate(unit.rotation - 90);
-		trailSeq.get(0).update(unit.x + Tmp.v1.x, unit.y + Tmp.v1.y);
+		trailSeq.get(0).update(unit.x, unit.y + Tmp.v1.y);
 		Tmp.v1.set(trailPos.get(1)).rotate(unit.rotation - 90);
 		trailSeq.get(1).update(unit.x + Tmp.v1.x, unit.y + Tmp.v1.y);
+
 	}
 
 	@Override
 	public void draw(Unit unit) {
 		super.draw(unit);
 		Draw.z(Layer.effect);
-		trailSeq.each(t -> t.draw(trailColor, trailWidth));
+		trailSeq.each(t -> {
+			Tmp.v1.set((Position) t).rotate(unit.rotation - 90);
+			t.update(unit.x + Tmp.v1.x, unit.y + Tmp.v1.y);
+		});
 	}
 }
