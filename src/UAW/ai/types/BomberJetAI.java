@@ -16,7 +16,6 @@ public class BomberJetAI extends FlyingAI {
 				moveTo(target, unit.type.range * 0.8f);
 				unit.lookAt(target);
 			} else {
-				unit.angleTo(target);
 				unit.lookAt(target);
 				attack(unit.type.range);
 			}

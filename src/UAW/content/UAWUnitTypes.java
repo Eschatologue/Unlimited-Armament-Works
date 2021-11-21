@@ -396,7 +396,7 @@ public class UAWUnitTypes implements ContentList {
 			speed = 3f;
 			accel = 0.1f;
 			drag = 0.016f;
-			rotateSpeed = 4.5f;
+			normalRotateSpeed = rotateSpeed = 3f;
 			ammoType = new ItemAmmoType(Items.blastCompound);
 			circleTarget = true;
 			commandLimit = 3;

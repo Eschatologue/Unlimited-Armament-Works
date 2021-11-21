@@ -4,7 +4,6 @@ import UAW.ai.types.BomberJetAI;
 import UAW.graphics.UAWFxDynamic;
 import arc.graphics.Color;
 import arc.math.*;
-import mindustry.content.Fx;
 import mindustry.gen.*;
 import mindustry.graphics.Pal;
 import mindustry.type.UnitType;
@@ -15,6 +14,7 @@ public class JetUnitType extends UnitType {
 	public float trailY = 0f;
 	public int trailLength = 15;
 	public float trailWidth = 4f;
+	public float normalRotateSpeed = 2.5f;
 	public Color trailColor = Pal.bulletYellowBack;
 	/*
 	public Trail trailLeft = new Trail(trailLength);
@@ -47,10 +47,13 @@ public class JetUnitType extends UnitType {
 				UAWFxDynamic.jetTrail(trailLength).at(cx2, cy2, trailWidth, trailColor);
 			}
 		}
-		if (unit.isShooting) {
+		if (unit.isShooting && unit.moving()) {
 			omniMovement = true;
-			rotateSpeed = rotateSpeed * 2;
-		} else omniMovement = false;
+			rotateSpeed = 5;
+		} else {
+			omniMovement = false;
+			rotateSpeed = normalRotateSpeed;
+		}
 		/*
 		trailLeft.update(cx, cy);
 		trailRight.update(cx2, cy2);*/
