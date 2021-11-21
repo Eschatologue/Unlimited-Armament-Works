@@ -50,7 +50,7 @@ public class JetUnitType extends UnitType {
 		if (unit.isShooting && unit.moving()) {
 			omniMovement = true;
 			rotateSpeed = 5;
-		} else {
+		} else if (!unit.isShooting) {
 			omniMovement = false;
 			rotateSpeed = normalRotateSpeed;
 		}
