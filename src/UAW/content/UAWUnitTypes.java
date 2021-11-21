@@ -393,7 +393,7 @@ public class UAWUnitTypes implements ContentList {
 		jufeng = new JetUnitType("jufeng") {{
 			health = 450;
 			hitSize = 18;
-			speed = 3.8f;
+			speed = 3.5f;
 			accel = 0.02f;
 			drag = 0.016f;
 			rotateSpeed = 5.5f;

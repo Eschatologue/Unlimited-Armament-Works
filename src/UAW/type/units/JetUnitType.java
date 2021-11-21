@@ -12,12 +12,12 @@ import mindustry.type.UnitType;
 public class JetUnitType extends UnitType {
 	public static float trailX = 5f;
 	public static float trailY = 0f;
-	public int trailLength = 6;
-	public float trailWidth = 4f;
+	public static int trailLength = 6;
+	public static float trailWidth = 4f;
 	public Color trailColor = Pal.bulletYellowBack;
 
 	public static Seq<Vec2> trailPos = Seq.with(new Vec2(trailX, -trailY), new Vec2(-trailX, -trailY));
-	public final Seq<Trail> trailSeq = Seq.with(new Trail(trailLength), new Trail(trailLength));
+	public static Seq<Trail> trailSeq = Seq.with(new Trail(trailLength), new Trail(trailLength));
 
 	public JetUnitType(String name) {
 		super(name);
