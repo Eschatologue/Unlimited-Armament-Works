@@ -26,19 +26,18 @@ public class JetUnitType extends UnitType {
 		omniMovement = false;
 		lowAltitude = false;
 		constructor = UnitEntity::create;
+		rotateShooting = false;
 	}
 
 	@Override
 	public void update(Unit unit) {
 		super.update(unit);
-		float cx = unit.x + Angles.trnsx(unit.rotation - 90, -trailX, trailY);
-		float cy = unit.y + Angles.trnsx(unit.rotation - 90, -trailX, trailY);
-		float cx2 = unit.x + Angles.trnsx(unit.rotation - 90, trailX, -trailY);
-		float cy2 = unit.y + Angles.trnsx(unit.rotation - 90, trailX, -trailY);
+		float cx = unit.x + Angles.trnsx(unit.rotation , trailX, trailY);
+		float cy = unit.y + Angles.trnsx(unit.rotation, trailX, trailY);
 		if (unit.moving()) {
 			if (Mathf.chanceDelta(1.5f)) {
 				UAWFxDynamic.jetTrail(trailLength).at(cx, cy, trailWidth, trailColor);
-				UAWFxDynamic.jetTrail(trailLength).at(cx2, cy2, trailWidth, trailColor);
+				UAWFxDynamic.jetTrail(trailLength).at(-cx, cy, trailWidth, trailColor);
 			}
 		}
 		/*

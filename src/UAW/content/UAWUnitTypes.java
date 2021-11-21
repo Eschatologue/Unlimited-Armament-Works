@@ -393,7 +393,7 @@ public class UAWUnitTypes implements ContentList {
 		jufeng = new JetUnitType("jufeng") {{
 			health = 450;
 			hitSize = 18;
-			speed = 3.5f;
+			speed = 3f;
 			accel = 0.1f;
 			drag = 0.016f;
 			rotateSpeed = 2;
@@ -407,6 +407,29 @@ public class UAWUnitTypes implements ContentList {
 			trailY = -2;
 			trailLength = 14;
 			trailWidth = 3f;
+			weapons.add(new Weapon() {{
+				minShootVelocity = 0.75f;
+				x = 3f;
+				shootY = 0f;
+				reload = 4 * 60;
+				shootCone = 180f;
+				ejectEffect = Fx.none;
+				inaccuracy = 0f;
+				ignoreRotation = true;
+				shootSound = Sounds.none;
+				bullet = new UAWArtilleryBulletType(1.5f, 125) {{
+					lifetime = (6 * tilesize) / speed;
+					width = 10f;
+					height = 14f;
+					shootEffect = Fx.none;
+					smokeEffect = Fx.none;
+					splashDamageRadius = 5 * tilesize;
+					hitEffect = UAWFxDynamic.dynamicExplosion(splashDamageRadius, Pal.gray);
+
+					status = StatusEffects.blasted;
+					statusDuration = 60f;
+				}};
+			}});
 		}};
 
 		clurit = new UnitType("clurit") {{
