@@ -3,10 +3,10 @@ package UAW.type.units;
 import UAW.graphics.UAWFxDynamic;
 import arc.graphics.Color;
 import arc.math.*;
-import mindustry.content.Fx;
 import mindustry.gen.*;
 import mindustry.graphics.Pal;
 import mindustry.type.UnitType;
+import mindustry.world.meta.BlockFlag;
 
 public class JetUnitType extends UnitType {
 	public float trailX = 5f;
@@ -26,18 +26,22 @@ public class JetUnitType extends UnitType {
 		omniMovement = false;
 		lowAltitude = false;
 		constructor = UnitEntity::create;
-		rotateShooting = false;
+		rotateShooting = true;
+		faceTarget = false;
+		targetAir = false;
+		playerTargetFlags = new BlockFlag[]{null};
 	}
 
 	@Override
 	public void update(Unit unit) {
 		super.update(unit);
-		float cx = unit.x + Angles.trnsx(unit.rotation , trailX, trailY);
-		float cy = unit.y + Angles.trnsx(unit.rotation, trailX, trailY);
+		float cx = unit.x + Angles.trnsx(unit.rotation - 90, trailX, trailY);
+		float cy = unit.y + Angles.trnsx(unit.rotation - 90, trailX, trailY);
+		float cx2 = unit.x + Angles.trnsx(unit.rotation - 90, -trailX, trailY);
 		if (unit.moving()) {
 			if (Mathf.chanceDelta(1.5f)) {
 				UAWFxDynamic.jetTrail(trailLength).at(cx, cy, trailWidth, trailColor);
-				UAWFxDynamic.jetTrail(trailLength).at(-cx, cy, trailWidth, trailColor);
+				UAWFxDynamic.jetTrail(trailLength).at(cx2, cy, trailWidth, trailColor);
 			}
 		}
 		/*

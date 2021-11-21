@@ -111,7 +111,7 @@ public class UAWFxDynamic {
 		});
 	}
 
-	public static Effect jetTrail(float length){
+	public static Effect jetTrail(float length) {
 		return new Effect(length, e -> {
 			color(e.color);
 			Fill.circle(e.x, e.y, e.rotation * e.fout());
@@ -191,16 +191,15 @@ public class UAWFxDynamic {
 	/**
 	 * Vanilla DynamicExplosion with adjustable color
 	 *
-	 * @param size  How big is the explosion
-	 * @param color The SMOKE color
+	 * @param size How big is the explosion
 	 */
-	public static Effect dynamicExplosion(float size, Color color) {
+	public static Effect dynamicExplosion(float size) {
 		return new Effect((size * 10), 500f, b -> {
 			float realSize = size / 15;
 			float baseLifetime = 26f + realSize * 15f;
 			b.lifetime = 39f + realSize * 30f;
 
-			color(color);
+			color(Color.gray);
 			alpha(0.9f);
 			for (int i = 0; i < 4; i++) {
 				rand.setSeed(b.id * 2L + i);
@@ -247,12 +246,12 @@ public class UAWFxDynamic {
 			float intensity = size / 19f;
 			float smokeSize = e.fout() * size / 6;
 
-			color(Color.gray);
-			alpha(0.7f);
 			randLenVectors(e.id, 40, e.finpow() * 160f, (x, y) -> {
 				color(color);
 				Fill.circle(e.x + x, e.y + y, smokeSize / 1.5f);
 			});
+			color(Color.gray);
+			alpha(0.9f);
 			randLenVectors(e.id, 35, e.finpow() * e.lifetime, (x, y) -> {
 				color(Pal.lighterOrange, Pal.darkishGray, Color.gray, e.fin());
 				Fill.circle(e.x + x, e.y + y, smokeSize * 1.5f);
