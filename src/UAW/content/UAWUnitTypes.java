@@ -429,6 +429,7 @@ public class UAWUnitTypes implements ContentList {
 					smokeEffect = Fx.none;
 					splashDamageRadius = 8 * tilesize;
 					hitEffect = UAWFxDynamic.dynamicExplosion(splashDamageRadius);
+					scaleVelocity = false;
 
 					status = StatusEffects.blasted;
 					statusDuration = 60f;
