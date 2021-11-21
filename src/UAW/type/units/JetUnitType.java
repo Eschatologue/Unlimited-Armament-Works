@@ -14,10 +14,11 @@ public class JetUnitType extends UnitType {
 	public static float trailY = 0f;
 	public static int trailLength = 6;
 	public static float trailWidth = 4f;
-	public static Seq<Vec2> trailPos = Seq.with(new Vec2(trailX, -trailY), new Vec2(-trailX, -trailY));
 	public Color trailColor = Pal.bulletYellowBack;
 	public Trail trailLeft = new Trail(trailLength);
+	public Vec2 trailPosLeft = new Vec2(trailX, -trailY);
 	public Trail trailRight = new Trail(trailLength);
+	public Vec2 trailPosRgiht = new Vec2(trailX, -trailY);
 	public JetUnitType(String name) {
 		super(name);
 		engineSize = 0f;
@@ -30,10 +31,9 @@ public class JetUnitType extends UnitType {
 	@Override
 	public void update(Unit unit) {
 		super.update(unit);
-		// Code from Sh1penfire Stingray
-		Tmp.v1.set(trailPos.get(0)).rotate(unit.rotation - 90);
+		Tmp.v1.set(trailPosLeft).rotate(unit.rotation - 90);
 		trailLeft.update(unit.x + Tmp.v1.x, unit.y + Tmp.v1.y);
-		Tmp.v1.set(trailPos.get(1)).rotate(unit.rotation - 90);
+		Tmp.v1.set(trailPosRgiht).rotate(unit.rotation - 90);
 		trailRight.update(unit.x + Tmp.v1.x, unit.y + Tmp.v1.y);
 	}
 
