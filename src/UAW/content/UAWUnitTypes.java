@@ -35,7 +35,7 @@ public class UAWUnitTypes implements ContentList {
 		aglovale = new CopterUnitType("aglovale") {{
 			health = 450;
 			hitSize = 18;
-			speed = 2.8f;
+			speed = 2.5f;
 			accel = 0.04f;
 			drag = 0.016f;
 			rotateSpeed = 5.5f;
@@ -394,10 +394,10 @@ public class UAWUnitTypes implements ContentList {
 			health = 450;
 			hitSize = 18;
 			speed = 3.5f;
-			accel = 0.01f;
+			accel = 0.08f;
 			drag = 0.016f;
-			rotateSpeed = 5.5f;
-			ammoType = new ItemAmmoType(Items.graphite);
+			rotateSpeed = 2;
+			ammoType = new ItemAmmoType(Items.blastCompound);
 			circleTarget = true;
 			commandLimit = 3;
 
