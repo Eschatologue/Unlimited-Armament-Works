@@ -2,7 +2,7 @@ package UAW.type.units;
 
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
-import arc.math.geom.*;
+import arc.math.geom.Vec2;
 import arc.struct.Seq;
 import arc.util.Tmp;
 import mindustry.gen.*;
@@ -10,13 +10,13 @@ import mindustry.graphics.*;
 import mindustry.type.UnitType;
 
 public class JetUnitType extends UnitType {
-	public float trailX = 5f;
-	public float trailY = 0f;
+	public static float trailX = 5f;
+	public static float trailY = 0f;
 	public int trailLength = 6;
 	public float trailWidth = 4f;
 	public Color trailColor = Pal.bulletYellowBack;
 
-	public final Seq<Vec2> trailPos = Seq.with(new Vec2(trailX, -trailY), new Vec2(-trailX, -trailY));
+	public static Seq<Vec2> trailPos = Seq.with(new Vec2(trailX, -trailY), new Vec2(-trailX, -trailY));
 	public final Seq<Trail> trailSeq = Seq.with(new Trail(trailLength), new Trail(trailLength));
 
 	public JetUnitType(String name) {
@@ -36,16 +36,12 @@ public class JetUnitType extends UnitType {
 		trailSeq.get(0).update(unit.x, unit.y + Tmp.v1.y);
 		Tmp.v1.set(trailPos.get(1)).rotate(unit.rotation - 90);
 		trailSeq.get(1).update(unit.x + Tmp.v1.x, unit.y + Tmp.v1.y);
-
 	}
 
 	@Override
 	public void draw(Unit unit) {
 		super.draw(unit);
 		Draw.z(Layer.effect);
-		trailSeq.each(t -> {
-			Tmp.v1.set((Position) t).rotate(unit.rotation - 90);
-			t.update(unit.x + Tmp.v1.x, unit.y + Tmp.v1.y);
-		});
+		trailSeq.each(t -> t.draw(trailColor, trailWidth));
 	}
 }
