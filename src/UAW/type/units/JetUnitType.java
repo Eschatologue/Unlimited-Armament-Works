@@ -23,7 +23,6 @@ public class JetUnitType extends UnitType {
 		super(name);
 		engineSize = 0f;
 		flying = true;
-		omniMovement = false;
 		lowAltitude = false;
 		constructor = UnitEntity::create;
 		faceTarget = false;
@@ -35,9 +34,9 @@ public class JetUnitType extends UnitType {
 	public void update(Unit unit) {
 		super.update(unit);
 		float cx = Angles.trnsx(unit.rotation - 90, trailX, trailY) + unit.x;
-		float cy = Angles.trnsx(unit.rotation - 90, trailX, trailY) + unit.y;
+		float cy = Angles.trnsy(unit.rotation - 90, trailX, trailY) + unit.y;
 		float cx2 = Angles.trnsx(unit.rotation - 90, -trailX, trailY) + unit.x;
-		float cy2 = Angles.trnsx(unit.rotation - 90, -trailX, trailY) + unit.y;
+		float cy2 = Angles.trnsy(unit.rotation - 90, -trailX, trailY) + unit.y;
 		if (unit.moving()) {
 			if (Mathf.chanceDelta(1.5f)) {
 				UAWFxDynamic.jetTrail(trailLength).at(cx, cy, trailWidth, trailColor);
