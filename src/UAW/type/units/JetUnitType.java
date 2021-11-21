@@ -14,11 +14,10 @@ public class JetUnitType extends UnitType {
 	public static float trailY = 0f;
 	public static int trailLength = 6;
 	public static float trailWidth = 4f;
-	public Color trailColor = Pal.bulletYellowBack;
-
 	public static Seq<Vec2> trailPos = Seq.with(new Vec2(trailX, -trailY), new Vec2(-trailX, -trailY));
-	public static Seq<Trail> trailSeq = Seq.with(new Trail(trailLength), new Trail(trailLength));
-
+	public Color trailColor = Pal.bulletYellowBack;
+	public Trail trailLeft = new Trail(trailLength);
+	public Trail trailRight = new Trail(trailLength);
 	public JetUnitType(String name) {
 		super(name);
 		engineSize = 0f;
@@ -33,15 +32,16 @@ public class JetUnitType extends UnitType {
 		super.update(unit);
 		// Code from Sh1penfire Stingray
 		Tmp.v1.set(trailPos.get(0)).rotate(unit.rotation - 90);
-		trailSeq.get(0).update(unit.x, unit.y + Tmp.v1.y);
+		trailLeft.update(unit.x + Tmp.v1.x, unit.y + Tmp.v1.y);
 		Tmp.v1.set(trailPos.get(1)).rotate(unit.rotation - 90);
-		trailSeq.get(1).update(unit.x + Tmp.v1.x, unit.y + Tmp.v1.y);
+		trailRight.update(unit.x + Tmp.v1.x, unit.y + Tmp.v1.y);
 	}
 
 	@Override
 	public void draw(Unit unit) {
 		super.draw(unit);
 		Draw.z(Layer.effect);
-		trailSeq.each(t -> t.draw(trailColor, trailWidth));
+		trailLeft.draw(trailColor, trailWidth);
+		trailRight.draw(trailColor, trailWidth);
 	}
 }
