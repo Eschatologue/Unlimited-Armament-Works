@@ -29,12 +29,14 @@ public class MultiEngineUnitType extends UnitType {
 		float offsetX = unit.rotation + (engineOffsetX * 2) * scale;
 		float offsetY = unit.rotation + (engineOffsetY * 2) * scale;
 
-		Trail trail = ((Trailc) unit).trail();
-		trail.draw(unit.team.color, (engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f) * scale) * trailScl);
+		if (unit instanceof Trailc) {
+			Trail trail = ((Trailc) unit).trail();
+			trail.draw(unit.team.color, (engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f) * scale) * trailScl);
+		}
 		Draw.color(unit.team.color);
 
 		for (int i = 0; i < engineCount; i++) {
-			float angle = unit.rotation + (float)(i * 360 / engineCount);
+			float angle = unit.rotation + (float) (i * 360 / engineCount);
 			Fill.circle(
 				unit.x + Angles.trnsx(angle, offsetX, offsetY),
 				unit.y + Angles.trnsy(angle, offsetX, offsetY),
@@ -43,7 +45,7 @@ public class MultiEngineUnitType extends UnitType {
 		}
 		Draw.color(Color.white);
 		for (int i = 0; i < engineCount; i++) {
-			float angle = unit.rotation + (float)(i * 360 / engineCount);
+			float angle = unit.rotation + (float) (i * 360 / engineCount);
 			Fill.circle(
 				unit.x + Angles.trnsx(angle, offsetX - 1, offsetY - 1),
 				unit.y + Angles.trnsy(angle, offsetX - 1, offsetY - 1),
