@@ -394,7 +394,7 @@ public class UAWUnitTypes implements ContentList {
 			health = 450;
 			hitSize = 18;
 			speed = 3.5f;
-			accel = 0.08f;
+			accel = 0.1f;
 			drag = 0.016f;
 			rotateSpeed = 2;
 			ammoType = new ItemAmmoType(Items.blastCompound);
