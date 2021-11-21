@@ -17,11 +17,14 @@ public class BomberJetAI extends FlyingAI {
 				unit.lookAt(target);
 			} else {
 				attack(unit.type.range * 2);
+				unit.type.omniMovement = true;
+				unit.lookAt(unit.vel().angle());
 			}
 		}
 
 		if (target == null && command() == UnitCommand.attack && state.rules.waves && unit.team == state.rules.defaultTeam) {
 			moveTo(targetFlag(unit.x, unit.y, BlockFlag.core, false), unit.type.range / 4);
+			unit.lookAt(unit.vel().angle());
 		}
 
 		if (command() == UnitCommand.rally) {

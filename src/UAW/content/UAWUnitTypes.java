@@ -411,30 +411,28 @@ public class UAWUnitTypes implements ContentList {
 			trailLength = 14;
 			trailWidth = 3f;
 
-			weapons.add(new Weapon() {{
-				rotate = true;
-				minShootVelocity = 0.5f;
-				x = 3f;
-				shootY = 0f;
-				reload = 3 * 60;
-				shootCone = 90f;
-				ejectEffect = Fx.none;
-				inaccuracy = 0f;
-				shootSound = UAWSfx.launcherShoot1;
-				bullet = new UAWArtilleryBulletType(1.5f, 125) {{
-					lifetime = (range / 5) / speed;
-					width = 10f;
-					height = 14f;
-					shootEffect = Fx.none;
-					smokeEffect = Fx.none;
-					splashDamageRadius = 8 * tilesize;
-					hitEffect = UAWFxDynamic.dynamicExplosion(splashDamageRadius);
-					scaleVelocity = false;
-
-					status = StatusEffects.blasted;
-					statusDuration = 60f;
-				}};
-			}});
+			weapons.add(
+				new Weapon() {{
+					rotate = true;
+					x = 3f;
+					shootY = 0f;
+					reload = 3 * 60;
+					shootCone = 90f;
+					ejectEffect = Fx.none;
+					inaccuracy = 0f;
+					shootSound = UAWSfx.launcherShoot1;
+					bullet = new UAWArtilleryBulletType(1.5f, 125) {{
+						lifetime = (range / 5) / speed;
+						width = 10f;
+						height = 14f;
+						shootEffect = Fx.none;
+						smokeEffect = Fx.none;
+						splashDamageRadius = 8 * tilesize;
+						hitEffect = UAWFxDynamic.dynamicExplosion(splashDamageRadius);
+						status = StatusEffects.blasted;
+						statusDuration = 60f;
+					}};
+				}});
 		}};
 
 		clurit = new UnitType("clurit") {{
