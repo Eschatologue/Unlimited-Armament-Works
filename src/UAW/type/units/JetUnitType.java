@@ -2,9 +2,8 @@ package UAW.type.units;
 
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
+import arc.math.Angles;
 import arc.math.geom.Vec2;
-import arc.struct.Seq;
-import arc.util.Tmp;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.UnitType;
@@ -16,9 +15,8 @@ public class JetUnitType extends UnitType {
 	public static float trailWidth = 4f;
 	public Color trailColor = Pal.bulletYellowBack;
 	public Trail trailLeft = new Trail(trailLength);
-	public Vec2 trailPosLeft = new Vec2(trailX, -trailY);
 	public Trail trailRight = new Trail(trailLength);
-	public Vec2 trailPosRgiht = new Vec2(trailX, -trailY);
+
 	public JetUnitType(String name) {
 		super(name);
 		engineSize = 0f;
@@ -31,10 +29,10 @@ public class JetUnitType extends UnitType {
 	@Override
 	public void update(Unit unit) {
 		super.update(unit);
-		Tmp.v1.set(trailPosLeft).rotate(unit.rotation - 90);
-		trailLeft.update(unit.x + Tmp.v1.x, unit.y + Tmp.v1.y);
-		Tmp.v1.set(trailPosRgiht).rotate(unit.rotation - 90);
-		trailRight.update(unit.x + Tmp.v1.x, unit.y + Tmp.v1.y);
+		float cx = Angles.trnsx(unit.rotation - 90, trailX, trailY);
+		float cy = Angles.trnsx(unit.rotation - 90, trailX, trailY);
+		trailLeft.update(cx, cy);
+		trailRight.update(cx, cy);
 	}
 
 	@Override
