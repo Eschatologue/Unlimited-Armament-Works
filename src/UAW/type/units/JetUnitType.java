@@ -28,7 +28,7 @@ public class JetUnitType extends UnitType {
 		lowAltitude = false;
 		constructor = UnitEntity::create;
 		circleTarget = true;
-		//defaultController = BomberJetAI::new;
+		defaultController = BomberJetAI::new;
 		faceTarget = false;
 		targetAir = false;
 		playerTargetFlags = new BlockFlag[]{null};
@@ -47,7 +47,6 @@ public class JetUnitType extends UnitType {
 				UAWFxDynamic.jetTrail(trailLength).at(cx2, cy2, trailWidth, trailColor);
 			}
 		}
-		omniMovement = !unit.isPlayer() || unit.isShooting;
 		/*
 		trailLeft.update(cx, cy);
 		trailRight.update(cx2, cy2);*/

@@ -10,7 +10,7 @@ public class BomberJetAI extends FlyingAI {
 	@Override
 	public void updateMovement() {
 		unloadPayloads();
-
+		unit.type.omniMovement = !unit.isPlayer();
 		if (target != null && unit.hasWeapons() && command() == UnitCommand.attack) {
 			if (!unit.type.circleTarget) {
 				moveTo(target, unit.type.range * 0.8f);
