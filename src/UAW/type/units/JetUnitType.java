@@ -46,9 +46,7 @@ public class JetUnitType extends UnitType {
 				UAWFxDynamic.jetTrail(trailLength).at(cx2, cy2, trailWidth, trailColor);
 			}
 		}
-		if (unit.isShooting) {
-			omniMovement = true;
-		}
+		omniMovement = unit.isShooting;
 		/*
 		trailLeft.update(cx, cy);
 		trailRight.update(cx2, cy2);*/
