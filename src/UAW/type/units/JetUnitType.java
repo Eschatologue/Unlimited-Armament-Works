@@ -1,5 +1,6 @@
 package UAW.type.units;
 
+import UAW.ai.types.BomberJetAI;
 import UAW.graphics.UAWFxDynamic;
 import arc.graphics.Color;
 import arc.math.*;
@@ -24,7 +25,9 @@ public class JetUnitType extends UnitType {
 		engineSize = 0f;
 		flying = true;
 		lowAltitude = false;
+		omniMovement = false;
 		constructor = UnitEntity::create;
+		defaultController = BomberJetAI::new;
 		faceTarget = false;
 		targetAir = false;
 		playerTargetFlags = new BlockFlag[]{null};
@@ -42,6 +45,9 @@ public class JetUnitType extends UnitType {
 				UAWFxDynamic.jetTrail(trailLength).at(cx, cy, trailWidth, trailColor);
 				UAWFxDynamic.jetTrail(trailLength).at(cx2, cy2, trailWidth, trailColor);
 			}
+		}
+		if (unit.isShooting) {
+			omniMovement = true;
 		}
 		/*
 		trailLeft.update(cx, cy);

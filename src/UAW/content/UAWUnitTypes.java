@@ -396,7 +396,7 @@ public class UAWUnitTypes implements ContentList {
 			speed = 3f;
 			accel = 0.1f;
 			drag = 0.016f;
-			rotateSpeed = 2;
+			rotateSpeed = 2.5f;
 			ammoType = new ItemAmmoType(Items.blastCompound);
 			circleTarget = true;
 			commandLimit = 3;
@@ -413,7 +413,7 @@ public class UAWUnitTypes implements ContentList {
 
 			weapons.add(new Weapon() {{
 				rotate = true;
-				minShootVelocity = 0.75f;
+				minShootVelocity = 0.5f;
 				x = 3f;
 				shootY = 0f;
 				reload = 3 * 60;
@@ -423,7 +423,7 @@ public class UAWUnitTypes implements ContentList {
 				ignoreRotation = true;
 				shootSound = UAWSfx.launcherShoot1;
 				bullet = new UAWArtilleryBulletType(1.5f, 125) {{
-					lifetime = (8 * tilesize) / speed;
+					lifetime = (range / 5) / speed;
 					width = 10f;
 					height = 14f;
 					shootEffect = Fx.none;
