@@ -4,6 +4,7 @@ import UAW.entities.abilities.RazorRotorAbility;
 import UAW.entities.bullet.*;
 import UAW.graphics.*;
 import UAW.type.*;
+import UAW.type.units.*;
 import UAW.type.weapon.*;
 import arc.graphics.Color;
 import arc.math.Mathf;
@@ -24,6 +25,7 @@ import static mindustry.content.Bullets.*;
 public class UAWUnitTypes implements ContentList {
 	public static UnitType
 		aglovale, bedivere, calogrenant, dagonet, esclabor,
+		jufeng,
 		clurit, kujang, kerambit, cetbang, kiAmuk,
 		hatsuharu, shiratsuyu, kagero, shimakaze,
 		gardlacz, arkabuz, armata, zemsta;
@@ -380,6 +382,22 @@ public class UAWUnitTypes implements ContentList {
 					bladeCount = 3;
 				}}
 			);
+		}};
+
+		jufeng = new MultiEngineUnitType("jufeng"){{
+			health = 450;
+			hitSize = 18;
+			speed = 2.8f;
+			accel = 0.04f;
+			drag = 0.016f;
+			rotateSpeed = 5.5f;
+			ammoType = new ItemAmmoType(Items.graphite);
+			circleTarget = true;
+			commandLimit = 3;
+
+			faceTarget = flying = true;
+			range = 35 * tilesize;
+			maxRange = range;
 		}};
 
 		clurit = new UnitType("clurit") {{

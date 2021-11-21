@@ -1,6 +1,7 @@
-package UAW.type;
+package UAW.type.units;
 
 import UAW.ai.types.CopterAI;
+import UAW.type.Rotor;
 import arc.graphics.g2d.Draw;
 import arc.math.*;
 import arc.struct.Seq;
@@ -22,6 +23,7 @@ public class CopterUnitType extends UnitType {
 		rotateSpeed = 6f;
 		defaultController = CopterAI::new;
 		fallSpeed = 0.007f;
+		onTitleScreen = false;
 	}
 
 	@Override

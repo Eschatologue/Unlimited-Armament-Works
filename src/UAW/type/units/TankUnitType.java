@@ -1,4 +1,4 @@
-package UAW.type;
+package UAW.type.units;
 
 import UAW.ai.types.SeekAI;
 import arc.graphics.Color;
