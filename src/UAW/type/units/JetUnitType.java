@@ -26,7 +26,6 @@ public class JetUnitType extends UnitType {
 		engineSize = 0f;
 		flying = true;
 		lowAltitude = false;
-		omniMovement = false;
 		constructor = UnitEntity::create;
 		defaultController = BomberJetAI::new;
 		faceTarget = false;
