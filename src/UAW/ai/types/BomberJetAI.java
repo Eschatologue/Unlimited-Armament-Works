@@ -8,24 +8,25 @@ import static mindustry.Vars.state;
 
 public class BomberJetAI extends FlyingAI {
 	@Override
-	public void updateMovement(){
+	public void updateMovement() {
 		unloadPayloads();
 
-		if(target != null && unit.hasWeapons() && command() == UnitCommand.attack){
-			if(!unit.type.circleTarget){
+		if (target != null && unit.hasWeapons() && command() == UnitCommand.attack) {
+			if (!unit.type.circleTarget) {
 				moveTo(target, unit.type.range * 0.8f);
 				unit.lookAt(target);
-			}else{
+			} else {
 				unit.angleTo(target);
-				attack(120f);
+				unit.lookAt(target);
+				attack(unit.type.range);
 			}
 		}
 
-		if(target == null && command() == UnitCommand.attack && state.rules.waves && unit.team == state.rules.defaultTeam){
-			moveTo(getClosestSpawner(), state.rules.dropZoneRadius + 120f);
+		if (target == null && command() == UnitCommand.attack && state.rules.waves && unit.team == state.rules.defaultTeam) {
+			moveTo(targetFlag(unit.x, unit.y, BlockFlag.core, false), unit.type.range / 4);
 		}
 
-		if(command() == UnitCommand.rally){
+		if (command() == UnitCommand.rally) {
 			moveTo(targetFlag(unit.x, unit.y, BlockFlag.rally, false), 60f);
 		}
 	}
