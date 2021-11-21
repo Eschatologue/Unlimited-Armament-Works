@@ -406,7 +406,7 @@ public class UAWUnitTypes implements ContentList {
 
 			trailY = -2;
 			trailLength = 8;
-			trailWidth = 1.4f;
+			trailWidth = 2f;
 		}};
 
 		clurit = new UnitType("clurit") {{
