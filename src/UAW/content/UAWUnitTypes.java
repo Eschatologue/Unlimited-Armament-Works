@@ -3,7 +3,7 @@ package UAW.content;
 import UAW.entities.abilities.RazorRotorAbility;
 import UAW.entities.bullet.*;
 import UAW.graphics.*;
-import UAW.type.*;
+import UAW.type.Rotor;
 import UAW.type.units.*;
 import UAW.type.weapon.*;
 import arc.graphics.Color;
@@ -48,6 +48,8 @@ public class UAWUnitTypes implements ContentList {
 			maxRange = range;
 			spinningFallSpeed = 4;
 			fallSmokeY = -10f;
+
+			onTitleScreen = false;
 
 			rotors.add(
 				new Rotor(name + "-blade") {{
@@ -131,6 +133,8 @@ public class UAWUnitTypes implements ContentList {
 
 			range = 40 * tilesize;
 			maxRange = range;
+
+			onTitleScreen = false;
 
 			rotors.add(
 				new Rotor(name + "-blade") {{
@@ -247,6 +251,8 @@ public class UAWUnitTypes implements ContentList {
 			maxRange = range;
 			fallSmokeChance = 0;
 			targetFlags = new BlockFlag[]{BlockFlag.turret, BlockFlag.battery, BlockFlag.extinguisher, null};
+
+			onTitleScreen = false;
 
 			weapons.add(
 				new PointDefenseWeapon("uaw-point-defense-red") {{
@@ -384,20 +390,19 @@ public class UAWUnitTypes implements ContentList {
 			);
 		}};
 
-		jufeng = new MultiEngineUnitType("jufeng"){{
+		jufeng = new JetUnitType("jufeng") {{
 			health = 450;
 			hitSize = 18;
-			speed = 2.8f;
-			accel = 0.04f;
+			speed = 3.8f;
+			accel = 0.02f;
 			drag = 0.016f;
 			rotateSpeed = 5.5f;
 			ammoType = new ItemAmmoType(Items.graphite);
 			circleTarget = true;
 			commandLimit = 3;
 
-			faceTarget = flying = true;
-			range = 35 * tilesize;
-			maxRange = range;
+			lowAltitude = omniMovement = false;
+			range = 55 * tilesize;
 		}};
 
 		clurit = new UnitType("clurit") {{

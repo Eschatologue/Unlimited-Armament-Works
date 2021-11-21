@@ -8,6 +8,7 @@ import arc.struct.Seq;
 import arc.util.Time;
 import mindustry.content.Fx;
 import mindustry.gen.*;
+import mindustry.graphics.Trail;
 import mindustry.type.UnitType;
 
 public class CopterUnitType extends UnitType {
