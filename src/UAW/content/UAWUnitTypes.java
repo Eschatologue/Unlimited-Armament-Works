@@ -401,15 +401,18 @@ public class UAWUnitTypes implements ContentList {
 			circleTarget = true;
 			commandLimit = 3;
 
-			lowAltitude = omniMovement = false;
+			lowAltitude = false;
 			range = 55 * tilesize;
 
 			targetFlags = new BlockFlag[]{BlockFlag.factory, null};
 
+			trailX = 6f;
 			trailY = -2;
 			trailLength = 14;
 			trailWidth = 3f;
+
 			weapons.add(new Weapon() {{
+				rotate = true;
 				minShootVelocity = 0.75f;
 				x = 3f;
 				shootY = 0f;

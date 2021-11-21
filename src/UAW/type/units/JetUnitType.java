@@ -34,10 +34,10 @@ public class JetUnitType extends UnitType {
 	@Override
 	public void update(Unit unit) {
 		super.update(unit);
-		float cx = unit.x + Angles.trnsx(unit.rotation - 90, trailX, trailY);
-		float cy = unit.y + Angles.trnsx(unit.rotation - 90, trailX, trailY);
-		float cx2 = unit.x + Angles.trnsx(unit.rotation - 90, -trailX, trailY);
-		float cy2 = unit.y + Angles.trnsx(unit.rotation - 90, -trailX, trailY);
+		float cx = Angles.trnsx(unit.rotation - 90, trailX, trailY) + unit.x;
+		float cy = Angles.trnsx(unit.rotation - 90, trailX, trailY) + unit.y;
+		float cx2 = Angles.trnsx(unit.rotation - 90, -trailX, trailY) + unit.x;
+		float cy2 = Angles.trnsx(unit.rotation - 90, -trailX, trailY) + unit.y;
 		if (unit.moving()) {
 			if (Mathf.chanceDelta(1.5f)) {
 				UAWFxDynamic.jetTrail(trailLength).at(cx, cy, trailWidth, trailColor);
