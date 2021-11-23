@@ -16,7 +16,6 @@ public class JetUnitType extends UnitType {
 	public float trailY = 0f;
 	public int trailLength = 15;
 	public float trailWidth = 4f;
-	public float normalRotateSpeed = 2.5f;
 	public Color trailColor = Pal.bulletYellowBack;
 	/*
 	public Trail trailLeft = new Trail(trailLength);
@@ -26,7 +25,6 @@ public class JetUnitType extends UnitType {
 	public JetUnitType(String name) {
 		super(name);
 		this.engineSize = trailWidth;
-		this.engineOffset = trailX;
 		flying = true;
 		lowAltitude = false;
 		constructor = UnitEntity::create;
@@ -50,41 +48,10 @@ public class JetUnitType extends UnitType {
 				UAWFxDynamic.jetTrail(trailLength).at(cx2, cy2, trailWidth, unit.team.color);
 			}
 		}
-		if (!unit.moving()) {
-			engineSize = Mathf.lerpDelta(0, trailWidth, trailWidth / 8);
-		} else engineSize = Mathf.lerpDelta(trailWidth, 0, trailWidth / 4);
-		omniMovement = !unit.isPlayer();
+		omniMovement = !unit.isPlayer() && unit.isShooting && unit.isAI();
 		/*
 		trailLeft.update(cx, cy);
 		trailRight.update(cx2, cy2);*/
-	}
-
-	@Override
-	public void drawEngine(Unit unit) {
-		if (!unit.isFlying()) return;
-
-		float scale = unit.elevation;
-		float offset = engineOffset / 2f + engineOffset / 2f * scale;
-
-		Draw.color(unit.team.color);
-		for (int i = 0; i < 2; i++) {
-			float engineRot = unit.rotation + (i * 360f / 2);
-			Fill.circle(
-				unit.x + Angles.trnsx(engineRot, offset),
-				unit.y + Angles.trnsy(engineRot, offset),
-				(engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) * scale
-			);
-		}
-		Draw.color(Color.white);
-		for (int i = 0; i < 2; i++) {
-			float engineRot = unit.rotation + (i * 360f / 2);
-			Fill.circle(
-				unit.x + Angles.trnsx(engineRot, offset - 1),
-				unit.y + Angles.trnsy(engineRot, offset - 1),
-				(engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) / 2f * scale
-			);
-		}
-		Draw.color();
 	}
 
 /*

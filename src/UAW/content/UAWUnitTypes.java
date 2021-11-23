@@ -419,17 +419,21 @@ public class UAWUnitTypes implements ContentList {
 					shootCone = 90f;
 					ejectEffect = Fx.none;
 					inaccuracy = 0f;
-					shootSound = UAWSfx.launcherShoot1;
+					shootSound = Sounds.shoot;
 					bullet = new UAWArtilleryBulletType(1.5f, 125) {{
+						buildingDamageMultiplier = 2.5f;
 						lifetime = (range / 5) / speed;
+						trailMult = 2;
 						width = 10f;
 						height = 14f;
 						shootEffect = Fx.none;
 						smokeEffect = Fx.none;
 						splashDamageRadius = 8 * tilesize;
 						hitEffect = UAWFxDynamic.dynamicExplosion(splashDamageRadius);
+						hitSound = Sounds.explosionbig;
 						status = StatusEffects.blasted;
 						statusDuration = 60f;
+						makeFire = true;
 					}};
 				}});
 		}};
