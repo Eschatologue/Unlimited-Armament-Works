@@ -394,7 +394,7 @@ public class UAWUnitTypes implements ContentList {
 			health = 450;
 			hitSize = 20;
 			speed = 3f;
-			accel = 0.04f;
+			accel = 0.1f;
 			drag = 0.016f;
 			rotateSpeed = 6f;
 			ammoType = new ItemAmmoType(Items.blastCompound);
@@ -433,7 +433,6 @@ public class UAWUnitTypes implements ContentList {
 						status = StatusEffects.blasted;
 						statusDuration = 60f;
 						makeFire = true;
-						keepVelocity = false;
 					}};
 				}});
 		}};

@@ -30,8 +30,6 @@ public class JetUnitType extends UnitType {
 		faceTarget = false;
 		targetAir = false;
 		playerTargetFlags = new BlockFlag[]{null};
-
-		abilities.add(new EngineOverdriveAbility(0.3f, 0.2f));
 	}
 
 	@Override

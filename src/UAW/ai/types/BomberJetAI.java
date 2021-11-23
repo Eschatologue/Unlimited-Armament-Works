@@ -26,11 +26,6 @@ public class BomberJetAI extends FlyingAI {
 			unit.lookAt(unit.vel().angle());
 		}
 
-		if (unit.health < unit.maxHealth / 4){
-			moveTo(targetFlag(unit.x, unit.y, BlockFlag.repair, false), unit.type.range * 0.4f);
-			unit.lookAt(unit.vel().angle());
-		}
-
 		if (command() == UnitCommand.rally) {
 			moveTo(targetFlag(unit.x, unit.y, BlockFlag.rally, false), 60f);
 		}
