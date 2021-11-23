@@ -396,7 +396,7 @@ public class UAWUnitTypes implements ContentList {
 			speed = 3f;
 			accel = 0.1f;
 			drag = 0.016f;
-			normalRotateSpeed = rotateSpeed = 3f;
+			rotateSpeed = 6f;
 			ammoType = new ItemAmmoType(Items.blastCompound);
 			circleTarget = true;
 			commandLimit = 3;
@@ -415,7 +415,6 @@ public class UAWUnitTypes implements ContentList {
 				new Weapon() {{
 					rotate = true;
 					x = 3f;
-					shootY = 0f;
 					reload = 3 * 60;
 					shootCone = 90f;
 					ejectEffect = Fx.none;

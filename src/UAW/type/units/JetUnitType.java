@@ -3,7 +3,9 @@ package UAW.type.units;
 import UAW.ai.types.BomberJetAI;
 import UAW.graphics.UAWFxDynamic;
 import arc.graphics.Color;
+import arc.graphics.g2d.*;
 import arc.math.*;
+import arc.util.Time;
 import mindustry.gen.*;
 import mindustry.graphics.Pal;
 import mindustry.type.UnitType;
@@ -23,7 +25,8 @@ public class JetUnitType extends UnitType {
 
 	public JetUnitType(String name) {
 		super(name);
-		engineSize = 0f;
+		this.engineSize = trailWidth;
+		this.engineOffset = trailX;
 		flying = true;
 		lowAltitude = false;
 		constructor = UnitEntity::create;
@@ -43,15 +46,47 @@ public class JetUnitType extends UnitType {
 		float cy2 = Angles.trnsy(unit.rotation - 90, -trailX, trailY) + unit.y;
 		if (unit.moving()) {
 			if (Mathf.chanceDelta(1.5f)) {
-				UAWFxDynamic.jetTrail(trailLength).at(cx, cy, trailWidth, trailColor);
-				UAWFxDynamic.jetTrail(trailLength).at(cx2, cy2, trailWidth, trailColor);
+				UAWFxDynamic.jetTrail(trailLength).at(cx, cy, trailWidth, unit.team.color);
+				UAWFxDynamic.jetTrail(trailLength).at(cx2, cy2, trailWidth, unit.team.color);
 			}
 		}
-		omniMovement = !unit.isShooting && !unit.isPlayer() && !unit.isShooting();
+		if (!unit.moving()) {
+			engineSize = Mathf.lerpDelta(0, trailWidth, trailWidth / 8);
+		} else engineSize = Mathf.lerpDelta(trailWidth, 0, trailWidth / 4);
+		omniMovement = !unit.isPlayer();
 		/*
 		trailLeft.update(cx, cy);
 		trailRight.update(cx2, cy2);*/
 	}
+
+	@Override
+	public void drawEngine(Unit unit) {
+		if (!unit.isFlying()) return;
+
+		float scale = unit.elevation;
+		float offset = engineOffset / 2f + engineOffset / 2f * scale;
+
+		Draw.color(unit.team.color);
+		for (int i = 0; i < 2; i++) {
+			float engineRot = unit.rotation + (i * 360f / 2);
+			Fill.circle(
+				unit.x + Angles.trnsx(engineRot, offset),
+				unit.y + Angles.trnsy(engineRot, offset),
+				(engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) * scale
+			);
+		}
+		Draw.color(Color.white);
+		for (int i = 0; i < 2; i++) {
+			float engineRot = unit.rotation + (i * 360f / 2);
+			Fill.circle(
+				unit.x + Angles.trnsx(engineRot, offset - 1),
+				unit.y + Angles.trnsy(engineRot, offset - 1),
+				(engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) / 2f * scale
+			);
+		}
+		Draw.color();
+	}
+
 /*
 	@Override
 	public void draw(Unit unit) {
