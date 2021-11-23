@@ -392,19 +392,19 @@ public class UAWUnitTypes implements ContentList {
 
 		jufeng = new JetUnitType("jufeng") {{
 			health = 450;
-			hitSize = 18;
+			hitSize = 20;
 			speed = 3f;
-			accel = 0.1f;
+			accel = 0.04f;
 			drag = 0.016f;
 			rotateSpeed = 6f;
 			ammoType = new ItemAmmoType(Items.blastCompound);
 			circleTarget = true;
-			commandLimit = 3;
+			commandLimit = 4;
 
 			lowAltitude = false;
-			range = 55 * tilesize;
+			range = 45 * tilesize;
 
-			targetFlags = new BlockFlag[]{BlockFlag.factory, null};
+			targetFlags = new BlockFlag[]{BlockFlag.factory, BlockFlag.generator, null};
 
 			trailX = 6f;
 			trailY = -2;
@@ -413,14 +413,13 @@ public class UAWUnitTypes implements ContentList {
 
 			weapons.add(
 				new Weapon() {{
-					rotate = true;
 					x = 3f;
 					reload = 3 * 60;
 					shootCone = 90f;
 					ejectEffect = Fx.none;
 					inaccuracy = 0f;
 					shootSound = Sounds.shoot;
-					bullet = new UAWArtilleryBulletType(1.5f, 125) {{
+					bullet = new UAWArtilleryBulletType(2f, 125) {{
 						buildingDamageMultiplier = 2.5f;
 						lifetime = (range / 5) / speed;
 						trailMult = 2;
@@ -434,6 +433,7 @@ public class UAWUnitTypes implements ContentList {
 						status = StatusEffects.blasted;
 						statusDuration = 60f;
 						makeFire = true;
+						keepVelocity = false;
 					}};
 				}});
 		}};

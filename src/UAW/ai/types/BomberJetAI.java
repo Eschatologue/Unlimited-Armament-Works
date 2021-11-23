@@ -1,5 +1,6 @@
 package UAW.ai.types;
 
+import UAW.type.units.JetUnitType;
 import mindustry.ai.types.FlyingAI;
 import mindustry.entities.units.UnitCommand;
 import mindustry.world.meta.BlockFlag;
@@ -22,6 +23,11 @@ public class BomberJetAI extends FlyingAI {
 
 		if (target == null && command() == UnitCommand.attack && state.rules.waves && unit.team == state.rules.defaultTeam) {
 			moveTo(targetFlag(unit.x, unit.y, BlockFlag.core, false), unit.type.range / 4);
+			unit.lookAt(unit.vel().angle());
+		}
+
+		if (unit.health < unit.maxHealth / 4){
+			moveTo(targetFlag(unit.x, unit.y, BlockFlag.repair, false), unit.type.range * 0.4f);
 			unit.lookAt(unit.vel().angle());
 		}
 
