@@ -14,17 +14,19 @@ public class CopterAI extends FlyingAI {
 				unit.lookAt(target);
 				moveTo(target, unit.type.range * 0.75f);
 			} else {
-				unit.lookAt(target);
 				attack(unit.type.range * 0.8f);
+				unit.lookAt(unit.vel().angle());
 			}
 		}
 
 		if (target == null && command() == UnitCommand.attack && state.rules.waves && unit.team == state.rules.defaultTeam) {
 			moveTo(getClosestSpawner(), state.rules.dropZoneRadius + 120f);
+			unit.lookAt(unit.vel().angle());
 		}
 
 		if (command() == UnitCommand.rally) {
 			moveTo(targetFlag(unit.x, unit.y, BlockFlag.rally, false), 60f);
+			unit.lookAt(unit.vel().angle());
 		}
 	}
 }

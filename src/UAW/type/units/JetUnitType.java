@@ -22,13 +22,11 @@ public class JetUnitType extends UnitType {
 	public JetUnitType(String name) {
 		super(name);
 		engineSize = 0;
+		targetAir = lowAltitude = faceTarget = false;
 		flying = true;
-		lowAltitude = false;
 		constructor = UnitEntity::create;
 		circleTarget = true;
 		defaultController = BomberJetAI::new;
-		faceTarget = false;
-		targetAir = false;
 		playerTargetFlags = new BlockFlag[]{null};
 	}
 

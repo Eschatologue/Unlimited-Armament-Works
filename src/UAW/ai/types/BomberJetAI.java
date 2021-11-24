@@ -22,12 +22,13 @@ public class BomberJetAI extends FlyingAI {
 		}
 
 		if (target == null && command() == UnitCommand.attack && state.rules.waves && unit.team == state.rules.defaultTeam) {
-			moveTo(targetFlag(unit.x, unit.y, BlockFlag.core, false), unit.type.range / 4);
+			moveTo(getClosestSpawner(), state.rules.dropZoneRadius + 240f);
 			unit.lookAt(unit.vel().angle());
 		}
 
 		if (command() == UnitCommand.rally) {
 			moveTo(targetFlag(unit.x, unit.y, BlockFlag.rally, false), 60f);
+			unit.lookAt(unit.vel().angle());
 		}
 	}
 }

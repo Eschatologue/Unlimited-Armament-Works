@@ -33,7 +33,7 @@ public class UAWBlock implements ContentList {
 		solo, longsword, deadeye,
 		buckshot, tempest, strikeforce,
 		ashlock, zounderkite, skyhammer,
-		heavylight, trailblazer, gigavolt,
+		heavylight, trailblazer, terravolt,
 	// Crafters
 	gelatinizer, carburizingFurnace, surgeMixer, coalLiquefier,
 	// Power
@@ -863,9 +863,9 @@ public class UAWBlock implements ContentList {
 			size = 5;
 			consumes.power(4.5f);
 			consumes.items(with(
-				Items.silicon, 90,
-				Items.titanium, 130,
-				Items.plastanium, 60)
+				Items.silicon, 80,
+				Items.titanium, 120,
+				Items.plastanium, 50)
 			);
 			consumes.liquid(Liquids.oil, 0.5f);
 
@@ -874,7 +874,8 @@ public class UAWBlock implements ContentList {
 			placeableLiquid = true;
 
 			upgrades.addAll(
-				new UnitType[]{UnitTypes.horizon, UAWUnitTypes.aglovale},
+				new UnitType[]{UnitTypes.zenith, UAWUnitTypes.aglovale},
+				new UnitType[]{UnitTypes.horizon, UAWUnitTypes.jufeng},
 				new UnitType[]{UnitTypes.mace, UAWUnitTypes.gardlacz},
 				new UnitType[]{UnitTypes.minke, UAWUnitTypes.clurit},
 				new UnitType[]{UnitTypes.bryde, UAWUnitTypes.hatsuharu}

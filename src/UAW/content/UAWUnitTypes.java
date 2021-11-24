@@ -419,9 +419,9 @@ public class UAWUnitTypes implements ContentList {
 					ejectEffect = Fx.none;
 					inaccuracy = 0f;
 					shootSound = Sounds.shoot;
-					bullet = new UAWArtilleryBulletType(2f, 125) {{
+					bullet = new UAWArtilleryBulletType(2f, 225) {{
 						buildingDamageMultiplier = 2.5f;
-						lifetime = (range / 5) / speed;
+						lifetime = (range / 4) / speed;
 						trailMult = 2;
 						width = 10f;
 						height = 14f;

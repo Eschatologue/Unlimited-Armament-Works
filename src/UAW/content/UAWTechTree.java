@@ -210,6 +210,10 @@ public class UAWTechTree implements ContentList {
 						new Research(antumbra)
 					))
 				)));
+		// Jet Bombers
+		vanillaNode(horizon, () ->
+			node(jufeng)
+		);
 		// Tanks
 		vanillaNode(mace, () ->
 			node(gardlacz, () ->
