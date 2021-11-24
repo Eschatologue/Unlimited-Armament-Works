@@ -11,6 +11,7 @@ import mindustry.graphics.*;
 import static arc.graphics.g2d.Draw.*;
 import static arc.graphics.g2d.Lines.*;
 import static arc.math.Angles.randLenVectors;
+import static mindustry.Vars.*;
 
 public class UAWFxDynamic {
 	private static final Rand rand = new Rand();
@@ -202,18 +203,17 @@ public class UAWFxDynamic {
 			color(Color.gray);
 			alpha(0.9f);
 			for (int i = 0; i < 4; i++) {
-				rand.setSeed(b.id * 2 + i);
+				rand.setSeed(b.id * 2L + i);
 				float lenScl = rand.random(0.4f, 1f);
 				int fi = i;
-				b.scaled(b.lifetime * lenScl, e -> {
+				b.scaled(b.lifetime * lenScl, e ->
 					randLenVectors(e.id + fi - 1, e.fin(Interp.pow10Out), (int) (3f * intensity), 14f * intensity, (x, y, in, out) -> {
 						float fout = e.fout(Interp.pow5Out) * rand.random(0.5f, 1f);
 						Fill.circle(e.x + x, e.y + y, fout * ((2f + intensity) * 1.8f));
-					});
-				});
+					}));
 			}
 
-			b.scaled(baseLifetime, e -> {
+			b.scaled((baseLifetime / 1.5f), e -> {
 				e.scaled(5 + intensity * 2.5f, i -> {
 					stroke((3.1f + intensity / 5f) * i.fout());
 					Lines.circle(e.x, e.y, (3f + i.fin() * 14f) * intensity);
@@ -229,6 +229,16 @@ public class UAWFxDynamic {
 					Drawf.light(e.x + x, e.y + y, (out * 4 * (3f + intensity)) * 3.5f, Draw.getColor(), 0.8f);
 				});
 			});
+		}).layer(Layer.effect + 1);
+	}
+
+	public static Effect dynamicExplosionSmoke(float size, Color color) {
+		return new Effect(size * 10, 450f, e -> {
+			float smokeSize = e.fout() * size / 6;
+			randLenVectors(e.id, (int) (size * 3) / tilesize, e.finpow() * 160f, (x, y) -> {
+				color(color, Color.lightGray, e.fin());
+				Fill.circle(e.x + x, e.y + y, smokeSize / 1.7f);
+			});
 		});
 	}
 
@@ -242,7 +252,7 @@ public class UAWFxDynamic {
 	 * @param color The spark color
 	 */
 	public static Effect hugeExplosion(float size, Color color) {
-		return new Effect(120, 450f, e -> {
+		return new Effect(size * 10, 450f, e -> {
 			float intensity = size / 19f;
 			float smokeSize = e.fout() * size / 6;
 
@@ -251,7 +261,7 @@ public class UAWFxDynamic {
 				Fill.circle(e.x + x, e.y + y, smokeSize / 1.5f);
 			});
 			color(Color.gray);
-			alpha(0.9f);
+			alpha(0.8f);
 			randLenVectors(e.id, 35, e.finpow() * e.lifetime, (x, y) -> {
 				color(Pal.lighterOrange, Pal.darkishGray, Color.gray, e.fin());
 				Fill.circle(e.x + x, e.y + y, smokeSize * 1.5f);

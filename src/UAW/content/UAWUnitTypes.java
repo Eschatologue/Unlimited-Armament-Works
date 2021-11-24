@@ -348,8 +348,8 @@ public class UAWUnitTypes implements ContentList {
 						shootEffect = UAWFxStatic.shootCryoFlame;
 						trailColor = UAWPal.cryoFront;
 						hitEffect = despawnEffect = new MultiEffect(
-							UAWFxDynamic.dynamicExplosion(splashDamageRadius),
-							UAWFxDynamic.crossBombBlast(splashDamageRadius, UAWPal.cryoMiddle)
+							UAWFxDynamic.dynamicExplosionSmoke(splashDamageRadius, UAWPal.cryoMiddle),
+							UAWFxDynamic.dynamicExplosion(splashDamageRadius)
 						);
 						trailEffect = UAWFxStatic.cryoSmokeTrailUnder;
 						status = StatusEffects.freezing;
@@ -408,20 +408,20 @@ public class UAWUnitTypes implements ContentList {
 
 			trailX = 6f;
 			trailY = -2;
-			trailLength = 14;
+			trailLength = 18;
 			trailWidth = 3f;
 
 			weapons.add(
 				new Weapon() {{
 					x = 3f;
-					reload = 3 * 60;
+					reload = 3f * 60;
 					shootCone = 90f;
 					ejectEffect = Fx.none;
 					inaccuracy = 0f;
 					shootSound = Sounds.shoot;
 					bullet = new UAWArtilleryBulletType(2f, 225) {{
 						buildingDamageMultiplier = 2.5f;
-						lifetime = (range / 4) / speed;
+						lifetime = (range / 3) / speed;
 						trailMult = 2;
 						width = 10f;
 						height = 14f;
@@ -433,6 +433,7 @@ public class UAWUnitTypes implements ContentList {
 						status = StatusEffects.blasted;
 						statusDuration = 60f;
 						makeFire = true;
+						fragBullet = fragPlasticFrag;
 					}};
 				}});
 		}};
