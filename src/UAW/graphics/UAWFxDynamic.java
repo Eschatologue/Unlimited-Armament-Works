@@ -229,15 +229,15 @@ public class UAWFxDynamic {
 					Drawf.light(e.x + x, e.y + y, (out * 4 * (3f + intensity)) * 3.5f, Draw.getColor(), 0.8f);
 				});
 			});
-		}).layer(Layer.effect + 1);
+		});
 	}
 
 	public static Effect dynamicExplosionSmoke(float size, Color color) {
-		return new Effect(size * 10, 450f, e -> {
+		return new Effect(size / 1.5f, 450f, e -> {
 			float smokeSize = e.fout() * size / 6;
 			randLenVectors(e.id, (int) (size * 3) / tilesize, e.finpow() * 160f, (x, y) -> {
 				color(color, Color.lightGray, e.fin());
-				Fill.circle(e.x + x, e.y + y, smokeSize / 1.7f);
+				Fill.circle(e.x + x, e.y + y, smokeSize / 1.8f);
 			});
 		});
 	}
@@ -252,7 +252,7 @@ public class UAWFxDynamic {
 	 * @param color The spark color
 	 */
 	public static Effect hugeExplosion(float size, Color color) {
-		return new Effect(size * 10, 450f, e -> {
+		return new Effect(size / 1.5f, 450f, e -> {
 			float intensity = size / 19f;
 			float smokeSize = e.fout() * size / 6;
 
@@ -281,7 +281,7 @@ public class UAWFxDynamic {
 				lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), 1f + out * 4 * (4f + intensity));
 				Drawf.light(e.x + x, e.y + y, (out * 4 * (5f + intensity)) * 3.5f, Draw.getColor(), 0.8f);
 			});
-		}).layer(Layer.effect + 1);
+		});
 	}
 
 	public static Effect statusHit(float lifetime, Color color) {
