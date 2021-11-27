@@ -433,6 +433,8 @@ public class UAWUnitTypes implements ContentList {
 						status = StatusEffects.blasted;
 						statusDuration = 60f;
 						makeFire = true;
+						homingPower = 0.08f;
+						homingRange = 32f;
 						fragBullet = fragPlasticFrag;
 					}};
 				}});

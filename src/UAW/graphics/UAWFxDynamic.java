@@ -190,7 +190,7 @@ public class UAWFxDynamic {
 	}
 
 	/**
-	 * Vanilla dynamicExplosion with adjustable color
+	 * Vanilla dynamicExplosion
 	 *
 	 * @param size How big is the explosion
 	 */
@@ -235,7 +235,7 @@ public class UAWFxDynamic {
 	public static Effect dynamicExplosionSmoke(float size, Color color) {
 		return new Effect(size / 1.5f, 450f, e -> {
 			float smokeSize = e.fout() * size / 6;
-			randLenVectors(e.id, (int) (size * 3) / tilesize, e.finpow() * 160f, (x, y) -> {
+			randLenVectors(e.id, (int) (size * 2) / tilesize, e.finpow() * 160f, (x, y) -> {
 				color(color, Color.lightGray, e.fin());
 				Fill.circle(e.x + x, e.y + y, smokeSize / 1.8f);
 			});
@@ -245,18 +245,18 @@ public class UAWFxDynamic {
 	/**
 	 * Vanilla Reactor Explosion with adjustable color
 	 * <p>
-	 * Use this with CircleApply
+	 * Use this with CircleApply and if the explosion has statusEffect
 	 * </p>
 	 *
 	 * @param size  How big is the explosion, calculated in world unit
 	 * @param color The spark color
 	 */
 	public static Effect hugeExplosion(float size, Color color) {
-		return new Effect(size / 1.5f, 450f, e -> {
+		return new Effect(size * 0.8f, 450f, e -> {
 			float intensity = size / 19f;
 			float smokeSize = e.fout() * size / 6;
 
-			randLenVectors(e.id, 40, e.finpow() * 160f, (x, y) -> {
+			randLenVectors(e.id, 40, e.finpow() * (e.lifetime * 1.4f), (x, y) -> {
 				color(color);
 				Fill.circle(e.x + x, e.y + y, smokeSize / 1.5f);
 			});
@@ -264,7 +264,7 @@ public class UAWFxDynamic {
 			alpha(0.8f);
 			randLenVectors(e.id, 35, e.finpow() * e.lifetime, (x, y) -> {
 				color(Pal.lighterOrange, Pal.darkishGray, Color.gray, e.fin());
-				Fill.circle(e.x + x, e.y + y, smokeSize * 1.5f);
+				Fill.circle(e.x + x, e.y + y, smokeSize * 2f);
 			});
 			Draw.color();
 			e.scaled(5 + intensity * 2f, i -> {
