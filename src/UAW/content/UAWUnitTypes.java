@@ -413,12 +413,13 @@ public class UAWUnitTypes implements ContentList {
 
 			weapons.add(
 				new Weapon() {{
+					minShootVelocity = 0.75f;
 					x = 3f;
 					reload = 3f * 60;
 					shootCone = 90f;
 					ejectEffect = Fx.none;
 					inaccuracy = 0f;
-					shootSound = Sounds.shoot;
+					shootSound = Sounds.shootBig;
 					bullet = new UAWArtilleryBulletType(2f, 225) {{
 						buildingDamageMultiplier = 2.5f;
 						lifetime = (range / 3) / speed;

@@ -31,7 +31,7 @@ public class UAWGenericCrafter extends GenericCrafter {
 	public void load() {
 		super.load();
 		rotator = Core.atlas.find(name + "-rotator");
-		rotatorTop = Core.atlas.find(name + "-top");
+		rotatorTop = Core.atlas.find(name + "-rotator-top");
 	}
 
 	public class UAWGenericCrafterBuild extends GenericCrafterBuild {
@@ -48,12 +48,10 @@ public class UAWGenericCrafter extends GenericCrafter {
 		}
 
 		@Override
-		public void updateTile() {
-			super.updateTile();
-			if (progress >= 1f) {
-				craftSound.at(x, y);
-				Effect.shake(craftShakeIntensity, craftShakeIntensity, x, y);
-			}
+		public void craft() {
+			super.craft();
+			Effect.shake(craftShakeIntensity, craftShakeIntensity, x, y);
+			craftSound.at(x, y,2);
 		}
 	}
 }
