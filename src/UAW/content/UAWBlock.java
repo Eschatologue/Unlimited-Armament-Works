@@ -7,6 +7,7 @@ import UAW.world.blocks.defense.turrets.*;
 import UAW.world.blocks.defense.walls.ShieldWall;
 import UAW.world.blocks.drawer.DrawLiquidInput;
 import UAW.world.blocks.power.WarmUpGenerator;
+import UAW.world.blocks.production.UAWGenericCrafter;
 import arc.graphics.Color;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
@@ -662,7 +663,7 @@ public class UAWBlock implements ContentList {
 			craftEffect = Fx.freezing;
 			updateEffect = Fx.wet;
 		}};
-		carburizingFurnace = new GenericCrafter("carburizing-furnace") {{
+		carburizingFurnace = new UAWGenericCrafter("carburizing-furnace") {{
 			requirements(Category.crafting, with(
 				Items.titanium, 150,
 				Items.thorium, 125,

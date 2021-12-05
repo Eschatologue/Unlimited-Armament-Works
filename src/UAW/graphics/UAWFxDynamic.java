@@ -335,18 +335,17 @@ public class UAWFxDynamic {
 
 			color(frontColor);
 			for (int i = 0; i < 4; i++) {
-				Drawf.tri(e.x, e.y, (width * 2), length * e.fin(), i * 90);
+				Drawf.tri(e.x, e.y, (width * 2), length * e.finpowdown(), i * 90);
 			}
 
 			color(backColor);
 			for (int i = 0; i < 4; i++) {
-				Drawf.tri(e.x, e.y, width, length * e.fin(), i * 90);
+				Drawf.tri(e.x, e.y, width, length * e.finpowdown(), i * 90);
 			}
 			randLenVectors(e.id, 15, e.finpow() * 160f, (x, y) -> {
 				color(Pal.lighterOrange, Color.lightGray, e.fin());
 				Fill.square(e.x + x, e.y + y, (e.fout() * 15f) / 2f, 45);
 			});
-			Effect.shake(size / 6, e.lifetime / 3f, e.x, e.y);
 		});
 	}
 
