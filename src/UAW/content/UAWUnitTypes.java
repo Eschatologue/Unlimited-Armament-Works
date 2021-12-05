@@ -420,10 +420,12 @@ public class UAWUnitTypes implements ContentList {
 					ejectEffect = Fx.none;
 					inaccuracy = 0f;
 					shootSound = Sounds.shootBig;
-					bullet = new UAWArtilleryBulletType(2f, 225) {{
+					shots = 2;
+					shotDelay = 15f;
+					bullet = new UAWArtilleryBulletType(1.8f, 125) {{
 						buildingDamageMultiplier = 2.5f;
 						lifetime = (range / 3) / speed;
-						trailMult = 2;
+						trailMult = 3;
 						width = 10f;
 						height = 14f;
 						shootEffect = Fx.none;
@@ -434,7 +436,7 @@ public class UAWUnitTypes implements ContentList {
 						status = StatusEffects.blasted;
 						statusDuration = 60f;
 						makeFire = true;
-						homingPower = 0.08f;
+						homingPower = 0.04f;
 						homingRange = 32f;
 						fragBullet = fragPlasticFrag;
 					}};
