@@ -11,7 +11,7 @@ import mindustry.graphics.*;
 import static arc.graphics.g2d.Draw.*;
 import static arc.graphics.g2d.Lines.*;
 import static arc.math.Angles.randLenVectors;
-import static mindustry.Vars.*;
+import static mindustry.Vars.tilesize;
 
 public class UAWFxDynamic {
 	private static final Rand rand = new Rand();
@@ -330,30 +330,27 @@ public class UAWFxDynamic {
 	 *
 	 * @author FlinTyX
 	 */
-	public static Effect burstSmelt(float height, float width, float offset, Color frontColor, Color backColor) {
-		return new Effect(35, e -> {
-			for (int i = 0; i < 2; i++) {
-				//Darker Shade
-				Draw.color(frontColor);
+	public static Effect burstSmelt(float size, Color frontColor, Color backColor) {
+		float length = size * 1.7f;
+		float width = size / 13.3f;
+		return new Effect(20f, 100f, e -> {
+			color(frontColor);
+			stroke(e.fout() * 4f);
+			Lines.circle(e.x, e.y, 4f + e.finpow() * size);
 
-				float h = e.finpow() * height;
-				float w = e.fout() * width;
-
-				Drawf.tri(i == 0 ? e.x + offset : e.x - offset, e.y, w, h, 90);
-				Drawf.tri(e.x, i == 0 ? e.y - offset : e.y + offset, w, h, i == 0 ? -90 : 90);
-				//Lighter Shade
-				Draw.color(Color.gray, backColor, Color.white, e.fin());
-
-				e.scaled(7, j -> {
-					Lines.stroke(3 * j.fout());
-					Lines.circle(e.x, e.y, 4 + j.fin() * 30);
-				});
-				Draw.color(backColor);
-				Angles.randLenVectors(e.id, 15, 32 * e.finpow(), (x, y) ->
-					Fill.circle(e.x + x, e.y + y, (float) (e.fout() * 2 + 0.5)));
+			color(frontColor);
+			for (int i = 0; i < 4; i++) {
+				Drawf.tri(e.x, e.y, (width * 2), (length * 1.5f) * e.fout(), i * 90);
 			}
+
+			color(backColor);
+			for (int i = 0; i < 4; i++) {
+				Drawf.tri(e.x, e.y, width, (length / 2.7f) * e.fout(), i * 90);
+			}
+			Effect.shake(size / 2, 30f, e.x, e.y);
 		});
 	}
+
 
 	public static Effect smokeCloud(Color color) {
 		return new Effect(80f, e -> {
