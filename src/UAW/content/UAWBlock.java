@@ -687,8 +687,7 @@ public class UAWBlock implements ContentList {
 			craftTime = 4.5f * tick;
 			drawer = new DrawSmelter();
 			craftEffect = new MultiEffect(
-				UAWFxDynamic.burstSmelt(4 * tilesize, Pal.missileYellow, Pal.missileYellowBack),
-				Fx.impactcloud
+				UAWFxDynamic.burstSmelt(4 * tilesize, Pal.missileYellow, Pal.missileYellowBack)
 			);
 			updateEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
 		}};

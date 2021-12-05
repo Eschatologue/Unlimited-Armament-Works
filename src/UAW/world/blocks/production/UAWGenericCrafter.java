@@ -11,9 +11,9 @@ import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.meta.BlockFlag;
 
 public class UAWGenericCrafter extends GenericCrafter {
-	public TextureRegion rotator, top;
+	public TextureRegion rotator, rotatorTop;
 	public float rotatorSpinSpeed = 15f;
-	public float craftShakeIntensity = 8;
+	public float craftShakeIntensity = 16;
 	public Sound craftSound = Sounds.plasmaboom;
 
 	public UAWGenericCrafter(String name) {
@@ -31,19 +31,10 @@ public class UAWGenericCrafter extends GenericCrafter {
 	public void load() {
 		super.load();
 		rotator = Core.atlas.find(name + "-rotator");
-		top = Core.atlas.find(name + "-top");
+		rotatorTop = Core.atlas.find(name + "-top");
 	}
 
 	public class UAWGenericCrafterBuild extends GenericCrafterBuild {
-
-		@Override
-		public void updateTile() {
-			super.updateTile();
-			if (progress >= 1f) {
-				craftSound.at(x, y);
-				Effect.shake(craftShakeIntensity, craftShakeIntensity, x, y);
-			}
-		}
 
 		@Override
 		public void draw() {
@@ -51,8 +42,17 @@ public class UAWGenericCrafter extends GenericCrafter {
 			if (rotator.found()) {
 				Draw.rect(rotator, x, y, Time.time * (rotatorSpinSpeed * warmup));
 			}
-			if (top.found()) {
-				Draw.rect(top, x, y);
+			if (rotatorTop.found()) {
+				Draw.rect(rotatorTop, x, y);
+			}
+		}
+
+		@Override
+		public void updateTile() {
+			super.updateTile();
+			if (progress >= 1f) {
+				craftSound.at(x, y);
+				Effect.shake(craftShakeIntensity, craftShakeIntensity, x, y);
 			}
 		}
 	}
