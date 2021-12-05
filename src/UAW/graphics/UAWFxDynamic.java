@@ -6,6 +6,7 @@ import arc.math.*;
 import arc.math.geom.Vec2;
 import arc.util.*;
 import mindustry.entities.Effect;
+import mindustry.gen.Sounds;
 import mindustry.graphics.*;
 
 import static arc.graphics.g2d.Draw.*;
@@ -331,9 +332,9 @@ public class UAWFxDynamic {
 	 * @author FlinTyX
 	 */
 	public static Effect burstSmelt(float size, Color frontColor, Color backColor) {
-		float length = size * 1.7f;
-		float width = size / 13.3f;
-		return new Effect(20f, 100f, e -> {
+		float length = size * 2f;
+		float width = size / 10f;
+		return new Effect(60, 100f, e -> {
 			color(frontColor);
 			stroke(e.fout() * 4f);
 			Lines.circle(e.x, e.y, 4f + e.finpow() * size);
@@ -347,7 +348,8 @@ public class UAWFxDynamic {
 			for (int i = 0; i < 4; i++) {
 				Drawf.tri(e.x, e.y, width, (length / 2.7f) * e.fout(), i * 90);
 			}
-			Effect.shake(size / 2, 30f, e.x, e.y);
+			Effect.shake(size / 4, e.lifetime / 2.5f, e.x, e.y);
+			Sounds.plasmaboom.at(e.x, e.y);
 		});
 	}
 
