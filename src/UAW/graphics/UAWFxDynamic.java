@@ -328,22 +328,22 @@ public class UAWFxDynamic {
 	public static Effect burstSmelt(float size, Color frontColor, Color backColor) {
 		float length = size * 2.5f;
 		float width = size / 8f;
-		return new Effect(45, 100f, e -> {
+		return new Effect(35, 100f, e -> {
 			color(frontColor);
 			stroke(e.fout() * 4f);
 			Lines.circle(e.x, e.y, 4f + e.finpow() * size);
 
 			color(backColor);
 			for (int i = 0; i < 4; i++) {
-				Drawf.tri(e.x, e.y, (width * 2), length * e.finpow(), i * 90);
+				Drawf.tri(e.x, e.y, (width * 2), length * e.fout(), i * 90);
 			}
 
 			color(frontColor);
 			for (int i = 0; i < 4; i++) {
-				Drawf.tri(e.x, e.y, width, length * e.finpow(), i * 90);
+				Drawf.tri(e.x, e.y, width, length * e.fout(), i * 90);
 			}
 			randLenVectors(e.id, 15, e.finpow() * e.lifetime * 1.5f, (x, y) -> {
-				color(frontColor, Color.lightGray, Color.gray, e.fin());
+				color(backColor, frontColor, Color.gray, e.fin());
 				Fill.square(e.x + x, e.y + y, (e.fout() * 15f) / 2f, 45);
 			});
 		});

@@ -20,6 +20,7 @@ public class UAWArtilleryBulletType extends UAWBasicBulletType {
 		hitSound = Sounds.explosion;
 		shootEffect = Fx.shootBig;
 		trailEffect = Fx.artilleryTrail;
+		trailColor = backColor;
 
 		shrinkX = 0.15f;
 		shrinkY = 0.63f;
@@ -38,7 +39,7 @@ public class UAWArtilleryBulletType extends UAWBasicBulletType {
 		super.update(b);
 
 		if (b.timer(0, (3 + b.fslope() * 2f) * trailMult)) {
-			trailEffect.at(b.x, b.y, b.fslope() * (width / 2.4f), backColor);
+			trailEffect.at(b.x, b.y, b.fslope() * (width / 2.4f), trailColor);
 		}
 	}
 

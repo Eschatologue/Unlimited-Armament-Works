@@ -425,7 +425,7 @@ public class UAWUnitTypes implements ContentList {
 					bullet = new UAWArtilleryBulletType(1.8f, 125) {{
 						buildingDamageMultiplier = 2.5f;
 						lifetime = (range / 3) / speed;
-						trailMult = 3;
+						trailMult = 0.2f;
 						width = 10f;
 						height = 14f;
 						shootEffect = Fx.none;
