@@ -391,9 +391,9 @@ public class UAWUnitTypes implements ContentList {
 		}};
 
 		jufeng = new JetUnitType("jufeng") {{
-			health = 450;
+			health = 550;
 			hitSize = 20;
-			speed = 3f;
+			speed = 2.8f;
 			accel = 0.1f;
 			drag = 0.016f;
 			rotateSpeed = 6f;
@@ -419,20 +419,20 @@ public class UAWUnitTypes implements ContentList {
 					shootCone = 90f;
 					ejectEffect = Fx.none;
 					inaccuracy = 0f;
-					shootSound = Sounds.shootBig;
+					shootSound = Sounds.plasmadrop;
 					shots = 2;
 					shotDelay = 15f;
 					bullet = new UAWArtilleryBulletType(1.8f, 125) {{
 						buildingDamageMultiplier = 2.5f;
 						lifetime = (range / 3) / speed;
-						trailMult = 0.2f;
+						trailMult = 0.5f;
 						width = 10f;
 						height = 14f;
 						shootEffect = Fx.none;
 						smokeEffect = Fx.none;
-						splashDamageRadius = 8 * tilesize;
+						splashDamageRadius = 5 * tilesize;
 						hitEffect = UAWFxDynamic.dynamicExplosion(splashDamageRadius);
-						hitSound = Sounds.explosionbig;
+						hitSound = Sounds.explosion;
 						status = StatusEffects.blasted;
 						statusDuration = 60f;
 						makeFire = true;
