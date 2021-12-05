@@ -333,17 +333,17 @@ public class UAWFxDynamic {
 			stroke(e.fout() * 4f);
 			Lines.circle(e.x, e.y, 4f + e.finpow() * size);
 
-			color(frontColor);
-			for (int i = 0; i < 4; i++) {
-				Drawf.tri(e.x, e.y, (width * 2), length * e.fout(), i * 90);
-			}
-
 			color(backColor);
 			for (int i = 0; i < 4; i++) {
-				Drawf.tri(e.x, e.y, width, length * e.fout(), i * 90);
+				Drawf.tri(e.x, e.y, (width * 2), length * e.fin(), i * 90);
 			}
-			randLenVectors(e.id, 15, e.finpow() * 160f, (x, y) -> {
-				color(Pal.lighterOrange, Color.lightGray, e.fin());
+
+			color(frontColor);
+			for (int i = 0; i < 4; i++) {
+				Drawf.tri(e.x, e.y, width, length * e.fin(), i * 90);
+			}
+			randLenVectors(e.id, 15, e.finpow() * e.lifetime * 1.5f, (x, y) -> {
+				color(frontColor, Color.lightGray, Color.gray, e.fin());
 				Fill.square(e.x + x, e.y + y, (e.fout() * 15f) / 2f, 45);
 			});
 		});
