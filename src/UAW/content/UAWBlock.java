@@ -687,7 +687,8 @@ public class UAWBlock implements ContentList {
 			drawer = new DrawSmelter();
 			craftEffect = new MultiEffect(
 				UAWFxDynamic.burstSmelt(4 * tilesize, Pal.missileYellow, Pal.missileYellowBack),
-				Fx.impactcloud);
+				Fx.impactcloud
+			);
 			updateEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
 		}};
 		surgeMixer = new GenericCrafter("surge-mixer") {{

@@ -6,7 +6,6 @@ import arc.math.*;
 import arc.math.geom.Vec2;
 import arc.util.*;
 import mindustry.entities.Effect;
-import mindustry.gen.Sounds;
 import mindustry.graphics.*;
 
 import static arc.graphics.g2d.Draw.*;
@@ -326,14 +325,9 @@ public class UAWFxDynamic {
 		});
 	}
 
-	/**
-	 * Converted to Java by Eschatologue
-	 *
-	 * @author FlinTyX
-	 */
 	public static Effect burstSmelt(float size, Color frontColor, Color backColor) {
-		float length = size * 2f;
-		float width = size / 10f;
+		float length = size * 2.5f;
+		float width = size / 8f;
 		return new Effect(60, 100f, e -> {
 			color(frontColor);
 			stroke(e.fout() * 4f);
@@ -341,15 +335,18 @@ public class UAWFxDynamic {
 
 			color(frontColor);
 			for (int i = 0; i < 4; i++) {
-				Drawf.tri(e.x, e.y, (width * 2), (length * 1.5f) * e.fout(), i * 90);
+				Drawf.tri(e.x, e.y, (width * 2), length * e.fin(), i * 90);
 			}
 
 			color(backColor);
 			for (int i = 0; i < 4; i++) {
-				Drawf.tri(e.x, e.y, width, (length / 2.7f) * e.fout(), i * 90);
+				Drawf.tri(e.x, e.y, width, length * e.fin(), i * 90);
 			}
-			Effect.shake(size / 4, e.lifetime / 2.5f, e.x, e.y);
-			Sounds.plasmaboom.at(e.x, e.y);
+			randLenVectors(e.id, 15, e.finpow() * 160f, (x, y) -> {
+				color(Pal.lighterOrange, Color.lightGray, e.fin());
+				Fill.square(e.x + x, e.y + y, (e.fout() * 15f) / 2f, 45);
+			});
+			Effect.shake(size / 6, e.lifetime / 3f, e.x, e.y);
 		});
 	}
 
