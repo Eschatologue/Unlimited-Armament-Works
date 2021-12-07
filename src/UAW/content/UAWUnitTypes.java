@@ -418,8 +418,8 @@ public class UAWUnitTypes implements ContentList {
 					reload = 3f * 60;
 					shootCone = 90f;
 					ejectEffect = Fx.none;
-					inaccuracy = 0f;
-					shootSound = Sounds.plasmadrop;
+					inaccuracy = 24f;
+					shootSound = Sounds.shotgun;
 					shots = 2;
 					shotDelay = 15f;
 					bullet = new UAWArtilleryBulletType(1.8f, 125) {{
