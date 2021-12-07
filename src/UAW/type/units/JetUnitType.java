@@ -1,10 +1,12 @@
 package UAW.type.units;
 
 import UAW.ai.types.BomberJetAI;
-import UAW.graphics.UAWFxDynamic;
+import UAW.graphics.*;
+import arc.graphics.Color;
 import arc.math.*;
 import arc.util.Time;
 import mindustry.gen.*;
+import mindustry.graphics.Pal;
 import mindustry.type.UnitType;
 import mindustry.world.meta.BlockFlag;
 
@@ -32,15 +34,16 @@ public class JetUnitType extends UnitType {
 
 	@Override
 	public void update(Unit unit) {
+		Color trlColor = new Color(unit.team.color).lerp(Color.gray, 0.15f);
 		super.update(unit);
 		float cx = Angles.trnsx(unit.rotation - 90, trailX, trailY) + unit.x;
 		float cy = Angles.trnsy(unit.rotation - 90, trailX, trailY) + unit.y;
 		float cx2 = Angles.trnsx(unit.rotation - 90, -trailX, trailY) + unit.x;
 		float cy2 = Angles.trnsy(unit.rotation - 90, -trailX, trailY) + unit.y;
 		if (unit.moving()) {
-			if (Mathf.chanceDelta(Time.delta * 5)) {
-				UAWFxDynamic.jetTrail(trailLength).at(cx, cy, trailWidth, unit.team.color);
-				UAWFxDynamic.jetTrail(trailLength).at(cx2, cy2, trailWidth, unit.team.color);
+			if (Mathf.chanceDelta(1.2f)) {
+				UAWFxDynamic.jetTrail(trailLength).at(cx, cy, trailWidth, trlColor);
+				UAWFxDynamic.jetTrail(trailLength).at(cx2, cy2, trailWidth, trlColor);
 			}
 		}
 		omniMovement = !unit.isPlayer() && unit.isShooting && unit.isAI();

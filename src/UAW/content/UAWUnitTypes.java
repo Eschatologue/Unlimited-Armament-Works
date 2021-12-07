@@ -404,7 +404,7 @@ public class UAWUnitTypes implements ContentList {
 			lowAltitude = false;
 			range = 45 * tilesize;
 
-			targetFlags = new BlockFlag[]{BlockFlag.factory, BlockFlag.generator, null};
+			targetFlags = new BlockFlag[]{BlockFlag.repair, BlockFlag.generator, BlockFlag.extinguisher, null};
 
 			trailX = 6f;
 			trailY = -2;
