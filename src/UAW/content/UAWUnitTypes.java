@@ -516,7 +516,7 @@ public class UAWUnitTypes implements ContentList {
 						height = 15;
 						width = height / 1.8f;
 						lifetime = range / speed;
-						trailMult = 1.5f;
+						trailMult = 0.9f;
 						hitShake = 4.5f;
 
 						frontColor = Pal.sapBullet;
@@ -747,7 +747,7 @@ public class UAWUnitTypes implements ContentList {
 						incendSpread = 16f;
 						makeFire = true;
 						hitSound = UAWSfx.artilleryExplosionHuge;
-						trailMult = 1.5f;
+						trailMult = 1f;
 						hitShake = 15f;
 
 						frontColor = Pal.sapBullet;

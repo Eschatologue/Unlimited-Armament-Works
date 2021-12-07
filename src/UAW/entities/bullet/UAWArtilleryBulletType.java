@@ -1,12 +1,20 @@
 package UAW.entities.bullet;
 
+import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import mindustry.content.Fx;
 import mindustry.gen.*;
 
 public class UAWArtilleryBulletType extends UAWBasicBulletType {
 
+	/**
+	 * The smaller the value, the smaller the interval
+	 */
 	public float trailMult = 1.5f;
+	/**
+	 * if true the Trail color will be the same as backColor and lerp to gray
+	 */
+	public boolean sameTrailColor = true;
 
 	public UAWArtilleryBulletType(float speed, float splashDamage, String bulletSprite) {
 		super(speed, splashDamage, bulletSprite);
@@ -37,7 +45,9 @@ public class UAWArtilleryBulletType extends UAWBasicBulletType {
 	@Override
 	public void update(Bullet b) {
 		super.update(b);
-
+		if (sameTrailColor) {
+			trailColor = new Color(backColor).lerp(Color.gray, 0.5f);
+		}
 		if (b.timer(0, (3 + b.fslope() * 2f) * trailMult)) {
 			trailEffect.at(b.x, b.y, b.fslope() * (width / 2.4f), trailColor);
 		}
