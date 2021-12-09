@@ -79,7 +79,7 @@ public class UAWFxDynamic {
 		});
 	}
 
-	public static Effect railShoot(Color color, float size) {
+	public static Effect railShoot(float size ,Color color) {
 		return new Effect(24.0F, size * 8, (e) -> {
 			e.scaled(10.0F, (b) -> {
 				Draw.color(Color.white, Color.lightGray, b.fin());
@@ -93,13 +93,13 @@ public class UAWFxDynamic {
 		});
 	}
 
-	public static Effect railTrail(Color color) {
-		return new Effect(16f, e -> {
+	public static Effect railTrail(float width, Color color) {
+		return new Effect(width * 1.8f, e -> {
 			color(color);
 			for (int i : Mathf.signs) {
-				Drawf.tri(e.x, e.y, 10f * e.fout(), 24f, e.rotation + 90 + 90f * i);
+				Drawf.tri(e.x, e.y, width * e.fout(), (width * 2.4f), e.rotation + 90 + 90f * i);
 			}
-			Drawf.light(e.x, e.y, 60f * e.fout(), Pal.orangeSpark, 0.5f);
+			Drawf.light(e.x, e.y, (width * 6) * e.fout(), Pal.orangeSpark, 0.5f);
 		});
 	}
 

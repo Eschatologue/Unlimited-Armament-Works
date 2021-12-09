@@ -313,10 +313,10 @@ public class UAWUnitTypes implements ContentList {
 					bullet = new UAWRailBulletType() {{
 						damage = 250;
 						length = range;
-						shootEffect = new MultiEffect(UAWFxDynamic.railShoot(Pal.bulletYellowBack, 32), Fx.blockExplosionSmoke);
+						shootEffect = new MultiEffect(UAWFxDynamic.railShoot(32, Pal.bulletYellowBack), Fx.blockExplosionSmoke);
 						hitEffect = pierceEffect = new MultiEffect(UAWFxDynamic.railHit(Pal.bulletYellowBack), Fx.blockExplosionSmoke);
 						smokeEffect = Fx.smokeCloud;
-						updateEffect = UAWFxDynamic.railTrail(Pal.bulletYellowBack);
+						updateEffect = UAWFxDynamic.railTrail(10, Pal.bulletYellowBack);
 						pierceCap = 2;
 						updateEffectSeg = 30f;
 						armorIgnoreScl = 0.4f;
@@ -1017,7 +1017,7 @@ public class UAWUnitTypes implements ContentList {
 						shieldDamageMultiplier = 1.5f;
 						trailColor = backColor;
 						shootSound = Sounds.shootBig;
-						shootEffect = new MultiEffect(UAWFxDynamic.railShoot(backColor, 22f), Fx.shootPyraFlame, Fx.shootSmallSmoke);
+						shootEffect = new MultiEffect(UAWFxDynamic.railShoot(22f, backColor), Fx.shootPyraFlame, Fx.shootSmallSmoke);
 						hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootSmallSmoke);
 						fragBullets = 4;
 						fragLifeMin = 0f;
@@ -1077,7 +1077,7 @@ public class UAWUnitTypes implements ContentList {
 						shootSound = Sounds.shootBig;
 						armorIgnoreScl = 0.6f;
 						shieldDamageMultiplier = 2f;
-						shootEffect = new MultiEffect(UAWFxDynamic.railShoot(backColor, 30f), Fx.shootPyraFlame, Fx.shootBigSmoke2);
+						shootEffect = new MultiEffect(UAWFxDynamic.railShoot(30f, backColor), Fx.shootPyraFlame, Fx.shootBigSmoke2);
 						hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootBigSmoke2);
 						fragBullets = 6;
 						fragLifeMin = 0f;

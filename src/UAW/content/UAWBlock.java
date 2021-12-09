@@ -11,6 +11,7 @@ import UAW.world.blocks.production.UAWGenericCrafter;
 import arc.graphics.Color;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
+import mindustry.entities.UnitSorts;
 import mindustry.entities.bullet.ArtilleryBulletType;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.gen.Sounds;
@@ -29,12 +30,12 @@ import static mindustry.type.ItemStack.with;
 
 public class UAWBlock implements ContentList {
 	public static Block
-		// Turret
-		quadra, spitfire, equalizer,
-		solo, longsword, deadeye,
-		buckshot, tempest, strikeforce,
-		ashlock, zounderkite, skyhammer,
-		heavylight, trailblazer, terravolt,
+	// Turret
+	quadra, spitfire, equalizer,
+	solo, longsword, deadeye,
+	buckshot, tempest, strikeforce,
+	ashlock, zounderkite, skyhammer,
+	heavylight, trailblazer, terravolt,
 	// Crafters
 	gelatinizer, carburizingFurnace, surgeMixer, coalLiquefier,
 	// Power
@@ -143,12 +144,12 @@ public class UAWBlock implements ContentList {
 			limitRange();
 		}};
 		longsword = new UAWItemTurret("longsword") {{
-			float brange = range = 55 * tilesize;
+			float brange = range = 65 * tilesize;
 			requirements(Category.turret, with(
-				Items.thorium, 280,
-				UAWItems.titaniumCarbide, 150,
-				Items.graphite, 200,
-				Items.silicon, 180,
+				Items.thorium, 400,
+				UAWItems.titaniumCarbide, 175,
+				Items.graphite, 250,
+				Items.silicon, 200,
 				Items.plastanium, 150
 			));
 			size = 3;
@@ -171,9 +172,9 @@ public class UAWBlock implements ContentList {
 					speed = brange;
 					splashDamage = 200;
 					splashDamageRadius = 3 * 8;
-					shootEffect = new MultiEffect(UAWFxDynamic.railShoot(Pal.bulletYellow, 32), Fx.blockExplosionSmoke);
+					shootEffect = new MultiEffect(UAWFxDynamic.railShoot(32, Pal.bulletYellow), Fx.blockExplosionSmoke);
 					smokeEffect = Fx.smokeCloud;
-					trailEffect = UAWFxDynamic.railTrail(Pal.bulletYellow);
+					trailEffect = UAWFxDynamic.railTrail(10, Pal.bulletYellow);
 					hitEffect = despawnEffect = new MultiEffect(UAWFxDynamic.crossBlast(splashDamageRadius, Pal.bulletYellow), Fx.smokeCloud);
 					trailSpacing = 20f;
 					shieldDamageMultiplier = 1.5f;
@@ -199,34 +200,36 @@ public class UAWBlock implements ContentList {
 		}};
 		deadeye = new UAWItemTurret("deadeye") {{
 			requirements(Category.turret, with(
-				Items.thorium, 2000,
-				UAWItems.titaniumCarbide, 1500,
-				Items.surgeAlloy, 1200,
-				Items.silicon, 1500,
-				Items.plastanium, 1500
+				Items.titanium, 1000,
+				Items.lead, 1500,
+				Items.thorium, 500,
+				Items.metaglass, 1200,
+				Items.surgeAlloy, 900,
+				UAWItems.titaniumCarbide, 800,
+				Items.silicon, 1200
 			));
 			size = 4;
 			health = 225 * size * size;
-			range = 85 * tilesize;
+			range = 125 * tilesize;
 			maxAmmo = 150;
 			ammoPerShot = 50;
-			rotateSpeed = 1.25f;
+			rotateSpeed = 0.625f;
 			reloadTime = 10 * tick;
 			ammoUseEffect = UAWFxStatic.casing7;
 			recoilAmount = 6f;
 			restitution = 0.005f;
 			shootShake = 18f;
-			minRange = range / 5.5f;
+			minRange = range / 3.5f;
 
 			shootCone = 1f;
 			shootSound = UAWSfx.bigGunShoot1;
-			unitSort = (u, x, y) -> -u.maxHealth;
+			unitSort = UnitSorts.strongest;
 			ammo(
 				UAWItems.titaniumCarbide, new UAWRailBulletType() {{
-					damage = 12000;
+					damage = 9800;
 					length = range;
 					shootEffect = new MultiEffect(
-						UAWFxDynamic.railShoot(Pal.missileYellow, 64),
+						UAWFxDynamic.railShoot(64, Pal.missileYellow),
 						UAWFxDynamic.effectCloud(Pal.missileYellow),
 						Fx.blastExplosion,
 						Fx.nuclearShockwave
@@ -237,9 +240,9 @@ public class UAWBlock implements ContentList {
 						Fx.flakExplosionBig
 					);
 					smokeEffect = Fx.smokeCloud;
-					updateEffect = UAWFxDynamic.railTrail(Pal.missileYellow);
-					pierce = true;
+					updateEffect = UAWFxDynamic.railTrail(15, Pal.missileYellow);
 					pierceBuilding = true;
+					pierceDamageFactor = 0.8f;
 					updateEffectSeg = 30f;
 					armorIgnoreScl = 0.95f;
 					buildingDamageMultiplier = 0.1f;
@@ -248,6 +251,7 @@ public class UAWBlock implements ContentList {
 					status = UAWStatusEffects.concussion;
 				}}
 			);
+			consumes.powerCond(16f, TurretBuild::isActive);
 		}};
 
 		zounderkite = new ItemTurret("zounderkite") {{
@@ -346,7 +350,7 @@ public class UAWBlock implements ContentList {
 					frontColor = Pal.lightishOrange;
 					backColor = Pal.lightOrange;
 					shootEffect = new MultiEffect(
-						UAWFxDynamic.railShoot(Pal.lightOrange, height + (width * 1.5f)),
+						UAWFxDynamic.railShoot(height + (width * 1.5f), Pal.lightOrange),
 						UAWFxDynamic.effectCloud(frontColor),
 						UAWFxDynamic.shootMassiveSmoke(5, 30, backColor),
 						Fx.nuclearShockwave
@@ -384,7 +388,7 @@ public class UAWBlock implements ContentList {
 					frontColor = UAWPal.cryoFront;
 					backColor = UAWPal.cryoBack;
 					shootEffect = new MultiEffect(
-						UAWFxDynamic.railShoot(UAWPal.cryoBackBloom, height + (width * 1.5f)),
+						UAWFxDynamic.railShoot(height + (width * 1.5f), UAWPal.cryoBackBloom),
 						UAWFxDynamic.effectCloud(frontColor),
 						UAWFxDynamic.shootMassiveSmoke(5, 30, frontColor),
 						Fx.nuclearShockwave
@@ -421,7 +425,7 @@ public class UAWBlock implements ContentList {
 					frontColor = Pal.plastaniumFront;
 					backColor = Pal.plastaniumBack;
 					shootEffect = new MultiEffect(
-						UAWFxDynamic.railShoot(UAWPal.plastBackBloom, height + width),
+						UAWFxDynamic.railShoot(height + (width * 1.5f), UAWPal.plastBackBloom),
 						UAWFxDynamic.effectCloud(frontColor),
 						UAWFxDynamic.shootMassiveSmoke(5, 30, frontColor),
 						Fx.nuclearShockwave
@@ -456,7 +460,7 @@ public class UAWBlock implements ContentList {
 					splashDamageRadius = 14 * tilesize;
 					lifetime = range / speed;
 					shootEffect = new MultiEffect(
-						UAWFxDynamic.railShoot(UAWPal.surgeBackBloom, height + width),
+						UAWFxDynamic.railShoot(height + width, UAWPal.surgeBackBloom),
 						UAWFxDynamic.effectCloud(frontColor),
 						UAWFxDynamic.shootMassiveSmoke(5, 30, frontColor),
 						Fx.nuclearShockwave
