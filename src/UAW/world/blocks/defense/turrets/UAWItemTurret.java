@@ -8,8 +8,14 @@ import mindustry.world.meta.Stat;
 
 import static mindustry.Vars.tilesize;
 
-public class CustomItemTurret extends ItemTurret {
-	public CustomItemTurret(String name) {
+/**
+ * Modified version of the vanilla item turret
+ * <p>
+ *     Displays minimum range when selected
+ * </p>
+ */
+public class UAWItemTurret extends ItemTurret {
+	public UAWItemTurret(String name) {
 		super(name);
 	}
 

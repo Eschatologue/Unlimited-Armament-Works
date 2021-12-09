@@ -6,7 +6,7 @@ import mindustry.type.StatusEffect;
 
 public class UAWStatusEffects implements ContentList {
 	public static StatusEffect
-		concussion;
+		concussion, frostBurn;
 
 	@Override
 	public void load() {

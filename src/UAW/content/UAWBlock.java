@@ -113,7 +113,7 @@ public class UAWBlock implements ContentList {
 			limitRange(2 * tilesize);
 		}};
 
-		solo = new CustomItemTurret("solo") {{
+		solo = new UAWItemTurret("solo") {{
 			requirements(Category.turret, with(
 				Items.copper, 150,
 				Items.graphite, 100,
@@ -142,7 +142,7 @@ public class UAWBlock implements ContentList {
 			);
 			limitRange();
 		}};
-		longsword = new CustomItemTurret("longsword") {{
+		longsword = new UAWItemTurret("longsword") {{
 			float brange = range = 55 * tilesize;
 			requirements(Category.turret, with(
 				Items.thorium, 280,
@@ -157,7 +157,7 @@ public class UAWBlock implements ContentList {
 			ammoPerShot = 6;
 			rotateSpeed = 2.5f;
 			reloadTime = 60;
-			ammoUseEffect = UAWFxStatic.casing6;
+			ammoUseEffect = UAWFxStatic.casing5;
 			recoilAmount = 4f;
 			restitution = 0.01f;
 			shootShake = 3f;
@@ -185,15 +185,67 @@ public class UAWBlock implements ContentList {
 				UAWItems.titaniumCarbide, new UAWRailBulletType() {{
 					damage = 400;
 					length = 450;
-					shootEffect = new MultiEffect(UAWFxDynamic.railShoot(Pal.bulletYellow, 32), Fx.blockExplosionSmoke);
-					hitEffect = pierceEffect = new MultiEffect(UAWFxDynamic.railHit(Pal.bulletYellow), Fx.blockExplosionSmoke);
+					shootEffect = new MultiEffect(Fx.railShoot, Fx.blockExplosionSmoke);
+					hitEffect = pierceEffect = new MultiEffect(Fx.railHit, Fx.blockExplosionSmoke);
 					smokeEffect = Fx.smokeCloud;
-					updateEffect = UAWFxDynamic.railTrail(Pal.bulletYellow);
-					pierce = true;
+					updateEffect = Fx.railTrail;
+					pierceCap = 4;
 					updateEffectSeg = 30f;
 					armorIgnoreScl = buildingDamageMultiplier = 0.5f;
 					hitShake = 6f;
 					ammoMultiplier = 1f;
+				}}
+			);
+		}};
+		deadeye = new UAWItemTurret("deadeye") {{
+			requirements(Category.turret, with(
+				Items.thorium, 2000,
+				UAWItems.titaniumCarbide, 1500,
+				Items.surgeAlloy, 1200,
+				Items.silicon, 1500,
+				Items.plastanium, 1500
+			));
+			size = 4;
+			health = 225 * size * size;
+			range = 85 * tilesize;
+			maxAmmo = 150;
+			ammoPerShot = 50;
+			rotateSpeed = 1.25f;
+			reloadTime = 10 * tick;
+			ammoUseEffect = UAWFxStatic.casing7;
+			recoilAmount = 6f;
+			restitution = 0.005f;
+			shootShake = 18f;
+			minRange = range / 5.5f;
+
+			shootCone = 1f;
+			shootSound = UAWSfx.bigGunShoot1;
+			unitSort = (u, x, y) -> -u.maxHealth;
+			ammo(
+				UAWItems.titaniumCarbide, new UAWRailBulletType() {{
+					damage = 12000;
+					length = range;
+					shootEffect = new MultiEffect(
+						UAWFxDynamic.railShoot(Pal.missileYellow, 64),
+						UAWFxDynamic.effectCloud(Pal.missileYellow),
+						Fx.blastExplosion,
+						Fx.nuclearShockwave
+					);
+					hitEffect = pierceEffect = new MultiEffect(
+						UAWFxDynamic.railHit(Pal.missileYellow),
+						Fx.blastExplosion,
+						Fx.flakExplosionBig
+					);
+					smokeEffect = Fx.smokeCloud;
+					updateEffect = UAWFxDynamic.railTrail(Pal.missileYellow);
+					pierce = true;
+					pierceBuilding = true;
+					updateEffectSeg = 30f;
+					armorIgnoreScl = 0.95f;
+					buildingDamageMultiplier = 0.1f;
+					hitShake = 18f;
+					ammoMultiplier = 1f;
+					status = UAWStatusEffects.concussion;
 				}}
 			);
 		}};
@@ -255,7 +307,7 @@ public class UAWBlock implements ContentList {
 				}}
 			);
 		}};
-		skyhammer = new CustomItemTurret("skyhammer") {{
+		skyhammer = new UAWItemTurret("skyhammer") {{
 			requirements(Category.turret, with(
 				Items.copper, 1000,
 				Items.lead, 650,
@@ -463,7 +515,7 @@ public class UAWBlock implements ContentList {
 				UAWItems.cryogel, buckshotCryo
 			);
 		}};
-		tempest = new CustomItemTurret("tempest") {{
+		tempest = new UAWItemTurret("tempest") {{
 			requirements(Category.turret, with(
 				Items.titanium, 200,
 				Items.graphite, 150,
@@ -537,7 +589,7 @@ public class UAWBlock implements ContentList {
 				}}
 			);
 		}};
-		strikeforce = new CustomItemTurret("strikeforce") {{
+		strikeforce = new UAWItemTurret("strikeforce") {{
 			requirements(Category.turret, with(
 				Items.titanium, 350,
 				Items.graphite, 300,

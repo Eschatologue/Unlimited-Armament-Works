@@ -503,7 +503,7 @@ public class UAWUnitTypes implements ContentList {
 					inaccuracy = 8f;
 					shootCone = 30;
 					rotateSpeed = 2.2f;
-					reload = 1.5f * 60;
+					reload = 1.2f * 60;
 					recoil = 2.2f;
 					shootSound = Sounds.artillery;
 					shake = 2.5f;
@@ -749,7 +749,6 @@ public class UAWUnitTypes implements ContentList {
 						hitSound = UAWSfx.artilleryExplosionHuge;
 						trailMult = 1f;
 						hitShake = 15f;
-
 						frontColor = Pal.sapBullet;
 						backColor = Pal.sapBulletBack;
 						shootEffect = new MultiEffect(

@@ -349,7 +349,6 @@ public class UAWFxDynamic {
 		});
 	}
 
-
 	public static Effect smokeCloud(Color color) {
 		return new Effect(80f, e -> {
 			color(color);
@@ -361,7 +360,7 @@ public class UAWFxDynamic {
 
 	public static Effect effectCloud(Color color) {
 		return new Effect(140, 400f, e -> {
-			randLenVectors(e.id, 20, e.finpow() * 160f, (x, y) -> {
+			randLenVectors(e.id, 22, e.finpow() * 160f, (x, y) -> {
 				float size = e.fout() * 15f;
 				color(color, Color.lightGray, e.fin());
 				Fill.circle(e.x + x, e.y + y, size / 2f);

@@ -8,7 +8,7 @@ import mindustry.entities.bullet.BulletType;
 import mindustry.graphics.*;
 
 // A small modification from Yuria-Shikibe/NewHorizonMod
-public class DynamicReloadTurret extends CustomItemTurret {
+public class DynamicReloadTurret extends UAWItemTurret {
 	public float maxReloadScl = 0.5f;
 	public float speedupPerShot = 0.075f;
 	public float slowDownReloadTime = 90f;
