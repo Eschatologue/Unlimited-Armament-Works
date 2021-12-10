@@ -47,7 +47,6 @@ public class UAWRailBulletType extends UAWBulletType {
 		if (b.damage > 0) {
 			pierceEffect.at(pos.getX(), pos.getY(), b.rotation());
 			hitEffect.at(pos.getX(), pos.getY());
-			Effect.shake(hitShake, hitShake, b);
 		}
 
 		//subtract health from each consecutive pierce
@@ -72,6 +71,7 @@ public class UAWRailBulletType extends UAWBulletType {
 		for (float i = 0; i <= resultLen; i += updateEffectSeg) {
 			updateEffect.at(b.x + nor.x * i, b.y + nor.y * i, b.rotation());
 		}
+		Effect.shake(hitShake, hitShake, b);
 	}
 
 	@Override

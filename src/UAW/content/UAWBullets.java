@@ -9,6 +9,7 @@ import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.graphics.Pal;
 
+import static mindustry.Vars.tilesize;
 import static mindustry.content.Bullets.*;
 
 public class UAWBullets implements ContentList {
@@ -17,12 +18,13 @@ public class UAWBullets implements ContentList {
 		mediumPiercing, mediumStandard, mediumSurge, mediumIncendiary, mediumCryo,
 		heavyCopper, heavyDense, heavyHoming, heavyThorium, heavySurge, heavyPiercing, heavyIncendiary, heavyCryo,
 		buckshotLead, buckshotIncend, buckshotCryo,
+		buckshotMedium, buckshotMediumIncend, buckshotMediumCryo, buckshotMediumPiercing, buckshotMediumFrag,
 		mineBasic, mineIncend, mineCryo, mineOil, mineEMP, mineSpore,
 		canisterBasic, canisterIncend, canisterCryo, canisterOil, canisterEMP, canisterSpore, canisterNuke;
 
 	@Override
 	public void load() {
-		smallCopper = new BasicBulletType(4f, 9){{
+		smallCopper = new BasicBulletType(4f, 9) {{
 			width = 7f;
 			height = 9f;
 			lifetime = 60f;
@@ -30,14 +32,14 @@ public class UAWBullets implements ContentList {
 			smokeEffect = Fx.shootSmallSmoke;
 			ammoMultiplier = 2;
 		}};
-		smallDense = new BasicBulletType(5.5f, 18){{
+		smallDense = new BasicBulletType(5.5f, 18) {{
 			width = 9f;
 			height = 12f;
 			reloadMultiplier = 0.6f;
 			ammoMultiplier = 4;
 			lifetime = 60f;
 		}};
-		smallIncendiary = new BasicBulletType(4.2f, 16){{
+		smallIncendiary = new BasicBulletType(4.2f, 16) {{
 			width = 10f;
 			height = 12f;
 			frontColor = Pal.lightishOrange;
@@ -50,7 +52,7 @@ public class UAWBullets implements ContentList {
 			makeFire = true;
 			lifetime = 60f;
 		}};
-		smallCryo = new BasicBulletType(4.2f, 16){{
+		smallCryo = new BasicBulletType(4.2f, 16) {{
 			width = 10f;
 			height = 12f;
 			frontColor = UAWPal.cryoFront;
@@ -244,6 +246,51 @@ public class UAWBullets implements ContentList {
 			frontColor = UAWPal.cryoFront;
 			backColor = UAWPal.cryoBack;
 			status = StatusEffects.freezing;
+		}};
+
+		buckshotMedium = new BuckshotBulletType(5f, 12f) {{
+			knockback = 4f;
+			despawnEffect = hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.burning, Fx.coalSmeltsmoke);
+			shieldDamageMultiplier = 2.5f;
+		}};
+		buckshotMediumIncend = new BuckshotBulletType(5f, 8f) {{
+			shootEffect = Fx.shootPyraFlame;
+			smokeEffect = Fx.shootBigSmoke2;
+			frontColor = Pal.lightishOrange;
+			backColor = Pal.lightOrange;
+			despawnEffect = hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.burning, Fx.fireHit);
+			status = StatusEffects.burning;
+			shieldDamageMultiplier = 1.4f;
+		}};
+		buckshotMediumCryo = new BuckshotBulletType(5f, 8f) {{
+			shootEffect = UAWFxS.shootCryoFlame;
+			smokeEffect = Fx.shootBigSmoke2;
+			frontColor = UAWPal.cryoFront;
+			backColor = UAWPal.cryoMiddle;
+			despawnEffect = hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.freezing, UAWFxS.cryoHit);
+			status = StatusEffects.freezing;
+			shieldDamageMultiplier = 1.4f;
+		}};
+		buckshotMediumPiercing = new BuckshotBulletType(6f, 10f) {{
+			height = width = 15;
+			shrinkX = shrinkY = 0.5f;
+			splashDamageRadius = 1.6f * tilesize;
+			splashDamage = damage / 1.8f;
+			pierceCap = 2;
+			knockback = 2;
+			trailLength = 0;
+			trailInterval = 4.5f;
+			trailColor = Color.lightGray;
+			despawnEffect = shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
+			smokeEffect = Fx.shootBigSmoke2;
+			hitEffect = Fx.hitBulletBig;
+			armorIgnoreScl = 0.4f;
+		}};
+		buckshotMediumFrag = new BuckshotBulletType(5f, 8f) {{
+			splashDamageRadius = 1.8f * tilesize;
+			splashDamage = damage / 2;
+			fragBullets = 6;
+			fragBullet = fragGlass;
 		}};
 
 		mineBasic = new MineBulletType(100, 90, 9) {{

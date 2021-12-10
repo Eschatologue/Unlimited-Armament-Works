@@ -210,7 +210,7 @@ public class UAWBlock implements ContentList {
 			));
 			size = 4;
 			health = 225 * size * size;
-			range = 125 * tilesize;
+			range = 100 * tilesize;
 			maxAmmo = 150;
 			ammoPerShot = 50;
 			rotateSpeed = 0.625f;
@@ -225,7 +225,7 @@ public class UAWBlock implements ContentList {
 			cooldown = 1.5f;
 			ammo(
 				UAWItems.titaniumCarbide, new UAWRailBulletType() {{
-					damage = 12500;
+					damage = 10000;
 					length = range;
 					shootEffect = new MultiEffect(
 						UAWFxD.railShoot(64, Pal.missileYellow),
@@ -238,7 +238,10 @@ public class UAWBlock implements ContentList {
 						Fx.blastExplosion,
 						Fx.flakExplosionBig
 					);
-					smokeEffect = Fx.smokeCloud;
+					smokeEffect = new MultiEffect(
+						Fx.smokeCloud,
+						Fx.blastsmoke
+						);
 					updateEffect = UAWFxD.railTrail(15, Pal.missileYellow);
 					pierceBuilding = true;
 					pierceDamageFactor = 0.8f;
@@ -251,7 +254,7 @@ public class UAWBlock implements ContentList {
 					knockback = 24f;
 				}}
 			);
-			consumes.powerCond(16f, TurretBuild::isActive);
+			consumes.powerCond(15f, TurretBuild::isActive);
 		}};
 
 		zounderkite = new ItemTurret("zounderkite") {{
@@ -545,54 +548,13 @@ public class UAWBlock implements ContentList {
 			maxAmmo = 60;
 			ammoPerShot = 6;
 			ammo(
-				Items.graphite, new BuckshotBulletType(5f, 12f) {{
-					lifetime = range / speed;
-					knockback = 4f;
-					despawnEffect = hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.burning, Fx.coalSmeltsmoke);
-					shieldDamageMultiplier = 2.5f;
-				}},
-				Items.pyratite, new BuckshotBulletType(5f, 8f) {{
-					shootEffect = Fx.shootPyraFlame;
-					smokeEffect = Fx.shootBigSmoke2;
-					frontColor = Pal.lightishOrange;
-					backColor = Pal.lightOrange;
-					despawnEffect = hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.burning, Fx.fireHit);
-					status = StatusEffects.burning;
-					shieldDamageMultiplier = 1.4f;
-				}},
-				UAWItems.cryogel, new BuckshotBulletType(5f, 8f) {{
-					lifetime = range / speed;
-					shootEffect = UAWFxS.shootCryoFlame;
-					smokeEffect = Fx.shootBigSmoke2;
-					frontColor = UAWPal.cryoFront;
-					backColor = UAWPal.cryoMiddle;
-					despawnEffect = hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.freezing, UAWFxS.cryoHit);
-					status = StatusEffects.freezing;
-					shieldDamageMultiplier = 1.4f;
-				}},
-				UAWItems.titaniumCarbide, new BuckshotBulletType(6f, 10f) {{
-					height = width = 15;
-					shrinkX = shrinkY = 0.5f;
-					splashDamageRadius = 1.6f * tilesize;
-					splashDamage = damage / 1.8f;
-					pierceCap = 2;
-					knockback = 2;
-					trailLength = 0;
-					trailInterval = 4.5f;
-					trailColor = Color.lightGray;
-					despawnEffect = shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
-					smokeEffect = Fx.shootBigSmoke2;
-					hitEffect = Fx.hitBulletBig;
-					armorIgnoreScl = 0.4f;
-				}},
-				Items.metaglass, new BuckshotBulletType(5f, 8f) {{
-					splashDamageRadius = 1.8f * tilesize;
-					splashDamage = damage / 2;
-					lifetime = range / speed;
-					fragBullets = 6;
-					fragBullet = fragGlass;
-				}}
+				Items.graphite, buckshotMedium,
+				Items.pyratite, buckshotMediumIncend,
+				UAWItems.cryogel, buckshotMediumCryo,
+				UAWItems.titaniumCarbide, buckshotMediumPiercing,
+				Items.metaglass, buckshotMediumFrag
 			);
+			limitRange();
 		}};
 		strikeforce = new UAWItemTurret("strikeforce") {{
 			requirements(Category.turret, with(

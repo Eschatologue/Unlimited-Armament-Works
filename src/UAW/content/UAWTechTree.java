@@ -106,9 +106,10 @@ public class UAWTechTree implements ContentList {
 				new Research(cyclone)
 			)));
 			// Solo
-			node(solo, () -> node(longsword, Seq.with(
-				new Research(fuse)
-			)));
+			node(solo, () ->
+				node(longsword, Seq.with(new Research(fuse)), () ->
+					node(deadeye, Seq.with(new Research(foreshadow)))
+				));
 		});
 		vanillaNode(salvo, () -> node(buckshot, () -> {
 			// Tempest

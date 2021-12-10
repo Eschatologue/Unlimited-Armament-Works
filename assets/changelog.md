@@ -1,3 +1,26 @@
+# Update 0.7.5
+
+**Update 0.7.5** is here featuring a new specialist unit tree, a new turret, and some other changes
+
+## What's New?
+1. **Jùfēng** Tier 3 Air - Jet Bomber
+	* A new unit tree, "Jet Bombers", specializes in destroying enemy structures. It fires guided bombs at enemy buildings.
+	* Can be built from "Horizon"
+2. **Deadeye**
+	* Long range railgun, capable of destroying most targets in a single shot.
+	
+## Changes
+1. New Craft Effect for **Carburizing Furnace**
+	* The new craft effect now makes sound and causes screen to shake
+2. Code Cleanup
+3. Deleted some useless stuff 
+4. Fixed the AI on helicopters
+5. Fixed Buckshot from crashing the game [Reported by `JazzHandsJim`]
+6. Slight Changes to some content descriptions
+7. Fixed some explosion effect where it'll cause terrible framedrop under specific condition
+8. Fixed **Longsword** trail effect
+9. Adjusted some bullet lifetime & damage acording to their range
+
 # Update 0.7.4
 <div align="center">
 
@@ -26,8 +49,6 @@ UAW now requires Mindustry Build `134.1`to play, please update your Mindustry
 2. Fixed Quadra outline
 3. Code cleanup
 4. Some content description changes, especially units
-
-
 # Update 0.7.3
 
 <div align="center">
