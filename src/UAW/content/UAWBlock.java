@@ -222,6 +222,7 @@ public class UAWBlock implements ContentList {
 			shootCone = 1f;
 			shootSound = UAWSfx.bigGunShoot1;
 			unitSort = UnitSorts.strongest;
+			cooldown = 1.5f;
 			ammo(
 				UAWItems.titaniumCarbide, new UAWRailBulletType() {{
 					damage = 12500;
