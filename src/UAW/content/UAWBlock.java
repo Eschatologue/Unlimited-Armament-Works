@@ -517,6 +517,7 @@ public class UAWBlock implements ContentList {
 				Items.pyratite, buckshotIncend,
 				UAWItems.cryogel, buckshotCryo
 			);
+			limitRange();
 		}};
 		tempest = new UAWItemTurret("tempest") {{
 			requirements(Category.turret, with(
@@ -537,7 +538,7 @@ public class UAWBlock implements ContentList {
 			shootCone = 2.3f;
 			velocityInaccuracy = 0.2f;
 			ammoUseEffect = Fx.casing3;
-			shootSound = UAWSfx.shotgun_shoot_1;
+			shootSound = UAWSfx.shotgunShoot1;
 			inaccuracy = 6f;
 			rotateSpeed = 4f;
 			maxAmmo = 60;

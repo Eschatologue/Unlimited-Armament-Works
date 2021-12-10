@@ -211,6 +211,41 @@ public class UAWBullets implements ContentList {
 			pierce = true;
 		}};
 
+		buckshotLead = new BuckshotBulletType(4.5f, 10f) {{
+			pierceCap = 3;
+			lifetime = 30f;
+			knockback = 6f;
+			despawnHit = true;
+			hitEffect = Fx.flakExplosion;
+			shootEffect = UAWFxD.instShoot(32, Pal.bulletYellowBack);
+			smokeEffect = Fx.shootSmallSmoke;
+			ammoMultiplier = 3;
+		}};
+		buckshotIncend = new BuckshotBulletType(4.5f, 8f) {{
+			height = width = 12f;
+			pierceCap = 3;
+			lifetime = 30f;
+			knockback = 4f;
+			shootEffect = UAWFxD.instShoot(32, Pal.lightishOrange);
+			smokeEffect = Fx.shootSmallSmoke;
+			hitEffect = new MultiEffect(Fx.hitBulletSmall, Fx.fireHit, Fx.fireSmoke);
+			frontColor = Pal.lightishOrange;
+			backColor = Pal.lightOrange;
+			status = StatusEffects.burning;
+		}};
+		buckshotCryo = new BuckshotBulletType(4.5f, 8f) {{
+			height = width = 12f;
+			pierceCap = 3;
+			lifetime = 30f;
+			knockback = 4f;
+			shootEffect = UAWFxD.instShoot(32, Color.valueOf("87CEEB"));
+			smokeEffect = Fx.shootSmallSmoke;
+			hitEffect = new MultiEffect(Fx.hitBulletSmall, UAWFxS.cryoHit, Fx.fireSmoke);
+			frontColor = UAWPal.cryoFront;
+			backColor = UAWPal.cryoBack;
+			status = StatusEffects.freezing;
+		}};
+
 		mineBasic = new MineBulletType(100, 90, 9) {{
 			frontColor = Pal.bulletYellow;
 			backColor = Pal.bulletYellowBack;

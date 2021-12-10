@@ -15,7 +15,7 @@ public class UAWSfx {
 		cannonShoot2 = new Sound(),
 		cruiseMissileShoot1 = new Sound(),
 		launcherShoot1 = new Sound(),
-		shotgun_shoot_1 = new Sound(),
+		shotgunShoot1 = new Sound(),
 		suppressedShoot1 = new Sound(),
 		torpedoShoot1 = new Sound();
 
@@ -40,7 +40,7 @@ public class UAWSfx {
 		cannonShoot2 = loadSound("cannon_shoot_2");
 		cruiseMissileShoot1 = loadSound("cruisemissile_shoot_1");
 		launcherShoot1 = loadSound("launcher_shoot_1");
-		shotgun_shoot_1 = loadSound("shotgun_shoot_1");
+		shotgunShoot1 = loadSound("shotgunShoot1");
 		suppressedShoot1 = loadSound("supressed_shoot_1");
 		torpedoShoot1 = loadSound("torpedo_shoot_1");
 	}

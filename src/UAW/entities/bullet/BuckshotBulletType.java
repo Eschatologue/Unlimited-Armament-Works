@@ -12,6 +12,7 @@ public class BuckshotBulletType extends UAWBasicBulletType {
 		super(speed, damage);
 		height = width = 15;
 		shrinkX = shrinkY = 0.5f;
+		despawnHit = true;
 		splashDamageRadius = 1.6f * tilesize;
 		splashDamage = damage / 1.8f;
 		pierceCap = 2;
