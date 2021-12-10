@@ -224,9 +224,9 @@ public class UAWUnitTypes implements ContentList {
 						splashDamageRadius = 8 * tilesize;
 						splashDamage = damage;
 						lifetime = (range - 5) / speed;
-						shootEffect = UAWFxStatic.shootPyraFlame;
-						hitEffect = despawnEffect = UAWFxDynamic.dynamicExplosion(splashDamageRadius);
-						trailEffect = UAWFxStatic.pyraSmokeTrailUnder;
+						shootEffect = UAWFxS.shootPyraFlame;
+						hitEffect = despawnEffect = UAWFxD.dynamicExplosion(splashDamageRadius);
+						trailEffect = UAWFxS.pyraSmokeTrailUnder;
 						status = StatusEffects.burning;
 						statusDuration = 4 * 60;
 						ammoMultiplier = 2f;
@@ -309,14 +309,14 @@ public class UAWUnitTypes implements ContentList {
 					recoil = 2.2f;
 					shootSound = Sounds.railgun;
 					shake = 3.5f;
-					ejectEffect = UAWFxStatic.casing3Long;
+					ejectEffect = UAWFxS.casing3Long;
 					bullet = new UAWRailBulletType() {{
 						damage = 250;
 						length = range;
-						shootEffect = new MultiEffect(UAWFxDynamic.railShoot(32, Pal.bulletYellowBack), Fx.blockExplosionSmoke);
-						hitEffect = pierceEffect = new MultiEffect(UAWFxDynamic.railHit(Pal.bulletYellowBack), Fx.blockExplosionSmoke);
+						shootEffect = new MultiEffect(UAWFxD.railShoot(32, Pal.bulletYellowBack), Fx.blockExplosionSmoke);
+						hitEffect = pierceEffect = new MultiEffect(UAWFxD.railHit(Pal.bulletYellowBack), Fx.blockExplosionSmoke);
 						smokeEffect = Fx.smokeCloud;
-						updateEffect = UAWFxDynamic.railTrail(10, Pal.bulletYellowBack);
+						updateEffect = UAWFxD.railTrail(10, Pal.bulletYellowBack);
 						pierceCap = 2;
 						updateEffectSeg = 30f;
 						armorIgnoreScl = 0.4f;
@@ -345,13 +345,13 @@ public class UAWUnitTypes implements ContentList {
 						splashDamageRadius = 12 * tilesize;
 						splashDamage = damage;
 						lifetime = (range - 5) / speed;
-						shootEffect = UAWFxStatic.shootCryoFlame;
+						shootEffect = UAWFxS.shootCryoFlame;
 						trailColor = UAWPal.cryoFront;
 						hitEffect = despawnEffect = new MultiEffect(
-							UAWFxDynamic.dynamicExplosionSmoke(splashDamageRadius, UAWPal.cryoMiddle),
-							UAWFxDynamic.dynamicExplosion(splashDamageRadius)
+							UAWFxD.dynamicExplosionSmoke(splashDamageRadius, UAWPal.cryoMiddle),
+							UAWFxD.dynamicExplosion(splashDamageRadius)
 						);
-						trailEffect = UAWFxStatic.cryoSmokeTrailUnder;
+						trailEffect = UAWFxS.cryoSmokeTrailUnder;
 						status = StatusEffects.freezing;
 						statusDuration = 4 * 60;
 					}};
@@ -431,7 +431,7 @@ public class UAWUnitTypes implements ContentList {
 						shootEffect = Fx.none;
 						smokeEffect = Fx.none;
 						splashDamageRadius = 5 * tilesize;
-						hitEffect = UAWFxDynamic.dynamicExplosion(splashDamageRadius);
+						hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius);
 						hitSound = Sounds.explosion;
 						status = StatusEffects.blasted;
 						statusDuration = 60f;
@@ -521,10 +521,10 @@ public class UAWUnitTypes implements ContentList {
 
 						frontColor = Pal.sapBullet;
 						backColor = Pal.sapBulletBack;
-						shootEffect = new MultiEffect(Fx.shootBig2, UAWFxStatic.shootSporeFlame);
+						shootEffect = new MultiEffect(Fx.shootBig2, UAWFxS.shootSporeFlame);
 						smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
 						despawnEffect = hitEffect = new MultiEffect(
-							UAWFxDynamic.dynamicExplosion(splashDamageRadius)
+							UAWFxD.dynamicExplosion(splashDamageRadius)
 						);
 					}};
 				}}
@@ -612,10 +612,10 @@ public class UAWUnitTypes implements ContentList {
 						frontColor = Pal.sapBullet;
 						backColor = Pal.sapBulletBack;
 						trailMult = 1.5f;
-						shootEffect = new MultiEffect(Fx.shootBig2, UAWFxStatic.shootSporeFlame);
+						shootEffect = new MultiEffect(Fx.shootBig2, UAWFxS.shootSporeFlame);
 						smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
 						despawnEffect = hitEffect = new MultiEffect(
-							UAWFxDynamic.dynamicExplosion(splashDamageRadius)
+							UAWFxD.dynamicExplosion(splashDamageRadius)
 						);
 						fragBullets = 4;
 						fragBullet = fragPlasticFrag;
@@ -734,7 +734,7 @@ public class UAWUnitTypes implements ContentList {
 					shake = 16;
 					shootStatusDuration = reload * 1.2f;
 					shootStatus = StatusEffects.unmoving;
-					ejectEffect = UAWFxStatic.casing5;
+					ejectEffect = UAWFxS.casing5;
 					bullet = new UAWArtilleryBulletType(1.7f, 550) {{
 						height = 42;
 						width = height / 2f;
@@ -752,13 +752,13 @@ public class UAWUnitTypes implements ContentList {
 						frontColor = Pal.sapBullet;
 						backColor = Pal.sapBulletBack;
 						shootEffect = new MultiEffect(
-							UAWFxStatic.shootSporeFlame,
-							UAWFxDynamic.instShoot(65, Pal.sapBullet),
-							UAWFxDynamic.shootMassiveSmoke(5, 30, backColor)
+							UAWFxS.shootSporeFlame,
+							UAWFxD.instShoot(65, Pal.sapBullet),
+							UAWFxD.shootMassiveSmoke(5, 30, backColor)
 						);
 						smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
 						despawnEffect = hitEffect = new MultiEffect(
-							UAWFxDynamic.hugeExplosion(splashDamageRadius, backColor)
+							UAWFxD.hugeExplosion(splashDamageRadius, backColor)
 						);
 						fragBullets = 1;
 						fragBullet = new SplashBulletType(splashDamage / 2, splashDamageRadius / 1.2f) {{
@@ -814,7 +814,7 @@ public class UAWUnitTypes implements ContentList {
 					shootSound = UAWSfx.torpedoShoot1;
 
 					bullet = new TorpedoBulletType(1.8f, 450) {{
-						shootEffect = UAWFxStatic.shootWaterFlame;
+						shootEffect = UAWFxS.shootWaterFlame;
 						lifetime = range / speed;
 						homingRange = range;
 						hitSizeDamageScl = 3.5f;
@@ -877,7 +877,7 @@ public class UAWUnitTypes implements ContentList {
 					shootSound = UAWSfx.torpedoShoot1;
 
 					bullet = new TorpedoBulletType(1.8f, 650) {{
-						shootEffect = UAWFxStatic.shootWaterFlame;
+						shootEffect = UAWFxS.shootWaterFlame;
 						lifetime = range / speed;
 						homingRange = range;
 						maxEnemyHitSize = 45;
@@ -1006,7 +1006,7 @@ public class UAWUnitTypes implements ContentList {
 					reload = 1.5f * 60;
 					recoil = 4.5f;
 					shootSound = UAWSfx.cannonShoot1;
-					ejectEffect = UAWFxStatic.casing2Long;
+					ejectEffect = UAWFxS.casing2Long;
 					shake = 3f;
 					bullet = new TrailBulletType(7f, 85) {{
 						height = 25f;
@@ -1017,7 +1017,7 @@ public class UAWUnitTypes implements ContentList {
 						shieldDamageMultiplier = 1.5f;
 						trailColor = backColor;
 						shootSound = Sounds.shootBig;
-						shootEffect = new MultiEffect(UAWFxDynamic.railShoot(22f, backColor), Fx.shootPyraFlame, Fx.shootSmallSmoke);
+						shootEffect = new MultiEffect(UAWFxD.railShoot(22f, backColor), Fx.shootPyraFlame, Fx.shootSmallSmoke);
 						hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootSmallSmoke);
 						fragBullets = 4;
 						fragLifeMin = 0f;
@@ -1064,7 +1064,7 @@ public class UAWUnitTypes implements ContentList {
 					reload = 2 * 60;
 					recoil = 4.4f;
 					shootSound = UAWSfx.cannonShoot1;
-					ejectEffect = UAWFxStatic.casing3Long;
+					ejectEffect = UAWFxS.casing3Long;
 					shake = 6f;
 					bullet = new TrailBulletType(8f, 215) {{
 						height = 35f;
@@ -1077,7 +1077,7 @@ public class UAWUnitTypes implements ContentList {
 						shootSound = Sounds.shootBig;
 						armorIgnoreScl = 0.6f;
 						shieldDamageMultiplier = 2f;
-						shootEffect = new MultiEffect(UAWFxDynamic.railShoot(30f, backColor), Fx.shootPyraFlame, Fx.shootBigSmoke2);
+						shootEffect = new MultiEffect(UAWFxD.railShoot(30f, backColor), Fx.shootPyraFlame, Fx.shootBigSmoke2);
 						hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootBigSmoke2);
 						fragBullets = 6;
 						fragLifeMin = 0f;

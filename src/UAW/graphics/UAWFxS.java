@@ -13,7 +13,7 @@ import static arc.graphics.g2d.Lines.stroke;
 import static arc.math.Angles.*;
 import static mindustry.Vars.*;
 
-public class UAWFxStatic {
+public class UAWFxS {
 	public static final Effect
 
 		crossShoot = new Effect(15f, 90f, e -> {

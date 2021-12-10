@@ -2,11 +2,8 @@ package UAW.type.units;
 
 import UAW.ai.types.BomberJetAI;
 import UAW.graphics.*;
-import arc.graphics.Color;
 import arc.math.*;
-import arc.util.Time;
 import mindustry.gen.*;
-import mindustry.graphics.Pal;
 import mindustry.type.UnitType;
 import mindustry.world.meta.BlockFlag;
 
@@ -41,8 +38,8 @@ public class JetUnitType extends UnitType {
 		float cy2 = Angles.trnsy(unit.rotation - 90, -trailX, trailY) + unit.y;
 		if (unit.moving()) {
 			if (Mathf.chanceDelta(1)) {
-				UAWFxDynamic.jetTrail(trailLength).at(cx, cy, trailWidth, unit.team.color);
-				UAWFxDynamic.jetTrail(trailLength).at(cx2, cy2, trailWidth, unit.team.color);
+				UAWFxD.jetTrail(trailLength).at(cx, cy, trailWidth, unit.team.color);
+				UAWFxD.jetTrail(trailLength).at(cx2, cy2, trailWidth, unit.team.color);
 			}
 		}
 		omniMovement = !unit.isPlayer() && unit.isShooting && unit.isAI();

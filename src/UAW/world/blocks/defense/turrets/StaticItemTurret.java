@@ -1,6 +1,6 @@
 package UAW.world.blocks.defense.turrets;
 
-import UAW.graphics.UAWFxStatic;
+import UAW.graphics.UAWFxS;
 import arc.Core;
 import arc.func.Cons;
 import arc.graphics.Blending;
@@ -29,7 +29,7 @@ public class StaticItemTurret extends ItemTurret {
 
 	public StaticItemTurret(String name) {
 		super(name);
-		shootEffect = UAWFxStatic.crossShoot;
+		shootEffect = UAWFxS.crossShoot;
 		smokeEffect = Fx.smokeCloud;
 		rotate = false;
 		shootCone = 360;

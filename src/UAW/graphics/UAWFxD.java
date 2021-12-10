@@ -13,7 +13,7 @@ import static arc.graphics.g2d.Lines.*;
 import static arc.math.Angles.randLenVectors;
 import static mindustry.Vars.tilesize;
 
-public class UAWFxDynamic {
+public class UAWFxD {
 	private static final Rand rand = new Rand();
 	private static final Vec2 v = new Vec2();
 

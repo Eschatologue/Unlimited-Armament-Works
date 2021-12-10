@@ -1,6 +1,6 @@
 package UAW.entities.bullet;
 
-import UAW.graphics.UAWFxStatic;
+import UAW.graphics.UAWFxS;
 import arc.math.Mathf;
 import mindustry.content.*;
 import mindustry.entities.bullet.ArtilleryBulletType;
@@ -29,7 +29,7 @@ public class AntiBuildingBulletType extends ArtilleryBulletType {
 		knockback = 8;
 		frontColor = Pal.sapBullet;
 		backColor = Pal.sapBulletBack;
-		shootEffect = new MultiEffect(Fx.shootBig2, UAWFxStatic.shootSporeFlame);
+		shootEffect = new MultiEffect(Fx.shootBig2, UAWFxS.shootSporeFlame);
 		smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
 		trailLength = Mathf.round(height) + 8;
 		trailWidth = width / 4f;

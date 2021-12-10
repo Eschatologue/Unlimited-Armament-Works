@@ -1,6 +1,6 @@
 package UAW.entities.abilities;
 
-import UAW.graphics.UAWFxDynamic;
+import UAW.graphics.UAWFxD;
 import arc.graphics.Color;
 import arc.math.Mathf;
 import arc.util.Time;
@@ -30,7 +30,7 @@ public class RazorRotorAbility extends Ability {
 			despawnEffect = Fx.none;
 			lifetime = 10;
 			hitSize = range;
-			hitEffect = UAWFxDynamic.circleSplash(range, lifetime, Color.white, Pal.gray, Pal.gray);
+			hitEffect = UAWFxD.circleSplash(range, lifetime, Color.white, Pal.gray, Pal.gray);
 			speed = 0f;
 			absorbable = hittable = false;
 			pierceBuilding = pierce = true;

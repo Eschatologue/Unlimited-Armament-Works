@@ -1,6 +1,6 @@
 package UAW.world.blocks.power;
 
-import UAW.graphics.UAWFxDynamic;
+import UAW.graphics.UAWFxD;
 import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
@@ -31,7 +31,7 @@ public class WarmUpGenerator extends ImpactReactor {
 		hasItems = false;
 		explosionRadius = size * 4;
 		explosionDamage = size * 125;
-		explodeEffect = UAWFxDynamic.dynamicExplosion(explosionRadius);
+		explodeEffect = UAWFxD.dynamicExplosion(explosionRadius);
 	}
 
 	@Override

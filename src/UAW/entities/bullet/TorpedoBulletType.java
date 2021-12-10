@@ -32,7 +32,7 @@ public class TorpedoBulletType extends BulletType {
 	 */
 	public float deepDrag = -0.005f;
 	public float rippleInterval = 7f;
-	public Effect rippleEffect = UAWFxStatic.torpedoRippleTrail;
+	public Effect rippleEffect = UAWFxS.torpedoRippleTrail;
 
 	public TorpedoBulletType(float speed, float damage) {
 		super(speed, damage);
@@ -49,11 +49,11 @@ public class TorpedoBulletType extends BulletType {
 		trailWidth = trailLength / 13f;
 		trailColor = UAWPal.waterMiddle;
 		trailInterval = 0.2f;
-		shootEffect = UAWFxStatic.shootWaterFlame;
-		trailEffect = UAWFxStatic.torpedoCruiseTrail;
+		shootEffect = UAWFxS.shootWaterFlame;
+		trailEffect = UAWFxS.torpedoCruiseTrail;
 		trailRotation = true;
-		hitEffect = new MultiEffect(Fx.smokeCloud, Fx.blastExplosion, UAWFxStatic.torpedoRippleHit, UAWFxDynamic.smokeCloud(trailColor));
-		despawnEffect = UAWFxStatic.torpedoRippleHit;
+		hitEffect = new MultiEffect(Fx.smokeCloud, Fx.blastExplosion, UAWFxS.torpedoRippleHit, UAWFxD.smokeCloud(trailColor));
+		despawnEffect = UAWFxS.torpedoRippleHit;
 		status = StatusEffects.slow;
 		statusDuration = 3 * 60;
 		hitSoundVolume = 4f;
@@ -105,7 +105,7 @@ public class TorpedoBulletType extends BulletType {
 	@Override
 	public void removed(Bullet b) {
 		if (trailLength > 0 && b.trail != null && b.trail.size() > 0) {
-			UAWFxStatic.torpedoTrailFade.at(b.x, b.y, trailWidth, trailColor, b.trail.copy());
+			UAWFxS.torpedoTrailFade.at(b.x, b.y, trailWidth, trailColor, b.trail.copy());
 		}
 	}
 }

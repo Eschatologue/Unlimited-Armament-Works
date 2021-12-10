@@ -1,6 +1,6 @@
 package UAW.entities.bullet;
 
-import UAW.graphics.UAWFxDynamic;
+import UAW.graphics.UAWFxD;
 import arc.audio.Sound;
 import arc.graphics.Color;
 import arc.math.*;
@@ -43,7 +43,7 @@ public class SplashBulletType extends BulletType {
 		hittable = false;
 		hitSize = speed = 0;
 		smokeEffect = despawnEffect = hitEffect = Fx.none;
-		particleEffect = UAWFxDynamic.statusHit(10f, frontColor);
+		particleEffect = UAWFxD.statusHit(10f, frontColor);
 		displayAmmoMultiplier = false;
 		absorbable = hittable = false;
 		pierceBuilding = pierce = true;
@@ -54,7 +54,7 @@ public class SplashBulletType extends BulletType {
 		if (b.timer(1, splashDelay) && splashAmount > 1) {
 			Damage.damage(b.team, b.x, b.y, splashDamageRadius, splashDamage, collidesAir, collidesGround);
 			if (!customSplashEffect) {
-				UAWFxDynamic.circleSplash(
+				UAWFxD.circleSplash(
 					splashDamageRadius,
 					splashDelay,
 					frontColor, backColor, backColor).at(b.x, b.y);

@@ -1,6 +1,6 @@
 package UAW.entities.bullet;
 
-import UAW.graphics.UAWFxStatic;
+import UAW.graphics.UAWFxS;
 import arc.Core;
 import arc.graphics.g2d.Draw;
 import mindustry.gen.*;
@@ -29,7 +29,7 @@ public class CruiseMissileBulletType extends UAWBasicBulletType {
 		backColor = Pal.missileYellowBack;
 		frontColor = Pal.missileYellow;
 		trailInterval = 0.5f;
-		trailEffect = UAWFxStatic.pyraSmokeTrail;
+		trailEffect = UAWFxS.pyraSmokeTrail;
 		trailRotation = true;
 	}
 
