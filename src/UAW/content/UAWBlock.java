@@ -18,7 +18,7 @@ import mindustry.graphics.Pal;
 import mindustry.type.*;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
-import mindustry.world.blocks.liquid.Conduit;
+import mindustry.world.blocks.liquid.*;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.units.Reconstructor;
 import mindustry.world.draw.*;
@@ -665,7 +665,7 @@ public class UAWBlock implements ContentList {
 			);
 		}};
 
-		pressurizedConduit = new Conduit("pressurized-conduit") {{
+		pressurizedConduit = new ArmoredConduit("pressurized-conduit") {{
 			requirements(Category.liquid, with(
 				Items.titanium, 3,
 				Items.metaglass, 2,
@@ -678,6 +678,7 @@ public class UAWBlock implements ContentList {
 			liquidPressure = 1.5f;
 			leaks = false;
 			squareSprite = false;
+			consumes.power(0.25f);
 		}};
 
 		gelatinizer = new GenericCrafter("gelatinizer") {{
