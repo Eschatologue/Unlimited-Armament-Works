@@ -16,14 +16,13 @@ import mindustry.world.blocks.power.ImpactReactor;
  * Modified version of ImpactReactor
  * <p>
  * Power generation block which can use items, liquids or both as input sources for power production.
- * Can have rotators
+ * Can have rotators, using DrawRotator is not preferred due to on how weird it rotates.
  * </p>
  */
 public class WarmUpGenerator extends ImpactReactor {
 	public TextureRegion liquidRegion, rotatorRegion, heatRegion, topRegion;
 	public Effect smokeEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
 	public float maxRotationSpeed = 15f;
-	public boolean drawRotator = false;
 
 	public WarmUpGenerator(String name) {
 		super(name);
@@ -38,16 +37,14 @@ public class WarmUpGenerator extends ImpactReactor {
 	public void load() {
 		bottomRegion = Core.atlas.find(name + "-bottom");
 		liquidRegion = Core.atlas.find(name + "-liquid");
-		if (drawRotator) {
-			rotatorRegion = Core.atlas.find(name + "-rotator");
-		}
+		rotatorRegion = Core.atlas.find(name + "-rotator");
 		topRegion = Core.atlas.find(name + "-top");
 		heatRegion = Core.atlas.find(name + "-heat");
 	}
 
 	@Override
 	public TextureRegion[] icons() {
-		if (drawRotator) {
+		if (rotatorRegion.found()) {
 			return new TextureRegion[]{bottomRegion, rotatorRegion, topRegion};
 		} else
 			return new TextureRegion[]{bottomRegion, topRegion};
@@ -69,7 +66,7 @@ public class WarmUpGenerator extends ImpactReactor {
 		public void draw() {
 			Draw.rect(bottomRegion, x, y);
 			Drawf.liquid(liquidRegion, x, y, liquids.total() / liquidCapacity, liquids.current().color);
-			if (drawRotator) {
+			if (rotatorRegion.found()) {
 				Draw.rect(rotatorRegion, x, y, Time.time * (maxRotationSpeed * warmup));
 			}
 			Draw.rect(topRegion, x, y);

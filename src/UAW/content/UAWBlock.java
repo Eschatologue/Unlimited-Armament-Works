@@ -8,7 +8,6 @@ import UAW.world.blocks.defense.walls.ShieldWall;
 import UAW.world.blocks.drawer.DrawLiquidInput;
 import UAW.world.blocks.power.WarmUpGenerator;
 import UAW.world.blocks.production.UAWGenericCrafter;
-import arc.graphics.Color;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.UnitSorts;
@@ -19,6 +18,7 @@ import mindustry.graphics.Pal;
 import mindustry.type.*;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
+import mindustry.world.blocks.liquid.Conduit;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.units.Reconstructor;
 import mindustry.world.draw.*;
@@ -29,13 +29,19 @@ import static mindustry.content.Bullets.*;
 import static mindustry.type.ItemStack.with;
 
 public class UAWBlock implements ContentList {
-	public static Block
-	// Turret
+	public static Block placeholder,
+	// Gatling
 	quadra, spitfire, equalizer,
+	// Sniper/Railgun
 	solo, longsword, deadeye,
+	// Shotcannon
 	buckshot, tempest, strikeforce,
+	// Artillery
 	ashlock, zounderkite, skyhammer,
+	// Energy
 	heavylight, trailblazer, terravolt,
+	// Liquids
+	pressurizedConduit,
 	// Crafters
 	gelatinizer, carburizingFurnace, surgeMixer, coalLiquefier,
 	// Power
@@ -241,7 +247,7 @@ public class UAWBlock implements ContentList {
 					smokeEffect = new MultiEffect(
 						Fx.smokeCloud,
 						Fx.blastsmoke
-						);
+					);
 					updateEffect = UAWFxD.railTrail(15, Pal.missileYellow);
 					pierceBuilding = true;
 					pierceDamageFactor = 0.8f;
@@ -659,6 +665,21 @@ public class UAWBlock implements ContentList {
 			);
 		}};
 
+		pressurizedConduit = new Conduit("pressurized-conduit") {{
+			requirements(Category.liquid, with(
+				Items.titanium, 3,
+				Items.metaglass, 2,
+				Items.plastanium, 2
+			));
+			health = 250;
+			outputsPower = true;
+			hasPower = true;
+			liquidCapacity = 24f;
+			liquidPressure = 1.5f;
+			leaks = false;
+			squareSprite = false;
+		}};
+
 		gelatinizer = new GenericCrafter("gelatinizer") {{
 			requirements(Category.crafting, with(
 				Items.lead, 45,
@@ -760,21 +781,39 @@ public class UAWBlock implements ContentList {
 
 		combustionGenerator = new WarmUpGenerator("combustion-generator") {{
 			requirements(Category.power, with(
-				Items.copper, 160,
-				Items.titanium, 100,
+				Items.copper, 250,
+				Items.titanium, 200,
 				Items.lead, 250,
 				Items.silicon, 125,
-				Items.metaglass, 80
+				Items.metaglass, 100
 			));
 			size = 2;
 			health = 600 * size;
-			powerProduction = 8.5f;
+			powerProduction = 9.5f;
 			hasLiquids = true;
 			hasItems = false;
 			liquidCapacity = 180f;
 			buildCostMultiplier = 1.5f;
 
 			consumes.power(1f);
+			consumes.liquid(Liquids.oil, 0.5f);
+		}};
+		combustionTurbine = new WarmUpGenerator("combustion-turbine") {{
+			requirements(Category.power, with(
+				Items.copper, 160,
+				Items.titanium, 100,
+				Items.lead, 250,
+				Items.silicon, 125,
+				Items.metaglass, 80
+			));
+			size = 3;
+			health = 600 * size;
+			powerProduction = 16f;
+			hasLiquids = true;
+			hasItems = false;
+			liquidCapacity = 360f;
+
+			consumes.power(1.5f);
 			consumes.liquid(Liquids.oil, 0.5f);
 		}};
 

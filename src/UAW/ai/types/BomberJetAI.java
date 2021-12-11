@@ -1,6 +1,5 @@
 package UAW.ai.types;
 
-import UAW.type.units.JetUnitType;
 import mindustry.ai.types.FlyingAI;
 import mindustry.entities.units.UnitCommand;
 import mindustry.world.meta.BlockFlag;
@@ -16,7 +15,7 @@ public class BomberJetAI extends FlyingAI {
 				moveTo(target, unit.type.range * 0.8f);
 				unit.lookAt(target);
 			} else {
-				attack(unit.type.range);
+				attack(unit.type.range * 0.8f);
 				unit.lookAt(unit.vel().angle());
 			}
 		}
