@@ -20,7 +20,7 @@ import mindustry.type.*;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.blocks.liquid.*;
-import mindustry.world.blocks.production.GenericCrafter;
+import mindustry.world.blocks.production.*;
 import mindustry.world.blocks.units.Reconstructor;
 import mindustry.world.draw.*;
 
@@ -42,7 +42,7 @@ public class UAWBlock implements ContentList {
 	// Energy
 	heavylight, trailblazer, terravolt,
 	// Liquids
-	pressurizedConduit,
+	pressurizedConduit, jetPump,
 	// Crafters
 	gelatinizer, carburizingFurnace, surgeMixer, coalLiquefier,
 	// Power
@@ -673,6 +673,14 @@ public class UAWBlock implements ContentList {
 				Items.plastanium, 2
 			));
 			health = 250;
+		}};
+		jetPump = new Pump("jet-pump"){{
+			requirements(Category.liquid, with(Items.lead, 160, Items.metaglass, 180, Items.silicon, 60, UAWItems.titaniumCarbide, 40, Items.thorium, 70));
+			pumpAmount = 0.5f;
+			consumes.power(2f);
+			liquidCapacity = 120f;
+			hasPower = true;
+			size = 3;
 		}};
 
 		gelatinizer = new GenericCrafter("gelatinizer") {{

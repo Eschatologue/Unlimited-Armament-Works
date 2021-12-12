@@ -16,15 +16,10 @@ public class PressurizedConduit extends ArmoredConduit {
 		leaks = false;
 	}
 
-//	@Override
-//	public boolean blends(Tile tile, int rotation, int otherX, int otherY, int otherRot, Block otherBlock){
-//		return (otherBlock.outputsLiquid && otherBlock instanceof Pump && otherBlock instanceof PressurizedConduit && blendsArmored(tile, rotation, otherX, otherY, otherRot, otherBlock)) ||
-//			(lookingAt(tile, rotation, otherX, otherY, otherBlock) && otherBlock.hasLiquids);
-//	}
-
 	@Override
 	public boolean blends(Tile tile, int rotation, int otherX, int otherY, int otherRot, Block otherBlock){
-		return lookingAt(tile, rotation, otherX, otherY, otherBlock) && otherBlock.hasLiquids;
+		return (otherBlock.outputsLiquid && otherBlock instanceof PressurizedConduit || otherBlock instanceof Pump && blendsArmored(tile, rotation, otherX, otherY, otherRot, otherBlock)) ||
+			(lookingAt(tile, rotation, otherX, otherY, otherBlock) && otherBlock.hasLiquids);
 	}
 
 	public class PressurizedConduitBuild extends ArmoredConduitBuild{
