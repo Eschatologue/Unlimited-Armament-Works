@@ -668,7 +668,7 @@ public class UAWBlock implements ContentList {
 
 		pressurizedConduit = new PressurizedConduit("pressurized-conduit") {{
 			requirements(Category.liquid, with(
-				Items.titanium, 3,
+				UAWItems.titaniumCarbide, 3,
 				Items.metaglass, 2,
 				Items.plastanium, 2
 			));
@@ -707,8 +707,8 @@ public class UAWBlock implements ContentList {
 				Items.graphite, 95
 			));
 			consumes.items(
-				new ItemStack(Items.titanium, 5),
-				new ItemStack(Items.coal, 10)
+				new ItemStack(Items.titanium, 4),
+				new ItemStack(Items.coal, 8)
 			);
 			consumes.liquid(Liquids.slag, 0.75f);
 			outputItem = new ItemStack(
@@ -719,7 +719,7 @@ public class UAWBlock implements ContentList {
 			hasLiquids = true;
 			size = 3;
 			itemCapacity = 30;
-			craftTime = 4.5f * tick;
+			craftTime = 4 * tick;
 			drawer = new DrawSmelter();
 			craftEffect = new MultiEffect(
 				UAWFxD.burstSmelt(4 * tilesize, Pal.missileYellow, Pal.missileYellowBack),
