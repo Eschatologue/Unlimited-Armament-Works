@@ -672,13 +672,10 @@ public class UAWBlock implements ContentList {
 				Items.plastanium, 2
 			));
 			health = 250;
-			outputsPower = true;
-			hasPower = true;
 			liquidCapacity = 24f;
 			liquidPressure = 1.5f;
 			leaks = false;
 			squareSprite = false;
-			consumes.power(0.25f);
 		}};
 
 		gelatinizer = new GenericCrafter("gelatinizer") {{
