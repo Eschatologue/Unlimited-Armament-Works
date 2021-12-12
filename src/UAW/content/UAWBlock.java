@@ -6,6 +6,7 @@ import UAW.world.blocks.defense.*;
 import UAW.world.blocks.defense.turrets.*;
 import UAW.world.blocks.defense.walls.ShieldWall;
 import UAW.world.blocks.drawer.DrawLiquidInput;
+import UAW.world.blocks.liquid.PressurizedConduit;
 import UAW.world.blocks.power.WarmUpGenerator;
 import UAW.world.blocks.production.UAWGenericCrafter;
 import mindustry.content.*;
@@ -665,17 +666,13 @@ public class UAWBlock implements ContentList {
 			);
 		}};
 
-		pressurizedConduit = new ArmoredConduit("pressurized-conduit") {{
+		pressurizedConduit = new PressurizedConduit("pressurized-conduit") {{
 			requirements(Category.liquid, with(
 				Items.titanium, 3,
 				Items.metaglass, 2,
 				Items.plastanium, 2
 			));
 			health = 250;
-			liquidCapacity = 24f;
-			liquidPressure = 1.5f;
-			leaks = false;
-			squareSprite = false;
 		}};
 
 		gelatinizer = new GenericCrafter("gelatinizer") {{
