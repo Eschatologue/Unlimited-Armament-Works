@@ -19,11 +19,10 @@ import mindustry.graphics.Pal;
 import mindustry.type.*;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
-import mindustry.world.blocks.liquid.*;
 import mindustry.world.blocks.production.*;
 import mindustry.world.blocks.units.Reconstructor;
 import mindustry.world.draw.*;
-import mindustry.world.meta.*;
+import mindustry.world.meta.Attribute;
 
 import static UAW.content.UAWBullets.*;
 import static mindustry.Vars.tilesize;
@@ -677,7 +676,7 @@ public class UAWBlock implements ContentList {
 			));
 			health = 250;
 		}};
-		jetPump = new Pump("jet-pump"){{
+		jetPump = new Pump("jet-pump") {{
 			requirements(Category.liquid, with(Items.lead, 160, Items.metaglass, 180, Items.silicon, 60, UAWItems.titaniumCarbide, 40, Items.thorium, 70));
 			pumpAmount = 0.5f;
 			consumes.power(2f);
@@ -687,8 +686,15 @@ public class UAWBlock implements ContentList {
 			placeableLiquid = true;
 		}};
 
-		petroleumDrill = new SolidPump("petroleum-drill"){{
-			requirements(Category.production, with(Items.metaglass, 30, Items.graphite, 30, Items.lead, 30, Items.copper, 30));
+		petroleumDrill = new SolidPump("petroleum-drill") {{
+			requirements(Category.production, with(
+				Items.graphite, 250,
+				Items.lead, 265,
+				Items.plastanium, 125,
+				Items.thorium, 180,
+				Items.silicon, 125,
+				UAWItems.titaniumCarbide, 150
+			));
 			result = Liquids.oil;
 			pumpAmount = 0.50f;
 			size = 3;
