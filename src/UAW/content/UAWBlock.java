@@ -23,6 +23,7 @@ import mindustry.world.blocks.liquid.*;
 import mindustry.world.blocks.production.*;
 import mindustry.world.blocks.units.Reconstructor;
 import mindustry.world.draw.*;
+import mindustry.world.meta.*;
 
 import static UAW.content.UAWBullets.*;
 import static mindustry.Vars.tilesize;
@@ -43,6 +44,8 @@ public class UAWBlock implements ContentList {
 	heavylight, trailblazer, terravolt,
 	// Liquids
 	pressurizedConduit, jetPump,
+	// Drills
+	petroleumDrill,
 	// Crafters
 	gelatinizer, carburizingFurnace, surgeMixer, coalLiquefier,
 	// Power
@@ -681,6 +684,20 @@ public class UAWBlock implements ContentList {
 			liquidCapacity = 120f;
 			hasPower = true;
 			size = 3;
+			placeableLiquid = true;
+		}};
+
+		petroleumDrill = new SolidPump("petroleum-drill"){{
+			requirements(Category.production, with(Items.metaglass, 30, Items.graphite, 30, Items.lead, 30, Items.copper, 30));
+			result = Liquids.oil;
+			pumpAmount = 0.50f;
+			size = 3;
+			liquidCapacity = 120f;
+			rotateSpeed = 2f;
+			attribute = Attribute.oil;
+			placeableLiquid = true;
+
+			consumes.power(1.5f);
 		}};
 
 		gelatinizer = new GenericCrafter("gelatinizer") {{
