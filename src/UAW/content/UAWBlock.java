@@ -696,14 +696,14 @@ public class UAWBlock implements ContentList {
 				UAWItems.titaniumCarbide, 150
 			));
 			result = Liquids.oil;
-			pumpTime = 0.50f;
+			pumpTime = 0.25f;
 			size = 3;
 			liquidCapacity = 120f;
-			rotateSpeed = -5f;
+			rotateSpeed = -8f;
 			attribute = Attribute.oil;
 			placeableLiquid = true;
 
-			consumes.power(1.5f);
+			consumes.power(3.5f);
 		}};
 
 		gelatinizer = new GenericCrafter("gelatinizer") {{

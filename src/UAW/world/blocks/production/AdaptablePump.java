@@ -12,7 +12,7 @@ public class AdaptablePump extends AttributeCrafter {
 	public TextureRegion region, rotatorRegion, liquidRegion, topRegion;
 	public Liquid result = Liquids.oil;
 	public float rotateSpeed = 1.5f;
-	public float pumpTime = craftTime = 6.5f;
+	public float pumpTime = craftTime = 5.5f;
 	public float pumpAmount = 1.5f;
 	public float deepLiquidMultiplier;
 
@@ -56,7 +56,7 @@ public class AdaptablePump extends AttributeCrafter {
 			Draw.rect(region, x, y);
 			super.drawCracks();
 			Drawf.liquid(liquidRegion, x, y, liquids.get(result) / liquidCapacity, result.color);
-			Drawf.spinSprite(rotatorRegion, x, y, pumpTime * rotateSpeed);
+			Drawf.spinSprite(rotatorRegion, x, y, warmup * rotateSpeed);
 			Draw.rect(topRegion, x, y);
 		}
 	}
