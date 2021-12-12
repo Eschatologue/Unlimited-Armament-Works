@@ -8,7 +8,7 @@ import UAW.world.blocks.defense.walls.ShieldWall;
 import UAW.world.blocks.drawer.DrawLiquidInput;
 import UAW.world.blocks.liquid.PressurizedConduit;
 import UAW.world.blocks.power.WarmUpGenerator;
-import UAW.world.blocks.production.UAWGenericCrafter;
+import UAW.world.blocks.production.*;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.UnitSorts;
@@ -686,7 +686,7 @@ public class UAWBlock implements ContentList {
 			placeableLiquid = true;
 		}};
 
-		petroleumDrill = new SolidPump("petroleum-drill") {{
+		petroleumDrill = new AdaptablePump("petroleum-drill") {{
 			requirements(Category.production, with(
 				Items.graphite, 250,
 				Items.lead, 265,
@@ -696,7 +696,7 @@ public class UAWBlock implements ContentList {
 				UAWItems.titaniumCarbide, 150
 			));
 			result = Liquids.oil;
-			pumpAmount = 0.50f;
+			pumpTime = 0.50f;
 			size = 3;
 			liquidCapacity = 120f;
 			rotateSpeed = 2f;
