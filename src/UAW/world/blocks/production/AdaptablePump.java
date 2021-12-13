@@ -25,7 +25,6 @@ public class AdaptablePump extends AttributeCrafter {
 		attribute = Attribute.oil;
 		outputLiquid = new LiquidStack(result, pumpAmount);
 		warmupSpeed = 0.015f;
-		squareSprite = false;
 		updateEffectChance = 0.5f;
 	}
 

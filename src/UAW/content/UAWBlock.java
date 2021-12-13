@@ -684,6 +684,7 @@ public class UAWBlock implements ContentList {
 			hasPower = true;
 			size = 3;
 			placeableLiquid = true;
+			squareSprite = false;
 		}};
 
 		petroleumDrill = new AdaptablePump("petroleum-drill") {{
@@ -701,6 +702,7 @@ public class UAWBlock implements ContentList {
 			liquidCapacity = 350f;
 			rotateSpeed = -4f;
 			attribute = Attribute.oil;
+			squareSprite = false;
 			placeableLiquid = true;
 			boostScale = 0.25f;
 			maxBoost = 5f;
