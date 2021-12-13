@@ -1,7 +1,9 @@
 package UAW.world.blocks.production;
 
+import UAW.graphics.UAWFxD;
 import arc.Core;
 import arc.graphics.g2d.*;
+import arc.util.Time;
 import mindustry.content.Liquids;
 import mindustry.graphics.Drawf;
 import mindustry.type.*;
@@ -23,8 +25,9 @@ public class AdaptablePump extends AttributeCrafter {
 		hasItems = false;
 		attribute = Attribute.oil;
 		outputLiquid = new LiquidStack(result, pumpAmount);
-		warmupSpeed = 2f;
+		warmupSpeed = 0.5f;
 		squareSprite = false;
+		updateEffectChance = 0.5f;
 	}
 
 	@Override
@@ -53,13 +56,19 @@ public class AdaptablePump extends AttributeCrafter {
 
 	public class AdaptablePumpBuild extends AttributeCrafterBuild {
 		@Override
+		public void updateTile() {
+			super.updateTile();
+			updateEffect = UAWFxD.statusHit(15f, result.color);
+		}
+
+		@Override
 		public void draw() {
 			Draw.rect(region, x, y);
 			super.drawCracks();
 			if (liquidRegion.found()) {
 				Drawf.liquid(liquidRegion, x, y, liquids.get(result) / liquidCapacity, result.color);
 			}
-			Drawf.spinSprite(rotatorRegion, x, y, warmup * rotateSpeed);
+			Draw.rect(rotatorRegion, x, y, Time.delta * (warmup * rotateSpeed));
 			Draw.rect(topRegion, x, y);
 		}
 	}

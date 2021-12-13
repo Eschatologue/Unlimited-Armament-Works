@@ -702,9 +702,8 @@ public class UAWBlock implements ContentList {
 			rotateSpeed = -8f;
 			attribute = Attribute.oil;
 			placeableLiquid = true;
-			baseEfficiency = 0.5f;
-			boostScale = 0.5f;
-			maxBoost = 3f;
+			boostScale = 0.25f;
+			maxBoost = 5f;
 
 			consumes.power(3.5f);
 		}};

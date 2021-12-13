@@ -287,7 +287,7 @@ public class UAWFxD {
 	public static Effect statusHit(float lifetime, Color color) {
 		return new Effect(lifetime, e -> {
 			color(color);
-			randLenVectors(e.id, 6, 1.5f + e.fin() * 2.5f, (x, y) ->
+			randLenVectors(e.id, 7, 1.5f + e.fin() * 2.5f, (x, y) ->
 				Fill.circle(e.x + x, e.y + y, e.fout() * 1.5f));
 		});
 	}
