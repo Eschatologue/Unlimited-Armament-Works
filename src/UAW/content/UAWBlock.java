@@ -699,7 +699,7 @@ public class UAWBlock implements ContentList {
 			pumpTime = 0.25f;
 			size = 3;
 			liquidCapacity = 350f;
-			rotateSpeed = -8f;
+			rotateSpeed = -4f;
 			attribute = Attribute.oil;
 			placeableLiquid = true;
 			boostScale = 0.25f;

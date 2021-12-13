@@ -1,12 +1,16 @@
 package UAW.world.blocks.liquid;
 
+import mindustry.content.Blocks;
 import mindustry.gen.Building;
 import mindustry.type.Liquid;
 import mindustry.world.*;
+import mindustry.world.blocks.distribution.ItemBridge;
 import mindustry.world.blocks.liquid.*;
 import mindustry.world.blocks.production.Pump;
 
 public class PressurizedConduit extends ArmoredConduit {
+	public Block bridge = Blocks.bridgeConduit;
+	public Block junction = Blocks.liquidJunction;
 
 	public PressurizedConduit(String name){
 		super(name);
@@ -14,6 +18,14 @@ public class PressurizedConduit extends ArmoredConduit {
 		liquidCapacity = 30f;
 		liquidPressure = 1.5f;
 		leaks = false;
+		placeableLiquid = true;
+	}
+
+	@Override
+	public void init(){
+		super.init();
+		if(junctionReplacement == null) junctionReplacement = junction;
+		if(bridgeReplacement == null || !(bridgeReplacement instanceof ItemBridge)) bridgeReplacement = bridge;
 	}
 
 	@Override

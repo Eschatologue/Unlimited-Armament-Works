@@ -24,7 +24,7 @@ public class AdaptablePump extends AttributeCrafter {
 		hasItems = false;
 		attribute = Attribute.oil;
 		outputLiquid = new LiquidStack(result, pumpAmount);
-		warmupSpeed = 0.25f;
+		warmupSpeed = 0.015f;
 		squareSprite = false;
 		updateEffectChance = 0.5f;
 	}
@@ -58,7 +58,7 @@ public class AdaptablePump extends AttributeCrafter {
 		@Override
 		public void updateTile() {
 			super.updateTile();
-			updateEffect = UAWFxD.statusHit(15f, result.color);
+			updateEffect = UAWFxD.statusHit(30f, result.color);
 			pump += warmup * edelta();
 		}
 
