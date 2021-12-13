@@ -68,7 +68,7 @@ public class AdaptablePump extends AttributeCrafter {
 			if (liquidRegion.found()) {
 				Drawf.liquid(liquidRegion, x, y, liquids.get(result) / liquidCapacity, result.color);
 			}
-			Draw.rect(rotatorRegion, x, y, Time.delta * (warmup * rotateSpeed));
+			Draw.rect(rotatorRegion, x, y, Time.time * (warmup * rotateSpeed));
 			Draw.rect(topRegion, x, y);
 		}
 	}
