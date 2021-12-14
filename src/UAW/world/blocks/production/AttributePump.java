@@ -67,9 +67,6 @@ public class AttributePump extends AttributeCrafter {
 			super.updateTile();
 			updateEffect = UAWFxD.statusHit(30f, result.color);
 			pump += warmup * edelta();
-			if (floor.isDeep() && floor.isLiquid) {
-				baseEfficiency += baseEfficiency * deepLiquidBoost;
-			}
 		}
 
 		@Override
