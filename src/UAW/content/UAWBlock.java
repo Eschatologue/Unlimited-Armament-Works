@@ -687,7 +687,7 @@ public class UAWBlock implements ContentList {
 			squareSprite = false;
 		}};
 
-		petroleumDrill = new AdaptablePump("petroleum-drill") {{
+		petroleumDrill = new AttributePump("petroleum-drill") {{
 			requirements(Category.production, with(
 				Items.graphite, 250,
 				Items.lead, 265,
@@ -699,13 +699,13 @@ public class UAWBlock implements ContentList {
 			result = Liquids.oil;
 			pumpTime = 0.25f;
 			size = 3;
-			liquidCapacity = 350f;
-			rotateSpeed = -4f;
+			liquidCapacity = 360f;
+			rotateSpeed = -2f;
 			attribute = Attribute.oil;
-			squareSprite = false;
 			placeableLiquid = true;
 			boostScale = 0.25f;
 			maxBoost = 5f;
+			baseEfficiency = 0.75f;
 
 			consumes.power(3.5f);
 		}};
@@ -828,24 +828,24 @@ public class UAWBlock implements ContentList {
 			consumes.power(1f);
 			consumes.liquid(Liquids.oil, 0.5f);
 		}};
-		combustionTurbine = new WarmUpGenerator("combustion-turbine") {{
-			requirements(Category.power, with(
-				Items.copper, 160,
-				Items.titanium, 100,
-				Items.lead, 250,
-				Items.silicon, 125,
-				Items.metaglass, 80
-			));
-			size = 3;
-			health = 600 * size;
-			powerProduction = 16f;
-			hasLiquids = true;
-			hasItems = false;
-			liquidCapacity = 360f;
-
-			consumes.power(1.5f);
-			consumes.liquid(Liquids.oil, 0.5f);
-		}};
+//		combustionTurbine = new WarmUpGenerator("combustion-turbine") {{
+//			requirements(Category.power, with(
+//				Items.copper, 160,
+//				Items.titanium, 100,
+//				Items.lead, 250,
+//				Items.silicon, 125,
+//				Items.metaglass, 80
+//			));
+//			size = 3;
+//			health = 600 * size;
+//			powerProduction = 16f;
+//			hasLiquids = true;
+//			hasItems = false;
+//			liquidCapacity = 360f;
+//
+//			consumes.power(1.5f);
+//			consumes.liquid(Liquids.oil, 0.5f);
+//		}};
 
 		shieldWall = new ShieldWall("force-wall") {{
 			requirements(Category.defense, with(

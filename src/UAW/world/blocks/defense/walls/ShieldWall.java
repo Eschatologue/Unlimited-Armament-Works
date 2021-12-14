@@ -56,14 +56,14 @@ public class ShieldWall extends Wall {
 		return false;
 	}
 
-	//Adding shield health stats
+	// Adding shield health stats
 	@Override
 	public void setStats() {
 		super.setStats();
 		stats.add(Stat.shieldHealth, shieldHealth, StatUnit.none);
 	}
 
-	//Shield Build
+	// Shield Build
 	public class ShieldBuild extends Building implements Ranged {
 		public boolean broken = true;
 		public float buildup, radscl, hit, warmup;
