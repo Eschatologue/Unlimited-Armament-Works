@@ -17,7 +17,6 @@ public class AttributePump extends AttributeCrafter {
 	public float rotateSpeed = -1.5f;
 	public float pumpTime = craftTime = 5.5f;
 	public float pumpAmount = 1.5f;
-	public float deepLiquidBoost = 1.5f;
 
 	public AttributePump(String name) {
 		super(name);
