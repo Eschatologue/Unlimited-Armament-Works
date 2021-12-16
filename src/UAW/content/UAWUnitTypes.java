@@ -44,7 +44,7 @@ public class UAWUnitTypes implements ContentList {
 			commandLimit = 3;
 
 			faceTarget = flying = true;
-			range = 35 * tilesize;
+			range = 28 * tilesize;
 			maxRange = range;
 			spinningFallSpeed = 4;
 			fallSmokeY = -10f;
@@ -77,7 +77,7 @@ public class UAWUnitTypes implements ContentList {
 						keepVelocity = false;
 						splashDamageRadius = 25f;
 						splashDamage = 8f;
-						lifetime = range / lifetime + 80;
+						lifetime = range / lifetime;
 						backColor = Pal.bulletYellowBack;
 						frontColor = Pal.bulletYellow;
 						hitEffect = Fx.blastExplosion;
@@ -109,7 +109,7 @@ public class UAWUnitTypes implements ContentList {
 						width = 9f;
 						maxRange = range;
 						homingRange = 60f;
-						lifetime = (range / speed) * 1.4f;
+						lifetime = (range / speed) * 1.2f;
 						trailLength = 15;
 						trailWidth = 1.6f;
 						trailColor = backColor;
@@ -131,7 +131,7 @@ public class UAWUnitTypes implements ContentList {
 			fallSmokeY = -15f;
 			commandLimit = 3;
 
-			range = 40 * tilesize;
+			range = 32 * tilesize;
 			maxRange = range;
 
 			onTitleScreen = false;
@@ -146,6 +146,7 @@ public class UAWUnitTypes implements ContentList {
 			);
 			weapons.add(
 				new Weapon("uaw-machine-gun-small-red") {{
+					minShootVelocity = 0.75f;
 					rotate = top = false;
 					shootCone = 30;
 					inaccuracy = 5f;
@@ -171,6 +172,7 @@ public class UAWUnitTypes implements ContentList {
 					}};
 				}},
 				new Weapon("uaw-launcher-medium-red-2") {{
+					minShootVelocity = 0.75f;
 					rotate = false;
 					alternate = mirror = true;
 					top = true;
@@ -233,7 +235,8 @@ public class UAWUnitTypes implements ContentList {
 					}};
 				}}
 			);
-			abilities.add(new RazorRotorAbility(25, 0.2f, 4 * tilesize));
+			abilities.add(new RazorRotorAbility(25, 15f, 5 * tilesize){
+			});
 		}};
 		calogrenant = new CopterUnitType("calogrenant") {{
 			health = 9000;
