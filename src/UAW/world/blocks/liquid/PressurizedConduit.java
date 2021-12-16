@@ -1,6 +1,5 @@
 package UAW.world.blocks.liquid;
 
-import UAW.world.blocks.production.AttributePump;
 import mindustry.content.Blocks;
 import mindustry.gen.Building;
 import mindustry.type.Liquid;
@@ -31,7 +30,8 @@ public class PressurizedConduit extends Conduit {
 
 	@Override
 	public boolean blends(Tile tile, int rotation, int otherX, int otherY, int otherRot, Block otherBlock){
-		return lookingAt(tile, rotation, otherX, otherY, otherBlock) && otherBlock.hasLiquids;
+		return (otherBlock.outputsLiquid && otherBlock instanceof PressurizedConduit &&blendsArmored(tile, rotation, otherX, otherY, otherRot, otherBlock)) ||
+			(lookingAt(tile, rotation, otherX, otherY, otherBlock) && otherBlock.hasLiquids);
 	}
 
 	public class PressurizedConduitBuild extends ConduitBuild{
