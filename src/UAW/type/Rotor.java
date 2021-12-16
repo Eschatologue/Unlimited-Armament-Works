@@ -6,6 +6,7 @@ import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.util.Time;
 import mindustry.gen.Unit;
+import mindustry.graphics.Layer;
 
 public class Rotor {
 	public final String name;
@@ -17,6 +18,7 @@ public class Rotor {
 	public float initialRotation = 0f;
 	public boolean drawRotorTop = true, doubleRotor = false;
 	public int bladeCount = 4;
+	public float layer = Layer.flyingUnit + 0.001f;
 
 	public Rotor(String name) {
 		this.name = name;
@@ -35,6 +37,7 @@ public class Rotor {
 
 		for (int i = 0; i < bladeCount; i++) {
 			float angle = initialRotation + ((i * 360f / bladeCount + (Time.time * rotorSpeed) % 360));
+			Draw.z(layer);
 			Draw.rect(bladeOutlineRegion, rx, ry, bladeOutlineRegion.width * Draw.scl, bladeOutlineRegion.height * Draw.scl, angle);
 			Draw.mixcol(Color.white, unit.hitTime);
 			Draw.rect(bladeRegion, rx, ry, bladeRegion.width * Draw.scl, bladeRegion.height * Draw.scl, angle);
@@ -45,6 +48,7 @@ public class Rotor {
 			}
 		}
 		if (drawRotorTop) {
+			Draw.z(layer + 0.001f);
 			Draw.rect(topRegionOutline, rx, ry, topRegionOutline.width * Draw.scl, topRegionOutline.height * Draw.scl, unit.rotation - 90);
 			Draw.mixcol(Color.white, unit.hitTime);
 			Draw.rect(topRegion, rx, ry, topRegion.width * Draw.scl, topRegion.height * Draw.scl, unit.rotation - 90);

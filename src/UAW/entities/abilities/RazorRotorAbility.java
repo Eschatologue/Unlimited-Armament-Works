@@ -106,19 +106,23 @@ public class RazorRotorAbility extends Ability {
 			for (int i = 0; i < len; i++) {
 				Healthc other = all.get(i);
 
-				anyNearby = true;
-				if (other instanceof Building b) {
-					b.damage(unit.team, damage);
+				if (((Teamc) other).team() == unit.team) {
+					if (other.damaged()) {
+						anyNearby = true;
+					}
 				} else {
-					other.damage(damage);
+					anyNearby = true;
+					if (other instanceof Building b) {
+						b.damage(unit.team, damage);
+					} else {
+						other.damage(damage);
+					}
+					if (other instanceof Statusc s) {
+						s.apply(status, statusDuration);
+					}
+					hitEffect.at(other.x(), other.y(), unit.angleTo(other), color);
 				}
-				if (other instanceof Statusc s) {
-					s.apply(status, statusDuration);
-				}
-				hitEffect.at(other.x(), other.y(), unit.angleTo(other), color);
-				hitEffect.at(rx, ry, unit.angleTo(other), color);
 			}
-
 			timer = 0f;
 		}
 	}
