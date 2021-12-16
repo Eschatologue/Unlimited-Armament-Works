@@ -1,7 +1,6 @@
 package UAW.entities.abilities;
 
 import arc.Core;
-import arc.audio.Sound;
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.Mathf;
@@ -29,9 +28,9 @@ public class RazorRotorAbility extends Ability {
 	public boolean targetGround = true, targetAir = true, hitBuildings = true, hitUnits = true;
 	public int maxTargets = 8;
 
-	public float layer = Layer.bullet - 0.001f;
+	public float layer = Layer.debris;
 	public float sectorRad = 0.14f, rotateSpeed = 0.5f;
-	public int sectors = 5;
+	public int sectors = 4;
 	public Color color = Pal.bulletYellow;
 
 	protected float timer, curStroke;
@@ -107,20 +106,19 @@ public class RazorRotorAbility extends Ability {
 			for (int i = 0; i < len; i++) {
 				Healthc other = all.get(i);
 
-				if (((Teamc) other).team() == unit.team) {
-					anyNearby = true;
-					if (other instanceof Building b) {
-						b.damage(unit.team, damage);
-					} else {
-						other.damage(damage);
-					}
-					if (other instanceof Statusc s) {
-						s.apply(status, statusDuration);
-					}
-					hitEffect.at(other.x(), other.y(), unit.angleTo(other), color);
-					hitEffect.at(rx, ry, unit.angleTo(other), color);
+				anyNearby = true;
+				if (other instanceof Building b) {
+					b.damage(unit.team, damage);
+				} else {
+					other.damage(damage);
 				}
+				if (other instanceof Statusc s) {
+					s.apply(status, statusDuration);
+				}
+				hitEffect.at(other.x(), other.y(), unit.angleTo(other), color);
+				hitEffect.at(rx, ry, unit.angleTo(other), color);
 			}
+
 			timer = 0f;
 		}
 	}
