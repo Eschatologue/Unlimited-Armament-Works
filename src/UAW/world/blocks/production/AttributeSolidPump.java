@@ -11,14 +11,14 @@ import mindustry.world.blocks.environment.Floor;
 import mindustry.world.blocks.production.AttributeCrafter;
 import mindustry.world.meta.*;
 
-public class AttributePump extends AttributeCrafter {
+public class AttributeSolidPump extends AttributeCrafter {
 	public TextureRegion region, rotatorRegion, liquidRegion, topRegion;
 	public Liquid result = Liquids.oil;
 	public float rotateSpeed = -1.5f;
 	public float pumpTime = craftTime = 5.5f;
 	public float pumpAmount = 1.5f;
 
-	public AttributePump(String name) {
+	public AttributeSolidPump(String name) {
 		super(name);
 		placeableLiquid = true;
 		hasPower = true;
@@ -57,7 +57,7 @@ public class AttributePump extends AttributeCrafter {
 		}
 	}
 
-	public class AdaptablePumpBuild extends AttributeCrafterBuild {
+	public class AttributeSolidPumpBuild extends AttributeCrafterBuild {
 		public float pump;
 
 		@Override

@@ -56,7 +56,7 @@ public class RazorRotorAbility extends Ability {
 
 		Draw.z(layer);
 		Draw.color(color);
-		Tmp.v1.trns(unit.rotation - 90, x, y).add(unit.x, unit.y);
+		Tmp.v1.trns(0, x, y).add(unit.x, unit.y);
 		float rx = Tmp.v1.x, ry = Tmp.v1.y;
 
 		Lines.stroke(Lines.getStroke() * curStroke);
@@ -67,8 +67,8 @@ public class RazorRotorAbility extends Ability {
 				Lines.swirl(rx, ry, range, sectorRad, rot);
 			}
 			for (int i = 0; i < sectors; i++) {
-				float rot = unit.rotation + i * 360f / sectors + Time.time * -rotateSpeed;
-				Lines.swirl(rx, ry, (range / 1.8f), sectorRad, rot);
+				float rot = unit.rotation + i * 360f / sectors + Time.time * -(rotateSpeed / 1.5f);
+				Lines.swirl(rx, ry, (range / 1.5f), sectorRad, rot);
 			}
 		}
 		Draw.reset();
@@ -76,6 +76,7 @@ public class RazorRotorAbility extends Ability {
 
 	@Override
 	public void update(Unit unit) {
+		float rnd = Mathf.range(4, 8);
 
 		curStroke = Mathf.lerpDelta(curStroke, anyNearby ? 1 : 0, 0.09f);
 
@@ -121,7 +122,7 @@ public class RazorRotorAbility extends Ability {
 					if (other instanceof Statusc s) {
 						s.apply(status, statusDuration);
 					}
-					hitEffect.at(other.x(), other.y(), unit.angleTo(other), color);
+					hitEffect.at(other.x() + rnd, other.y() + rnd, unit.angleTo(other), color);
 				}
 			}
 			timer = 0f;

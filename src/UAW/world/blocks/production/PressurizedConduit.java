@@ -1,4 +1,4 @@
-package UAW.world.blocks.liquid;
+package UAW.world.blocks.production;
 
 import mindustry.content.Blocks;
 import mindustry.gen.Building;
@@ -30,7 +30,7 @@ public class PressurizedConduit extends Conduit {
 
 	@Override
 	public boolean blends(Tile tile, int rotation, int otherX, int otherY, int otherRot, Block otherBlock) {
-		return otherBlock.outputsLiquid && !(otherBlock instanceof Conduit) && blendsArmored(tile, rotation, otherX, otherY, otherRot, otherBlock) || lookingAt(tile, rotation, otherX, otherY, otherBlock) && otherBlock.hasLiquids;
+		return otherBlock.outputsLiquid && blendsArmored(tile, rotation, otherX, otherY, otherRot, otherBlock) || lookingAt(tile, rotation, otherX, otherY, otherBlock) && otherBlock.hasLiquids && otherBlock instanceof PressurizedConduit;
 	}
 
 	public class PressurizedConduitBuild extends ConduitBuild {
