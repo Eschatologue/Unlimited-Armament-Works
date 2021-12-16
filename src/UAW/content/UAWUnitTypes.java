@@ -235,7 +235,7 @@ public class UAWUnitTypes implements ContentList {
 					}};
 				}}
 			);
-			abilities.add(new RazorRotorAbility(25, 15f, 5 * tilesize){
+			abilities.add(new RazorRotorAbility(25, 10f, 4.5f * tilesize) {
 			});
 		}};
 		calogrenant = new CopterUnitType("calogrenant") {{

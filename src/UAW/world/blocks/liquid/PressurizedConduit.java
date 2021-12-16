@@ -5,7 +5,7 @@ import mindustry.gen.Building;
 import mindustry.type.Liquid;
 import mindustry.world.*;
 import mindustry.world.blocks.distribution.ItemBridge;
-import mindustry.world.blocks.liquid.Conduit;
+import mindustry.world.blocks.liquid.*;
 
 public class PressurizedConduit extends Conduit {
 	public Block bridge = Blocks.bridgeConduit;
@@ -30,8 +30,7 @@ public class PressurizedConduit extends Conduit {
 
 	@Override
 	public boolean blends(Tile tile, int rotation, int otherX, int otherY, int otherRot, Block otherBlock) {
-		return (otherBlock.outputsLiquid && !(otherBlock instanceof PressurizedConduit) && blendsArmored(tile, rotation, otherX, otherY, otherRot, otherBlock)) ||
-			(lookingAt(tile, rotation, otherX, otherY, otherBlock) && otherBlock.hasLiquids);
+		return otherBlock.outputsLiquid && !(otherBlock instanceof Conduit) && blendsArmored(tile, rotation, otherX, otherY, otherRot, otherBlock) || lookingAt(tile, rotation, otherX, otherY, otherBlock) && otherBlock.hasLiquids;
 	}
 
 	public class PressurizedConduitBuild extends ConduitBuild {

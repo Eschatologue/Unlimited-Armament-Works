@@ -22,16 +22,16 @@ public class RazorRotorAbility extends Ability {
 
 	public float damage = 1, reload = 15, range = 60;
 	public Effect hitEffect = Fx.hitBulletSmall;
-	public StatusEffect status = StatusEffects.electrified;
+	public StatusEffect status = StatusEffects.none;
 	public float statusDuration = 60f * 6f;
 	public float x, y;
 	public boolean targetGround = true, targetAir = true, hitBuildings = true, hitUnits = true;
 	public int maxTargets = 8;
 
 	public float layer = Layer.debris;
-	public float sectorRad = 0.14f, rotateSpeed = 0.5f;
-	public int sectors = 4;
-	public Color color = Pal.bulletYellow;
+	public float sectorRad = 0.15f, rotateSpeed = 6f;
+	public int sectors = 5;
+	public Color color = Pal.bulletYellowBack;
 
 	protected float timer, curStroke;
 	protected boolean anyNearby = false;
@@ -66,10 +66,11 @@ public class RazorRotorAbility extends Ability {
 				float rot = unit.rotation + i * 360f / sectors + Time.time * rotateSpeed;
 				Lines.swirl(rx, ry, range, sectorRad, rot);
 			}
+			for (int i = 0; i < sectors; i++) {
+				float rot = unit.rotation + i * 360f / sectors + Time.time * -rotateSpeed;
+				Lines.swirl(rx, ry, (range / 1.8f), sectorRad, rot);
+			}
 		}
-
-		Drawf.light(rx, ry, range * 1.5f, color, curStroke * 0.8f);
-
 		Draw.reset();
 	}
 
