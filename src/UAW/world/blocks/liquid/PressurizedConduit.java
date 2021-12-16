@@ -1,19 +1,20 @@
 package UAW.world.blocks.liquid;
 
+import UAW.world.blocks.production.AttributePump;
 import mindustry.content.Blocks;
 import mindustry.gen.Building;
 import mindustry.type.Liquid;
 import mindustry.world.*;
 import mindustry.world.blocks.distribution.ItemBridge;
 import mindustry.world.blocks.liquid.*;
-import mindustry.world.blocks.production.Pump;
 
-public class PressurizedConduit extends ArmoredConduit {
+public class PressurizedConduit extends Conduit {
 	public Block bridge = Blocks.bridgeConduit;
 	public Block junction = Blocks.liquidJunction;
 
 	public PressurizedConduit(String name){
 		super(name);
+		noSideBlend = true;
 		health = 250;
 		liquidCapacity = 30f;
 		liquidPressure = 1.5f;
@@ -30,11 +31,10 @@ public class PressurizedConduit extends ArmoredConduit {
 
 	@Override
 	public boolean blends(Tile tile, int rotation, int otherX, int otherY, int otherRot, Block otherBlock){
-		return (otherBlock.outputsLiquid && otherBlock instanceof PressurizedConduit && blendsArmored(tile, rotation, otherX, otherY, otherRot, otherBlock)) ||
-			(lookingAt(tile, rotation, otherX, otherY, otherBlock) && otherBlock.hasLiquids);
+		return lookingAt(tile, rotation, otherX, otherY, otherBlock) && otherBlock.hasLiquids;
 	}
 
-	public class PressurizedConduitBuild extends ArmoredConduitBuild{
+	public class PressurizedConduitBuild extends ConduitBuild{
 		@Override
 		public boolean acceptLiquid(Building source, Liquid liquid){
 			return super.acceptLiquid(source, liquid) && (tile == null || source.block instanceof PressurizedConduit ||
