@@ -27,7 +27,11 @@ public class PressurizedConduit extends ArmoredConduit {
 
 	@Override
 	public boolean blends(Tile tile, int rotation, int otherX, int otherY, int otherRot, Block otherBlock) {
-		return lookingAt(tile, rotation, otherX, otherY, otherBlock) && otherBlock.hasLiquids;
+		return (otherBlock.outputsLiquid && blendsArmored(tile, rotation, otherX, otherY, otherRot, otherBlock))
+			|| (lookingAt(tile, rotation, otherX, otherY, otherBlock) && otherBlock.hasLiquids
+			|| !(otherBlock instanceof Conduit)
+			|| otherBlock instanceof PressurizedConduit
+		);
 	}
 
 	public class PressurizedConduitBuild extends ArmoredConduitBuild {
@@ -35,8 +39,8 @@ public class PressurizedConduit extends ArmoredConduit {
 		public boolean acceptLiquid(Building source, Liquid liquid) {
 			return super.acceptLiquid(source, liquid) && (tile == null
 				|| !(source.block instanceof Conduit)
-				|| source.block instanceof  PressurizedConduit
-				&& source.relativeTo(tile.x, tile.y) + 2 % 4 != rotation);
+				|| source.block instanceof PressurizedConduit
+				|| source.tile.absoluteRelativeTo(tile.x, tile.y) == rotation);
 		}
 	}
 }
