@@ -35,7 +35,7 @@ public class RotatingLiquidPump extends Pump {
 	@Override
 	public void load() {
 		super.load();
-//		heat = Core.atlas.find(name + "-heat");
+		heatRegion = Core.atlas.find(name + "-heat");
 		rotatorRegion = Core.atlas.find(name + "-rotator");
 		topRegion = Core.atlas.find(name + "-top");
 	}
