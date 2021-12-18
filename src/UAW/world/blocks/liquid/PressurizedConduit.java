@@ -1,7 +1,12 @@
 package UAW.world.blocks.liquid;
 
 import UAW.content.UAWBlock;
+import arc.func.Boolf;
+import arc.math.Mathf;
+import arc.math.geom.*;
+import arc.struct.Seq;
 import mindustry.content.Blocks;
+import mindustry.entities.units.BuildPlan;
 import mindustry.gen.Building;
 import mindustry.type.Liquid;
 import mindustry.world.*;
@@ -25,6 +30,18 @@ public class PressurizedConduit extends Conduit {
 		super.init();
 		if (junctionReplacement == null) junctionReplacement = UAWBlock.pressurizedLiquidJunction;
 		if (bridgeReplacement == null || !(bridgeReplacement instanceof ItemBridge)) bridgeReplacement = UAWBlock.pressurizedBridgeConduit;
+	}
+
+	@Override
+	public Block getReplacement(BuildPlan req, Seq<BuildPlan> requests){
+		if(junctionReplacement == null) return this;
+
+		Boolf<Point2> cont = p -> requests.contains(o -> o.x == req.x + p.x && o.y == req.y + p.y && o.rotation == req.rotation && (req.block instanceof PressurizedConduit || req.block instanceof LiquidJunction));
+		return cont.get(Geometry.d4(req.rotation)) &&
+			cont.get(Geometry.d4(req.rotation - 2)) &&
+			req.tile() != null &&
+			req.tile().block() instanceof Conduit &&
+			Mathf.mod(req.build().rotation - req.rotation, 2) == 1 ? junctionReplacement : this;
 	}
 
 	@Override
