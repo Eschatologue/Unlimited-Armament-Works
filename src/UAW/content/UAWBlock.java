@@ -19,6 +19,7 @@ import mindustry.graphics.Pal;
 import mindustry.type.*;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
+import mindustry.world.blocks.distribution.ItemBridge;
 import mindustry.world.blocks.liquid.*;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.units.Reconstructor;
@@ -669,16 +670,24 @@ public class UAWBlock implements ContentList {
 			);
 		}};
 
-		pressurizedConduit = new PressurizedConduit("pressurized-conduit") {{
-			requirements(Category.liquid, with(
-				UAWItems.titaniumCarbide, 3,
-				Items.metaglass, 2,
-				Items.plastanium, 2
-			));
-			health = 250;
-			junctionReplacement = UAWBlock.pressurizedLiquidJunction;
-			bridgeReplacement = UAWBlock.pressurizedBridgeConduit;
-		}};
+		pressurizedConduit = new PressurizedConduit("pressurized-conduit") {
+			{
+				requirements(Category.liquid, with(
+					UAWItems.titaniumCarbide, 3,
+					Items.metaglass, 2,
+					Items.plastanium, 2
+				));
+				health = 250;
+			}
+
+			@Override
+			public void init() {
+				super.init();
+				if (junctionReplacement == null) junctionReplacement = UAWBlock.pressurizedLiquidJunction;
+				if (bridgeReplacement == null || !(bridgeReplacement instanceof ItemBridge))
+					bridgeReplacement = UAWBlock.pressurizedBridgeConduit;
+			}
+		};
 		pressurizedLiquidRouter = new LiquidRouter("pressurized-liquid-router") {{
 			requirements(Category.liquid, with(
 				UAWItems.titaniumCarbide, 3,

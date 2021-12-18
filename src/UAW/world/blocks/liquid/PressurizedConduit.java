@@ -4,8 +4,8 @@ import UAW.content.UAWBlock;
 import mindustry.gen.Building;
 import mindustry.type.Liquid;
 import mindustry.world.*;
+import mindustry.world.blocks.distribution.ItemBridge;
 import mindustry.world.blocks.liquid.Conduit;
-import mindustry.world.blocks.production.Pump;
 
 public class PressurizedConduit extends Conduit {
 
@@ -17,10 +17,7 @@ public class PressurizedConduit extends Conduit {
 		liquidPressure = 1.5f;
 		leaks = false;
 		placeableLiquid = true;
-		junctionReplacement = UAWBlock.pressurizedLiquidJunction;
-		bridgeReplacement = UAWBlock.pressurizedBridgeConduit;
 	}
-
 	@Override
 	public boolean blends(Tile tile, int rotation, int otherX, int otherY, int otherRot, Block otherBlock) {
 		return
