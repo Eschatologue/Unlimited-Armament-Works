@@ -363,6 +363,7 @@ public class UAWUnitTypes implements ContentList {
 			float rotX = 17;
 			float rotY = 8;
 			float rotSpeed = 13f;
+			float ly = Layer.flyingUnitLow + 0.001f;
 			rotors.add(
 				new Rotor("uaw-short-blade") {{
 					x = -rotX;

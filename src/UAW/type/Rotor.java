@@ -18,7 +18,7 @@ public class Rotor {
 	public float initialRotation = 0f;
 	public boolean drawRotorTop = true, doubleRotor = false;
 	public int bladeCount = 4;
-	public float layer = Layer.flyingUnit + 0.001f;
+	public float layer = Layer.flyingUnitLow + 0.001f;
 
 	public Rotor(String name) {
 		this.name = name;

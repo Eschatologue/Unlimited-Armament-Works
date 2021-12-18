@@ -6,7 +6,7 @@ import UAW.world.blocks.defense.*;
 import UAW.world.blocks.defense.turrets.*;
 import UAW.world.blocks.defense.walls.ShieldWall;
 import UAW.world.blocks.drawer.DrawLiquidInput;
-import UAW.world.blocks.liquid.*;
+import UAW.world.blocks.liquid.PressurizedConduit;
 import UAW.world.blocks.power.WarmUpGenerator;
 import UAW.world.blocks.production.*;
 import mindustry.content.*;
@@ -697,7 +697,7 @@ public class UAWBlock implements ContentList {
 			liquidPressure = 1.5f;
 			placeableLiquid = true;
 		}};
-		pressurizedBridgeConduit = new PressurizedLiquidBridge("pressurized-bridge-conduit"){{
+		pressurizedBridgeConduit = new LiquidBridge("pressurized-bridge-conduit") {{
 			requirements(Category.liquid, with(Items.graphite, 4, Items.metaglass, 8));
 			fadeIn = moveArrows = true;
 			arrowSpacing = 6f;
