@@ -9,7 +9,7 @@ import arc.util.Time;
 import mindustry.content.Fx;
 import mindustry.entities.*;
 import mindustry.entities.effect.MultiEffect;
-import mindustry.graphics.*;
+import mindustry.graphics.Drawf;
 import mindustry.world.blocks.power.ImpactReactor;
 
 /**
@@ -22,7 +22,7 @@ import mindustry.world.blocks.power.ImpactReactor;
 public class WarmUpGenerator extends ImpactReactor {
 	public TextureRegion liquidRegion, rotatorRegion, heatRegion, topRegion;
 	public Effect smokeEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
-	public float maxRotationSpeed = 15f;
+	public float rotationSpeed = 15f;
 
 	public WarmUpGenerator(String name) {
 		super(name);
@@ -35,7 +35,7 @@ public class WarmUpGenerator extends ImpactReactor {
 
 	@Override
 	public void load() {
-		bottomRegion = Core.atlas.find(name + "-bottom");
+		bottomRegion = Core.atlas.find(name);
 		liquidRegion = Core.atlas.find(name + "-liquid");
 		rotatorRegion = Core.atlas.find(name + "-rotator");
 		topRegion = Core.atlas.find(name + "-top");
@@ -44,13 +44,11 @@ public class WarmUpGenerator extends ImpactReactor {
 
 	@Override
 	public TextureRegion[] icons() {
-		if (rotatorRegion.found()) {
-			return new TextureRegion[]{bottomRegion, rotatorRegion, topRegion};
-		} else
-			return new TextureRegion[]{bottomRegion, topRegion};
+		return new TextureRegion[]{bottomRegion, rotatorRegion, topRegion};
 	}
 
 	public class WarmUpGeneratorBuild extends ImpactReactorBuild {
+		float rotateSpeed;
 
 		@Override
 		public void updateTile() {
@@ -60,15 +58,16 @@ public class WarmUpGenerator extends ImpactReactor {
 					smokeEffect.at(x, y);
 				}
 			}
+			rotateSpeed += warmup * edelta();
 		}
 
 		@Override
 		public void draw() {
 			Draw.rect(bottomRegion, x, y);
 			Drawf.liquid(liquidRegion, x, y, liquids.total() / liquidCapacity, liquids.current().color);
-			if (rotatorRegion.found()) {
-				Draw.rect(rotatorRegion, x, y, Time.time * (maxRotationSpeed * warmup));
-			}
+
+			Drawf.spinSprite(rotatorRegion, x, y, rotationSpeed * rotateSpeed);
+
 			Draw.rect(topRegion, x, y);
 			Draw.color(Color.valueOf("ff9b59"));
 			Draw.alpha((0.3f + Mathf.absin(Time.time, 2f, 0.05f)) * warmup);

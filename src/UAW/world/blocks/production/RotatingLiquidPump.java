@@ -16,7 +16,7 @@ import mindustry.world.blocks.production.Pump;
 public class RotatingLiquidPump extends Pump {
 	public TextureRegion rotatorRegion, heatRegion, topRegion;
 	public Effect updateEffect = Fx.steam;
-	public Color heatColor;
+	public Color heatColor = Color.valueOf("ff5512");
 	public float rotateSpeed = -1.5f;
 	public float updateEffectChance = 0.2f;
 

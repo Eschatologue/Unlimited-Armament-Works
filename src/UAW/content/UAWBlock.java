@@ -818,19 +818,19 @@ public class UAWBlock implements ContentList {
 				Items.copper, 250,
 				Items.titanium, 200,
 				Items.lead, 250,
-				Items.silicon, 125,
-				Items.metaglass, 100
+				Items.silicon, 155,
+				Items.metaglass, 120
 			));
 			size = 2;
 			health = 600 * size;
-			powerProduction = 9.5f;
+			powerProduction = 12f;
 			hasLiquids = true;
 			hasItems = false;
 			liquidCapacity = 180f;
 			buildCostMultiplier = 1.5f;
 
 			consumes.power(1f);
-			consumes.liquid(Liquids.oil, 0.5f);
+			consumes.liquid(Liquids.oil, 1f);
 		}};
 //		combustionTurbine = new WarmUpGenerator("combustion-turbine") {{
 //			requirements(Category.power, with(
