@@ -679,14 +679,6 @@ public class UAWBlock implements ContentList {
 				));
 				health = 250;
 			}
-
-			@Override
-			public void init() {
-				super.init();
-				if (junctionReplacement == null) junctionReplacement = UAWBlock.pressurizedLiquidJunction;
-				if (bridgeReplacement == null || !(bridgeReplacement instanceof ItemBridge))
-					bridgeReplacement = UAWBlock.pressurizedBridgeConduit;
-			}
 		};
 		pressurizedLiquidRouter = new LiquidRouter("pressurized-liquid-router") {{
 			requirements(Category.liquid, with(

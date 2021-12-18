@@ -1,6 +1,7 @@
 package UAW.world.blocks.liquid;
 
 import UAW.content.UAWBlock;
+import arc.util.Log;
 import mindustry.gen.Building;
 import mindustry.type.Liquid;
 import mindustry.world.*;
@@ -17,6 +18,15 @@ public class PressurizedConduit extends Conduit {
 		liquidPressure = 1.5f;
 		leaks = false;
 		placeableLiquid = true;
+	}
+	@Override
+	public void init(){
+		super.init();
+		junctionReplacement = UAWBlock.pressurizedLiquidJunction;
+		bridgeReplacement = UAWBlock.pressurizedBridgeConduit;
+
+		Log.info(junctionReplacement);
+		Log.info(bridgeReplacement);
 	}
 	@Override
 	public boolean blends(Tile tile, int rotation, int otherX, int otherY, int otherRot, Block otherBlock) {
