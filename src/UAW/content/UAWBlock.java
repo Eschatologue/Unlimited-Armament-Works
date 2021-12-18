@@ -697,11 +697,11 @@ public class UAWBlock implements ContentList {
 			liquidPressure = 1.5f;
 			placeableLiquid = true;
 		}};
-		pressurizedBridgeConduit = new LiquidBridge("pressurized-bridge-conduit"){{
+		pressurizedBridgeConduit = new PressurizedLiquidBridge("pressurized-bridge-conduit"){{
 			requirements(Category.liquid, with(Items.graphite, 4, Items.metaglass, 8));
 			fadeIn = moveArrows = true;
 			arrowSpacing = 6f;
-			range = 4;
+			range = 6;
 			hasPower = false;
 		}};
 		rotodynamicPump = new RotatingLiquidPump("rotodynamic-pump") {{
