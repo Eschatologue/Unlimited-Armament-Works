@@ -17,6 +17,7 @@ import mindustry.type.StatusEffect;
 
 import static mindustry.Vars.state;
 
+// Modified Version of EnergyFieldAbility, just minus the healing
 public class RazorRotorAbility extends Ability {
 	private static final Seq<Healthc> all = new Seq<>();
 
@@ -63,11 +64,11 @@ public class RazorRotorAbility extends Ability {
 
 		if (curStroke > 0) {
 			for (int i = 0; i < sectors; i++) {
-				float rot = unit.rotation + i * 360f / sectors + Time.time * rotateSpeed;
+				float rot = i * 360f / sectors + Time.time * rotateSpeed;
 				Lines.swirl(rx, ry, range, sectorRad, rot);
 			}
 			for (int i = 0; i < sectors; i++) {
-				float rot = unit.rotation + i * 360f / sectors + Time.time * -(rotateSpeed / 1.5f);
+				float rot = i * 360f / sectors + Time.time * -(rotateSpeed / 1.5f);
 				Lines.swirl(rx, ry, (range / 1.5f), sectorRad, rot);
 			}
 		}

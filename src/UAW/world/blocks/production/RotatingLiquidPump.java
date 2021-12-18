@@ -1,16 +1,22 @@
 package UAW.world.blocks.production;
 
 import arc.Core;
+import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.Mathf;
+import arc.util.Time;
 import mindustry.content.Fx;
 import mindustry.entities.Effect;
 import mindustry.graphics.Drawf;
 import mindustry.world.blocks.production.Pump;
 
+/**
+ * Liquid Pump but with rotating rotor and liquid at different layer
+ */
 public class RotatingLiquidPump extends Pump {
-	public TextureRegion rotatorRegion, heat, topRegion;
+	public TextureRegion rotatorRegion, heatRegion, topRegion;
 	public Effect updateEffect = Fx.steam;
+	public Color heatColor;
 	public float rotateSpeed = -1.5f;
 	public float updateEffectChance = 0.2f;
 
@@ -60,6 +66,15 @@ public class RotatingLiquidPump extends Pump {
 			Drawf.liquid(liquidRegion, x, y, liquids.currentAmount() / liquidCapacity, liquids.current().color);
 			Drawf.spinSprite(rotatorRegion, x, y, rotateSpeed * pumpTime);
 			Draw.rect(topRegion, x, y);
+
+			if (heatRegion.found()) {
+				Draw.color(heatColor);
+				Draw.alpha(warmup * 0.6f * (1f - 0.3f + Mathf.absin(Time.time, 3f, 0.3f)));
+				Draw.blend(Blending.additive);
+				Draw.rect(heatRegion, x, y);
+				Draw.blend();
+				Draw.color();
+			}
 		}
 	}
 }
