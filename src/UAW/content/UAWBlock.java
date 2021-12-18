@@ -676,6 +676,8 @@ public class UAWBlock implements ContentList {
 				Items.plastanium, 2
 			));
 			health = 250;
+			junctionReplacement = UAWBlock.pressurizedLiquidJunction;
+			bridgeReplacement = UAWBlock.pressurizedBridgeConduit;
 		}};
 		pressurizedLiquidRouter = new LiquidRouter("pressurized-liquid-router") {{
 			requirements(Category.liquid, with(
