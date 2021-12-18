@@ -22,7 +22,6 @@ public class PressurizedConduit extends Conduit {
 
 	@Override
 	public void init() {
-		super.init();
 		if (junctionReplacement == null) junctionReplacement = UAWBlock.pressurizedLiquidJunction;
 		if (bridgeReplacement == null || !(bridgeReplacement instanceof ItemBridge)) bridgeReplacement = UAWBlock.pressurizedBridgeConduit;
 	}
