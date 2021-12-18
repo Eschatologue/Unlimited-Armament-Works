@@ -49,13 +49,14 @@ public class WarmUpGenerator extends ImpactReactor {
 
 	public class WarmUpGeneratorBuild extends ImpactReactorBuild {
 		float intensity;
+		float time;
 
 		@Override
 		public void updateTile() {
 			super.updateTile();
 			intensity += warmup * edelta();
 			if (warmup >= 0.001) {
-				if (Mathf.chance(intensity / 5)) {
+				if (Mathf.chance(warmup / 5)) {
 					smokeEffect.at(x, y);
 				}
 			}

@@ -1,47 +1,48 @@
 package UAW.world.blocks.liquid;
 
 import UAW.content.UAWBlock;
-import arc.util.Log;
 import mindustry.gen.Building;
 import mindustry.type.Liquid;
 import mindustry.world.*;
-import mindustry.world.blocks.distribution.ItemBridge;
-import mindustry.world.blocks.liquid.Conduit;
+import mindustry.world.blocks.liquid.*;
 
-public class PressurizedConduit extends Conduit {
+public class PressurizedConduit extends ArmoredConduit {
 
 	public PressurizedConduit(String name) {
 		super(name);
 		noSideBlend = true;
-		health = 250;
+		health = 300;
 		liquidCapacity = 30f;
 		liquidPressure = 1.5f;
 		leaks = false;
 		placeableLiquid = true;
 	}
+
 	@Override
-	public void init(){
+	public void init() {
 		super.init();
 		junctionReplacement = UAWBlock.pressurizedLiquidJunction;
 		bridgeReplacement = UAWBlock.pressurizedBridgeConduit;
-
-		Log.info(junctionReplacement);
-		Log.info(bridgeReplacement);
 	}
+
 	@Override
 	public boolean blends(Tile tile, int rotation, int otherX, int otherY, int otherRot, Block otherBlock) {
 		return
 			otherBlock.outputsLiquid
+				&& (!(otherBlock instanceof Conduit))
 				&& blendsArmored(tile, rotation, otherX, otherY, otherRot, otherBlock)
 				|| lookingAt(tile, rotation, otherX, otherY, otherBlock)
 				&& otherBlock.hasLiquids;
 	}
 
-	public class PressurizedConduitBuild extends ConduitBuild {
+	public class PressurizedConduitBuild extends ArmoredConduitBuild {
 		@Override
 		public boolean acceptLiquid(Building source, Liquid liquid) {
-			return super.acceptLiquid(source, liquid) && (tile == null || source.block instanceof PressurizedConduit ||
-				source.tile.absoluteRelativeTo(tile.x, tile.y) == rotation);
+			return super.acceptLiquid(source, liquid) && (tile == null
+				|| !(source.block instanceof Conduit)
+				|| source.block instanceof  PressurizedConduit
+				&& source.tile.absoluteRelativeTo(tile.x, tile.y) == rotation);
 		}
 	}
 }
+

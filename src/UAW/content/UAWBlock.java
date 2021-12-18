@@ -19,7 +19,6 @@ import mindustry.graphics.Pal;
 import mindustry.type.*;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
-import mindustry.world.blocks.distribution.ItemBridge;
 import mindustry.world.blocks.liquid.*;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.units.Reconstructor;
@@ -670,22 +669,20 @@ public class UAWBlock implements ContentList {
 			);
 		}};
 
-		pressurizedConduit = new PressurizedConduit("pressurized-conduit") {
-			{
-				requirements(Category.liquid, with(
-					UAWItems.titaniumCarbide, 3,
-					Items.metaglass, 2,
-					Items.plastanium, 2
-				));
-				health = 250;
-			}
-		};
+		pressurizedConduit = new PressurizedConduit("pressurized-conduit") {{
+			requirements(Category.liquid, with(
+				UAWItems.titaniumCarbide, 3,
+				Items.metaglass, 2,
+				Items.plastanium, 2
+			));
+		}};
 		pressurizedLiquidRouter = new LiquidRouter("pressurized-liquid-router") {{
 			requirements(Category.liquid, with(
 				UAWItems.titaniumCarbide, 3,
 				Items.plastanium, 2,
 				Items.metaglass, 2
 			));
+			health = 300;
 			liquidCapacity = 60f;
 			liquidPressure = 1.5f;
 			placeableLiquid = true;
@@ -696,12 +693,18 @@ public class UAWBlock implements ContentList {
 				Items.plastanium, 2,
 				Items.metaglass, 2
 			));
+			health = 300;
 			liquidCapacity = 60f;
 			liquidPressure = 1.5f;
 			placeableLiquid = true;
 		}};
 		pressurizedBridgeConduit = new LiquidBridge("pressurized-bridge-conduit") {{
-			requirements(Category.liquid, with(Items.graphite, 4, Items.metaglass, 8));
+			requirements(Category.liquid, with(
+				UAWItems.titaniumCarbide, 3,
+				Items.plastanium, 2,
+				Items.metaglass, 2
+			));
+			health = 300;
 			fadeIn = moveArrows = true;
 			arrowSpacing = 6f;
 			range = 6;
@@ -847,23 +850,22 @@ public class UAWBlock implements ContentList {
 
 		combustionGenerator = new WarmUpGenerator("combustion-generator") {{
 			requirements(Category.power, with(
-				Items.copper, 250,
-				Items.titanium, 200,
-				Items.lead, 250,
-				Items.silicon, 155,
-				Items.metaglass, 120
+				Items.copper, 65,
+				Items.titanium, 25,
+				Items.lead, 50,
+				Items.silicon, 40,
+				Items.metaglass, 40
 			));
 			size = 2;
 			rotationSpeed = -10f;
 			health = 600 * size;
-			powerProduction = 12f;
+			powerProduction = 15f;
 			hasLiquids = true;
 			hasItems = false;
 			liquidCapacity = 180f;
-			buildCostMultiplier = 1.5f;
 
-			consumes.power(1f);
-			consumes.liquid(Liquids.oil, 1f);
+			consumes.power(0.5f);
+			consumes.liquid(Liquids.oil, 0.5f);
 		}};
 //		combustionTurbine = new WarmUpGenerator("combustion-turbine") {{
 //			requirements(Category.power, with(
