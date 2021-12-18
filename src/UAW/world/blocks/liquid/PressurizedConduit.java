@@ -31,8 +31,7 @@ public class PressurizedConduit extends ArmoredConduit {
 			&& blendsArmored(tile, rotation, otherX, otherY, otherRot, otherBlock))
 			|| (lookingAt(tile, rotation, otherX, otherY, otherBlock)
 			&& otherBlock.hasLiquids
-			|| !(otherBlock instanceof Conduit)
-			|| otherBlock instanceof PressurizedConduit
+			&& !(otherBlock instanceof Conduit)
 		);
 	}
 
