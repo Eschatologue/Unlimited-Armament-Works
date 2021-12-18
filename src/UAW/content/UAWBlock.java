@@ -6,6 +6,7 @@ import UAW.world.blocks.defense.*;
 import UAW.world.blocks.defense.turrets.*;
 import UAW.world.blocks.defense.walls.ShieldWall;
 import UAW.world.blocks.drawer.DrawLiquidInput;
+import UAW.world.blocks.liquid.*;
 import UAW.world.blocks.power.WarmUpGenerator;
 import UAW.world.blocks.production.*;
 import mindustry.content.*;
@@ -18,6 +19,7 @@ import mindustry.graphics.Pal;
 import mindustry.type.*;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
+import mindustry.world.blocks.liquid.*;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.units.Reconstructor;
 import mindustry.world.draw.*;
@@ -41,7 +43,7 @@ public class UAWBlock implements ContentList {
 	// Energy
 	heavylight, trailblazer, terravolt,
 	// Liquids
-	pressurizedConduit, rotodynamicPump,
+	pressurizedConduit, pressurizedLiquidRouter, pressurizedLiquidJunction, pressurizedBridgeConduit, rotodynamicPump,
 	// Drills
 	petroleumDrill,
 	// Crafters
@@ -675,6 +677,33 @@ public class UAWBlock implements ContentList {
 			));
 			health = 250;
 		}};
+		pressurizedLiquidRouter = new LiquidRouter("pressurized-liquid-router") {{
+			requirements(Category.liquid, with(
+				UAWItems.titaniumCarbide, 3,
+				Items.plastanium, 2,
+				Items.metaglass, 2
+			));
+			liquidCapacity = 60f;
+			liquidPressure = 1.5f;
+			placeableLiquid = true;
+		}};
+		pressurizedLiquidJunction = new LiquidJunction("pressurized-liquid-junction") {{
+			requirements(Category.liquid, with(
+				UAWItems.titaniumCarbide, 3,
+				Items.plastanium, 2,
+				Items.metaglass, 2
+			));
+			liquidCapacity = 60f;
+			liquidPressure = 1.5f;
+			placeableLiquid = true;
+		}};
+		pressurizedBridgeConduit = new LiquidBridge("pressurized-bridge-conduit"){{
+			requirements(Category.liquid, with(Items.graphite, 4, Items.metaglass, 8));
+			fadeIn = moveArrows = true;
+			arrowSpacing = 6f;
+			range = 4;
+			hasPower = false;
+		}};
 		rotodynamicPump = new RotatingLiquidPump("rotodynamic-pump") {{
 			requirements(Category.liquid, with(
 				Items.lead, 160,
@@ -685,10 +714,10 @@ public class UAWBlock implements ContentList {
 				Items.thorium, 70
 			));
 			size = 3;
-			pumpAmount = 0.5f;
+			pumpAmount = 0.44f;
 			liquidCapacity = 120f;
 
-			consumes.power(2f);
+			consumes.power(2.3f);
 		}};
 
 		petroleumDrill = new AttributeSolidPump("petroleum-drill") {{
@@ -707,9 +736,9 @@ public class UAWBlock implements ContentList {
 			rotateSpeed = -2f;
 			attribute = Attribute.oil;
 			placeableLiquid = true;
-			boostScale = 0.25f;
-			maxBoost = 5f;
-			baseEfficiency = 0.75f;
+			boostScale = 0.33f;
+			maxBoost = 4.5f;
+			baseEfficiency = 0.7f;
 
 			consumes.power(3.5f);
 		}};
@@ -822,6 +851,7 @@ public class UAWBlock implements ContentList {
 				Items.metaglass, 120
 			));
 			size = 2;
+			rotationSpeed = -10f;
 			health = 600 * size;
 			powerProduction = 12f;
 			hasLiquids = true;

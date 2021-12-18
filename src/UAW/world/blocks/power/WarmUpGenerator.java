@@ -48,17 +48,17 @@ public class WarmUpGenerator extends ImpactReactor {
 	}
 
 	public class WarmUpGeneratorBuild extends ImpactReactorBuild {
-		float rotateSpeed;
+		float intensity;
 
 		@Override
 		public void updateTile() {
 			super.updateTile();
+			intensity += warmup * edelta();
 			if (warmup >= 0.001) {
-				if (Mathf.chance(warmup / 5)) {
+				if (Mathf.chance(intensity / 5)) {
 					smokeEffect.at(x, y);
 				}
 			}
-			rotateSpeed += warmup * edelta();
 		}
 
 		@Override
@@ -66,7 +66,7 @@ public class WarmUpGenerator extends ImpactReactor {
 			Draw.rect(bottomRegion, x, y);
 			Drawf.liquid(liquidRegion, x, y, liquids.total() / liquidCapacity, liquids.current().color);
 
-			Drawf.spinSprite(rotatorRegion, x, y, rotationSpeed * rotateSpeed);
+			Drawf.spinSprite(rotatorRegion, x, y, rotationSpeed * intensity);
 
 			Draw.rect(topRegion, x, y);
 			Draw.color(Color.valueOf("ff9b59"));

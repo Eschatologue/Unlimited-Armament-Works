@@ -1,5 +1,6 @@
-package UAW.world.blocks.production;
+package UAW.world.blocks.liquid;
 
+import UAW.content.UAWBlock;
 import mindustry.content.Blocks;
 import mindustry.gen.Building;
 import mindustry.type.Liquid;
@@ -8,8 +9,6 @@ import mindustry.world.blocks.distribution.ItemBridge;
 import mindustry.world.blocks.liquid.*;
 
 public class PressurizedConduit extends Conduit {
-	public Block bridge = Blocks.bridgeConduit;
-	public Block junction = Blocks.liquidJunction;
 
 	public PressurizedConduit(String name) {
 		super(name);
@@ -24,8 +23,8 @@ public class PressurizedConduit extends Conduit {
 	@Override
 	public void init() {
 		super.init();
-		if (junctionReplacement == null) junctionReplacement = junction;
-		if (bridgeReplacement == null || !(bridgeReplacement instanceof ItemBridge)) bridgeReplacement = bridge;
+		if (junctionReplacement == null) junctionReplacement = UAWBlock.pressurizedLiquidJunction;
+		if (bridgeReplacement == null || !(bridgeReplacement instanceof ItemBridge)) bridgeReplacement = UAWBlock.pressurizedBridgeConduit;
 	}
 
 	@Override

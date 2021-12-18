@@ -18,7 +18,7 @@ public class RotatingLiquidPump extends Pump {
 	public Effect updateEffect = Fx.steam;
 	public Color heatColor = Color.valueOf("ff5512");
 	public float rotateSpeed = -1.5f;
-	public float updateEffectChance = 0.2f;
+	public float updateEffectChance = 0.01f;
 
 	public RotatingLiquidPump(String name) {
 		super(name);
