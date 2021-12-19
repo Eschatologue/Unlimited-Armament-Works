@@ -79,7 +79,7 @@ public class UAWFxD {
 		});
 	}
 
-	public static Effect railShoot(float size ,Color color) {
+	public static Effect railShoot(float size, Color color) {
 		return new Effect(24.0F, size * 8, (e) -> {
 			e.scaled(10.0F, (b) -> {
 				Draw.color(Color.white, Color.lightGray, b.fin());
@@ -329,7 +329,7 @@ public class UAWFxD {
 		float length = size * 2.5f;
 		float width = size / 8f;
 		return new Effect(35, 100f, e -> {
-			color(frontColor);
+			color(frontColor, Color.gray, e.fin());
 			stroke(e.fout() * 4f);
 			Lines.circle(e.x, e.y, 4f + e.finpow() * size);
 
@@ -343,7 +343,7 @@ public class UAWFxD {
 				Drawf.tri(e.x, e.y, width, length * e.fout(), i * 90);
 			}
 			randLenVectors(e.id, 15, e.finpow() * e.lifetime * 1.5f, (x, y) -> {
-				color(backColor, frontColor, Color.gray, e.fin());
+				color(backColor, Pal.darkishGray, Color.gray, e.fin());
 				Fill.square(e.x + x, e.y + y, (e.fout() * 15f) / 2f, 45);
 			});
 		});

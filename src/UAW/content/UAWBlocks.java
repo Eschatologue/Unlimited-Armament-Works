@@ -5,7 +5,6 @@ import UAW.graphics.*;
 import UAW.world.blocks.defense.*;
 import UAW.world.blocks.defense.turrets.*;
 import UAW.world.blocks.defense.walls.ShieldWall;
-import UAW.world.blocks.drawer.*;
 import UAW.world.blocks.liquid.PressurizedConduit;
 import UAW.world.blocks.power.WarmUpGenerator;
 import UAW.world.blocks.production.*;
@@ -870,7 +869,7 @@ public class UAWBlocks implements ContentList {
 			itemCapacity = 30;
 			craftTime = 5 * tick;
 			squareSprite = false;
-			drawer = new DrawLiquidSmelter();
+			drawer = new DrawSmelter();
 			craftEffect = new MultiEffect(
 				UAWFxD.burstSmelt(4 * tilesize, Pal.plastaniumFront, Pal.plastaniumBack),
 				Fx.flakExplosionBig
