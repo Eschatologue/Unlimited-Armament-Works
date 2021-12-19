@@ -30,7 +30,7 @@ import static mindustry.Vars.tilesize;
 import static mindustry.content.Bullets.*;
 import static mindustry.type.ItemStack.with;
 
-public class UAWBlock implements ContentList {
+public class UAWBlocks implements ContentList {
 	public static Block placeholder,
 	// Gatling
 	quadra, spitfire, equalizer,
@@ -832,12 +832,11 @@ public class UAWBlock implements ContentList {
 				Items.metaglass, 30
 			));
 			consumes.items(
-				new ItemStack(Items.coal, 8),
-				new ItemStack(Items.thorium, 2)
+				new ItemStack(Items.coal, 8)
 			);
 			consumes.liquid(Liquids.slag, 0.85f);
 			consumes.power(1.5f);
-			outputLiquid = new LiquidStack(Liquids.oil, 30f);
+			outputLiquid = new LiquidStack(Liquids.oil, 60f);
 			size = 3;
 			liquidCapacity = 120f;
 			outputsLiquid = true;

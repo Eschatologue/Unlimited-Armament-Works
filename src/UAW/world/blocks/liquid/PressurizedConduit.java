@@ -1,6 +1,6 @@
 package UAW.world.blocks.liquid;
 
-import UAW.content.UAWBlock;
+import UAW.content.UAWBlocks;
 import mindustry.gen.Building;
 import mindustry.type.Liquid;
 import mindustry.world.*;
@@ -21,17 +21,18 @@ public class PressurizedConduit extends ArmoredConduit {
 	@Override
 	public void init() {
 		super.init();
-		junctionReplacement = UAWBlock.pressurizedLiquidJunction;
-		bridgeReplacement = UAWBlock.pressurizedBridgeConduit;
+		junctionReplacement = UAWBlocks.pressurizedLiquidJunction;
+		bridgeReplacement = UAWBlocks.pressurizedBridgeConduit;
 	}
 
 	@Override
 	public boolean blends(Tile tile, int rotation, int otherX, int otherY, int otherRot, Block otherBlock) {
 		return (otherBlock.outputsLiquid
+			&& !(otherBlock instanceof Conduit)
+			|| !(otherBlock instanceof ArmoredConduit)
 			&& blendsArmored(tile, rotation, otherX, otherY, otherRot, otherBlock))
 			|| (lookingAt(tile, rotation, otherX, otherY, otherBlock)
 			&& otherBlock.hasLiquids
-			&& !(otherBlock instanceof Conduit)
 		);
 	}
 

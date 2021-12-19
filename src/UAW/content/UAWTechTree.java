@@ -7,7 +7,7 @@ import mindustry.ctype.*;
 import mindustry.game.Objectives.*;
 import mindustry.type.ItemStack;
 
-import static UAW.content.UAWBlock.*;
+import static UAW.content.UAWBlocks.*;
 import static UAW.content.UAWItems.*;
 import static UAW.content.UAWLiquid.surgeSolvent;
 import static UAW.content.UAWUnitTypes.*;
@@ -188,7 +188,7 @@ public class UAWTechTree implements ContentList {
 		// endregion
 		// region Power
 		vanillaNode(thermalGenerator, () ->
-			node(UAWBlock.combustionGenerator, Seq.with(
+			node(UAWBlocks.combustionGenerator, Seq.with(
 				new Research(oilExtractor),
 				new Research(differentialGenerator)
 			))
