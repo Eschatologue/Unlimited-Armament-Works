@@ -856,7 +856,7 @@ public class UAWBlocks implements ContentList {
 			));
 			consumes.items(
 				new ItemStack(Items.sand, 16),
-				new ItemStack(Items.lead, 8)
+				new ItemStack(Items.lead, 12)
 			);
 			consumes.liquid(Liquids.oil, 1.5f);
 			outputItems = with(
@@ -865,7 +865,7 @@ public class UAWBlocks implements ContentList {
 			);
 			hasItems = true;
 			hasLiquids = true;
-			size = 3;
+			size = 4;
 			itemCapacity = 30;
 			craftTime = 5 * tick;
 			squareSprite = false;
