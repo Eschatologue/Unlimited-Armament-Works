@@ -5,7 +5,6 @@ import UAW.graphics.*;
 import UAW.world.blocks.defense.*;
 import UAW.world.blocks.defense.turrets.*;
 import UAW.world.blocks.defense.walls.ShieldWall;
-import UAW.world.blocks.drawer.DrawLiquidInput;
 import UAW.world.blocks.liquid.PressurizedConduit;
 import UAW.world.blocks.power.WarmUpGenerator;
 import UAW.world.blocks.production.*;
@@ -47,7 +46,7 @@ public class UAWBlocks implements ContentList {
 	// Drills
 	petroleumDrill,
 	// Crafters
-	gelatinizer, carburizingFurnace, surgeMixer, coalLiquefier,
+	gelatinizer, carburizingFurnace, surgeMixer, coalLiquefier, petroleumForge,
 	// Power
 	combustionGenerator, combustionTurbine,
 	// Defense
@@ -705,9 +704,10 @@ public class UAWBlocks implements ContentList {
 				Items.metaglass, 2
 			));
 			health = 300;
+			liquidCapacity = 30f;
 			fadeIn = moveArrows = true;
 			arrowSpacing = 6f;
-			range = 6;
+			range = 8;
 			hasPower = false;
 		}};
 		rotodynamicPump = new RotatingLiquidPump("rotodynamic-pump") {{
@@ -768,7 +768,7 @@ public class UAWBlocks implements ContentList {
 			hasItems = true;
 			hasLiquids = true;
 			size = 2;
-			drawer = new DrawLiquidInput();
+			drawer = new DrawLiquid();
 			craftEffect = Fx.freezing;
 			updateEffect = Fx.wet;
 		}};
@@ -845,6 +845,40 @@ public class UAWBlocks implements ContentList {
 			drawer = new DrawLiquid();
 			craftTime = 1.5f * tick;
 			updateEffect = Fx.steam;
+		}};
+		petroleumForge = new UAWGenericCrafter("petroleum-forge") {{
+			requirements(Category.crafting, with(
+				Items.titanium, 150,
+				Items.thorium, 125,
+				Items.metaglass, 95,
+				Items.silicon, 95,
+				Items.graphite, 95
+			));
+			consumes.items(
+				new ItemStack(Items.sand, 16),
+				new ItemStack(Items.lead, 8)
+			);
+			consumes.liquid(Liquids.oil, 1.5f);
+			outputItems = with(
+				new ItemStack(Items.silicon, 14),
+				new ItemStack(Items.metaglass, 14)
+			);
+			hasItems = true;
+			hasLiquids = true;
+			size = 3;
+			itemCapacity = 30;
+			craftTime = 5 * tick;
+			squareSprite = false;
+			drawer = new DrawSmelter();
+			craftEffect = new MultiEffect(
+				UAWFxD.burstSmelt(4 * tilesize, Pal.plastaniumFront, Pal.plastaniumBack),
+				Fx.flakExplosionBig
+			);
+			updateEffect = new MultiEffect(
+				UAWFxD.statusHit(20f, Pal.plastaniumFront),
+				Fx.burning,
+				Fx.fireSmoke
+			);
 		}};
 
 		combustionGenerator = new WarmUpGenerator("combustion-generator") {{

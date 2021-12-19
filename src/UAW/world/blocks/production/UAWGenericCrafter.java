@@ -13,7 +13,7 @@ import mindustry.world.meta.BlockFlag;
 public class UAWGenericCrafter extends GenericCrafter {
 	public TextureRegion rotator, rotatorTop;
 	public float rotatorSpinSpeed = 15f;
-	public float craftShakeIntensity = 14, craftSoundVolume = 1.2f;
+	public float craftShake = 14, craftSoundVolume = 1.2f;
 	public Sound craftSound = Sounds.plasmaboom;
 
 	public UAWGenericCrafter(String name) {
@@ -50,7 +50,9 @@ public class UAWGenericCrafter extends GenericCrafter {
 		@Override
 		public void craft() {
 			super.craft();
-			Effect.shake(craftShakeIntensity, craftShakeIntensity, x, y);
+			if (craftShake > 0) {
+				Effect.shake(craftShake, craftShake, x, y);
+			}
 			craftSound.at(x, y, craftSoundVolume);
 		}
 	}
