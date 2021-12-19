@@ -860,8 +860,8 @@ public class UAWBlocks implements ContentList {
 			);
 			consumes.liquid(Liquids.oil, 1.5f);
 			outputItems = with(
-				new ItemStack(Items.silicon, 14),
-				new ItemStack(Items.metaglass, 14)
+				Items.silicon, 14,
+				Items.metaglass, 14
 			);
 			hasItems = true;
 			hasLiquids = true;
