@@ -3,19 +3,20 @@ package UAW.world.blocks.production;
 import UAW.graphics.UAWFxD;
 import arc.Core;
 import arc.graphics.g2d.*;
+import mindustry.content.Liquids;
 import mindustry.graphics.Drawf;
 import mindustry.type.*;
 import mindustry.world.blocks.production.AttributeCrafter;
 import mindustry.world.meta.*;
 
-public class AttributeResourceDrill extends AttributeCrafter {
-	public Liquid liquidResult;
+public class AttributeSolidPump extends AttributeCrafter {
+	public Liquid liquidResult = Liquids.oil;
 	public TextureRegion region, rotatorRegion, liquidRegion, heatRegion, topRegion;
 	public float rotateSpeed = -1.5f;
 	public float pumpTime = craftTime = 5.5f;
 	public float pumpAmount = 1.5f;
 
-	public AttributeResourceDrill(String name) {
+	public AttributeSolidPump(String name) {
 		super(name);
 		placeableLiquid = true;
 		hasPower = true;

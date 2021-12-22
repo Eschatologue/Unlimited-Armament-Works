@@ -726,7 +726,7 @@ public class UAWBlocks implements ContentList {
 			consumes.power(2.3f);
 		}};
 
-		petroleumDrill = new AttributeResourceDrill("petroleum-drill") {{
+		petroleumDrill = new AttributeSolidPump("petroleum-drill") {{
 			requirements(Category.production, with(
 				Items.graphite, 250,
 				Items.lead, 265,
