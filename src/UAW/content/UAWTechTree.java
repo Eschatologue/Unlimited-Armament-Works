@@ -179,16 +179,10 @@ public class UAWTechTree implements ContentList {
 				new Research(cryofluidMixer),
 				new Produce(surgeAlloy)
 			)));
-		// Coal Liquefier
-		vanillaNode(oilExtractor, () ->
-			node(coalLiquefier, Seq.with(
-				new Research(graphitePress),
-				new Produce(Liquids.oil)
-			)));
 		// endregion
 		// region Power
 		vanillaNode(thermalGenerator, () ->
-			node(UAWBlocks.combustionGenerator, Seq.with(
+			node(UAWBlocks.combustionTurbine, Seq.with(
 				new Research(oilExtractor),
 				new Research(differentialGenerator)
 			))
