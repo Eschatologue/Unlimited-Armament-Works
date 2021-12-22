@@ -3,22 +3,17 @@ package UAW.world.blocks.production;
 import UAW.graphics.UAWFxD;
 import arc.Core;
 import arc.graphics.g2d.*;
-import arc.util.Nullable;
 import mindustry.graphics.Drawf;
 import mindustry.type.*;
 import mindustry.world.blocks.production.AttributeCrafter;
 import mindustry.world.meta.*;
 
 public class AttributeResourceDrill extends AttributeCrafter {
-	public @Nullable
-	Liquid liquidResult;
-	public @Nullable
-	Item itemResult;
-	public TextureRegion region, rotatorRegion, liquidRegion, heatRegion, topRegion, itemRegion;
+	public Liquid liquidResult;
+	public TextureRegion region, rotatorRegion, liquidRegion, heatRegion, topRegion;
 	public float rotateSpeed = -1.5f;
 	public float pumpTime = craftTime = 5.5f;
 	public float pumpAmount = 1.5f;
-	public int itemAmount = 1;
 
 	public AttributeResourceDrill(String name) {
 		super(name);
@@ -27,7 +22,6 @@ public class AttributeResourceDrill extends AttributeCrafter {
 		attribute = Attribute.oil;
 		outputsLiquid = true;
 		outputLiquid = new LiquidStack(liquidResult, pumpAmount);
-		outputItem = new ItemStack(itemResult, itemAmount);
 		warmupSpeed = 0.015f;
 		updateEffectChance = 0.3f;
 		envEnabled = Env.terrestrial;
@@ -41,7 +35,6 @@ public class AttributeResourceDrill extends AttributeCrafter {
 		rotatorRegion = Core.atlas.find(name + "-rotator");
 		heatRegion = Core.atlas.find(name + "-heat");
 		topRegion = Core.atlas.find(name + "-top");
-		itemRegion = Core.atlas.find(name + "-item");
 	}
 
 	@Override
@@ -52,10 +45,8 @@ public class AttributeResourceDrill extends AttributeCrafter {
 	@Override
 	public void setStats() {
 		super.setStats();
-		if (outputLiquid != null) {
-			stats.remove(Stat.output);
-			stats.add(Stat.output, liquidResult, 60f * pumpAmount, true);
-		}
+		stats.remove(Stat.output);
+		stats.add(Stat.output, liquidResult, 60f * pumpAmount, true);
 		if (attribute != null) {
 			stats.add(baseEfficiency > 0.0001f ? Stat.affinities : Stat.tiles, attribute, floating, 1f, baseEfficiency <= 0.001f);
 		}
@@ -80,11 +71,6 @@ public class AttributeResourceDrill extends AttributeCrafter {
 			}
 			Drawf.spinSprite(rotatorRegion, x, y, (gather * rotateSpeed));
 			Draw.rect(topRegion, x, y);
-			if (itemRegion.found()) {
-				Draw.color(itemResult.color);
-				Draw.rect(itemRegion, x, y);
-				Draw.color();
-			}
 		}
 	}
 }
