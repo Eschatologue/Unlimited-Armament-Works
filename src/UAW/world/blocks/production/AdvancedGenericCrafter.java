@@ -12,7 +12,6 @@ import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.meta.BlockFlag;
 
 public class AdvancedGenericCrafter extends GenericCrafter {
-	public ItemStack[] byProduct;
 	public TextureRegion rotator, rotatorTop;
 	public float rotatorSpinSpeed = -15f;
 	public float craftShake = 0, craftSoundVolume = 0f;
@@ -26,7 +25,6 @@ public class AdvancedGenericCrafter extends GenericCrafter {
 		ambientSound = Sounds.machine;
 		sync = true;
 		ambientSoundVolume = 0.05f;
-		flags = EnumSet.of(BlockFlag.factory);
 	}
 
 	@Override

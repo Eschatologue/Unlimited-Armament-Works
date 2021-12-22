@@ -11,7 +11,7 @@ import mindustry.world.meta.*;
 
 public class AttributeSolidPump extends AttributeCrafter {
 	public Liquid liquidResult = Liquids.oil;
-	public TextureRegion region, rotatorRegion, liquidRegion, heatRegion, topRegion;
+	public TextureRegion region, rotatorRegion, liquidRegion, topRegion;
 	public float rotateSpeed = -1.5f;
 	public float pumpTime = craftTime = 5.5f;
 	public float pumpAmount = 1.5f;
@@ -32,9 +32,8 @@ public class AttributeSolidPump extends AttributeCrafter {
 	@Override
 	public void load() {
 		region = Core.atlas.find(name);
-		liquidRegion = Core.atlas.find(name + "-liquidResult");
+		liquidRegion = Core.atlas.find(name + "-liquid");
 		rotatorRegion = Core.atlas.find(name + "-rotator");
-		heatRegion = Core.atlas.find(name + "-heat");
 		topRegion = Core.atlas.find(name + "-top");
 	}
 

@@ -19,7 +19,7 @@ import mindustry.type.*;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.blocks.liquid.*;
-import mindustry.world.blocks.production.GenericCrafter;
+import mindustry.world.blocks.production.*;
 import mindustry.world.blocks.units.Reconstructor;
 import mindustry.world.draw.*;
 import mindustry.world.meta.Attribute;
@@ -46,7 +46,7 @@ public class UAWBlocks implements ContentList {
 	// Drills
 	petroleumDrill,
 	// Crafters
-	gelatinizer, carburizingFurnace, surgeMixer, petroleumFurnace, anthraciteCrystalizer,
+	gelatinizer, carburizingFurnace, surgeMixer, petroleumFurnace, anthraciteCompressor,
 	// Power
 	combustionTurbine,
 	// Defense
@@ -675,7 +675,7 @@ public class UAWBlocks implements ContentList {
 				Items.plastanium, 2
 			));
 		}};
-		pressurizedLiquidRouter = new LiquidRouter("pressurized-liquidResult-router") {{
+		pressurizedLiquidRouter = new LiquidRouter("pressurized-liquid-router") {{
 			requirements(Category.liquid, with(
 				UAWItems.titaniumCarbide, 3,
 				Items.plastanium, 2,
@@ -686,7 +686,7 @@ public class UAWBlocks implements ContentList {
 			liquidPressure = 1.5f;
 			placeableLiquid = true;
 		}};
-		pressurizedLiquidJunction = new LiquidJunction("pressurized-liquidResult-junction") {{
+		pressurizedLiquidJunction = new LiquidJunction("pressurized-liquid-junction") {{
 			requirements(Category.liquid, with(
 				UAWItems.titaniumCarbide, 3,
 				Items.plastanium, 2,
@@ -729,7 +729,7 @@ public class UAWBlocks implements ContentList {
 		petroleumDrill = new AttributeSolidPump("petroleum-drill") {{
 			requirements(Category.production, with(
 				Items.graphite, 250,
-				Items.lead, 265,
+				Items.lead, 250,
 				Items.plastanium, 125,
 				Items.thorium, 180,
 				Items.silicon, 125,
@@ -744,8 +744,8 @@ public class UAWBlocks implements ContentList {
 			placeableLiquid = true;
 			hasItems = false;
 			hasLiquids = true;
-			boostScale = 0.25f;
-			maxBoost = 4.5f;
+			boostScale = 0.15f;
+			maxBoost = 3f;
 			baseEfficiency = 0.5f;
 
 			consumes.power(3.5f);
@@ -885,12 +885,12 @@ public class UAWBlocks implements ContentList {
 			craftSoundVolume = 1.2f;
 			craftShake = 15f;
 		}};
-		anthraciteCrystalizer = new AdvancedGenericCrafter("anthracite-crystalizer") {{
+		anthraciteCompressor = new AttributeCrafter("anthracite-compressor") {{
 			requirements(Category.crafting, with(
-				Items.lead, 240,
-				Items.titanium, 120,
-				Items.metaglass, 90,
-				Items.silicon, 90)
+				Items.lead, 200,
+				Items.titanium, 150,
+				Items.plastanium, 120,
+				Items.silicon, 100)
 			);
 			consumes.items(
 				new ItemStack(Items.coal, 4)
@@ -900,14 +900,19 @@ public class UAWBlocks implements ContentList {
 				UAWItems.anthracite, 1
 			);
 			consumes.power(2f);
+			drawer = new DrawLiquid();
 			hasItems = true;
 			hasLiquids = true;
 			size = 3;
 			itemCapacity = 30;
-			craftTime = 2.5f * tick;
+			craftTime = 4f * tick;
 			squareSprite = false;
-			craftEffect = new MultiEffect(Fx.melting, Fx.burning);
-			updateEffect = new MultiEffect(Fx.burning, Fx.fireSmoke);
+			craftEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireHit);
+			updateEffect = new MultiEffect(Fx.burning, Fx.fireSmoke, Fx.steam);
+			attribute = Attribute.oil;
+			boostScale = 0.115f;
+			maxBoost = 3f;
+			baseEfficiency = 0f;
 		}};
 
 		combustionTurbine = new WarmUpGenerator("combustion-turbine") {{
