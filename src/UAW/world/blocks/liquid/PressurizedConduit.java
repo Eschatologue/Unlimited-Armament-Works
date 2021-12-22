@@ -10,11 +10,6 @@ public class PressurizedConduit extends ArmoredConduit {
 
 	public PressurizedConduit(String name) {
 		super(name);
-		update = true;
-		hasPower = true;
-		consumesPower = true;
-		consumes.power(0.15f);
-		outputsPower = true;
 		noSideBlend = true;
 		health = 300;
 		liquidCapacity = 30f;

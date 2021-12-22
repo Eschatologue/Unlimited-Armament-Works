@@ -893,7 +893,8 @@ public class UAWBlocks implements ContentList {
 				Items.silicon, 100)
 			);
 			consumes.items(
-				new ItemStack(Items.coal, 4)
+				new ItemStack(Items.coal, 4),
+				new ItemStack(Items.thorium, 1)
 			);
 			consumes.liquid(Liquids.oil, 0.5f);
 			outputItems = with(
@@ -910,9 +911,9 @@ public class UAWBlocks implements ContentList {
 			craftEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireHit);
 			updateEffect = new MultiEffect(Fx.burning, Fx.fireSmoke, Fx.steam);
 			attribute = Attribute.oil;
-			boostScale = 0.115f;
+			boostScale = 0.11f;
 			maxBoost = 3f;
-			baseEfficiency = 0f;
+			baseEfficiency = 0.5f;
 		}};
 
 		combustionTurbine = new WarmUpGenerator("combustion-turbine") {{
