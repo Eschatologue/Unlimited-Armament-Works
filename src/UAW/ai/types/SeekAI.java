@@ -34,8 +34,10 @@ public class SeekAI extends AIController {
 
 			if (state.rules.waves && unit.team == state.rules.defaultTeam) {
 				Tile spawner = getClosestSpawner();
-				if (spawner != null && unit.within(spawner, state.rules.dropZoneRadius + 120f)) move = false;
-				if (core != null && unit.within(core, unit.range() / 3)) move = false;
+				if (spawner != null && unit.within(spawner, state.rules.dropZoneRadius + 120f)
+					|| core != null && unit.within(core, unit.range() / 3)
+					|| target != null && unit.within(target, unit.range() / 3))
+					move = false;
 			}
 			if (target != null && unit.within(target, unit.type.range) && !Vars.world.raycast(unit.tileX(), unit.tileY(), target.tileX(), target.tileY(), (x, y) -> {
 				for (Point2 p : Geometry.d4c) {
@@ -48,6 +50,7 @@ public class SeekAI extends AIController {
 				if (unit.within(target, unit.range() / 2)) {
 					if (floor.isLiquid && unit().canDrown()) {
 						pathfind(Pathfinder.fieldCore);
+						pathfind(Pathfinder.costGround);
 					} else {
 						unit.movePref(vec.set(target).sub(unit).rotate(90f).setLength(unit.speed() * 0));
 					}
@@ -56,6 +59,7 @@ public class SeekAI extends AIController {
 				}
 			} else if (move) {
 				pathfind(Pathfinder.fieldCore);
+				pathfind(Pathfinder.costGround);
 			}
 		}
 

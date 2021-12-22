@@ -326,24 +326,24 @@ public class UAWFxD {
 	}
 
 	public static Effect burstSmelt(float size, Color frontColor, Color backColor) {
-		float length = size * 2.5f;
-		float width = size / 8f;
 		return new Effect(35, 100f, e -> {
-			color(frontColor, Color.gray, e.fin());
+			float length = e.finpow() * (size * 2.5f);
+			float width = e.fout() * (size / 8f);
+			color(frontColor, Color.gray, Pal.darkerGray, e.fin());
 			stroke(e.fout() * 4f);
 			Lines.circle(e.x, e.y, 4f + e.finpow() * size);
 
 			color(backColor);
 			for (int i = 0; i < 4; i++) {
-				Drawf.tri(e.x, e.y, (width * 2), length * e.fout(), i * 90);
+				Drawf.tri(e.x, e.y, (width * 2), length, i * 90);
 			}
 
 			color(frontColor);
 			for (int i = 0; i < 4; i++) {
-				Drawf.tri(e.x, e.y, width, length * e.fout(), i * 90);
+				Drawf.tri(e.x, e.y, width, length, i * 90);
 			}
-			randLenVectors(e.id, 15, e.finpow() * e.lifetime * 1.5f, (x, y) -> {
-				color(backColor, Pal.darkishGray, Color.gray, e.fin());
+			randLenVectors(e.id, 12, e.finpow() * e.lifetime * 1.5f, (x, y) -> {
+				color(backColor, frontColor, Color.gray, e.fin());
 				Fill.square(e.x + x, e.y + y, (e.fout() * 15f) / 2f, 45);
 			});
 		});

@@ -3,30 +3,31 @@ package UAW.world.blocks.production;
 import UAW.graphics.UAWFxD;
 import arc.Core;
 import arc.graphics.g2d.*;
-import mindustry.Vars;
-import mindustry.content.Liquids;
+import arc.util.Nullable;
 import mindustry.graphics.Drawf;
 import mindustry.type.*;
-import mindustry.world.blocks.environment.Floor;
 import mindustry.world.blocks.production.AttributeCrafter;
 import mindustry.world.meta.*;
 
-public class AttributeSolidPump extends AttributeCrafter {
-	public TextureRegion region, rotatorRegion, liquidRegion, topRegion;
-	public Liquid result = Liquids.oil;
+public class AttributeResourceDrill extends AttributeCrafter {
+	public @Nullable
+	Liquid liquidResult;
+	public @Nullable
+	Item itemResult;
+	public TextureRegion region, rotatorRegion, liquidRegion, heatRegion, topRegion, itemRegion;
 	public float rotateSpeed = -1.5f;
 	public float pumpTime = craftTime = 5.5f;
 	public float pumpAmount = 1.5f;
+	public int itemAmount = 1;
 
-	public AttributeSolidPump(String name) {
+	public AttributeResourceDrill(String name) {
 		super(name);
 		placeableLiquid = true;
 		hasPower = true;
-		hasLiquids = true;
-		hasItems = false;
 		attribute = Attribute.oil;
 		outputsLiquid = true;
-		outputLiquid = new LiquidStack(result, pumpAmount);
+		outputLiquid = new LiquidStack(liquidResult, pumpAmount);
+		outputItem = new ItemStack(itemResult, itemAmount);
 		warmupSpeed = 0.015f;
 		updateEffectChance = 0.3f;
 		envEnabled = Env.terrestrial;
@@ -36,9 +37,11 @@ public class AttributeSolidPump extends AttributeCrafter {
 	@Override
 	public void load() {
 		region = Core.atlas.find(name);
-		liquidRegion = Core.atlas.find(name + "-liquid");
+		liquidRegion = Core.atlas.find(name + "-liquidResult");
 		rotatorRegion = Core.atlas.find(name + "-rotator");
+		heatRegion = Core.atlas.find(name + "-heat");
 		topRegion = Core.atlas.find(name + "-top");
+		itemRegion = Core.atlas.find(name + "-item");
 	}
 
 	@Override
@@ -49,23 +52,23 @@ public class AttributeSolidPump extends AttributeCrafter {
 	@Override
 	public void setStats() {
 		super.setStats();
-
-		stats.remove(Stat.output);
-		stats.add(Stat.output, result, 60f * pumpAmount, true);
+		if (outputLiquid != null) {
+			stats.remove(Stat.output);
+			stats.add(Stat.output, liquidResult, 60f * pumpAmount, true);
+		}
 		if (attribute != null) {
 			stats.add(baseEfficiency > 0.0001f ? Stat.affinities : Stat.tiles, attribute, floating, 1f, baseEfficiency <= 0.001f);
 		}
 	}
 
-	public class AttributeSolidPumpBuild extends AttributeCrafterBuild {
-		public float pump;
+	public class AttributeResourceBuild extends AttributeCrafterBuild {
+		public float gather;
 
 		@Override
 		public void updateTile() {
-			Floor floor = Vars.world.floorWorld(this.x, this.y);
 			super.updateTile();
-			updateEffect = UAWFxD.statusHit(30f, result.color);
-			pump += warmup * edelta();
+			updateEffect = UAWFxD.statusHit(30f, liquidResult.color);
+			gather += warmup * edelta();
 		}
 
 		@Override
@@ -73,10 +76,15 @@ public class AttributeSolidPump extends AttributeCrafter {
 			Draw.rect(region, x, y);
 			super.drawCracks();
 			if (liquidRegion.found()) {
-				Drawf.liquid(liquidRegion, x, y, liquids.get(result) / liquidCapacity, result.color);
+				Drawf.liquid(liquidRegion, x, y, liquids.get(liquidResult) / liquidCapacity, liquidResult.color);
 			}
-			Drawf.spinSprite(rotatorRegion, x, y, (pump * rotateSpeed));
+			Drawf.spinSprite(rotatorRegion, x, y, (gather * rotateSpeed));
 			Draw.rect(topRegion, x, y);
+			if (itemRegion.found()) {
+				Draw.color(itemResult.color);
+				Draw.rect(itemRegion, x, y);
+				Draw.color();
+			}
 		}
 	}
 }

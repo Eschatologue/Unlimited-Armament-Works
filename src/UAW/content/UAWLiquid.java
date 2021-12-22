@@ -11,7 +11,7 @@ public class UAWLiquid implements ContentList {
 
 	@Override
 	public void load() {
-		surgeSolvent = new Liquid("surge-solvent", Pal.surge) {{
+		surgeSolvent = new Liquid("liquid-surge-solvent", Pal.surge) {{
 			viscosity = 0.65f;
 			barColor = Pal.surge;
 			effect = StatusEffects.electrified;

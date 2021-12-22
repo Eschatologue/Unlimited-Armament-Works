@@ -46,9 +46,9 @@ public class UAWBlocks implements ContentList {
 	// Drills
 	petroleumDrill,
 	// Crafters
-	gelatinizer, carburizingFurnace, surgeMixer, coalLiquefier, petroleumForge,
+	gelatinizer, carburizingFurnace, surgeMixer, petroleumFurnace, anthraciteCrystalizer,
 	// Power
-	combustionGenerator, combustionTurbine,
+	combustionTurbine,
 	// Defense
 	shieldWall, statusFieldProjector, rejuvinationProjector, rejuvinationDome,
 	// Units
@@ -675,7 +675,7 @@ public class UAWBlocks implements ContentList {
 				Items.plastanium, 2
 			));
 		}};
-		pressurizedLiquidRouter = new LiquidRouter("pressurized-liquid-router") {{
+		pressurizedLiquidRouter = new LiquidRouter("pressurized-liquidResult-router") {{
 			requirements(Category.liquid, with(
 				UAWItems.titaniumCarbide, 3,
 				Items.plastanium, 2,
@@ -686,7 +686,7 @@ public class UAWBlocks implements ContentList {
 			liquidPressure = 1.5f;
 			placeableLiquid = true;
 		}};
-		pressurizedLiquidJunction = new LiquidJunction("pressurized-liquid-junction") {{
+		pressurizedLiquidJunction = new LiquidJunction("pressurized-liquidResult-junction") {{
 			requirements(Category.liquid, with(
 				UAWItems.titaniumCarbide, 3,
 				Items.plastanium, 2,
@@ -710,7 +710,7 @@ public class UAWBlocks implements ContentList {
 			range = 8;
 			hasPower = false;
 		}};
-		rotodynamicPump = new RotatingLiquidPump("rotodynamic-pump") {{
+		rotodynamicPump = new RotatingLiquidPump("rotodynamic-gather") {{
 			requirements(Category.liquid, with(
 				Items.lead, 160,
 				Items.metaglass, 60,
@@ -726,7 +726,7 @@ public class UAWBlocks implements ContentList {
 			consumes.power(2.3f);
 		}};
 
-		petroleumDrill = new AttributeSolidPump("petroleum-drill") {{
+		petroleumDrill = new AttributeResourceDrill("petroleum-drill") {{
 			requirements(Category.production, with(
 				Items.graphite, 250,
 				Items.lead, 265,
@@ -735,16 +735,18 @@ public class UAWBlocks implements ContentList {
 				Items.silicon, 125,
 				UAWItems.titaniumCarbide, 150
 			));
-			result = Liquids.oil;
+			liquidResult = Liquids.oil;
 			pumpTime = 0.25f;
 			size = 3;
 			liquidCapacity = 360f;
 			rotateSpeed = -2f;
 			attribute = Attribute.oil;
 			placeableLiquid = true;
-			boostScale = 0.33f;
+			hasItems = false;
+			hasLiquids = true;
+			boostScale = 0.25f;
 			maxBoost = 4.5f;
-			baseEfficiency = 0.7f;
+			baseEfficiency = 0.5f;
 
 			consumes.power(3.5f);
 		}};
@@ -772,7 +774,7 @@ public class UAWBlocks implements ContentList {
 			craftEffect = Fx.freezing;
 			updateEffect = Fx.wet;
 		}};
-		carburizingFurnace = new UAWGenericCrafter("carburizing-furnace") {{
+		carburizingFurnace = new AdvancedGenericCrafter("carburizing-furnace") {{
 			requirements(Category.crafting, with(
 				Items.titanium, 150,
 				Items.thorium, 125,
@@ -824,29 +826,29 @@ public class UAWBlocks implements ContentList {
 			craftTime = 2.5f * tick;
 			updateEffect = Fx.shieldBreak;
 		}};
-		coalLiquefier = new GenericCrafter("coal-liquefier") {{
-			requirements(Category.crafting, with(
-				Items.lead, 50,
-				Items.titanium, 50,
-				Items.silicon, 35,
-				Items.metaglass, 30
-			));
-			consumes.items(
-				new ItemStack(Items.coal, 8)
-			);
-			consumes.liquid(Liquids.slag, 0.85f);
-			consumes.power(1.5f);
-			outputLiquid = new LiquidStack(Liquids.oil, 60f);
-			size = 3;
-			liquidCapacity = 120f;
-			outputsLiquid = true;
-			hasItems = true;
-			hasLiquids = true;
-			drawer = new DrawLiquid();
-			craftTime = 1.5f * tick;
-			updateEffect = Fx.steam;
-		}};
-		petroleumForge = new UAWGenericCrafter("petroleum-forge") {{
+//		coalLiquefier = new GenericCrafter("coal-liquefier") {{
+//			requirements(Category.crafting, with(
+//				Items.lead, 50,
+//				Items.titanium, 50,
+//				Items.silicon, 35,
+//				Items.metaglass, 30
+//			));
+//			consumes.items(
+//				new ItemStack(Items.coal, 8)
+//			);
+//			consumes.liquidResult(Liquids.slag, 0.85f);
+//			consumes.power(1.5f);
+//			outputLiquid = new LiquidStack(Liquids.oil, 60f);
+//			size = 3;
+//			liquidCapacity = 120f;
+//			outputsLiquid = true;
+//			hasItems = true;
+//			hasLiquids = true;
+//			drawer = new DrawLiquid();
+//			craftTime = 1.5f * tick;
+//			updateEffect = Fx.steam;
+//		}};
+		petroleumFurnace = new AdvancedGenericCrafter("petroleum-furnace") {{
 			requirements(Category.crafting, with(
 				Items.titanium, 150,
 				Items.thorium, 125,
@@ -855,19 +857,20 @@ public class UAWBlocks implements ContentList {
 				Items.graphite, 95
 			));
 			consumes.items(
-				new ItemStack(Items.sand, 16),
-				new ItemStack(Items.lead, 12)
+				new ItemStack(Items.sand, 12),
+				new ItemStack(Items.lead, 4)
 			);
 			consumes.liquid(Liquids.oil, 1.5f);
 			outputItems = with(
-				Items.silicon, 14,
-				Items.metaglass, 14
+				Items.silicon, 6,
+				Items.metaglass, 6
 			);
+			consumes.power(2f);
 			hasItems = true;
 			hasLiquids = true;
 			size = 4;
 			itemCapacity = 30;
-			craftTime = 5 * tick;
+			craftTime = 2.5f * tick;
 			squareSprite = false;
 			drawer = new DrawSmelter();
 			craftEffect = new MultiEffect(
@@ -879,45 +882,52 @@ public class UAWBlocks implements ContentList {
 				Fx.burning,
 				Fx.fireSmoke
 			);
+			craftSoundVolume = 1.2f;
+			craftShake = 15f;
+		}};
+		anthraciteCrystalizer = new AdvancedGenericCrafter("anthracite-crystalizer") {{
+			requirements(Category.crafting, with(
+				Items.lead, 240,
+				Items.titanium, 120,
+				Items.metaglass, 90,
+				Items.silicon, 90)
+			);
+			consumes.items(
+				new ItemStack(Items.coal, 4)
+			);
+			consumes.liquid(Liquids.oil, 0.5f);
+			outputItems = with(
+				UAWItems.anthracite, 1
+			);
+			consumes.power(2f);
+			hasItems = true;
+			hasLiquids = true;
+			size = 3;
+			itemCapacity = 30;
+			craftTime = 2.5f * tick;
+			squareSprite = false;
+			craftEffect = new MultiEffect(Fx.melting, Fx.burning);
+			updateEffect = new MultiEffect(Fx.burning, Fx.fireSmoke);
 		}};
 
-		combustionGenerator = new WarmUpGenerator("combustion-generator") {{
+		combustionTurbine = new WarmUpGenerator("combustion-turbine") {{
 			requirements(Category.power, with(
-				Items.copper, 65,
-				Items.titanium, 25,
-				Items.lead, 50,
-				Items.silicon, 40,
-				Items.metaglass, 40
+				Items.copper, 160,
+				Items.titanium, 100,
+				Items.lead, 250,
+				Items.silicon, 125,
+				Items.metaglass, 80
 			));
-			size = 2;
-			rotationSpeed = -10f;
+			size = 3;
 			health = 600 * size;
-			powerProduction = 15f;
+			powerProduction = 16f;
 			hasLiquids = true;
 			hasItems = false;
-			liquidCapacity = 180f;
+			liquidCapacity = 360f;
 
-			consumes.power(0.5f);
+			consumes.power(1.5f);
 			consumes.liquid(Liquids.oil, 0.5f);
 		}};
-//		combustionTurbine = new WarmUpGenerator("combustion-turbine") {{
-//			requirements(Category.power, with(
-//				Items.copper, 160,
-//				Items.titanium, 100,
-//				Items.lead, 250,
-//				Items.silicon, 125,
-//				Items.metaglass, 80
-//			));
-//			size = 3;
-//			health = 600 * size;
-//			powerProduction = 16f;
-//			hasLiquids = true;
-//			hasItems = false;
-//			liquidCapacity = 360f;
-//
-//			consumes.power(1.5f);
-//			consumes.liquid(Liquids.oil, 0.5f);
-//		}};
 
 		shieldWall = new ShieldWall("force-wall") {{
 			requirements(Category.defense, with(
