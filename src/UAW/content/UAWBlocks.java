@@ -46,7 +46,7 @@ public class UAWBlocks implements ContentList {
 	// Drills
 	petroleumDrill,
 	// Crafters
-	gelatinizer, carburizingFurnace, surgeMixer, petroleumFurnace, anthraciteCompressor,
+	gelatinizer, carburizingFurnace, surgeMixer, petroleumSmelter, anthraciteCompressor,
 	// Power
 	combustionTurbine,
 	// Defense
@@ -848,7 +848,7 @@ public class UAWBlocks implements ContentList {
 //			craftTime = 1.5f * tick;
 //			updateEffect = Fx.steam;
 //		}};
-		petroleumFurnace = new AdvancedGenericCrafter("petroleum-furnace") {{
+		petroleumSmelter = new AdvancedGenericCrafter("petroleum-smelter") {{
 			requirements(Category.crafting, with(
 				Items.titanium, 150,
 				Items.thorium, 125,
