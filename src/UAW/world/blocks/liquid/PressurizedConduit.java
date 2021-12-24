@@ -22,16 +22,16 @@ public class PressurizedConduit extends ArmoredConduit {
 	public void init() {
 		super.init();
 		junctionReplacement = UAWBlocks.pressurizedLiquidJunction;
-		bridgeReplacement = UAWBlocks.pressurizedBridgeConduit;
+		bridgeReplacement = UAWBlocks.pressurizedLiquidBridge;
 	}
 
 	@Override
-	public boolean blends(Tile tile, int rotation, int otherX, int otherY, int otherRot, Block otherBlock) {
-		return otherBlock.outputsLiquid
+	public boolean blends(Tile tile, int rotation, int otherX, int otherY, int otherRot, Block otherBlock){
+		return (otherBlock.outputsLiquid
 			&& !(otherBlock instanceof Conduit)
 			|| otherBlock instanceof PressurizedConduit
-			&& blendsArmored(tile, rotation, otherX, otherY, otherRot, otherBlock)
-			|| lookingAt(tile, rotation, otherX, otherY, otherBlock) && otherBlock.hasLiquids;
+			&& blendsArmored(tile, rotation, otherX, otherY, otherRot, otherBlock))
+			|| (lookingAt(tile, rotation, otherX, otherY, otherBlock) && otherBlock.hasLiquids);
 	}
 
 	public class PressurizedConduitBuild extends ArmoredConduitBuild {

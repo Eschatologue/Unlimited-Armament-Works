@@ -85,42 +85,41 @@ public class UAWTechTree implements ContentList {
 
 	@Override
 	public void load() {
-		// region Consumables
-		/// Cryogel
+
 		vanillaNode(pyratite, () ->
 			node(cryogel)
 		);
-		/// Carbides
-		vanillaNode(titanium, () -> node(titaniumCarbide, Seq.with(
-			new Research(thorium)
-		)));
-		/// SurgeSolvent
+		vanillaNode(titanium, () ->
+			node(titaniumCarbide, Seq.with(
+				new Research(thorium)
+			)));
 		vanillaNode(surgeAlloy, () ->
 			node(surgeSolvent)
 		);
-		// endregion
-		// region Turrets
+		vanillaNode(coal, () ->
+			node(anthracite, Seq.with(
+				new Research(titaniumCarbide)
+			)));
+
 		vanillaNode(duo, () -> {
-			// Quadra
 			node(quadra, () -> node(spitfire, Seq.with(
 				new Research(cyclone)
 			)));
-			// Solo
 			node(solo, () ->
 				node(longsword, Seq.with(new Research(fuse)), () ->
 					node(deadeye, Seq.with(new Research(foreshadow)))
 				));
 		});
+
 		vanillaNode(salvo, () -> node(buckshot, () -> {
-			// Tempest
 			node(tempest, Seq.with(
 				new Research(ripple)
 			));
-			// StrikeForce
 			node(strikeforce, Seq.with(
 				new Research(ripple)
 			));
 		}));
+
 		vanillaNode(ripple, () -> {
 			node(zounderkite, Seq.with(
 				new Produce(Items.blastCompound),
@@ -136,67 +135,65 @@ public class UAWTechTree implements ContentList {
 					new SectorComplete(SectorPresets.nuclearComplex)
 				)));
 		});
-		// endregion
-		// region Walls
+
 		vanillaNode(phaseWall, () ->
-			/// Shield Wall
 			node(shieldWall, Seq.with(
 				new Research(forceProjector),
 				new Research(mendProjector)
 			)));
-		// endregion
-		// region Effects
+
 		vanillaNode(mendProjector, () -> {
-			// Status Field
 			node(statusFieldProjector, Seq.with(
 				new Produce(Liquids.cryofluid),
 				new Produce(Liquids.oil),
 				new Produce(Liquids.slag)
 			));
-			// Rejuvinator
 			node(rejuvinationProjector, Seq.with(new Research(overdriveProjector)), () ->
 				node(rejuvinationDome, Seq.with(new Research(overdriveDome)
 				)));
 		});
-		// endregion
-		// region Crafters
-		// Gelatinizer
+
 		vanillaNode(blastMixer, () ->
 			node(gelatinizer, Seq.with(
 				new SectorComplete(SectorPresets.frozenForest),
 				new Research(cryofluidMixer)
 			)));
-		// Carburizing Furnace
+
 		vanillaNode(surgeSmelter, () ->
 			node(carburizingFurnace, Seq.with(
 				new SectorComplete(SectorPresets.windsweptIslands),
 				new Research(siliconCrucible),
 				new Research(titaniumCarbide)
 			)));
-		// Surge Mixer
+
 		vanillaNode(separator, () ->
 			node(surgeMixer, Seq.with(
 				new Research(cryofluidMixer),
 				new Produce(surgeAlloy)
 			)));
-		// endregion
-		// region Power
+
 		vanillaNode(thermalGenerator, () ->
 			node(UAWBlocks.combustionTurbine, Seq.with(
 				new Research(oilExtractor),
 				new Research(differentialGenerator)
 			))
 		);
-		// endregion
-		// region Unit Blocks
-		// Units Reconstuctors
+
+		vanillaNode(thermalPump, () ->
+			node(rotodynamicPump, Seq.with(new Research(oilExtractor)), () ->
+				node(pressurizedConduit, () -> {
+					node(pressurizedLiquidRouter);
+					node(pressurizedLiquidJunction, () ->
+						node(pressurizedLiquidBridge));
+				})
+			));
+
 		vanillaNode(multiplicativeReconstructor, () ->
 			node(multiplicativePetroleumReconstructor, () ->
 				node(exponentialPetroleumReconstructor, Seq.with(new Research(exponentialReconstructor)), () ->
 					node(tetrativePetroleumReconstructor, Seq.with(new Research(tetrativeReconstructor))
 					))));
-		// endregion
-		// Helis
+
 		vanillaNode(zenith, () ->
 			node(aglovale, () ->
 				node(bedivere, () ->
@@ -205,16 +202,16 @@ public class UAWTechTree implements ContentList {
 						new Research(antumbra)
 					))
 				)));
-		// Jet Bombers
+
 		vanillaNode(horizon, () ->
 			node(jufeng)
 		);
-		// Tanks
+
 		vanillaNode(mace, () ->
 			node(gardlacz, () ->
 				node(arkabuz)
 			));
-		// naval
+
 		vanillaNode(minke, () ->
 			node(clurit, Seq.with(new Research(atrax)), () ->
 				node(kujang, Seq.with(new Research(spiroct)), () ->
@@ -228,6 +225,5 @@ public class UAWTechTree implements ContentList {
 				node(shiratsuyu)
 			));
 
-		//  Region
 	}
 }

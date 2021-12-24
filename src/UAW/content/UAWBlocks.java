@@ -42,7 +42,7 @@ public class UAWBlocks implements ContentList {
 	// Energy
 	heavylight, trailblazer, terravolt,
 	// Liquids
-	pressurizedConduit, pressurizedLiquidRouter, pressurizedLiquidJunction, pressurizedBridgeConduit, rotodynamicPump,
+	pressurizedConduit, pressurizedLiquidRouter, pressurizedLiquidJunction, pressurizedLiquidBridge, rotodynamicPump,
 	// Drills
 	petroleumDrill,
 	// Crafters
@@ -697,7 +697,7 @@ public class UAWBlocks implements ContentList {
 			liquidPressure = 1.5f;
 			placeableLiquid = true;
 		}};
-		pressurizedBridgeConduit = new LiquidBridge("pressurized-bridge-conduit") {{
+		pressurizedLiquidBridge = new LiquidBridge("pressurized-liquid-bridge") {{
 			requirements(Category.liquid, with(
 				UAWItems.titaniumCarbide, 3,
 				Items.plastanium, 2,
@@ -710,7 +710,7 @@ public class UAWBlocks implements ContentList {
 			range = 8;
 			hasPower = false;
 		}};
-		rotodynamicPump = new RotatingLiquidPump("rotodynamic-gather") {{
+		rotodynamicPump = new RotatingLiquidPump("rotodynamic-pump") {{
 			requirements(Category.liquid, with(
 				Items.lead, 160,
 				Items.metaglass, 60,
