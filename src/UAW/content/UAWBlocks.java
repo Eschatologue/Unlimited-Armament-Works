@@ -46,7 +46,7 @@ public class UAWBlocks implements ContentList {
 	// Drills
 	petroleumDrill,
 	// Crafters
-	gelatinizer, carburizingFurnace, surgeMixer, petroleumSmelter, carbonSieve, anthraciteCrystallizer,
+	gelatinizer, carburizingFurnace, surgeMixer, petroleumSmelter, petroleumSeperator, anthraciteCrystallizer,
 	// Power
 	petroleumGenerator,
 	// Defense
@@ -873,7 +873,7 @@ public class UAWBlocks implements ContentList {
 			craftSoundVolume = 1.2f;
 			craftShake = 15f;
 		}};
-		carbonSieve = new Separator("carbon-sieve") {{
+		petroleumSeperator = new Separator("petroleum-seperator") {{
 			requirements(Category.crafting, with(
 				Items.plastanium, 80,
 				Items.titanium, 120,
@@ -881,15 +881,16 @@ public class UAWBlocks implements ContentList {
 			));
 			results = with(
 				UAWItems.anthracite, 1,
+				Items.coal, 6,
 				Items.coal, 5,
 				Items.coal, 4,
-				Items.coal, 3,
-				Items.coal, 2
+				Items.coal, 3
 			);
-			craftTime = 5 * tick;
 			size = 3;
+			craftTime = 4 * tick;
 			itemCapacity = 20;
 
+			consumes.power(2f);
 			consumes.liquid(Liquids.oil, 2f);
 		}};
 		anthraciteCrystallizer = new AttributeCrafter("anthracite-crystallizer") {{

@@ -202,13 +202,17 @@ public class UAWTechTree implements ContentList {
 			)
 		);
 
-		vanillaNode(separator, () ->
+		vanillaNode(disassembler, () -> {
 			node(surgeMixer, Seq.with(
 					new Research(cryofluidMixer),
 					new Produce(surgeAlloy)
 				)
-			)
-		);
+			);
+			node(petroleumSeperator, Seq.with(
+				new Research(oilExtractor),
+				new Research(petroleumDrill))
+			);
+		});
 
 		vanillaNode(plastaniumCompressor, () ->
 			node(anthraciteCrystallizer)
@@ -216,8 +220,15 @@ public class UAWTechTree implements ContentList {
 
 		vanillaNode(thermalGenerator, () ->
 			node(UAWBlocks.petroleumGenerator, Seq.with(
-					new Research(oilExtractor),
-					new Research(differentialGenerator)
+				new Research(oilExtractor),
+				new Research(differentialGenerator))
+			)
+		);
+
+		vanillaNode(oilExtractor, () ->
+			node(petroleumDrill, Seq.with(
+					new SectorComplete(SectorPresets.tarFields),
+					new Research(thermalPump)
 				)
 			)
 		);
