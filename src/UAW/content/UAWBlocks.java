@@ -926,15 +926,15 @@ public class UAWBlocks implements ContentList {
 			));
 			size = 4;
 			health = 300 * size;
-			powerProduction = 45f;
+			powerProduction = 25f;
 			hasLiquids = true;
 			hasItems = false;
 			liquidCapacity = 360f;
 			ambientSound = Sounds.machine;
 			ambientSoundVolume = 0.07f;
 
-			consumes.power(10f);
-			consumes.liquid(Liquids.oil, 1f);
+			consumes.power(5f);
+			consumes.liquid(Liquids.oil, 2f);
 		}};
 
 		shieldWall = new ShieldWall("force-wall") {{

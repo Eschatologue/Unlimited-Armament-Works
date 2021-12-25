@@ -6,6 +6,7 @@ import mindustry.type.Liquid;
 import mindustry.world.blocks.liquid.*;
 
 public class PressurizedConduit extends ArmoredConduit {
+	public float minimumPower = 0.99f;
 
 	public PressurizedConduit(String name) {
 		super(name);
@@ -30,7 +31,7 @@ public class PressurizedConduit extends ArmoredConduit {
 		@Override
 		public boolean acceptLiquid(Building source, Liquid liquid) {
 			return super.acceptLiquid(source, liquid)
-				&& power.status > 0.99f
+				&& power.status > minimumPower
 				&& (tile == null
 				|| source.block instanceof Conduit
 				|| source.tile.absoluteRelativeTo(tile.x, tile.y) == rotation);

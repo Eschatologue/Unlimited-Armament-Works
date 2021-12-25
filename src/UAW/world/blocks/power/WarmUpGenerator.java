@@ -22,7 +22,6 @@ import mindustry.world.blocks.power.ImpactReactor;
 public class WarmUpGenerator extends ImpactReactor {
 	public TextureRegion liquidRegion, rotatorRegion, heatRegion, topRegion;
 	public Effect smokeEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
-	public Effect updateEffect = Fx.smeltsmoke;
 	public Color heatColor = Color.valueOf("ff5512");
 	public float rotationSpeed = 15f;
 
@@ -60,11 +59,8 @@ public class WarmUpGenerator extends ImpactReactor {
 			super.updateTile();
 			intensity += warmup * edelta();
 			if (warmup >= 0.001) {
-				if (Mathf.chance(warmup / 5)) {
+				if (Mathf.chance(intensity / 5)) {
 					smokeEffect.at(x + Mathf.range(size / 3f * 4f), y + Mathf.range(size / 3f * 4f));
-				}
-				if (Mathf.chanceDelta(warmup / 10)) {
-					updateEffect.at(x + Mathf.range(size * 4f), y + Mathf.range(size * 4));
 				}
 			}
 		}
