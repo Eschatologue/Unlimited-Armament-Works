@@ -46,7 +46,7 @@ public class UAWBlocks implements ContentList {
 	// Drills
 	petroleumDrill,
 	// Crafters
-	gelatinizer, carburizingFurnace, surgeMixer, petroleumSmelter, anthraciteCompressor,
+	gelatinizer, carburizingFurnace, surgeMixer, petroleumSmelter, carbonSieve, anthraciteCrystallizer,
 	// Power
 	petroleumGenerator,
 	// Defense
@@ -674,6 +674,7 @@ public class UAWBlocks implements ContentList {
 				Items.metaglass, 2,
 				Items.plastanium, 2
 			));
+			health = 500;
 			baseExplosiveness = 8f;
 		}};
 		pressurizedLiquidRouter = new PressurizedRouter("pressurized-liquid-router") {{
@@ -682,8 +683,8 @@ public class UAWBlocks implements ContentList {
 				Items.plastanium, 2,
 				Items.metaglass, 2
 			));
+			health = 500;
 			baseExplosiveness = 8f;
-			health = 300;
 			liquidCapacity = 60f;
 			liquidPressure = 1.5f;
 			placeableLiquid = true;
@@ -694,7 +695,7 @@ public class UAWBlocks implements ContentList {
 				Items.plastanium, 2,
 				Items.metaglass, 2
 			));
-			health = 300;
+			health = 500;
 			liquidCapacity = 60f;
 			liquidPressure = 1.5f;
 			placeableLiquid = true;
@@ -708,15 +709,12 @@ public class UAWBlocks implements ContentList {
 				Items.plastanium, 2,
 				Items.metaglass, 2
 			));
-			health = 300;
-			liquidCapacity = 30f;
+			health = 500;
+			liquidCapacity = 60f;
 			liquidPressure = 1.5f;
 			range = 6;
 			arrowPeriod = 0.9f;
 			arrowTimeScl = 2.75f;
-			hasPower = true;
-			canOverdrive = false;
-			consumes.power(0.15f);
 			baseExplosiveness = 8f;
 		}};
 
@@ -836,28 +834,7 @@ public class UAWBlocks implements ContentList {
 			craftTime = 2.5f * tick;
 			updateEffect = Fx.shieldBreak;
 		}};
-//		coalLiquefier = new GenericCrafter("coal-liquefier") {{
-//			requirements(Category.crafting, with(
-//				Items.lead, 50,
-//				Items.titanium, 50,
-//				Items.silicon, 35,
-//				Items.metaglass, 30
-//			));
-//			consumes.items(
-//				new ItemStack(Items.coal, 8)
-//			);
-//			consumes.liquidResult(Liquids.slag, 0.85f);
-//			consumes.power(1.5f);
-//			outputLiquid = new LiquidStack(Liquids.oil, 60f);
-//			size = 3;
-//			liquidCapacity = 120f;
-//			outputsLiquid = true;
-//			hasItems = true;
-//			hasLiquids = true;
-//			drawer = new DrawLiquid();
-//			craftTime = 1.5f * tick;
-//			updateEffect = Fx.steam;
-//		}};
+
 		petroleumSmelter = new AdvancedGenericCrafter("petroleum-smelter") {{
 			requirements(Category.crafting, with(
 				Items.titanium, 150,
@@ -868,18 +845,19 @@ public class UAWBlocks implements ContentList {
 			));
 			consumes.items(
 				new ItemStack(Items.sand, 12),
-				new ItemStack(Items.lead, 4)
+				new ItemStack(Items.lead, 4),
+				new ItemStack(UAWItems.anthracite, 4)
 			);
 			consumes.liquid(Liquids.oil, 1.5f);
 			outputItems = with(
-				Items.silicon, 6,
-				Items.metaglass, 6
+				Items.silicon, 12,
+				Items.metaglass, 12
 			);
 			consumes.power(2f);
 			hasItems = true;
 			hasLiquids = true;
 			size = 4;
-			itemCapacity = 30;
+			itemCapacity = 60;
 			craftTime = 2.5f * tick;
 			squareSprite = false;
 			drawer = new DrawSmelter();
@@ -895,28 +873,46 @@ public class UAWBlocks implements ContentList {
 			craftSoundVolume = 1.2f;
 			craftShake = 15f;
 		}};
-		anthraciteCompressor = new AttributeCrafter("anthracite-compressor") {{
+		carbonSieve = new Separator("carbon-sieve") {{
 			requirements(Category.crafting, with(
-				Items.lead, 200,
+				Items.plastanium, 80,
+				Items.titanium, 120,
+				Items.silicon, 100
+			));
+			results = with(
+				UAWItems.anthracite, 1,
+				Items.coal, 5,
+				Items.coal, 4,
+				Items.coal, 3,
+				Items.coal, 2
+			);
+			craftTime = 5 * tick;
+			size = 3;
+			itemCapacity = 20;
+
+			consumes.liquid(Liquids.oil, 2f);
+		}};
+		anthraciteCrystallizer = new AttributeCrafter("anthracite-crystallizer") {{
+			requirements(Category.crafting, with(
+				Items.lead, 250,
 				Items.titanium, 150,
 				Items.plastanium, 120,
-				Items.silicon, 100)
+				Items.silicon, 105)
 			);
 			consumes.items(
 				new ItemStack(Items.coal, 4),
 				new ItemStack(Items.thorium, 1)
 			);
-			consumes.liquid(Liquids.oil, 0.5f);
+			consumes.liquid(Liquids.oil, 2.5f);
 			outputItems = with(
-				UAWItems.anthracite, 1
+				UAWItems.anthracite, 2
 			);
 			size = 3;
-			consumes.power(2f);
 			drawer = new DrawLiquid();
 			hasItems = true;
 			hasLiquids = true;
 			itemCapacity = 30;
-			craftTime = 4f * tick;
+			craftTime = 2.5f * tick;
 			squareSprite = false;
 			craftEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireHit);
 			updateEffect = new MultiEffect(Fx.burning, Fx.fireSmoke, Fx.steam);
