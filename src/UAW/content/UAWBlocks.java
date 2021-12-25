@@ -918,21 +918,23 @@ public class UAWBlocks implements ContentList {
 
 		combustionTurbine = new WarmUpGenerator("combustion-turbine") {{
 			requirements(Category.power, with(
-				Items.copper, 160,
-				Items.titanium, 100,
-				Items.lead, 250,
-				Items.silicon, 125,
-				Items.metaglass, 80
+				Items.copper, 350,
+				Items.titanium, 200,
+				Items.lead, 350,
+				Items.silicon, 225,
+				Items.metaglass, 160
 			));
-			size = 3;
-			health = 600 * size;
-			powerProduction = 16f;
+			size = 4;
+			health = 300 * size;
+			powerProduction = 100f;
 			hasLiquids = true;
 			hasItems = false;
 			liquidCapacity = 360f;
+			ambientSound = Sounds.machine;
+			ambientSoundVolume = 0.07f;
 
-			consumes.power(1.5f);
-			consumes.liquid(Liquids.oil, 0.5f);
+			consumes.power(10f);
+			consumes.liquid(Liquids.oil, 1f);
 		}};
 
 		shieldWall = new ShieldWall("force-wall") {{

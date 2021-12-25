@@ -2,7 +2,7 @@ package UAW.world.blocks.power;
 
 import UAW.graphics.UAWFxD;
 import arc.Core;
-import arc.graphics.Color;
+import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.Mathf;
 import arc.util.Time;
@@ -22,6 +22,8 @@ import mindustry.world.blocks.power.ImpactReactor;
 public class WarmUpGenerator extends ImpactReactor {
 	public TextureRegion liquidRegion, rotatorRegion, heatRegion, topRegion;
 	public Effect smokeEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
+	public Effect updateEffect = Fx.smeltsmoke;
+	public Color heatColor = Color.valueOf("ff5512");
 	public float rotationSpeed = 15f;
 
 	public WarmUpGenerator(String name) {
@@ -58,7 +60,10 @@ public class WarmUpGenerator extends ImpactReactor {
 			intensity += warmup * edelta();
 			if (warmup >= 0.001) {
 				if (Mathf.chance(intensity / 5)) {
-					smokeEffect.at(x, y);
+					smokeEffect.at(x + Mathf.range(size / 2.5f * 4f), y + Mathf.range(size / 2.5f * 4f));
+				}
+				if (Mathf.chanceDelta(intensity / 8)) {
+					updateEffect.at(x + Mathf.range(size * 4f), y + Mathf.range(size * 4));
 				}
 			}
 		}
@@ -73,9 +78,13 @@ public class WarmUpGenerator extends ImpactReactor {
 				Drawf.spinSprite(rotatorRegion, x, y, rotationSpeed * intensity);
 			}
 			Draw.rect(topRegion, x, y);
-			Draw.color(Color.valueOf("ff9b59"));
-			Draw.alpha((0.3f + Mathf.absin(Time.time, 3f, 0.9f)) * warmup);
+
+			Draw.color(heatColor);
+			Draw.alpha(warmup * 0.6f * (1f - 0.3f + Mathf.absin(Time.time, 3f, 0.3f)));
+			Draw.blend(Blending.additive);
 			Draw.rect(heatRegion, x, y);
+			Draw.blend();
+			Draw.color();
 
 			Draw.reset();
 		}
