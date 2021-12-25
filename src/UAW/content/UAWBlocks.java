@@ -5,7 +5,7 @@ import UAW.graphics.*;
 import UAW.world.blocks.defense.*;
 import UAW.world.blocks.defense.turrets.*;
 import UAW.world.blocks.defense.walls.ShieldWall;
-import UAW.world.blocks.liquid.PressurizedConduit;
+import UAW.world.blocks.liquid.*;
 import UAW.world.blocks.power.WarmUpGenerator;
 import UAW.world.blocks.production.*;
 import mindustry.content.*;
@@ -48,7 +48,7 @@ public class UAWBlocks implements ContentList {
 	// Crafters
 	gelatinizer, carburizingFurnace, surgeMixer, petroleumSmelter, anthraciteCompressor,
 	// Power
-	combustionTurbine,
+	petroleumGenerator,
 	// Defense
 	shieldWall, statusFieldProjector, rejuvinationProjector, rejuvinationDome,
 	// Units
@@ -674,13 +674,15 @@ public class UAWBlocks implements ContentList {
 				Items.metaglass, 2,
 				Items.plastanium, 2
 			));
+			baseExplosiveness = 8f;
 		}};
-		pressurizedLiquidRouter = new LiquidRouter("pressurized-liquid-router") {{
+		pressurizedLiquidRouter = new PressurizedRouter("pressurized-liquid-router") {{
 			requirements(Category.liquid, with(
 				UAWItems.titaniumCarbide, 3,
 				Items.plastanium, 2,
 				Items.metaglass, 2
 			));
+			baseExplosiveness = 8f;
 			health = 300;
 			liquidCapacity = 60f;
 			liquidPressure = 1.5f;
@@ -696,6 +698,9 @@ public class UAWBlocks implements ContentList {
 			liquidCapacity = 60f;
 			liquidPressure = 1.5f;
 			placeableLiquid = true;
+			consumesPower = outputsPower = hasPower = true;
+			consumes.powerBuffered(250);
+			baseExplosiveness = 8f;
 		}};
 		pressurizedLiquidBridge = new LiquidBridge("pressurized-liquid-bridge") {{
 			requirements(Category.liquid, with(
@@ -705,11 +710,16 @@ public class UAWBlocks implements ContentList {
 			));
 			health = 300;
 			liquidCapacity = 30f;
-			fadeIn = moveArrows = true;
-			arrowSpacing = 6f;
-			range = 8;
-			hasPower = false;
+			liquidPressure = 1.5f;
+			range = 6;
+			arrowPeriod = 0.9f;
+			arrowTimeScl = 2.75f;
+			hasPower = true;
+			canOverdrive = false;
+			consumes.power(0.15f);
+			baseExplosiveness = 8f;
 		}};
+
 		rotodynamicPump = new RotatingLiquidPump("rotodynamic-pump") {{
 			requirements(Category.liquid, with(
 				Items.lead, 160,
@@ -900,11 +910,11 @@ public class UAWBlocks implements ContentList {
 			outputItems = with(
 				UAWItems.anthracite, 1
 			);
+			size = 3;
 			consumes.power(2f);
 			drawer = new DrawLiquid();
 			hasItems = true;
 			hasLiquids = true;
-			size = 3;
 			itemCapacity = 30;
 			craftTime = 4f * tick;
 			squareSprite = false;
@@ -916,7 +926,7 @@ public class UAWBlocks implements ContentList {
 			baseEfficiency = 0.5f;
 		}};
 
-		combustionTurbine = new WarmUpGenerator("combustion-turbine") {{
+		petroleumGenerator = new WarmUpGenerator("petroleum-generator") {{
 			requirements(Category.power, with(
 				Items.copper, 350,
 				Items.titanium, 200,
@@ -926,7 +936,7 @@ public class UAWBlocks implements ContentList {
 			));
 			size = 4;
 			health = 300 * size;
-			powerProduction = 25f;
+			powerProduction = 20f;
 			hasLiquids = true;
 			hasItems = false;
 			liquidCapacity = 360f;

@@ -17,7 +17,7 @@ public class PressurizedConduit extends ArmoredConduit {
 		leaks = false;
 		placeableLiquid = true;
 		outputsPower = consumesPower = hasPower = true;
-		consumes.power(0.25f);
+		consumes.power(0.125f);
 	}
 
 	@Override

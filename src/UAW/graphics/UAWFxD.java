@@ -329,7 +329,7 @@ public class UAWFxD {
 		return new Effect(35, 100f, e -> {
 			float length = e.finpow() * (size * 2.5f);
 			float width = e.fout() * (size / 8f);
-			color(frontColor, Color.gray, Pal.darkerGray, e.fin());
+			color(frontColor, backColor, Color.gray, e.fin());
 			stroke(e.fout() * 4f);
 			Lines.circle(e.x, e.y, 4f + e.finpow() * size);
 
@@ -343,7 +343,7 @@ public class UAWFxD {
 				Drawf.tri(e.x, e.y, width, length, i * 90);
 			}
 			randLenVectors(e.id, 12, e.finpow() * e.lifetime * 1.5f, (x, y) -> {
-				color(backColor, frontColor, Color.gray, e.fin());
+				color(frontColor, backColor, Color.gray, e.fin());
 				Fill.square(e.x + x, e.y + y, (e.fout() * 15f) / 2f, 45);
 			});
 		});

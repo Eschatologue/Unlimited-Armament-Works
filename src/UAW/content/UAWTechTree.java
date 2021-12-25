@@ -173,7 +173,7 @@ public class UAWTechTree implements ContentList {
 			)));
 
 		vanillaNode(thermalGenerator, () ->
-			node(UAWBlocks.combustionTurbine, Seq.with(
+			node(UAWBlocks.petroleumGenerator, Seq.with(
 				new Research(oilExtractor),
 				new Research(differentialGenerator)
 			))

@@ -50,7 +50,6 @@ public class SeekAI extends AIController {
 				if (unit.within(target, unit.range() / 2)) {
 					if (floor.isLiquid && unit().canDrown()) {
 						pathfind(Pathfinder.fieldCore);
-						pathfind(Pathfinder.costGround);
 					} else {
 						unit.movePref(vec.set(target).sub(unit).rotate(90f).setLength(unit.speed() * 0));
 					}
@@ -59,7 +58,6 @@ public class SeekAI extends AIController {
 				}
 			} else if (move) {
 				pathfind(Pathfinder.fieldCore);
-				pathfind(Pathfinder.costGround);
 			}
 		}
 
