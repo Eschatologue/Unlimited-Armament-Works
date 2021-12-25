@@ -931,10 +931,10 @@ public class UAWBlocks implements ContentList {
 			hasItems = false;
 			liquidCapacity = 360f;
 			ambientSound = Sounds.machine;
-			ambientSoundVolume = 0.07f;
+			ambientSoundVolume = 0.05f;
 
 			consumes.power(5f);
-			consumes.liquid(Liquids.oil, 2f);
+			consumes.liquid(Liquids.oil, 2.5f);
 		}};
 
 		shieldWall = new ShieldWall("force-wall") {{
