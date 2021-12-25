@@ -28,7 +28,8 @@ public class WarmUpGenerator extends ImpactReactor {
 
 	public WarmUpGenerator(String name) {
 		super(name);
-		warmupSpeed = 0.005f;
+		warmupSpeed = 0.002f;
+		squareSprite = false;
 		hasItems = false;
 		explosionRadius = size * 4;
 		explosionDamage = size * 125;
@@ -59,10 +60,10 @@ public class WarmUpGenerator extends ImpactReactor {
 			super.updateTile();
 			intensity += warmup * edelta();
 			if (warmup >= 0.001) {
-				if (Mathf.chance(intensity / 5)) {
-					smokeEffect.at(x + Mathf.range(size / 2.5f * 4f), y + Mathf.range(size / 2.5f * 4f));
+				if (Mathf.chance(warmup / 5)) {
+					smokeEffect.at(x + Mathf.range(size / 3f * 4f), y + Mathf.range(size / 3f * 4f));
 				}
-				if (Mathf.chanceDelta(intensity / 8)) {
+				if (Mathf.chanceDelta(warmup / 10)) {
 					updateEffect.at(x + Mathf.range(size * 4f), y + Mathf.range(size * 4));
 				}
 			}
@@ -79,12 +80,14 @@ public class WarmUpGenerator extends ImpactReactor {
 			}
 			Draw.rect(topRegion, x, y);
 
-			Draw.color(heatColor);
-			Draw.alpha(warmup * 0.6f * (1f - 0.3f + Mathf.absin(Time.time, 3f, 0.3f)));
-			Draw.blend(Blending.additive);
-			Draw.rect(heatRegion, x, y);
-			Draw.blend();
-			Draw.color();
+			if (heatRegion.found()) {
+				Draw.color(heatColor);
+				Draw.alpha(warmup * 0.6f * (1f - 0.3f + Mathf.absin(Time.time, 3f, 0.3f)));
+				Draw.blend(Blending.additive);
+				Draw.rect(heatRegion, x, y);
+				Draw.blend();
+				Draw.color();
+			}
 
 			Draw.reset();
 		}

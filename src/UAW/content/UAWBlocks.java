@@ -926,7 +926,7 @@ public class UAWBlocks implements ContentList {
 			));
 			size = 4;
 			health = 300 * size;
-			powerProduction = 100f;
+			powerProduction = 45f;
 			hasLiquids = true;
 			hasItems = false;
 			liquidCapacity = 360f;
