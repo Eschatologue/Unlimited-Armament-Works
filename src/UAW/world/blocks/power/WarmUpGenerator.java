@@ -44,19 +44,20 @@ public class WarmUpGenerator extends ImpactReactor {
 
 	@Override
 	public TextureRegion[] icons() {
-		return new TextureRegion[]{bottomRegion, rotatorRegion, topRegion};
+		if (rotatorRegion.found()) {
+			return new TextureRegion[]{bottomRegion, rotatorRegion, topRegion};
+		} else return new TextureRegion[]{bottomRegion, topRegion};
 	}
 
 	public class WarmUpGeneratorBuild extends ImpactReactorBuild {
 		float intensity;
-		float time;
 
 		@Override
 		public void updateTile() {
 			super.updateTile();
 			intensity += warmup * edelta();
 			if (warmup >= 0.001) {
-				if (Mathf.chance(warmup / 5)) {
+				if (Mathf.chance(intensity / 5)) {
 					smokeEffect.at(x, y);
 				}
 			}
@@ -65,13 +66,15 @@ public class WarmUpGenerator extends ImpactReactor {
 		@Override
 		public void draw() {
 			Draw.rect(bottomRegion, x, y);
-			Drawf.liquid(liquidRegion, x, y, liquids.total() / liquidCapacity, liquids.current().color);
-
-			Drawf.spinSprite(rotatorRegion, x, y, rotationSpeed * intensity);
-
+			if (liquidRegion.found()) {
+				Drawf.liquid(liquidRegion, x, y, liquids.total() / liquidCapacity, liquids.current().color);
+			}
+			if (rotatorRegion.found()) {
+				Drawf.spinSprite(rotatorRegion, x, y, rotationSpeed * intensity);
+			}
 			Draw.rect(topRegion, x, y);
 			Draw.color(Color.valueOf("ff9b59"));
-			Draw.alpha((0.3f + Mathf.absin(Time.time, 2f, 0.05f)) * warmup);
+			Draw.alpha((0.3f + Mathf.absin(Time.time, 3f, 0.9f)) * warmup);
 			Draw.rect(heatRegion, x, y);
 
 			Draw.reset();
