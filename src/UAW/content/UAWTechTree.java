@@ -9,7 +9,7 @@ import mindustry.type.ItemStack;
 
 import static UAW.content.UAWBlocks.*;
 import static UAW.content.UAWItems.*;
-import static UAW.content.UAWLiquid.surgeSolvent;
+import static UAW.content.UAWLiquids.surgeSolvent;
 import static UAW.content.UAWUnitTypes.*;
 import static mindustry.content.Blocks.*;
 import static mindustry.content.Items.*;

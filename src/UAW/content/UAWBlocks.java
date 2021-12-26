@@ -181,10 +181,10 @@ public class UAWBlocks implements ContentList {
 					speed = brange;
 					splashDamage = 150;
 					splashDamageRadius = 3 * 8;
-					shootEffect = new MultiEffect(UAWFxD.railShoot(32, Pal.bulletYellow), Fx.blockExplosionSmoke);
+					shootEffect = new MultiEffect(UAWFxD.railShoot(32, Pal.orangeSpark), Fx.blockExplosionSmoke);
 					smokeEffect = Fx.smokeCloud;
-					trailEffect = UAWFxD.railTrail(12, Pal.bulletYellow);
-					hitEffect = despawnEffect = new MultiEffect(UAWFxD.crossBlast(splashDamageRadius, Pal.bulletYellow), Fx.smokeCloud);
+					trailEffect = UAWFxD.railTrail(12, Pal.orangeSpark);
+					hitEffect = despawnEffect = new MultiEffect(UAWFxD.crossBlast(splashDamageRadius, Pal.orangeSpark), Fx.smokeCloud);
 					trailSpacing = 20f;
 					buildingDamageMultiplier = 0.5f;
 					hitShake = 6f;
@@ -194,7 +194,7 @@ public class UAWBlocks implements ContentList {
 				UAWItems.titaniumCarbide, new UAWRailBulletType() {{
 					damage = 350f;
 					length = range;
-					shootEffect = new MultiEffect(Fx.railShoot, Fx.blockExplosionSmoke);
+					shootEffect = new MultiEffect(UAWFxD.railShoot(36, Pal.orangeSpark), Fx.blockExplosionSmoke);
 					hitEffect = new MultiEffect(Fx.railHit, Fx.massiveExplosion);
 					pierceEffect = Fx.railHit;
 					updateEffect = Fx.railTrail;
@@ -249,7 +249,7 @@ public class UAWBlocks implements ContentList {
 					);
 					length = range;
 					updateEffect = UAWFxD.railTrail(15, Pal.bulletYellowBack);
-					trailEffect = UAWFxD.railTrail(15, Pal.bulletYellow);
+					trailEffect = UAWFxD.railTrail(15, Pal.bulletYellowBack);
 					pierceDamageFactor = 0.8f;
 					updateEffectSeg = 30f;
 					buildingDamageMultiplier = 0.1f;
@@ -724,10 +724,10 @@ public class UAWBlocks implements ContentList {
 				Items.thorium, 70
 			));
 			size = 3;
-			pumpAmount = 0.44f;
+			pumpAmount = 0.45f;
 			liquidCapacity = 120f;
 
-			consumes.power(2.3f);
+			consumes.power(2f);
 		}};
 
 		petroleumDrill = new AttributeSolidPump("petroleum-drill") {{
@@ -820,7 +820,7 @@ public class UAWBlocks implements ContentList {
 				Items.silicon, 1));
 			consumes.liquid(Liquids.oil, 0.5f);
 			consumes.power(2f);
-			outputLiquid = new LiquidStack(UAWLiquid.surgeSolvent, 30f);
+			outputLiquid = new LiquidStack(UAWLiquids.surgeSolvent, 60f);
 			size = 3;
 			liquidCapacity = 120f;
 			outputsLiquid = true;
@@ -854,6 +854,7 @@ public class UAWBlocks implements ContentList {
 			hasLiquids = true;
 			size = 4;
 			itemCapacity = 60;
+			liquidCapacity = 360f;
 			craftTime = 2.5f * tick;
 			squareSprite = false;
 			drawer = new DrawSmelter();
@@ -883,9 +884,10 @@ public class UAWBlocks implements ContentList {
 				Items.scrap, 3
 			);
 			size = 3;
-			craftTime = 4 * tick;
+			craftTime = 3.5f * tick;
 			itemCapacity = 20;
 			squareSprite = false;
+			liquidCapacity = 120f;
 
 			consumes.power(2f);
 			consumes.liquid(Liquids.oil, 2f);
@@ -993,7 +995,7 @@ public class UAWBlocks implements ContentList {
 					statusDuration = reloadTime * 1.5f;
 					splashAmount = 1;
 				}},
-				UAWLiquid.surgeSolvent, new SplashBulletType(0, range) {{
+				UAWLiquids.surgeSolvent, new SplashBulletType(0, range) {{
 					shootEffect = UAWFxD.statusFieldApply(Pal.missileYellow, Pal.missileYellowBack, range);
 					smokeEffect = UAWFxD.statusHit(30, Pal.surge);
 					status = StatusEffects.electrified;
@@ -1020,7 +1022,7 @@ public class UAWBlocks implements ContentList {
 			boostMultiplier = 3f;
 			boostDuration = 5 * tick;
 			consumes.power(1.6f);
-			consumes.liquid(UAWLiquid.surgeSolvent, 0.5f);
+			consumes.liquid(UAWLiquids.surgeSolvent, 0.5f);
 		}};
 		rejuvinationDome = new RejuvenationProjector("rejuvination-dome") {{
 			requirements(Category.effect, with(
@@ -1036,7 +1038,7 @@ public class UAWBlocks implements ContentList {
 			health = 75 * size * size;
 			boostMultiplier = 6f;
 			consumes.power(3f);
-			consumes.liquid(UAWLiquid.surgeSolvent, 1f);
+			consumes.liquid(UAWLiquids.surgeSolvent, 1f);
 		}};
 
 		multiplicativePetroleumReconstructor = new Reconstructor("multiplicative-petroleum-reconstructor") {{
