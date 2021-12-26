@@ -232,6 +232,7 @@ public class UAWBlocks implements ContentList {
 			cooldown = 1.5f;
 			ammo(
 				UAWItems.titaniumCarbide, new UAWRailBulletType() {{
+					damage = 10000;
 					shootEffect = new MultiEffect(
 						UAWFxD.railShoot(64, Pal.bulletYellowBack),
 						UAWFxD.effectCloud(Pal.bulletYellow),

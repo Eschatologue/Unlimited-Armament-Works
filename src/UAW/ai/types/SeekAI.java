@@ -20,6 +20,7 @@ public class SeekAI extends AIController {
 		Building core = unit.closestEnemyCore();
 		Floor floor = Vars.world.floorWorld(unit.x, unit.y);
 
+
 		if (core != null && unit.within(core, unit.range() / 1.1f + core.block.size * tilesize / 2f)) {
 			target = core;
 			for (var mount : unit.mounts) {
@@ -31,13 +32,19 @@ public class SeekAI extends AIController {
 
 		if (command() == UnitCommand.attack) {
 			boolean move = true;
-
 			if (state.rules.waves && unit.team == state.rules.defaultTeam) {
 				Tile spawner = getClosestSpawner();
 				if (spawner != null && unit.within(spawner, state.rules.dropZoneRadius + 120f)
-					|| core != null && unit.within(core, unit.range() / 3)
-					|| target != null && unit.within(target, unit.range() / 3))
+					|| target != null && unit.within(target, unit.range() / 3)
+					&& !target.floorOn().isDeep()) {
 					move = false;
+				}
+				if (core != null && unit.within(core, unit.range() / 1.1f + core.block.size * tilesize / 2f)) {
+					move = false;
+				}
+				if (target != null && !unit.within(target, unit.range() / 3)) {
+					unit.aim(target);
+				}
 			}
 			if (target != null && unit.within(target, unit.type.range) && !Vars.world.raycast(unit.tileX(), unit.tileY(), target.tileX(), target.tileY(), (x, y) -> {
 				for (Point2 p : Geometry.d4c) {
@@ -48,7 +55,7 @@ public class SeekAI extends AIController {
 				return false;
 			})) {
 				if (unit.within(target, unit.range() / 2)) {
-					if (floor.isLiquid && unit().canDrown()) {
+					if (floor.isDeep()) {
 						pathfind(Pathfinder.fieldCore);
 					} else {
 						unit.movePref(vec.set(target).sub(unit).rotate(90f).setLength(unit.speed() * 0));
