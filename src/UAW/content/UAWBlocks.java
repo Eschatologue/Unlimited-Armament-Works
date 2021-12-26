@@ -166,8 +166,8 @@ public class UAWBlocks implements ContentList {
 			maxAmmo = 30;
 			ammoPerShot = 6;
 			rotateSpeed = 2.5f;
-			reloadTime = 60;
-			ammoUseEffect = UAWFxS.casing5;
+			reloadTime = 3 * tick;
+			ammoUseEffect = Fx.casing4;
 			recoilAmount = 4f;
 			restitution = 0.01f;
 			shootShake = 3f;
@@ -177,9 +177,9 @@ public class UAWBlocks implements ContentList {
 			unitSort = (u, x, y) -> -u.health;
 			ammo(
 				Items.surgeAlloy, new PointBulletType() {{
-					damage = 400;
+					damage = 300;
 					speed = brange;
-					splashDamage = 200;
+					splashDamage = 150;
 					splashDamageRadius = 3 * 8;
 					shootEffect = new MultiEffect(UAWFxD.railShoot(32, Pal.bulletYellow), Fx.blockExplosionSmoke);
 					smokeEffect = Fx.smokeCloud;
@@ -233,13 +233,13 @@ public class UAWBlocks implements ContentList {
 			ammo(
 				UAWItems.titaniumCarbide, new UAWRailBulletType() {{
 					shootEffect = new MultiEffect(
-						UAWFxD.railShoot(64, Pal.missileYellow),
-						UAWFxD.effectCloud(Pal.missileYellow),
+						UAWFxD.railShoot(64, Pal.bulletYellowBack),
+						UAWFxD.effectCloud(Pal.bulletYellow),
 						Fx.blastExplosion,
 						Fx.nuclearShockwave
 					);
 					hitEffect = new MultiEffect(
-						UAWFxD.railHit(32, Pal.missileYellow),
+						UAWFxD.railHit(16, Pal.bulletYellow),
 						Fx.blastExplosion,
 						Fx.flakExplosionBig
 					);
@@ -247,6 +247,7 @@ public class UAWBlocks implements ContentList {
 						Fx.smokeCloud,
 						Fx.blastsmoke
 					);
+					length = range;
 					updateEffect = UAWFxD.railTrail(15, Pal.bulletYellowBack);
 					trailEffect = UAWFxD.railTrail(15, Pal.bulletYellow);
 					pierceDamageFactor = 0.8f;

@@ -19,7 +19,6 @@ public class TrailBulletType extends UAWBasicBulletType {
 	 * </p>
 	 */
 	public float trailLenghtScl = 1f;
-	public float trailMult = 0, trailSize = 4f;
 
 	public TrailBulletType(float speed, float damage, String bulletSprite) {
 		super(speed, damage);

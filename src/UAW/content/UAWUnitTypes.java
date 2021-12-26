@@ -318,9 +318,9 @@ public class UAWUnitTypes implements ContentList {
 						sideAngle = 20f;
 						sideWidth = 1.5f;
 						sideLength = 80f;
-						width = 35f;
+						width = 12;
 						length = range / 1.5f;
-						shootEffect = Fx.railShoot;
+						shootEffect = Fx.shockwave;
 						colors = new Color[]{Pal.missileYellowBack, Pal.missileYellow, Color.white};
 					}};
 				}},
