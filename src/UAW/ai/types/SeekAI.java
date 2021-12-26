@@ -39,10 +39,7 @@ public class SeekAI extends AIController {
 					&& !target.floorOn().isDeep()) {
 					move = false;
 				}
-				if (core != null && unit.within(core, unit.range() / 1.1f + core.block.size * tilesize / 2f)) {
-					move = false;
-				}
-				if (target != null && !unit.within(target, unit.range() / 3)) {
+				if (target != null) {
 					unit.aim(target);
 				}
 			}
@@ -54,14 +51,12 @@ public class SeekAI extends AIController {
 				}
 				return false;
 			})) {
-				if (unit.within(target, unit.range() / 2)) {
-					if (floor.isDeep()) {
-						pathfind(Pathfinder.fieldCore);
-					} else {
+				if (!unit.floorOn().isDeep()) {
+					if (unit.within(target, unit.range() / 2)) {
 						unit.movePref(vec.set(target).sub(unit).rotate(90f).setLength(unit.speed() * 0));
+					} else if (core != null && !unit.within(core, unit.range() / 1.1f + core.block.size * tilesize / 2f)) {
+						unit.movePref(vec.set(target).sub(unit).limit(unit.speed()));
 					}
-				} else {
-					unit.movePref(vec.set(target).sub(unit).limit(unit.speed()));
 				}
 			} else if (move) {
 				pathfind(Pathfinder.fieldCore);
