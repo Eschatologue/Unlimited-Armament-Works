@@ -36,11 +36,14 @@ public class SeekAI extends AIController {
 				Tile spawner = getClosestSpawner();
 				if (spawner != null && unit.within(spawner, state.rules.dropZoneRadius + 120f)
 					|| target != null && unit.within(target, unit.range() / 3)
+					|| core != null && unit.within(core, unit.range() / 1.1f + core.block.size * tilesize / 2f)
 					&& !target.floorOn().isDeep()) {
 					move = false;
 				}
-				if (target != null) {
-					unit.aim(core);
+				for (var mount : unit.mounts) {
+					if (target != null) {
+						mount.rotation = unit.rotation;
+					}
 				}
 			}
 			if (target != null && unit.within(target, unit.type.range) && !Vars.world.raycast(unit.tileX(), unit.tileY(), target.tileX(), target.tileY(), (x, y) -> {
