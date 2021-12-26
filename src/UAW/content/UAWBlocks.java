@@ -192,7 +192,7 @@ public class UAWBlocks implements ContentList {
 					ammoMultiplier = 1f;
 					status = StatusEffects.electrified;
 				}},
-				UAWItems.titaniumCarbide, new TrailBulletType(range / 4f, 400) {{
+				UAWItems.titaniumCarbide, new TrailBulletType(range / 10, 400) {{
 					trailLenghtScl = 3f;
 					width = 35f;
 					height = width * 3f;
@@ -233,7 +233,7 @@ public class UAWBlocks implements ContentList {
 			unitSort = UnitSorts.strongest;
 			cooldown = 1.5f;
 			ammo(
-				UAWItems.titaniumCarbide, new TrailBulletType(range / 4, 10000) {{
+				UAWItems.titaniumCarbide, new TrailBulletType(range / 10, 10000) {{
 					width = 35f;
 					height = width * 3.5f;
 					shootEffect = new MultiEffect(
