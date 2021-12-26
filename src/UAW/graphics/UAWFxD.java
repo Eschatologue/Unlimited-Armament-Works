@@ -103,11 +103,11 @@ public class UAWFxD {
 		});
 	}
 
-	public static Effect railHit(Color color) {
-		return new Effect(18f, 200f, e -> {
+	public static Effect railHit(float size, Color color) {
+		return new Effect(20f, 200f, e -> {
 			color(color);
 			for (int i : Mathf.signs) {
-				Drawf.tri(e.x, e.y, 10f * e.fout(), 60f, e.rotation + 140f * i);
+				Drawf.tri(e.x, e.y, size * e.fout(), size * 6, e.rotation + 140f * i);
 			}
 		});
 	}

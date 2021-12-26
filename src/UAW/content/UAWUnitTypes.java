@@ -308,23 +308,20 @@ public class UAWUnitTypes implements ContentList {
 					inaccuracy = 0;
 					shootCone = 30;
 					rotateSpeed = 2.2f;
-					reload = 1.5f * 60;
+					reload = 3.5f * 60;
 					recoil = 2.2f;
 					shootSound = Sounds.railgun;
 					shake = 3.5f;
 					ejectEffect = UAWFxS.casing3Long;
-					bullet = new RailBulletType() {{
-						damage = 250;
-						length = range;
-						shootEffect = new MultiEffect(UAWFxD.railShoot(32, Pal.bulletYellowBack), Fx.blockExplosionSmoke);
-						hitEffect = pierceEffect = new MultiEffect(UAWFxD.railHit(Pal.bulletYellowBack), Fx.blockExplosionSmoke);
-						smokeEffect = Fx.smokeCloud;
-						updateEffect = UAWFxD.railTrail(10, Pal.bulletYellowBack);
-						pierceCap = 2;
-						updateEffectSeg = 30f;
-						buildingDamageMultiplier = 0.5f;
-						hitShake = 6f;
-						ammoMultiplier = 2f;
+					bullet = new LaserBulletType() {{
+						damage = 350f;
+						sideAngle = 20f;
+						sideWidth = 1.5f;
+						sideLength = 80f;
+						width = 35f;
+						length = range / 1.5f;
+						shootEffect = Fx.railShoot;
+						colors = new Color[]{Pal.missileYellowBack, Pal.missileYellow, Color.white};
 					}};
 				}},
 				new Weapon() {{
@@ -362,7 +359,6 @@ public class UAWUnitTypes implements ContentList {
 			float rotX = 17;
 			float rotY = 8;
 			float rotSpeed = 13f;
-			float ly = Layer.flyingUnitLow + 0.001f;
 			rotors.add(
 				new Rotor("uaw-short-blade") {{
 					x = -rotX;
