@@ -192,14 +192,14 @@ public class UAWBlocks implements ContentList {
 					ammoMultiplier = 1f;
 					status = StatusEffects.electrified;
 				}},
-				UAWItems.titaniumCarbide, new TrailBulletType(range / 10, 400) {{
+				UAWItems.titaniumCarbide, new TrailBulletType(range / 20, 400) {{
 					trailLenghtScl = 3f;
-					width = 35f;
+					width = 15f;
 					height = width * 3f;
 					shootEffect = new MultiEffect(Fx.railShoot, Fx.blockExplosionSmoke);
 					hitEffect = new MultiEffect(Fx.railHit, Fx.blockExplosionSmoke);
 					smokeEffect = Fx.smokeCloud;
-					trailEffect = Fx.rocketSmoke;
+					trailEffect = Fx.railTrail;
 					pierceCap = 4;
 					armorIgnoreScl = buildingDamageMultiplier = 0.5f;
 					hitShake = 6f;
@@ -233,8 +233,8 @@ public class UAWBlocks implements ContentList {
 			unitSort = UnitSorts.strongest;
 			cooldown = 1.5f;
 			ammo(
-				UAWItems.titaniumCarbide, new TrailBulletType(range / 10, 10000) {{
-					width = 35f;
+				UAWItems.titaniumCarbide, new TrailBulletType(range / 20, 10000) {{
+					width = 25f;
 					height = width * 3.5f;
 					shootEffect = new MultiEffect(
 						UAWFxD.railShoot(64, Pal.missileYellow),
@@ -251,9 +251,10 @@ public class UAWBlocks implements ContentList {
 						Fx.smokeCloud,
 						Fx.blastsmoke
 					);
-					trailEffect = Fx.rocketSmoke;
+					trailEffect = Fx.railTrail;
 					trailLenghtScl = 3f;
 					pierceBuilding = true;
+					pierce = true;
 					armorIgnoreScl = 0.95f;
 					buildingDamageMultiplier = 0.1f;
 					hitShake = 25f;
