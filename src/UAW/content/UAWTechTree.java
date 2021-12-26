@@ -204,8 +204,7 @@ public class UAWTechTree implements ContentList {
 
 		vanillaNode(disassembler, () -> {
 			node(surgeMixer, Seq.with(
-					new Research(cryofluidMixer),
-					new Produce(surgeAlloy)
+					new Research(cryofluidMixer)
 				)
 			);
 			node(petroleumSeperator, Seq.with(

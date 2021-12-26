@@ -313,7 +313,7 @@ public class UAWUnitTypes implements ContentList {
 					shootSound = Sounds.railgun;
 					shake = 3.5f;
 					ejectEffect = UAWFxS.casing3Long;
-					bullet = new UAWRailBulletType() {{
+					bullet = new RailBulletType() {{
 						damage = 250;
 						length = range;
 						shootEffect = new MultiEffect(UAWFxD.railShoot(32, Pal.bulletYellowBack), Fx.blockExplosionSmoke);
@@ -322,7 +322,6 @@ public class UAWUnitTypes implements ContentList {
 						updateEffect = UAWFxD.railTrail(10, Pal.bulletYellowBack);
 						pierceCap = 2;
 						updateEffectSeg = 30f;
-						armorIgnoreScl = 0.4f;
 						buildingDamageMultiplier = 0.5f;
 						hitShake = 6f;
 						ammoMultiplier = 2f;

@@ -192,15 +192,13 @@ public class UAWBlocks implements ContentList {
 					ammoMultiplier = 1f;
 					status = StatusEffects.electrified;
 				}},
-				UAWItems.titaniumCarbide, new UAWRailBulletType() {{
-					damage = 400;
-					length = 450;
+				UAWItems.titaniumCarbide, new TrailBulletType(range / 1.2f, 400) {{
+					width = 35f;
+					height = width * 3f;
 					shootEffect = new MultiEffect(Fx.railShoot, Fx.blockExplosionSmoke);
-					hitEffect = pierceEffect = new MultiEffect(Fx.railHit, Fx.blockExplosionSmoke);
+					hitEffect = new MultiEffect(Fx.railHit, Fx.blockExplosionSmoke);
 					smokeEffect = Fx.smokeCloud;
-					updateEffect = Fx.railTrail;
 					pierceCap = 4;
-					updateEffectSeg = 30f;
 					armorIgnoreScl = buildingDamageMultiplier = 0.5f;
 					hitShake = 6f;
 					ammoMultiplier = 1f;
@@ -233,16 +231,16 @@ public class UAWBlocks implements ContentList {
 			unitSort = UnitSorts.strongest;
 			cooldown = 1.5f;
 			ammo(
-				UAWItems.titaniumCarbide, new UAWRailBulletType() {{
-					damage = 10000;
-					length = range;
+				UAWItems.titaniumCarbide, new TrailBulletType(range / 1.2f, 10000) {{
+					width = 35f;
+					height = width * 3.5f;
 					shootEffect = new MultiEffect(
 						UAWFxD.railShoot(64, Pal.missileYellow),
 						UAWFxD.effectCloud(Pal.missileYellow),
 						Fx.blastExplosion,
 						Fx.nuclearShockwave
 					);
-					hitEffect = pierceEffect = new MultiEffect(
+					hitEffect = new MultiEffect(
 						UAWFxD.railHit(Pal.missileYellow),
 						Fx.blastExplosion,
 						Fx.flakExplosionBig
@@ -251,10 +249,7 @@ public class UAWBlocks implements ContentList {
 						Fx.smokeCloud,
 						Fx.blastsmoke
 					);
-					updateEffect = UAWFxD.railTrail(15, Pal.missileYellow);
 					pierceBuilding = true;
-					pierceDamageFactor = 0.8f;
-					updateEffectSeg = 30f;
 					armorIgnoreScl = 0.95f;
 					buildingDamageMultiplier = 0.1f;
 					hitShake = 25f;
@@ -813,16 +808,16 @@ public class UAWBlocks implements ContentList {
 		}};
 		surgeMixer = new GenericCrafter("surge-mixer") {{
 			requirements(Category.crafting, with(
-				Items.thorium, 60,
-				Items.lead, 55,
-				Items.silicon, 45,
-				Items.metaglass, 30
+				Items.thorium, 30,
+				Items.lead, 45,
+				Items.silicon, 35,
+				Items.metaglass, 20
 			));
-			consumes.items(
-				new ItemStack(Items.surgeAlloy, 2),
-				new ItemStack(Items.thorium, 3)
-			);
-			consumes.liquid(Liquids.slag, 0.5f);
+			consumes.items(with(
+				Items.copper, 1,
+				Items.titanium, 1,
+				Items.silicon, 1));
+			consumes.liquid(Liquids.oil, 0.5f);
 			consumes.power(2f);
 			outputLiquid = new LiquidStack(UAWLiquid.surgeSolvent, 30f);
 			size = 3;
@@ -881,14 +876,15 @@ public class UAWBlocks implements ContentList {
 			));
 			results = with(
 				UAWItems.anthracite, 1,
-				Items.coal, 6,
-				Items.coal, 5,
 				Items.coal, 4,
-				Items.coal, 3
+				Items.coal, 5,
+				Items.coal, 6,
+				Items.scrap, 3
 			);
 			size = 3;
 			craftTime = 4 * tick;
 			itemCapacity = 20;
+			squareSprite = false;
 
 			consumes.power(2f);
 			consumes.liquid(Liquids.oil, 2f);
@@ -1010,35 +1006,36 @@ public class UAWBlocks implements ContentList {
 		}};
 		rejuvinationProjector = new RejuvenationProjector("rejuvination-projector") {{
 			requirements(Category.effect, with(
-				Items.lead, 100,
-				Items.titanium, 35,
-				Items.silicon, 15,
-				Items.metaglass, 15
+				Items.lead, 150,
+				Items.titanium, 55,
+				Items.silicon, 35,
+				Items.metaglass, 35
 			));
-			consumes.power(1.6f);
 			size = 2;
 			reload = 15f;
 			range = 10 * tilesize;
 			healPercent = 0.8f;
 			health = 60 * size * size;
-			boostMultiplier = 2.5f;
+			boostMultiplier = 3f;
+			boostDuration = 5 * tick;
+			consumes.power(1.6f);
+			consumes.liquid(UAWLiquid.surgeSolvent, 0.5f);
 		}};
 		rejuvinationDome = new RejuvenationProjector("rejuvination-dome") {{
 			requirements(Category.effect, with(
-				Items.lead, 200,
+				Items.lead, 250,
 				Items.titanium, 100,
-				Items.silicon, 25,
-				Items.metaglass, 25
+				Items.silicon, 55,
+				Items.metaglass, 55
 			));
-			consumes.power(3f);
 			size = 3;
 			reload = 15f;
 			range = 25 * tilesize;
 			healPercent = 1.2f;
-			health = 60 * size * size;
-			useTime = 4 * tick;
-			consumes.items(with(Items.phaseFabric, 1, Items.thorium, 2));
-			boostMultiplier = 4.5f;
+			health = 75 * size * size;
+			boostMultiplier = 6f;
+			consumes.power(3f);
+			consumes.liquid(UAWLiquid.surgeSolvent, 1f);
 		}};
 
 		multiplicativePetroleumReconstructor = new Reconstructor("multiplicative-petroleum-reconstructor") {{

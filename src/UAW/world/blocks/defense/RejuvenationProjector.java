@@ -12,9 +12,6 @@ import mindustry.world.meta.*;
 
 import static mindustry.Vars.*;
 
-/**
- * Heals and overdrives unit
- */
 public class RejuvenationProjector extends MendProjector {
 	public float boostMultiplier = 3f;
 	public float boostDuration = 180f;
@@ -25,7 +22,8 @@ public class RejuvenationProjector extends MendProjector {
 		update = true;
 		group = BlockGroup.projectors;
 		hasPower = true;
-		hasItems = true;
+		hasItems = false;
+		hasLiquids = true;
 		emitLight = true;
 		range = 10 * 8;
 		lightRadius = range / 2;
@@ -66,6 +64,7 @@ public class RejuvenationProjector extends MendProjector {
 				charge = 0f;
 				indexer.eachBlock(this, range, Building::damaged, other -> {
 					other.heal(other.maxHealth() * (healPercent) / 100f * efficiency());
+					Fx.hitMeltHeal.at(other.x + Mathf.range(size * 6f), other.y + Mathf.range(size * 6f));
 					if (other.health() > (other.maxHealth / 100) * speedStart && other.health() < (other.maxHealth / 100) * (speedStart + 5)) {
 						other.applyBoost(boostMultiplier, boostDuration);
 						Fx.overdriven.at(other.x + Mathf.range(size * 6f), other.y + Mathf.range(size * 6f));
