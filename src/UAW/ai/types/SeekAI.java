@@ -40,7 +40,7 @@ public class SeekAI extends AIController {
 					move = false;
 				}
 				if (target != null) {
-					unit.aim(target);
+					unit.aim(core);
 				}
 			}
 			if (target != null && unit.within(target, unit.type.range) && !Vars.world.raycast(unit.tileX(), unit.tileY(), target.tileX(), target.tileY(), (x, y) -> {
@@ -54,8 +54,6 @@ public class SeekAI extends AIController {
 				if (!unit.floorOn().isDeep()) {
 					if (unit.within(target, unit.range() / 2)) {
 						unit.movePref(vec.set(target).sub(unit).rotate(90f).setLength(unit.speed() * 0));
-					} else if (core != null && !unit.within(core, unit.range() / 1.1f + core.block.size * tilesize / 2f)) {
-						unit.movePref(vec.set(target).sub(unit).limit(unit.speed()));
 					}
 				}
 			} else if (move) {
