@@ -1,5 +1,6 @@
 package UAW.entities.bullet;
 
+import UAW.graphics.UAWFxD;
 import arc.Core;
 import arc.audio.Sound;
 import arc.graphics.Color;
@@ -20,8 +21,8 @@ public class MineBulletType extends BulletType {
 	public Sound detonationSound = Sounds.shotgun;
 	public boolean dynamicExplosion = true;
 	public float explodeRange = 8 * tilesize;
-	public float explodeDelay = 15f;
-	public float size = 32;
+	public float explodeDelay = 30f;
+	public float size = 16;
 
 	public MineBulletType(float damage, float radius, float lifetime, String sprite) {
 		this.splashDamage = damage;
@@ -82,20 +83,12 @@ public class MineBulletType extends BulletType {
 	}
 
 	@Override
-	public void hit(Bullet b) {
-		super.hit(b);
-		if (dynamicExplosion) {
-			Fx.dynamicExplosion.at(b.x, b.y, splashDamageRadius);
-		}
-	}
-
-	@Override
 	public void draw(Bullet b) {
-		Drawf.shadow(b.x, b.y, size * 1.2f);
+		Drawf.shadow(b.x, b.y, size * 2);
 		Draw.rect(mineBase, b.x, b.y, size, size, b.rotation());
 		Draw.color(mineColor);
 		Draw.rect(mineCell, b.x, b.y, size, size, b.rotation());
-		if (b.fdata() < 1) {
+		if (b.fdata() < 0) {
 			Draw.color(detonationColor);
 			Draw.rect(mineLight, b.x, b.y, size, size, b.rotation());
 		}
