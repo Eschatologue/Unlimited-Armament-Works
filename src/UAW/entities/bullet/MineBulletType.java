@@ -1,5 +1,6 @@
 package UAW.entities.bullet;
 
+import UAW.content.UAWSfx;
 import UAW.graphics.UAWFxD;
 import arc.Core;
 import arc.audio.Sound;
@@ -15,10 +16,10 @@ import mindustry.graphics.*;
 import static mindustry.Vars.tilesize;
 
 public class MineBulletType extends BulletType {
-	public Color mineColor = Pal.bulletYellow, detonationColor = Pal.redSpark;
+	public Color mineColor = Pal.missileYellow, detonationColor = Color.red;
 	public TextureRegion mineBase, mineCell, mineLight;
 	public String sprite;
-	public Sound detonationSound = Sounds.shotgun;
+	public Sound detonationSound = UAWSfx.mineDetonate1;
 	public float explodeRange = 8 * tilesize;
 	public float explodeDelay = 30f;
 	public float size = 16;

@@ -196,7 +196,7 @@ public class UAWFxD {
 	 */
 	public static Effect dynamicExplosion(float size) {
 		return new Effect(size * 10, 500f, b -> {
-			float intensity = size / 15;
+			float intensity = size / 19;
 			float baseLifetime = 26f + intensity * 15f;
 			b.lifetime = 43f + intensity * 35f;
 
