@@ -36,13 +36,12 @@ public class SeekAI extends AIController {
 				Tile spawner = getClosestSpawner();
 				if (spawner != null && unit.within(spawner, state.rules.dropZoneRadius + 120f)
 					|| target != null && unit.within(target, unit.range() / 3)
-					|| core != null && unit.within(core, unit.range() / 1.1f + core.block.size * tilesize / 2f)
 					&& !target.floorOn().isDeep()) {
 					move = false;
 				}
 				for (var mount : unit.mounts) {
-					if (target != null) {
-						mount.rotation = unit.rotation;
+					if (target != null || mount.shoot) {
+						mount.targetRotation = unit.rotation;
 					}
 				}
 			}
@@ -55,8 +54,10 @@ public class SeekAI extends AIController {
 				return false;
 			})) {
 				if (!unit.floorOn().isDeep()) {
-					if (unit.within(target, unit.range() / 2)) {
+					if (unit.within(target, unit.range() / 2) || (core != null && unit.within(core, unit.range() / 1.1f + core.block.size * tilesize / 2f))) {
 						unit.movePref(vec.set(target).sub(unit).rotate(90f).setLength(unit.speed() * 0));
+					} else {
+						unit.movePref(vec.set(target).sub(unit).limit(unit.speed()));
 					}
 				}
 			} else if (move) {
