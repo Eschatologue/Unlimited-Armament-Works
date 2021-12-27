@@ -19,7 +19,6 @@ public class MineBulletType extends BulletType {
 	public TextureRegion mineBase, mineCell, mineLight;
 	public String sprite;
 	public Sound detonationSound = Sounds.shotgun;
-	public boolean dynamicExplosion = true;
 	public float explodeRange = 8 * tilesize;
 	public float explodeDelay = 30f;
 	public float size = 16;
@@ -86,8 +85,10 @@ public class MineBulletType extends BulletType {
 	public void draw(Bullet b) {
 		Drawf.shadow(b.x, b.y, size * 2);
 		Draw.rect(mineBase, b.x, b.y, size, size, b.rotation());
+
 		Draw.color(mineColor);
 		Draw.rect(mineCell, b.x, b.y, size, size, b.rotation());
+
 		if (b.fdata() < 0) {
 			Draw.color(detonationColor);
 			Draw.rect(mineLight, b.x, b.y, size, size, b.rotation());
