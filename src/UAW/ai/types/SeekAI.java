@@ -40,8 +40,9 @@ public class SeekAI extends AIController {
 					move = false;
 				}
 				for (var mount : unit.mounts) {
-					if (target != null || mount.shoot) {
-						mount.targetRotation = unit.rotation;
+					if (target == null) {
+						mount.aimX = core.x;
+						mount.aimY = core.y;
 					}
 				}
 			}
@@ -54,8 +55,10 @@ public class SeekAI extends AIController {
 				return false;
 			})) {
 				if (!unit.floorOn().isDeep()) {
-					if (unit.within(target, unit.range() / 2) || (core != null && unit.within(core, unit.range() / 1.1f + core.block.size * tilesize / 2f))) {
+					if (unit.within(target, unit.range() / 2)) {
 						unit.movePref(vec.set(target).sub(unit).rotate(90f).setLength(unit.speed() * 0));
+					} else if ((core != null && unit.within(core, unit.range() / 1.1f + core.block.size * tilesize / 2f))) {
+						unit.movePref(vec.set(target).sub(unit).limit(unit.speed() * 0));
 					} else {
 						unit.movePref(vec.set(target).sub(unit).limit(unit.speed()));
 					}
