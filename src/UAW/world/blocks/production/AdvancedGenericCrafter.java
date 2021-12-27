@@ -3,13 +3,10 @@ package UAW.world.blocks.production;
 import arc.Core;
 import arc.audio.Sound;
 import arc.graphics.g2d.*;
-import arc.struct.EnumSet;
 import mindustry.entities.Effect;
 import mindustry.gen.Sounds;
 import mindustry.graphics.Drawf;
-import mindustry.type.ItemStack;
 import mindustry.world.blocks.production.GenericCrafter;
-import mindustry.world.meta.BlockFlag;
 
 public class AdvancedGenericCrafter extends GenericCrafter {
 	public TextureRegion rotator, rotatorTop;

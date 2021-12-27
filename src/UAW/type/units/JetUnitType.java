@@ -1,7 +1,7 @@
 package UAW.type.units;
 
 import UAW.ai.types.BomberJetAI;
-import UAW.graphics.*;
+import UAW.graphics.UAWFxD;
 import arc.math.*;
 import mindustry.gen.*;
 import mindustry.type.UnitType;

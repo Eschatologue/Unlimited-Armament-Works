@@ -14,12 +14,13 @@ public class EffectSeparator extends Separator {
 	public EffectSeparator(String name) {
 		super(name);
 	}
+
 	public class EffectSeparatorBuild extends SeparatorBuild {
 		@Override
-		public void updateTile(){
+		public void updateTile() {
 			super.updateTile();
-			if(consValid()){
-				if(Mathf.chanceDelta(updateEffectChance)){
+			if (consValid()) {
+				if (Mathf.chanceDelta(updateEffectChance)) {
 					updateEffect.at(x + Mathf.range(size * 4f), y + Mathf.range(size * 4));
 				}
 			}

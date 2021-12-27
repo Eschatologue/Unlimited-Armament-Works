@@ -15,7 +15,7 @@ public class UAWItems implements ContentList {
 			explosiveness = 0f;
 		}};
 
-		anthracite = new Item("item-anthracite", Color.valueOf("272727")){{
+		anthracite = new Item("item-anthracite", Color.valueOf("272727")) {{
 			flammability = 3.6f;
 			explosiveness = 0.5f;
 			hardness = 6;

@@ -11,7 +11,7 @@ import static mindustry.Vars.tilesize;
 /**
  * Modified version of the vanilla item turret
  * <p>
- *     Displays minimum range when selected
+ * Displays minimum range when selected
  * </p>
  */
 public class UAWItemTurret extends ItemTurret {

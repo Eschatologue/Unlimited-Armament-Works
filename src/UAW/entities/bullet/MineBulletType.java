@@ -1,13 +1,11 @@
 package UAW.entities.bullet;
 
 import UAW.content.UAWSfx;
-import UAW.graphics.UAWFxD;
 import arc.Core;
 import arc.audio.Sound;
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.util.*;
-import mindustry.content.Fx;
 import mindustry.entities.Units;
 import mindustry.entities.bullet.BulletType;
 import mindustry.gen.*;
@@ -17,7 +15,7 @@ import static mindustry.Vars.tilesize;
 
 public class MineBulletType extends BulletType {
 	public Color mineColor = Pal.missileYellow, detonationColor = Color.red;
-	public TextureRegion mineBase, mineCell, mineLight;
+	public TextureRegion mineBase, mineCell, mineLight, mineOutline;
 	public String sprite;
 	public Sound detonationSound = UAWSfx.mineDetonate1;
 	public float explodeRange = 8 * tilesize;
@@ -55,6 +53,7 @@ public class MineBulletType extends BulletType {
 		mineBase = Core.atlas.find(sprite);
 		mineCell = Core.atlas.find(sprite + "-cell");
 		mineLight = Core.atlas.find(sprite + "-light");
+		mineOutline = Core.atlas.find(sprite + "-outline");
 	}
 
 	@Override
@@ -85,6 +84,7 @@ public class MineBulletType extends BulletType {
 	@Override
 	public void draw(Bullet b) {
 		Drawf.shadow(b.x, b.y, size * 2);
+		Draw.rect(mineOutline, b.x, b.y, size, size, b.rotation());
 		Draw.rect(mineBase, b.x, b.y, size, size, b.rotation());
 
 		Draw.color(mineColor);
