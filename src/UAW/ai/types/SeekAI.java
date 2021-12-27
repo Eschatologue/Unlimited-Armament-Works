@@ -41,6 +41,7 @@ public class SeekAI extends AIController {
 				}
 				for (var mount : unit.mounts) {
 					if (target == null) {
+						assert core != null;
 						mount.aimX = core.x;
 						mount.aimY = core.y;
 					}
