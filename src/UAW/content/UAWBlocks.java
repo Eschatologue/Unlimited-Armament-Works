@@ -731,29 +731,30 @@ public class UAWBlocks implements ContentList {
 			consumes.power(2f);
 		}};
 
-		petroleumDrill = new AttributeSolidPump("petroleum-drill") {{
+		petroleumDrill = new Fracker("petroleum-drill") {{
 			requirements(Category.production, with(
-				Items.graphite, 250,
-				Items.lead, 250,
-				Items.plastanium, 125,
-				Items.thorium, 180,
-				Items.silicon, 125,
-				UAWItems.titaniumCarbide, 150
+				Items.titanium, 300,
+				Items.plastanium, 175,
+				Items.metaglass, 110,
+				Items.silicon, 110,
+				UAWItems.titaniumCarbide, 105,
+				Items.surgeAlloy, 75
 			));
-			liquidResult = Liquids.oil;
-			pumpTime = 0.25f;
 			size = 3;
-			liquidCapacity = 360f;
-			rotateSpeed = -2f;
+			result = Liquids.oil;
+			updateEffect = Fx.pulverize;
+			updateEffectChance = 0.05f;
+			pumpAmount = 0.45f;
+			liquidCapacity = 120f;
 			attribute = Attribute.oil;
-			placeableLiquid = true;
-			hasItems = false;
-			hasLiquids = true;
-			boostScale = 0.15f;
-			maxBoost = 3f;
-			baseEfficiency = 0.5f;
+			baseEfficiency = 0f;
+			itemUseTime = 60f;
 
-			consumes.power(3.5f);
+			squareSprite = false;
+			floating = true;
+
+			consumes.item(Items.pyratite);
+			consumes.power(5f);
 		}};
 
 		gelatinizer = new GenericCrafter("gelatinizer") {{
@@ -871,24 +872,27 @@ public class UAWBlocks implements ContentList {
 			craftSoundVolume = 1.2f;
 			craftShake = 15f;
 		}};
-		petroleumSeperator = new Separator("petroleum-seperator") {{
+		petroleumSeperator = new EffectSeparator("petroleum-seperator") {{
 			requirements(Category.crafting, with(
+				Items.lead, 120,
+				Items.titanium, 100,
 				Items.plastanium, 80,
-				Items.titanium, 120,
-				Items.silicon, 100
+				Items.silicon, 80
 			));
 			results = with(
 				UAWItems.anthracite, 1,
 				Items.coal, 4,
-				Items.coal, 5,
-				Items.coal, 6,
-				Items.scrap, 3
+				Items.coal, 3,
+				Items.coal, 2,
+				Items.coal, 1
 			);
 			size = 3;
 			craftTime = 3.5f * tick;
 			itemCapacity = 20;
 			squareSprite = false;
 			liquidCapacity = 120f;
+			updateEffect = UAWFxD.statusHit(15, Pal.coalBlack);
+			drawer = new DrawSmelter();
 
 			consumes.power(2f);
 			consumes.liquid(Liquids.oil, 2f);
@@ -917,7 +921,7 @@ public class UAWBlocks implements ContentList {
 			squareSprite = false;
 			craftEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireHit);
 			updateEffect = new MultiEffect(Fx.burning, Fx.fireSmoke, Fx.steam);
-			attribute = Attribute.oil;
+			attribute = Attribute.heat;
 			boostScale = 0.11f;
 			maxBoost = 3f;
 			baseEfficiency = 0.5f;

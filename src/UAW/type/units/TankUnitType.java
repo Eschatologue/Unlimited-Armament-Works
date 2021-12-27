@@ -1,11 +1,11 @@
 package UAW.type.units;
 
-import UAW.ai.types.SeekAI;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.math.*;
 import arc.struct.ObjectSet;
 import mindustry.Vars;
+import mindustry.ai.types.GroundAI;
 import mindustry.content.*;
 import mindustry.gen.*;
 import mindustry.graphics.Layer;
@@ -26,8 +26,8 @@ public class TankUnitType extends UnitType {
 		immunities = ObjectSet.with(StatusEffects.disarmed, StatusEffects.slow, StatusEffects.freezing);
 		flying = false;
 		constructor = MechUnit::create;
-		defaultController = SeekAI::new;
-		targetFlags = new BlockFlag[]{BlockFlag.turret, BlockFlag.repair, BlockFlag.extinguisher};
+		defaultController = GroundAI::new;
+		targetFlags = new BlockFlag[]{BlockFlag.turret, BlockFlag.repair, BlockFlag.extinguisher, BlockFlag.core, null};
 		mechStride = mechFrontSway = mechSideSway = 0f;
 	}
 

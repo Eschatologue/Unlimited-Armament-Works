@@ -10,8 +10,7 @@ import mindustry.gen.Unit;
 import mindustry.graphics.Drawf;
 
 public class RecoilingWeapon extends UAWWeapon {
-	public TextureRegion turret, turretOutlineRegion, turretCell, weaponIcon;
-	public boolean drawTurretCell = false;
+	public TextureRegion turret, turretOutlineRegion, turretCell;
 
 
 	public RecoilingWeapon(String name) {
@@ -66,7 +65,7 @@ public class RecoilingWeapon extends UAWWeapon {
 			weaponRotation);
 
 		Draw.rect(turret, tx, ty, weaponRotation);
-		if (drawTurretCell) {
+		if (turretCell.found()) {
 			Draw.color(cellColor(unit));
 			Draw.rect(turretCell, tx, ty, weaponRotation);
 			Draw.reset();
