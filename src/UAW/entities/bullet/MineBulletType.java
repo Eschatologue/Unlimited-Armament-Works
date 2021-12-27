@@ -6,34 +6,44 @@ import arc.audio.Sound;
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.util.*;
-import mindustry.entities.Units;
+import mindustry.content.Fx;
+import mindustry.entities.*;
 import mindustry.entities.bullet.BulletType;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 
-import static mindustry.Vars.tilesize;
-
 public class MineBulletType extends BulletType {
-	public Color mineColor = Pal.missileYellow, detonationColor = Color.red;
+	public Color mineColor = Color.valueOf("ffd37f"), detonationColor = Color.red;
 	public TextureRegion mineBase, mineCell, mineLight, mineOutline;
 	public String sprite;
 	public Sound detonationSound = UAWSfx.mineDetonate1;
-	public float explodeRange = 8 * tilesize;
+	public Effect triggerEffect = Fx.smeltsmoke;
+	/**
+	 * The distance of unit that will make the mine detonates, -1 to make it scales with splashDamageRadius
+	 */
+	public float explodeRange = -1;
+	/**
+	 * Time delay of mine detonating when unit steps in its radius
+	 */
 	public float explodeDelay = 30f;
-	public float size = 16;
+	/**
+	 * How big is the mine
+	 */
+	public float size = 20;
 
 	public MineBulletType(float damage, float radius, float lifetime, String sprite) {
 		this.splashDamage = damage;
 		this.splashDamageRadius = radius;
 		this.lifetime = lifetime;
 		this.sprite = sprite;
-		layer = Layer.debris;
+		layer = Layer.debris - 1;
 		collidesAir = false;
 		collidesGround = collidesTiles = true;
 		speed = 3f;
 		drag = 0.055f;
 		hitShake = 8f;
 		hitSound = Sounds.plasmaboom;
+		fragAngle = 360;
 	}
 
 	public MineBulletType(float damage, float radius, float lifetime) {
@@ -62,11 +72,13 @@ public class MineBulletType extends BulletType {
 		if (explodeRange < 0) {
 			explodeRange = splashDamageRadius / 4;
 		}
+		// Copied from flakBullet
 		if (b.fdata < 0f) return;
 		if (b.timer(2, 6)) {
 			Units.nearbyEnemies(b.team, Tmp.r1.setSize(explodeRange * 2f).setCenter(b.x, b.y), unit -> {
 					if (b.fdata < 0f || !unit.checkTarget(collidesAir, collidesGround)) return;
 					if (unit.within(b, explodeRange)) {
+						triggerEffect.at(b.x, b.y);
 						detonationSound.at(b.x, b.y);
 						b.fdata = -1f;
 						Time.run(explodeDelay, () -> {
@@ -83,7 +95,7 @@ public class MineBulletType extends BulletType {
 
 	@Override
 	public void draw(Bullet b) {
-		Drawf.shadow(b.x, b.y, size * 2);
+		Drawf.shadow(b.x, b.y, size * 1.7f);
 		Draw.rect(mineOutline, b.x, b.y, size, size, b.rotation());
 		Draw.rect(mineBase, b.x, b.y, size, size, b.rotation());
 

@@ -192,7 +192,8 @@ public class UAWFxD {
 	/**
 	 * Vanilla dynamicExplosion
 	 *
-	 * @param size How big is the explosion
+	 * @param size
+	 * 	How big is the explosion
 	 */
 	public static Effect dynamicExplosion(float size) {
 		return new Effect(size * 10, 500f, b -> {
@@ -248,8 +249,10 @@ public class UAWFxD {
 	 * Use this with CircleApply and if the explosion has statusEffect
 	 * </p>
 	 *
-	 * @param size  How big is the explosion, calculated in world unit
-	 * @param color The spark color
+	 * @param size
+	 * 	How big is the explosion, calculated in world unit
+	 * @param color
+	 * 	The spark color
 	 */
 	public static Effect hugeExplosion(float size, Color color) {
 		return new Effect(size * 0.8f, 450f, e -> {

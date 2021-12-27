@@ -15,8 +15,8 @@ import mindustry.world.blocks.power.ImpactReactor;
 /**
  * Modified version of ImpactReactor
  * <p>
- * Power generation block which can use items, liquids or both as input sources for power production.
- * Can have rotators, using DrawRotator is not preferred due to on how weird it rotates.
+ * Power generation block which can use items, liquids or both as input sources for power production. Can have rotators,
+ * using DrawRotator is not preferred due to on how weird it rotates.
  * </p>
  */
 public class WarmUpGenerator extends ImpactReactor {

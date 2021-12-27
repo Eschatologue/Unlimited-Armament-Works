@@ -9,7 +9,8 @@ import mindustry.gen.Bullet;
 import mindustry.graphics.Pal;
 
 /**
- * Basically BasicBulletType that extends of UAWBulletType, adding damage multiplier such as armor penetration and shield damage multiplier
+ * Basically BasicBulletType that extends of UAWBulletType, adding damage multiplier such as armor penetration and
+ * shield damage multiplier
  */
 public class UAWBasicBulletType extends UAWBulletType {
 	public Color backColor = Pal.bulletYellowBack, frontColor = Pal.bulletYellow;
@@ -28,7 +29,8 @@ public class UAWBasicBulletType extends UAWBulletType {
 	}
 
 	/**
-	 * BasicBulletType that extends of UAWBulletType, adding damage multiplier such as armor penetration and shield damage multiplier
+	 * BasicBulletType that extends of UAWBulletType, adding damage multiplier such as armor penetration and shield
+	 * damage multiplier
 	 */
 	public UAWBasicBulletType(float speed, float damage) {
 		this(speed, damage, "bullet");
