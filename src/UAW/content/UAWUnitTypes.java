@@ -1058,8 +1058,8 @@ public class UAWUnitTypes implements ContentList {
 					mirror = false;
 					rotateSpeed = 2.2f;
 					x = 0f;
-					y = 0f;
-					shootY = 32f;
+					y = 22f;
+					shootY = 2f;
 					reload = 2 * 60;
 					recoil = 4.4f;
 					shootSound = UAWSfx.cannonShoot1;
