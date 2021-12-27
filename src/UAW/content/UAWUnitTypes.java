@@ -1038,7 +1038,7 @@ public class UAWUnitTypes implements ContentList {
 		}};
 		arkabuz = new TankUnitType("arkabuz") {{
 			health = 7500;
-			armor = 35;
+			armor = 32;
 			hitSize = 25;
 			speed = 1.2f;
 			rotateSpeed = 2f;
