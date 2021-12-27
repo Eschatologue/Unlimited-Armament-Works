@@ -39,13 +39,6 @@ public class SeekAI extends AIController {
 					&& !target.floorOn().isDeep()) {
 					move = false;
 				}
-				for (var mount : unit.mounts) {
-					if (target == null) {
-						assert core != null;
-						mount.aimX = core.x;
-						mount.aimY = core.y;
-					}
-				}
 			}
 			if (target != null && unit.within(target, unit.type.range) && !Vars.world.raycast(unit.tileX(), unit.tileY(), target.tileX(), target.tileY(), (x, y) -> {
 				for (Point2 p : Geometry.d4c) {
