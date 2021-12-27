@@ -293,7 +293,7 @@ public class UAWBullets implements ContentList {
 			fragBullet = fragGlass;
 		}};
 
-		mineBasic = new MineBulletType(100, 8 * tilesize, 15 * 60) {{
+		mineBasic = new MineBulletType(100, 8 * tilesize, 60 * 60) {{
 			hitEffect = despawnEffect = UAWFxD.dynamicExplosion(8 * tilesize);
 			mineColor = Pal.bulletYellow;
 			status = StatusEffects.blasted;
