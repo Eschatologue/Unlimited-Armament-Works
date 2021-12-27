@@ -287,40 +287,6 @@ public class UAWBlocks implements ContentList {
 				Items.graphite, new CanisterBulletType(2f, 30, 4, mineBasic) {{
 					lifetime = range / speed;
 					ammoMultiplier = 4f;
-				}},
-				Items.pyratite, new CanisterBulletType(2f, 30, 3, mineIncend) {{
-					frontColor = UAWPal.incendFront;
-					backColor = UAWPal.incendBack;
-					shootEffect = Fx.shootPyraFlame;
-					lifetime = 160f;
-					ammoMultiplier = 3f;
-				}},
-				UAWItems.cryogel, new CanisterBulletType(2f, 30, 3, mineCryo) {{
-					frontColor = UAWPal.cryoFront;
-					backColor = UAWPal.cryoMiddle;
-					lifetime = range / speed;
-					ammoMultiplier = 3f;
-				}},
-				Items.plastanium, new CanisterBulletType(2f, 30, 3, mineOil) {{
-					frontColor = Pal.plastaniumFront;
-					backColor = Pal.plastaniumBack;
-					shootEffect = UAWFxS.shootPlastFlame;
-					lifetime = range / speed;
-					ammoMultiplier = 3f;
-				}},
-				Items.sporePod, new CanisterBulletType(2f, 30, 3, mineSpore) {{
-					frontColor = Pal.spore;
-					backColor = UAWPal.sporeMiddle;
-					shootEffect = UAWFxS.shootSporeFlame;
-					lifetime = range / speed;
-					ammoMultiplier = 3f;
-				}},
-				Items.surgeAlloy, new CanisterBulletType(2f, 30, 3, mineEMP) {{
-					frontColor = UAWPal.surgeFront;
-					backColor = UAWPal.surgeBack;
-					shootEffect = UAWFxS.shootSurgeFlame;
-					lifetime = range / speed;
-					ammoMultiplier = 3f;
 				}}
 			);
 		}};
@@ -751,7 +717,7 @@ public class UAWBlocks implements ContentList {
 			pumpAmount = 0.35f;
 			liquidCapacity = 600f;
 			attribute = Attribute.oil;
-			baseEfficiency = 1f;
+			baseEfficiency = 0.5f;
 			itemUseTime = 120f;
 			rotateSpeed = -2f;
 

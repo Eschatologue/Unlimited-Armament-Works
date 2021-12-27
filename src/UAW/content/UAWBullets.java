@@ -293,58 +293,57 @@ public class UAWBullets implements ContentList {
 			fragBullet = fragGlass;
 		}};
 
-		mineBasic = new MineBulletType(100, 90, 9) {{
-			frontColor = Pal.bulletYellow;
-			backColor = Pal.bulletYellowBack;
-			hitEffect = despawnEffect = new MultiEffect(UAWFxD.crossBlast(splashDamageRadius, backColor), Fx.blockExplosionSmoke);
+		mineBasic = new MineBulletType(100, 8 * tilesize, 15 * 60) {{
+
+			mineColor = Pal.bulletYellow;
 			status = StatusEffects.blasted;
 			fragBullets = 16;
 			fragBullet = flakGlassFrag;
 		}};
-		mineIncend = new MineBulletType(75, 60, 7) {{
-			frontColor = UAWPal.incendFront;
-			backColor = UAWPal.incendBack;
-			hitEffect = despawnEffect = new MultiEffect(UAWFxD.crossBlast(splashDamageRadius, frontColor), Fx.blockExplosionSmoke);
-			fragBullets = 16;
-			fragAngle = 360;
-			status = StatusEffects.burning;
-			fragBullet = heavySlagShot;
-		}};
-		mineCryo = new MineBulletType(75, 60, 7) {{
-			frontColor = UAWPal.cryoFront;
-			backColor = UAWPal.cryoMiddle;
-			hitEffect = despawnEffect = new MultiEffect(UAWFxD.crossBlast(splashDamageRadius, backColor), Fx.blockExplosionSmoke);
-			fragBullets = 16;
-			fragAngle = 360;
-			status = StatusEffects.freezing;
-			fragBullet = heavyCryoShot;
-		}};
-		mineOil = new MineBulletType(75, 60, 7) {{
-			frontColor = Pal.plastaniumFront;
-			backColor = Pal.plastaniumBack;
-			hitEffect = despawnEffect = new MultiEffect(UAWFxD.crossBlast(splashDamageRadius, backColor), Fx.blockExplosionSmoke);
-			fragBullets = 16;
-			fragAngle = 360;
-			status = StatusEffects.tarred;
-			fragBullet = heavyOilShot;
-		}};
-		mineEMP = new MineBulletType(75, 60, 12) {{
-			frontColor = UAWPal.surgeFront;
-			backColor = UAWPal.surgeBack;
-			lightning = 8;
-			lightningDamage = 7;
-			lightningLength = 6;
-			lightningColor = Pal.lancerLaser;
-			hitEffect = despawnEffect = new MultiEffect(UAWFxD.crossBlast(splashDamageRadius, backColor), Fx.hitYellowLaser, Fx.blockExplosionSmoke);
-			blockDetonationRange = 5;
-			status = StatusEffects.electrified;
-		}};
-		mineSpore = new MineBulletType(75, 60, 12) {{
-			frontColor = Pal.spore;
-			backColor = UAWPal.sporeMiddle;
-			status = StatusEffects.sporeSlowed;
-			hitEffect = despawnEffect = new MultiEffect(UAWFxD.crossBlast(splashDamageRadius, backColor), Fx.sporeSlowed, Fx.blockExplosionSmoke);
-		}};
+//		mineIncend = new MineBulletType(75, 60, 7) {{
+//			frontColor = UAWPal.incendFront;
+//			backColor = UAWPal.incendBack;
+//			hitEffect = despawnEffect = new MultiEffect(UAWFxD.crossBlast(splashDamageRadius, frontColor), Fx.blockExplosionSmoke);
+//			fragBullets = 16;
+//			fragAngle = 360;
+//			status = StatusEffects.burning;
+//			fragBullet = heavySlagShot;
+//		}};
+//		mineCryo = new MineBulletType(75, 60, 7) {{
+//			frontColor = UAWPal.cryoFront;
+//			backColor = UAWPal.cryoMiddle;
+//			hitEffect = despawnEffect = new MultiEffect(UAWFxD.crossBlast(splashDamageRadius, backColor), Fx.blockExplosionSmoke);
+//			fragBullets = 16;
+//			fragAngle = 360;
+//			status = StatusEffects.freezing;
+//			fragBullet = heavyCryoShot;
+//		}};
+//		mineOil = new MineBulletType(75, 60, 7) {{
+//			frontColor = Pal.plastaniumFront;
+//			backColor = Pal.plastaniumBack;
+//			hitEffect = despawnEffect = new MultiEffect(UAWFxD.crossBlast(splashDamageRadius, backColor), Fx.blockExplosionSmoke);
+//			fragBullets = 16;
+//			fragAngle = 360;
+//			status = StatusEffects.tarred;
+//			fragBullet = heavyOilShot;
+//		}};
+//		mineEMP = new MineBulletType(75, 60, 12) {{
+//			frontColor = UAWPal.surgeFront;
+//			backColor = UAWPal.surgeBack;
+//			lightning = 8;
+//			lightningDamage = 7;
+//			lightningLength = 6;
+//			lightningColor = Pal.lancerLaser;
+//			hitEffect = despawnEffect = new MultiEffect(UAWFxD.crossBlast(splashDamageRadius, backColor), Fx.hitYellowLaser, Fx.blockExplosionSmoke);
+//			explodeRange = 5;
+//			status = StatusEffects.electrified;
+//		}};
+//		mineSpore = new MineBulletType(75, 60, 12) {{
+//			frontColor = Pal.spore;
+//			backColor = UAWPal.sporeMiddle;
+//			status = StatusEffects.sporeSlowed;
+//			hitEffect = despawnEffect = new MultiEffect(UAWFxD.crossBlast(splashDamageRadius, backColor), Fx.sporeSlowed, Fx.blockExplosionSmoke);
+//		}};
 
 		canisterBasic = new CanisterBulletType(2f, 30, 4, mineBasic) {{
 			lifetime =

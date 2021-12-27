@@ -1,60 +1,105 @@
 package UAW.entities.bullet;
 
+import arc.Core;
+import arc.audio.Sound;
+import arc.graphics.Color;
+import arc.graphics.g2d.*;
 import arc.util.*;
+import mindustry.content.Fx;
 import mindustry.entities.Units;
-import mindustry.entities.bullet.BasicBulletType;
+import mindustry.entities.bullet.BulletType;
 import mindustry.gen.*;
+import mindustry.graphics.*;
 
 import static mindustry.Vars.tilesize;
 
-public class MineBulletType extends BasicBulletType {
-	public float blockDetonationRange = 4.5f;
-	public float detonationDelay = 15f;
-	public float size = 14;
+public class MineBulletType extends BulletType {
+	public Color mineColor = Pal.bulletYellow, detonationColor = Pal.redSpark;
+	public TextureRegion mineBase, mineCell, mineLight;
+	public String sprite;
+	public Sound detonationSound = Sounds.shotgun;
+	public boolean dynamicExplosion = true;
+	public float explodeRange = 8 * tilesize;
+	public float explodeDelay = 15f;
+	public float size = 32;
 
-	// blastRadius are based in block/tile, so 6 blastRadius = 6 tiles/block
-	public MineBulletType(float damage, float blastRadius, float duration, String sprite) {
-		super(damage, blastRadius, sprite);
-		splashDamageRadius = tilesize * blastRadius;
-		splashDamage = damage;
-		mixColorTo = backColor;
-		height = width = size;
+	public MineBulletType(float damage, float radius, float lifetime, String sprite) {
+		this.splashDamage = damage;
+		this.splashDamageRadius = radius;
+		this.lifetime = lifetime;
+		this.sprite = sprite;
+		layer = Layer.debris;
 		collidesAir = false;
 		collidesGround = collidesTiles = true;
-		shrinkX = shrinkY = 0f;
-		lifetime = duration * 60;
 		speed = 3f;
 		drag = 0.055f;
 		hitShake = 8f;
 		hitSound = Sounds.plasmaboom;
-		fragVelocityMin = 0.3f;
-		fragVelocityMax = fragVelocityMin * 1.2f;
-		fragLifeMin = 0.4f;
-		fragLifeMax = 0.8f;
 	}
 
-	public MineBulletType(float damage, float duration, float blastRadius) {
-		this(damage, blastRadius, duration, "uaw-mine");
+	public MineBulletType(float damage, float radius, float lifetime) {
+		this(damage, radius, lifetime, "uaw-mine");
+	}
+
+	public MineBulletType(float damage, float radius) {
+		this(damage, radius, 25 * 60, "uaw-mine");
+	}
+
+	public MineBulletType() {
+		this(550, 64, 25 * 60, "uaw-mine");
+	}
+
+	@Override
+	public void load() {
+		mineBase = Core.atlas.find(sprite);
+		mineCell = Core.atlas.find(sprite + "-cell");
+		mineLight = Core.atlas.find(sprite + "-light");
 	}
 
 	@Override
 	public void update(Bullet b) {
-		float detonationRange = tilesize * blockDetonationRange;
 		super.update(b);
+		if (explodeRange < 0) {
+			explodeRange = splashDamageRadius / 4;
+		}
 		if (b.fdata < 0f) return;
 		if (b.timer(2, 6)) {
-			Units.nearbyEnemies(b.team, Tmp.r1.setSize(detonationRange * 2f).setCenter(b.x, b.y), unit -> {
-				if (b.fdata < 0f || !unit.checkTarget(collidesAir, collidesGround)) return;
-				if (unit.within(b, detonationRange)) {
-					b.fdata = -1f;
-					Time.run(detonationDelay, () -> {
-						if (b.fdata < 0) {
-							b.time = b.lifetime;
-						}
-					});
+			Units.nearbyEnemies(b.team, Tmp.r1.setSize(explodeRange * 2f).setCenter(b.x, b.y), unit -> {
+					if (b.fdata < 0f || !unit.checkTarget(collidesAir, collidesGround)) return;
+					if (unit.within(b, explodeRange)) {
+						detonationSound.at(b.x, b.y);
+						b.fdata = -1f;
+						Time.run(explodeDelay, () -> {
+								if (b.fdata < 0) {
+									b.time = b.lifetime;
+								}
+							}
+						);
+					}
 				}
-			});
+			);
 		}
+	}
+
+	@Override
+	public void hit(Bullet b) {
+		super.hit(b);
+		if (dynamicExplosion) {
+			Fx.dynamicExplosion.at(b.x, b.y, splashDamageRadius);
+		}
+	}
+
+	@Override
+	public void draw(Bullet b) {
+		Drawf.shadow(b.x, b.y, size * 1.2f);
+		Draw.rect(mineBase, b.x, b.y, size, size, b.rotation());
+		Draw.color(mineColor);
+		Draw.rect(mineCell, b.x, b.y, size, size, b.rotation());
+		if (b.fdata() < 1) {
+			Draw.color(detonationColor);
+			Draw.rect(mineLight, b.x, b.y, size, size, b.rotation());
+		}
+		Draw.reset();
 	}
 
 }

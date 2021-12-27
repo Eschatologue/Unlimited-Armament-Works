@@ -16,8 +16,16 @@ public class CanisterBulletType extends BasicBulletType {
 	public CanisterBulletType(float speed, float size, int mineCount, BulletType mineType) {
 		super(speed, size);
 		damage = 0f;
-		hitEffect = despawnEffect = new MultiEffect(Fx.generatespark, Fx.blockExplosionSmoke, Fx.dooropenlarge, Fx.flakExplosionBig);
-		smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.blastsmoke);
+		hitEffect = despawnEffect = new MultiEffect(
+			Fx.generatespark,
+			Fx.blockExplosionSmoke,
+			Fx.dooropenlarge,
+			Fx.flakExplosionBig
+		);
+		smokeEffect = new MultiEffect(
+			Fx.shootBigSmoke2,
+			Fx.blastsmoke
+		);
 		height = size;
 		width = height / 2;
 		scaleVelocity = true;
