@@ -209,7 +209,7 @@ public class UAWTechTree implements ContentList {
 			);
 			node(petroleumSeperator, Seq.with(
 				new Research(oilExtractor),
-				new Research(petroleumDrill))
+				new Research(oilDerrick))
 			);
 		});
 
@@ -225,7 +225,7 @@ public class UAWTechTree implements ContentList {
 		);
 
 		vanillaNode(oilExtractor, () ->
-			node(petroleumDrill, Seq.with(
+			node(oilDerrick, Seq.with(
 					new SectorComplete(SectorPresets.tarFields),
 					new Research(thermalPump)
 				)

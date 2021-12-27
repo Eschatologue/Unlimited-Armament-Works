@@ -21,6 +21,7 @@ import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.blocks.liquid.*;
 import mindustry.world.blocks.production.*;
 import mindustry.world.blocks.units.Reconstructor;
+import mindustry.world.blocks.units.Reconstructor;
 import mindustry.world.draw.*;
 import mindustry.world.meta.Attribute;
 
@@ -44,7 +45,7 @@ public class UAWBlocks implements ContentList {
 	// Liquids
 	pressurizedConduit, pressurizedLiquidRouter, pressurizedLiquidJunction, pressurizedLiquidBridge, rotodynamicPump,
 	// Drills
-	petroleumDrill,
+	oilDerrick,
 	// Crafters
 	gelatinizer, carburizingFurnace, surgeMixer, petroleumSmelter, petroleumSeperator, anthraciteCrystallizer,
 	// Power
@@ -249,7 +250,10 @@ public class UAWBlocks implements ContentList {
 						Fx.blastsmoke
 					);
 					length = range;
-					updateEffect = UAWFxD.railTrail(15, Pal.bulletYellowBack);
+					updateEffect = new MultiEffect(
+						UAWFxD.railTrail(15, Pal.bulletYellowBack),
+						Fx.fireSmoke
+					);
 					trailEffect = UAWFxD.railTrail(15, Pal.bulletYellowBack);
 					pierceDamageFactor = 0.8f;
 					updateEffectSeg = 30f;
@@ -731,7 +735,7 @@ public class UAWBlocks implements ContentList {
 			consumes.power(2f);
 		}};
 
-		petroleumDrill = new Fracker("petroleum-drill") {{
+		oilDerrick = new Fracker("oil-derrick") {{
 			requirements(Category.production, with(
 				Items.titanium, 300,
 				Items.plastanium, 175,
@@ -740,21 +744,22 @@ public class UAWBlocks implements ContentList {
 				UAWItems.titaniumCarbide, 105,
 				Items.surgeAlloy, 75
 			));
-			size = 3;
+			size = 4;
 			result = Liquids.oil;
 			updateEffect = Fx.pulverize;
 			updateEffectChance = 0.05f;
-			pumpAmount = 0.45f;
-			liquidCapacity = 120f;
+			pumpAmount = 0.35f;
+			liquidCapacity = 600f;
 			attribute = Attribute.oil;
-			baseEfficiency = 0f;
-			itemUseTime = 60f;
+			baseEfficiency = 1f;
+			itemUseTime = 120f;
+			rotateSpeed = -2f;
 
 			squareSprite = false;
 			floating = true;
 
 			consumes.item(Items.pyratite);
-			consumes.power(5f);
+			consumes.power(4.5f);
 		}};
 
 		gelatinizer = new GenericCrafter("gelatinizer") {{
