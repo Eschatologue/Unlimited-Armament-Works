@@ -294,8 +294,9 @@ public class UAWBullets implements ContentList {
 		}};
 
 		mineBasic = new MineBulletType(100, 8 * tilesize, 60 * 60) {{
-			hitEffect = despawnEffect = UAWFxD.dynamicExplosion(8 * tilesize);
-			mineColor = Pal.bulletYellow;
+			hitEffect = UAWFxD.dynamicExplosion(8 * tilesize);
+			frontColor = Pal.bulletYellow;
+			backColor = Pal.bulletYellowBack;
 			status = StatusEffects.blasted;
 			fragBullets = 16;
 			fragBullet = flakGlassFrag;

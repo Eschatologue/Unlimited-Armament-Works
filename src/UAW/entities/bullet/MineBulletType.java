@@ -13,30 +13,30 @@ import mindustry.gen.*;
 import mindustry.graphics.*;
 
 public class MineBulletType extends BulletType {
-	public Color mineColor = Color.valueOf("ffd37f"), detonationColor = Color.red;
-	public TextureRegion mineBase, mineCell, mineLight, mineOutline;
+	/** Light that will appear when mine is triggered */
+	public Color detonationColor = Color.red;
+	/** Lighter Color */
+	public Color frontColor = Pal.bulletYellow;
+	/** Darker Color */
+	public Color backColor = Pal.bulletYellowBack;
+	public TextureRegion mineBase, mineFront, mineBack, mineIndicator, mineOutline;
 	public String sprite;
 	public Sound detonationSound = UAWSfx.mineDetonate1;
 	public Effect triggerEffect = Fx.smeltsmoke;
-	/**
-	 * The distance of unit that will make the mine detonates, -1 to make it scales with splashDamageRadius
-	 */
+	/** The distance of unit that will make the mine detonates, -1 to make it scales with splashDamageRadius */
 	public float explodeRange = -1;
-	/**
-	 * Time delay of mine detonating when unit steps in its radius
-	 */
+	/** Time delay of mine detonating when unit steps in its radius */
 	public float explodeDelay = 30f;
-	/**
-	 * How big is the mine
-	 */
-	public float size = 20;
+	/** How big is the mine */
+	public float size = 22;
 
-	public MineBulletType(float damage, float radius, float lifetime, String sprite) {
+	public MineBulletType(float damage, float splashRadius, float lifetime, String sprite) {
 		this.splashDamage = damage;
-		this.splashDamageRadius = radius;
+		this.splashDamageRadius = splashRadius;
 		this.lifetime = lifetime;
 		this.sprite = sprite;
 		layer = Layer.debris - 1;
+		despawnHit = true;
 		collidesAir = false;
 		collidesGround = collidesTiles = true;
 		speed = 3f;
@@ -46,12 +46,12 @@ public class MineBulletType extends BulletType {
 		fragAngle = 360;
 	}
 
-	public MineBulletType(float damage, float radius, float lifetime) {
-		this(damage, radius, lifetime, "uaw-mine");
+	public MineBulletType(float damage, float splashRadius, float lifetime) {
+		this(damage, splashRadius, lifetime, "uaw-mine");
 	}
 
-	public MineBulletType(float damage, float radius) {
-		this(damage, radius, 25 * 60, "uaw-mine");
+	public MineBulletType(float damage, float splashRadius) {
+		this(damage, splashRadius, 25 * 60, "uaw-mine");
 	}
 
 	public MineBulletType() {
@@ -61,8 +61,9 @@ public class MineBulletType extends BulletType {
 	@Override
 	public void load() {
 		mineBase = Core.atlas.find(sprite);
-		mineCell = Core.atlas.find(sprite + "-cell");
-		mineLight = Core.atlas.find(sprite + "-light");
+		mineFront = Core.atlas.find(sprite + "-front");
+		mineBack = Core.atlas.find(sprite + "-back");
+		mineIndicator = Core.atlas.find(sprite + "-indicator");
 		mineOutline = Core.atlas.find(sprite + "-outline");
 	}
 
@@ -99,14 +100,17 @@ public class MineBulletType extends BulletType {
 		Draw.rect(mineOutline, b.x, b.y, size, size, b.rotation());
 		Draw.rect(mineBase, b.x, b.y, size, size, b.rotation());
 
-		Draw.color(mineColor);
-		Draw.rect(mineCell, b.x, b.y, size, size, b.rotation());
+		Draw.color(backColor);
+		Draw.rect(mineBack, b.x, b.y, size, size, b.rotation());
+		Draw.color(frontColor);
+		Draw.rect(mineFront, b.x, b.y, size, size, b.rotation());
+		Draw.reset();
 
 		if (b.fdata() < 0) {
 			Draw.color(detonationColor);
-			Draw.rect(mineLight, b.x, b.y, size, size, b.rotation());
+			Draw.rect(mineIndicator, b.x, b.y, size, size, b.rotation());
 		}
-		Draw.reset();
+
 	}
 
 }
