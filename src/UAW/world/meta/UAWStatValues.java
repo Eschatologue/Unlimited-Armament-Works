@@ -312,10 +312,10 @@ public class UAWStatValues {
 
 					if (type instanceof MineCanisterBulletType types) {
 						if (types.fragBullet != null) {
-							sep(bt, Core.bundle.format("bullet.uaw-mineCount", types.fragBullets));
+							sep(bt, Core.bundle.format("bullet.uaw-mineCount", types.fragBullet));
 							bt.row();
 
-							ammo(ObjectMap.of(t, types.fragBullet), indent).display(bt);
+							ammo(ObjectMap.of(t, types.fragBullet), indent + 1).display(bt);
 						}
 					}
 
@@ -367,7 +367,7 @@ public class UAWStatValues {
 						sep(bt, (type.status.minfo.mod == null ? type.status.emoji() : "") + "[stat]" + type.status.localizedName);
 					}
 
-					if (type.fragBullet != null) {
+					if (type.fragBullet != null && !(type instanceof MineBulletType)) {
 						sep(bt, Core.bundle.format("bullet.frags", type.fragBullets));
 						bt.row();
 

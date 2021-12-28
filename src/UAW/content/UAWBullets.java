@@ -295,6 +295,8 @@ public class UAWBullets implements ContentList {
 
 		mineBasic = new MineBulletType(100, 8 * tilesize, 60 * 60) {{
 			hitEffect = UAWFxD.dynamicExplosion(8 * tilesize);
+			explodeDelay = 35f;
+			explodeRange = 4 * tilesize;
 			frontColor = Pal.bulletYellow;
 			backColor = Pal.bulletYellowBack;
 			status = StatusEffects.blasted;

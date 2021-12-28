@@ -23,8 +23,8 @@ public class MineBulletType extends BulletType {
 	public String sprite;
 	public Sound detonationSound = UAWSfx.mineDetonate1;
 	public Effect triggerEffect = Fx.smeltsmoke;
-	/** The distance of unit that will make the mine detonates, -1 to make it scales with splashDamageRadius */
-	public float explodeRange = -1;
+	/** The distance of unit that will make the mine detonates */
+	public float explodeRange = 32;
 	/** Time delay of mine detonating when unit steps in its radius */
 	public float explodeDelay = 36f;
 	/** How big is the mine */
@@ -71,9 +71,6 @@ public class MineBulletType extends BulletType {
 	@Override
 	public void update(Bullet b) {
 		super.update(b);
-		if (explodeRange < 0) {
-			explodeRange = splashDamageRadius / 2.5f;
-		}
 		// Copied from flakBullet
 		if (b.fdata < 0f) return;
 		if (b.timer(2, 6)) {
