@@ -7,37 +7,31 @@ import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.gen.*;
 
-public class CanisterBulletType extends BasicBulletType {
-	public float burstRange = 80;
-	float burstDelay = 5f;
+public class MineCanisterBulletType extends BasicBulletType {
+	public float burstRange = 80, burstDelay = 5f;
+	public float size = 20;
+	public float trailMult = 0.3f, trailSize = 5f;
 
-	float trailMult = 0.3f, trailSize = 5f;
-
-	public CanisterBulletType(float speed, float size, int mineCount, BulletType mineType) {
-		super(speed, size);
+	public MineCanisterBulletType(BulletType mineType, int mineCount, float speed) {
+		this.fragBullet = mineType;
+		this.fragBullets = mineCount;
+		this.speed = speed;
+		this.height = size * 1.8f;
+		this.width = size;
+		sprite = "uaw-canister";
 		damage = 0f;
-		hitEffect = despawnEffect = new MultiEffect(
-			Fx.generatespark,
-			Fx.blockExplosionSmoke,
-			Fx.dooropenlarge,
-			Fx.flakExplosionBig
-		);
-		smokeEffect = new MultiEffect(
-			Fx.shootBigSmoke2,
-			Fx.blastsmoke
-		);
-		height = size;
-		width = height / 2;
+		despawnHit = true;
+		hitEffect = new MultiEffect(Fx.generatespark, Fx.steam, Fx.flakExplosionBig);
+		smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.blastsmoke);
 		scaleVelocity = true;
 		collides = collidesAir = collidesTiles = false;
 		shrinkX = 0.18f;
 		shrinkY = 0.68f;
-		hitSound = Sounds.shotgun;
-		fragBullet = mineType;
-		fragBullets = mineCount;
+		hitSound = Sounds.mineDeploy;
 		fragCone = 360f;
 		fragAngle = 1;
 		trailColor = backColor;
+		displayAmmoMultiplier = false;
 	}
 
 	@Override

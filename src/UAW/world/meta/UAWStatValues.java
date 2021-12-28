@@ -1,6 +1,6 @@
 package UAW.world.meta;
 
-import UAW.entities.bullet.UAWBulletType;
+import UAW.entities.bullet.*;
 import arc.Core;
 import arc.func.Boolf;
 import arc.graphics.g2d.TextureRegion;
@@ -310,6 +310,27 @@ public class UAWStatValues {
 						}
 					}
 
+					if (type instanceof MineCanisterBulletType types) {
+						if (types.fragBullet != null) {
+							sep(bt, Core.bundle.format("bullet.uaw-mineCount", types.fragBullets));
+							bt.row();
+
+							ammo(ObjectMap.of(t, types.fragBullet), indent).display(bt);
+						}
+					}
+
+					if (type instanceof MineBulletType types) {
+						if (types.lifetime != 1) {
+							sep(bt, Core.bundle.format("bullet.uaw-mineLifetime", (int) (types.lifetime / 60)));
+						}
+						if (types.explodeRange != 1) {
+							sep(bt, Core.bundle.format("bullet.uaw-explodeRange", (int) (types.explodeRange / tilesize)));
+						}
+						if (types.explodeDelay != 1) {
+							sep(bt, Core.bundle.format("bullet.uaw-explodeDelay", (int) (types.explodeDelay / 60)));
+						}
+					}
+
 					if (!compact && !Mathf.equal(type.ammoMultiplier, 1f) && type.displayAmmoMultiplier) {
 						sep(bt, Core.bundle.format("bullet.multiplier", (int) type.ammoMultiplier));
 					}
@@ -343,7 +364,7 @@ public class UAWStatValues {
 					}
 
 					if (type.status != StatusEffects.none) {
-						sep(bt, (type.minfo.mod == null ? type.status.emoji() : "") + "[stat]" + type.status.localizedName);
+						sep(bt, (type.status.minfo.mod == null ? type.status.emoji() : "") + "[stat]" + type.status.localizedName);
 					}
 
 					if (type.fragBullet != null) {

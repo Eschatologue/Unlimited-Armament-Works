@@ -346,44 +346,11 @@ public class UAWBullets implements ContentList {
 //			hitEffect = despawnEffect = new MultiEffect(UAWFxD.crossBlast(splashDamageRadius, backColor), Fx.sporeSlowed, Fx.blockExplosionSmoke);
 //		}};
 
-		canisterBasic = new CanisterBulletType(2f, 30, 4, mineBasic) {{
-			lifetime =
-				ammoMultiplier = 5f;
-		}};
-		canisterCryo = new CanisterBulletType(2f, 30, 3, mineCryo) {{
-			frontColor = UAWPal.cryoFront;
-			backColor = UAWPal.cryoMiddle;
+		canisterBasic = new MineCanisterBulletType(mineBasic, 4, 3.5f) {{
 			lifetime = 160f;
-			ammoMultiplier = 3f;
+			ammoMultiplier = 5f;
 		}};
-		canisterIncend = new CanisterBulletType(2f, 30, 3, mineIncend) {{
-			frontColor = UAWPal.incendFront;
-			backColor = UAWPal.incendBack;
-			shootEffect = Fx.shootPyraFlame;
-			lifetime = 160f;
-			ammoMultiplier = 3f;
-		}};
-		canisterOil = new CanisterBulletType(2f, 30, 3, mineOil) {{
-			frontColor = Pal.plastaniumFront;
-			backColor = Pal.plastaniumBack;
-			shootEffect = UAWFxS.shootPlastFlame;
-			lifetime = 160f;
-			ammoMultiplier = 3f;
-		}};
-		canisterEMP = new CanisterBulletType(2f, 30, 3, mineEMP) {{
-			frontColor = UAWPal.surgeFront;
-			backColor = UAWPal.surgeBack;
-			shootEffect = UAWFxS.shootSurgeFlame;
-			lifetime = 160f;
-			ammoMultiplier = 3f;
-		}};
-		canisterSpore = new CanisterBulletType(2f, 30, 3, mineSpore) {{
-			frontColor = Pal.spore;
-			backColor = UAWPal.sporeMiddle;
-			shootEffect = UAWFxS.shootSporeFlame;
-			lifetime = 160f;
-			ammoMultiplier = 3f;
-		}};
+
 
 	}
 }

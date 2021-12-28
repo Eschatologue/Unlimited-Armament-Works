@@ -26,9 +26,9 @@ public class MineBulletType extends BulletType {
 	/** The distance of unit that will make the mine detonates, -1 to make it scales with splashDamageRadius */
 	public float explodeRange = -1;
 	/** Time delay of mine detonating when unit steps in its radius */
-	public float explodeDelay = 30f;
+	public float explodeDelay = 36f;
 	/** How big is the mine */
-	public float size = 22;
+	public float size = 24;
 
 	public MineBulletType(float damage, float splashRadius, float lifetime, String sprite) {
 		this.splashDamage = damage;
@@ -36,6 +36,7 @@ public class MineBulletType extends BulletType {
 		this.lifetime = lifetime;
 		this.sprite = sprite;
 		layer = Layer.debris - 1;
+		hittable = false;
 		despawnHit = true;
 		collidesAir = false;
 		collidesGround = collidesTiles = true;
@@ -71,7 +72,7 @@ public class MineBulletType extends BulletType {
 	public void update(Bullet b) {
 		super.update(b);
 		if (explodeRange < 0) {
-			explodeRange = splashDamageRadius / 4;
+			explodeRange = splashDamageRadius / 2.5f;
 		}
 		// Copied from flakBullet
 		if (b.fdata < 0f) return;

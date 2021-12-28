@@ -274,20 +274,18 @@ public class UAWBlocks implements ContentList {
 				Items.silicon, 250,
 				Items.plastanium, 125
 			));
-			range = 32 * tilesize;
-			minRange = range / 4;
-			reloadTime = 3 * tick;
+			ammo(
+				Items.graphite, canisterBasic
+			);
 			size = 3;
+			range = 45 * tilesize;
+			reloadTime = 6 * tick;
 			shootSound = UAWSfx.launcherShoot1;
 			ammoUseEffect = UAWFxS.casingCanister;
 			ammoPerShot = 15;
 			acceptCoolant = false;
-			ammo(
-				Items.graphite, new CanisterBulletType(2f, 30, 4, mineBasic) {{
-					lifetime = range / speed;
-					ammoMultiplier = 4f;
-				}}
-			);
+			canOverdrive = false;
+			limitRange();
 		}};
 		skyhammer = new UAWItemTurret("skyhammer") {{
 			requirements(Category.turret, with(
