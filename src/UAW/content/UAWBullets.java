@@ -349,7 +349,6 @@ public class UAWBullets implements ContentList {
 //		}};
 
 		canisterBasic = new MineCanisterBulletType(mineBasic, 4, 3.5f) {{
-			lifetime = 160f;
 			ammoMultiplier = 5f;
 		}};
 

@@ -9,7 +9,7 @@ import mindustry.gen.*;
 
 public class MineCanisterBulletType extends BasicBulletType {
 	public float burstRange = 80, burstDelay = 5f;
-	public float size = 20;
+	public float size = 16;
 	public float trailMult = 0.3f, trailSize = 5f;
 
 	public MineCanisterBulletType(BulletType mineType, int mineCount, float speed) {

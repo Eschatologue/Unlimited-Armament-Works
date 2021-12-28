@@ -327,7 +327,7 @@ public class UAWStatValues {
 							sep(bt, Core.bundle.format("bullet.uaw-explodeRange", (int) (types.explodeRange / tilesize)));
 						}
 						if (types.explodeDelay != 1) {
-							sep(bt, Core.bundle.format("bullet.uaw-explodeDelay", (int) (types.explodeDelay / 60)));
+							sep(bt, Core.bundle.format("bullet.uaw-explodeDelay", Strings.fixed(types.explodeDelay / 60, 2)));
 						}
 					}
 
@@ -367,7 +367,7 @@ public class UAWStatValues {
 						sep(bt, (type.status.minfo.mod == null ? type.status.emoji() : "") + "[stat]" + type.status.localizedName);
 					}
 
-					if (type.fragBullet != null && !(type instanceof MineBulletType)) {
+					if (type.fragBullet != null && !(type instanceof MineCanisterBulletType)) {
 						sep(bt, Core.bundle.format("bullet.frags", type.fragBullets));
 						bt.row();
 
