@@ -266,7 +266,7 @@ public class UAWBlocks implements ContentList {
 			consumes.powerCond(15f, TurretBuild::isActive);
 		}};
 
-		zounderkite = new ItemTurret("zounderkite") {{
+		zounderkite = new UAWItemTurret("zounderkite") {{
 			requirements(Category.turret, with(
 				Items.lead, 300,
 				Items.titanium, 280,
