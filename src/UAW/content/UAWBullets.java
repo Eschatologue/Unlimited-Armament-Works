@@ -344,6 +344,15 @@ public class UAWBullets implements ContentList {
 			lightningLength = 7;
 			lightningLengthRand = 7;
 			hitSound = Sounds.plasmaboom;
+			lightningType = new BulletType(0.0001f, 25f){{
+				lifetime = 30f;
+				hitEffect = Fx.hitLancer;
+				despawnEffect = Fx.none;
+				statusDuration = 10f;
+				hittable = false;
+				healPercent = 2f;
+				collidesTeam = true;
+			}};
 			hitEffect = new Effect(50f, 100f, e -> {
 				e.scaled(7f, b -> {
 					color(frontColor, b.fout());
