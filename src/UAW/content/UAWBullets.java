@@ -311,8 +311,8 @@ public class UAWBullets implements ContentList {
 		}};
 		mineIncend = new MineBulletType(125, 10 * tilesize, 35 * 60) {{
 			status = StatusEffects.burning;
-			frontColor = Pal.lightishOrange;
-			backColor = Pal.lightOrange;
+			frontColor = Color.valueOf("ffaa5f");
+			backColor = Color.valueOf("d37f47");
 			explodeDelay = 45f;
 			explodeRange = 6 * tilesize;
 			knockback = 8f;
@@ -321,7 +321,7 @@ public class UAWBullets implements ContentList {
 		mineCryo = new MineBulletType(125, 10 * tilesize, 35 * 60) {{
 			status = StatusEffects.freezing;
 			frontColor = UAWPal.cryoFront;
-			backColor = UAWPal.cryoBack;
+			backColor = UAWPal.cryoMiddle;
 			explodeDelay = 45f;
 			explodeRange = 6f * tilesize;
 			knockback = 8f;
@@ -333,9 +333,13 @@ public class UAWBullets implements ContentList {
 		}};
 		canisterIncend = new MineCanisterBulletType(mineIncend, 3, 3.5f) {{
 			ammoMultiplier = 2f;
+			shootEffect = Fx.shootPyraFlame;
+			smokeEffect = Fx.shootBigSmoke2;
 		}};
 		canisterCryo = new MineCanisterBulletType(mineCryo, 3, 3.5f) {{
 			ammoMultiplier = 2f;
+			frontColor = UAWPal.cryoFront;
+			backColor = UAWPal.cryoMiddle;
 		}};
 
 

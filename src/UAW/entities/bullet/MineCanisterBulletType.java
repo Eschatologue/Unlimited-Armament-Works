@@ -1,5 +1,6 @@
 package UAW.entities.bullet;
 
+import UAW.graphics.UAWFxS;
 import arc.util.*;
 import mindustry.content.Fx;
 import mindustry.entities.Units;
@@ -23,6 +24,7 @@ public class MineCanisterBulletType extends BasicBulletType {
 		despawnHit = true;
 		hitEffect = new MultiEffect(Fx.generatespark, Fx.steam, Fx.flakExplosionBig);
 		smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.blastsmoke);
+		shootEffect = UAWFxS.muzzleBreakShootSmoke;
 		scaleVelocity = true;
 		collides = collidesAir = collidesTiles = false;
 		shrinkX = 0.18f;

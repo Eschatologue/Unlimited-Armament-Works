@@ -119,7 +119,6 @@ public class UAWFxD {
 		});
 	}
 
-
 	public static Effect shootMassiveSmoke(float size, float lifetime, Color color) {
 		return new Effect(lifetime, e -> {
 			color(color, Color.lightGray, Color.gray, e.fin());
@@ -256,19 +255,21 @@ public class UAWFxD {
 	 */
 	public static Effect hugeExplosion(float size, Color color) {
 		return new Effect(size * 0.8f, 450f, e -> {
-			float intensity = size / 19f;
+			float intensity = size / 21f;
 			float smokeSize = e.fout() * size / 6;
+
+			color(Color.gray);
+			alpha(0.6f);
+			randLenVectors(e.id, 35, e.finpow() * e.lifetime, (x, y) -> {
+				color(Pal.lighterOrange, Pal.darkishGray, Color.gray, e.fin());
+				Fill.circle(e.x + x, e.y + y, smokeSize * 2f);
+			});
 
 			randLenVectors(e.id, 40, e.finpow() * (e.lifetime * 1.4f), (x, y) -> {
 				color(color);
 				Fill.circle(e.x + x, e.y + y, smokeSize / 1.5f);
 			});
-			color(Color.gray);
-			alpha(0.8f);
-			randLenVectors(e.id, 35, e.finpow() * e.lifetime, (x, y) -> {
-				color(Pal.lighterOrange, Pal.darkishGray, Color.gray, e.fin());
-				Fill.circle(e.x + x, e.y + y, smokeSize * 2f);
-			});
+
 			Draw.color();
 			e.scaled(5 + intensity * 2f, i -> {
 				stroke((3.1f + intensity / 5f) * i.fout());
