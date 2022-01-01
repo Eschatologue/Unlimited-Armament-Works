@@ -310,15 +310,6 @@ public class UAWStatValues {
 						}
 					}
 
-					if (type instanceof MineCanisterBulletType types) {
-						if (types.fragBullet != null) {
-							sep(bt, Core.bundle.format("bullet.uaw-mineCount", types.fragBullet));
-							bt.row();
-
-							ammo(ObjectMap.of(t, types.fragBullet), indent + 1).display(bt);
-						}
-					}
-
 					if (type instanceof MineBulletType types) {
 						if (types.lifetime != 1) {
 							sep(bt, Core.bundle.format("bullet.uaw-mineLifetime", (int) (types.lifetime / 60)));
@@ -365,6 +356,15 @@ public class UAWStatValues {
 
 					if (type.status != StatusEffects.none) {
 						sep(bt, (type.status.minfo.mod == null ? type.status.emoji() : "") + "[stat]" + type.status.localizedName);
+					}
+
+					if (type instanceof MineCanisterBulletType types) {
+						if (types.fragBullet != null) {
+							sep(bt, Core.bundle.format("bullet.uaw-mineCount", types.fragBullets));
+							bt.row();
+
+							ammo(ObjectMap.of(t, types.fragBullet), indent + 1).display(bt);
+						}
 					}
 
 					if (type.fragBullet != null && !(type instanceof MineCanisterBulletType)) {
