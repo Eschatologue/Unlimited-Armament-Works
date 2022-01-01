@@ -335,6 +335,7 @@ public class UAWBullets implements ContentList {
 		}};
 		mineEMP = new MineBulletType(75, 10 * tilesize, 30 * 60) {{
 			status = UAWStatusEffects.EMP;
+			collidesAir = true;
 			statusDuration = 120f;
 			frontColor = UAWPal.titaniumBlueFront;
 			backColor = UAWPal.titaniumBlueBack;
@@ -365,9 +366,9 @@ public class UAWBullets implements ContentList {
 					//}
 				}
 
-				Fill.circle(e.x, e.y, 12f * e.fout());
+				Fill.square(e.x, e.y, 12f * e.fout(), e.rotation + 45);
 				color();
-				Fill.circle(e.x, e.y, 6f * e.fout());
+				Fill.square(e.x, e.y, 6f * e.fout(), e.rotation + 45);
 				Drawf.light(e.x, e.y, splashDamageRadius * 1.6f, frontColor, e.fout());
 				Fx.chainLightning.at(e.x, e.y, frontColor);
 			});

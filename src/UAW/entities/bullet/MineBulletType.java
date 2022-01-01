@@ -40,6 +40,7 @@ public class MineBulletType extends BulletType {
 		absorbable = hittable = false;
 		despawnHit = true;
 		collidesAir = false;
+		collideTerrain = true;
 		collidesGround = collidesTiles = true;
 		speed = 3f;
 		drag = 0.055f;
