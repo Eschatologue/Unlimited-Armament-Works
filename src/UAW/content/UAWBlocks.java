@@ -281,6 +281,7 @@ public class UAWBlocks implements ContentList {
 				Items.surgeAlloy, canisterEMP
 			);
 			size = 3;
+			squareSprite = false;
 			range = 45 * tilesize;
 			reloadTime = 6 * tick;
 			shootSound = UAWSfx.launcherShoot1;

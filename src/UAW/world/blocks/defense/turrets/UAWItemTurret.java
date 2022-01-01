@@ -2,6 +2,7 @@ package UAW.world.blocks.defense.turrets;
 
 import UAW.graphics.UAWPal;
 import UAW.world.meta.UAWStatValues;
+import arc.Core;
 import mindustry.graphics.*;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.meta.Stat;
@@ -17,6 +18,7 @@ import static mindustry.Vars.tilesize;
 public class UAWItemTurret extends ItemTurret {
 	public UAWItemTurret(String name) {
 		super(name);
+		squareSprite = false;
 	}
 
 	@Override
@@ -33,6 +35,12 @@ public class UAWItemTurret extends ItemTurret {
 		if (minRange > 0) {
 			Drawf.dashCircle(x * tilesize + offset, y * tilesize + offset, minRange, UAWPal.darkPyraBloom);
 		}
+	}
+
+	@Override
+	public void load() {
+		super.load();
+		baseRegion = Core.atlas.find(name + "-base", "block-" + size);
 	}
 
 	public class CustomItemTurretBuild extends ItemTurretBuild {
