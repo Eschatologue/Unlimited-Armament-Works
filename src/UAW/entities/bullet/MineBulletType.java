@@ -19,9 +19,8 @@ public class MineBulletType extends BulletType {
 	public Color frontColor = Pal.bulletYellow;
 	/** Darker Color */
 	public Color backColor = Pal.bulletYellowBack;
-	public TextureRegion mineBase, mineLight, mineIndicator, mineOutline;
+	public TextureRegion mineBase, mineFront, mineBack, mineIndicator, mineOutline;
 	public String sprite;
-	public String mineType = "basic";
 	public Sound detonationSound = UAWSfx.mineDetonate1;
 	public Effect triggerEffect = Fx.smeltsmoke;
 	/** The distance of unit that will make the mine detonates */
@@ -38,7 +37,7 @@ public class MineBulletType extends BulletType {
 		this.sprite = sprite;
 		damage = 0;
 		layer = Layer.debris - 1;
-		hittable = false;
+		absorbable = hittable = false;
 		despawnHit = true;
 		collidesAir = false;
 		collidesGround = collidesTiles = true;
@@ -64,7 +63,8 @@ public class MineBulletType extends BulletType {
 	@Override
 	public void load() {
 		mineBase = Core.atlas.find(sprite);
-		mineLight = Core.atlas.find((sprite + "-light") + "-" + mineType);
+		mineFront = Core.atlas.find(sprite + "-front");
+		mineBack = Core.atlas.find(sprite + "-back");
 		mineIndicator = Core.atlas.find(sprite + "-indicator");
 		mineOutline = Core.atlas.find(sprite + "-outline");
 	}
@@ -98,7 +98,12 @@ public class MineBulletType extends BulletType {
 		Drawf.shadow(b.x, b.y, size * 1.7f);
 		Draw.rect(mineOutline, b.x, b.y, size, size, b.rotation());
 		Draw.rect(mineBase, b.x, b.y, size, size, b.rotation());
-		Draw.rect(mineLight, b.x, b.y, size, size, b.rotation());
+
+		Draw.color(frontColor);
+		Draw.rect(mineFront, b.x, b.y, size, size, b.rotation());
+		Draw.color(backColor);
+		Draw.rect(mineBack, b.x, b.y, size, size, b.rotation());
+
 		Draw.reset();
 
 		if (b.fdata() < 0) {

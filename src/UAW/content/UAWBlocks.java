@@ -275,7 +275,9 @@ public class UAWBlocks implements ContentList {
 				Items.plastanium, 125
 			));
 			ammo(
-				Items.graphite, canisterBasic
+				Items.graphite, canisterBasic,
+				UAWItems.cryogel, canisterCryo,
+				Items.pyratite, canisterIncend
 			);
 			size = 3;
 			range = 45 * tilesize;

@@ -10,17 +10,25 @@ import mindustry.entities.effect.MultiEffect;
 import mindustry.graphics.Pal;
 
 import static mindustry.Vars.tilesize;
-import static mindustry.content.Bullets.*;
+import static mindustry.content.Bullets.fragGlass;
 
 public class UAWBullets implements ContentList {
-	public static BulletType
-		smallCopper, smallDense, smallPiercing, smallIncendiary, smallCryo,
+	public static BulletType placeholder,
+
+	// Standard / Basic
+	smallCopper, smallDense, smallPiercing, smallIncendiary, smallCryo,
 		mediumPiercing, mediumStandard, mediumSurge, mediumIncendiary, mediumCryo,
 		heavyCopper, heavyDense, heavyHoming, heavyThorium, heavySurge, heavyPiercing, heavyIncendiary, heavyCryo,
-		buckshotLead, buckshotIncend, buckshotCryo,
+
+	// Buckshots
+	buckshotLead, buckshotIncend, buckshotCryo,
 		buckshotMedium, buckshotMediumIncend, buckshotMediumCryo, buckshotMediumPiercing, buckshotMediumFrag,
-		mineBasic, mineIncend, mineCryo, mineOil, mineEMP, mineSpore,
-		canisterBasic, canisterIncend, canisterCryo, canisterOil, canisterEMP, canisterSpore, canisterNuke;
+
+	// Mines
+	mineBasic, mineIncend, mineCryo, mineAA, mineEMP, mineSpore,
+
+	// Mine Canister
+	canisterBasic, canisterIncend, canisterCryo, canisterEMP, canisterSpore, canisterNuke;
 
 	@Override
 	public void load() {
@@ -293,63 +301,41 @@ public class UAWBullets implements ContentList {
 			fragBullet = fragGlass;
 		}};
 
-		mineBasic = new MineBulletType(100, 8 * tilesize, 60 * 60) {{
-			hitEffect = UAWFxD.dynamicExplosion(8 * tilesize);
-			explodeDelay = 35f;
+		mineBasic = new MineBulletType(150, 8 * tilesize, 35 * 60) {{
+			hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius);
+			frontColor = Color.valueOf("eab678");
+			backColor = Color.valueOf("d4816b");
+			explodeDelay = 45f;
 			explodeRange = 4 * tilesize;
-			frontColor = Pal.bulletYellow;
-			backColor = Pal.bulletYellowBack;
-			status = StatusEffects.blasted;
-			fragBullets = 16;
-			fragBullet = flakGlassFrag;
+			knockback = 16f;
 		}};
-//		mineIncend = new MineBulletType(75, 60, 7) {{
-//			frontColor = UAWPal.incendFront;
-//			backColor = UAWPal.incendBack;
-//			hitEffect = despawnEffect = new MultiEffect(UAWFxD.crossBlast(splashDamageRadius, frontColor), Fx.blockExplosionSmoke);
-//			fragBullets = 16;
-//			fragAngle = 360;
-//			status = StatusEffects.burning;
-//			fragBullet = heavySlagShot;
-//		}};
-//		mineCryo = new MineBulletType(75, 60, 7) {{
-//			frontColor = UAWPal.cryoFront;
-//			backColor = UAWPal.cryoMiddle;
-//			hitEffect = despawnEffect = new MultiEffect(UAWFxD.crossBlast(splashDamageRadius, backColor), Fx.blockExplosionSmoke);
-//			fragBullets = 16;
-//			fragAngle = 360;
-//			status = StatusEffects.freezing;
-//			fragBullet = heavyCryoShot;
-//		}};
-//		mineOil = new MineBulletType(75, 60, 7) {{
-//			frontColor = Pal.plastaniumFront;
-//			backColor = Pal.plastaniumBack;
-//			hitEffect = despawnEffect = new MultiEffect(UAWFxD.crossBlast(splashDamageRadius, backColor), Fx.blockExplosionSmoke);
-//			fragBullets = 16;
-//			fragAngle = 360;
-//			status = StatusEffects.tarred;
-//			fragBullet = heavyOilShot;
-//		}};
-//		mineEMP = new MineBulletType(75, 60, 12) {{
-//			frontColor = UAWPal.surgeFront;
-//			backColor = UAWPal.surgeBack;
-//			lightning = 8;
-//			lightningDamage = 7;
-//			lightningLength = 6;
-//			lightningColor = Pal.lancerLaser;
-//			hitEffect = despawnEffect = new MultiEffect(UAWFxD.crossBlast(splashDamageRadius, backColor), Fx.hitYellowLaser, Fx.blockExplosionSmoke);
-//			explodeRange = 5;
-//			status = StatusEffects.electrified;
-//		}};
-//		mineSpore = new MineBulletType(75, 60, 12) {{
-//			frontColor = Pal.spore;
-//			backColor = UAWPal.sporeMiddle;
-//			status = StatusEffects.sporeSlowed;
-//			hitEffect = despawnEffect = new MultiEffect(UAWFxD.crossBlast(splashDamageRadius, backColor), Fx.sporeSlowed, Fx.blockExplosionSmoke);
-//		}};
+		mineIncend = new MineBulletType(125, 10 * tilesize, 35 * 60) {{
+			status = StatusEffects.burning;
+			frontColor = Pal.lightishOrange;
+			backColor = Pal.lightOrange;
+			explodeDelay = 45f;
+			explodeRange = 6 * tilesize;
+			knockback = 8f;
+			hitEffect = UAWFxD.hugeExplosion(splashDamageRadius, backColor);
+		}};
+		mineCryo = new MineBulletType(125, 10 * tilesize, 35 * 60) {{
+			status = StatusEffects.freezing;
+			frontColor = UAWPal.cryoFront;
+			backColor = UAWPal.cryoBack;
+			explodeDelay = 45f;
+			explodeRange = 6f * tilesize;
+			knockback = 8f;
+			hitEffect = UAWFxD.hugeExplosion(splashDamageRadius, backColor);
+		}};
 
-		canisterBasic = new MineCanisterBulletType(mineBasic, 4, 3.5f) {{
-			ammoMultiplier = 5f;
+		canisterBasic = new MineCanisterBulletType(mineBasic, 4, 3f) {{
+			ammoMultiplier = 2f;
+		}};
+		canisterIncend = new MineCanisterBulletType(mineIncend, 3, 3.5f) {{
+			ammoMultiplier = 2f;
+		}};
+		canisterCryo = new MineCanisterBulletType(mineCryo, 3, 3.5f) {{
+			ammoMultiplier = 2f;
 		}};
 
 
