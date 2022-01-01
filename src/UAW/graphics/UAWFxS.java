@@ -11,12 +11,11 @@ import mindustry.graphics.*;
 import static arc.graphics.g2d.Draw.*;
 import static arc.graphics.g2d.Lines.stroke;
 import static arc.math.Angles.*;
-import static mindustry.Vars.*;
+import static mindustry.Vars.state;
 
 public class UAWFxS {
 	public static final Effect none = new Effect(0, 0f, e -> {
 	}),
-
 	// region Shooting
 	crossShoot = new Effect(15f, 90f, e -> {
 		color(Pal.orangeSpark, Pal.lightOrange, e.fin());
@@ -72,13 +71,13 @@ public class UAWFxS {
 			Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 1.6f));
 	}),
 
-	muzzleBreakShootSmoke = new Effect(22f, e -> {
+	muzzleBreakShootSmoke = new Effect(38f, e -> {
 		color(Pal.lightOrange, Color.lightGray, Color.gray, e.fin());
-		randLenVectors(e.id, 14, e.finpow() * 30f, e.rotation + 90, 20f, (x, y) -> {
+		randLenVectors(e.id, 14, e.finpow() * 40f, e.rotation + 90, 20f, (x, y) -> {
 			Fill.circle(e.x + x + 5, e.y + y, e.fout() * 2.4f + 0.2f);
 		});
 		color(Pal.lightOrange, Color.lightGray, Color.gray, e.fin());
-		randLenVectors(e.id, 14, e.finpow() * 30f, e.rotation - 90, 20f, (x, y) -> {
+		randLenVectors(e.id, 14, e.finpow() * 40f, e.rotation - 90, 20f, (x, y) -> {
 			Fill.circle(e.x + x - 5, e.y + y, e.fout() * 2.4f + 0.2f);
 		});
 	}),
@@ -108,13 +107,6 @@ public class UAWFxS {
 		color();
 	}),
 	// endregion Hit
-
-	applySquareOverclock = new Effect(30, e -> {
-		color(Color.valueOf("f4ba6e"));
-		stroke(2f * e.fout() + 0.5f);
-		Lines.square(e.x, e.y, 1f + (tilesize + e.fin() * e.rotation / 2f - 1f));
-	}),
-
 	// region Casings
 	casing1Double = new Effect(32f, e -> {
 		color(Pal.lightOrange, Color.lightGray, Pal.lightishGray, e.fin());

@@ -258,16 +258,16 @@ public class UAWFxD {
 			float intensity = size / 21f;
 			float smokeSize = e.fout() * size / 6;
 
-			color(Color.gray);
-			alpha(0.6f);
-			randLenVectors(e.id, 35, e.finpow() * e.lifetime, (x, y) -> {
-				color(Pal.lighterOrange, Pal.darkishGray, Color.gray, e.fin());
-				Fill.circle(e.x + x, e.y + y, smokeSize * 2f);
-			});
-
-			randLenVectors(e.id, 40, e.finpow() * (e.lifetime * 1.4f), (x, y) -> {
+			randLenVectors(e.id, 35, e.finpow() * (e.lifetime * 1.4f), (x, y) -> {
 				color(color);
 				Fill.circle(e.x + x, e.y + y, smokeSize / 1.5f);
+			});
+
+			color(Color.gray);
+			alpha(0.6f);
+			randLenVectors(e.id, 30, e.finpow() * e.lifetime, (x, y) -> {
+				color(Pal.lighterOrange, Pal.darkishGray, e.fin());
+				Fill.circle(e.x + x, e.y + y, smokeSize * 2f);
 			});
 
 			Draw.color();
@@ -288,6 +288,7 @@ public class UAWFxD {
 		});
 	}
 
+	/** Used if bullet impact has a status effect */
 	public static Effect statusHit(float lifetime, Color color) {
 		return new Effect(lifetime, e -> {
 			color(color);
@@ -296,6 +297,7 @@ public class UAWFxD {
 		});
 	}
 
+	/** Used with repeating aftershocks and status field projector */
 	public static Effect circleSplash(float size, float lifetime, Color lightColor, Color darkColor, Color splashColor) {
 		return new Effect(lifetime, e -> {
 			color(lightColor, darkColor, e.fin());
@@ -305,6 +307,7 @@ public class UAWFxD {
 		});
 	}
 
+	/** Small explosion which cause status Effects */
 	public static Effect thermalExplosion(Color frontColor, Color backColor) {
 		return new Effect(22, e -> {
 			color(frontColor);
@@ -329,6 +332,7 @@ public class UAWFxD {
 		});
 	}
 
+	/** Used if crafter has explosion effects */
 	public static Effect burstSmelt(float size, Color frontColor, Color backColor) {
 		return new Effect(35, 100f, e -> {
 			float length = e.finpow() * (size * 2.5f);
