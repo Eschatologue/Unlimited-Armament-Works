@@ -36,6 +36,14 @@ public class MineCanisterBulletType extends BasicBulletType {
 		displayAmmoMultiplier = false;
 	}
 
+	public MineCanisterBulletType(BulletType mineType, int mineCount) {
+		this(mineType, mineCount, 3f);
+	}
+
+	public MineCanisterBulletType(BulletType mineType) {
+		this(mineType, 4, 3f);
+	}
+
 	@Override
 	public void update(Bullet b) {
 		super.update(b);

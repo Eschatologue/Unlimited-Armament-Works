@@ -13,8 +13,8 @@ import mindustry.entities.effect.MultiEffect;
 import mindustry.gen.Sounds;
 import mindustry.graphics.*;
 
-import static arc.graphics.g2d.Draw.*;
-import static arc.graphics.g2d.Lines.*;
+import static arc.graphics.g2d.Draw.color;
+import static arc.graphics.g2d.Lines.stroke;
 import static mindustry.Vars.tilesize;
 import static mindustry.content.Bullets.fragGlass;
 
@@ -333,26 +333,19 @@ public class UAWBullets implements ContentList {
 			knockback = 8f;
 			hitEffect = UAWFxD.hugeExplosion(splashDamageRadius, backColor);
 		}};
-		mineEMP = new MineBulletType(75, 12 * tilesize, 35 * 60) {{
+		mineEMP = new MineBulletType(75, 10 * tilesize, 30 * 60) {{
 			status = UAWStatusEffects.EMP;
+			statusDuration = 120f;
 			frontColor = UAWPal.titaniumBlueFront;
 			backColor = UAWPal.titaniumBlueBack;
-			explodeDelay = 45f;
-			explodeRange = 6f * tilesize;
+			explodeDelay = 50f;
+			explodeRange = 7f * tilesize;
 			lightningColor = frontColor;
-			lightning = 12;
-			lightningLength = 7;
+			lightning = 15;
+			lightningDamage = 5;
+			lightningLength = 12;
 			lightningLengthRand = 7;
 			hitSound = Sounds.plasmaboom;
-			lightningType = new BulletType(0.0001f, 25f){{
-				lifetime = 30f;
-				hitEffect = Fx.hitLancer;
-				despawnEffect = Fx.none;
-				statusDuration = 10f;
-				hittable = false;
-				healPercent = 2f;
-				collidesTeam = true;
-			}};
 			hitEffect = new Effect(50f, 100f, e -> {
 				e.scaled(7f, b -> {
 					color(frontColor, b.fout());
@@ -375,29 +368,29 @@ public class UAWBullets implements ContentList {
 				Fill.circle(e.x, e.y, 12f * e.fout());
 				color();
 				Fill.circle(e.x, e.y, 6f * e.fout());
-				Drawf.light(e.x, e.y, splashDamageRadius * 1.6f, Pal.heal, e.fout());
+				Drawf.light(e.x, e.y, splashDamageRadius * 1.6f, frontColor, e.fout());
+				Fx.chainLightning.at(e.x, e.y, frontColor);
 			});
 		}};
 
-		canisterBasic = new MineCanisterBulletType(mineBasic, 4, 3f) {{
+		canisterBasic = new MineCanisterBulletType(mineBasic) {{
 			ammoMultiplier = 2f;
 		}};
-		canisterIncend = new MineCanisterBulletType(mineIncend, 3, 3.5f) {{
+		canisterIncend = new MineCanisterBulletType(mineIncend, 3) {{
 			ammoMultiplier = 2f;
 			frontColor = Pal.lightishOrange;
 			backColor = Pal.lightOrange;
 		}};
-		canisterCryo = new MineCanisterBulletType(mineCryo, 3, 3.5f) {{
+		canisterCryo = new MineCanisterBulletType(mineCryo, 3) {{
 			ammoMultiplier = 2f;
 			frontColor = UAWPal.cryoFront;
 			backColor = UAWPal.cryoMiddle;
 		}};
-		canisterEMP = new MineCanisterBulletType(mineEMP, 3, 3.5f) {{
+		canisterEMP = new MineCanisterBulletType(mineEMP, 3) {{
 			ammoMultiplier = 2f;
 			frontColor = UAWPal.titaniumBlueFront;
 			backColor = UAWPal.titaniumBlueBack;
 		}};
-
 
 
 	}
