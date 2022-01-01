@@ -40,7 +40,7 @@ public class UAWItemTurret extends ItemTurret {
 	@Override
 	public void load() {
 		super.load();
-		baseRegion = Core.atlas.find(name + "-base", "UAWbase-" + size);
+		baseRegion = Core.atlas.find(name + "-base", "uaw-base-" + size);
 	}
 
 	public class CustomItemTurretBuild extends ItemTurretBuild {
