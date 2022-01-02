@@ -45,7 +45,7 @@ public class UAWBlocks implements ContentList {
 	// Drills
 	oilDerrick,
 	// Crafters
-	gelatinizer, carburizingFurnace, surgeMixer, petroleumSmelter, petroleumSeperator, anthraciteCrystallizer,
+	gelatinizer, carburizingFurnace, surgeMixer, petroleumSmelter, petroleumSeperator, blastPress, rotaryCompressor, anthraciteCrystallizer,
 	// Power
 	petroleumGenerator,
 	// Defense
@@ -618,7 +618,7 @@ public class UAWBlocks implements ContentList {
 
 		rotodynamicPump = new RotatingLiquidPump("rotodynamic-pump") {{
 			requirements(Category.liquid, with(
-				Items.lead, 160,
+				Items.lead, 150,
 				Items.metaglass, 60,
 				Items.silicon, 60,
 				Items.plastanium, 60,
@@ -627,11 +627,11 @@ public class UAWBlocks implements ContentList {
 			));
 			size = 3;
 			pumpAmount = 0.45f;
-			liquidCapacity = 120f;
+			liquidCapacity = 240f;
 
-			consumes.power(2f);
+			consumes.liquid(Liquids.oil, 1f);
+			consumes.power(1f);
 		}};
-
 		oilDerrick = new Fracker("oil-derrick") {{
 			requirements(Category.production, with(
 				Items.titanium, 300,
@@ -650,7 +650,7 @@ public class UAWBlocks implements ContentList {
 			attribute = Attribute.oil;
 			baseEfficiency = 0.5f;
 			itemUseTime = 120f;
-			rotateSpeed = -2f;
+			rotateSpeed = -2.5f;
 
 			squareSprite = false;
 			floating = true;
@@ -748,12 +748,11 @@ public class UAWBlocks implements ContentList {
 				new ItemStack(Items.lead, 4),
 				new ItemStack(UAWItems.anthracite, 4)
 			);
-			consumes.liquid(Liquids.oil, 1.5f);
+			consumes.liquid(Liquids.oil, 2f);
 			outputItems = with(
 				Items.silicon, 12,
 				Items.metaglass, 12
 			);
-			consumes.power(2f);
 			hasItems = true;
 			hasLiquids = true;
 			size = 4;

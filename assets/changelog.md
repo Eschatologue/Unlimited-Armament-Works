@@ -1,3 +1,37 @@
+
+# Update 0.7.6
+**Update 0.7.6** is now here, and with it came massive changes to UAW as a whole. Brand new petroleum system (well, a part of it), mine reworks and various other changes that definetly wouldnt take a whole month if i didnt procasinate
+
+## Whats new?
+1. New Item
+	- **Anthracite**
+		- *Also referred to as hard coal, is a hard, compact style of coal that encompasses a sub-metallic luster. It's has the most carbon content, the fewest impurities, and the highest energy density of every type of coal.*
+		- A rare type of coal that can be acquired from filtering oil and crystalizing coal.
+		- Stable yet very flammable
+		- Currently only used for **Petroleum Smelter**, it will have more use in the future.
+2. Petroleum System
+	- The wide array of blocks uses little to no power but they heavily relies on constant supply of oil and will explode violently if destroyed, but they are much more powerful than vanilla crafters
+	1. Petroleum Smelter
+		- Produce huge amount of silicon and metaglass using sand, lead and anthracite
+	2. Petroleum Seperator
+		- Filters out oil for coal and anthracite 
+	3. Anthracite Crystalizer
+		- Crystalizes coal into anthracite 
+	4. Petroleum Generator
+		- Generates power from oil
+	5. Rotodynamic Pump
+		- Pumps out liquid faster than thermal pump 
+	6. Oil Derrick
+		- Extracts oil from deep beneath the planet crust, can be placed on water
+3. Pressurized Liquid Transpportation Conduits
+	- An upgrade from armored conduits, transfers liquid much faster than its predecessor, more armored, but requires power to operate, more advanced version of bridge conduit, router, and juction is also included    
+4. Proximity Mine Reworks
+	- Zounderkite will now displays the correct info's for land mine
+	- Mines will now beep before exploding
+	- Better explosions effects 
+
+
+
 # Update 0.7.5
 
 **Update 0.7.5** is here featuring a new specialist unit tree, a new turret, and some other changes

@@ -18,7 +18,7 @@ public class UAWStatusEffects implements ContentList {
 			reloadMultiplier = speedMultiplier = 0.6f;
 			show = false;
 		}};
-		EMP = new StatusEffect("EMP") {{
+		EMP = new StatusEffect("emp") {{
 			effect = new MultiEffect(
 				Fx.hitLancer,
 				Fx.smoke

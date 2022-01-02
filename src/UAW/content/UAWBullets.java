@@ -158,7 +158,7 @@ public class UAWBullets implements ContentList {
 			hitSize = 5;
 			height = 30f;
 			width = 10f;
-			shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
+			shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame, UAWFxS.muzzleBreakShootSmoke);
 			smokeEffect = Fx.shootBigSmoke;
 			hitEffect = Fx.hitBulletBig;
 			despawnHit = true;
@@ -169,7 +169,7 @@ public class UAWBullets implements ContentList {
 			hitSize = 5;
 			height = 25f;
 			width = 15f;
-			shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
+			shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame, UAWFxS.muzzleBreakShootSmoke);
 			hitEffect = Fx.hitBulletBig;
 			despawnHit = true;
 			smokeEffect = Fx.shootBigSmoke;
@@ -182,7 +182,7 @@ public class UAWBullets implements ContentList {
 			height = 30f;
 			width = 10f;
 			homingPower = 0.16f;
-			shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
+			shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame, UAWFxS.muzzleBreakShootSmoke);
 			smokeEffect = Fx.shootBigSmoke;
 			hitEffect = Fx.hitBulletBig;
 			despawnHit = true;
@@ -193,7 +193,7 @@ public class UAWBullets implements ContentList {
 			hitSize = 5;
 			height = 30f;
 			width = 16f;
-			shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
+			shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame, UAWFxS.muzzleBreakShootSmoke);
 			smokeEffect = Fx.shootBigSmoke;
 			hitEffect = Fx.hitBulletBig;
 			despawnHit = true;
@@ -205,7 +205,7 @@ public class UAWBullets implements ContentList {
 			hitSize = 6f;
 			height = 22f;
 			width = 10f;
-			shootEffect = new MultiEffect(Fx.shootBig2, Fx.hitBulletBig, UAWFxS.shootSurgeFlame);
+			shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame, UAWFxS.muzzleBreakShootSmoke);
 			armorIgnoreScl = 0.6f;
 			smokeEffect = Fx.shootBigSmoke;
 			ammoMultiplier = 2;
@@ -214,7 +214,7 @@ public class UAWBullets implements ContentList {
 			hitSize = 6f;
 			height = 20f;
 			width = 8f;
-			shootEffect = new MultiEffect(Fx.shootBig2, Fx.hitBulletBig, UAWFxS.shootSurgeFlame);
+			shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame, UAWFxS.muzzleBreakShootSmoke);
 			hitEffect = Fx.hitBulletBig;
 			despawnHit = true;
 			armorIgnoreScl = 0.6f;
