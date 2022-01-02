@@ -317,6 +317,9 @@ public class UAWBullets implements ContentList {
 		}};
 		mineIncend = new MineBulletType(125, 10 * tilesize, 35 * 60) {{
 			status = StatusEffects.burning;
+			puddleAmount = 30;
+			puddleLiquid = Liquids.oil;
+			makeFire = true;
 			frontColor = Color.valueOf("ffaa5f");
 			backColor = Color.valueOf("d37f47");
 			explodeDelay = 45f;

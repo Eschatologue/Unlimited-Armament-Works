@@ -6,11 +6,13 @@ import arc.audio.Sound;
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.util.*;
-import mindustry.content.Fx;
+import mindustry.Vars;
+import mindustry.content.*;
 import mindustry.entities.*;
 import mindustry.entities.bullet.BulletType;
 import mindustry.gen.*;
 import mindustry.graphics.*;
+import mindustry.world.blocks.environment.Floor;
 
 public class MineBulletType extends BulletType {
 	/** Light that will appear when mine is triggered */
@@ -29,6 +31,11 @@ public class MineBulletType extends BulletType {
 	public float explodeDelay = 36f;
 	/** How big is the mine */
 	public float size = 24;
+	/**
+	 * [TODO]
+	 * How long does it takes for the mine to drown, set to < 0 to disable
+	 */
+	public float mineDrownTime = 30f;
 
 	public MineBulletType(float splashDamage, float splashRadius, float lifetime, String sprite) {
 		this.splashDamage = splashDamage;
@@ -71,7 +78,28 @@ public class MineBulletType extends BulletType {
 	}
 
 	@Override
+	public void draw(Bullet b) {
+		Drawf.shadow(b.x, b.y, size * 1.7f);
+		Draw.rect(mineOutline, b.x, b.y, size, size, b.rotation());
+		Draw.rect(mineBase, b.x, b.y, size, size, b.rotation());
+
+		Draw.color(frontColor);
+		Draw.rect(mineFront, b.x, b.y, size, size, b.rotation());
+		Draw.color(backColor);
+		Draw.rect(mineBack, b.x, b.y, size, size, b.rotation());
+
+		Draw.reset();
+
+		if (b.fdata() < 0) {
+			Draw.color(detonationColor);
+			Draw.rect(mineIndicator, b.x, b.y, size, size, b.rotation());
+		}
+	}
+
+	@Override
 	public void update(Bullet b) {
+		Floor floor = Vars.world.floorWorld(b.x, b.y);
+		Color liquidColor = floor.mapColor.equals(Color.black) ? Blocks.water.mapColor : floor.mapColor;
 		super.update(b);
 		// Copied from flakBullet
 		if (b.fdata < 0f) return;
@@ -93,25 +121,4 @@ public class MineBulletType extends BulletType {
 			);
 		}
 	}
-
-	@Override
-	public void draw(Bullet b) {
-		Drawf.shadow(b.x, b.y, size * 1.7f);
-		Draw.rect(mineOutline, b.x, b.y, size, size, b.rotation());
-		Draw.rect(mineBase, b.x, b.y, size, size, b.rotation());
-
-		Draw.color(frontColor);
-		Draw.rect(mineFront, b.x, b.y, size, size, b.rotation());
-		Draw.color(backColor);
-		Draw.rect(mineBack, b.x, b.y, size, size, b.rotation());
-
-		Draw.reset();
-
-		if (b.fdata() < 0) {
-			Draw.color(detonationColor);
-			Draw.rect(mineIndicator, b.x, b.y, size, size, b.rotation());
-		}
-
-	}
-
 }

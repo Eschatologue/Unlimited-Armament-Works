@@ -470,7 +470,7 @@ public class UAWBlocks implements ContentList {
 			);
 		}};
 
-		buckshot = new ItemTurret("buckshot") {{
+		buckshot = new UAWItemTurret("buckshot") {{
 			requirements(Category.turret, with(
 				Items.copper, 120,
 				Items.lead, 200,
