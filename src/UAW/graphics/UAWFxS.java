@@ -73,13 +73,11 @@ public class UAWFxS {
 
 	muzzleBreakShootSmoke = new Effect(38f, e -> {
 		color(Pal.lightOrange, Color.lightGray, Color.gray, e.fin());
-		randLenVectors(e.id, 14, e.finpow() * 40f, e.rotation + 90, 20f, (x, y) -> {
-			Fill.circle(e.x + x + 5, e.y + y, e.fout() * 2.4f + 0.2f);
-		});
+		randLenVectors(e.id, 14, e.finpow() * 40f, e.rotation + 90, 20f, (x, y) ->
+			Fill.circle(e.x + x + 5, e.y + y, e.fout() * 2.4f + 0.2f));
 		color(Pal.lightOrange, Color.lightGray, Color.gray, e.fin());
-		randLenVectors(e.id, 14, e.finpow() * 40f, e.rotation - 90, 20f, (x, y) -> {
-			Fill.circle(e.x + x - 5, e.y + y, e.fout() * 2.4f + 0.2f);
-		});
+		randLenVectors(e.id, 14, e.finpow() * 40f, e.rotation - 90, 20f, (x, y) ->
+			Fill.circle(e.x + x - 5, e.y + y, e.fout() * 2.4f + 0.2f));
 	}),
 	// endregion Shooting
 	// region Hit
@@ -90,20 +88,29 @@ public class UAWFxS {
 		Lines.circle(e.x, e.y, circleRad);
 	}).layer(Layer.debris),
 
-	cryoHit = new Effect(40f, e -> {
-		color(UAWPal.cryoFront, UAWPal.cryoBack, e.fin());
-
+	bulletImpactHit = new Effect(38f, e -> {
+		color(e.color, e.fin());
 		randLenVectors(e.id, 4, 2f + e.fin() * 10f, (x, y) -> Fill.circle(e.x + x, e.y + y, 0.2f + e.fout() * 1.6f));
-
 		color();
 	}),
 
-	plastHit = new Effect(40f, e -> {
-		color(Pal.plastaniumFront, Pal.plastaniumBack, e.fin());
+	cryoHit = new Effect(38f, e -> {
+		color(UAWPal.cryoFront, UAWPal.cryoBack, e.fin());
+		randLenVectors(e.id, 4, 2f + e.fin() * 10f, (x, y) -> Fill.circle(e.x + x, e.y + y, 0.2f + e.fout() * 1.6f));
+		color();
+	}),
 
-		randLenVectors(e.id, 4, 2f + e.fin() * 10f, (x, y) -> {
-			Fill.circle(e.x + x, e.y + y, 0.2f + e.fout() * 1.6f);
-		});
+	plastHit = new Effect(38f, e -> {
+		color(Pal.plastaniumFront, Pal.plastaniumBack, e.fin());
+		randLenVectors(e.id, 4, 2f + e.fin() * 10f, (x, y) ->
+			Fill.circle(e.x + x, e.y + y, 0.2f + e.fout() * 1.6f));
+		color();
+	}),
+
+	surgeHit = new Effect(38f, e -> {
+		color(UAWPal.surgeFront, UAWPal.surgeBack, e.fin());
+		randLenVectors(e.id, 4, 2f + e.fin() * 10f, (x, y) ->
+			Fill.circle(e.x + x, e.y + y, 0.2f + e.fout() * 1.6f));
 		color();
 	}),
 	// endregion Hit
@@ -220,33 +227,29 @@ public class UAWFxS {
 	pyraSmokeTrail = new Effect(33f, 80f, e -> {
 		color(Pal.lightPyraFlame, Color.lightGray, Color.valueOf("ddcece"), e.fin() * e.fin());
 
-		randLenVectors(e.id, 8, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) -> {
-			Fill.circle(e.x + x, e.y + y, 0.45f + e.fout() * 2f);
-		});
+		randLenVectors(e.id, 8, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) ->
+			Fill.circle(e.x + x, e.y + y, 0.45f + e.fout() * 2f));
 	}),
 
 	pyraSmokeTrailUnder = new Effect(33f, 80f, e -> {
 		color(Pal.lightPyraFlame, Color.lightGray, Color.valueOf("ddcece"), e.fin() * e.fin());
 
-		randLenVectors(e.id, 8, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) -> {
-			Fill.circle(e.x + x, e.y + y, 0.45f + e.fout() * 2f);
-		});
+		randLenVectors(e.id, 8, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) ->
+			Fill.circle(e.x + x, e.y + y, 0.45f + e.fout() * 2f));
 	}).layer(Layer.flyingUnitLow - 1.05f),
 
 	cryoSmokeTrail = new Effect(33f, 80f, e -> {
 		color(UAWPal.cryoFront, Color.lightGray, Color.valueOf("ddcece"), e.fin() * e.fin());
 
-		randLenVectors(e.id, 8, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) -> {
-			Fill.circle(e.x + x, e.y + y, 0.45f + e.fout() * 2f);
-		});
+		randLenVectors(e.id, 8, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) ->
+			Fill.circle(e.x + x, e.y + y, 0.45f + e.fout() * 2f));
 	}),
 
 	cryoSmokeTrailUnder = new Effect(33f, 80f, e -> {
 		color(UAWPal.cryoFront, Color.lightGray, Color.valueOf("ddcece"), e.fin() * e.fin());
 
-		randLenVectors(e.id, 8, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) -> {
-			Fill.circle(e.x + x, e.y + y, 0.45f + e.fout() * 2f);
-		});
+		randLenVectors(e.id, 8, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) ->
+			Fill.circle(e.x + x, e.y + y, 0.45f + e.fout() * 2f));
 	}).layer(Layer.flyingUnitLow - 1.05f),
 
 	torpedoRippleTrail = new Effect(180, e -> {

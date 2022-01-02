@@ -5,6 +5,7 @@ import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.math.geom.Vec2;
 import arc.util.*;
+import mindustry.content.Fx;
 import mindustry.entities.Effect;
 import mindustry.graphics.*;
 
@@ -26,55 +27,9 @@ public class UAWFxD {
 			Draw.color(color);
 
 			for (int i : Mathf.signs) {
-				Drawf.tri(e.x, e.y, size / 2.5f * e.fout(), size, e.rotation + 90.0F * i);
-				Drawf.tri(e.x, e.y, size / 4 * e.fout(), size, e.rotation + 20.0F * i);
+				Drawf.tri(e.x, e.y, size / 2.3f * e.fout(), size, e.rotation + 90 * i);
+				Drawf.tri(e.x, e.y, size / 3.6f * e.fout(), size, e.rotation + 20 * i);
 			}
-		});
-	}
-
-	public static Effect instTrail(Color frontColor, Color backColor) {
-		return new Effect(30, e -> {
-			for (int i = 0; i < 2; i++) {
-				color(i == 0 ? backColor : frontColor);
-
-				float m = i == 0 ? 1f : 0.5f;
-
-				float rot = e.rotation + 180f;
-				float w = 15f * e.fout() * m;
-				Drawf.tri(e.x, e.y, w, (30f + Mathf.randomSeedRange(e.id, 15f)) * m, rot);
-				Drawf.tri(e.x, e.y, w, 10f * m, rot + 180f);
-			}
-
-			Drawf.light(e.x, e.y, 60f, backColor, 0.6f * e.fout());
-		});
-	}
-
-	public static Effect instHit(Color frontColor, Color backColor) {
-		return new Effect(20f, 200f, e -> {
-			color(backColor);
-			for (int i = 0; i < 2; i++) {
-				color(i == 0 ? backColor : frontColor);
-
-				float m = i == 0 ? 1f : 0.5f;
-
-				for (int j = 0; j < 5; j++) {
-					float rot = e.rotation + Mathf.randomSeedRange(e.id + j, 50f);
-					float w = 23f * e.fout() * m;
-					Drawf.tri(e.x, e.y, w, (80f + Mathf.randomSeedRange(e.id + j, 40f)) * m, rot);
-					Drawf.tri(e.x, e.y, w, 20f * m, rot + 180f);
-				}
-			}
-			e.scaled(10f, c -> {
-				color(frontColor);
-				stroke(c.fout() * 2f + 0.2f);
-				Lines.circle(e.x, e.y, c.fin() * 30f);
-			});
-			e.scaled(12f, c -> {
-				color(backColor);
-				randLenVectors(e.id, 25, 5f + e.fin() * 80f, e.rotation, 60f, (x, y) -> {
-					Fill.square(e.x + x, e.y + y, c.fout() * 3f, 45f);
-				});
-			});
 		});
 	}
 
@@ -254,7 +209,7 @@ public class UAWFxD {
 			b.scaled((baseLifetime / 1.5f), e -> {
 				e.scaled(5 + intensity * 2.5f, i -> {
 					Draw.color(frontColor);
-					stroke((3.1f + intensity / 4f) * i.fout());
+					stroke((3f + intensity / 4f) * i.fout());
 					Lines.circle(e.x, e.y, (3f + i.fin() * 14f) * intensity);
 					Drawf.light(e.x, e.y, i.fin() * 14f * 2f * intensity, Color.white, 0.9f * e.fout());
 				});
@@ -266,11 +221,10 @@ public class UAWFxD {
 					Fill.circle(e.x + x, e.y + y, fout * ((2f + intensity) * 1.3f));
 				});
 
-				color(frontColor, backColor, Color.gray, e.fin());
 				stroke((1.7f * e.fout()) * (1f + (intensity - 1f) / 2f));
-
 				Draw.z(Layer.effect + 0.001f);
 				randLenVectors(e.id + 1, e.finpow() + 0.001f, (int) (6 * intensity), 35f * intensity, (x, y, in, out) -> {
+					color(frontColor, backColor, Color.gray, e.fin());
 					lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), 1f + out * 4 * (3f + intensity));
 					Drawf.light(e.x + x, e.y + y, (out * 4 * (3f + intensity)) * 3.5f, Draw.getColor(), 0.8f);
 				});
@@ -278,56 +232,37 @@ public class UAWFxD {
 		});
 	}
 
-	/**
-	 * Vanilla Reactor Explosion with adjustable color
-	 * <p>Use this with CircleApply and if the explosion has statusEffect</p>
-	 *
-	 * @param size
-	 * 	How big is the explosion, calculated in world unit
-	 * @param color
-	 * 	The spark color
-	 */
-	@Deprecated
-	public static Effect hugeExplosion(float size, Color color) {
-		return new Effect(size * 0.8f, 450f, e -> {
-			float intensity = size / 21f;
-			float smokeSize = e.fout() * size / 6;
-
-			randLenVectors(e.id, 35, e.finpow() * (e.lifetime * 1.4f), (x, y) -> {
-				color(color);
-				Fill.circle(e.x + x, e.y + y, smokeSize / 1.5f);
+	public static Effect empBlast(float size, int point, Color frontColor) {
+		float length = (size * 1.7f) / 2;
+		float width = (size / 13.3f) / 2;
+		return new Effect(50f, 100f, e -> {
+			e.scaled(7f, b -> {
+				color(frontColor, b.fout());
+				Fill.circle(e.x, e.y, size);
 			});
 
-			color(Color.gray);
-			alpha(0.6f);
-			randLenVectors(e.id, 30, e.finpow() * e.lifetime, (x, y) -> {
-				Fill.circle(e.x + x, e.y + y, smokeSize * 2f);
-			});
+			color(frontColor);
+			stroke(e.fout() * 3f);
+			Lines.circle(e.x, e.y, size);
 
-			Draw.color();
-			e.scaled(5 + intensity * 2f, i -> {
-				stroke((3.1f + intensity / 5f) * i.fout());
-				Lines.circle(e.x, e.y, (3f + i.fin() * 14f) * intensity);
-				Drawf.light(e.x, e.y, i.fin() * 14f * 2f * intensity, Color.lightGray, 0.3f * e.fout());
-			});
+			float offset = Mathf.randomSeed(e.id, 360f);
+			for (int i = 0; i < point; i++) {
+				float angle = i * 360f / point + offset;
+				//for(int s : Mathf.zeroOne){
+				Drawf.tri(e.x + Angles.trnsx(angle, size), e.y + Angles.trnsy(angle, size), 6f, 50f * e.fout(), angle/* + s*180f*/);
+				//}
+			}
 
-			color(Pal.bulletYellowBack, Color.gray, e.fin());
-			stroke((2f * e.fout()));
+			for (int i = 0; i < 4; i++) {
+				Drawf.tri(e.x, e.y, (width * 2), (length * 1.5f) * e.fout(), i * e.rotation);
+			}
 
-			Draw.z(Layer.effect + 0.001f);
-			randLenVectors(e.id + 1, e.finpow() + 0.001f, (int) (8 * intensity), 28f * intensity, (x, y, in, out) -> {
-				lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), 1f + out * 4 * (4f + intensity));
-				Drawf.light(e.x + x, e.y + y, (out * 4 * (5f + intensity)) * 3.5f, Draw.getColor(), 0.8f);
-			});
-		});
-	}
-
-	/** Used if bullet impact has a status effect */
-	public static Effect statusHit(float lifetime, Color color) {
-		return new Effect(lifetime, e -> {
-			color(color);
-			randLenVectors(e.id, 7, 1.5f + e.fin() * 2.5f, (x, y) ->
-				Fill.circle(e.x + x, e.y + y, e.fout() * 1.5f));
+			color();
+			for (int i = 0; i < 4; i++) {
+				Drawf.tri(e.x, e.y, width, (length / 2.7f) * e.fout(), i * e.rotation);
+			}
+			Drawf.light(e.x, e.y, size * 1.6f, frontColor, e.fout());
+			Fx.chainLightning.at(e.x, e.y, frontColor);
 		});
 	}
 
@@ -394,19 +329,17 @@ public class UAWFxD {
 	public static Effect smokeCloud(Color color) {
 		return new Effect(80f, e -> {
 			color(color);
-			randLenVectors(e.id, e.fin(), 12, 15f, (x, y, fin, fout) -> {
-				Fill.circle(e.x + x, e.y + y, 6f * fout);
-			});
+			randLenVectors(e.id, e.fin(), 12, 15f, (x, y, fin, fout) ->
+				Fill.circle(e.x + x, e.y + y, 6f * fout));
 		});
 	}
 
 	public static Effect effectCloud(Color color) {
-		return new Effect(140, 400f, e -> {
+		return new Effect(140, 400f, e ->
 			randLenVectors(e.id, 22, e.finpow() * 160f, (x, y) -> {
 				float size = e.fout() * 15f;
 				color(color, Color.lightGray, e.fin());
 				Fill.circle(e.x + x, e.y + y, size / 2f);
-			});
-		});
+			}));
 	}
 }

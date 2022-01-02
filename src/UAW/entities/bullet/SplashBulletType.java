@@ -1,6 +1,6 @@
 package UAW.entities.bullet;
 
-import UAW.graphics.UAWFxD;
+import UAW.graphics.*;
 import arc.audio.Sound;
 import arc.graphics.Color;
 import arc.math.*;
@@ -30,7 +30,7 @@ public class SplashBulletType extends BulletType {
 	public boolean customSplashEffect = false;
 	public Sound applySound = Sounds.shotgun;
 	public Color frontColor, backColor;
-	public Effect particleEffect;
+	public Effect particleEffect = UAWFxS.bulletImpactHit;
 
 	float splashDuration = (splashDelay * splashAmount);
 
@@ -40,10 +40,8 @@ public class SplashBulletType extends BulletType {
 		this.splashDamage = splashDamage;
 		this.splashDamageRadius = radius;
 		lifetime = splashDuration;
-		hittable = false;
 		hitSize = speed = 0;
 		smokeEffect = despawnEffect = hitEffect = Fx.none;
-		particleEffect = UAWFxD.statusHit(10f, frontColor);
 		displayAmmoMultiplier = false;
 		absorbable = hittable = false;
 		pierceBuilding = pierce = true;
@@ -63,7 +61,8 @@ public class SplashBulletType extends BulletType {
 			for (int j = 0; j < ((splashAmount) * 15); j++) {
 				particleEffect.at(
 					b.x + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius)),
-					b.y + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius))
+					b.y + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius)),
+					frontColor
 				);
 			}
 			if (status != StatusEffects.none) {

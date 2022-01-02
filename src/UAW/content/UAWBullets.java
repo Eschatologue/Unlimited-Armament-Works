@@ -3,20 +3,15 @@ package UAW.content;
 import UAW.entities.bullet.*;
 import UAW.graphics.*;
 import arc.graphics.Color;
-import arc.graphics.g2d.*;
-import arc.math.*;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
-import mindustry.entities.Effect;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.gen.Sounds;
-import mindustry.graphics.*;
+import mindustry.graphics.Pal;
 
-import static arc.graphics.g2d.Draw.color;
-import static arc.graphics.g2d.Lines.stroke;
 import static mindustry.Vars.tilesize;
-import static mindustry.content.Bullets.fragGlass;
+import static mindustry.content.Bullets.*;
 
 public class UAWBullets implements ContentList {
 	public static BulletType placeholder,
@@ -29,6 +24,7 @@ public class UAWBullets implements ContentList {
 	// Buckshots
 	buckshotLead, buckshotIncend, buckshotCryo,
 		buckshotMedium, buckshotMediumIncend, buckshotMediumCryo, buckshotMediumPiercing, buckshotMediumFrag,
+		buckshotLarge, buckshotLargeIncend, buckshotLargeCryo, buckshotLargePlast, buckshotLargeFrag, buckshotLargeEMP,
 
 	// Mines
 	mineBasic, mineIncend, mineCryo, mineAA, mineEMP, mineSpore,
@@ -307,6 +303,75 @@ public class UAWBullets implements ContentList {
 			fragBullet = fragGlass;
 		}};
 
+		buckshotLargeIncend = new BuckshotBulletType(6.5f, 30f) {{
+			height = width = 30;
+			pierceCap = 3;
+			frontColor = Pal.lightishOrange;
+			backColor = Pal.lightOrange;
+			smokeEffect = new MultiEffect(Fx.smokeCloud, Fx.shootBigSmoke2);
+			hitEffect = new MultiEffect(Fx.blastExplosion, Fx.fireHit, Fx.blastsmoke);
+			shootEffect = new MultiEffect(UAWFxD.instShoot(64, backColor), Fx.shootPyraFlame);
+			despawnEffect = UAWFxD.thermalExplosion(frontColor, backColor);
+			status = StatusEffects.burning;
+			fragBullets = 8;
+			fragBullet = heavySlagShot;
+			fragVelocityMin = 0.3f;
+			fragVelocityMax = fragVelocityMin * 1.2f;
+			fragLifeMin = 0.4f;
+			fragLifeMax = 0.8f;
+			shieldDamageMultiplier = 1.5f;
+		}};
+		buckshotLargeCryo = new BuckshotBulletType(6.5f, 30f) {{
+			height = width = 30;
+			pierceCap = 3;
+			frontColor = UAWPal.cryoFront;
+			backColor = UAWPal.cryoBack;
+			smokeEffect = new MultiEffect(Fx.smokeCloud, Fx.shootBigSmoke2);
+			hitEffect = new MultiEffect(Fx.hitBulletBig, UAWFxS.cryoHit, Fx.freezing);
+			shootEffect = new MultiEffect(UAWFxD.instShoot(64, frontColor), UAWFxS.shootCryoFlame);
+			despawnEffect = UAWFxD.thermalExplosion(frontColor, backColor);
+			status = StatusEffects.freezing;
+			fragBullets = 8;
+			fragBullet = heavyCryoShot;
+			fragVelocityMin = 0.3f;
+			fragVelocityMax = fragVelocityMin * 1.2f;
+			fragLifeMin = 0.4f;
+			fragLifeMax = 0.8f;
+			shieldDamageMultiplier = 1.5f;
+		}};
+		buckshotLargePlast = new BuckshotBulletType(6.5f, 30f) {{
+			height = width = 30;
+			pierceCap = 3;
+			frontColor = Pal.plastaniumFront;
+			backColor = Pal.plastaniumBack;
+			smokeEffect = new MultiEffect(Fx.smokeCloud, Fx.shootBigSmoke2);
+			hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.oily);
+			shootEffect = new MultiEffect(UAWFxD.instShoot(64, backColor), Fx.shootPyraFlame);
+			despawnEffect = UAWFxD.thermalExplosion(frontColor, backColor);
+			status = StatusEffects.tarred;
+			fragBullets = 8;
+			fragBullet = heavyOilShot;
+			fragVelocityMin = 0.3f;
+			fragVelocityMax = fragVelocityMin * 1.2f;
+			fragLifeMin = 0.4f;
+			fragLifeMax = 0.8f;
+			shieldDamageMultiplier = 2.8f;
+		}};
+		buckshotLargeEMP = new BuckshotBulletType(6.5f, 30f) {{
+			height = width = 30;
+			splashDamage = 2.5f * tilesize;
+			pierceCap = 2;
+			frontColor = Color.white;
+			backColor = Pal.lancerLaser;
+			smokeEffect = new MultiEffect(Fx.smokeCloud, Fx.shootBigSmoke2);
+			hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.hitLancer);
+			shootEffect = new MultiEffect(UAWFxD.instShoot(56, backColor));
+			despawnEffect = UAWFxD.empBlast(splashDamageRadius,3,frontColor);
+			status = UAWStatusEffects.EMP;
+			hitSound = Sounds.plasmaboom;
+			statusDuration = 1.5f * 60;
+		}};
+
 		mineBasic = new MineBulletType(150, 8 * tilesize, 35 * 60) {{
 			hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius);
 			frontColor = Color.valueOf("eab678");
@@ -325,7 +390,7 @@ public class UAWBullets implements ContentList {
 			explodeDelay = 45f;
 			explodeRange = 6 * tilesize;
 			knockback = 8f;
-			hitEffect = UAWFxD.hugeExplosion(splashDamageRadius, backColor);
+			hitEffect = UAWFxD.dynamicExplosion2(splashDamageRadius, frontColor, backColor);
 		}};
 		mineCryo = new MineBulletType(125, 10 * tilesize, 35 * 60) {{
 			status = StatusEffects.freezing;
@@ -334,7 +399,7 @@ public class UAWBullets implements ContentList {
 			explodeDelay = 45f;
 			explodeRange = 6f * tilesize;
 			knockback = 8f;
-			hitEffect = UAWFxD.hugeExplosion(splashDamageRadius, backColor);
+			hitEffect = UAWFxD.dynamicExplosion2(splashDamageRadius, frontColor, backColor);
 		}};
 		mineEMP = new MineBulletType(75, 10 * tilesize, 30 * 60) {{
 			status = UAWStatusEffects.EMP;
@@ -350,31 +415,7 @@ public class UAWBullets implements ContentList {
 			lightningLength = 12;
 			lightningLengthRand = 7;
 			hitSound = Sounds.plasmaboom;
-			hitEffect = new Effect(50f, 100f, e -> {
-				e.scaled(7f, b -> {
-					color(frontColor, b.fout());
-					Fill.circle(e.x, e.y, splashDamageRadius);
-				});
-
-				color(frontColor);
-				stroke(e.fout() * 3f);
-				Lines.circle(e.x, e.y, splashDamageRadius);
-
-				int points = 6;
-				float offset = Mathf.randomSeed(e.id, 360f);
-				for (int i = 0; i < points; i++) {
-					float angle = i * 360f / points + offset;
-					//for(int s : Mathf.zeroOne){
-					Drawf.tri(e.x + Angles.trnsx(angle, splashDamageRadius), e.y + Angles.trnsy(angle, splashDamageRadius), 6f, 50f * e.fout(), angle/* + s*180f*/);
-					//}
-				}
-
-				Fill.square(e.x, e.y, 12f * e.fout(), e.rotation + 45);
-				color();
-				Fill.square(e.x, e.y, 6f * e.fout(), e.rotation + 45);
-				Drawf.light(e.x, e.y, splashDamageRadius * 1.6f, frontColor, e.fout());
-				Fx.chainLightning.at(e.x, e.y, frontColor);
-			});
+			hitEffect = UAWFxD.empBlast(splashDamageRadius, 6, frontColor);
 		}};
 
 		canisterBasic = new MineCanisterBulletType(mineBasic) {{

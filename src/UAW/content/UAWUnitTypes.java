@@ -347,7 +347,7 @@ public class UAWUnitTypes implements ContentList {
 						shootEffect = UAWFxS.shootCryoFlame;
 						trailColor = UAWPal.cryoFront;
 						despawnHit = true;
-						hitEffect = UAWFxD.dynamicExplosion2(splashDamageRadius, UAWPal.cryoMiddle, backColor);
+						hitEffect = UAWFxD.dynamicExplosion2(splashDamageRadius, UAWPal.cryoMiddle, UAWPal.cryoBack);
 						trailEffect = UAWFxS.cryoSmokeTrailUnder;
 						status = StatusEffects.freezing;
 						statusDuration = 4 * 60;
