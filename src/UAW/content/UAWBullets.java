@@ -367,7 +367,7 @@ public class UAWBullets implements ContentList {
 			frontColor = Color.white;
 			backColor = Pal.lancerLaser;
 			smokeEffect = new MultiEffect(Fx.smokeCloud, Fx.shootBigSmoke2);
-			hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.hitLancer);
+			hitEffect = new MultiEffect(UAWFxS.hitLaserSpark, Fx.hitLancer);
 			shootEffect = new MultiEffect(UAWFxD.instShoot(56, backColor));
 			despawnEffect = UAWFxD.empBlast(splashDamageRadius, 3, backColor);
 			status = UAWStatusEffects.EMP;

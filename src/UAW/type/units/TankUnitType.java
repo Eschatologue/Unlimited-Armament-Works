@@ -26,6 +26,7 @@ public class TankUnitType extends UnitType {
 		super(name);
 		immunities = ObjectSet.with(StatusEffects.disarmed, UAWStatusEffects.EMP, StatusEffects.freezing);
 		flying = false;
+		drownTimeMultiplier = 0.6f;
 		constructor = MechUnit::create;
 		defaultController = GroundAI::new;
 		targetFlags = new BlockFlag[]{BlockFlag.turret, BlockFlag.repair, BlockFlag.extinguisher, BlockFlag.core, null};

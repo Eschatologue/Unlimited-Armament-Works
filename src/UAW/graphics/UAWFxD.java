@@ -251,12 +251,17 @@ public class UAWFxD {
 				Drawf.tri(
 					e.x + Angles.trnsx(angle, size),
 					e.y + Angles.trnsy(angle, size),
-					80 /13.33f,
-					size / 1.6f * e.fout(), angle);
+					80 / 13.33f,
+					size / 1.6f * e.fout(), angle
+				);
 			}
 
 			for (int i = 0; i < 4; i++) {
-				Drawf.tri(e.x, e.y, (width * 2), (length * 1.5f) * e.fout(), i * e.rotation);
+				Drawf.tri(e.x, e.y,
+					width * 2,
+					length * 1.5f * e.fout(),
+					i * e.rotation
+				);
 			}
 
 			Fill.circle(e.x, e.y, 12f * e.fout());

@@ -8,8 +8,9 @@ import arc.util.Tmp;
 import mindustry.entities.Effect;
 import mindustry.graphics.*;
 
+import static arc.graphics.g2d.Draw.rect;
 import static arc.graphics.g2d.Draw.*;
-import static arc.graphics.g2d.Lines.stroke;
+import static arc.graphics.g2d.Lines.*;
 import static arc.math.Angles.*;
 import static mindustry.Vars.state;
 
@@ -112,6 +113,17 @@ public class UAWFxS {
 		randLenVectors(e.id, 4, 2f + e.fin() * 10f, (x, y) ->
 			Fill.circle(e.x + x, e.y + y, 0.2f + e.fout() * 1.6f));
 		color();
+	}),
+
+	/** Fx.hitBulletBig but with lancer pallete */
+	hitLaserSpark = new Effect(13, e -> {
+		color(Color.white, Pal.lancerLaser, e.fin());
+		stroke(0.5f + e.fout() * 1.5f);
+
+		randLenVectors(e.id, 8, e.finpow() * 30f, e.rotation, 50f, (x, y) -> {
+			float ang = Mathf.angle(x, y);
+			lineAngle(e.x + x, e.y + y, ang, e.fout() * 4 + 1.5f);
+		});
 	}),
 	// endregion Hit
 	// region Casings

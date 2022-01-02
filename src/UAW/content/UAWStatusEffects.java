@@ -3,6 +3,7 @@ package UAW.content;
 import UAW.graphics.UAWPal;
 import mindustry.content.Fx;
 import mindustry.ctype.ContentList;
+import mindustry.entities.effect.MultiEffect;
 import mindustry.graphics.Pal;
 import mindustry.type.StatusEffect;
 
@@ -18,9 +19,12 @@ public class UAWStatusEffects implements ContentList {
 			show = false;
 		}};
 		EMP = new StatusEffect("EMP") {{
-			effect = Fx.hitLancer;
+			effect = new MultiEffect(
+				Fx.hitLancer,
+				Fx.smoke
+			);
 			color = UAWPal.titaniumBlueFront;
-			buildSpeedMultiplier = reloadMultiplier = speedMultiplier = 0.01f;
+			buildSpeedMultiplier = reloadMultiplier = speedMultiplier = 0.05f;
 		}};
 	}
 }

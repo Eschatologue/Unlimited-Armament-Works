@@ -1,7 +1,7 @@
 package UAW.entities.bullet;
 
 import arc.Events;
-import arc.util.Tmp;
+import arc.util.*;
 import mindustry.entities.bullet.BulletType;
 import mindustry.game.EventType;
 import mindustry.gen.*;
@@ -12,6 +12,8 @@ import static mindustry.Vars.player;
 public class UAWBulletType extends BulletType {
 	public float armorIgnoreScl = 0f;
 	public float shieldDamageMultiplier = 1f;
+
+	public @Nullable BulletType afterShock = null;
 
 	public UAWBulletType(float speed, float damage) {
 		this.speed = speed;
