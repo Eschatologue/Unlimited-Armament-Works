@@ -232,6 +232,7 @@ public class UAWFxD {
 		});
 	}
 
+	/** Used in conjunction with UAWFxD.dynamicExplosion if the explosion itself causes status Effects */
 	public static Effect dynamicExplosionSmoke(float size, Color color) {
 		return new Effect(size / 1.5f, 450f, e -> {
 			float smokeSize = e.fout() * size / 6;
@@ -244,9 +245,7 @@ public class UAWFxD {
 
 	/**
 	 * Vanilla Reactor Explosion with adjustable color
-	 * <p>
-	 * Use this with CircleApply and if the explosion has statusEffect
-	 * </p>
+	 * <p>Use this with CircleApply and if the explosion has statusEffect</p>
 	 *
 	 * @param size
 	 * 	How big is the explosion, calculated in world unit
@@ -257,7 +256,6 @@ public class UAWFxD {
 		return new Effect(size * 0.8f, 450f, e -> {
 			float intensity = size / 21f;
 			float smokeSize = e.fout() * size / 6;
-			e.lifetime = 43f + intensity * 35f;
 
 			randLenVectors(e.id, 35, e.finpow() * (e.lifetime * 1.4f), (x, y) -> {
 				color(color);
@@ -265,17 +263,10 @@ public class UAWFxD {
 			});
 
 			color(Color.gray);
-			alpha(0.9f);
-			for (int i = 0; i < 4; i++) {
-				rand.setSeed(e.id * 2L + i);
-				float lenScl = rand.random(0.4f, 1f);
-				int fi = i;
-				e.scaled(e.lifetime * lenScl, f ->
-					randLenVectors(e.id + fi - 1, e.fin(Interp.pow10Out), (int) (3f * intensity), 14f * intensity, (x, y, in, out) -> {
-						float fout = e.fout(Interp.pow5Out) * rand.random(0.5f, 1f);
-						Fill.circle(e.x + x, e.y + y, fout * ((2f + intensity) * 1.8f));
-					}));
-			}
+			alpha(0.6f);
+			randLenVectors(e.id, 30, e.finpow() * e.lifetime, (x, y) -> {
+				Fill.circle(e.x + x, e.y + y, smokeSize * 2f);
+			});
 
 			Draw.color();
 			e.scaled(5 + intensity * 2f, i -> {
