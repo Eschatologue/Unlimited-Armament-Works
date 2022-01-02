@@ -232,7 +232,7 @@ public class UAWFxD {
 	}
 
 	/** Dynamic Explosion with circle spark instead of lines, used with effects */
-	public static Effect dynamicExplosion2(float size, Color color) {
+	public static Effect dynamicExplosion2(float size, Color frontColor, Color backColor) {
 		return new Effect(size * 10, 500f, b -> {
 			float intensity = size / 19;
 			float baseLifetime = 26f + intensity * 15f;
@@ -253,16 +253,26 @@ public class UAWFxD {
 
 			b.scaled((baseLifetime / 1.5f), e -> {
 				e.scaled(5 + intensity * 2.5f, i -> {
-					stroke((3.1f + intensity / 5f) * i.fout());
+					Draw.color(frontColor);
+					stroke((3.1f + intensity / 4f) * i.fout());
 					Lines.circle(e.x, e.y, (3f + i.fin() * 14f) * intensity);
 					Drawf.light(e.x, e.y, i.fin() * 14f * 2f * intensity, Color.white, 0.9f * e.fout());
 				});
 
 				Draw.z(Layer.bullet + 0.001f);
-				randLenVectors(e.id + 1, e.finpow() + 0.001f, (int) (6 * intensity), 35f * intensity, (x, y, in, out) -> {
+				randLenVectors(e.id + 1, e.finpow() + 0.001f, (int) (4 * intensity), 20f * intensity, (x, y, in, out) -> {
 					float fout = e.fout(Interp.pow5Out) * rand.random(0.5f, 1f);
-					Draw.color(color);
+					Draw.color(frontColor);
 					Fill.circle(e.x + x, e.y + y, fout * ((2f + intensity) * 1.3f));
+				});
+
+				color(frontColor, backColor, Color.gray, e.fin());
+				stroke((1.7f * e.fout()) * (1f + (intensity - 1f) / 2f));
+
+				Draw.z(Layer.effect + 0.001f);
+				randLenVectors(e.id + 1, e.finpow() + 0.001f, (int) (6 * intensity), 35f * intensity, (x, y, in, out) -> {
+					lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), 1f + out * 4 * (3f + intensity));
+					Drawf.light(e.x + x, e.y + y, (out * 4 * (3f + intensity)) * 3.5f, Draw.getColor(), 0.8f);
 				});
 			});
 		});

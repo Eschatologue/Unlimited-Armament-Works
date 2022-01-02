@@ -347,7 +347,7 @@ public class UAWUnitTypes implements ContentList {
 						shootEffect = UAWFxS.shootCryoFlame;
 						trailColor = UAWPal.cryoFront;
 						despawnHit = true;
-						hitEffect = UAWFxD.dynamicExplosion2(splashDamageRadius, UAWPal.cryoMiddle);
+						hitEffect = UAWFxD.dynamicExplosion2(splashDamageRadius, UAWPal.cryoMiddle, backColor);
 						trailEffect = UAWFxS.cryoSmokeTrailUnder;
 						status = StatusEffects.freezing;
 						statusDuration = 4 * 60;
@@ -755,7 +755,7 @@ public class UAWUnitTypes implements ContentList {
 						);
 						smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
 						despawnHit = true;
-						hitEffect = UAWFxD.dynamicExplosion2(splashDamageRadius, backColor);
+						hitEffect = UAWFxD.dynamicExplosion2(splashDamageRadius, frontColor, backColor);
 						fragBullets = 1;
 						fragBullet = new SplashBulletType(splashDamage / 2, splashDamageRadius / 1.2f) {{
 							splashAmount = 5;
