@@ -334,7 +334,7 @@ public class UAWUnitTypes implements ContentList {
 					shots = 3;
 					shotDelay = 15f;
 					shootSound = UAWSfx.cruiseMissileShoot1;
-					bullet = new CruiseMissileBulletType(3f, 250) {{
+					bullet = new CruiseMissileBulletType(3f, 170) {{
 						sprite = "uaw-cruise-missile-cryo";
 						layer = Layer.flyingUnitLow - 1;
 						size = 45;

@@ -320,6 +320,7 @@ public class UAWBullets implements ContentList {
 			fragLifeMin = 0.4f;
 			fragLifeMax = 0.8f;
 			shieldDamageMultiplier = 1.5f;
+			ammoMultiplier = 4f;
 		}};
 		buckshotLargeCryo = new BuckshotBulletType(6.5f, 30f) {{
 			height = width = 30;
@@ -338,6 +339,7 @@ public class UAWBullets implements ContentList {
 			fragLifeMin = 0.4f;
 			fragLifeMax = 0.8f;
 			shieldDamageMultiplier = 1.5f;
+			ammoMultiplier = 4f;
 		}};
 		buckshotLargePlast = new BuckshotBulletType(6.5f, 30f) {{
 			height = width = 30;
@@ -356,6 +358,7 @@ public class UAWBullets implements ContentList {
 			fragLifeMin = 0.4f;
 			fragLifeMax = 0.8f;
 			shieldDamageMultiplier = 2.8f;
+			ammoMultiplier = 4f;
 		}};
 		buckshotLargeEMP = new BuckshotBulletType(6.5f, 30f) {{
 			height = width = 30;
@@ -366,10 +369,11 @@ public class UAWBullets implements ContentList {
 			smokeEffect = new MultiEffect(Fx.smokeCloud, Fx.shootBigSmoke2);
 			hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.hitLancer);
 			shootEffect = new MultiEffect(UAWFxD.instShoot(56, backColor));
-			despawnEffect = UAWFxD.empBlast(splashDamageRadius,3,frontColor);
+			despawnEffect = UAWFxD.empBlast(splashDamageRadius, 3, backColor);
 			status = UAWStatusEffects.EMP;
 			hitSound = Sounds.plasmaboom;
-			statusDuration = 1.5f * 60;
+			statusDuration = 0.3f * 60;
+			ammoMultiplier = 6f;
 		}};
 
 		mineBasic = new MineBulletType(150, 8 * tilesize, 35 * 60) {{

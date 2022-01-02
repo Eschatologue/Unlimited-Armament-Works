@@ -248,19 +248,20 @@ public class UAWFxD {
 			float offset = Mathf.randomSeed(e.id, 360f);
 			for (int i = 0; i < point; i++) {
 				float angle = i * 360f / point + offset;
-				//for(int s : Mathf.zeroOne){
-				Drawf.tri(e.x + Angles.trnsx(angle, size), e.y + Angles.trnsy(angle, size), 6f, 50f * e.fout(), angle/* + s*180f*/);
-				//}
+				Drawf.tri(
+					e.x + Angles.trnsx(angle, size),
+					e.y + Angles.trnsy(angle, size),
+					80 /13.33f,
+					size / 1.6f * e.fout(), angle);
 			}
 
 			for (int i = 0; i < 4; i++) {
 				Drawf.tri(e.x, e.y, (width * 2), (length * 1.5f) * e.fout(), i * e.rotation);
 			}
 
+			Fill.circle(e.x, e.y, 12f * e.fout());
 			color();
-			for (int i = 0; i < 4; i++) {
-				Drawf.tri(e.x, e.y, width, (length / 2.7f) * e.fout(), i * e.rotation);
-			}
+			Fill.circle(e.x, e.y, 6f * e.fout());
 			Drawf.light(e.x, e.y, size * 1.6f, frontColor, e.fout());
 			Fx.chainLightning.at(e.x, e.y, frontColor);
 		});

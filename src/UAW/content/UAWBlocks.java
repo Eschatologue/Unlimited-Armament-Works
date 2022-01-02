@@ -543,7 +543,7 @@ public class UAWBlocks implements ContentList {
 			health = 250 * size * size;
 			size = 3;
 			spread = 2.3f;
-			shots = 24;
+			shots = 20;
 			recoilAmount = 4f;
 			reloadTime = 95f;
 			shootShake = 8f;
@@ -555,8 +555,8 @@ public class UAWBlocks implements ContentList {
 			shootSound = Sounds.artillery;
 			inaccuracy = 8f;
 			rotateSpeed = 3f;
-			maxAmmo = 128;
-			ammoPerShot = 32;
+			maxAmmo = 120;
+			ammoPerShot = 30;
 			ammo(
 				Items.pyratite, buckshotLargeIncend,
 				UAWItems.cryogel, buckshotLargeCryo,

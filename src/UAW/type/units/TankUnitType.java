@@ -1,5 +1,6 @@
 package UAW.type.units;
 
+import UAW.content.UAWStatusEffects;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.math.*;
@@ -23,7 +24,7 @@ public class TankUnitType extends UnitType {
 
 	public TankUnitType(String name) {
 		super(name);
-		immunities = ObjectSet.with(StatusEffects.disarmed, StatusEffects.slow, StatusEffects.freezing);
+		immunities = ObjectSet.with(StatusEffects.disarmed, UAWStatusEffects.EMP, StatusEffects.freezing);
 		flying = false;
 		constructor = MechUnit::create;
 		defaultController = GroundAI::new;
