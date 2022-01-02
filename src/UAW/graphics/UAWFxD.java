@@ -11,7 +11,6 @@ import mindustry.graphics.*;
 import static arc.graphics.g2d.Draw.*;
 import static arc.graphics.g2d.Lines.*;
 import static arc.math.Angles.randLenVectors;
-import static mindustry.Vars.tilesize;
 
 public class UAWFxD {
 	private static final Rand rand = new Rand();
@@ -259,12 +258,11 @@ public class UAWFxD {
 					Drawf.light(e.x, e.y, i.fin() * 14f * 2f * intensity, Color.white, 0.9f * e.fout());
 				});
 
-				color(color, Color.gray, e.fin());
-
-				Draw.z(Layer.effect + 0.001f);
+				Draw.z(Layer.bullet + 0.001f);
 				randLenVectors(e.id + 1, e.finpow() + 0.001f, (int) (6 * intensity), 35f * intensity, (x, y, in, out) -> {
-					Fill.circle(e.x + x, e.y + y, intensity / 1.8f);
-					Drawf.light(e.x + x, e.y + y, (out * 4 * (3f + intensity)) * 3.5f, Draw.getColor(), 0.8f);
+					float fout = e.fout(Interp.pow5Out) * rand.random(0.5f, 1f);
+					Draw.color(color);
+					Fill.circle(e.x + x, e.y + y, fout * ((2f + intensity) * 1.3f));
 				});
 			});
 		});
