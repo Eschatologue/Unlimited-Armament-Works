@@ -346,10 +346,8 @@ public class UAWUnitTypes implements ContentList {
 						lifetime = (range - 5) / speed;
 						shootEffect = UAWFxS.shootCryoFlame;
 						trailColor = UAWPal.cryoFront;
-						hitEffect = despawnEffect = new MultiEffect(
-							UAWFxD.dynamicExplosionSmoke(splashDamageRadius, UAWPal.cryoMiddle),
-							UAWFxD.dynamicExplosion(splashDamageRadius)
-						);
+						despawnHit = true;
+						hitEffect = UAWFxD.dynamicExplosion2(splashDamageRadius, UAWPal.cryoMiddle);
 						trailEffect = UAWFxS.cryoSmokeTrailUnder;
 						status = StatusEffects.freezing;
 						statusDuration = 4 * 60;
@@ -756,9 +754,8 @@ public class UAWUnitTypes implements ContentList {
 							UAWFxD.shootMassiveSmoke(5, 30, backColor)
 						);
 						smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
-						despawnEffect = hitEffect = new MultiEffect(
-							UAWFxD.hugeExplosion(splashDamageRadius, backColor)
-						);
+						despawnHit = true;
+						hitEffect = UAWFxD.dynamicExplosion2(splashDamageRadius, backColor);
 						fragBullets = 1;
 						fragBullet = new SplashBulletType(splashDamage / 2, splashDamageRadius / 1.2f) {{
 							splashAmount = 5;

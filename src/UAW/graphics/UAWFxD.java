@@ -232,13 +232,40 @@ public class UAWFxD {
 		});
 	}
 
-	/** Used in conjunction with UAWFxD.dynamicExplosion if the explosion itself causes status Effects */
-	public static Effect dynamicExplosionSmoke(float size, Color color) {
-		return new Effect(size / 1.5f, 450f, e -> {
-			float smokeSize = e.fout() * size / 6;
-			randLenVectors(e.id, (int) (size * 2) / tilesize, e.finpow() * 160f, (x, y) -> {
-				color(color, Color.lightGray, e.fin());
-				Fill.circle(e.x + x, e.y + y, smokeSize / 1.8f);
+	/** Dynamic Explosion with circle spark instead of lines, used with effects */
+	public static Effect dynamicExplosion2(float size, Color color) {
+		return new Effect(size * 10, 500f, b -> {
+			float intensity = size / 19;
+			float baseLifetime = 26f + intensity * 15f;
+			b.lifetime = 43f + intensity * 35f;
+
+			color(Color.gray);
+			alpha(0.9f);
+			for (int i = 0; i < 4; i++) {
+				rand.setSeed(b.id * 2L + i);
+				float lenScl = rand.random(0.4f, 1f);
+				int fi = i;
+				b.scaled(b.lifetime * lenScl, e ->
+					randLenVectors(e.id + fi - 1, e.fin(Interp.pow10Out), (int) (3f * intensity), 14f * intensity, (x, y, in, out) -> {
+						float fout = e.fout(Interp.pow5Out) * rand.random(0.5f, 1f);
+						Fill.circle(e.x + x, e.y + y, fout * ((2f + intensity) * 1.8f));
+					}));
+			}
+
+			b.scaled((baseLifetime / 1.5f), e -> {
+				e.scaled(5 + intensity * 2.5f, i -> {
+					stroke((3.1f + intensity / 5f) * i.fout());
+					Lines.circle(e.x, e.y, (3f + i.fin() * 14f) * intensity);
+					Drawf.light(e.x, e.y, i.fin() * 14f * 2f * intensity, Color.white, 0.9f * e.fout());
+				});
+
+				color(color, Color.gray, e.fin());
+
+				Draw.z(Layer.effect + 0.001f);
+				randLenVectors(e.id + 1, e.finpow() + 0.001f, (int) (6 * intensity), 35f * intensity, (x, y, in, out) -> {
+					Fill.circle(e.x + x, e.y + y, intensity / 1.8f);
+					Drawf.light(e.x + x, e.y + y, (out * 4 * (3f + intensity)) * 3.5f, Draw.getColor(), 0.8f);
+				});
 			});
 		});
 	}
@@ -252,6 +279,7 @@ public class UAWFxD {
 	 * @param color
 	 * 	The spark color
 	 */
+	@Deprecated
 	public static Effect hugeExplosion(float size, Color color) {
 		return new Effect(size * 0.8f, 450f, e -> {
 			float intensity = size / 21f;
