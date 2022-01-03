@@ -43,38 +43,34 @@ public class ShieldWall extends Wall {
 		outputsPower = true;
 	}
 
-	// Adding Bars
 	@Override
 	public void setBars() {
 		super.setBars();
 		bars.add("shield", (ShieldBuild entity) -> new Bar("stat.shield", Pal.accent, () -> entity.broken ? 0f : 1f - entity.buildup / shieldHealth).blink(Color.white));
 	}
 
-	// Doesnt output items, removing this somehow crashes the game....
 	@Override
 	public boolean outputsItems() {
 		return false;
 	}
 
-	// Adding shield health stats
 	@Override
 	public void setStats() {
 		super.setStats();
 		stats.add(Stat.shieldHealth, shieldHealth, StatUnit.none);
 	}
 
-	// Shield Build
 	public class ShieldBuild extends Building implements Ranged {
 		public boolean broken = true;
 		public float buildup, radscl, hit, warmup;
 
-		//Shield Real blockRadius
+		// Shield Real blockRadius
 		@Override
 		public float range() {
 			return realRadius();
 		}
 
-		//When the shield is gone
+		// When the shield is gone
 		@Override
 		public void onRemoved() {
 			float radius = realRadius();
@@ -82,7 +78,7 @@ public class ShieldWall extends Wall {
 			super.onRemoved();
 		}
 
-		//Update tile
+		// Update tile
 		@Override
 		public void updateTile() {
 
@@ -125,7 +121,7 @@ public class ShieldWall extends Wall {
 			return radius * radscl;
 		}
 
-		//Method Call
+		// Method Call
 		@Override
 		public void draw() {
 			super.draw();

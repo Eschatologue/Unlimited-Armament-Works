@@ -24,7 +24,8 @@ public class UAWStatusEffects implements ContentList {
 				Fx.smoke
 			);
 			color = UAWPal.titaniumBlueFront;
-			buildSpeedMultiplier = reloadMultiplier = speedMultiplier = 0.05f;
+			buildSpeedMultiplier = speedMultiplier = 0.2f;
+			reloadMultiplier = 0f;
 		}};
 	}
 }
