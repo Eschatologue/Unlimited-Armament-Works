@@ -110,22 +110,28 @@ public class UAWTechTree implements ContentList {
 		);
 
 		vanillaNode(duo, () -> {
-				node(quadra, () -> node(spitfire, Seq.with(
+				node(quadra, () ->
+					node(spitfire, Seq.with(
 							new Research(cyclone)
 						)
 					)
 				);
 				node(solo, () ->
-					node(longsword, Seq.with(new Research(fuse)), () ->
-						node(deadeye, Seq.with(new Research(foreshadow)))
+					node(longsword, Seq.with(
+							new Research(fuse)), () ->
+							node(deadeye, Seq.with(
+									new Research(foreshadow)
+								)
+							)
 					)
 				);
 			}
 		);
 
-		vanillaNode(salvo, () -> node(buckshot, () -> {
+		vanillaNode(salvo, () ->
+			node(buckshot, () -> {
 					node(tempest, Seq.with(
-						new Research(ripple)
+						new Research(cyclone)
 					));
 					node(strikeforce, Seq.with(
 							new Research(ripple)
@@ -178,15 +184,21 @@ public class UAWTechTree implements ContentList {
 		);
 
 		vanillaNode(blastMixer, () ->
-			node(gelatinizer, Seq.with(
+			node(gelatinizer,
+				Seq.with(
 					new SectorComplete(SectorPresets.frozenForest),
 					new Research(cryofluidMixer)
-				)
+				), () ->
+					node(pyratiteBlender, Seq.with(
+							new Research(anthracite)
+						)
+					)
 			)
 		);
 
 		vanillaNode(surgeSmelter, () ->
-			node(carburizingFurnace, Seq.with(
+			node(carburizingFurnace,
+				Seq.with(
 					new SectorComplete(SectorPresets.windsweptIslands),
 					new Research(siliconCrucible),
 					new Research(titaniumCarbide)
@@ -207,15 +219,16 @@ public class UAWTechTree implements ContentList {
 					new Research(cryofluidMixer)
 				)
 			);
-			node(petroleumSeperator, Seq.with(
+			node(carbonSeperator, Seq.with(
 				new Research(oilExtractor),
-				new Research(oilDerrick))
+				new Research(oilDerrick),
+				new Research(anthracite)), () ->
+				node(anthraciteCrystallizer, Seq.with(
+						new Research(pyratiteBlender)
+					)
+				)
 			);
 		});
-
-		vanillaNode(plastaniumCompressor, () ->
-			node(anthraciteCrystallizer)
-		);
 
 		vanillaNode(thermalGenerator, () ->
 			node(UAWBlocks.petroleumGenerator, Seq.with(
