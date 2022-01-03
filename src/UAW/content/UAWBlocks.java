@@ -638,10 +638,10 @@ public class UAWBlocks implements ContentList {
 		}};
 		oilDerrick = new Fracker("oil-derrick") {{
 			requirements(Category.production, with(
-				Items.titanium, 250,
-				Items.plastanium, 175,
-				Items.metaglass, 110,
-				Items.silicon, 110,
+				Items.titanium, 225,
+				Items.plastanium, 145,
+				Items.metaglass, 100,
+				Items.silicon, 100,
 				UAWItems.titaniumCarbide, 105,
 				Items.surgeAlloy, 75
 			));
@@ -649,7 +649,7 @@ public class UAWBlocks implements ContentList {
 			result = Liquids.oil;
 			updateEffect = Fx.pulverize;
 			updateEffectChance = 0.05f;
-			pumpAmount = 2f;
+			pumpAmount = 2.25f;
 			liquidCapacity = 600f;
 			attribute = Attribute.oil;
 			baseEfficiency = 0.5f;
@@ -738,6 +738,28 @@ public class UAWBlocks implements ContentList {
 			craftTime = 2.5f * tick;
 			updateEffect = Fx.shieldBreak;
 		}};
+		pyratiteBlender = new AdvancedGenericCrafter("pyratite-blender") {{
+			requirements(Category.crafting, with(
+				Items.lead, 225,
+				Items.titanium, 150,
+				Items.silicon, 50
+			));
+			size = 3;
+			hasItems = true;
+			hasPower = true;
+			outputItem = new ItemStack(Items.pyratite, 8);
+			itemCapacity = 32;
+			liquidCapacity = 120f;
+
+			updateEffect = Fx.burning;
+			craftEffect = Fx.blastExplosion;
+
+			drawer = new DrawSmelter(Color.valueOf("ffef99"));
+			squareSprite = false;
+
+			consumes.liquid(Liquids.oil, 1.6f);
+			consumes.items(with(UAWItems.anthracite, 1, Items.lead, 4, Items.sand, 4));
+		}};
 
 		petroleumSmelter = new AdvancedGenericCrafter("petroleum-smelter") {{
 			requirements(Category.crafting, with(
@@ -800,26 +822,6 @@ public class UAWBlocks implements ContentList {
 
 			consumes.power(2f);
 			consumes.liquid(Liquids.oil, 2f);
-		}};
-		pyratiteBlender = new AdvancedGenericCrafter("pyratite-blender") {{
-			requirements(Category.crafting, with(
-				Items.lead, 225,
-				Items.titanium, 150,
-				Items.silicon, 50
-			));
-			size = 3;
-			hasItems = true;
-			hasPower = true;
-			outputItem = new ItemStack(Items.pyratite, 8);
-
-			updateEffect = Fx.burning;
-			craftEffect = Fx.blastExplosion;
-
-			drawer = new DrawSmelter(Color.valueOf("ffef99"));
-			squareSprite = false;
-
-			consumes.liquid(Liquids.oil, 1.6f);
-			consumes.items(with(UAWItems.anthracite, 1, Items.lead, 4, Items.sand, 4));
 		}};
 		anthraciteCrystallizer = new AttributeCrafter("anthracite-crystallizer") {{
 			requirements(Category.crafting, with(

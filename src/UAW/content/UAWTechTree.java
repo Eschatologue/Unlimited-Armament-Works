@@ -101,7 +101,7 @@ public class UAWTechTree implements ContentList {
 			node(surgeSolvent)
 		);
 
-		vanillaNode(coal, () ->
+		vanillaNode(plastanium, () ->
 			node(anthracite, Seq.with(
 					new SectorComplete(SectorPresets.tarFields),
 					new Research(titaniumCarbide)
@@ -128,7 +128,7 @@ public class UAWTechTree implements ContentList {
 			}
 		);
 
-		vanillaNode(salvo, () ->
+		vanillaNode(hail, () ->
 			node(buckshot, () -> {
 					node(tempest, Seq.with(
 						new Research(cyclone)
