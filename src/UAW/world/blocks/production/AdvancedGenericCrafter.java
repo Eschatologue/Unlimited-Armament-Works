@@ -11,7 +11,7 @@ import mindustry.world.blocks.production.GenericCrafter;
 public class AdvancedGenericCrafter extends GenericCrafter {
 	public TextureRegion rotator, rotatorTop;
 	public float rotatorSpinSpeed = -15f;
-	public float craftShake = 0, craftSoundVolume = 0f;
+	public float craftShake = 0, craftSoundVolume = 1f;
 	public Sound craftSound = Sounds.plasmaboom;
 
 	public AdvancedGenericCrafter(String name) {
@@ -44,8 +44,6 @@ public class AdvancedGenericCrafter extends GenericCrafter {
 			super.craft();
 			if (craftShake > 0) {
 				Effect.shake(craftShake, craftShake, x, y);
-			}
-			if (craftSoundVolume > 0) {
 				craftSound.at(x, y, craftSoundVolume);
 			}
 		}

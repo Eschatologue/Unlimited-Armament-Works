@@ -8,7 +8,6 @@ import UAW.world.blocks.defense.walls.ShieldWall;
 import UAW.world.blocks.liquid.*;
 import UAW.world.blocks.power.WarmUpGenerator;
 import UAW.world.blocks.production.*;
-import arc.graphics.Color;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.UnitSorts;
@@ -46,7 +45,7 @@ public class UAWBlocks implements ContentList {
 	// Drills
 	oilDerrick,
 	// Crafters
-	gelatinizer, carburizingFurnace, surgeMixer, petroleumSmelter, carbonSeperator, pyratiteBlender, rotaryCompressor, anthraciteCrystallizer,
+	gelatinizer, carburizingFurnace, surgeMixer, petroleumSmelter, carbonSeperator, plastaniumForge, rotaryCompressor, anthraciteCrystallizer,
 	// Power
 	petroleumGenerator,
 	// Defense
@@ -630,11 +629,12 @@ public class UAWBlocks implements ContentList {
 				Items.thorium, 70
 			));
 			size = 3;
-			pumpAmount = 0.45f;
-			liquidCapacity = 240f;
+			pumpAmount = 0.40f;
+			liquidCapacity = 540f;
+			rotateSpeed = -3f;
 
 			consumes.power(2f);
-			consumes.item(Items.pyratite, 1);
+			consumes.item(UAWItems.cryogel, 1);
 		}};
 		oilDerrick = new Fracker("oil-derrick") {{
 			requirements(Category.production, with(
@@ -650,9 +650,9 @@ public class UAWBlocks implements ContentList {
 			updateEffect = new MultiEffect(
 				Fx.pulverize,
 				Fx.hitLancer
-				);
+			);
 			updateEffectChance = 0.05f;
-			pumpAmount = 0.55f;
+			pumpAmount = 0.6f;
 			liquidCapacity = 300f;
 			attribute = Attribute.oil;
 			baseEfficiency = 0.5f;
@@ -662,7 +662,7 @@ public class UAWBlocks implements ContentList {
 			squareSprite = false;
 			floating = true;
 
-			consumes.liquid(Liquids.cryofluid, 0.5f);
+			consumes.liquid(Liquids.cryofluid, 0.25f);
 			consumes.power(3.5f);
 		}};
 
@@ -676,12 +676,12 @@ public class UAWBlocks implements ContentList {
 				new ItemStack(
 					Items.sand, 2
 				));
-			consumes.liquid(Liquids.cryofluid, 0.2f);
+			consumes.liquid(Liquids.cryofluid, 0.25f);
 			consumes.power(0.5f);
 			outputItem = new ItemStack(
 				UAWItems.cryogel, 1
 			);
-			craftTime = 60f;
+			craftTime = 45f;
 			hasItems = true;
 			hasLiquids = true;
 			size = 2;
@@ -713,10 +713,11 @@ public class UAWBlocks implements ContentList {
 			craftTime = 3.5f * tick;
 			drawer = new DrawSmelter();
 			craftEffect = new MultiEffect(
-				UAWFxD.burstSmelt(4 * tilesize, Pal.missileYellow, Pal.missileYellowBack),
+				UAWFxD.burstSmelt(3.5f * tilesize, Pal.missileYellow, Pal.missileYellowBack),
 				Fx.flakExplosionBig
 			);
 			updateEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
+			craftShake = 4;
 		}};
 		surgeMixer = new GenericCrafter("surge-mixer") {{
 			requirements(Category.crafting, with(
@@ -741,26 +742,30 @@ public class UAWBlocks implements ContentList {
 			craftTime = 2f * tick;
 			updateEffect = Fx.shieldBreak;
 		}};
-		pyratiteBlender = new AdvancedGenericCrafter("pyratite-blender") {{
+		plastaniumForge = new AdvancedGenericCrafter("plastanium-forge") {{
 			requirements(Category.crafting, with(
-				Items.lead, 225,
-				Items.titanium, 150,
-				Items.silicon, 50
+				Items.silicon, 160,
+				Items.lead, 325,
+				Items.graphite, 160,
+				Items.titanium, 300,
+				Items.plastanium, 250
 			));
-			size = 3;
+			size = 4;
+			health = 320 * size;
 			hasItems = true;
-			hasPower = true;
-			consumes.liquid(Liquids.oil, 0.3f);
-			consumes.items(with(UAWItems.anthracite, 1, Items.lead, 4, Items.sand, 4));
-			outputItem = new ItemStack(Items.pyratite, 8);
-			itemCapacity = 32;
-			liquidCapacity = 120f;
+			itemCapacity = 48;
+			liquidCapacity = 360f;
+			craftTime = 3 * tick;
+			outputItem = new ItemStack(Items.plastanium, 8);
+			hasPower = hasLiquids = true;
+			craftEffect = UAWFxD.burstSmelt(3.5f * tilesize, Pal.plastaniumFront, Pal.plastaniumBack);
+			craftShake = 2.5f;
+			updateEffect = new MultiEffect(Fx.plasticburn, Fx.burning, Fx.fireSmoke);
+			drawer = new DrawSmelter();
 
-			updateEffect = Fx.burning;
-			craftEffect = Fx.blastExplosion;
-
-			drawer = new DrawSmelter(Color.valueOf("ffef99"));
-			squareSprite = false;
+			consumes.liquid(Liquids.oil, 2f);
+			consumes.power(4.5f);
+			consumes.item(Items.titanium, 10);
 		}};
 
 		petroleumSmelter = new AdvancedGenericCrafter("petroleum-smelter") {{
@@ -771,19 +776,9 @@ public class UAWBlocks implements ContentList {
 				Items.silicon, 95,
 				Items.graphite, 95
 			));
-			consumes.items(
-				new ItemStack(Items.sand, 12),
-				new ItemStack(Items.lead, 4),
-				new ItemStack(UAWItems.anthracite, 3)
-			);
-			consumes.liquid(Liquids.oil, 1.25f);
-			outputItems = with(
-				Items.silicon, 13,
-				Items.metaglass, 13
-			);
+			size = 4;
 			hasItems = true;
 			hasLiquids = true;
-			size = 4;
 			itemCapacity = 60;
 			liquidCapacity = 360f;
 			craftTime = 2.5f * tick;
@@ -800,6 +795,17 @@ public class UAWBlocks implements ContentList {
 			);
 			craftSoundVolume = 1.2f;
 			craftShake = 15f;
+			consumes.items(
+				new ItemStack(Items.sand, 12),
+				new ItemStack(Items.lead, 4),
+				new ItemStack(UAWItems.anthracite, 3)
+			);
+			consumes.liquid(Liquids.oil, 1.25f);
+			consumes.power(4.5f);
+			outputItems = with(
+				Items.silicon, 13,
+				Items.metaglass, 13
+			);
 		}};
 		carbonSeperator = new EffectSeparator("carbon-seperator") {{
 			requirements(Category.crafting, with(

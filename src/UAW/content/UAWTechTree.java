@@ -184,15 +184,10 @@ public class UAWTechTree implements ContentList {
 		);
 
 		vanillaNode(blastMixer, () ->
-			node(gelatinizer,
-				Seq.with(
+			node(gelatinizer, Seq.with(
 					new SectorComplete(SectorPresets.frozenForest),
 					new Research(cryofluidMixer)
-				), () ->
-					node(pyratiteBlender, Seq.with(
-							new Research(anthracite)
-						)
-					)
+				)
 			)
 		);
 
@@ -224,14 +219,21 @@ public class UAWTechTree implements ContentList {
 				new Research(oilDerrick),
 				new Research(anthracite)), () ->
 				node(anthraciteCrystallizer, Seq.with(
-						new Research(pyratiteBlender)
+						new Research(plastaniumForge)
 					)
 				)
 			);
 		});
 
-		vanillaNode(thermalGenerator, () ->
-			node(UAWBlocks.petroleumGenerator, Seq.with(
+		vanillaNode(plastaniumCompressor,() ->
+			node(plastaniumForge, Seq.with(
+				new Research(oilExtractor),
+				new Research(surgeSmelter)
+			))
+		);
+
+		vanillaNode(thoriumReactor, () ->
+			node(petroleumGenerator, Seq.with(
 				new Research(oilExtractor),
 				new Research(differentialGenerator))
 			)
