@@ -750,7 +750,7 @@ public class UAWBlocks implements ContentList {
 			size = 3;
 			hasItems = true;
 			hasPower = true;
-			consumes.liquid(Liquids.oil, 0.35f);
+			consumes.liquid(Liquids.oil, 0.3f);
 			consumes.items(with(UAWItems.anthracite, 1, Items.lead, 4, Items.sand, 4));
 			outputItem = new ItemStack(Items.pyratite, 8);
 			itemCapacity = 32;
@@ -823,7 +823,7 @@ public class UAWBlocks implements ContentList {
 			drawer = new DrawSmelter();
 
 			consumes.power(2f);
-			consumes.liquid(Liquids.oil, 30);
+			consumes.liquid(Liquids.oil, 0.5f);
 		}};
 		anthraciteCrystallizer = new AttributeCrafter("anthracite-crystallizer") {{
 			requirements(Category.crafting, with(
