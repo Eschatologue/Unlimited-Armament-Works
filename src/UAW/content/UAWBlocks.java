@@ -45,7 +45,7 @@ public class UAWBlocks implements ContentList {
 	// Drills
 	oilDerrick,
 	// Crafters
-	gelatinizer, carburizingFurnace, surgeMixer, petroleumSmelter, petrochemicalSeperator, plastaniumForge, rotaryCompressor, anthraciteCrystallizer,
+	gelatinizer, carburizingFurnace, surgeMixer, petroleumSmelter, petrochemicalSeperator, plastaniumForge, anthraciteCrystallizer,
 	// Power
 	petroleumGenerator,
 	// Defense
@@ -652,7 +652,7 @@ public class UAWBlocks implements ContentList {
 				Fx.hitLancer
 			);
 			updateEffectChance = 0.05f;
-			pumpAmount = 0.6f;
+			pumpAmount = 1f;
 			liquidCapacity = 300f;
 			attribute = Attribute.oil;
 			baseEfficiency = 0.5f;
@@ -849,9 +849,9 @@ public class UAWBlocks implements ContentList {
 				new ItemStack(Items.coal, 4),
 				new ItemStack(Items.thorium, 1)
 			);
-			consumes.liquid(Liquids.oil, 1.25f);
+			consumes.liquid(Liquids.oil, 1.5f);
 			outputItems = with(
-				UAWItems.anthracite, 2
+				UAWItems.anthracite, 4
 			);
 			size = 3;
 			drawer = new DrawLiquid();
@@ -878,7 +878,7 @@ public class UAWBlocks implements ContentList {
 			));
 			size = 4;
 			health = 300 * size;
-			powerProduction = 20f;
+			powerProduction = 25f;
 			hasLiquids = true;
 			hasItems = false;
 			liquidCapacity = 360f;

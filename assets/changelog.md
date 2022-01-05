@@ -1,4 +1,5 @@
 
+[![UAW-update.png](https://i.postimg.cc/2yQfpYLP/UAW-update.png)](https://youtu.be/ML1AriwoQVE)
 # Update 0.7.6
 **Update 0.7.6** is now here, and with it came massive changes to UAW as a whole. Brand new petroleum system (well, a part of it), mine reworks and various other changes that definetly wouldnt take a whole month if i didnt procasinate
 
@@ -8,9 +9,9 @@
 		- *Also referred to as hard coal, is a hard, compact style of coal that encompasses a sub-metallic luster. It's has the most carbon content, the fewest impurities, and the highest energy density of every type of coal.*
 		- A rare type of coal that can be acquired from filtering oil and crystalizing coal.
 		- Stable yet very flammable
-		- Currently only used for **Petroleum Smelter**, it will have more use in the future.
 2. Petroleum System
-	- The wide array of blocks uses little to no power but they heavily relies on constant supply of oil and will explode violently if destroyed, but they are much more powerful than vanilla crafters
+	- The wide array of blocks that heavily relies on constant supply of oil and will explode violently if destroyed, but they are much more powerful than vanilla crafters
+	- Why? More powerful crafters are overrated, more tedious one that are faster aren't
 	1. Petroleum Smelter
 		- Produce huge amount of silicon and metaglass using sand, lead and anthracite
 	2. Petroleum Seperator
@@ -24,12 +25,26 @@
 	6. Oil Derrick
 		- Extracts oil from deep beneath the planet crust, can be placed on water
 3. Pressurized Liquid Transpportation Conduits
-	- An upgrade from armored conduits, transfers liquid much faster than its predecessor, more armored, but requires power to operate, more advanced version of bridge conduit, router, and juction is also included    
+	- An upgrade from armored conduits, transfers liquid much faster than its predecessor, more armored, but requires power to operate, more advanced version of bridge conduit, router, and juction are also included    
 4. Proximity Mine Reworks
-	- Zounderkite will now displays the correct info's for land mine
-	- Mines will now beep before exploding
+	- Zounderkite will now displays the correct information for landmine
+	- Mines will now make a beeping before exploding
 	- Better explosions effects 
-
+5. Explosion Effect Reworks
+	- Explosion Effects now look better and more polished, especially on cruise missile explosions and heavy artillery shells
+6. New Turret base
+	- Some UAW turret base are now changed into darker one
+7. EMP Status Effect
+	- Some turret that uses surge alloy now applies EMP status at their target, this will be used more in the future
+	
+## Whats Changed?
+1. Tank AI
+	- Tanks used to pursue enemies, now this are changed, they will use the default AI instead.
+	- Why? I still dont know how to make proper AI, rather than pushing whats broken, I rather stick to whats work.
+2. Lores and Description
+	- Some content descriptions and lore are now changed, this change also reflects their behaviour in-game
+3. Coal Liquefier
+	- Removed, other than producing more oil, it has no place for the current petroleum system
 
 
 # Update 0.7.5
