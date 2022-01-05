@@ -701,7 +701,7 @@ public class UAWBlocks implements ContentList {
 				new ItemStack(Items.titanium, 4),
 				new ItemStack(Items.coal, 8)
 			);
-			consumes.liquid(Liquids.slag, 1f);
+			consumes.liquid(Liquids.slag, 1.5f);
 			outputItem = new ItemStack(
 				UAWItems.titaniumCarbide, 1
 			);
@@ -717,7 +717,7 @@ public class UAWBlocks implements ContentList {
 				Fx.flakExplosionBig
 			);
 			updateEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
-			craftShake = 4;
+			craftShake = 8;
 		}};
 		surgeMixer = new GenericCrafter("surge-mixer") {{
 			requirements(Category.crafting, with(
@@ -744,8 +744,8 @@ public class UAWBlocks implements ContentList {
 		}};
 		plastaniumForge = new AdvancedGenericCrafter("plastanium-forge") {{
 			requirements(Category.crafting, with(
-				Items.silicon, 160,
 				Items.lead, 325,
+				Items.silicon, 160,
 				Items.graphite, 160,
 				Items.titanium, 300,
 				Items.plastanium, 250
@@ -763,7 +763,7 @@ public class UAWBlocks implements ContentList {
 				UAWFxD.burstSmelt(2.5f * tilesize, Pal.plastaniumFront, Pal.plastaniumBack),
 				Fx.plasticExplosion
 			);
-			craftShake = 2.5f;
+			craftShake = 6f;
 			updateEffect = new MultiEffect(Fx.plasticburn, Fx.burning, Fx.fireSmoke);
 			drawer = new DrawSmelter();
 
@@ -778,9 +778,10 @@ public class UAWBlocks implements ContentList {
 		petroleumSmelter = new AdvancedGenericCrafter("petroleum-smelter") {{
 			requirements(Category.crafting, with(
 				Items.titanium, 125,
-				Items.thorium, 105,
-				Items.metaglass, 95,
-				Items.silicon, 95,
+				Items.plastanium, 100,
+				Items.thorium, 110,
+				Items.metaglass, 85,
+				Items.silicon, 85,
 				Items.graphite, 95
 			));
 			size = 4;
@@ -823,15 +824,15 @@ public class UAWBlocks implements ContentList {
 			));
 			results = with(
 				UAWItems.anthracite, 2,
-				Items.coal, 3,
-				Items.coal, 3
+				Items.coal, 2,
+				Items.coal, 2
 			);
 			size = 3;
 			craftTime = 2.5f * tick;
 			itemCapacity = 30;
 			squareSprite = false;
 			liquidCapacity = 240f;
-			updateEffect = Fx.fireHit;
+			updateEffect = new MultiEffect(Fx.fireHit, UAWFxS.plastHit, Fx.oily);
 
 			consumes.power(2f);
 			consumes.liquid(Liquids.oil, 0.5f);
@@ -869,11 +870,11 @@ public class UAWBlocks implements ContentList {
 
 		petroleumGenerator = new WarmUpGenerator("petroleum-generator") {{
 			requirements(Category.power, with(
-				Items.copper, 350,
+				Items.copper, 250,
 				Items.titanium, 200,
-				Items.lead, 350,
-				Items.silicon, 225,
-				Items.metaglass, 160
+				Items.plastanium, 120,
+				Items.silicon, 185,
+				Items.metaglass, 120
 			));
 			size = 4;
 			health = 300 * size;
