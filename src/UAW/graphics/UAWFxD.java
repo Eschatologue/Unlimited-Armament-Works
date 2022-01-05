@@ -326,7 +326,7 @@ public class UAWFxD {
 				Drawf.tri(e.x, e.y, width, length, i * 90);
 			}
 			randLenVectors(e.id, 12, e.finpow() * e.lifetime * 1.5f, (x, y) -> {
-				color(frontColor, backColor, Color.gray, e.fin());
+				color(backColor, Color.gray, e.fin());
 				Fill.square(e.x + x, e.y + y, (e.fout() * 15f) / 2f, 45);
 			});
 		});

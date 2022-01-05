@@ -118,11 +118,11 @@ public class UAWTechTree implements ContentList {
 				);
 				node(solo, () ->
 					node(longsword, Seq.with(
-							new Research(fuse)), () ->
-							node(deadeye, Seq.with(
-									new Research(foreshadow)
-								)
+						new Research(fuse)), () ->
+						node(deadeye, Seq.with(
+								new Research(foreshadow)
 							)
+						)
 					)
 				);
 			}
@@ -160,13 +160,13 @@ public class UAWTechTree implements ContentList {
 			}
 		);
 
-		vanillaNode(phaseWall, () ->
+		vanillaNode(phaseWall, () -> {
 			node(shieldWall, Seq.with(
 					new Research(forceProjector),
 					new Research(mendProjector)
 				)
-			)
-		);
+			);
+		});
 
 		vanillaNode(mendProjector, () -> {
 				node(statusFieldProjector, Seq.with(
@@ -204,7 +204,7 @@ public class UAWTechTree implements ContentList {
 		vanillaNode(siliconCrucible, () ->
 			node(petroleumSmelter, Seq.with(
 					new Research(surgeSmelter),
-					new Research(anthracite)
+					new Research(anthraciteCrystallizer)
 				)
 			)
 		);
@@ -214,21 +214,23 @@ public class UAWTechTree implements ContentList {
 					new Research(cryofluidMixer)
 				)
 			);
-			node(carbonSeperator, Seq.with(
-				new Research(oilExtractor),
+			node(petrochemicalSeperator, Seq.with(
 				new Research(oilDerrick),
 				new Research(anthracite)), () ->
 				node(anthraciteCrystallizer, Seq.with(
+						new SectorComplete(SectorPresets.nuclearComplex),
+						new Produce(anthracite),
 						new Research(plastaniumForge)
 					)
 				)
 			);
 		});
 
-		vanillaNode(plastaniumCompressor,() ->
+		vanillaNode(plastaniumCompressor, () ->
 			node(plastaniumForge, Seq.with(
-				new Research(oilExtractor),
-				new Research(surgeSmelter)
+				new Research(oilDerrick),
+				new Research(surgeSmelter),
+				new Research(petrochemicalSeperator)
 			))
 		);
 
@@ -242,6 +244,7 @@ public class UAWTechTree implements ContentList {
 		vanillaNode(oilExtractor, () ->
 			node(oilDerrick, Seq.with(
 					new SectorComplete(SectorPresets.tarFields),
+					new SectorComplete(SectorPresets.frozenForest),
 					new Research(thermalPump)
 				)
 			)

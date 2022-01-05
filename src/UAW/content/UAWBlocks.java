@@ -45,7 +45,7 @@ public class UAWBlocks implements ContentList {
 	// Drills
 	oilDerrick,
 	// Crafters
-	gelatinizer, carburizingFurnace, surgeMixer, petroleumSmelter, carbonSeperator, plastaniumForge, rotaryCompressor, anthraciteCrystallizer,
+	gelatinizer, carburizingFurnace, surgeMixer, petroleumSmelter, petrochemicalSeperator, plastaniumForge, rotaryCompressor, anthraciteCrystallizer,
 	// Power
 	petroleumGenerator,
 	// Defense
@@ -751,24 +751,28 @@ public class UAWBlocks implements ContentList {
 				Items.plastanium, 250
 			));
 			size = 3;
-			health = 320 * size;
+			health = 500 * size;
+			squareSprite = false;
 			hasItems = true;
 			itemCapacity = 48;
 			liquidCapacity = 360f;
-			craftTime = 3 * tick;
-			outputItem = new ItemStack(Items.plastanium, 8);
+			craftTime = 5.5f * tick;
+			outputItem = new ItemStack(Items.plastanium, 14);
 			hasPower = hasLiquids = true;
 			craftEffect = new MultiEffect(
-				UAWFxD.burstSmelt(3.5f * tilesize, Pal.plastaniumFront, Pal.plastaniumBack),
+				UAWFxD.burstSmelt(2.5f * tilesize, Pal.plastaniumFront, Pal.plastaniumBack),
 				Fx.plasticExplosion
 			);
 			craftShake = 2.5f;
 			updateEffect = new MultiEffect(Fx.plasticburn, Fx.burning, Fx.fireSmoke);
 			drawer = new DrawSmelter();
 
-			consumes.liquid(Liquids.oil, 2f);
-			consumes.power(4.5f);
-			consumes.item(Items.titanium, 10);
+			consumes.liquid(Liquids.oil, 2.5f);
+			consumes.power(4f);
+			consumes.items(
+				new ItemStack(Items.titanium, 7),
+				new ItemStack(UAWItems.anthracite, 2)
+			);
 		}};
 
 		petroleumSmelter = new AdvancedGenericCrafter("petroleum-smelter") {{
@@ -810,7 +814,7 @@ public class UAWBlocks implements ContentList {
 				Items.metaglass, 13
 			);
 		}};
-		carbonSeperator = new EffectSeparator("carbon-seperator") {{
+		petrochemicalSeperator = new EffectSeparator("petrochemical-seperator") {{
 			requirements(Category.crafting, with(
 				Items.lead, 120,
 				Items.titanium, 100,
@@ -820,8 +824,7 @@ public class UAWBlocks implements ContentList {
 			results = with(
 				UAWItems.anthracite, 2,
 				Items.coal, 3,
-				Items.coal, 2,
-				Items.coal, 1
+				Items.coal, 3
 			);
 			size = 3;
 			craftTime = 2.5f * tick;
@@ -829,10 +832,10 @@ public class UAWBlocks implements ContentList {
 			squareSprite = false;
 			liquidCapacity = 240f;
 			updateEffect = Fx.fireHit;
-			drawer = new DrawSmelter();
 
 			consumes.power(2f);
 			consumes.liquid(Liquids.oil, 0.5f);
+			consumes.item(Items.sand, 2);
 		}};
 		anthraciteCrystallizer = new AttributeCrafter("anthracite-crystallizer") {{
 			requirements(Category.crafting, with(
