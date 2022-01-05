@@ -3,9 +3,10 @@ package UAW.world.blocks.defense;
 import arc.graphics.g2d.*;
 import arc.math.Mathf;
 import arc.math.geom.Geometry;
-import arc.util.Time;
+import arc.util.*;
 import mindustry.content.Fx;
 import mindustry.gen.*;
+import mindustry.graphics.Drawf;
 import mindustry.logic.Ranged;
 import mindustry.world.blocks.defense.MendProjector;
 import mindustry.world.meta.*;
@@ -41,7 +42,7 @@ public class RejuvenationProjector extends MendProjector {
 		stats.remove(Stat.boostEffect);
 	}
 
-	public class RejuvinationProjectorBuild extends Building implements Ranged {
+	public class RejuvinationProjectorBuild extends MendBuild implements Ranged {
 		float heat;
 		float charge = Mathf.random(reload);
 		float speedStart = 60f;

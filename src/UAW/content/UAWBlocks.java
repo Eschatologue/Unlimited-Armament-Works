@@ -750,7 +750,7 @@ public class UAWBlocks implements ContentList {
 				Items.titanium, 300,
 				Items.plastanium, 250
 			));
-			size = 4;
+			size = 3;
 			health = 320 * size;
 			hasItems = true;
 			itemCapacity = 48;
@@ -758,7 +758,10 @@ public class UAWBlocks implements ContentList {
 			craftTime = 3 * tick;
 			outputItem = new ItemStack(Items.plastanium, 8);
 			hasPower = hasLiquids = true;
-			craftEffect = UAWFxD.burstSmelt(3.5f * tilesize, Pal.plastaniumFront, Pal.plastaniumBack);
+			craftEffect = new MultiEffect(
+				UAWFxD.burstSmelt(3.5f * tilesize, Pal.plastaniumFront, Pal.plastaniumBack),
+				Fx.plasticExplosion
+			);
 			craftShake = 2.5f;
 			updateEffect = new MultiEffect(Fx.plasticburn, Fx.burning, Fx.fireSmoke);
 			drawer = new DrawSmelter();
