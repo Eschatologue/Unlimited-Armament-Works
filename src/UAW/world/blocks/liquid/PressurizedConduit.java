@@ -11,7 +11,7 @@ public class PressurizedConduit extends Conduit {
 
 	public PressurizedConduit(String name) {
 		super(name);
-		botColor = Color.valueOf("16161b");
+		botColor = Color.valueOf("4a4b53");
 		health = 300;
 		liquidCapacity = 30f;
 		liquidPressure = 1.5f;
