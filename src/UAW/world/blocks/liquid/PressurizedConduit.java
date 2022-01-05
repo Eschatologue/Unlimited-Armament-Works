@@ -1,6 +1,7 @@
 package UAW.world.blocks.liquid;
 
 import UAW.content.UAWBlocks;
+import arc.graphics.Color;
 import mindustry.gen.Building;
 import mindustry.type.Liquid;
 import mindustry.world.blocks.liquid.*;
@@ -10,6 +11,7 @@ public class PressurizedConduit extends Conduit {
 
 	public PressurizedConduit(String name) {
 		super(name);
+		botColor = Color.valueOf("16161b");
 		health = 300;
 		liquidCapacity = 30f;
 		liquidPressure = 1.5f;
