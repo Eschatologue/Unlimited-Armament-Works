@@ -34,7 +34,8 @@ public class PressurizedConduit extends ArmoredConduit {
 				&& power.status > minimumPower
 				&& (tile == null
 				|| source.block instanceof Conduit
-				|| source.tile.absoluteRelativeTo(tile.x, tile.y) == rotation);
+				|| (source.relativeTo(tile.x, tile.y) + 2) % 4 != rotation
+			);
 		}
 	}
 }
