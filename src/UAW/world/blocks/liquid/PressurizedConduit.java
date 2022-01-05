@@ -5,19 +5,18 @@ import mindustry.gen.Building;
 import mindustry.type.Liquid;
 import mindustry.world.blocks.liquid.*;
 
-public class PressurizedConduit extends ArmoredConduit {
+public class PressurizedConduit extends Conduit {
 	public float minimumPower = 0.99f;
 
 	public PressurizedConduit(String name) {
 		super(name);
-		noSideBlend = true;
 		health = 300;
 		liquidCapacity = 30f;
 		liquidPressure = 1.5f;
 		leaks = false;
 		placeableLiquid = true;
 		outputsPower = consumesPower = hasPower = true;
-		consumes.power(0.125f);
+		consumes.power(0.0625f);
 	}
 
 	@Override
