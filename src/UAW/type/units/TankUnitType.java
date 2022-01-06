@@ -43,13 +43,13 @@ public class TankUnitType extends UnitType {
 	}
 
 	// Modifies drawMech
-	@Override
-	public void drawMech(Mechc mech) {
-		Unit unit = (Unit) mech;
-		Draw.z(Layer.groundUnit - 0.1f);
-		Draw.rect(baseRegion, unit.x, unit.y, unit.rotation - 90);
-		Draw.reset();
-	}
+//	@Override
+//	public void drawMech(Mechc mech) {
+//		Unit unit = (Unit) mech;
+//		Draw.z(Layer.groundUnit - 0.1f);
+//		Draw.rect(baseRegion, unit.x, unit.y, unit.rotation - 90);
+//		Draw.reset();
+//	}
 
 	@Override
 	public void drawSoftShadow(Unit unit){
