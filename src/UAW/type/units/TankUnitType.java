@@ -1,8 +1,9 @@
 package UAW.type.units;
 
 import UAW.content.UAWStatusEffects;
+import arc.Core;
 import arc.graphics.Color;
-import arc.graphics.g2d.Draw;
+import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.struct.ObjectSet;
 import mindustry.Vars;
@@ -18,6 +19,7 @@ import mindustry.world.meta.BlockFlag;
  * MechUnit but with modified drawMech method
  */
 public class TankUnitType extends UnitType {
+	public TextureRegion turretRegion;
 	public float trailChance = 0.5f;
 	public float trailOffsetX = 0f, trailOffsetY = 0f;
 	public float liquidSpeedMultiplier = 1.2f;
@@ -33,12 +35,19 @@ public class TankUnitType extends UnitType {
 		mechStride = mechFrontSway = mechSideSway = 0f;
 	}
 
+	@Override
+	public void load(){
+		super.load();
+		region = Core.atlas.find(name + "-turret");
+		baseRegion = Core.atlas.find(name + "-hull");
+	}
+
 	// Modifies drawMech
 	@Override
 	public void drawMech(Mechc mech) {
 		Unit unit = (Unit) mech;
 		Draw.z(Layer.groundUnit - 0.1f);
-		Draw.rect(region, unit.x, unit.y, unit.rotation - 90);
+		Draw.rect(baseRegion, unit.x, unit.y, unit.rotation - 90);
 		Draw.reset();
 	}
 

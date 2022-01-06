@@ -1049,7 +1049,7 @@ public class UAWUnitTypes implements ContentList {
 			trailChance = 0.6f;
 
 			weapons.add(
-				new RecoilingWeapon(name + "-gun") {{
+				new Weapon(name + "-gun") {{
 					targetFlags = new BlockFlag[]{BlockFlag.extinguisher, null};
 					rotate = true;
 					mirror = false;
