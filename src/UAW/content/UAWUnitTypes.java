@@ -1045,7 +1045,6 @@ public class UAWUnitTypes implements ContentList {
 			accel = 0.04f;
 			drag = 0.08f;
 			range = 48 * tilesize;
-			rotateShooting = false;
 			trailChance = 0.6f;
 
 			weapons.add(

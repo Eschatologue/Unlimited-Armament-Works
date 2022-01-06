@@ -52,6 +52,11 @@ public class TankUnitType extends UnitType {
 	}
 
 	@Override
+	public void drawSoftShadow(Unit unit){
+		drawSoftShadow(unit, 0f);
+	}
+
+	@Override
 	public void update(Unit unit) {
 		Floor floor = Vars.world.floorWorld(unit.x, unit.y);
 		Color floorColor = floor.mapColor;
