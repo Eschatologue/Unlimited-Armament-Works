@@ -10,7 +10,7 @@ import mindustry.Vars;
 import mindustry.ai.types.GroundAI;
 import mindustry.content.*;
 import mindustry.gen.*;
-import mindustry.graphics.Layer;
+import mindustry.graphics.*;
 import mindustry.type.UnitType;
 import mindustry.world.blocks.environment.Floor;
 import mindustry.world.meta.BlockFlag;
@@ -19,7 +19,7 @@ import mindustry.world.meta.BlockFlag;
  * MechUnit but with modified drawMech method
  */
 public class TankUnitType extends UnitType {
-	public TextureRegion turretRegion;
+	public TextureRegion hullCellRegion;
 	public float trailChance = 0.5f;
 	public float trailOffsetX = 0f, trailOffsetY = 0f;
 	public float liquidSpeedMultiplier = 1.2f;
@@ -36,10 +36,12 @@ public class TankUnitType extends UnitType {
 	}
 
 	@Override
-	public void load(){
+	public void load() {
 		super.load();
 		region = Core.atlas.find(name + "-turret");
 		baseRegion = Core.atlas.find(name + "-hull");
+		cellRegion = Core.atlas.find(name + "-turret-cell");
+		hullCellRegion = Core.atlas.find(name + "-hull-cell");
 	}
 
 	// Modifies drawMech
@@ -52,8 +54,31 @@ public class TankUnitType extends UnitType {
 //	}
 
 	@Override
-	public void drawSoftShadow(Unit unit){
+	public void drawSoftShadow(Unit unit) {
 		drawSoftShadow(unit, 0f);
+	}
+
+	@Override
+	public void drawBody(Unit unit) {
+		super.drawBody(unit);
+		drawCell(unit);
+	}
+
+	@Override
+	public void draw(Unit unit) {
+		super.draw(unit);
+
+		Draw.z(Layer.darkness);
+		Drawf.shadow(region, unit.x, unit.y, unit.rotation - 90);
+	}
+
+	@Override
+	public void drawMech(Mechc mech) {
+		super.drawMech(mech);
+		Unit unit = (Unit) mech;
+		Draw.color(cellColor(unit));
+		Draw.rect(hullCellRegion, unit, mech.baseRotation() - 90);
+		Draw.reset();
 	}
 
 	@Override
