@@ -1051,9 +1051,8 @@ public class UAWUnitTypes implements ContentList {
 			weapons.add(
 				new Weapon(name + "-gun") {{
 					targetFlags = new BlockFlag[]{BlockFlag.extinguisher, null};
-					rotate = true;
+					top = false;
 					mirror = false;
-					rotateSpeed = 2.2f;
 					x = 0f;
 					y = 2f;
 					shootY = 22f;
