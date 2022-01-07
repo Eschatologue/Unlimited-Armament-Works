@@ -20,6 +20,7 @@ import mindustry.world.meta.BlockFlag;
  */
 public class TankUnitType extends UnitType {
 	public TextureRegion hullOutlineRegion, turretOutlineRegion, hullCellRegion;
+	public float turretX = 0f, turretY = 0f;
 	public float trailChance = 0.5f;
 	public float trailOffsetX = 0f, trailOffsetY = 0f;
 	public float liquidSpeedMultiplier = 1.2f;
@@ -55,30 +56,29 @@ public class TankUnitType extends UnitType {
 	// For Turret
 	@Override
 	public void drawBody(Unit unit) {
+		float x = unit.x + Angles.trnsx(unit.rotation - 90, turretX, turretY);
+		float y = unit.y + Angles.trnsy(unit.rotation - 90, turretX, turretY);
 		applyColor(unit);
 		applyOutlineColor(unit);
 
-		Draw.rect(turretOutlineRegion, unit.x, unit.y, unit.rotation - 90);
+		Draw.z(Layer.groundUnit - 0.001f);
+		Draw.rect(turretOutlineRegion, x, y, unit.rotation - 90);
+		Draw.rect(region, x, y, unit.rotation - 90);
 
 		Draw.reset();
-
-		super.drawBody(unit);
-		if (cellRegion.found()) {
-			drawCell(unit);
-		}
 	}
 
 	// For Hull
 	@Override
 	public void drawMech(Mechc mech) {
 		Unit unit = (Unit) mech;
-		Draw.rect(hullOutlineRegion, unit, mech.baseRotation() - 90);
-		Draw.color(cellColor(unit));
-		Draw.rect(hullCellRegion, unit, mech.baseRotation() - 90);
-
 		Draw.z(Layer.debris);
 		Drawf.shadow(unit.x, unit.y, unit.hitSize() * 2);
 
+		Draw.z(Layer.groundUnit - 0.002f);
+		Draw.rect(hullOutlineRegion, unit, mech.baseRotation() - 90);
+		Draw.color(cellColor(unit));
+		Draw.rect(hullCellRegion, unit, mech.baseRotation() - 90);
 		Draw.rect(baseRegion, unit, mech.baseRotation() - 90);
 		Draw.reset();
 	}

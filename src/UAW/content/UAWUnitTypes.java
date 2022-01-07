@@ -1049,12 +1049,13 @@ public class UAWUnitTypes implements ContentList {
 
 			weapons.add(
 				new Weapon(name + "-gun") {{
+					layerOffset = Layer.groundUnit - 0.0015f;
 					targetFlags = new BlockFlag[]{BlockFlag.extinguisher, null};
 					top = false;
 					mirror = false;
 					x = 0f;
-					y = 2f;
-					shootY = 22f;
+					y = 12f;
+					shootY = 5f;
 					reload = 2 * 60;
 					recoil = 4.4f;
 					shootSound = UAWSfx.cannonShoot1;
