@@ -51,7 +51,7 @@ public class TankUnitType extends UnitType {
 
 	@Override
 	public void drawSoftShadow(Unit unit, float alpha) {
-		Draw.z(unitLayer - 0.003f);
+		Draw.z(unitLayer - 0.03f);
 		super.drawSoftShadow(unit, alpha);
 	}
 
@@ -63,7 +63,7 @@ public class TankUnitType extends UnitType {
 		applyColor(unit);
 		applyOutlineColor(unit);
 
-		Draw.z(unitLayer + 0.01f);
+		Draw.z(unitLayer - 0.01f);
 		Draw.rect(turretOutlineRegion, x, y, unit.rotation - 90);
 		Draw.z(unitLayer + 0.02f);
 		Draw.rect(region, x, y, unit.rotation - 90);
@@ -75,9 +75,9 @@ public class TankUnitType extends UnitType {
 	@Override
 	public void drawMech(Mechc mech) {
 		Unit unit = (Unit) mech;
-		Draw.z(unitLayer - 0.02f);
+		Draw.z(unitLayer - 0.025f);
 		Draw.rect(hullOutlineRegion, unit, mech.baseRotation() - 90);
-		Draw.z(unitLayer - 0.01f);
+		Draw.z(unitLayer - 0.015f);
 		Draw.rect(baseRegion, unit, mech.baseRotation() - 90);
 		Draw.color(cellColor(unit));
 		Draw.rect(hullCellRegion, unit, mech.baseRotation() - 90);
