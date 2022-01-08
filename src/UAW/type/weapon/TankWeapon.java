@@ -18,7 +18,7 @@ public class TankWeapon extends UAWWeapon {
 	@Override
 	public void draw(Unit unit, WeaponMount mount) {
 		if (unit instanceof Mechc mech) {
-			float rotation = mech.baseRotation() - 90;
+			float rotation = unit.rotation - 90;
 			float weaponRotation = rotation + (rotate ? mount.rotation : 0);
 			float wx = mech.x() + Angles.trnsx(weaponRotation, x + spriteOffsetX, y + spriteOffsetY) + Angles.trnsx(rotation, x, y) + Angles.trnsx(weaponRotation, 0, -mount.recoil);
 			float wy = mech.y() + Angles.trnsy(weaponRotation, x + spriteOffsetX, y + spriteOffsetY) + Angles.trnsy(rotation, x, y) + Angles.trnsy(weaponRotation, 0, -mount.recoil);
