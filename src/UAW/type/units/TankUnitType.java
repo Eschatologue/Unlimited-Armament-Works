@@ -71,7 +71,7 @@ public class TankUnitType extends UnitType {
 //		Draw.reset();
 	}
 
-	public void drawTurret(Unit unit, Mechc mech){
+	public void drawTurret(Unit unit, Mechc mech) {
 		Unit m = (Unit) mech;
 		float x = unit.x + Angles.trnsx(mech.baseRotation() - 90, turretX, turretY);
 		float y = unit.y + Angles.trnsy(mech.baseRotation() - 90, turretX, turretY);
@@ -115,6 +115,15 @@ public class TankUnitType extends UnitType {
 				unit.x + Angles.trnsx(unit.rotation - 90, trailOffsetX, trailOffsetY),
 				unit.y + Angles.trnsy(unit.rotation - 90, trailOffsetX, trailOffsetY),
 				unit.hitSize / 6, floorColor);
+		}
+	}
+
+	@Override
+	public void draw(Unit unit) {
+		Mechc mech = unit instanceof Mechc ? (Mechc) unit : null;
+		super.draw(unit);
+		if (mech != null) {
+			drawTurret(unit, mech);
 		}
 	}
 }
