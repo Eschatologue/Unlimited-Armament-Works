@@ -1049,8 +1049,7 @@ public class UAWUnitTypes implements ContentList {
 			drawCell = false;
 
 			weapons.add(
-				new CustomLayerWeapon(name + "-gun") {{
-					weaponLayer = Layer.groundUnit - 0.001f;
+				new Weapon(name + "-gun") {{
 					targetFlags = new BlockFlag[]{BlockFlag.extinguisher, null};
 					top = false;
 					mirror = false;

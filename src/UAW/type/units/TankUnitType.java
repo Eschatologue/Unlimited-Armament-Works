@@ -1,7 +1,6 @@
 package UAW.type.units;
 
 import UAW.content.UAWStatusEffects;
-import UAW.type.weapon.CustomLayerWeapon;
 import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
@@ -10,7 +9,6 @@ import arc.struct.ObjectSet;
 import mindustry.Vars;
 import mindustry.ai.types.GroundAI;
 import mindustry.content.*;
-import mindustry.entities.units.WeaponMount;
 import mindustry.gen.*;
 import mindustry.graphics.Layer;
 import mindustry.type.UnitType;
@@ -60,6 +58,20 @@ public class TankUnitType extends UnitType {
 	// For Turret
 	@Override
 	public void drawBody(Unit unit) {
+//		float x = unit.x + Angles.trnsx(unit.rotation - 90, turretX, turretY);
+//		float y = unit.y + Angles.trnsy(unit.rotation - 90, turretX, turretY);
+//		applyColor(unit);
+//		applyOutlineColor(unit);
+//
+//		Draw.z(unitLayer + 0.001f);
+//		Draw.rect(turretOutlineRegion, x, y, unit.rotation - 90);
+//		Draw.z(unitLayer + 0.002f);
+//		Draw.rect(region, x, y, unit.rotation - 90);
+//
+//		Draw.reset();
+	}
+
+	public void drawTankTurret(Unit unit) {
 		float x = unit.x + Angles.trnsx(unit.rotation - 90, turretX, turretY);
 		float y = unit.y + Angles.trnsy(unit.rotation - 90, turretX, turretY);
 		applyColor(unit);
@@ -102,6 +114,12 @@ public class TankUnitType extends UnitType {
 				unit.y + Angles.trnsy(unit.rotation - 90, trailOffsetX, trailOffsetY),
 				unit.hitSize / 6, floorColor);
 		}
+	}
+
+	@Override
+	public void draw(Unit unit){
+		super.draw(unit);
+		drawTankTurret(unit);
 	}
 }
 
