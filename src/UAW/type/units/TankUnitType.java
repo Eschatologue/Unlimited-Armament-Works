@@ -58,8 +58,23 @@ public class TankUnitType extends UnitType {
 	// For Turret
 	@Override
 	public void drawBody(Unit unit) {
-		float x = unit.x + Angles.trnsx(unit.rotation - 90, turretX, turretY);
-		float y = unit.y + Angles.trnsy(unit.rotation - 90, turretX, turretY);
+//		float x = unit.x + Angles.trnsx(unit.rotation - 90, turretX, turretY);
+//		float y = unit.y + Angles.trnsy(unit.rotation - 90, turretX, turretY);
+//		applyColor(unit);
+//		applyOutlineColor(unit);
+//
+//		Draw.z(unitLayer - 0.01f);
+//		Draw.rect(turretOutlineRegion, x, y, unit.rotation - 90);
+//		Draw.z(unitLayer + 0.02f);
+//		Draw.rect(region, x, y, unit.rotation - 90);
+//
+//		Draw.reset();
+	}
+
+	public void drawTurret(Unit unit, Mechc mech){
+		Unit m = (Unit) mech;
+		float x = unit.x + Angles.trnsx(mech.baseRotation() - 90, turretX, turretY);
+		float y = unit.y + Angles.trnsy(mech.baseRotation() - 90, turretX, turretY);
 		applyColor(unit);
 		applyOutlineColor(unit);
 
