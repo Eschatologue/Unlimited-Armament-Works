@@ -24,8 +24,8 @@ public class UAWWeapon extends Weapon {
 		this("");
 	}
 
+	@Override
 	public void draw(Unit unit, WeaponMount mount) {
-		//apply layer offset, roll it back at the end
 		float z = Draw.z();
 		if (weaponLayer == 0f) {
 			Draw.z(z + layerOffset);
@@ -45,7 +45,7 @@ public class UAWWeapon extends Weapon {
 			drawOutline(unit, mount);
 		}
 
-		if (weaponLayer != 0){
+		if (weaponLayer != 0) {
 			Draw.z(weaponLayer);
 		}
 		Draw.rect(region,
