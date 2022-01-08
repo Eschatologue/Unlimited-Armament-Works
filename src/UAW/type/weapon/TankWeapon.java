@@ -15,11 +15,12 @@ public class TankWeapon extends UAWWeapon {
 		this.name = name;
 	}
 
+	@Override
 	public void draw(Unit unit, WeaponMount mount) {
 		float rotation = unit.rotation - 90;
 		float weaponRotation = rotation + (rotate ? mount.rotation : 0);
 		float wx = unit.x + Angles.trnsx(weaponRotation, x + spriteOffsetX, y + spriteOffsetY) + Angles.trnsx(rotation, x, y) + Angles.trnsx(weaponRotation, 0, -mount.recoil);
-		float wy = unit.y + Angles.trnsx(weaponRotation, x + spriteOffsetX, y + spriteOffsetY) + Angles.trnsy(rotation, x, y) + Angles.trnsy(weaponRotation, 0, -mount.recoil);
+		float wy = unit.y + Angles.trnsy(weaponRotation, x + spriteOffsetX, y + spriteOffsetY) + Angles.trnsy(rotation, x, y) + Angles.trnsy(weaponRotation, 0, -mount.recoil);
 
 		if (shadow > 0) {
 			Drawf.shadow(wx, wy, shadow);
