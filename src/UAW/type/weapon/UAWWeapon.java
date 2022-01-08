@@ -14,61 +14,12 @@ import mindustry.type.*;
 import mindustry.world.meta.*;
 
 public class UAWWeapon extends Weapon {
-	public float weaponLayer = 0;
-
 	public UAWWeapon(String name) {
 		this.name = name;
 	}
 
 	public UAWWeapon() {
 		this("");
-	}
-
-	@Override
-	public void draw(Unit unit, WeaponMount mount) {
-		float z = Draw.z();
-		if (weaponLayer == 0f) {
-			Draw.z(z + layerOffset);
-		}
-
-		float
-			rotation = unit.rotation - 90,
-			weaponRotation = rotation + (rotate ? mount.rotation : 0),
-			wx = unit.x + Angles.trnsx(rotation, x, y) + Angles.trnsx(weaponRotation, 0, -mount.recoil),
-			wy = unit.y + Angles.trnsy(rotation, x, y) + Angles.trnsy(weaponRotation, 0, -mount.recoil);
-
-		if (shadow > 0) {
-			Drawf.shadow(wx, wy, shadow);
-		}
-
-		if (top) {
-			drawOutline(unit, mount);
-		}
-
-		if (weaponLayer != 0) {
-			Draw.z(weaponLayer);
-		}
-		Draw.rect(region,
-			wx, wy,
-			region.width * Draw.scl * -Mathf.sign(flipSprite),
-			region.height * Draw.scl,
-			weaponRotation);
-
-		if (heatRegion.found() && mount.heat > 0) {
-			Draw.color(heatColor, mount.heat);
-			Draw.blend(Blending.additive);
-			Draw.rect(heatRegion,
-				wx, wy,
-				heatRegion.width * Draw.scl * -Mathf.sign(flipSprite),
-				heatRegion.height * Draw.scl,
-				weaponRotation);
-			Draw.blend();
-			Draw.color();
-		}
-
-		if (weaponLayer == 0) {
-			Draw.z(z);
-		}
 	}
 
 	@Override
