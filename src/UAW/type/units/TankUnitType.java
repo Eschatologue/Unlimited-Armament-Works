@@ -1,6 +1,7 @@
 package UAW.type.units;
 
 import UAW.content.UAWStatusEffects;
+import UAW.type.weapon.CustomLayerWeapon;
 import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
@@ -9,6 +10,7 @@ import arc.struct.ObjectSet;
 import mindustry.Vars;
 import mindustry.ai.types.GroundAI;
 import mindustry.content.*;
+import mindustry.entities.units.WeaponMount;
 import mindustry.gen.*;
 import mindustry.graphics.Layer;
 import mindustry.type.UnitType;
@@ -65,6 +67,7 @@ public class TankUnitType extends UnitType {
 
 		Draw.z(unitLayer + 0.001f);
 		Draw.rect(turretOutlineRegion, x, y, unit.rotation - 90);
+		Draw.z(unitLayer + 0.002f);
 		Draw.rect(region, x, y, unit.rotation - 90);
 
 		Draw.reset();
