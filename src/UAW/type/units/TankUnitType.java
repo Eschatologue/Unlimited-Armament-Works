@@ -1,17 +1,20 @@
 package UAW.type.units;
 
 import UAW.content.UAWStatusEffects;
+import UAW.type.*;
+import UAW.type.weapon.TankWeapon;
 import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.*;
-import arc.struct.ObjectSet;
+import arc.struct.*;
 import mindustry.Vars;
 import mindustry.ai.types.GroundAI;
 import mindustry.content.*;
+import mindustry.entities.units.WeaponMount;
 import mindustry.gen.*;
 import mindustry.graphics.Layer;
-import mindustry.type.UnitType;
+import mindustry.type.*;
 import mindustry.world.blocks.environment.Floor;
 import mindustry.world.meta.BlockFlag;
 
@@ -55,25 +58,11 @@ public class TankUnitType extends UnitType {
 		super.drawSoftShadow(unit, alpha);
 	}
 
-	// For Hull
+	// For Turret
 	@Override
 	public void drawBody(Unit unit) {
-		if (unit instanceof Mechc mech) {
-			Draw.z(unitLayer - 0.025f);
-			Draw.rect(hullOutlineRegion, unit, mech.baseRotation() - 90);
-			Draw.z(unitLayer - 0.015f);
-			Draw.mixcol(Color.white, unit.hitTime);
-			Draw.rect(baseRegion, unit, mech.baseRotation() - 90);
-			Draw.color(cellColor(unit));
-			Draw.rect(hullCellRegion, unit, mech.baseRotation() - 90);
-			Draw.reset();
-		}
-	}
-
-	// For Turret
-	public void drawTurret(Unit unit, Mechc mech) {
-		float x = unit.x + Angles.trnsx(mech.baseRotation() - 90, turretX, turretY);
-		float y = unit.y + Angles.trnsy(mech.baseRotation() - 90, turretX, turretY);
+		float x = unit.x + Angles.trnsx(unit.rotation - 90, turretX, turretY);
+		float y = unit.y + Angles.trnsy(unit.rotation - 90, turretX, turretY);
 		applyColor(unit);
 		applyOutlineColor(unit);
 
@@ -88,6 +77,15 @@ public class TankUnitType extends UnitType {
 	// For Hull
 	@Override
 	public void drawMech(Mechc mech) {
+		Unit unit = (Unit) mech;
+		Draw.z(unitLayer - 0.025f);
+		Draw.rect(hullOutlineRegion, unit, mech.baseRotation() - 90);
+		Draw.z(unitLayer - 0.015f);
+		Draw.mixcol(Color.white, unit.hitTime);
+		Draw.rect(baseRegion, unit, mech.baseRotation() - 90);
+		Draw.color(cellColor(unit));
+		Draw.rect(hullCellRegion, unit, mech.baseRotation() - 90);
+		Draw.reset();
 	}
 
 	@Override
@@ -105,15 +103,6 @@ public class TankUnitType extends UnitType {
 				unit.x + Angles.trnsx(unit.rotation - 90, trailOffsetX, trailOffsetY),
 				unit.y + Angles.trnsy(unit.rotation - 90, trailOffsetX, trailOffsetY),
 				unit.hitSize / 6, floorColor);
-		}
-	}
-
-	@Override
-	public void draw(Unit unit) {
-		Mechc mech = unit instanceof Mechc ? (Mechc) unit : null;
-		super.draw(unit);
-		if (mech != null) {
-			drawTurret(unit, mech);
 		}
 	}
 }
