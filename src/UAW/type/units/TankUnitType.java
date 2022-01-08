@@ -74,8 +74,9 @@ public class TankUnitType extends UnitType {
 	@Override
 	public void drawMech(Mechc mech) {
 		Unit unit = (Unit) mech;
-		Draw.z(unitLayer - 0.001f);
+		Draw.z(unitLayer - 0.002f);
 		Draw.rect(hullOutlineRegion, unit, mech.baseRotation() - 90);
+		Draw.z(unitLayer - 0.001f);
 		Draw.rect(baseRegion, unit, mech.baseRotation() - 90);
 		Draw.color(cellColor(unit));
 		Draw.rect(hullCellRegion, unit, mech.baseRotation() - 90);
