@@ -10,7 +10,7 @@ import mindustry.Vars;
 import mindustry.ai.types.GroundAI;
 import mindustry.content.*;
 import mindustry.gen.*;
-import mindustry.graphics.*;
+import mindustry.graphics.Layer;
 import mindustry.type.UnitType;
 import mindustry.world.blocks.environment.Floor;
 import mindustry.world.meta.BlockFlag;
@@ -20,6 +20,7 @@ import mindustry.world.meta.BlockFlag;
  */
 public class TankUnitType extends UnitType {
 	public TextureRegion hullOutlineRegion, turretOutlineRegion, hullCellRegion;
+	public float unitLayer = Layer.groundUnit;
 	public float turretX = 0f, turretY = 0f;
 	public float trailChance = 0.5f;
 	public float trailOffsetX = 0f, trailOffsetY = 0f;
@@ -49,8 +50,9 @@ public class TankUnitType extends UnitType {
 	}
 
 	@Override
-	public void drawSoftShadow(Unit unit) {
-		drawSoftShadow(unit, 0f);
+	public void drawSoftShadow(Unit unit, float alpha) {
+		Draw.z(unitLayer - 0.003f);
+		super.drawSoftShadow(unit, alpha);
 	}
 
 	// For Turret
@@ -61,7 +63,7 @@ public class TankUnitType extends UnitType {
 		applyColor(unit);
 		applyOutlineColor(unit);
 
-		Draw.z(Layer.groundUnit + 0.001f);
+		Draw.z(unitLayer + 0.001f);
 		Draw.rect(turretOutlineRegion, x, y, unit.rotation - 90);
 		Draw.rect(region, x, y, unit.rotation - 90);
 
@@ -72,10 +74,7 @@ public class TankUnitType extends UnitType {
 	@Override
 	public void drawMech(Mechc mech) {
 		Unit unit = (Unit) mech;
-		Draw.z(Layer.debris);
-		Drawf.shadow(unit.x, unit.y, unit.hitSize() * 2);
-
-		Draw.z(Layer.groundUnit - 0.001f);
+		Draw.z(unitLayer - 0.001f);
 		Draw.rect(hullOutlineRegion, unit, mech.baseRotation() - 90);
 		Draw.rect(baseRegion, unit, mech.baseRotation() - 90);
 		Draw.color(cellColor(unit));
