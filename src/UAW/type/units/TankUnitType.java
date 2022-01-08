@@ -61,7 +61,7 @@ public class TankUnitType extends UnitType {
 		applyColor(unit);
 		applyOutlineColor(unit);
 
-		Draw.z(Layer.groundUnit - 0.001f);
+		Draw.z(Layer.groundUnit + 0.001f);
 		Draw.rect(turretOutlineRegion, x, y, unit.rotation - 90);
 		Draw.rect(region, x, y, unit.rotation - 90);
 
@@ -75,11 +75,11 @@ public class TankUnitType extends UnitType {
 		Draw.z(Layer.debris);
 		Drawf.shadow(unit.x, unit.y, unit.hitSize() * 2);
 
-		Draw.z(Layer.groundUnit - 0.002f);
+		Draw.z(Layer.groundUnit - 0.001f);
 		Draw.rect(hullOutlineRegion, unit, mech.baseRotation() - 90);
+		Draw.rect(baseRegion, unit, mech.baseRotation() - 90);
 		Draw.color(cellColor(unit));
 		Draw.rect(hullCellRegion, unit, mech.baseRotation() - 90);
-		Draw.rect(baseRegion, unit, mech.baseRotation() - 90);
 		Draw.reset();
 	}
 
