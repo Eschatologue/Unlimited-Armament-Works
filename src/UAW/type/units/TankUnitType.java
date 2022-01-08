@@ -9,6 +9,7 @@ import arc.struct.ObjectSet;
 import mindustry.Vars;
 import mindustry.ai.types.GroundAI;
 import mindustry.content.*;
+import mindustry.entities.units.WeaponMount;
 import mindustry.gen.*;
 import mindustry.graphics.Layer;
 import mindustry.type.UnitType;
@@ -72,7 +73,6 @@ public class TankUnitType extends UnitType {
 	}
 
 	public void drawTurret(Unit unit, Mechc mech) {
-		Unit m = (Unit) mech;
 		float x = unit.x + Angles.trnsx(mech.baseRotation() - 90, turretX, turretY);
 		float y = unit.y + Angles.trnsy(mech.baseRotation() - 90, turretX, turretY);
 		applyColor(unit);
@@ -116,6 +116,15 @@ public class TankUnitType extends UnitType {
 				unit.y + Angles.trnsy(unit.rotation - 90, trailOffsetX, trailOffsetY),
 				unit.hitSize / 6, floorColor);
 		}
+	}
+	public void drawWeapons(Unit unit){
+		applyColor(unit);
+
+		for(WeaponMount mount : unit.mounts){
+			mount.weapon.draw(unit, mount);
+		}
+
+		Draw.reset();
 	}
 
 	@Override

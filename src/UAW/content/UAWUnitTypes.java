@@ -993,7 +993,7 @@ public class UAWUnitTypes implements ContentList {
 						damage = 8f;
 					}};
 				}},
-				new CustomLayerWeapon(name + "-gun") {{
+				new TankWeapon(name + "-gun") {{
 					weaponLayer = Layer.groundUnit;
 					targetFlags = new BlockFlag[]{BlockFlag.extinguisher, null};
 					top = false;
@@ -1052,7 +1052,7 @@ public class UAWUnitTypes implements ContentList {
 			drawCell = false;
 
 			weapons.add(
-				new CustomLayerWeapon(name + "-gun") {{
+				new TankWeapon(name + "-gun") {{
 					weaponLayer = Layer.groundUnit;
 					targetFlags = new BlockFlag[]{BlockFlag.extinguisher, null};
 					top = false;
