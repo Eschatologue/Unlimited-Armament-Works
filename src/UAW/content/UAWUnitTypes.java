@@ -1046,10 +1046,11 @@ public class UAWUnitTypes implements ContentList {
 			drag = 0.08f;
 			range = 48 * tilesize;
 			trailChance = 0.6f;
+			drawCell = false;
 
 			weapons.add(
 				new Weapon(name + "-gun") {{
-					layerOffset = Layer.groundUnit;
+					layerOffset = -1f;
 					targetFlags = new BlockFlag[]{BlockFlag.extinguisher, null};
 					top = false;
 					mirror = false;
