@@ -971,12 +971,14 @@ public class UAWUnitTypes implements ContentList {
 			rotateShooting = false;
 			trailChance = 0.3f;
 
+			turretY = -4.3f;
+
 			weapons.add(
 				new PointDefenseWeapon("uaw-point-defense-red") {{
 					rotate = autoTarget = true;
 					mirror = controllable = false;
-					x = 0f;
-					y = 5f;
+					x = 2f;
+					y = -4.3f;
 					reload = 1.5f;
 					rotateSpeed = 5.5f;
 					recoil = 0.1f;
@@ -991,13 +993,14 @@ public class UAWUnitTypes implements ContentList {
 						damage = 8f;
 					}};
 				}},
-				new RecoilingWeapon(name + "-gun") {{
+				new CustomLayerWeapon(name + "-gun") {{
+					weaponLayer = Layer.groundUnit;
 					targetFlags = new BlockFlag[]{BlockFlag.extinguisher, null};
 					rotate = true;
 					mirror = false;
 					rotateSpeed = 2.6f;
 					x = 0f;
-					y = -4.3f;
+					y = -2f;
 					shootY = 16f;
 					reload = 1.5f * 60;
 					recoil = 4.5f;
