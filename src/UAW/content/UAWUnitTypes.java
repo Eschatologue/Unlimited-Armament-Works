@@ -1000,7 +1000,8 @@ public class UAWUnitTypes implements ContentList {
 					mirror = false;
 					rotateSpeed = 2.6f;
 					x = 0f;
-					y = 6f;
+					y = turretY;
+					spriteOffsetY = 15f;
 					shootY = 16f;
 					reload = 1.5f * 60;
 					recoil = 4.5f;
