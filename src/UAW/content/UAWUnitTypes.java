@@ -996,10 +996,11 @@ public class UAWUnitTypes implements ContentList {
 				new CustomLayerWeapon(name + "-gun") {{
 					weaponLayer = Layer.groundUnit;
 					targetFlags = new BlockFlag[]{BlockFlag.extinguisher, null};
+					top = false;
 					mirror = false;
 					rotateSpeed = 2.6f;
 					x = 0f;
-					y = 5f;
+					y = 6f;
 					shootY = 16f;
 					reload = 1.5f * 60;
 					recoil = 4.5f;
