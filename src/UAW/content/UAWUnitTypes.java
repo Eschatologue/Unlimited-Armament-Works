@@ -968,7 +968,6 @@ public class UAWUnitTypes implements ContentList {
 			accel = 0.05f;
 			drag = 0.055f;
 			range = 36 * tilesize;
-			rotateShooting = false;
 			trailChance = 0.3f;
 			drawCell = false;
 
@@ -1000,7 +999,7 @@ public class UAWUnitTypes implements ContentList {
 					mirror = false;
 					rotateSpeed = 2.6f;
 					x = 0f;
-					y = -4f;
+					y = 5f;
 					shootY = 16f;
 					reload = 1.5f * 60;
 					recoil = 4.5f;
