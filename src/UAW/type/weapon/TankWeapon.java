@@ -13,6 +13,8 @@ public class TankWeapon extends UAWWeapon {
 	/** Weapon that attatches to mech base */
 	public TankWeapon(String name) {
 		this.name = name;
+		top = false;
+		mirror = false;
 	}
 
 	@Override

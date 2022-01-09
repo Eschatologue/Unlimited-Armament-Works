@@ -995,8 +995,6 @@ public class UAWUnitTypes implements ContentList {
 				new TankWeapon(name + "-gun") {{
 					weaponLayer = Layer.groundUnit;
 					targetFlags = new BlockFlag[]{BlockFlag.extinguisher, null};
-					top = false;
-					mirror = false;
 					rotateSpeed = 2.6f;
 					x = 0f;
 					y = 0f;
@@ -1071,19 +1069,19 @@ public class UAWUnitTypes implements ContentList {
 						damage = 8f;
 					}};
 				}},
-				new Weapon("mount-weapon"){{
+				new Weapon("uaw-machine-gun-small-red"){{
+					layerOffset = 1.5f;
+					mirror = false;
 					reload = 8f;
 					x = 4f;
-					y = 2f;
+					y = -4f;
 					rotate = true;
-					ejectEffect = Fx.casing1;
+					ejectEffect = Fx.casing2;
 					bullet = standardThorium;
 				}},
 				new TankWeapon(name + "-gun") {{
 					weaponLayer = Layer.groundUnit;
 					targetFlags = new BlockFlag[]{BlockFlag.extinguisher, null};
-					top = false;
-					mirror = false;
 					x = 0f;
 					y = 0f;
 					shootY = 5f;
