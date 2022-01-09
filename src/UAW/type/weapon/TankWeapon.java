@@ -10,6 +10,7 @@ import mindustry.graphics.*;
 public class TankWeapon extends UAWWeapon {
 	public float weaponLayer = Layer.groundUnit;
 
+	/** Weapon that attatches to mech base */
 	public TankWeapon(String name) {
 		this.name = name;
 	}

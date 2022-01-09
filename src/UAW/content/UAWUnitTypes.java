@@ -971,8 +971,6 @@ public class UAWUnitTypes implements ContentList {
 			trailChance = 0.3f;
 			drawCell = false;
 
-			turretY = -4.3f;
-
 			weapons.add(
 				new PointDefenseWeapon("uaw-point-defense-red") {{
 					rotate = autoTarget = true;
@@ -1001,7 +999,7 @@ public class UAWUnitTypes implements ContentList {
 					mirror = false;
 					rotateSpeed = 2.6f;
 					x = 0f;
-					y = -4.3f;
+					y = 0f;
 					shootY = 16f;
 					reload = 1.5f * 60;
 					recoil = 4.5f;
