@@ -1069,15 +1069,17 @@ public class UAWUnitTypes implements ContentList {
 						damage = 8f;
 					}};
 				}},
-				new Weapon("uaw-machine-gun-small-red"){{
+				new Weapon("uaw-machine-gun-medium-red") {{
 					layerOffset = 1.5f;
 					mirror = false;
-					reload = 8f;
-					x = 4f;
-					y = -4f;
+					reload = 2.5f;
+					recoil = 0.1f;
+					recoilTime = reload * 2;
+					x = 5f;
+					y = -6f;
 					rotate = true;
 					ejectEffect = Fx.casing2;
-					bullet = standardThorium;
+					bullet = standardDense;
 				}},
 				new TankWeapon(name + "-gun") {{
 					weaponLayer = Layer.groundUnit;
@@ -1086,11 +1088,11 @@ public class UAWUnitTypes implements ContentList {
 					y = 0f;
 					shootY = 5f;
 					reload = 2 * 60;
-					recoil = 4.4f;
+					recoil = 3.5f;
 					shootSound = UAWSfx.cannonShoot1;
 					ejectEffect = UAWFxS.casing3Long;
 					shake = 6f;
-					bullet = new TrailBulletType(8f, 215) {{
+					bullet = new TrailBulletType(8f, 315) {{
 						height = 35f;
 						width = 10f;
 						lifetime = range / (speed + 3);
