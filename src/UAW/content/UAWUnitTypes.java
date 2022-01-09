@@ -977,6 +977,7 @@ public class UAWUnitTypes implements ContentList {
 				new PointDefenseWeapon("uaw-point-defense-red") {{
 					rotate = autoTarget = true;
 					mirror = controllable = false;
+					layerOffset = 1;
 					x = 2f;
 					y = -4.3f;
 					reload = 1.5f;
@@ -1000,7 +1001,7 @@ public class UAWUnitTypes implements ContentList {
 					mirror = false;
 					rotateSpeed = 2.6f;
 					x = 0f;
-					y = 4f;
+					y = 8f;
 					shootY = 16f;
 					reload = 1.5f * 60;
 					recoil = 4.5f;
