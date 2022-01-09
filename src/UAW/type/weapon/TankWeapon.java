@@ -21,8 +21,8 @@ public class TankWeapon extends UAWWeapon {
 		float rotation = unit.rotation - 90;
 		float gunRotation = mech.baseRotation() - 90;
 		float weaponRotation = rotation + (rotate ? mount.rotation : 0);
-		float wx = mechUnit.x + Angles.trnsx(gunRotation, x, y - mount.recoil) + Angles.trnsx(weaponRotation, 0, -mount.recoil);
-		float wy = mechUnit.y + Angles.trnsy(gunRotation, x, y - mount.recoil) + Angles.trnsy(weaponRotation, 0, -mount.recoil);
+		float wx = mechUnit.x + Angles.trnsx(gunRotation, x, y) + Angles.trnsx(weaponRotation, 0, -mount.recoil);
+		float wy = mechUnit.y + Angles.trnsy(gunRotation, x, y) + Angles.trnsy(weaponRotation, 0, -mount.recoil);
 
 		if (outlineRegion.found()) {
 			Draw.rect(outlineRegion,
@@ -40,8 +40,8 @@ public class TankWeapon extends UAWWeapon {
 		float rotation = unit.rotation - 90;
 		float gunRotation = mech.baseRotation() - 90;
 		float weaponRotation = rotation + (rotate ? mount.rotation : 0);
-		float wx = unit.x + Angles.trnsx(gunRotation, x, y) + Angles.trnsx(weaponRotation, 0, -mount.recoil);
-		float wy = unit.y + Angles.trnsy(gunRotation, x, y) + Angles.trnsy(weaponRotation, 0, -mount.recoil);
+		float wx = mechUnit.x + Angles.trnsx(gunRotation, x, y) + Angles.trnsx(weaponRotation, 0, -mount.recoil);
+		float wy = mechUnit.y + Angles.trnsy(gunRotation, x, y) + Angles.trnsy(weaponRotation, 0, -mount.recoil);
 
 		if (shadow > 0) {
 			Drawf.shadow(wx, wy, shadow);

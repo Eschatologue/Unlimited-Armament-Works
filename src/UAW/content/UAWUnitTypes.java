@@ -1001,7 +1001,7 @@ public class UAWUnitTypes implements ContentList {
 					mirror = false;
 					rotateSpeed = 2.6f;
 					x = 0f;
-					y = 8f;
+					y = -4.3f;
 					shootY = 16f;
 					reload = 1.5f * 60;
 					recoil = 4.5f;
@@ -1059,7 +1059,7 @@ public class UAWUnitTypes implements ContentList {
 					top = false;
 					mirror = false;
 					x = 0f;
-					y = 17f;
+					y = 2f;
 					shootY = 5f;
 					reload = 2 * 60;
 					recoil = 4.4f;
