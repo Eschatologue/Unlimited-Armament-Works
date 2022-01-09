@@ -15,10 +15,28 @@ public class TankWeapon extends UAWWeapon {
 	}
 
 	@Override
-	public void draw(Unit unit, WeaponMount mount) {
-		Mechc mech = unit instanceof Mechc ? (Mechc)unit : null;
+	public void drawOutline(Unit unit, WeaponMount mount) {
+		Mechc mech = unit instanceof Mechc ? (Mechc) unit : null;
 		Unit mechUnit = (Unit) mech;
-		float rotation = mech.baseRotation() - 90;
+		float rotation = unit.rotation - 90;
+		float weaponRotation = rotation + (rotate ? mount.rotation : 0);
+		float wx = mechUnit.x + Angles.trnsx(rotation, x, y) + Angles.trnsx(weaponRotation, 0, -mount.recoil);
+		float wy = mechUnit.y + Angles.trnsy(rotation, x, y) + Angles.trnsy(weaponRotation, 0, -mount.recoil);
+
+		if (outlineRegion.found()) {
+			Draw.rect(outlineRegion,
+				wx, wy,
+				outlineRegion.width * Draw.scl * -Mathf.sign(flipSprite),
+				outlineRegion.height * Draw.scl,
+				weaponRotation);
+		}
+	}
+
+	@Override
+	public void draw(Unit unit, WeaponMount mount) {
+		Mechc mech = unit instanceof Mechc ? (Mechc) unit : null;
+		Unit mechUnit = (Unit) mech;
+		float rotation = unit.rotation - 90;
 		float weaponRotation = rotation + (rotate ? mount.rotation : 0);
 		float wx = mechUnit.x + Angles.trnsx(rotation, x, y) + Angles.trnsx(weaponRotation, 0, -mount.recoil);
 		float wy = mechUnit.y + Angles.trnsy(rotation, x, y) + Angles.trnsy(weaponRotation, 0, -mount.recoil);
