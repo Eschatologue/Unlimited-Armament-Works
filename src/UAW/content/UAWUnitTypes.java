@@ -976,8 +976,8 @@ public class UAWUnitTypes implements ContentList {
 					rotate = autoTarget = true;
 					mirror = controllable = false;
 					layerOffset = 1;
-					x = 2f;
-					y = -4.3f;
+					x = 3f;
+					y = -5f;
 					reload = 1.5f;
 					rotateSpeed = 5.5f;
 					recoil = 0.1f;
@@ -1038,7 +1038,7 @@ public class UAWUnitTypes implements ContentList {
 			armor = 32;
 			hitSize = 25;
 			speed = 1.2f;
-			rotateSpeed = 2f;
+			rotateSpeed = 1.8f;
 			ammoType = new ItemAmmoType(Items.graphite);
 			targetAir = false;
 
@@ -1093,7 +1093,7 @@ public class UAWUnitTypes implements ContentList {
 					targetFlags = new BlockFlag[]{BlockFlag.extinguisher, null};
 					x = 0f;
 					y = 0f;
-					shootY = 5f;
+					shootY = 22f;
 					reload = 2 * 60;
 					recoil = 2.5f;
 					shootSound = UAWSfx.cannonShoot1;
