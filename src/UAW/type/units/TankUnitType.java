@@ -57,7 +57,6 @@ public class TankUnitType extends UnitType {
 
 	@Override
 	public void drawBody(Unit unit) {
-
 	}
 
 	// For Turret
