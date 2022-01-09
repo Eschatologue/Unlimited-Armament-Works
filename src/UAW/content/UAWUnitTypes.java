@@ -961,9 +961,8 @@ public class UAWUnitTypes implements ContentList {
 			armor = 20;
 			hitSize = 18;
 			speed = 1.3f;
-			rotateSpeed = 2.5f;
+			rotateSpeed = 3f;
 			ammoType = new ItemAmmoType(Items.graphite);
-			targetAir = false;
 
 			accel = 0.05f;
 			drag = 0.055f;
@@ -1004,6 +1003,8 @@ public class UAWUnitTypes implements ContentList {
 					shootSound = UAWSfx.cannonShoot1;
 					ejectEffect = UAWFxS.casing2Long;
 					shake = 3f;
+					shootStatus = StatusEffects.unmoving;
+					shootStatusDuration = reload * 1.1f;
 					bullet = new TrailBulletType(7f, 85) {{
 						height = 25f;
 						width = 8f;
@@ -1038,9 +1039,8 @@ public class UAWUnitTypes implements ContentList {
 			armor = 32;
 			hitSize = 25;
 			speed = 1.2f;
-			rotateSpeed = 1.8f;
+			rotateSpeed = 1.5f;
 			ammoType = new ItemAmmoType(Items.graphite);
-			targetAir = false;
 
 			accel = 0.04f;
 			drag = 0.08f;
@@ -1053,7 +1053,7 @@ public class UAWUnitTypes implements ContentList {
 					rotate = autoTarget = true;
 					mirror = controllable = false;
 					layerOffset = 1;
-					x = -3f;
+					x = -3.5f;
 					y = 0f;
 					reload = 1.5f;
 					rotateSpeed = 5.5f;
@@ -1073,14 +1073,14 @@ public class UAWUnitTypes implements ContentList {
 					layerOffset = 1.5f;
 					mirror = false;
 					reload = 6f;
-					recoil = 0.1f;
+					recoil = 4f;
 					recoilTime = reload * 2;
 					x = 5f;
 					y = -5.5f;
 					rotate = true;
 					ejectEffect = Fx.casing2;
 					bullet = new BasicBulletType(4f, 25){{
-						width = 7f;
+						width = 6f;
 						height = 9f;
 						shootEffect = Fx.shootBig;
 						smokeEffect = Fx.shootBigSmoke;
@@ -1099,6 +1099,8 @@ public class UAWUnitTypes implements ContentList {
 					shootSound = UAWSfx.cannonShoot1;
 					ejectEffect = UAWFxS.casing3Long;
 					shake = 6f;
+					shootStatus = StatusEffects.unmoving;
+					shootStatusDuration = reload * 1.1f;
 					bullet = new TrailBulletType(8f, 315) {{
 						height = 35f;
 						width = 10f;

@@ -74,5 +74,6 @@ public class TankWeapon extends UAWWeapon {
 			Draw.color();
 		}
 	}
+
 }
 
