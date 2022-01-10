@@ -5,7 +5,7 @@
 ![License](https://img.shields.io/github/license/Eschatologue/Unlimited-Armament-Works?logo=github&style=for-the-badge)
 [![Build](https://img.shields.io/github/workflow/status/Eschatologue/Unlimited-Armament-Works/Java%20CI?logo=Gradle&style=for-the-badge)](https://github.com/Eschatologue/Unlimited-Armament-Works/actions)
 [![Discord](https://img.shields.io/discord/704355237246402721.svg?color=7289da&label=de_server&logo=discord&logoColor=ffffff&style=for-the-badge)](https://discord.gg/RCCVQFW)
-
+   
 </div>
 
 <h1 align="center"> 
@@ -32,17 +32,15 @@ DOWNLOAD
 
 <div align="center">
 
-[![File Size](https://img.shields.io/github/repo-size/Eschatologue/Unlimited-Armament-Works?color=62ae7f&label&style=for-the-badge)](https://github.com/Eschatologue/Unlimited-Armament-Works/releases)
-[![Download](https://img.shields.io/github/v/release/Eschatologue/Unlimited-Armament-Works?color=62ae7f&include_prereleases&label=Latest%20version&logo=github&logoColor=white&style=for-the-badge)](https://github.com/Eschatologue/Unlimited-Armament-Works/releases)
-[![Total Downloads](https://img.shields.io/github/downloads/Eschatologue/Unlimited-Armament-Works/total?color=62ae7f&label&logo=docusign&logoColor=white&style=for-the-badge)](https://github.com/Eschatologue/Unlimited-Armament-Works/releases)
+[![](https://img.shields.io/badge/Trello-0b5394?style=for-the-badge&logo=trello&logoColor=white)](https://trello.com/b/afzKTO6C/unlimited-armament-works)
+[![Download](https://img.shields.io/github/v/release/Eschatologue/Unlimited-Armament-Works?color=6aa84f&include_prereleases&label=Latest%20version&logo=github&logoColor=white&style=for-the-badge)](https://github.com/Eschatologue/Unlimited-Armament-Works/releases)
+[![Total Downloads](https://img.shields.io/github/downloads/Eschatologue/Unlimited-Armament-Works/total?color=674ea7&label&logo=docusign&logoColor=white&style=for-the-badge)](https://github.com/Eschatologue/Unlimited-Armament-Works/releases)
 
 Also available in the in-game mod browser, where installation is automatic, just search for **Unlimited-Armament-Works** and you're done.
 
 For unreleased builds you can find it at the [Actions](https://github.com/Eschatologue/Unlimited-Armament-Works/actions) tab and open the last workflow with a green ✅. The zip will contain the latest unreleased build of **UAW** which you  should install with caution since it may crashes your game.
 
 Only compatible on Desktop and Android, both Java and JavaScript mod doesn't work on iOS.
-   
-![Esch](https://github.com/Eschatologue/Unlimited-Armament-Works/blob/master/markdown-resources/made-by-eschatologue.svg)
 
 </div>
 
