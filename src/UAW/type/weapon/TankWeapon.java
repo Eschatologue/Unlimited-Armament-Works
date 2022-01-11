@@ -22,8 +22,7 @@ public class TankWeapon extends UAWWeapon {
 		this.name = name;
 		top = false;
 		mirror = false;
-		shootCone = 5f;
-		predictTarget = false;
+		shootCone = 10f;
 	}
 
 	@Override
@@ -107,8 +106,8 @@ public class TankWeapon extends UAWWeapon {
 
 		float
 			weaponRotation = unit.rotation - 90 + (rotate ? mount.rotation : 0),
-			mountX = unit.x + Angles.trnsx(mechRotation - 90, x, y),
-			mountY = unit.y + Angles.trnsy(mechRotation - 90, x, y),
+			mountX = mechUnit.x + Angles.trnsx(mechRotation - 90, x, y),
+			mountY = mechUnit.y + Angles.trnsy(mechRotation - 90, x, y),
 			bulletX = mountX + Angles.trnsx(weaponRotation, this.shootX, this.shootY),
 			bulletY = mountY + Angles.trnsy(weaponRotation, this.shootX, this.shootY),
 			shootAngle = rotate ? weaponRotation + 90 : Angles.angle(bulletX, bulletY, mount.aimX, mount.aimY) + (unit.rotation - unit.angleTo(mount.aimX, mount.aimY));
@@ -130,7 +129,7 @@ public class TankWeapon extends UAWWeapon {
 				shoot = mount.target.within(mountX, mountY, bullet.range() + Math.abs(shootY) + (mount.target instanceof Sized s ? s.hitSize() / 2f : 0f)) && can;
 
 				if (predictTarget) {
-					Vec2 to = Predict.intercept(mechUnit, mount.target, bullet.speed * 1.2f);
+					Vec2 to = Predict.intercept(unit, mount.target, bullet.speed * 1.2f);
 					mount.aimX = to.x;
 					mount.aimY = to.y;
 				} else {

@@ -961,7 +961,7 @@ public class UAWUnitTypes implements ContentList {
 			armor = 20;
 			hitSize = 18;
 			speed = 1.3f;
-			rotateSpeed = 2.2f;
+			rotateSpeed = 2f;
 			ammoType = new ItemAmmoType(Items.graphite);
 
 			accel = 0.05f;
@@ -995,7 +995,6 @@ public class UAWUnitTypes implements ContentList {
 				new TankWeapon(name + "-gun") {{
 					weaponLayer = Layer.groundUnit;
 					targetFlags = new BlockFlag[]{BlockFlag.extinguisher, null};
-					rotateSpeed = 2.6f;
 					x = 0f;
 					y = 0f;
 					shootY = 16f;
@@ -1007,7 +1006,7 @@ public class UAWUnitTypes implements ContentList {
 					bullet = new TrailBulletType(8f, 85) {{
 						height = 25f;
 						width = 8f;
-						lifetime = range / (speed + 3);
+						lifetime = range / speed;
 						knockback = 4f;
 						armorIgnoreScl = 0.4f;
 						shieldDamageMultiplier = 1.5f;
@@ -1017,6 +1016,7 @@ public class UAWUnitTypes implements ContentList {
 						fragBullets = 4;
 						fragLifeMin = 0f;
 						fragCone = 30f;
+						collidesAir = false;
 						fragBullet = new BasicBulletType(7f, 6) {{
 							height = width = 8f;
 							pierce = true;
@@ -1037,7 +1037,7 @@ public class UAWUnitTypes implements ContentList {
 			armor = 32;
 			hitSize = 25;
 			speed = 1.2f;
-			rotateSpeed = 1f;
+			rotateSpeed = 1.5f;
 			ammoType = new ItemAmmoType(Items.graphite);
 
 			accel = 0.04f;
@@ -1112,7 +1112,7 @@ public class UAWUnitTypes implements ContentList {
 						fragLifeMin = 0f;
 						fragCone = 30f;
 						status = StatusEffects.melting;
-						collidesGround = false;
+						collidesAir = false;
 						despawnHit = true;
 						fragBullet = new BasicBulletType(7f, 9) {{
 							buildingDamageMultiplier = 1.5f;
