@@ -966,7 +966,7 @@ public class UAWUnitTypes implements ContentList {
 
 			accel = 0.05f;
 			drag = 0.055f;
-			range = 36 * tilesize;
+			range = 35 * tilesize;
 			groundTrailInterval = 0.7f;
 			trailSizeMultiplier = 0.7f;
 			drawCell = false;
@@ -1004,7 +1004,6 @@ public class UAWUnitTypes implements ContentList {
 					shootSound = Sounds.artillery;
 					ejectEffect = UAWFxS.casing2Long;
 					shake = 4f;
-					predictTarget = false;
 					bullet = new TrailBulletType(8f, 85) {{
 						height = 25f;
 						width = 8f;
@@ -1043,7 +1042,7 @@ public class UAWUnitTypes implements ContentList {
 
 			accel = 0.04f;
 			drag = 0.08f;
-			range = 48 * tilesize;
+			range = 40 * tilesize;
 			groundTrailInterval = 0.6f;
 			drawCell = false;
 
@@ -1084,7 +1083,7 @@ public class UAWUnitTypes implements ContentList {
 						shootEffect = Fx.shootBig;
 						smokeEffect = Fx.shootBigSmoke;
 						ammoMultiplier = 4;
-						lifetime = (range * 0.6f) / speed;
+						lifetime = (range * 0.4f) / speed;
 					}};
 				}},
 				new TankWeapon(name + "-gun") {{
