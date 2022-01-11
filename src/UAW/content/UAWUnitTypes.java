@@ -1003,7 +1003,6 @@ public class UAWUnitTypes implements ContentList {
 					shootSound = Sounds.artillery;
 					ejectEffect = UAWFxS.casing2Long;
 					shake = 4f;
-					bulletSpeedTargetingMultiplier = 1.6f;
 					bullet = new TrailBulletType(7.5f, 85) {{
 						height = 25f;
 						width = 8f;
@@ -1046,6 +1045,7 @@ public class UAWUnitTypes implements ContentList {
 			range = 40 * tilesize;
 			groundTrailInterval = 0.6f;
 			drawCell = false;
+			singleTarget = true;
 
 			weapons.add(
 				new PointDefenseWeapon("uaw-point-defense-red") {{
@@ -1070,13 +1070,13 @@ public class UAWUnitTypes implements ContentList {
 				}},
 				new Weapon("uaw-machine-gun-medium-red") {{
 					layerOffset = 1.5f;
+					rotate = true;
 					mirror = false;
 					reload = 6f;
-					recoil = 2f;
-					recoilTime = reload / 2;
+					recoil = 0.7f;
+					recoilTime = 2f;
 					x = 5f;
 					y = -5.5f;
-					rotate = true;
 					ejectEffect = Fx.casing2;
 					bullet = new BasicBulletType(4f, 25){{
 						width = 6f;
@@ -1099,7 +1099,6 @@ public class UAWUnitTypes implements ContentList {
 					shake = 6f;
 					soundPitchMin = 1.2f;
 					soundPitchMax = 1.6f;
-					bulletSpeedTargetingMultiplier = 1.3f;
 					bullet = new TrailBulletType(7.5f, 350) {{
 						height = 35f;
 						width = 10f;

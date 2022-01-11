@@ -15,7 +15,6 @@ import static mindustry.Vars.*;
 
 public class TankWeapon extends UAWWeapon {
 	public float weaponLayer = Layer.groundUnit;
-	public float bulletSpeedTargetingMultiplier = 1f;
 
 	/** Weapon that attatches to mech base */
 	public TankWeapon(String name) {
@@ -129,7 +128,7 @@ public class TankWeapon extends UAWWeapon {
 				shoot = mount.target.within(mountX, mountY, bullet.range() + Math.abs(shootY) + (mount.target instanceof Sized s ? s.hitSize() / 2f : 0f)) && can;
 
 				if (predictTarget) {
-					Vec2 to = Predict.intercept(unit, mount.target, bullet.speed * bulletSpeedTargetingMultiplier);
+					Vec2 to = Predict.intercept(mech, mount.target, bullet.speed);
 					mount.aimX = to.x;
 					mount.aimY = to.y;
 				} else {
