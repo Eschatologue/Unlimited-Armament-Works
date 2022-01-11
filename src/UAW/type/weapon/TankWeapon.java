@@ -94,8 +94,8 @@ public class TankWeapon extends UAWWeapon {
 
 		//rotate if applicable
 		if (rotate && (mount.rotate || mount.shoot) && can) {
-			float axisX = unit.x + Angles.trnsx(mechUnit.rotation - 90, x, y),
-				axisY = unit.y + Angles.trnsy(mechUnit.rotation - 90, x, y);
+			float axisX = mechUnit.x + Angles.trnsx(mechUnit.rotation - 90, x, y),
+				axisY = mechUnit.y + Angles.trnsy(mechUnit.rotation - 90, x, y);
 
 			mount.targetRotation = Angles.angle(axisX, axisY, mount.aimX, mount.aimY) - unit.rotation;
 			mount.rotation = Angles.moveToward(mount.rotation, mount.targetRotation, rotateSpeed * Time.delta);
@@ -106,8 +106,8 @@ public class TankWeapon extends UAWWeapon {
 
 		float
 			weaponRotation = unit.rotation - 90 + (rotate ? mount.rotation : 0),
-			mountX = unit.x + Angles.trnsx(mechUnit.rotation - 90, x, y),
-			mountY = unit.y + Angles.trnsy(mechUnit.rotation - 90, x, y),
+			mountX = mechUnit.x + Angles.trnsx(mechUnit.rotation - 90, x, y),
+			mountY = mechUnit.y + Angles.trnsy(mechUnit.rotation - 90, x, y),
 			bulletX = mountX + Angles.trnsx(weaponRotation, this.shootX, this.shootY),
 			bulletY = mountY + Angles.trnsy(weaponRotation, this.shootX, this.shootY),
 			shootAngle = rotate ? weaponRotation + 90 : Angles.angle(bulletX, bulletY, mount.aimX, mount.aimY) + (unit.rotation - unit.angleTo(mount.aimX, mount.aimY));
