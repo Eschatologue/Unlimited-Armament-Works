@@ -1083,7 +1083,7 @@ public class UAWUnitTypes implements ContentList {
 						shootEffect = Fx.shootBig;
 						smokeEffect = Fx.shootBigSmoke;
 						ammoMultiplier = 4;
-						lifetime = range / speed;
+						lifetime = (range * 1.5f) / speed;
 					}};
 				}},
 				new TankWeapon(name + "-gun") {{
