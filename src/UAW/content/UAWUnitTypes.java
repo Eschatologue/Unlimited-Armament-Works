@@ -961,13 +961,13 @@ public class UAWUnitTypes implements ContentList {
 			armor = 20;
 			hitSize = 18;
 			speed = 1.3f;
-			rotateSpeed = 3f;
+			rotateSpeed = 2.5f;
 			ammoType = new ItemAmmoType(Items.graphite);
 
 			accel = 0.05f;
 			drag = 0.055f;
 			range = 36 * tilesize;
-			trailChance = 0.3f;
+			groundTrailInterval = 0.3f;
 			drawCell = false;
 
 			weapons.add(
@@ -1000,11 +1000,9 @@ public class UAWUnitTypes implements ContentList {
 					shootY = 16f;
 					reload = 1.5f * 60;
 					recoil = 4.5f;
-					shootSound = UAWSfx.cannonShoot1;
+					shootSound = Sounds.artillery;
 					ejectEffect = UAWFxS.casing2Long;
-					shake = 3f;
-					shootStatus = StatusEffects.unmoving;
-					shootStatusDuration = reload * 1.1f;
+					shake = 4f;
 					bullet = new TrailBulletType(7f, 85) {{
 						height = 25f;
 						width = 8f;
@@ -1013,7 +1011,6 @@ public class UAWUnitTypes implements ContentList {
 						armorIgnoreScl = 0.4f;
 						shieldDamageMultiplier = 1.5f;
 						trailColor = backColor;
-						shootSound = Sounds.shootBig;
 						shootEffect = new MultiEffect(UAWFxD.railShoot(22f, backColor), Fx.shootPyraFlame, Fx.shootSmallSmoke);
 						hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootSmallSmoke);
 						fragBullets = 4;
@@ -1045,7 +1042,7 @@ public class UAWUnitTypes implements ContentList {
 			accel = 0.04f;
 			drag = 0.08f;
 			range = 48 * tilesize;
-			trailChance = 0.6f;
+			groundTrailInterval = 0.6f;
 			drawCell = false;
 
 			weapons.add(
@@ -1096,12 +1093,10 @@ public class UAWUnitTypes implements ContentList {
 					shootY = 22f;
 					reload = 2 * 60;
 					recoil = 2.5f;
-					shootSound = UAWSfx.cannonShoot1;
+					shootSound = Sounds.artillery;
 					ejectEffect = UAWFxS.casing3Long;
 					shake = 6f;
-					shootStatus = StatusEffects.unmoving;
-					shootStatusDuration = reload * 1.1f;
-					bullet = new TrailBulletType(8f, 315) {{
+					bullet = new TrailBulletType(8f, 250) {{
 						height = 35f;
 						width = 10f;
 						lifetime = range / (speed + 3);
@@ -1109,7 +1104,6 @@ public class UAWUnitTypes implements ContentList {
 						pierceCap = 2;
 						knockback = 6f;
 						trailColor = backColor;
-						shootSound = Sounds.shootBig;
 						armorIgnoreScl = 0.6f;
 						shieldDamageMultiplier = 2f;
 						shootEffect = new MultiEffect(UAWFxD.railShoot(30f, backColor), Fx.shootPyraFlame, Fx.shootBigSmoke2);

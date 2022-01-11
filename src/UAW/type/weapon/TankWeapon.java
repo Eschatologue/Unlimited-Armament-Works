@@ -9,6 +9,7 @@ import mindustry.graphics.*;
 
 public class TankWeapon extends UAWWeapon {
 	public float weaponLayer = Layer.groundUnit;
+	public boolean stopShoot = false;
 
 	/** Weapon that attatches to mech base */
 	public TankWeapon(String name) {
@@ -75,5 +76,11 @@ public class TankWeapon extends UAWWeapon {
 		}
 	}
 
+//	@Override
+//	public void update(Unit unit, WeaponMount mount) {
+//		if (stopShoot && mount.shoot) {
+//
+//		}
+//	}
 }
 

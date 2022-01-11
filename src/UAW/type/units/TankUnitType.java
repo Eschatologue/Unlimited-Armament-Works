@@ -6,6 +6,7 @@ import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.struct.ObjectSet;
+import arc.util.Time;
 import mindustry.Vars;
 import mindustry.ai.types.GroundAI;
 import mindustry.content.*;
@@ -22,9 +23,12 @@ public class TankUnitType extends UnitType {
 	public TextureRegion hullOutlineRegion, turretOutlineRegion, hullCellRegion;
 	public float unitLayer = Layer.groundUnit;
 	public float turretX = 0f, turretY = 0f;
-	public float trailChance = 0.5f;
+	public float trailSizeMultiplier = 1;
+	public float groundTrailInterval = 0.5f;
 	public float trailOffsetX = 0f, trailOffsetY = 0f;
 	public float liquidSpeedMultiplier = 1.2f;
+
+	protected float timer;
 
 	public TankUnitType(String name) {
 		super(name);
@@ -98,12 +102,13 @@ public class TankUnitType extends UnitType {
 		if (floor.isLiquid) {
 			unit.speedMultiplier = liquidSpeedMultiplier;
 		}
-		// Trail Effect
-		if (Mathf.chanceDelta(trailChance) && !floor.isLiquid && unit.moving()) {
+		// Trail Effect TODO
+		if (((timer += Time.delta) >= groundTrailInterval) && !floor.isLiquid && unit.moving() && trailSizeMultiplier > 0) {
 			Fx.unitLand.at(
 				unit.x + Angles.trnsx(unit.rotation - 90, trailOffsetX, trailOffsetY),
 				unit.y + Angles.trnsy(unit.rotation - 90, trailOffsetX, trailOffsetY),
-				unit.hitSize / 6, floorColor);
+				(hitSize / 6) * trailSizeMultiplier, floorColor);
+			timer = 0f;
 		}
 	}
 
