@@ -85,6 +85,9 @@ public class TankWeapon extends UAWWeapon {
 
 	@Override
 	public void update(Unit unit, WeaponMount mount) {
+		Mechc mech = unit instanceof Mechc ? (Mechc) unit : null;
+		Unit mechUnit = (Unit) mech;
+		float mechRotation = mech.baseRotation();
 		boolean can = unit.canShoot();
 		float lastReload = mount.reload;
 		mount.reload = Math.max(mount.reload - Time.delta * unit.reloadMultiplier, 0);
@@ -92,8 +95,8 @@ public class TankWeapon extends UAWWeapon {
 
 		//rotate if applicable
 		if (rotate && (mount.rotate || mount.shoot) && can) {
-			float axisX = unit.x + Angles.trnsx(unit.rotation - 90, x, y),
-				axisY = unit.y + Angles.trnsy(unit.rotation - 90, x, y);
+			float axisX = unit.x + Angles.trnsx(mechRotation - 90, x, y),
+				axisY = unit.y + Angles.trnsy(mechRotation - 90, x, y);
 
 			mount.targetRotation = Angles.angle(axisX, axisY, mount.aimX, mount.aimY) - unit.rotation;
 			mount.rotation = Angles.moveToward(mount.rotation, mount.targetRotation, rotateSpeed * Time.delta);
@@ -104,8 +107,8 @@ public class TankWeapon extends UAWWeapon {
 
 		float
 			weaponRotation = unit.rotation - 90 + (rotate ? mount.rotation : 0),
-			mountX = unit.x + Angles.trnsx(unit.rotation - 90, x, y),
-			mountY = unit.y + Angles.trnsy(unit.rotation - 90, x, y),
+			mountX = unit.x + Angles.trnsx(mechRotation - 90, x, y),
+			mountY = unit.y + Angles.trnsy(mechRotation - 90, x, y),
 			bulletX = mountX + Angles.trnsx(weaponRotation, this.shootX, this.shootY),
 			bulletY = mountY + Angles.trnsy(weaponRotation, this.shootX, this.shootY),
 			shootAngle = rotate ? weaponRotation + 90 : Angles.angle(bulletX, bulletY, mount.aimX, mount.aimY) + (unit.rotation - unit.angleTo(mount.aimX, mount.aimY));
@@ -127,7 +130,7 @@ public class TankWeapon extends UAWWeapon {
 				shoot = mount.target.within(mountX, mountY, bullet.range() + Math.abs(shootY) + (mount.target instanceof Sized s ? s.hitSize() / 2f : 0f)) && can;
 
 				if (predictTarget) {
-					Vec2 to = Predict.intercept(unit, mount.target, bullet.speed * 2f);
+					Vec2 to = Predict.intercept(unit, mount.target, bullet.speed * 1.5f);
 					mount.aimX = to.x;
 					mount.aimY = to.y;
 				} else {

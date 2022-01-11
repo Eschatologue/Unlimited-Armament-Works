@@ -961,7 +961,7 @@ public class UAWUnitTypes implements ContentList {
 			armor = 20;
 			hitSize = 18;
 			speed = 1.3f;
-			rotateSpeed = 2.5f;
+			rotateSpeed = 2.2f;
 			ammoType = new ItemAmmoType(Items.graphite);
 
 			accel = 0.05f;
@@ -1037,7 +1037,7 @@ public class UAWUnitTypes implements ContentList {
 			armor = 32;
 			hitSize = 25;
 			speed = 1.2f;
-			rotateSpeed = 1.5f;
+			rotateSpeed = 1f;
 			ammoType = new ItemAmmoType(Items.graphite);
 
 			accel = 0.04f;
@@ -1083,7 +1083,7 @@ public class UAWUnitTypes implements ContentList {
 						shootEffect = Fx.shootBig;
 						smokeEffect = Fx.shootBigSmoke;
 						ammoMultiplier = 4;
-						lifetime = (range * 0.4f) / speed;
+						lifetime = (range * 0.6f) / speed;
 					}};
 				}},
 				new TankWeapon(name + "-gun") {{
