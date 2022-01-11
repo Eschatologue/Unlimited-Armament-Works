@@ -22,7 +22,7 @@ public class TankWeapon extends UAWWeapon {
 		this.name = name;
 		top = false;
 		mirror = false;
-		shootCone = 10f;
+		shootCone = 12f;
 	}
 
 	@Override
