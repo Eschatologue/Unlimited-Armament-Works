@@ -1096,22 +1096,24 @@ public class UAWUnitTypes implements ContentList {
 					shootSound = Sounds.artillery;
 					ejectEffect = UAWFxS.casing3Long;
 					shake = 6f;
-					bullet = new TrailBulletType(9.5f, 250) {{
+					bullet = new TrailBulletType(8f, 350) {{
 						height = 35f;
 						width = 10f;
-						lifetime = range / (speed + 3);
+						lifetime = range / speed;
 						pierce = true;
 						pierceCap = 2;
 						knockback = 6f;
 						trailColor = backColor;
 						armorIgnoreScl = 0.6f;
 						shieldDamageMultiplier = 2f;
-						shootEffect = new MultiEffect(UAWFxD.railShoot(30f, backColor), Fx.shootPyraFlame, Fx.shootBigSmoke2);
-						hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootBigSmoke2);
+						shootEffect = new MultiEffect(UAWFxD.railShoot(30f, backColor), Fx.shootPyraFlame, UAWFxS.muzzleBreakShootSmoke);
+						hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootBigSmoke2);
 						fragBullets = 6;
 						fragLifeMin = 0f;
 						fragCone = 30f;
 						status = StatusEffects.melting;
+						collidesGround = false;
+						despawnHit = true;
 						fragBullet = new BasicBulletType(7f, 9) {{
 							buildingDamageMultiplier = 1.5f;
 							height = width = 8f;

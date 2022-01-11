@@ -73,11 +73,14 @@ public class UAWFxS {
 	}),
 
 	muzzleBreakShootSmoke = new Effect(38f, e -> {
+		int amount = 12;
+		float length = 40f;
+		float range = 30f;
 		color(Pal.lightOrange, Color.lightGray, Color.gray, e.fin());
-		randLenVectors(e.id, 12, e.finpow() * 40f, e.rotation + 90, 30f, (x, y) ->
+		randLenVectors(e.id, amount, e.finpow() * length, e.rotation + 90, range, (x, y) ->
 			Fill.circle(e.x + x, e.y + y, e.fout() * 2.4f + 0.2f));
 		color(Pal.lightOrange, Color.lightGray, Color.gray, e.fin());
-		randLenVectors(e.id, 12, e.finpow() * 40f, e.rotation - 90, 30f, (x, y) ->
+		randLenVectors(e.id, amount, e.finpow() * length, e.rotation - 90, range, (x, y) ->
 			Fill.circle(e.x + x, e.y + y, e.fout() * 2.4f + 0.2f));
 	}),
 	// endregion Shooting

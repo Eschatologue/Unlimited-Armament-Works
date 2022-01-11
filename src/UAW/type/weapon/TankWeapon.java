@@ -130,7 +130,7 @@ public class TankWeapon extends UAWWeapon {
 				shoot = mount.target.within(mountX, mountY, bullet.range() + Math.abs(shootY) + (mount.target instanceof Sized s ? s.hitSize() / 2f : 0f)) && can;
 
 				if (predictTarget) {
-					Vec2 to = Predict.intercept(unit, mount.target, bullet.speed * 1.5f);
+					Vec2 to = Predict.intercept(mechUnit, mount.target, bullet.speed * 1.2f);
 					mount.aimX = to.x;
 					mount.aimY = to.y;
 				} else {
