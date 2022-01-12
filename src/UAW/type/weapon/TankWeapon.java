@@ -106,8 +106,8 @@ public class TankWeapon extends UAWWeapon {
 
 		float
 			weaponRotation = unit.rotation - 90 + (rotate ? mount.rotation : 0),
-			mountX = mechUnit.x + Angles.trnsx(mechRotation - 90, x, y),
-			mountY = mechUnit.y + Angles.trnsy(mechRotation - 90, x, y),
+			mountX = unit.x + Angles.trnsx(mechRotation - 90, x, y),
+			mountY = unit.y + Angles.trnsy(mechRotation - 90, x, y),
 			bulletX = mountX + Angles.trnsx(weaponRotation, this.shootX, this.shootY),
 			bulletY = mountY + Angles.trnsy(weaponRotation, this.shootX, this.shootY),
 			shootAngle = rotate ? weaponRotation + 90 : Angles.angle(bulletX, bulletY, mount.aimX, mount.aimY) + (unit.rotation - unit.angleTo(mount.aimX, mount.aimY));
