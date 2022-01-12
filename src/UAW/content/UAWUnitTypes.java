@@ -974,7 +974,7 @@ public class UAWUnitTypes implements ContentList {
 			weapons.add(
 				new PointDefenseWeapon("uaw-point-defense-red") {{
 					rotate = autoTarget = true;
-					mirror = controllable = false;
+					predictTarget = mirror = controllable = false;
 					layerOffset = 1;
 					x = 3f;
 					y = -5f;
@@ -1050,7 +1050,7 @@ public class UAWUnitTypes implements ContentList {
 			weapons.add(
 				new PointDefenseWeapon("uaw-point-defense-red") {{
 					rotate = autoTarget = true;
-					mirror = controllable = false;
+					predictTarget = mirror = controllable = false;
 					layerOffset = 1;
 					x = -3.5f;
 					y = 0f;
@@ -1079,7 +1079,7 @@ public class UAWUnitTypes implements ContentList {
 					y = -5.5f;
 					ejectEffect = Fx.casing2;
 					predictTarget = false;
-					bullet = new BasicBulletType(4f, 25){{
+					bullet = new BasicBulletType(4f, 25) {{
 						width = 6f;
 						height = 9f;
 						shootEffect = Fx.shootBig;
