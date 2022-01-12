@@ -62,8 +62,9 @@ public class TankUnitType extends UnitType {
 	@Override
 	public void drawBody(Unit unit) {
 		Mechc mech = unit instanceof Mechc ? (Mechc) unit : null;
-		float x = unit.x + Angles.trnsx(mech.baseRotation() - 90, turretX, turretY);
-		float y = unit.y + Angles.trnsy(mech.baseRotation() - 90, turretX, turretY);
+		Unit mechUnit = (Unit) mech;
+		float x = unit.x + Angles.trnsx(mech.baseRotation(), turretX, turretY);
+		float y = unit.y + Angles.trnsy(mech.baseRotation(), turretX, turretY);
 		applyColor(unit);
 
 		Draw.z(unitLayer - 0.01f);
