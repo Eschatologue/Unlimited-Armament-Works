@@ -1054,25 +1054,20 @@ public class UAWUnitTypes implements ContentList {
 					layerOffset = 1;
 					x = -3.5f;
 					y = 0f;
-					reload = 3 * 60f;
+					reload = 5 * 60f;
 					rotateSpeed = 5.5f;
 					recoil = 0.1f;
 					ejectEffect = Fx.casing1;
 
-					bullet = new LightningBulletType(){{
-						lightningColor = hitColor = Pal.bulletYellow;
-						damage = 25f;
-						lightningLength = 5;
-						lightningLengthRand = 7;
-						shootEffect = Fx.sparkShoot;
-						lightningType = new BulletType(0.0001f, 0f){{
-							lifetime = Fx.lightning.lifetime;
-							hitEffect = Fx.hitLancer;
-							despawnEffect = Fx.none;
-							status = StatusEffects.slow;
-							hittable = false;
-							healPercent = 2f;
-						}};
+					bullet = new LaserBulletType(){{
+						damage = 45f;
+						sideAngle = 45f;
+						sideWidth = 1f;
+						sideLength = 70f;
+						collidesTeam = true;
+						length = range / 4;
+						status = StatusEffects.electrified;
+						colors = new Color[]{Pal.bulletYellow.cpy().a(0.4f), Pal.bulletYellowBack, Color.white};
 					}};
 				}},
 				new Weapon("uaw-machine-gun-medium-red") {{
