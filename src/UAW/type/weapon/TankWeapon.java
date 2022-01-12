@@ -23,6 +23,7 @@ public class TankWeapon extends UAWWeapon {
 		top = false;
 		mirror = false;
 		shootCone = 12f;
+		predictTarget = false;
 	}
 
 	@Override
