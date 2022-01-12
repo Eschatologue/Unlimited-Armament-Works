@@ -972,6 +972,26 @@ public class UAWUnitTypes implements ContentList {
 			drawCell = false;
 
 			weapons.add(
+				new Weapon("uaw-machine-gun-small-red") {{
+					layerOffset = 1.5f;
+					rotate = true;
+					mirror = false;
+					reload = 8f;
+					recoil = 0.7f;
+					recoilTime = 2f;
+					x = 3f;
+					y = -5f;
+					ejectEffect = Fx.casing2;
+					inaccuracy = 20f;
+					bullet = new BasicBulletType(4f, 10) {{
+						width = 6f;
+						height = 9f;
+						shootEffect = Fx.shootBig;
+						smokeEffect = Fx.shootBigSmoke;
+						ammoMultiplier = 4;
+						lifetime = (range * 0.6f) / speed;
+					}};
+				}},
 				new TankWeapon(name + "-gun") {{
 					weaponLayer = Layer.groundUnit;
 					targetFlags = new BlockFlag[]{BlockFlag.extinguisher, null};
@@ -1028,6 +1048,33 @@ public class UAWUnitTypes implements ContentList {
 			singleTarget = true;
 
 			weapons.add(
+				new Weapon("uaw-point-defense-red") {{
+					rotate = autoTarget = true;
+					mirror = controllable = false;
+					layerOffset = 1;
+					x = -3.5f;
+					y = 0f;
+					reload = 3 * 60f;
+					rotateSpeed = 5.5f;
+					recoil = 0.1f;
+					ejectEffect = Fx.casing1;
+
+					bullet = new LightningBulletType(){{
+						lightningColor = hitColor = Pal.bulletYellow;
+						damage = 25f;
+						lightningLength = 5;
+						lightningLengthRand = 7;
+						shootEffect = Fx.sparkShoot;
+						lightningType = new BulletType(0.0001f, 0f){{
+							lifetime = Fx.lightning.lifetime;
+							hitEffect = Fx.hitLancer;
+							despawnEffect = Fx.none;
+							status = StatusEffects.slow;
+							hittable = false;
+							healPercent = 2f;
+						}};
+					}};
+				}},
 				new Weapon("uaw-machine-gun-medium-red") {{
 					layerOffset = 1.5f;
 					rotate = true;
@@ -1035,6 +1082,7 @@ public class UAWUnitTypes implements ContentList {
 					reload = 6f;
 					recoil = 0.7f;
 					recoilTime = 2f;
+					inaccuracy = 15f;
 					x = 5f;
 					y = -5.5f;
 					ejectEffect = Fx.casing2;
