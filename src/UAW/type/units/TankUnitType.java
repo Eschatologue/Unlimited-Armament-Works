@@ -75,7 +75,6 @@ public class TankUnitType extends UnitType {
 		Draw.reset();
 	}
 
-	// For Turret
 //	public void drawTurret(Mechc mech) {
 //		Unit unit = (Unit) mech;
 //		float x = unit.x + Angles.trnsx(mech.baseRotation() - 90, turretX, turretY);

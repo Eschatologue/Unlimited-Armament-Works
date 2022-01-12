@@ -15,6 +15,7 @@ import static mindustry.Vars.*;
 
 public class TankWeapon extends UAWWeapon {
 	public float weaponLayer = Layer.groundUnit;
+	public float bulletSpeedTargetingMultiplier = 1f;
 
 	/** Weapon that attatches to mech base */
 	public TankWeapon(String name) {
@@ -109,7 +110,7 @@ public class TankWeapon extends UAWWeapon {
 			mountY = mechUnit.y + Angles.trnsy(mechRotation - 90, x, y),
 			bulletX = mountX + Angles.trnsx(weaponRotation, this.shootX, this.shootY),
 			bulletY = mountY + Angles.trnsy(weaponRotation, this.shootX, this.shootY),
-			shootAngle = rotate ? weaponRotation + 90 : Angles.angle(bulletX, bulletY, mount.aimX, mount.aimY) + (unit.rotation - unit.angleTo(mount.aimX, mount.aimY));
+			shootAngle = rotate ? weaponRotation + 90 : Angles.angle(bulletX, bulletY, mount.aimX, mount.aimY) + (mechRotation - unit.angleTo(mount.aimX, mount.aimY));
 
 		//find a new target
 		if (!controllable && autoTarget) {
@@ -128,7 +129,7 @@ public class TankWeapon extends UAWWeapon {
 				shoot = mount.target.within(mountX, mountY, bullet.range() + Math.abs(shootY) + (mount.target instanceof Sized s ? s.hitSize() / 2f : 0f)) && can;
 
 				if (predictTarget) {
-					Vec2 to = Predict.intercept(mech, mount.target, bullet.speed);
+					Vec2 to = Predict.intercept(mech, mount.target, (bullet.speed * bulletSpeedTargetingMultiplier));
 					mount.aimX = to.x;
 					mount.aimY = to.y;
 				} else {
