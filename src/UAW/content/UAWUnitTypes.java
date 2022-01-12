@@ -1071,13 +1071,14 @@ public class UAWUnitTypes implements ContentList {
 				new Weapon("uaw-machine-gun-medium-red") {{
 					layerOffset = 1.5f;
 					rotate = true;
-					mirror = true;
+					mirror = false;
 					reload = 6f;
 					recoil = 0.7f;
 					recoilTime = 2f;
 					x = 5f;
 					y = -5.5f;
 					ejectEffect = Fx.casing2;
+					predictTarget = false;
 					bullet = new BasicBulletType(4f, 25){{
 						width = 6f;
 						height = 9f;

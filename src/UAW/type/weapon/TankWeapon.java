@@ -96,7 +96,7 @@ public class TankWeapon extends UAWWeapon {
 			float axisX = unit.x + Angles.trnsx(mechRotation - 90, x, y),
 				axisY = unit.y + Angles.trnsy(mechRotation - 90, x, y);
 
-			mount.targetRotation = Angles.angle(axisX, axisY, mount.aimX, mount.aimY) - unit.rotation;
+			mount.targetRotation = Angles.angle(axisX, axisY, mount.aimX, mount.aimY) - mechRotation;
 			mount.rotation = Angles.moveToward(mount.rotation, mount.targetRotation, rotateSpeed * Time.delta);
 		} else if (!rotate) {
 			mount.rotation = 0;
