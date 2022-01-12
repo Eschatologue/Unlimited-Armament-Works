@@ -59,6 +59,7 @@ public class TankUnitType extends UnitType {
 		super.drawSoftShadow(unit, alpha);
 	}
 
+	// For Turret, dont need to make new method
 	@Override
 	public void drawBody(Unit unit) {
 		Mechc mech = unit instanceof Mechc ? (Mechc) unit : null;
