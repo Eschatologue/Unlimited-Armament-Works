@@ -61,15 +61,10 @@ public class TankUnitType extends UnitType {
 
 	@Override
 	public void drawBody(Unit unit) {
-	}
-
-	// For Turret
-	public void drawTurret(Mechc mech) {
-		Unit unit = (Unit) mech;
+		Mechc mech = unit instanceof Mechc ? (Mechc) unit : null;
 		float x = unit.x + Angles.trnsx(mech.baseRotation() - 90, turretX, turretY);
 		float y = unit.y + Angles.trnsy(mech.baseRotation() - 90, turretX, turretY);
 		applyColor(unit);
-		applyOutlineColor(unit);
 
 		Draw.z(unitLayer - 0.01f);
 		Draw.rect(turretOutlineRegion, x, y, unit.rotation - 90);
@@ -78,6 +73,22 @@ public class TankUnitType extends UnitType {
 
 		Draw.reset();
 	}
+
+	// For Turret
+//	public void drawTurret(Mechc mech) {
+//		Unit unit = (Unit) mech;
+//		float x = unit.x + Angles.trnsx(mech.baseRotation() - 90, turretX, turretY);
+//		float y = unit.y + Angles.trnsy(mech.baseRotation() - 90, turretX, turretY);
+//		applyColor(unit);
+//		applyOutlineColor(unit);
+//
+//		Draw.z(unitLayer - 0.01f);
+//		Draw.rect(turretOutlineRegion, x, y, unit.rotation - 90);
+//		Draw.z(unitLayer + 0.02f);
+//		Draw.rect(region, x, y, unit.rotation - 90);
+//
+//		Draw.reset();
+//	}
 
 	// For Hull
 	@Override
@@ -115,10 +126,10 @@ public class TankUnitType extends UnitType {
 	@Override
 	public void draw(Unit unit) {
 		super.draw(unit);
-		Mechc mech = unit instanceof Mechc ? (Mechc)unit : null;
-		if (mech != null){
-			drawTurret(mech);
-		}
+//		Mechc mech = unit instanceof Mechc ? (Mechc)unit : null;
+//		if (mech != null){
+//			drawTurret(mech);
+//		}
 	}
 }
 
