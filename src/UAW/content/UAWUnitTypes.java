@@ -1071,7 +1071,7 @@ public class UAWUnitTypes implements ContentList {
 				new Weapon("uaw-machine-gun-medium-red") {{
 					layerOffset = 1.5f;
 					rotate = true;
-					mirror = false;
+					mirror = true;
 					reload = 6f;
 					recoil = 0.7f;
 					recoilTime = 2f;
