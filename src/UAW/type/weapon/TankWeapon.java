@@ -110,7 +110,7 @@ public class TankWeapon extends UAWWeapon {
 			mountY = mechUnit.y + Angles.trnsy(mechRotation - 90, x, y),
 			bulletX = mountX + Angles.trnsx(weaponRotation, this.shootX, this.shootY),
 			bulletY = mountY + Angles.trnsy(weaponRotation, this.shootX, this.shootY),
-			shootAngle = rotate ? weaponRotation + 90 : Angles.angle(bulletX, bulletY, mount.aimX, mount.aimY) + (mechRotation - unit.angleTo(mount.aimX, mount.aimY));
+			shootAngle = rotate ? weaponRotation + 90 : Angles.angle(bulletX, bulletY, mount.aimX, mount.aimY) + (unit.rotation - unit.angleTo(mount.aimX, mount.aimY));
 
 		//find a new target
 		if (!controllable && autoTarget) {

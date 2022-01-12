@@ -1003,7 +1003,7 @@ public class UAWUnitTypes implements ContentList {
 					shootSound = Sounds.artillery;
 					ejectEffect = UAWFxS.casing2Long;
 					shake = 4f;
-					bulletSpeedTargetingMultiplier = 2f;
+					bulletSpeedTargetingMultiplier = 2.5f;
 					bullet = new TrailBulletType(7.5f, 85) {{
 						height = 25f;
 						width = 8f;
