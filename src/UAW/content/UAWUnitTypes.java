@@ -972,26 +972,26 @@ public class UAWUnitTypes implements ContentList {
 			drawCell = false;
 
 			weapons.add(
-				new PointDefenseWeapon("uaw-point-defense-red") {{
-					rotate = autoTarget = true;
-					predictTarget = mirror = controllable = false;
-					layerOffset = 1;
-					x = 3f;
-					y = -5f;
-					reload = 1.5f;
-					rotateSpeed = 5.5f;
-					recoil = 0.1f;
-					targetInterval = 6f;
-					targetSwitchInterval = 7.5f;
-					ejectEffect = Fx.casing1;
-
-					bullet = new BulletType() {{
-						shootEffect = Fx.sparkShoot;
-						hitEffect = Fx.pointHit;
-						maxRange = range / 2f;
-						damage = 8f;
-					}};
-				}},
+//				new PointDefenseWeapon("uaw-point-defense-red") {{
+//					rotate = autoTarget = true;
+//					predictTarget = mirror = controllable = false;
+//					layerOffset = 1;
+//					x = 3f;
+//					y = -5f;
+//					reload = 1.5f;
+//					rotateSpeed = 5.5f;
+//					recoil = 0.1f;
+//					targetInterval = 6f;
+//					targetSwitchInterval = 7.5f;
+//					ejectEffect = Fx.casing1;
+//
+//					bullet = new BulletType() {{
+//						shootEffect = Fx.sparkShoot;
+//						hitEffect = Fx.pointHit;
+//						maxRange = range / 2f;
+//						damage = 8f;
+//					}};
+//				}},
 				new TankWeapon(name + "-gun") {{
 					weaponLayer = Layer.groundUnit;
 					targetFlags = new BlockFlag[]{BlockFlag.extinguisher, null};
@@ -1050,7 +1050,7 @@ public class UAWUnitTypes implements ContentList {
 			weapons.add(
 				new PointDefenseWeapon("uaw-point-defense-red") {{
 					rotate = autoTarget = true;
-					predictTarget = mirror = controllable = false;
+					mirror = controllable = false;
 					layerOffset = 1;
 					x = -3.5f;
 					y = 0f;
