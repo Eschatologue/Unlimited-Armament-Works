@@ -1048,38 +1048,26 @@ public class UAWUnitTypes implements ContentList {
 			singleTarget = true;
 
 			weapons.add(
-				new Weapon("uaw-point-defense-red") {{
+				new Weapon("uaw-missile-small-red") {{
 					rotate = autoTarget = true;
 					mirror = false;
 					layerOffset = 1;
 					x = -3.5f;
 					y = 0f;
-					reload = 3 * 60f;
+					reload = 5 * 60f;
 					rotateSpeed = 5.5f;
-					recoil = 0.4f;
 					ejectEffect = Fx.casing1;
-					shots = 2;
-					shotDelay = 15f;
+					shootSound = Sounds.laser;
 
-					bullet = new MissileBulletType(3.5f, 48){{
-						width = 8f;
-						height = 8f;
-						shrinkY = 0f;
-						splashDamageRadius = 25f;
-						splashDamage = 25f * 1.4f;
-						hitEffect = Fx.blastExplosion;
-						despawnEffect = Fx.blastExplosion;
-						ammoMultiplier = 4f;
-						fragBullet =  new LaserBulletType(){{
-							damage = 45f;
-							recoil = 1f;
-							sideAngle = 120f;
-							sideWidth = 1f;
-							sideLength = 60f;
-							healPercent = 10f;
-							length = 4 * tilesize;
-							colors = new Color[]{Pal.bulletYellow.cpy().a(0.4f), Pal.bulletYellowBack, Color.white};
-						}};
+					bullet = new LaserBulletType(){{
+						damage = 45f;
+						sideAngle = 45f;
+						sideWidth = 1f;
+						sideLength = 70f;
+						collidesTeam = true;
+						length = range / 4;
+						status = StatusEffects.electrified;
+						colors = new Color[]{Pal.bulletYellow.cpy().a(0.4f), Pal.bulletYellowBack, Color.white};
 					}};
 				}},
 				new Weapon("uaw-machine-gun-medium-red") {{
@@ -1087,7 +1075,7 @@ public class UAWUnitTypes implements ContentList {
 					rotate = true;
 					mirror = false;
 					reload = 6f;
-					recoil = 0.7f;
+					recoil = 0.5f;
 					recoilTime = 2f;
 					inaccuracy = 15f;
 					x = 5f;
