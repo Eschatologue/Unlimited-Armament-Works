@@ -980,11 +980,11 @@ public class UAWUnitTypes implements ContentList {
 					recoil = 0.7f;
 					recoilTime = 2f;
 					x = 3f;
-					y = -5f;
+					y = -3f;
 					ejectEffect = Fx.casing2;
 					inaccuracy = 10f;
 					predictTarget = false;
-					bullet = new BasicBulletType(5f, 10) {{
+					bullet = new BasicBulletType(6f, 10) {{
 						width = 6f;
 						height = 10f;
 						shootEffect = Fx.shootBig;
@@ -1046,29 +1046,47 @@ public class UAWUnitTypes implements ContentList {
 			range = 40 * tilesize;
 			groundTrailInterval = 0.6f;
 			drawCell = false;
-			singleTarget = true;
+			forceMultiTarget = true;
 
 			weapons.add(
-				new Weapon("uaw-missile-small-red") {{
-					rotate = autoTarget = true;
+				new Weapon("uaw-missile-medium-red-single") {{
+					rotate = true;
 					mirror = false;
+					predictTarget = false;
 					layerOffset = 1;
 					x = -3.5f;
 					y = 0f;
-					reload = 5 * 60f;
+					reload = 3 * 60f;
 					rotateSpeed = 5.5f;
 					ejectEffect = Fx.casing1;
-					shootSound = Sounds.laser;
+					shootSound = Sounds.missile;
+					shots = 4;
+					shotDelay = 15f;
 
-					bullet = new LaserBulletType(){{
-						damage = 45f;
-						sideAngle = 45f;
-						sideWidth = 1f;
-						sideLength = 70f;
-						collidesTeam = true;
-						length = range / 4;
-						status = StatusEffects.electrified;
-						colors = new Color[]{Pal.bulletYellow.cpy().a(0.4f), Pal.bulletYellowBack, Color.white};
+					bullet = new MissileBulletType(6.5f, 18){{
+						width = 12f;
+						height = 12f;
+						shrinkY = 0f;
+						splashDamageRadius = 25f;
+						splashDamage = 25f * 1.4f;
+						hitEffect = Fx.blastExplosion;
+						despawnEffect = Fx.blastExplosion;
+						ammoMultiplier = 4f;
+						lightningDamage = 10;
+						lightning = 2;
+						lightningLength = 10;
+
+						fragBullets = 1;
+						fragBullet = new LaserBulletType(){{
+							damage = 45f;
+							recoil = 1f;
+							sideAngle = 45f;
+							sideWidth = 1f;
+							sideLength = 70f;
+							healPercent = 10f;
+							length = 64f;
+							colors = new Color[]{Pal.bulletYellowBack.cpy().a(0.4f), Pal.bulletYellow, Color.white};
+						}};
 					}};
 				}},
 				new Weapon("uaw-machine-gun-medium-red") {{
@@ -1083,7 +1101,7 @@ public class UAWUnitTypes implements ContentList {
 					y = -5.5f;
 					ejectEffect = Fx.casing2;
 					predictTarget = false;
-					bullet = new BasicBulletType(4f, 25) {{
+					bullet = new BasicBulletType(6f, 25) {{
 						width = 6f;
 						height = 9f;
 						shootEffect = Fx.shootBig;
@@ -1114,6 +1132,8 @@ public class UAWUnitTypes implements ContentList {
 						trailColor = backColor;
 						armorIgnoreScl = 0.6f;
 						shieldDamageMultiplier = 2f;
+						homingPower = 0.16f;
+						homingRange = 48f;
 						shootEffect = new MultiEffect(UAWFxD.railShoot(30f, backColor), Fx.shootPyraFlame, UAWFxS.muzzleBreakShootSmoke);
 						hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootBigSmoke2);
 						fragBullets = 6;
