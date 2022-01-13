@@ -983,7 +983,8 @@ public class UAWUnitTypes implements ContentList {
 					y = -5f;
 					ejectEffect = Fx.casing2;
 					inaccuracy = 10f;
-					bullet = new BasicBulletType(4f, 10) {{
+					predictTarget = false;
+					bullet = new BasicBulletType(5f, 10) {{
 						width = 6f;
 						height = 10f;
 						shootEffect = Fx.shootBig;
@@ -1003,7 +1004,7 @@ public class UAWUnitTypes implements ContentList {
 					shootSound = Sounds.artillery;
 					ejectEffect = UAWFxS.casing2Long;
 					shake = 4f;
-					bullet = new TrailBulletType(7.5f, 85) {{
+					bullet = new TrailBulletType(8f, 85) {{
 						height = 25f;
 						width = 8f;
 						lifetime = range / speed;
@@ -1103,7 +1104,7 @@ public class UAWUnitTypes implements ContentList {
 					shake = 6f;
 					soundPitchMin = 1.2f;
 					soundPitchMax = 1.6f;
-					bullet = new TrailBulletType(7.5f, 350) {{
+					bullet = new TrailBulletType(9f, 350) {{
 						height = 35f;
 						width = 10f;
 						lifetime = range / speed;
