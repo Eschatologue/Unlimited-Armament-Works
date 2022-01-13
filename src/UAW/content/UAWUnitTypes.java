@@ -972,7 +972,7 @@ public class UAWUnitTypes implements ContentList {
 			drawCell = false;
 
 			weapons.add(
-				new Weapon("uaw-machine-gun-small-red") {{
+				new Weapon("uaw-machine-gun-medium-red") {{
 					layerOffset = 1.5f;
 					rotate = true;
 					mirror = false;
@@ -982,10 +982,10 @@ public class UAWUnitTypes implements ContentList {
 					x = 3f;
 					y = -5f;
 					ejectEffect = Fx.casing2;
-					inaccuracy = 20f;
+					inaccuracy = 10f;
 					bullet = new BasicBulletType(4f, 10) {{
 						width = 6f;
-						height = 9f;
+						height = 10f;
 						shootEffect = Fx.shootBig;
 						smokeEffect = Fx.shootBigSmoke;
 						ammoMultiplier = 4;
@@ -1050,24 +1050,36 @@ public class UAWUnitTypes implements ContentList {
 			weapons.add(
 				new Weapon("uaw-point-defense-red") {{
 					rotate = autoTarget = true;
-					mirror = controllable = false;
+					mirror = false;
 					layerOffset = 1;
 					x = -3.5f;
 					y = 0f;
-					reload = 5 * 60f;
+					reload = 3 * 60f;
 					rotateSpeed = 5.5f;
-					recoil = 0.1f;
+					recoil = 0.4f;
 					ejectEffect = Fx.casing1;
+					shots = 2;
+					shotDelay = 15f;
 
-					bullet = new LaserBulletType(){{
-						damage = 45f;
-						sideAngle = 45f;
-						sideWidth = 1f;
-						sideLength = 70f;
-						collidesTeam = true;
-						length = range / 4;
-						status = StatusEffects.electrified;
-						colors = new Color[]{Pal.bulletYellow.cpy().a(0.4f), Pal.bulletYellowBack, Color.white};
+					bullet = new MissileBulletType(3.5f, 48){{
+						width = 8f;
+						height = 8f;
+						shrinkY = 0f;
+						splashDamageRadius = 25f;
+						splashDamage = 25f * 1.4f;
+						hitEffect = Fx.blastExplosion;
+						despawnEffect = Fx.blastExplosion;
+						ammoMultiplier = 4f;
+						fragBullet =  new LaserBulletType(){{
+							damage = 45f;
+							recoil = 1f;
+							sideAngle = 120f;
+							sideWidth = 1f;
+							sideLength = 60f;
+							healPercent = 10f;
+							length = 4 * tilesize;
+							colors = new Color[]{Pal.bulletYellow.cpy().a(0.4f), Pal.bulletYellowBack, Color.white};
+						}};
 					}};
 				}},
 				new Weapon("uaw-machine-gun-medium-red") {{
