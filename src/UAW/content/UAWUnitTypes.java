@@ -1049,44 +1049,39 @@ public class UAWUnitTypes implements ContentList {
 			forceMultiTarget = true;
 
 			weapons.add(
-				new Weapon("uaw-missile-medium-red-single") {{
-					rotate = true;
+				new Weapon("uaw-launcher-medium-red-2") {{
+					rotate = false;
 					mirror = false;
 					predictTarget = false;
 					layerOffset = 1;
 					x = -3.5f;
 					y = 0f;
-					reload = 3 * 60f;
+					reload = 4 * 60f;
 					rotateSpeed = 5.5f;
 					ejectEffect = Fx.casing1;
-					shootSound = Sounds.missile;
+					shootSound = Sounds.shootBig;
 					shots = 4;
 					shotDelay = 15f;
 
-					bullet = new MissileBulletType(6.5f, 18){{
-						width = 12f;
-						height = 12f;
-						shrinkY = 0f;
-						splashDamageRadius = 25f;
-						splashDamage = 25f * 1.4f;
+					bullet = new ArtilleryBulletType(5, 50) {{
+						height = 20f;
+						width = 15f;
+						homingPower = 0.08f;
+						homingRange = 50f;
+						collidesAir = true;
+						trailSize = 5;
+						lifetime = (range / speed) * 1.5f;
+						shootEffect = Fx.shootBig;
 						hitEffect = Fx.blastExplosion;
-						despawnEffect = Fx.blastExplosion;
-						ammoMultiplier = 4f;
-						lightningDamage = 10;
-						lightning = 2;
-						lightningLength = 10;
-
-						fragBullets = 1;
-						fragBullet = new LaserBulletType(){{
-							damage = 45f;
-							recoil = 1f;
-							sideAngle = 45f;
-							sideWidth = 1f;
-							sideLength = 70f;
-							healPercent = 10f;
-							length = 64f;
-							colors = new Color[]{Pal.bulletYellowBack.cpy().a(0.4f), Pal.bulletYellow, Color.white};
-						}};
+						hitSound = Sounds.boom;
+						frontColor = Pal.plastaniumFront;
+						backColor = Pal.plastaniumBack;
+						splashDamage = 16f;
+						splashDamageRadius = 2 * tilesize;
+						fragBullets = 5;
+						fragBullet = artilleryPlasticFrag;
+						ammoMultiplier = 6f;
+						buildingDamageMultiplier = 2.5f;
 					}};
 				}},
 				new Weapon("uaw-machine-gun-medium-red") {{
