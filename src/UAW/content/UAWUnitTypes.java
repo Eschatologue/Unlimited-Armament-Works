@@ -1049,32 +1049,6 @@ public class UAWUnitTypes implements ContentList {
 			singleTarget = true;
 
 			weapons.add(
-				new MissileLauncherWeapon("uaw-cruise-missile-launcher-red") {{
-					rotate = top = mirror = false;
-					layerOffset = 1;
-					x = 5.5f;
-					y = -4f;
-					reload = 5 * 60f;
-					rotateSpeed = 5.5f;
-					missileOffsetX = shootX = 4f;
-
-					shootSound = UAWSfx.cruiseMissileShoot1;
-					bullet = new CruiseMissileBulletType(3f, 100) {{
-						size = 20;
-						homingRange = range * 2;
-						homingPower = 0.05f;
-						keepVelocity = false;
-						splashDamageRadius = 8 * tilesize;
-						splashDamage = damage;
-						lifetime = (range - 5) / speed;
-						shootEffect = UAWFxS.shootPyraFlame;
-						hitEffect = despawnEffect = UAWFxD.dynamicExplosion(splashDamageRadius);
-						trailEffect = UAWFxS.pyraSmokeTrail;
-						status = StatusEffects.blasted;
-						statusDuration = 4 * 60;
-						ammoMultiplier = 2f;
-					}};
-				}},
 				new Weapon("uaw-machine-gun-medium-red") {{
 					flipSprite = true;
 					layerOffset = 1.5f;
@@ -1095,6 +1069,32 @@ public class UAWUnitTypes implements ContentList {
 						smokeEffect = Fx.shootBigSmoke;
 						ammoMultiplier = 4;
 						lifetime = (range * 0.6f) / speed;
+					}};
+				}},
+				new MissileLauncherWeapon("uaw-cruise-missile-launcher-red") {{
+					rotate = top = mirror = false;
+					layerOffset = 1;
+					x = 7f;
+					y = -4f;
+					reload = 5 * 60f;
+					rotateSpeed = 5.5f;
+					shootX = 4f;
+
+					shootSound = UAWSfx.cruiseMissileShoot1;
+					bullet = new CruiseMissileBulletType(3f, 100) {{
+						size = 20;
+						homingRange = range * 2;
+						homingPower = 0.05f;
+						keepVelocity = false;
+						splashDamageRadius = 8 * tilesize;
+						splashDamage = damage;
+						lifetime = (range - 5) / speed;
+						shootEffect = UAWFxS.shootPyraFlame;
+						hitEffect = despawnEffect = UAWFxD.dynamicExplosion(splashDamageRadius);
+						trailEffect = UAWFxS.pyraSmokeTrail;
+						status = StatusEffects.blasted;
+						statusDuration = 4 * 60;
+						ammoMultiplier = 2f;
 					}};
 				}},
 				new TankWeapon(name + "-gun") {{

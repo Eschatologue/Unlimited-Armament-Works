@@ -15,7 +15,6 @@ import mindustry.graphics.Drawf;
 public class MissileLauncherWeapon extends UAWWeapon {
 	public TextureRegion missileRegion, missileOutlineRegion;
 	public String missileName = "uaw-w-cruise-missile-basic";
-	public float missileOffsetX = 0, missileOffsetY = 0f;
 
 	public MissileLauncherWeapon(String name) {
 		this.name = name;
