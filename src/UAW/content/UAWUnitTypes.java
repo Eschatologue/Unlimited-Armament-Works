@@ -1044,12 +1044,14 @@ public class UAWUnitTypes implements ContentList {
 			accel = 0.04f;
 			drag = 0.08f;
 			range = 40 * tilesize;
+			maxRange = range;
 			groundTrailInterval = 0.6f;
 			drawCell = false;
 			forceMultiTarget = true;
 
 			weapons.add(
 				new Weapon("uaw-machine-gun-medium-red") {{
+					flipSprite = true;
 					layerOffset = 1.5f;
 					rotate = true;
 					mirror = false;
@@ -1074,14 +1076,11 @@ public class UAWUnitTypes implements ContentList {
 				new MissileLauncherWeapon("uaw-cruise-missile-launcher-red") {{
 					rotate = top = mirror = false;
 					layerOffset = 1;
-					x = 10f;
-					y = -2f;
-					reload = 5 * 60f;
-					rotateSpeed = 5.5f;
-					shootX = 4f;
-
+					x = 14f;
+					y = -5f;
+					reload = 12 * 60f;
 					shootSound = UAWSfx.cruiseMissileShoot1;
-					bullet = new CruiseMissileBulletType(3f, 100) {{
+					bullet = new CruiseMissileBulletType(3f, 550) {{
 						size = 20;
 						homingRange = range * 2;
 						homingPower = 0.05f;
