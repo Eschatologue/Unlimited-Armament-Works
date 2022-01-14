@@ -1050,8 +1050,7 @@ public class UAWUnitTypes implements ContentList {
 
 			weapons.add(
 				new MissileLauncherWeapon("uaw-cruise-missile-launcher-red") {{
-					rotate = autoTarget = true;
-					top = mirror = false;
+					rotate = top = mirror = false;
 					layerOffset = 1;
 					x = -5.5f;
 					y = 0f;
