@@ -1075,8 +1075,8 @@ public class UAWUnitTypes implements ContentList {
 				new MissileLauncherWeapon("uaw-cruise-missile-launcher-red") {{
 					rotate = top = mirror = false;
 					layerOffset = 1;
-					x = 12f;
-					y = -2f;
+					x = 11f;
+					y = -0f;
 					reload = 12 * 60f;
 					shootSound = UAWSfx.cruiseMissileShoot1;
 					bullet = new CruiseMissileBulletType(3f, 550) {{
@@ -1117,8 +1117,6 @@ public class UAWUnitTypes implements ContentList {
 						trailColor = backColor;
 						armorIgnoreScl = 0.6f;
 						shieldDamageMultiplier = 2f;
-						homingPower = 0.16f;
-						homingRange = 50f;
 						shootEffect = new MultiEffect(UAWFxD.railShoot(30f, backColor), Fx.shootPyraFlame, UAWFxS.muzzleBreakShootSmoke);
 						hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootBigSmoke2);
 						fragBullets = 6;
