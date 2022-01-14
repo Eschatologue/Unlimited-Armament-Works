@@ -1050,7 +1050,6 @@ public class UAWUnitTypes implements ContentList {
 
 			weapons.add(
 				new Weapon("uaw-machine-gun-medium-red") {{
-					flipSprite = true;
 					layerOffset = 1.5f;
 					rotate = true;
 					mirror = false;
@@ -1071,11 +1070,12 @@ public class UAWUnitTypes implements ContentList {
 						lifetime = (range * 0.6f) / speed;
 					}};
 				}},
+
 				new MissileLauncherWeapon("uaw-cruise-missile-launcher-red") {{
 					rotate = top = mirror = false;
 					layerOffset = 1;
-					x = 7f;
-					y = -4f;
+					x = 10f;
+					y = -2f;
 					reload = 5 * 60f;
 					rotateSpeed = 5.5f;
 					shootX = 4f;
