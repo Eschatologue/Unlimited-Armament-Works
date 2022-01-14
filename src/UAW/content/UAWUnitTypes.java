@@ -1052,8 +1052,8 @@ public class UAWUnitTypes implements ContentList {
 				new MissileLauncherWeapon("uaw-cruise-missile-launcher-red") {{
 					rotate = top = mirror = false;
 					layerOffset = 1;
-					x = -5.5f;
-					y = 0f;
+					x = 5.5f;
+					y = -4f;
 					reload = 5 * 60f;
 					rotateSpeed = 5.5f;
 					missileOffsetX = shootX = 4f;
@@ -1076,6 +1076,7 @@ public class UAWUnitTypes implements ContentList {
 					}};
 				}},
 				new Weapon("uaw-machine-gun-medium-red") {{
+					flipSprite = true;
 					layerOffset = 1.5f;
 					rotate = true;
 					mirror = false;
@@ -1083,8 +1084,8 @@ public class UAWUnitTypes implements ContentList {
 					recoil = 0.5f;
 					recoilTime = 2f;
 					inaccuracy = 15f;
-					x = 5f;
-					y = -5.5f;
+					x = -5f;
+					y = -2.5f;
 					ejectEffect = Fx.casing2;
 					predictTarget = false;
 					bullet = new BasicBulletType(4f, 25) {{
