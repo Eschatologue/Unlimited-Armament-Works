@@ -1050,8 +1050,7 @@ public class UAWUnitTypes implements ContentList {
 			forceMultiTarget = true;
 
 			weapons.add(
-				new Weapon("uaw-machine-gun-medium-red") {{
-					flipSprite = true;
+				new Weapon("uaw-machine-gun-medium-red-r") {{
 					layerOffset = 1.5f;
 					rotate = true;
 					mirror = false;
@@ -1076,8 +1075,8 @@ public class UAWUnitTypes implements ContentList {
 				new MissileLauncherWeapon("uaw-cruise-missile-launcher-red") {{
 					rotate = top = mirror = false;
 					layerOffset = 1;
-					x = 14f;
-					y = -5f;
+					x = 12f;
+					y = -2f;
 					reload = 12 * 60f;
 					shootSound = UAWSfx.cruiseMissileShoot1;
 					bullet = new CruiseMissileBulletType(3f, 550) {{
