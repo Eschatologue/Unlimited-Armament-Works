@@ -1046,7 +1046,7 @@ public class UAWUnitTypes implements ContentList {
 			range = 40 * tilesize;
 			groundTrailInterval = 0.6f;
 			drawCell = false;
-			singleTarget = true;
+			forceMultiTarget = true;
 
 			weapons.add(
 				new Weapon("uaw-machine-gun-medium-red") {{

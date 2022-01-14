@@ -19,6 +19,8 @@ public class MissileLauncherWeapon extends UAWWeapon {
 	public MissileLauncherWeapon(String name) {
 		this.name = name;
 		recoil = 0;
+		predictTarget = false;
+		rotate = false;
 	}
 
 	public MissileLauncherWeapon() {
