@@ -1115,9 +1115,10 @@ public class UAWUnitTypes implements ContentList {
 					shootY = 26f;
 					reload = 5 * 60;
 					recoil = 2.5f;
-					shootSound = Sounds.artillery;
+					shootSound = Sounds.shootBig;
 					ejectEffect = UAWFxS.casing3Long;
 					shake = 15f;
+					predictTarget = false;
 					soundPitchMin = 1.4f;
 					soundPitchMax = 1.8f;
 					bullet = new UAWRailBulletType() {{
