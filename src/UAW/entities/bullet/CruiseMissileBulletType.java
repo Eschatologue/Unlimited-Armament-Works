@@ -31,6 +31,7 @@ public class CruiseMissileBulletType extends UAWBasicBulletType {
 		trailInterval = 0.5f;
 		trailEffect = UAWFxS.pyraSmokeTrail;
 		trailRotation = true;
+		despawnHit = true;
 	}
 
 	public CruiseMissileBulletType(float speed, float damage) {

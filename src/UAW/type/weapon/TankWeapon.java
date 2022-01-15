@@ -15,7 +15,6 @@ import static mindustry.Vars.*;
 
 public class TankWeapon extends UAWWeapon {
 	public float weaponLayer = Layer.groundUnit;
-	public float bulletSpeedTargetingMultiplier = 1f;
 
 	/** Weapon that attatches to mech base */
 	public TankWeapon(String name) {

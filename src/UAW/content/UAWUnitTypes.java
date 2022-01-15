@@ -1004,8 +1004,8 @@ public class UAWUnitTypes implements ContentList {
 					recoil = 4.5f;
 					shootSound = Sounds.artillery;
 					ejectEffect = UAWFxS.casing2Long;
-					shake = 4f;
-					bullet = new TrailBulletType(8f, 85) {{
+					shake = 6f;
+					bullet = new TrailBulletType(12f, 125) {{
 						height = 25f;
 						width = 8f;
 						lifetime = range / speed;
@@ -1088,19 +1088,23 @@ public class UAWUnitTypes implements ContentList {
 						splashDamageRadius = 8 * tilesize;
 						splashDamage = damage;
 						lifetime = (range - 5) / speed;
-						shootEffect = UAWFxS.shootPyraFlame;
-						hitEffect = despawnEffect = UAWFxD.dynamicExplosion(splashDamageRadius);
+						shootEffect = new MultiEffect(
+							UAWFxS.shootPyraFlame,
+							Fx.sparkShoot
+						);
+						hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius);
 						trailEffect = UAWFxS.pyraSmokeTrail;
 						status = StatusEffects.blasted;
 						statusDuration = 4 * 60;
 						ammoMultiplier = 2f;
-						fragAngle = 0f;
+						fragCone = 1f;
 						fragBullets = 1;
 						fragBullet = new ShrapnelBulletType() {{
 							serrations = 0;
 							damage = 66f;
-							width = 17f;
-							toColor = Pal.lightPyraFlame;
+							width = 8f;
+							fromColor = Pal.lightPyraFlame;
+							toColor = Pal.darkPyraFlame;
 						}};
 					}};
 				}},
@@ -1113,10 +1117,10 @@ public class UAWUnitTypes implements ContentList {
 					recoil = 2.5f;
 					shootSound = Sounds.artillery;
 					ejectEffect = UAWFxS.casing3Long;
-					shake = 6f;
+					shake = 12f;
 					soundPitchMin = 1.2f;
 					soundPitchMax = 1.6f;
-					bullet = new TrailBulletType(10f, 350) {{
+					bullet = new TrailBulletType(14f, 350) {{
 						height = 35f;
 						width = 10f;
 						lifetime = range / speed;
