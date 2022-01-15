@@ -1123,7 +1123,8 @@ public class UAWUnitTypes implements ContentList {
 					bullet = new UAWRailBulletType() {{
 						damage = 550;
 						knockback = 6f;
-						length = maxRange;
+						length = range;
+						updateEffectSeg = 15f;
 						armorIgnoreScl = 0.6f;
 						shieldDamageMultiplier = 2f;
 						pierceEffect = Fx.railHit;
