@@ -36,9 +36,9 @@ public class Rotor {
 
 	public void update(Unit unit) {
 		if (unit.health <= 0 && unit.dead()) {
-			realRotationSpeed = (Time.delta * rotorSpeed) * rotorDeadSpeed;
+			realRotationSpeed = (Time.time * rotorSpeed) * rotorDeadSpeed;
 		} else {
-			realRotationSpeed = Time.delta * rotorSpeed;
+			realRotationSpeed = Time.time * rotorSpeed;
 		}
 	}
 

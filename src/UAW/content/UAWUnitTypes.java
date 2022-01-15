@@ -1077,7 +1077,7 @@ public class UAWUnitTypes implements ContentList {
 					layerOffset = 1;
 					x = 11f;
 					y = -0f;
-					reload = 12 * 60f;
+					reload = 8 * 60f;
 					shootSound = UAWSfx.cruiseMissileShoot1;
 					bullet = new CruiseMissileBulletType(3f, 550) {{
 						size = 20;
