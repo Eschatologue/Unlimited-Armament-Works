@@ -40,6 +40,7 @@ public class CopterUnitType extends UnitType {
 				}
 			}
 		}
+		rotors.each(rotor -> rotor.update(unit));
 	}
 
 	@Override

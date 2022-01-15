@@ -958,8 +958,8 @@ public class UAWUnitTypes implements ContentList {
 
 		gardlacz = new TankUnitType("gardlacz") {{
 			health = 750;
-			armor = 20;
-			hitSize = 18;
+			armor = 18;
+			hitSize = 16;
 			speed = 1.3f;
 			rotateSpeed = 1.6f;
 			ammoType = new ItemAmmoType(Items.graphite);
@@ -968,8 +968,8 @@ public class UAWUnitTypes implements ContentList {
 			accel = 0.05f;
 			drag = 0.055f;
 			range = 30 * tilesize;
-			groundTrailInterval = 0.7f;
-			trailSizeMultiplier = 0.7f;
+			groundTrailInterval = 0.8f;
+			trailSizeMultiplier = 0.6f;
 			drawCell = false;
 
 			weapons.add(
@@ -1034,7 +1034,7 @@ public class UAWUnitTypes implements ContentList {
 		}};
 		arkabuz = new TankUnitType("arkabuz") {{
 			health = 7500;
-			armor = 32;
+			armor = 30;
 			hitSize = 25;
 			speed = 1.2f;
 			rotateSpeed = 1f;
@@ -1054,7 +1054,7 @@ public class UAWUnitTypes implements ContentList {
 					layerOffset = 1.5f;
 					rotate = true;
 					mirror = false;
-					reload = 15f;
+					reload = 5f;
 					recoil = 0.5f;
 					recoilTime = 2f;
 					shootCone = 10f;
@@ -1062,8 +1062,7 @@ public class UAWUnitTypes implements ContentList {
 					y = -2.5f;
 					ejectEffect = Fx.casing2;
 					predictTarget = false;
-					shots = 4;
-					shotDelay = 6f;
+					inaccuracy = 10f;
 					bullet = new BasicBulletType(4, 15) {{
 						height = 14;
 						width = 9f;
