@@ -961,7 +961,7 @@ public class UAWUnitTypes implements ContentList {
 			armor = 20;
 			hitSize = 18;
 			speed = 1.3f;
-			rotateSpeed = 1.8f;
+			rotateSpeed = 1.6f;
 			ammoType = new ItemAmmoType(Items.graphite);
 			singleTarget = true;
 
@@ -974,14 +974,16 @@ public class UAWUnitTypes implements ContentList {
 
 			weapons.add(
 				new Weapon("uaw-point-defense-red") {{
+					ignoreRotation = true;
 					mirror = false;
-					reload = 4f;
+					reload = 5f;
+					recoil = 0f;
 					x = 3f;
 					y = -2f;
 					rotate = true;
 					ejectEffect = Fx.casing1;
 					inaccuracy = 12f;
-					bullet = new BasicBulletType(4, 9) {{
+					bullet = new BasicBulletType(4, 12) {{
 						height = 10;
 						width = 7f;
 						lifetime = (range * 0.5f) / speed;
@@ -996,9 +998,11 @@ public class UAWUnitTypes implements ContentList {
 					shootY = 16f;
 					reload = 1.5f * 60;
 					recoil = 4.5f;
-					shootSound = Sounds.artillery;
+					shootSound = Sounds.shootBig;
 					ejectEffect = UAWFxS.casing2Long;
 					shake = 6f;
+					soundPitchMin = 1.2f;
+					soundPitchMax = 1.4f;
 					bullet = new TrailBulletType(6f, 125) {{
 						height = 25f;
 						width = 8f;
@@ -1033,7 +1037,7 @@ public class UAWUnitTypes implements ContentList {
 			armor = 32;
 			hitSize = 25;
 			speed = 1.2f;
-			rotateSpeed = 1.2f;
+			rotateSpeed = 1f;
 			ammoType = new ItemAmmoType(Items.graphite);
 			singleTarget = true;
 
@@ -1046,10 +1050,11 @@ public class UAWUnitTypes implements ContentList {
 
 			weapons.add(
 				new Weapon("uaw-machine-gun-medium-red-r") {{
+					ignoreRotation = true;
 					layerOffset = 1.5f;
 					rotate = true;
 					mirror = false;
-					reload = 6f;
+					reload = 15f;
 					recoil = 0.5f;
 					recoilTime = 2f;
 					shootCone = 10f;
@@ -1057,8 +1062,8 @@ public class UAWUnitTypes implements ContentList {
 					y = -2.5f;
 					ejectEffect = Fx.casing2;
 					predictTarget = false;
-					shots = 3;
-					shotDelay = 5f;
+					shots = 4;
+					shotDelay = 6f;
 					bullet = new BasicBulletType(4, 15) {{
 						height = 14;
 						width = 9f;
@@ -1098,14 +1103,16 @@ public class UAWUnitTypes implements ContentList {
 					shootY = 26f;
 					reload = 2 * 60;
 					recoil = 2.5f;
-					shootSound = Sounds.artillery;
+					shootSound = Sounds.shootBig;
 					ejectEffect = UAWFxS.casing3Long;
 					shake = 12f;
-					soundPitchMin = 1.2f;
-					soundPitchMax = 1.6f;
+					soundPitchMin = 1.4f;
+					soundPitchMax = 1.8f;
 					bullet = new TrailBulletType(10f, 350) {{
 						height = 35f;
 						width = 10f;
+						homingPower = 0.0015f;
+						homingRange = 8 * tilesize;
 						lifetime = range / speed;
 						pierce = true;
 						pierceCap = 2;
