@@ -12,7 +12,7 @@ import mindustry.gen.Unit;
  * @Author SMOLKEYS
  */
 public class MissileLauncherWeapon extends UAWWeapon {
-	public TextureRegion missileRegion, missileOutlineRegion, launcherTopRegion;
+	public TextureRegion missileRegion, missileOutlineRegion;
 	public String missileName = "uaw-w-cruise-missile-basic";
 
 	public MissileLauncherWeapon(String name) {
@@ -56,19 +56,7 @@ public class MissileLauncherWeapon extends UAWWeapon {
 
 	@Override
 	public void draw(Unit unit, WeaponMount mount) {
-		float rotation = unit.rotation - 90;
-		float weaponRotation = rotation + (rotate ? mount.rotation : 0);
-		float wx = unit.x + Angles.trnsx(rotation, x, y) + Angles.trnsx(weaponRotation, 0, -mount.recoil);
-		float wy = unit.y + Angles.trnsy(rotation, x, y) + Angles.trnsy(weaponRotation, 0, -mount.recoil);
-
 		super.draw(unit, mount);
 		drawMissile(unit, mount);
-		if (launcherTopRegion.found()) {
-			Draw.rect(region,
-				wx, wy,
-				region.width * Draw.scl * -Mathf.sign(flipSprite),
-				region.height * Draw.scl,
-				weaponRotation);
-		}
 	}
 }
