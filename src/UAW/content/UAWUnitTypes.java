@@ -972,7 +972,7 @@ public class UAWUnitTypes implements ContentList {
 			drawCell = false;
 
 			weapons.add(
-				new Weapon("uaw-machine-gun-medium-red") {{
+				new Weapon("uaw-point-defense-red") {{
 					layerOffset = 1.5f;
 					rotate = true;
 					mirror = false;
@@ -982,16 +982,16 @@ public class UAWUnitTypes implements ContentList {
 					x = 3f;
 					y = -2f;
 					ejectEffect = Fx.casing2;
-					inaccuracy = 8f;
 					shootCone = 8f;
-					predictTarget = false;
-					bullet = new BasicBulletType(5f, 10) {{
+					bullet = new LaserBulletType() {{
+						damage = 19;
+						sideAngle = 90f;
+						sideWidth = 1.5f;
+						sideLength = 40f;
 						width = 6f;
-						height = 10f;
-						shootEffect = Fx.shootBig;
-						smokeEffect = Fx.shootBigSmoke;
-						ammoMultiplier = 4;
-						lifetime = (range * 0.6f) / speed;
+						length = range * 0.5f;
+						shootEffect = Fx.shootSmallSmoke;
+						colors = new Color[]{Color.valueOf("ec7458aa"), Color.valueOf("ff9c5a"), Color.white};
 					}};
 				}},
 				new TankWeapon(name + "-gun") {{
@@ -1048,7 +1048,6 @@ public class UAWUnitTypes implements ContentList {
 			maxRange = range;
 			groundTrailInterval = 0.6f;
 			drawCell = false;
-			forceMultiTarget = true;
 
 			weapons.add(
 				new Weapon("uaw-machine-gun-medium-red-r") {{
@@ -1064,75 +1063,86 @@ public class UAWUnitTypes implements ContentList {
 					y = -2.5f;
 					ejectEffect = Fx.casing2;
 					predictTarget = false;
-					bullet = new BasicBulletType(4f, 25) {{
+					bullet = new LaserBulletType() {{
+						damage = 25;
+						sideAngle = 90f;
+						sideWidth = 1.5f;
+						sideLength = 60f;
 						width = 6f;
-						height = 9f;
-						shootEffect = Fx.shootBig;
-						smokeEffect = Fx.shootBigSmoke;
-						ammoMultiplier = 4;
-						lifetime = (range * 0.6f) / speed;
+						length = range * 0.6f;
+						shootEffect = Fx.shootBigSmoke;
+						colors = new Color[]{Color.valueOf("ec7458aa"), Color.valueOf("ff9c5a"), Color.white};
 					}};
 				}},
-				new MissileLauncherWeapon("uaw-cruise-missile-launcher-red") {{
-					rotate = top = mirror = false;
-					layerOffset = 1;
-					x = 11.5f;
-					y = -0f;
-					reload = 8 * 60f;
-					shootSound = UAWSfx.cruiseMissileShoot1;
-					bullet = new CruiseMissileBulletType(3f, 550) {{
-						size = 18;
-						homingRange = range;
-						homingPower = 0.04f;
-						keepVelocity = false;
-						splashDamageRadius = 8 * tilesize;
-						splashDamage = damage;
-						lifetime = (range - 5) / speed;
-						shootEffect = new MultiEffect(
-							UAWFxS.shootPyraFlame,
-							Fx.sparkShoot
-						);
-						hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius);
-						trailEffect = UAWFxS.pyraSmokeTrail;
-						status = StatusEffects.blasted;
-						statusDuration = 4 * 60;
-						ammoMultiplier = 2f;
-						fragCone = 1f;
-						fragBullets = 1;
-						fragBullet = new ShrapnelBulletType() {{
-							serrations = 0;
-							damage = 66f;
-							width = 8f;
-							fromColor = Pal.lightPyraFlame;
-							toColor = Pal.darkPyraFlame;
-						}};
-					}};
-				}},
+
+//				new MissileLauncherWeapon("uaw-cruise-missile-launcher-red") {{
+//					rotate = top = mirror = false;
+//					layerOffset = 1;
+//					x = 11.5f;
+//					y = -0f;
+//					reload = 8 * 60f;
+//					shootSound = UAWSfx.cruiseMissileShoot1;
+//					bullet = new CruiseMissileBulletType(3f, 550) {{
+//						size = 18;
+//						homingRange = range;
+//						homingPower = 0.04f;
+//						keepVelocity = false;
+//						splashDamageRadius = 8 * tilesize;
+//						splashDamage = damage;
+//						lifetime = (range - 5) / speed;
+//						shootEffect = new MultiEffect(
+//							UAWFxS.shootPyraFlame,
+//							Fx.sparkShoot
+//						);
+//						hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius);
+//						trailEffect = UAWFxS.pyraSmokeTrail;
+//						status = StatusEffects.blasted;
+//						statusDuration = 4 * 60;
+//						ammoMultiplier = 2f;
+//					}};
+//				}},
 				new TankWeapon(name + "-gun") {{
 					weaponLayer = Layer.groundUnit;
 					x = 0f;
 					y = 0f;
 					shootY = 26f;
-					reload = 5 * 60;
+					reload = 2 * 60;
 					recoil = 2.5f;
-					shootSound = Sounds.shootBig;
+					shootSound = Sounds.artillery;
 					ejectEffect = UAWFxS.casing3Long;
-					shake = 15f;
-					predictTarget = false;
-					soundPitchMin = 1.4f;
-					soundPitchMax = 1.8f;
-					bullet = new UAWRailBulletType() {{
-						damage = 550;
+					shake = 12f;
+					soundPitchMin = 1.2f;
+					soundPitchMax = 1.6f;
+					bullet = new TrailBulletType(10f, 350) {{
+						height = 35f;
+						width = 10f;
+						lifetime = range / speed;
+						pierce = true;
+						pierceCap = 2;
 						knockback = 6f;
-						length = range;
-						updateEffectSeg = 15f;
+						trailColor = backColor;
 						armorIgnoreScl = 0.6f;
 						shieldDamageMultiplier = 2f;
-						pierceEffect = Fx.railHit;
-						updateEffect = Fx.railTrail;
-						shootEffect = new MultiEffect(UAWFxD.railShoot(32f, Pal.orangeSpark), Fx.shootPyraFlame, UAWFxS.muzzleBreakShootSmoke);
-						hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootBigSmoke2, Fx.massiveExplosion);
+						shootEffect = new MultiEffect(UAWFxD.railShoot(30f, backColor), Fx.shootPyraFlame, UAWFxS.muzzleBreakShootSmoke);
+						hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootBigSmoke2);
+						fragBullets = 6;
+						fragLifeMin = 0f;
+						fragCone = 30f;
+						status = StatusEffects.melting;
+						collidesAir = false;
 						despawnHit = true;
+						fragBullet = new BasicBulletType(7f, 9) {{
+							buildingDamageMultiplier = 1.5f;
+							height = width = 8f;
+							pierce = true;
+							pierceBuilding = true;
+							pierceCap = 3;
+							lifetime = 30f;
+							hitEffect = Fx.flakExplosion;
+							splashDamage = damage;
+							splashDamageRadius = 8f;
+							hittable = false;
+						}};
 					}};
 				}}
 			);
