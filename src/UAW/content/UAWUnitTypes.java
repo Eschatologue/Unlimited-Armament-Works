@@ -961,8 +961,9 @@ public class UAWUnitTypes implements ContentList {
 			armor = 20;
 			hitSize = 18;
 			speed = 1.3f;
-			rotateSpeed = 2f;
+			rotateSpeed = 1.8f;
 			ammoType = new ItemAmmoType(Items.graphite);
+			singleTarget = true;
 
 			accel = 0.05f;
 			drag = 0.055f;
@@ -974,11 +975,12 @@ public class UAWUnitTypes implements ContentList {
 			weapons.add(
 				new Weapon("uaw-point-defense-red") {{
 					mirror = false;
-					reload = 3f;
+					reload = 4f;
 					x = 3f;
 					y = -2f;
 					rotate = true;
 					ejectEffect = Fx.casing1;
+					inaccuracy = 12f;
 					bullet = new BasicBulletType(4, 9) {{
 						height = 10;
 						width = 7f;
@@ -1031,8 +1033,9 @@ public class UAWUnitTypes implements ContentList {
 			armor = 32;
 			hitSize = 25;
 			speed = 1.2f;
-			rotateSpeed = 1.5f;
+			rotateSpeed = 1.2f;
 			ammoType = new ItemAmmoType(Items.graphite);
+			singleTarget = true;
 
 			accel = 0.04f;
 			drag = 0.08f;
