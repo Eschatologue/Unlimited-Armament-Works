@@ -13,6 +13,8 @@ public class CruiseMissileBulletType extends UAWBasicBulletType {
 
 	public CruiseMissileBulletType(float speed, float damage, String sprite) {
 		super(speed, damage, sprite);
+		this.speed = speed;
+		this.splashDamage = damage;
 		height = size;
 		width = size / 2.4f;
 		layer = Layer.effect + 1;
@@ -20,7 +22,6 @@ public class CruiseMissileBulletType extends UAWBasicBulletType {
 		drag = -0.015f;
 		homingRange = 30 * tilesize;
 		homingPower = 0.035f;
-		splashDamage = damage;
 		splashDamageRadius = 12 * tilesize;
 		hitShake = 12f;
 		hitSize = 1.5f * 8;
@@ -32,6 +33,7 @@ public class CruiseMissileBulletType extends UAWBasicBulletType {
 		trailEffect = UAWFxS.pyraSmokeTrail;
 		trailRotation = true;
 		despawnHit = true;
+		keepVelocity = false;
 	}
 
 	public CruiseMissileBulletType(float speed, float damage) {
