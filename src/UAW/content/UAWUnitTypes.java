@@ -1113,43 +1113,24 @@ public class UAWUnitTypes implements ContentList {
 					x = 0f;
 					y = 0f;
 					shootY = 26f;
-					reload = 2 * 60;
+					reload = 5 * 60;
 					recoil = 2.5f;
 					shootSound = Sounds.artillery;
 					ejectEffect = UAWFxS.casing3Long;
-					shake = 12f;
-					soundPitchMin = 1.2f;
-					soundPitchMax = 1.6f;
-					bullet = new TrailBulletType(14f, 350) {{
-						height = 35f;
-						width = 10f;
-						lifetime = range / speed;
-						pierce = true;
-						pierceCap = 2;
+					shake = 15f;
+					soundPitchMin = 1.4f;
+					soundPitchMax = 1.8f;
+					bullet = new UAWRailBulletType() {{
+						damage = 550;
 						knockback = 6f;
-						trailColor = backColor;
+						length = maxRange;
 						armorIgnoreScl = 0.6f;
 						shieldDamageMultiplier = 2f;
-						shootEffect = new MultiEffect(UAWFxD.railShoot(30f, backColor), Fx.shootPyraFlame, UAWFxS.muzzleBreakShootSmoke);
-						hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootBigSmoke2);
-						fragBullets = 6;
-						fragLifeMin = 0f;
-						fragCone = 30f;
-						status = StatusEffects.melting;
-						collidesAir = false;
+						pierceEffect = Fx.railHit;
+						updateEffect = Fx.railTrail;
+						shootEffect = new MultiEffect(UAWFxD.railShoot(32f, Pal.orangeSpark), Fx.shootPyraFlame, UAWFxS.muzzleBreakShootSmoke);
+						hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootBigSmoke2, Fx.massiveExplosion);
 						despawnHit = true;
-						fragBullet = new BasicBulletType(7f, 9) {{
-							buildingDamageMultiplier = 1.5f;
-							height = width = 8f;
-							pierce = true;
-							pierceBuilding = true;
-							pierceCap = 3;
-							lifetime = 30f;
-							hitEffect = Fx.flakExplosion;
-							splashDamage = damage;
-							splashDamageRadius = 8f;
-							hittable = false;
-						}};
 					}};
 				}}
 			);
