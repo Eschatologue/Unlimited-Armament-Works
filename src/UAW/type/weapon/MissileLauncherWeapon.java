@@ -20,6 +20,7 @@ public class MissileLauncherWeapon extends UAWWeapon {
 		recoil = 0;
 		predictTarget = false;
 		rotate = false;
+		shootCone = 45f;
 	}
 
 	public MissileLauncherWeapon() {

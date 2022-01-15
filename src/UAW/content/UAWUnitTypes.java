@@ -982,7 +982,8 @@ public class UAWUnitTypes implements ContentList {
 					x = 3f;
 					y = -2f;
 					ejectEffect = Fx.casing2;
-					inaccuracy = 10f;
+					inaccuracy = 8f;
+					shootCone = 8f;
 					predictTarget = false;
 					bullet = new BasicBulletType(5f, 10) {{
 						width = 6f;
@@ -1057,7 +1058,8 @@ public class UAWUnitTypes implements ContentList {
 					reload = 6f;
 					recoil = 0.5f;
 					recoilTime = 2f;
-					inaccuracy = 15f;
+					inaccuracy = 10f;
+					shootCone = 10f;
 					x = -5f;
 					y = -2.5f;
 					ejectEffect = Fx.casing2;
@@ -1071,18 +1073,17 @@ public class UAWUnitTypes implements ContentList {
 						lifetime = (range * 0.6f) / speed;
 					}};
 				}},
-
 				new MissileLauncherWeapon("uaw-cruise-missile-launcher-red") {{
 					rotate = top = mirror = false;
 					layerOffset = 1;
-					x = 11f;
+					x = 11.5f;
 					y = -0f;
 					reload = 8 * 60f;
 					shootSound = UAWSfx.cruiseMissileShoot1;
 					bullet = new CruiseMissileBulletType(3f, 550) {{
-						size = 20;
-						homingRange = range * 2;
-						homingPower = 0.05f;
+						size = 18;
+						homingRange = range;
+						homingPower = 0.04f;
 						keepVelocity = false;
 						splashDamageRadius = 8 * tilesize;
 						splashDamage = damage;
@@ -1093,6 +1094,14 @@ public class UAWUnitTypes implements ContentList {
 						status = StatusEffects.blasted;
 						statusDuration = 4 * 60;
 						ammoMultiplier = 2f;
+						fragAngle = 0f;
+						fragBullets = 1;
+						fragBullet = new ShrapnelBulletType() {{
+							serrations = 0;
+							damage = 66f;
+							width = 17f;
+							toColor = Pal.lightPyraFlame;
+						}};
 					}};
 				}},
 				new TankWeapon(name + "-gun") {{
