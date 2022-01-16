@@ -361,28 +361,16 @@ public class UAWUnitTypes implements ContentList {
 				new Rotor("uaw-short-blade") {{
 					x = -rotX;
 					y = rotY;
-					rotorSpeed = -rotSpeed;
-					bladeCount = 3;
-					drawRotorTop = false;
-				}},
-				new Rotor("uaw-short-blade") {{
-					x = -rotX;
-					y = rotY;
 					rotorSpeed = rotSpeed;
 					bladeCount = 3;
+					doubleRotor = true;
 				}},
 				new Rotor("uaw-short-blade") {{
 					x = rotX;
 					y = rotY;
 					rotorSpeed = rotSpeed;
 					bladeCount = 3;
-					drawRotorTop = false;
-				}},
-				new Rotor("uaw-short-blade") {{
-					x = rotX;
-					y = rotY;
-					rotorSpeed = -rotSpeed;
-					bladeCount = 3;
+					doubleRotor = true;
 				}}
 			);
 		}};

@@ -14,12 +14,18 @@ public class Rotor {
 
 	public float x = 0f;
 	public float y = 0f;
+
+	/** Rotor base rotation speed */
 	public float rotorSpeed = 12;
-	public float rotorDeadSpeed = 0.5f;
+	/** Rotor rotation speed when the unit dies */
+	public float rotorDeadSpeed = -1f;
+	/** The speed of which the rotor will reach its minimum rotation speed */
+	public float rotorSlowdownSpeed = 0.5f;
+	/** TODO The starting angle of the rotor rotation */
 	public float initialRotation = 0f;
+	public float layer = Layer.flyingUnitLow + 0.001f;
 	public boolean drawRotorTop = true, doubleRotor = false;
 	public int bladeCount = 4;
-	public float layer = Layer.flyingUnitLow + 0.001f;
 
 	protected float realRotationSpeed;
 
@@ -36,10 +42,11 @@ public class Rotor {
 
 	public void update(Unit unit) {
 		if (unit.health <= 0 && unit.dead()) {
-			realRotationSpeed = (Time.time * rotorSpeed) * rotorDeadSpeed;
+			realRotationSpeed = Time.delta * Mathf.approachDelta(rotorSpeed, rotorDeadSpeed, rotorSlowdownSpeed);
 		} else {
-			realRotationSpeed = Time.time * rotorSpeed;
+			realRotationSpeed = Time.delta * rotorSpeed;
 		}
+
 	}
 
 	public void draw(Unit unit) {

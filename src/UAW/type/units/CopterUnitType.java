@@ -30,6 +30,7 @@ public class CopterUnitType extends UnitType {
 	public void update(Unit unit) {
 		float rx = unit.x + Angles.trnsx(unit.rotation - 90, fallSmokeX, fallSmokeY);
 		float ry = unit.y + Angles.trnsy(unit.rotation - 90, fallSmokeX, fallSmokeY);
+		rotorUpdate(unit);
 		super.update(unit);
 		if (unit.isFlying() && spinningFallSpeed > 0) {
 			if (unit.dead() || unit.health < 0) {
@@ -40,13 +41,16 @@ public class CopterUnitType extends UnitType {
 				}
 			}
 		}
-		rotors.each(rotor -> rotor.update(unit));
 	}
 
 	@Override
 	public void draw(Unit unit) {
 		super.draw(unit);
 		drawRotor(unit);
+	}
+
+	public void rotorUpdate(Unit unit) {
+		rotors.each(rotor -> rotor.update(unit));
 	}
 
 	public void drawRotor(Unit unit) {
