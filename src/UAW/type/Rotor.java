@@ -18,9 +18,9 @@ public class Rotor {
 	/** Rotor base rotation speed */
 	public float rotorSpeed = 12;
 	/** Rotor rotation speed when the unit dies */
-	public float rotorDeadSpeed = -1f;
+	public float rotorDeadSpeed = 5f;
 	/** The speed of which the rotor will reach its minimum rotation speed */
-	public float rotorSlowdownSpeed = 0.5f;
+	public float rotorSlowdownSpeed = 0.001f;
 	/** TODO The starting angle of the rotor rotation */
 	public float initialRotation = 0f;
 	public float layer = Layer.flyingUnitLow + 0.001f;
@@ -42,7 +42,7 @@ public class Rotor {
 
 	public void update(Unit unit) {
 		if (unit.health <= 0 || unit.dead()) {
-			realRotationSpeed = Time.time * Mathf.lerpDelta(rotorSpeed, rotorDeadSpeed, rotorSlowdownSpeed);
+			realRotationSpeed = Time.time * Mathf.approachDelta(rotorSpeed, rotorDeadSpeed, rotorSlowdownSpeed);
 		} else {
 			realRotationSpeed = Time.time * rotorSpeed;
 		}
