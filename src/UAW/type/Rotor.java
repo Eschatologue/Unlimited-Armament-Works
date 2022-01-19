@@ -42,7 +42,7 @@ public class Rotor {
 
 	public void update(Unit unit) {
 		if (unit.health <= 0 || unit.dead()) {
-			realRotationSpeed = Time.time * (rotorSpeed * unit.elevation);
+			realRotationSpeed = Time.time * (rotorSpeed * (unit.elevation() / 100));
 		} else {
 			realRotationSpeed = Time.time * rotorSpeed;
 		}
