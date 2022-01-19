@@ -20,7 +20,7 @@ public class Rotor {
 	/** Rotor rotation speed when the unit dies */
 	public float rotorDeadSpeed = 5f;
 	/** The speed of which the rotor will reach its minimum rotation speed */
-	public float rotorSlowdownSpeed = 0.001f;
+	public float rotorSlowdownSpeed = 0.01f;
 	/** TODO The starting angle of the rotor rotation */
 	public float initialRotation = 0f;
 	public float layer = Layer.flyingUnitLow + 0.001f;
