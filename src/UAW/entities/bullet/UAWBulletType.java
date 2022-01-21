@@ -2,6 +2,7 @@ package UAW.entities.bullet;
 
 import arc.Events;
 import arc.util.*;
+import mindustry.entities.Units;
 import mindustry.entities.bullet.BulletType;
 import mindustry.game.EventType;
 import mindustry.gen.*;
@@ -10,10 +11,13 @@ import mindustry.world.blocks.defense.Wall;
 import static mindustry.Vars.player;
 
 public class UAWBulletType extends BulletType {
+	/** Percentage of bullet damage that ignores armor */
 	public float armorIgnoreScl = 0f;
+	/** Percentage of bullet damage that damages shield */
 	public float shieldDamageMultiplier = 1f;
-
-	public @Nullable BulletType afterShock = null;
+	/** FlakBullets explode range, 0 to disable */
+	public float explodeRange = 0f;
+	public float explodeDelay = 5f;
 
 	public UAWBulletType(float speed, float damage) {
 		this.speed = speed;
@@ -33,7 +37,7 @@ public class UAWBulletType extends BulletType {
 			} else h.damage(b.damage);
 		}
 		if (entity instanceof Shieldc h && shieldDamageMultiplier > 1) {
-			h.damagePierce(b.damage * shieldDamageMultiplier);
+			h.damage(b.damage * shieldDamageMultiplier);
 		}
 		if (entity instanceof Unit unit) {
 			Tmp.v3.set(unit).sub(b).nor().scl(knockback * 80f);
@@ -44,6 +48,25 @@ public class UAWBulletType extends BulletType {
 		//for achievements
 		if (b.owner instanceof Wall.WallBuild && player != null && b.team == player.team() && entity instanceof Unit unit && unit.dead) {
 			Events.fire(EventType.Trigger.phaseDeflectHit);
+		}
+	}
+
+	@Override
+	public void update(Bullet b) {
+		super.update(b);
+		if (b.fdata < 0f) return;
+		if (b.timer(2, 6) && explodeRange > 0) {
+			Units.nearbyEnemies(b.team, Tmp.r1.setSize(explodeRange * 2f).setCenter(b.x, b.y), unit -> {
+				if (b.fdata < 0f || !unit.checkTarget(collidesAir, collidesGround)) return;
+				if (unit.within(b, explodeRange)) {
+					b.fdata = -1f;
+					Time.run(explodeDelay, () -> {
+						if (b.fdata < 0) {
+							b.time = b.lifetime;
+						}
+					});
+				}
+			});
 		}
 	}
 }
