@@ -54,7 +54,7 @@ public class UAWUnitTypes implements ContentList {
 			rotors.add(
 				new Rotor(name + "-blade") {{
 					x = y = 0;
-					rotorSpeed = -16f;
+					rotorSpeed = -15f;
 					bladeCount = 3;
 				}}
 			);
@@ -140,7 +140,7 @@ public class UAWUnitTypes implements ContentList {
 				new Rotor(name + "-blade") {{
 					x = 0;
 					y = 2;
-					rotorSpeed = -14f;
+					rotorSpeed = -12f;
 					bladeCount = 4;
 				}}
 			);

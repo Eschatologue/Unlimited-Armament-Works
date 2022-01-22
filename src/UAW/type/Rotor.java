@@ -18,7 +18,7 @@ public class Rotor {
 	/** Rotor base rotation speed */
 	public float rotorSpeed = 12;
 	/** Rotor rotation speed when the unit dies */
-	public float rotorDeadSpeedMultiplier = 0.01f;
+	public float rotorDeadSpeedMultiplier = 0.05f;
 	/** TODO The starting angle of the rotor rotation */
 	public float initialRotation = 0f;
 	public float layer = Layer.flyingUnitLow + 0.001f;
