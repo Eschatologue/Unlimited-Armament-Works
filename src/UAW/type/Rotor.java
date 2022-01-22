@@ -4,7 +4,6 @@ import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.*;
-import arc.util.Time;
 import mindustry.gen.Unit;
 import mindustry.graphics.Layer;
 
@@ -18,13 +17,13 @@ public class Rotor {
 	/** Rotor base rotation speed */
 	public float rotorSpeed = 12;
 	/** Rotor rotation speed when the unit dies */
-	public float rotorDeadSpeedMultiplier = 0.025f;
+	public float rotorDeathSlowdown = 0.01f;
 	public float layer = Layer.flyingUnitLow + 0.001f;
 	public boolean drawRotorTop = true, doubleRotor = false;
 	public int bladeCount = 4;
 
 	protected float realRotationSpeed;
-	protected float rotorSpeedScl = 1;
+	protected float rotorSpeedScl;
 
 	public Rotor(String name) {
 		this.name = name;
@@ -38,12 +37,12 @@ public class Rotor {
 	}
 
 	public void update(Unit unit) {
-		if (unit.health >= 0 || !unit.dead()) {
-			rotorSpeedScl += (1 - (int) (rotorSpeedScl / 10));
+		if (unit.health <= 0 || unit.dead()) {
+			rotorSpeedScl = Mathf.lerpDelta(rotorSpeedScl, 0f, rotorDeathSlowdown);
 		} else {
-			rotorSpeedScl -= (1 - (int) (rotorSpeedScl / 10));
+			rotorSpeedScl = Mathf.lerpDelta(rotorSpeedScl, 1f, rotorDeathSlowdown);
 		}
-		realRotationSpeed = ((rotorSpeed / 10) * rotorSpeedScl) * Time.time;
+		realRotationSpeed = rotorSpeed * rotorSpeedScl;
 	}
 
 	public void draw(Unit unit) {
