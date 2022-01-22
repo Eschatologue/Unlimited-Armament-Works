@@ -91,12 +91,12 @@ public class UAWUnitTypes implements ContentList {
 					}};
 				}},
 				new Weapon("uaw-machine-gun-small-red") {{
-					layerOffset = -0.5f;
+					layerOffset = -0.01f;
 					rotate = false;
 					mirror = true;
 					shootCone = 90;
 					inaccuracy = 3f;
-					x = 7f;
+					x = 8f;
 					y = 3.5f;
 					reload = 6f;
 					shootSound = Sounds.shoot;

@@ -22,7 +22,7 @@ public class CopterUnitType extends UnitType {
 		engineSize = 0f;
 		rotateSpeed = 6f;
 		defaultController = CopterAI::new;
-		fallSpeed = 0.007f;
+		fallSpeed = 0.006f;
 		onTitleScreen = false;
 	}
 
@@ -34,7 +34,7 @@ public class CopterUnitType extends UnitType {
 		super.update(unit);
 		if (unit.isFlying() && spinningFallSpeed > 0) {
 			if (unit.dead() || unit.health < 0) {
-				unit.rotation += Time.delta * spinningFallSpeed ;
+				unit.rotation += Time.delta * (spinningFallSpeed * unit.vel().len()) * Mathf.signs[id % 2];
 				if (Mathf.chanceDelta(fallSmokeChance)) {
 					Fx.fallSmoke.at(rx, ry);
 					Fx.burning.at(rx, ry);
