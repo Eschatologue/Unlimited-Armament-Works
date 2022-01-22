@@ -38,13 +38,13 @@ public class Rotor {
 	}
 
 	public void update(Unit unit) {
-		if (unit.health >= 0 || !unit.dead()) {
-			rotorSpeedScl = Mathf.lerpDelta(rotorSpeedScl, 1, rotorDeadSpeedMultiplier);
-			if (Mathf.equal(rotorSpeedScl, 1, 0.002f)) {
-				rotorSpeedScl = 1;
+		if (unit.health <= 0 || unit.dead()) {
+			rotorSpeedScl = Mathf.lerpDelta(rotorSpeedScl, 0, rotorDeadSpeedMultiplier);
+			if (Mathf.equal(rotorSpeedScl, 0, 0.002f)) {
+				rotorSpeedScl = 0;
 			}
 		} else {
-			rotorSpeedScl = Mathf.lerpDelta(rotorSpeedScl, 0f, 0.002f);
+			rotorSpeedScl = Mathf.lerpDelta(rotorSpeedScl, 1f, 0.002f);
 		}
 		realRotationSpeed = (rotorSpeed * rotorSpeedScl) * Time.time;
 	}
