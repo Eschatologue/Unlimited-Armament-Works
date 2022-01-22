@@ -34,7 +34,7 @@ public class CopterUnitType extends UnitType {
 		super.update(unit);
 		if (unit.isFlying() && spinningFallSpeed > 0) {
 			if (unit.dead() || unit.health < 0) {
-				unit.rotation += Time.delta * spinningFallSpeed + unit.vel.len();
+				unit.rotation += Time.delta * spinningFallSpeed ;
 				if (Mathf.chanceDelta(fallSmokeChance)) {
 					Fx.fallSmoke.at(rx, ry);
 					Fx.burning.at(rx, ry);

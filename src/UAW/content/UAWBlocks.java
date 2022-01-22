@@ -8,6 +8,7 @@ import UAW.world.blocks.defense.walls.ShieldWall;
 import UAW.world.blocks.liquid.*;
 import UAW.world.blocks.power.WarmUpGenerator;
 import UAW.world.blocks.production.*;
+import arc.struct.Seq;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.UnitSorts;
@@ -19,7 +20,7 @@ import mindustry.type.*;
 import mindustry.world.Block;
 import mindustry.world.blocks.liquid.*;
 import mindustry.world.blocks.production.*;
-import mindustry.world.blocks.units.Reconstructor;
+import mindustry.world.blocks.units.*;
 import mindustry.world.draw.*;
 import mindustry.world.meta.Attribute;
 
@@ -50,8 +51,10 @@ public class UAWBlocks implements ContentList {
 	petroleumGenerator,
 	// Defense
 	shieldWall, statusFieldProjector, rejuvinationProjector, rejuvinationDome,
-	// Units
-	multiplicativePetroleumReconstructor, exponentialPetroleumReconstructor, tetrativePetroleumReconstructor;
+	// Units Factory
+	UAWGroundFactory, UAWNavalFactory, UAWAirFactory,
+	// Units Reconstructor
+	exponentialPetroleumReconstructor, tetrativePetroleumReconstructor;
 
 	@Override
 	public void load() {
@@ -987,33 +990,81 @@ public class UAWBlocks implements ContentList {
 			consumes.liquid(UAWLiquids.surgeSolvent, 1f);
 		}};
 
-		multiplicativePetroleumReconstructor = new Reconstructor("multiplicative-petroleum-reconstructor") {{
+		UAWGroundFactory = new UnitFactory("uaw-ground-factory") {{
 			requirements(Category.units, with(
-				Items.lead, 500,
-				Items.silicon, 150,
-				Items.metaglass, 150,
-				Items.titanium, 950
-			));
-
-			size = 5;
-			consumes.power(4.5f);
-			consumes.items(with(
+				Items.lead, 550,
 				Items.silicon, 80,
-				Items.titanium, 120,
-				Items.plastanium, 50)
-			);
+				Items.metaglass, 80,
+				Items.titanium, 250,
+				Items.plastanium, 100
+			));
+			size = 5;
+			consumes.power(3.5f);
 			consumes.liquid(Liquids.oil, 0.5f);
-
-			constructTime = 25 * tick;
 			liquidCapacity = 120f;
-			placeableLiquid = true;
-
-			upgrades.addAll(
-				new UnitType[]{UnitTypes.zenith, UAWUnitTypes.aglovale},
-				new UnitType[]{UnitTypes.horizon, UAWUnitTypes.jufeng},
-				new UnitType[]{UnitTypes.mace, UAWUnitTypes.gardlacz},
-				new UnitType[]{UnitTypes.minke, UAWUnitTypes.clurit},
-				new UnitType[]{UnitTypes.bryde, UAWUnitTypes.hatsuharu}
+			plans = Seq.with(
+				new UnitPlan(UAWUnitTypes.gardlacz, 35f * tick, with(
+					Items.silicon, 85,
+					Items.titanium, 90,
+					Items.lead, 150,
+					Items.copper, 165
+				))
+			);
+		}};
+		UAWNavalFactory = new UnitFactory("uaw-naval-factory") {{
+			requirements(Category.units, with(
+				Items.lead, 550,
+				Items.silicon, 60,
+				Items.metaglass, 100,
+				Items.titanium, 250,
+				Items.plastanium, 100
+			));
+			squareSprite = false;
+			floating = true;
+			size = 5;
+			consumes.power(3.5f);
+			consumes.liquid(Liquids.oil, 0.5f);
+			liquidCapacity = 120f;
+			plans = Seq.with(
+				new UnitPlan(UAWUnitTypes.clurit, 25f * tick, with(
+					Items.silicon, 45,
+					Items.metaglass, 40,
+					Items.titanium, 100,
+					Items.lead, 120
+				)),
+				new UnitPlan(UAWUnitTypes.hatsuharu, 35f * tick, with(
+					Items.silicon, 55,
+					Items.metaglass, 50,
+					Items.titanium, 100,
+					Items.blastCompound, 30f,
+					Items.lead, 120
+				))
+			);
+		}};
+		UAWAirFactory = new UnitFactory("uaw-air-factory") {{
+			requirements(Category.units, with(
+				Items.lead, 550,
+				Items.silicon, 80,
+				Items.metaglass, 80,
+				Items.titanium, 250,
+				Items.plastanium, 100
+			));
+			size = 5;
+			consumes.power(3.5f);
+			consumes.liquid(Liquids.oil, 0.5f);
+			liquidCapacity = 120f;
+			plans = Seq.with(
+				new UnitPlan(UAWUnitTypes.aglovale, 35f * tick, with(
+					Items.silicon, 100,
+					Items.titanium, 125,
+					Items.lead, 150
+				)),
+				new UnitPlan(UAWUnitTypes.jufeng, 30f * tick, with(
+					Items.silicon, 85,
+					Items.titanium, 90,
+					Items.lead, 150,
+					Items.blastCompound, 50
+				))
 			);
 		}};
 		exponentialPetroleumReconstructor = new Reconstructor("exponential-petroleum-reconstructor") {{

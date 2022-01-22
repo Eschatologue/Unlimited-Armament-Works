@@ -12,9 +12,9 @@ public class CopterAI extends FlyingAI {
 		if (target != null && unit.hasWeapons() && command() == UnitCommand.attack) {
 			if (!unit.type.circleTarget) {
 				unit.lookAt(target);
-				moveTo(target, unit.type.range * 0.75f);
+				moveTo(target, unit.type.range * 0.8f);
 			} else {
-				attack(unit.type.range * 0.8f);
+				attack(unit.type.range * 0.75f);
 				unit.lookAt(unit.vel().angle());
 			}
 		}
@@ -25,7 +25,7 @@ public class CopterAI extends FlyingAI {
 		}
 
 		if (command() == UnitCommand.rally) {
-			moveTo(targetFlag(unit.x, unit.y, BlockFlag.rally, false), 60f);
+			moveTo(targetFlag(unit.x, unit.y, BlockFlag.rally, false), 70f);
 			unit.lookAt(unit.vel().angle());
 		}
 	}

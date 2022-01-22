@@ -263,11 +263,36 @@ public class UAWTechTree implements ContentList {
 			)
 		);
 
+		vanillaNode(additiveReconstructor, () ->
+			node(UAWGroundFactory, Seq.with(new Research(oilDerrick)), () -> {
+				node(gardlacz, () ->
+					node(arkabuz)
+				);
+				node(UAWNavalFactory, () -> {
+					node(clurit, () ->
+						node(kujang, () ->
+							node(kerambit)
+						)
+					);
+					node(hatsuharu, () ->
+						node(shiratsuyu)
+					);
+					node(UAWAirFactory, () -> {
+							node(aglovale, () ->
+								node(bedivere, () ->
+									node(calogrenant)
+								)
+							);
+							node(jufeng);
+						}
+					);
+				});
+			})
+		);
+
 		vanillaNode(multiplicativeReconstructor, () ->
-			node(multiplicativePetroleumReconstructor, () ->
-				node(exponentialPetroleumReconstructor, Seq.with(new Research(exponentialReconstructor)), () ->
-					node(tetrativePetroleumReconstructor, Seq.with(new Research(tetrativeReconstructor))
-					)
+			node(exponentialPetroleumReconstructor, Seq.with(new Research(exponentialReconstructor)), () ->
+				node(tetrativePetroleumReconstructor, Seq.with(new Research(tetrativeReconstructor))
 				)
 			)
 		);
@@ -286,27 +311,6 @@ public class UAWTechTree implements ContentList {
 
 		vanillaNode(horizon, () ->
 			node(jufeng)
-		);
-
-		vanillaNode(mace, () ->
-			node(gardlacz, () ->
-				node(arkabuz)
-			)
-		);
-
-		vanillaNode(minke, () ->
-			node(clurit, Seq.with(new Research(atrax)), () ->
-				node(kujang, Seq.with(new Research(spiroct)), () ->
-					node(kerambit, Seq.with(
-						new Research(aegires),
-						new Research(forceProjector)
-					))
-				))
-		);
-		vanillaNode(bryde, () ->
-			node(hatsuharu, Seq.with(new Research(blastCompound)), () ->
-				node(shiratsuyu)
-			)
 		);
 	}
 }
