@@ -59,7 +59,7 @@ public class UAWUnitTypes implements ContentList {
 				}}
 			);
 			weapons.add(
-				new Weapon("uaw-missile-small-red") {{
+				new Weapon("uaw-missile-small-red-2") {{
 					rotate = false;
 					mirror = true;
 					shootCone = 90;
@@ -77,7 +77,7 @@ public class UAWUnitTypes implements ContentList {
 						keepVelocity = false;
 						splashDamageRadius = 25f;
 						splashDamage = 8f;
-						lifetime = range / lifetime;
+						lifetime = range / speed;
 						backColor = Pal.bulletYellowBack;
 						frontColor = Pal.bulletYellow;
 						hitEffect = Fx.blastExplosion;
@@ -91,13 +91,13 @@ public class UAWUnitTypes implements ContentList {
 					}};
 				}},
 				new Weapon("uaw-machine-gun-small-red") {{
+					layerOffset = -1;
 					rotate = false;
 					mirror = true;
 					shootCone = 90;
 					inaccuracy = 3f;
-					top = false;
-					x = 6f;
-					y = 2.8f;
+					x = 8f;
+					y = 4.25f;
 					reload = 6f;
 					shootSound = Sounds.shoot;
 					ejectEffect = Fx.casing1;
