@@ -18,9 +18,7 @@ public class Rotor {
 	/** Rotor base rotation speed */
 	public float rotorSpeed = 12;
 	/** Rotor rotation speed when the unit dies */
-	public float rotorDeadSpeedMultiplier = 0.05f;
-	/** TODO The starting angle of the rotor rotation */
-	public float initialRotation = 0f;
+	public float rotorDeadSpeedMultiplier = 0.025f;
 	public float layer = Layer.flyingUnitLow + 0.001f;
 	public boolean drawRotorTop = true, doubleRotor = false;
 	public int bladeCount = 4;
@@ -52,7 +50,7 @@ public class Rotor {
 		float ry = unit.y + Angles.trnsy(unit.rotation - 90, x, y);
 
 		for (int i = 0; i < bladeCount; i++) {
-			float angle = initialRotation + ((i * 360f / bladeCount + realRotationSpeed) % 360);
+			float angle = (i * 360f / bladeCount + realRotationSpeed) % 360;
 			Draw.z(layer);
 			Draw.rect(bladeOutlineRegion, rx, ry, bladeOutlineRegion.width * Draw.scl, bladeOutlineRegion.height * Draw.scl, angle);
 			Draw.mixcol(Color.white, unit.hitTime);
