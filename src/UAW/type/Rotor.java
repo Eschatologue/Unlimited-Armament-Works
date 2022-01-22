@@ -24,6 +24,7 @@ public class Rotor {
 	public int bladeCount = 4;
 
 	protected float realRotationSpeed;
+	protected float rotorSpeedScl;
 
 	public Rotor(String name) {
 		this.name = name;
@@ -37,12 +38,15 @@ public class Rotor {
 	}
 
 	public void update(Unit unit) {
-		if (unit.health <= 0 || unit.dead()) {
-			realRotationSpeed = Mathf.approachDelta(rotorSpeed, 0, rotorDeadSpeedMultiplier) * Time.time;
+		if (unit.health >= 0 || !unit.dead()) {
+			rotorSpeedScl = Mathf.lerpDelta(rotorSpeedScl, 1, rotorDeadSpeedMultiplier);
+			if (Mathf.equal(rotorSpeedScl, 1, 0.002f)) {
+				rotorSpeedScl = 1;
+			}
 		} else {
-			realRotationSpeed = rotorSpeed * Time.time;
+			rotorSpeedScl = Mathf.lerpDelta(rotorSpeedScl, 0f, 0.002f);
 		}
-
+		realRotationSpeed = (rotorSpeed * rotorSpeedScl) * Time.time;
 	}
 
 	public void draw(Unit unit) {
