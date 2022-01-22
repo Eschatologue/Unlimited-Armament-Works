@@ -4,6 +4,7 @@ import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.*;
+import arc.util.Time;
 import mindustry.gen.Unit;
 import mindustry.graphics.Layer;
 
@@ -50,7 +51,7 @@ public class Rotor {
 		float ry = unit.y + Angles.trnsy(unit.rotation - 90, x, y);
 
 		for (int i = 0; i < bladeCount; i++) {
-			float angle = (i * 360f / bladeCount + realRotationSpeed) % 360;
+			float angle = (i * 360f / bladeCount + realRotationSpeed * Time.time) % 360;
 			Draw.z(layer);
 			Draw.rect(bladeOutlineRegion, rx, ry, bladeOutlineRegion.width * Draw.scl, bladeOutlineRegion.height * Draw.scl, angle);
 			Draw.mixcol(Color.white, unit.hitTime);
