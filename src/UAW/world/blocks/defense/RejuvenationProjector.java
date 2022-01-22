@@ -1,5 +1,6 @@
 package UAW.world.blocks.defense;
 
+import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.Mathf;
 import arc.math.geom.Geometry;
@@ -19,6 +20,7 @@ public class RejuvenationProjector extends MendProjector {
 
 	public RejuvenationProjector(String name) {
 		super(name);
+		baseColor = Color.valueOf("a387ea");
 		solid = true;
 		update = true;
 		group = BlockGroup.projectors;
@@ -89,7 +91,7 @@ public class RejuvenationProjector extends MendProjector {
 
 			float r = Math.max(0f, Mathf.clamp(2f - f * 2f) * size * tilesize / 2f - f - 0.2f), w = Mathf.clamp(0.5f - f) * size * tilesize;
 			Lines.beginLine();
-			for (int i = 0; i < 4; i++) {
+			for (int i = 0; i < 8; i++) {
 				Lines.linePoint(x + Geometry.d4(i).x * r + Geometry.d4(i).y * w, y + Geometry.d4(i).y * r - Geometry.d4(i).x * w);
 				if (f < 0.5f)
 					Lines.linePoint(x + Geometry.d4(i).x * r - Geometry.d4(i).y * w, y + Geometry.d4(i).y * r + Geometry.d4(i).x * w);

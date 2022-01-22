@@ -1019,20 +1019,20 @@ public class UAWBlocks implements ContentList {
 				Items.titanium, 250,
 				Items.plastanium, 100
 			));
-			squareSprite = false;
 			floating = true;
 			size = 5;
+			squareSprite = false;
 			consumes.power(3.5f);
 			consumes.liquid(Liquids.oil, 0.5f);
 			liquidCapacity = 120f;
 			plans = Seq.with(
-				new UnitPlan(UAWUnitTypes.clurit, 25f * tick, with(
+				new UnitPlan(UAWUnitTypes.clurit, 45f * tick, with(
 					Items.silicon, 45,
 					Items.metaglass, 40,
 					Items.titanium, 100,
 					Items.lead, 120
 				)),
-				new UnitPlan(UAWUnitTypes.hatsuharu, 35f * tick, with(
+				new UnitPlan(UAWUnitTypes.hatsuharu, 55f * tick, with(
 					Items.silicon, 55,
 					Items.metaglass, 50,
 					Items.titanium, 100,
@@ -1067,6 +1067,7 @@ public class UAWBlocks implements ContentList {
 				))
 			);
 		}};
+
 		exponentialPetroleumReconstructor = new Reconstructor("exponential-petroleum-reconstructor") {{
 			requirements(Category.units, with(
 				Items.lead, 1000,

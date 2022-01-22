@@ -50,6 +50,7 @@ public class UAWUnitTypes implements ContentList {
 			fallSmokeY = -10f;
 
 			onTitleScreen = false;
+			targetAir = false;
 
 			rotors.add(
 				new Rotor(name + "-blade") {{
@@ -67,6 +68,8 @@ public class UAWUnitTypes implements ContentList {
 					y = -3f;
 					inaccuracy = 4;
 					reload = 12;
+					shots = 2;
+					shotDelay = 5f;
 					shootSound = Sounds.missile;
 					bullet = new MissileBulletType(6f, 45) {{
 						width = 6f;
@@ -75,15 +78,15 @@ public class UAWUnitTypes implements ContentList {
 						drag = -0.003f;
 						homingRange = 60f;
 						keepVelocity = false;
+						despawnHit = true;
 						splashDamageRadius = 25f;
-						splashDamage = 8f;
+						splashDamage = 16f;
 						lifetime = range / speed;
 						backColor = Pal.bulletYellowBack;
 						frontColor = Pal.bulletYellow;
+						shootEffect = Fx.shootSmallSmoke;
 						hitEffect = Fx.blastExplosion;
-						despawnEffect = Fx.blastExplosion;
-						trailColor = Color.gray;
-						trailChance = 0.7f;
+						trailChance = 0.9f;
 						shootCone = 90;
 						weaveMag = 4;
 						weaveScale = 4;
@@ -98,28 +101,25 @@ public class UAWUnitTypes implements ContentList {
 					inaccuracy = 3f;
 					x = 8f;
 					y = 3.5f;
-					reload = 6f;
+					reload = 5f;
 					shootSound = Sounds.shoot;
 					ejectEffect = Fx.casing1;
-					bullet = new BasicBulletType(6f, 20) {{
-						height = 18f;
+					bullet = new TrailBulletType(6f, 23) {{
+						height = 12f;
+						width = 6f;
 						pierce = true;
 						pierceCap = 2;
 						buildingDamageMultiplier = 0.4f;
-						width = 9f;
 						maxRange = range;
 						homingRange = 60f;
 						lifetime = (range / speed) * 1.2f;
-						trailLength = 15;
-						trailWidth = 1.6f;
-						trailColor = backColor;
 						ammoMultiplier = 8f;
 					}};
 				}}
 			);
 		}};
 		bedivere = new CopterUnitType("bedivere") {{
-			health = 5500;
+			health = 4500;
 			hitSize = 30;
 			speed = 2.5f;
 			rotateSpeed = 4.5f;
@@ -135,6 +135,7 @@ public class UAWUnitTypes implements ContentList {
 			maxRange = range;
 
 			onTitleScreen = false;
+			targetAir = false;
 
 			rotors.add(
 				new Rotor(name + "-blade") {{
@@ -949,7 +950,7 @@ public class UAWUnitTypes implements ContentList {
 			armor = 18;
 			hitSize = 16;
 			speed = 1.3f;
-			rotateSpeed = 1.6f;
+			rotateSpeed = 2f;
 			ammoType = new ItemAmmoType(Items.graphite);
 			singleTarget = true;
 
@@ -1025,7 +1026,7 @@ public class UAWUnitTypes implements ContentList {
 			armor = 30;
 			hitSize = 25;
 			speed = 1.2f;
-			rotateSpeed = 1f;
+			rotateSpeed = 1.4f;
 			ammoType = new ItemAmmoType(Items.graphite);
 			singleTarget = true;
 
