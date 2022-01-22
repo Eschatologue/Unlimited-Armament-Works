@@ -40,9 +40,9 @@ public class Rotor {
 
 	public void update(Unit unit) {
 		if (unit.health <= 0 || unit.dead()) {
-			realRotationSpeed = Mathf.lerpDelta(rotorSpeed, 0, rotorDeadSpeedMultiplier);
+			realRotationSpeed = Mathf.lerpDelta(rotorSpeed, 0, rotorDeadSpeedMultiplier) * Time.delta;
 		} else {
-			realRotationSpeed = Mathf.lerpDelta(rotorSpeed, 1, rotorDeadSpeedMultiplier);
+			realRotationSpeed = Mathf.lerpDelta(rotorSpeed, 1, rotorDeadSpeedMultiplier) * Time.delta;
 		}
 
 	}
@@ -52,7 +52,7 @@ public class Rotor {
 		float ry = unit.y + Angles.trnsy(unit.rotation - 90, x, y);
 
 		for (int i = 0; i < bladeCount; i++) {
-			float angle = initialRotation + ((i * 360f / bladeCount + realRotationSpeed % 360) * Time.time);
+			float angle = initialRotation + ((i * 360f / bladeCount + realRotationSpeed) % 360);
 			Draw.z(layer);
 			Draw.rect(bladeOutlineRegion, rx, ry, bladeOutlineRegion.width * Draw.scl, bladeOutlineRegion.height * Draw.scl, angle);
 			Draw.mixcol(Color.white, unit.hitTime);
