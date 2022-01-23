@@ -7,7 +7,6 @@ import UAW.type.Rotor.RotorMount;
 import arc.math.*;
 import arc.util.Time;
 import mindustry.content.Fx;
-import mindustry.entities.abilities.Ability;
 import mindustry.gen.UnitEntity;
 import mindustry.type.UnitType;
 
@@ -35,20 +34,12 @@ public class CopterUnitEntity extends UnitEntity {
 				Rotor rotorType = copter.rotors.get(i);
 				rotors[i] = new RotorMount(rotorType);
 			}
-			if (this.controller == null) {
-				this.controller(copter.createController());
-			}
-			if (this.mounts().length != copter.weapons.size) {
-				this.setupWeapons(copter);
-			}
-			if (this.abilities.size != copter.abilities.size) {
-				this.abilities = copter.abilities.map(Ability::copy);
-			}
 		}
 	}
 
 	@Override
 	public void update() {
+		super.update();
 		CopterUnitType type = (CopterUnitType) this.type;
 		float rx = x + Angles.trnsx(rotation - 90, type.fallSmokeX, type.fallSmokeY);
 		float ry = y + Angles.trnsy(rotation - 90, type.fallSmokeX, type.fallSmokeY);
