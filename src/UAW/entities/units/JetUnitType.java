@@ -1,4 +1,4 @@
-package UAW.type.units;
+package UAW.entities.units;
 
 import UAW.ai.types.BomberJetAI;
 import UAW.graphics.UAWFxD;

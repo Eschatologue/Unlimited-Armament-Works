@@ -1,4 +1,4 @@
-package UAW.type.units;
+package UAW.entities.units;
 
 import UAW.content.UAWStatusEffects;
 import arc.Core;

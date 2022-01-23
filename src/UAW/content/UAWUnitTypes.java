@@ -2,10 +2,10 @@ package UAW.content;
 
 import UAW.entities.abilities.RazorRotorAbility;
 import UAW.entities.bullet.*;
-import UAW.entities.units.CopterUnitEntity;
+import UAW.entities.units.*;
+import UAW.entities.units.entity.CopterUnitEntity;
 import UAW.graphics.*;
 import UAW.type.Rotor;
-import UAW.type.units.*;
 import UAW.type.weapon.*;
 import arc.func.Prov;
 import arc.graphics.Color;
@@ -34,6 +34,7 @@ public class UAWUnitTypes implements ContentList {
 		clurit, kujang, kerambit, cetbang, kiAmuk,
 		hatsuharu, shiratsuyu, kagero, shimakaze,
 		gardlacz, arkabuz, armata, zemsta;
+
 	//Steal from Progressed Material which stole from Endless Rusting which stole from Progressed Materials in the past which stole from BetaMindy
 	private static final Entry<Class<? extends Entityc>, Prov<? extends Entityc>>[] types = new Entry[]{
 		prov(CopterUnitEntity.class, CopterUnitEntity::new)
