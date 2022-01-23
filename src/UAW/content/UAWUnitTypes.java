@@ -141,8 +141,8 @@ public class UAWUnitTypes implements ContentList {
 						hitEffect = Fx.blastExplosion;
 						trailChance = 0.9f;
 						shootCone = 90;
-						weaveMag = 4;
-						weaveScale = 4;
+						weaveMag = 5;
+						weaveScale = 5;
 						ammoMultiplier = 4f;
 					}};
 				}},
@@ -172,7 +172,7 @@ public class UAWUnitTypes implements ContentList {
 			);
 		}};
 		bedivere = new CopterUnitType("bedivere") {{
-			health = 4500;
+			health = 3500;
 			hitSize = 30;
 			speed = 2.5f;
 			rotateSpeed = 4.5f;
@@ -193,25 +193,26 @@ public class UAWUnitTypes implements ContentList {
 			rotors.add(
 				new Rotor(name + "-blade") {{
 					x = 0;
-					y = 2;
+					y = 4;
 					rotorSpeed = -12f;
 					bladeCount = 4;
 				}}
 			);
 			weapons.add(
 				new Weapon("uaw-machine-gun-small-red") {{
+					layerOffset = -0.01f;
 					minShootVelocity = 0.75f;
 					rotate = top = false;
 					shootCone = 30;
 					inaccuracy = 5f;
 					alternate = mirror = true;
 					x = 7f;
-					y = 10f;
+					y = 11f;
 					reload = 4;
 					recoil = 0f;
 					shootSound = Sounds.shoot;
 					ejectEffect = Fx.casing1;
-					bullet = new TrailBulletType(10f, 15) {{
+					bullet = new TrailBulletType(10f, 20) {{
 						height = 10f;
 						width = 6f;
 						pierce = true;
@@ -231,8 +232,8 @@ public class UAWUnitTypes implements ContentList {
 					alternate = mirror = true;
 					top = true;
 					shootCone = 15;
-					x = 7f;
-					y = -1.5f;
+					x = 9.5f;
+					y = -2f;
 					reload = 60f;
 					recoil = 5f;
 					shake = 2f;
@@ -261,19 +262,18 @@ public class UAWUnitTypes implements ContentList {
 				}},
 				new Weapon() {{
 					rotate = false;
-					mirror = true;
-					alternate = true;
+					mirror = false;
 					shootCone = 30;
-					x = 8f;
+					x = 0f;
 					y = 0f;
-					shots = 2;
+					shots = 1;
 					shotDelay = 20;
 					maxRange = range;
 					reload = 3 * 60;
 					shootSound = UAWSfx.cruiseMissileShoot1;
-					bullet = new CruiseMissileBulletType(3f, 100) {{
+					bullet = new CruiseMissileBulletType(3f, 225) {{
 						layer = Layer.flyingUnitLow - 1;
-						size = 20;
+						size = 15;
 						homingRange = range * 2;
 						homingPower = 0.05f;
 						keepVelocity = false;

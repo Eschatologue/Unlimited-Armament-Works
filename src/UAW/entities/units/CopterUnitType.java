@@ -42,9 +42,7 @@ public class CopterUnitType extends UnitType {
 
 	public void drawRotor(Unit unit) {
 		applyColor(unit);
-		Log.info("EHEEE");
 		if (unit instanceof CopterUnitEntity copter) {
-			Log.info("UWU");
 			for (RotorMount mount : copter.rotors) {
 				Rotor rotor = mount.rotor;
 				float rx = unit.x + Angles.trnsx(unit.rotation - 90, rotor.x, rotor.y);
