@@ -1,13 +1,14 @@
 package UAW.type.units;
 
 import UAW.ai.types.CopterAI;
+import UAW.entities.units.CopterUnitEntity;
 import UAW.type.Rotor;
 import arc.graphics.g2d.Draw;
 import arc.math.*;
 import arc.struct.Seq;
 import arc.util.Time;
 import mindustry.content.Fx;
-import mindustry.gen.*;
+import mindustry.gen.Unit;
 import mindustry.type.UnitType;
 
 public class CopterUnitType extends UnitType {
@@ -18,7 +19,7 @@ public class CopterUnitType extends UnitType {
 	public CopterUnitType(String name) {
 		super(name);
 		flying = lowAltitude = true;
-		constructor = UnitEntity::create;
+		constructor = CopterUnitEntity::create;
 		engineSize = 0f;
 		rotateSpeed = 6f;
 		defaultController = CopterAI::new;
@@ -47,7 +48,7 @@ public class CopterUnitType extends UnitType {
 	public void draw(Unit unit) {
 		super.draw(unit);
 		drawRotor(unit);
-		drawRotorShadow(unit);
+//		drawRotorShadow(unit);
 	}
 
 	public void rotorUpdate(Unit unit) {
@@ -60,11 +61,11 @@ public class CopterUnitType extends UnitType {
 		Draw.reset();
 	}
 
-	public void drawRotorShadow(Unit unit) {
-		applyColor(unit);
-		rotors.each(rotor -> rotor.drawRotorShadow(unit));
-		Draw.reset();
-	}
+//	public void drawRotorShadow(Unit unit) {
+//		applyColor(unit);
+//		rotors.each(rotor -> rotor.drawRotorShadow(unit));
+//		Draw.reset();
+//	}
 
 	@Override
 	public void load() {

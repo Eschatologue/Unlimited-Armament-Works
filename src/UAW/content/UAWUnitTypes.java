@@ -2,12 +2,16 @@ package UAW.content;
 
 import UAW.entities.abilities.RazorRotorAbility;
 import UAW.entities.bullet.*;
+import UAW.entities.units.CopterUnitEntity;
 import UAW.graphics.*;
 import UAW.type.Rotor;
 import UAW.type.units.*;
 import UAW.type.weapon.*;
+import arc.func.Prov;
 import arc.graphics.Color;
 import arc.math.Mathf;
+import arc.struct.ObjectIntMap;
+import arc.struct.ObjectMap.Entry;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.bullet.*;
@@ -22,6 +26,7 @@ import mindustry.world.meta.BlockFlag;
 import static mindustry.Vars.tilesize;
 import static mindustry.content.Bullets.*;
 
+@SuppressWarnings("unchecked")
 public class UAWUnitTypes implements ContentList {
 	public static UnitType
 		aglovale, bedivere, calogrenant, dagonet, esclabor,
@@ -29,6 +34,53 @@ public class UAWUnitTypes implements ContentList {
 		clurit, kujang, kerambit, cetbang, kiAmuk,
 		hatsuharu, shiratsuyu, kagero, shimakaze,
 		gardlacz, arkabuz, armata, zemsta;
+	//Steal from Progressed Material which stole from Endless Rusting which stole from Progressed Materials in the past which stole from BetaMindy
+	private static final Entry<Class<? extends Entityc>, Prov<? extends Entityc>>[] types = new Entry[]{
+		prov(CopterUnitEntity.class, CopterUnitEntity::new)
+	};
+	private static final ObjectIntMap<Class<? extends Entityc>> idMap = new ObjectIntMap<>();
+
+	/**
+	 * Internal function to flatmap {@code Class -> Prov} into an {@link ObjectIntMap.Entry}.
+	 *
+	 * @author GlennFolker
+	 */
+	private static <T extends Entityc> Entry<Class<T>, Prov<T>> prov(Class<T> type, Prov<T> prov) {
+		Entry<Class<T>, Prov<T>> entry = new Entry<>();
+		entry.key = type;
+		entry.value = prov;
+		return entry;
+	}
+
+	/**
+	 * Setups all entity IDs and maps them into {@link EntityMapping}.
+	 *
+	 * @author GlennFolker
+	 */
+	private static void setupID() {
+		for (
+			int i = 0,
+			j = 0,
+			len = EntityMapping.idMap.length;
+			i < len;
+			i++
+		) {
+			if (EntityMapping.idMap[i] == null) {
+				idMap.put(types[j].key, i);
+				EntityMapping.idMap[i] = types[j].value;
+				if (++j >= types.length) break;
+			}
+		}
+	}
+
+	/**
+	 * Retrieves the class ID for a certain entity type.
+	 *
+	 * @author GlennFolker
+	 */
+	public static <T extends Entityc> int classID(Class<T> type) {
+		return idMap.get(type, -1);
+	}
 
 	@Override
 	public void load() {

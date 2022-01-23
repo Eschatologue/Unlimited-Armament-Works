@@ -15,7 +15,7 @@ public class Rotor {
 	public static final float shadowTX = -12, shadowTY = -13;
 	public final String name;
 	public TextureRegion bladeRegion, bladeOutlineRegion, topRegion, topRegionOutline;
-	public TextureRegion bladeShadowRegion;
+//	public TextureRegion bladeShadowRegion;
 	public float x = 0f;
 	public float y = 0f;
 	/** Rotor base rotation speed */
@@ -37,7 +37,7 @@ public class Rotor {
 		bladeOutlineRegion = Core.atlas.find(name + "-outline");
 		topRegion = Core.atlas.find(name + "-top");
 		topRegionOutline = Core.atlas.find(name + "-top-outline");
-		bladeShadowRegion = bladeRegion;
+//		bladeShadowRegion = bladeRegion;
 	}
 
 	public void update(Unit unit) {
@@ -68,19 +68,19 @@ public class Rotor {
 		}
 	}
 
-	public void drawRotorShadow(Unit unit) {
-		float e = Math.max(unit.elevation, -1) * (1f - unit.drownTime);
-		float sx = unit.x + shadowTX * e, sy = unit.y + shadowTY * e;
-		float rx = unit.x + Angles.trnsx(unit.rotation - 90, x, y);
-		float ry = unit.y + Angles.trnsy(unit.rotation - 90, x, y);
-		Floor floor = world.floorWorld(sx, sy);
-		float dest = floor.canShadow ? 1f : 0f;
-		for (int i = 0; i < bladeCount; i++) {
-			float angle = (i * 360f / bladeCount + realRotationSpeed) % 360;
-			unit.shadowAlpha = unit.shadowAlpha < 0 ? dest : Mathf.approachDelta(unit.shadowAlpha, dest, 0.11f);
-			Draw.color(Pal.shadow, Pal.shadow.a * unit.shadowAlpha);
-			Draw.rect(bladeShadowRegion, rx + shadowTX * e, ry + shadowTY * e, angle);
-			Draw.color();
-		}
-	}
+//	public void drawRotorShadow(Unit unit) {
+//		float e = Math.max(unit.elevation, -1) * (1f - unit.drownTime);
+//		float sx = unit.x + shadowTX * e, sy = unit.y + shadowTY * e;
+//		float rx = unit.x + Angles.trnsx(unit.rotation - 90, x, y);
+//		float ry = unit.y + Angles.trnsy(unit.rotation - 90, x, y);
+//		Floor floor = world.floorWorld(sx, sy);
+//		float dest = floor.canShadow ? 1f : 0f;
+//		for (int i = 0; i < bladeCount; i++) {
+//			float angle = (i * 360f / bladeCount + realRotationSpeed) % 360;
+//			unit.shadowAlpha = unit.shadowAlpha < 0 ? dest : Mathf.approachDelta(unit.shadowAlpha, dest, 0.11f);
+//			Draw.color(Pal.shadow, Pal.shadow.a * unit.shadowAlpha);
+//			Draw.rect(bladeShadowRegion, rx + shadowTX * e, ry + shadowTY * e, angle);
+//			Draw.color();
+//		}
+//	}
 }
