@@ -51,7 +51,7 @@ public class CopterUnitType extends UnitType {
 				float ry = unit.y + Angles.trnsy(unit.rotation - 90, rotor.x, rotor.y);
 
 				for (int i = 0; i < rotor.bladeCount; i++) {
-					float angle = (i * 360f / rotor.bladeCount + rotor.rotorSpeed) % 360;
+					float angle = (i * 360f / rotor.bladeCount + mount.rotorRotation) % 360;
 					Draw.z(rotor.layer);
 					Draw.rect(rotor.bladeOutlineRegion, rx, ry, rotor.bladeOutlineRegion.width * Draw.scl, rotor.bladeOutlineRegion.height * Draw.scl, angle);
 					Draw.mixcol(Color.white, unit.hitTime);
