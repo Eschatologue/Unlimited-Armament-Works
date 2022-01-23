@@ -8,6 +8,7 @@ import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.math.*;
 import arc.struct.Seq;
+import arc.util.Log;
 import mindustry.gen.Unit;
 import mindustry.type.UnitType;
 
@@ -20,7 +21,7 @@ public class CopterUnitType extends UnitType {
 	public CopterUnitType(String name) {
 		super(name);
 		flying = lowAltitude = true;
-		constructor = CopterUnitEntity::create;
+		constructor = CopterUnitEntity::new;
 		engineSize = 0f;
 		rotateSpeed = 6f;
 		defaultController = CopterAI::new;
@@ -41,7 +42,9 @@ public class CopterUnitType extends UnitType {
 
 	public void drawRotor(Unit unit) {
 		applyColor(unit);
+		Log.info("EHEEE");
 		if (unit instanceof CopterUnitEntity copter) {
+			Log.info("UWU");
 			for (RotorMount mount : copter.rotors) {
 				Rotor rotor = mount.rotor;
 				float rx = unit.x + Angles.trnsx(unit.rotation - 90, rotor.x, rotor.y);
