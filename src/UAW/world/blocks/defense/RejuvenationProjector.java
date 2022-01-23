@@ -91,7 +91,7 @@ public class RejuvenationProjector extends MendProjector {
 
 			float r = Math.max(0f, Mathf.clamp(2f - f * 2f) * size * tilesize / 2f - f - 0.2f), w = Mathf.clamp(0.5f - f) * size * tilesize;
 			Lines.beginLine();
-			for (int i = 0; i < 8; i++) {
+			for (int i = 0; i < 4; i++) {
 				Lines.linePoint(x + Geometry.d4(i).x * r + Geometry.d4(i).y * w, y + Geometry.d4(i).y * r - Geometry.d4(i).x * w);
 				if (f < 0.5f)
 					Lines.linePoint(x + Geometry.d4(i).x * r - Geometry.d4(i).y * w, y + Geometry.d4(i).y * r + Geometry.d4(i).x * w);
