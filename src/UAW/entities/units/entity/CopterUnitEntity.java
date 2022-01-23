@@ -5,13 +5,12 @@ import UAW.entities.units.CopterUnitType;
 import UAW.type.Rotor;
 import UAW.type.Rotor.RotorMount;
 import arc.math.*;
-import arc.struct.Seq;
 import arc.util.Time;
 import mindustry.content.Fx;
 import mindustry.gen.UnitEntity;
+import mindustry.type.UnitType;
 
 public class CopterUnitEntity extends UnitEntity {
-	public final Seq<Rotor> rotor = new Seq<>();
 	public RotorMount[] rotors;
 	transient float rotorSpeedScl = 1f;
 
@@ -25,12 +24,24 @@ public class CopterUnitEntity extends UnitEntity {
 		return UAWUnitTypes.classID(getClass());
 	}
 
+	/** @author GlennFolker */
+	@Override
+	public void setType(UnitType type) {
+		super.setType(type);
+		if (type instanceof CopterUnitType copter) {
+			rotors = new RotorMount[copter.rotors.size];
+			for (int i = 0; i < rotors.length; i++) {
+				Rotor rotorType = copter.rotors.get(i);
+				rotors[i] = new RotorMount(rotorType);
+			}
+		}
+	}
+
 	@Override
 	public void update() {
 		CopterUnitType type = (CopterUnitType) this.type;
 		float rx = x + Angles.trnsx(rotation - 90, type.fallSmokeX, type.fallSmokeY);
 		float ry = y + Angles.trnsy(rotation - 90, type.fallSmokeX, type.fallSmokeY);
-
 
 		if (dead || health() <= 0) {
 			rotation += Time.delta * (type.spinningFallSpeed * vel().len()) * Mathf.signs[id % 2];
