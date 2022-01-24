@@ -103,7 +103,6 @@ public class UAWUnitTypes implements ContentList {
 			fallSmokeY = -10f;
 
 			onTitleScreen = false;
-			targetAir = false;
 
 			rotors.add(
 				new Rotor(name + "-blade") {{
@@ -188,7 +187,6 @@ public class UAWUnitTypes implements ContentList {
 			maxRange = range;
 
 			onTitleScreen = false;
-			targetAir = false;
 
 			rotors.add(
 				new Rotor(name + "-blade") {{
@@ -198,6 +196,8 @@ public class UAWUnitTypes implements ContentList {
 					bladeCount = 4;
 				}}
 			);
+			float missileX = 8.5f;
+			float missileY = 3.5f;
 			weapons.add(
 				new Weapon("uaw-machine-gun-small-red") {{
 					layerOffset = -0.01f;
@@ -232,10 +232,10 @@ public class UAWUnitTypes implements ContentList {
 					alternate = mirror = true;
 					top = true;
 					shootCone = 15;
-					x = 9.5f;
-					y = -2f;
+					x = 7f;
+					y = 0f;
 					reload = 60f;
-					recoil = 5f;
+					recoil = 2f;
 					shake = 2f;
 					ejectEffect = Fx.casing3;
 					shootSound = Sounds.shootBig;
@@ -260,16 +260,46 @@ public class UAWUnitTypes implements ContentList {
 						ammoMultiplier = 6f;
 					}};
 				}},
-				new Weapon() {{
+				// Left
+				new MissileLauncherWeapon() {{
 					rotate = false;
 					mirror = false;
 					shootCone = 30;
-					x = 0f;
-					y = 0f;
+					x = -missileX;
+					y = missileY;
 					shots = 1;
 					shotDelay = 20;
 					maxRange = range;
-					reload = 3 * 60;
+					reload = 4 * 60;
+					shootSound = UAWSfx.cruiseMissileShoot1;
+					bullet = new CruiseMissileBulletType(3f, 225) {{
+						layer = Layer.flyingUnitLow - 1;
+						size = 15;
+						homingRange = range * 2;
+						homingPower = 0.05f;
+						keepVelocity = false;
+						splashDamageRadius = 8 * tilesize;
+						splashDamage = damage;
+						lifetime = (range - 5) / speed;
+						shootEffect = UAWFxS.shootPyraFlame;
+						hitEffect = despawnEffect = UAWFxD.dynamicExplosion(splashDamageRadius);
+						trailEffect = UAWFxS.pyraSmokeTrailUnder;
+						status = StatusEffects.burning;
+						statusDuration = 4 * 60;
+						ammoMultiplier = 2f;
+					}};
+				}},
+				// Right
+				new MissileLauncherWeapon() {{
+					rotate = false;
+					mirror = false;
+					shootCone = 30;
+					x = missileX;
+					y = missileY;
+					shots = 1;
+					shotDelay = 20;
+					maxRange = range;
+					reload = 4 * 60;
 					shootSound = UAWSfx.cruiseMissileShoot1;
 					bullet = new CruiseMissileBulletType(3f, 225) {{
 						layer = Layer.flyingUnitLow - 1;
