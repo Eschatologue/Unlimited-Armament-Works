@@ -50,7 +50,7 @@ public class CopterUnitType extends UnitType {
 
 				for (int i = 0; i < rotor.bladeCount; i++) {
 					if (rotor.layer < 0) {
-						rotor.layer = unit.elevation + 0.7f;
+						rotor.layer = copter.elevation + 1f;
 					}
 					float angle = (i * 360f / rotor.bladeCount + mount.rotorRotation) % 360;
 					Draw.z(rotor.layer);
