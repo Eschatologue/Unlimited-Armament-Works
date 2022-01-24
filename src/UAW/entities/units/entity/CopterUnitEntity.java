@@ -56,7 +56,7 @@ public class CopterUnitEntity extends UnitEntity {
 		}
 
 		for (RotorMount rotor : rotors) {
-			rotor.rotorRotation += (rotor.rotor.rotorSpeed + rotor.rotor.minimumRotorSpeed) * rotorSpeedScl * Time.delta;
+			rotor.rotorRotation += ((rotor.rotor.rotorSpeed * rotorSpeedScl) + rotor.rotor.minimumRotorSpeed) * Time.delta;
 		}
 	}
 }
