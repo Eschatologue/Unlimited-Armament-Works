@@ -8,8 +8,8 @@ import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.math.*;
 import arc.struct.Seq;
-import arc.util.Log;
 import mindustry.gen.Unit;
+import mindustry.graphics.Layer;
 import mindustry.type.UnitType;
 
 public class CopterUnitType extends UnitType {
@@ -30,14 +30,19 @@ public class CopterUnitType extends UnitType {
 	}
 
 	@Override
-	public void update(Unit unit) {
-		super.update(unit);
-	}
-
-	@Override
 	public void draw(Unit unit) {
 		super.draw(unit);
 		drawRotor(unit);
+	}
+
+	@Override
+	public void drawSoftShadow(Unit unit, float alpha) {
+		float layer;
+		if (lowAltitude) {
+			layer = Layer.flyingUnitLow;
+		} else layer = Layer.flyingUnit;
+		Draw.z(layer - 0.03f);
+		super.drawSoftShadow(unit, alpha);
 	}
 
 	public void drawRotor(Unit unit) {
