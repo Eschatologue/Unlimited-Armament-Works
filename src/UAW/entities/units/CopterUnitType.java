@@ -9,7 +9,6 @@ import arc.graphics.g2d.Draw;
 import arc.math.*;
 import arc.struct.Seq;
 import mindustry.gen.Unit;
-import mindustry.graphics.Layer;
 import mindustry.type.UnitType;
 
 public class CopterUnitType extends UnitType {
@@ -38,9 +37,7 @@ public class CopterUnitType extends UnitType {
 	@Override
 	public void drawSoftShadow(Unit unit, float alpha) {
 		float layer;
-		if (lowAltitude) {
-			layer = Layer.flyingUnitLow;
-		} else layer = Layer.flyingUnit;
+		layer = unit.elevation - 0.05f;
 		Draw.z(layer - 0.03f);
 		super.drawSoftShadow(unit, alpha);
 	}
@@ -55,9 +52,7 @@ public class CopterUnitType extends UnitType {
 
 				for (int i = 0; i < rotor.bladeCount; i++) {
 					if (rotor.layer < 0) {
-						if (lowAltitude) {
-							rotor.layer = Layer.flyingUnitLow + 0.01f;
-						} else rotor.layer = Layer.flyingUnit + 0.01f;
+						rotor.layer = unit.elevation + 0.2f;
 					}
 					float angle = (i * 360f / rotor.bladeCount + mount.rotorRotation) % 360;
 					Draw.z(rotor.layer);
