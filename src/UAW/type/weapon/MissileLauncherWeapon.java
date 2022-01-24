@@ -45,12 +45,12 @@ public class MissileLauncherWeapon extends UAWWeapon {
 		Draw.alpha(1 - mount.reload / reload);
 		Draw.rect(missileOutlineRegion,
 			wx, wy,
-			missileOutlineRegion.width * Draw.scl,
+			missileOutlineRegion.width * Draw.scl * -Mathf.sign(flipSprite),
 			missileOutlineRegion.height * Draw.scl,
 			weaponRotation);
 		Draw.rect(missileRegion,
 			wx, wy,
-			missileRegion.width * Draw.scl,
+			missileRegion.width * Draw.scl * -Mathf.sign(flipSprite),
 			missileRegion.height * Draw.scl,
 			weaponRotation);
 	}
