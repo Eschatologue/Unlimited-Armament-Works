@@ -86,7 +86,7 @@ public class UAWUnitTypes implements ContentList {
 	@Override
 	public void load() {
 		aglovale = new CopterUnitType("aglovale") {{
-			health = 450;
+			health = 500;
 			hitSize = 18;
 			speed = 2.5f;
 			accel = 0.04f;
@@ -271,7 +271,7 @@ public class UAWUnitTypes implements ContentList {
 					maxRange = range;
 					reload = 2.5f * 60;
 					shootSound = UAWSfx.cruiseMissileShoot1;
-					bullet = new CruiseMissileBulletType(3f, 265) {{
+					bullet = new CruiseMissileBulletType(3f, 450) {{
 						layer = Layer.flyingUnitLow - 1;
 						size = 15;
 						homingRange = range * 2;
@@ -293,7 +293,7 @@ public class UAWUnitTypes implements ContentList {
 			});
 		}};
 		calogrenant = new CopterUnitType("calogrenant") {{
-			health = 9000;
+			health = 8000;
 			armor = 10;
 			hitSize = 35;
 			speed = 2f;
@@ -388,7 +388,7 @@ public class UAWUnitTypes implements ContentList {
 					shots = 3;
 					shotDelay = 15f;
 					shootSound = UAWSfx.cruiseMissileShoot1;
-					bullet = new CruiseMissileBulletType(3f, 170) {{
+					bullet = new CruiseMissileBulletType(3f, 500) {{
 						sprite = "uaw-cruise-missile-cryo";
 						layer = Layer.flyingUnitLow - 1;
 						size = 45;
