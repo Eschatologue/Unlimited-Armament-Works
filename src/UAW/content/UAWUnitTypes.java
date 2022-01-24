@@ -262,7 +262,7 @@ public class UAWUnitTypes implements ContentList {
 				}},
 				// Left
 				new MissileLauncherWeapon() {{
-					layerOffset = -0.04f;
+					layerOffset = -0.025f;
 					rotate = false;
 					mirror = false;
 					shootCone = 30;
@@ -292,7 +292,7 @@ public class UAWUnitTypes implements ContentList {
 				}},
 				// Right
 				new MissileLauncherWeapon() {{
-					layerOffset = -0.04f;
+					layerOffset = -0.025f;
 					rotate = false;
 					mirror = false;
 					shootCone = 30;
