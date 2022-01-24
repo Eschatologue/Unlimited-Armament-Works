@@ -199,7 +199,7 @@ public class UAWUnitTypes implements ContentList {
 
 			weapons.add(
 				new MissileLauncherWeapon() {{
-					layerOffset = -0.01f;
+					layerOffset = -0.02f;
 					rotate = false;
 					mirror = true;
 					shootCone = 30;
