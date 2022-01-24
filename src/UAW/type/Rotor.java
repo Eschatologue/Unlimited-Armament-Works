@@ -2,7 +2,6 @@ package UAW.type;
 
 import arc.Core;
 import arc.graphics.g2d.TextureRegion;
-import mindustry.graphics.Layer;
 
 public class Rotor {
 	public final String name;
@@ -11,7 +10,10 @@ public class Rotor {
 	public float y = 0f;
 	/** Rotor base rotation speed */
 	public float rotorSpeed = 12;
-	public float layer = Layer.flyingUnitLow + 0.001f;
+	/** Minimum Rotation Speed for rotor, the rotor speed wont go below this value, even when dying */
+	public float minimumRotorSpeed = 0f;
+	/** On what layer is the Rotor drawn at */
+	public float layer = -1f;
 	public boolean drawRotorTop = true, doubleRotor = false;
 	public int bladeCount = 4;
 

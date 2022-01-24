@@ -8,6 +8,9 @@ import mindustry.gen.Unit;
 
 /**
  * Inspired from NewestGitHubber / Commandustry missile weapon, modified slightly
+ * <p>
+ *     Always put this weapon in the last sequence, as it will ruin most weapons alpha and layering above it.
+ * </p>
  *
  * @Author SMOLKEYS
  */

@@ -198,35 +198,6 @@ public class UAWUnitTypes implements ContentList {
 			);
 
 			weapons.add(
-				new MissileLauncherWeapon() {{
-					layerOffset = -0.01f;
-					rotate = false;
-					mirror = true;
-					shootCone = 30;
-					x = 8.5f;
-					y = 3.5f;
-					shots = 1;
-					shotDelay = 20;
-					maxRange = range;
-					reload = 2.5f * 60;
-					shootSound = UAWSfx.cruiseMissileShoot1;
-					bullet = new CruiseMissileBulletType(3f, 265) {{
-						layer = Layer.flyingUnitLow - 1;
-						size = 15;
-						homingRange = range * 2;
-						homingPower = 0.05f;
-						keepVelocity = false;
-						splashDamageRadius = 8 * tilesize;
-						splashDamage = damage;
-						lifetime = (range - 5) / speed;
-						shootEffect = UAWFxS.shootPyraFlame;
-						hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius);
-						trailEffect = UAWFxS.pyraSmokeTrailUnder;
-						status = StatusEffects.burning;
-						statusDuration = 4 * 60;
-						ammoMultiplier = 2f;
-					}};
-				}},
 				new Weapon("uaw-machine-gun-small-red") {{
 					layerOffset = -0.005f;
 					minShootVelocity = 0.75f;
@@ -255,7 +226,6 @@ public class UAWUnitTypes implements ContentList {
 					}};
 				}},
 				new Weapon("uaw-launcher-medium-red-2") {{
-					layerOffset = 0.5f;
 					minShootVelocity = 0.75f;
 					rotate = false;
 					alternate = mirror = true;
@@ -268,17 +238,17 @@ public class UAWUnitTypes implements ContentList {
 					shake = 2f;
 					ejectEffect = Fx.casing3;
 					shootSound = Sounds.shootBig;
-					shots = 5;
+					shots = 4;
 					inaccuracy = 6f;
 					shotDelay = 5f;
 					bullet = new ArtilleryBulletType(5, 50) {{
 						height = 20f;
 						width = 15f;
-						collidesAir = true;
 						trailSize = 5;
+						despawnHit = true;
 						lifetime = (range / speed) * 1.5f;
 						shootEffect = Fx.shootBig;
-						hitEffect = Fx.blastExplosion;
+						hitEffect = new MultiEffect(Fx.blastExplosion, Fx.flakExplosionBig);
 						hitSound = Sounds.boom;
 						frontColor = Pal.plastaniumFront;
 						backColor = Pal.plastaniumBack;
@@ -287,6 +257,35 @@ public class UAWUnitTypes implements ContentList {
 						fragBullets = 5;
 						fragBullet = artilleryPlasticFrag;
 						ammoMultiplier = 6f;
+					}};
+				}},
+				new MissileLauncherWeapon() {{
+					layerOffset = -0.01f;
+					rotate = false;
+					mirror = true;
+					shootCone = 30;
+					x = 8.5f;
+					y = 3.5f;
+					shots = 1;
+					shotDelay = 20;
+					maxRange = range;
+					reload = 2.5f * 60;
+					shootSound = UAWSfx.cruiseMissileShoot1;
+					bullet = new CruiseMissileBulletType(3f, 265) {{
+						layer = Layer.flyingUnitLow - 1;
+						size = 15;
+						homingRange = range * 2;
+						homingPower = 0.05f;
+						keepVelocity = false;
+						splashDamageRadius = 8 * tilesize;
+						splashDamage = damage;
+						lifetime = (range - 5) / speed;
+						shootEffect = UAWFxS.shootPyraFlame;
+						hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius);
+						trailEffect = UAWFxS.pyraSmokeTrailUnder;
+						status = StatusEffects.burning;
+						statusDuration = 4 * 60;
+						ammoMultiplier = 2f;
 					}};
 				}}
 			);
