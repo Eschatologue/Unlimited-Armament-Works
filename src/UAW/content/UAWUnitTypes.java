@@ -199,7 +199,7 @@ public class UAWUnitTypes implements ContentList {
 
 			weapons.add(
 				new MissileLauncherWeapon() {{
-					layerOffset = -0.02f;
+					layerOffset = -0.025f;
 					rotate = false;
 					mirror = true;
 					shootCone = 30;
@@ -208,9 +208,9 @@ public class UAWUnitTypes implements ContentList {
 					shots = 1;
 					shotDelay = 20;
 					maxRange = range;
-					reload = 4 * 60;
+					reload = 2.5f * 60;
 					shootSound = UAWSfx.cruiseMissileShoot1;
-					bullet = new CruiseMissileBulletType(3f, 255) {{
+					bullet = new CruiseMissileBulletType(3f, 265) {{
 						layer = Layer.flyingUnitLow - 1;
 						size = 15;
 						homingRange = range * 2;
