@@ -34,6 +34,12 @@ public class CopterUnitType extends UnitType {
 		drawRotor(unit);
 	}
 
+	@Override
+	public void drawSoftShadow(Unit unit, float alpha) {
+		Draw.z(unit.elevation - 0.05f);
+		super.drawSoftShadow(unit, alpha);
+	}
+
 	public void drawRotor(Unit unit) {
 		applyColor(unit);
 		if (unit instanceof CopterUnitEntity copter) {
@@ -44,7 +50,7 @@ public class CopterUnitType extends UnitType {
 
 				for (int i = 0; i < rotor.bladeCount; i++) {
 					if (rotor.layer < 0) {
-						rotor.layer = unit.elevation + 0.2f;
+						rotor.layer = unit.elevation + 0.5f;
 					}
 					float angle = (i * 360f / rotor.bladeCount + mount.rotorRotation) % 360;
 					Draw.z(rotor.layer);
