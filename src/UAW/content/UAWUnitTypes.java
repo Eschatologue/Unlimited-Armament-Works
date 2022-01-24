@@ -199,6 +199,66 @@ public class UAWUnitTypes implements ContentList {
 			float missileX = 8.5f;
 			float missileY = 3.5f;
 			weapons.add(
+				// Left
+				new MissileLauncherWeapon() {{
+					layerOffset = -0.02f;
+					rotate = false;
+					mirror = false;
+					shootCone = 30;
+					x = -missileX;
+					y = missileY;
+					shots = 1;
+					shotDelay = 20;
+					maxRange = range;
+					reload = 4 * 60;
+					shootSound = UAWSfx.cruiseMissileShoot1;
+					bullet = new CruiseMissileBulletType(3f, 255) {{
+						layer = Layer.flyingUnitLow - 1;
+						size = 15;
+						homingRange = range * 2;
+						homingPower = 0.05f;
+						keepVelocity = false;
+						splashDamageRadius = 8 * tilesize;
+						splashDamage = damage;
+						lifetime = (range - 5) / speed;
+						shootEffect = UAWFxS.shootPyraFlame;
+						hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius);
+						trailEffect = UAWFxS.pyraSmokeTrailUnder;
+						status = StatusEffects.burning;
+						statusDuration = 4 * 60;
+						ammoMultiplier = 2f;
+					}};
+				}},
+				// Right
+				new MissileLauncherWeapon() {{
+					layerOffset = -0.02f;
+					rotate = false;
+					mirror = false;
+					shootCone = 30;
+					x = missileX;
+					y = missileY;
+					shots = 1;
+					shotDelay = 20;
+					maxRange = range;
+					reload = 4 * 60;
+					shootSound = UAWSfx.cruiseMissileShoot1;
+					bullet = new CruiseMissileBulletType(3f, 255) {{
+						layer = Layer.flyingUnitLow - 1;
+						size = 15;
+						homingRange = range * 2;
+						homingPower = 0.05f;
+						keepVelocity = false;
+						splashDamageRadius = 8 * tilesize;
+						splashDamage = damage;
+						lifetime = (range - 5) / speed;
+						shootEffect = UAWFxS.shootPyraFlame;
+						hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius);
+						trailEffect = UAWFxS.pyraSmokeTrailUnder;
+						status = StatusEffects.burning;
+						statusDuration = 4 * 60;
+						ammoMultiplier = 2f;
+					}};
+				}},
 				new Weapon("uaw-machine-gun-small-red") {{
 					layerOffset = -0.01f;
 					minShootVelocity = 0.75f;
@@ -258,66 +318,6 @@ public class UAWUnitTypes implements ContentList {
 						fragBullets = 5;
 						fragBullet = artilleryPlasticFrag;
 						ammoMultiplier = 6f;
-					}};
-				}},
-				// Left
-				new MissileLauncherWeapon() {{
-					layerOffset = -0.025f;
-					rotate = false;
-					mirror = false;
-					shootCone = 30;
-					x = -missileX;
-					y = missileY;
-					shots = 1;
-					shotDelay = 20;
-					maxRange = range;
-					reload = 4 * 60;
-					shootSound = UAWSfx.cruiseMissileShoot1;
-					bullet = new CruiseMissileBulletType(3f, 225) {{
-						layer = Layer.flyingUnitLow - 1;
-						size = 15;
-						homingRange = range * 2;
-						homingPower = 0.05f;
-						keepVelocity = false;
-						splashDamageRadius = 8 * tilesize;
-						splashDamage = damage;
-						lifetime = (range - 5) / speed;
-						shootEffect = UAWFxS.shootPyraFlame;
-						hitEffect = despawnEffect = UAWFxD.dynamicExplosion(splashDamageRadius);
-						trailEffect = UAWFxS.pyraSmokeTrailUnder;
-						status = StatusEffects.burning;
-						statusDuration = 4 * 60;
-						ammoMultiplier = 2f;
-					}};
-				}},
-				// Right
-				new MissileLauncherWeapon() {{
-					layerOffset = -0.025f;
-					rotate = false;
-					mirror = false;
-					shootCone = 30;
-					x = missileX;
-					y = missileY;
-					shots = 1;
-					shotDelay = 20;
-					maxRange = range;
-					reload = 4 * 60;
-					shootSound = UAWSfx.cruiseMissileShoot1;
-					bullet = new CruiseMissileBulletType(3f, 225) {{
-						layer = Layer.flyingUnitLow - 1;
-						size = 15;
-						homingRange = range * 2;
-						homingPower = 0.05f;
-						keepVelocity = false;
-						splashDamageRadius = 8 * tilesize;
-						splashDamage = damage;
-						lifetime = (range - 5) / speed;
-						shootEffect = UAWFxS.shootPyraFlame;
-						hitEffect = despawnEffect = UAWFxD.dynamicExplosion(splashDamageRadius);
-						trailEffect = UAWFxS.pyraSmokeTrailUnder;
-						status = StatusEffects.burning;
-						statusDuration = 4 * 60;
-						ammoMultiplier = 2f;
 					}};
 				}}
 			);
