@@ -9,6 +9,7 @@ import arc.graphics.g2d.Draw;
 import arc.math.*;
 import arc.struct.Seq;
 import mindustry.gen.Unit;
+import mindustry.graphics.Layer;
 import mindustry.type.UnitType;
 
 public class CopterUnitType extends UnitType {
@@ -50,7 +51,9 @@ public class CopterUnitType extends UnitType {
 
 				for (int i = 0; i < rotor.bladeCount; i++) {
 					if (rotor.layer < 0) {
-						rotor.layer = copter.elevation + 1f;
+						if (lowAltitude) {
+							rotor.layer = Layer.flyingUnitLow + 0.1f;
+						} else rotor.layer = Layer.flyingUnit + 0.1f;
 					}
 					float angle = (i * 360f / rotor.bladeCount + mount.rotorRotation) % 360;
 					Draw.z(rotor.layer);
