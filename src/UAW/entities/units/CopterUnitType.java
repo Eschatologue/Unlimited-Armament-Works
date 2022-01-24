@@ -34,14 +34,6 @@ public class CopterUnitType extends UnitType {
 		drawRotor(unit);
 	}
 
-	@Override
-	public void drawSoftShadow(Unit unit, float alpha) {
-		float layer;
-		layer = unit.elevation - 0.05f;
-		Draw.z(layer - 0.03f);
-		super.drawSoftShadow(unit, alpha);
-	}
-
 	public void drawRotor(Unit unit) {
 		applyColor(unit);
 		if (unit instanceof CopterUnitEntity copter) {
