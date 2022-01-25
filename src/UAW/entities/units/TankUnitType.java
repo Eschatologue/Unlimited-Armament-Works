@@ -4,7 +4,7 @@ import UAW.content.UAWStatusEffects;
 import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
-import arc.math.*;
+import arc.math.Angles;
 import arc.struct.ObjectSet;
 import arc.util.Time;
 import mindustry.Vars;
@@ -63,17 +63,18 @@ public class TankUnitType extends UnitType {
 	@Override
 	public void drawBody(Unit unit) {
 		Mechc mech = unit instanceof Mechc ? (Mechc) unit : null;
-		Unit mechUnit = (Unit) mech;
-		float x = unit.x + Angles.trnsx(mech.baseRotation(), turretX, turretY);
-		float y = unit.y + Angles.trnsy(mech.baseRotation(), turretX, turretY);
-		applyColor(unit);
+		if (unit instanceof Mechc) {
+			float x = unit.x + Angles.trnsx(mech.baseRotation(), turretX, turretY);
+			float y = unit.y + Angles.trnsy(mech.baseRotation(), turretX, turretY);
+			applyColor(unit);
 
-		Draw.z(unitLayer - 0.01f);
-		Draw.rect(turretOutlineRegion, x, y, unit.rotation - 90);
-		Draw.z(unitLayer + 0.02f);
-		Draw.rect(region, x, y, unit.rotation - 90);
+			Draw.z(unitLayer - 0.01f);
+			Draw.rect(turretOutlineRegion, x, y, unit.rotation - 90);
+			Draw.z(unitLayer + 0.02f);
+			Draw.rect(region, x, y, unit.rotation - 90);
 
-		Draw.reset();
+			Draw.reset();
+		}
 	}
 
 //	public void drawTurret(Mechc mech) {

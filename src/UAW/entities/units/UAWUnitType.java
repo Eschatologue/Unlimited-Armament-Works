@@ -1,6 +1,5 @@
 package UAW.entities.units;
 
-import UAW.ai.types.CopterAI;
 import UAW.entities.units.entity.CopterUnitEntity;
 import UAW.type.Rotor;
 import UAW.type.Rotor.RotorMount;
@@ -12,33 +11,31 @@ import mindustry.gen.Unit;
 import mindustry.graphics.Layer;
 import mindustry.type.UnitType;
 
-@Deprecated
-public class CopterUnitType extends UnitType {
+public class UAWUnitType extends UnitType {
+
+	// Helicopters
 	public final Seq<Rotor> rotors = new Seq<>();
 	public float spinningFallSpeed = 0;
 	public float rotorDeathSlowdown = 0.01f;
 	public float fallSmokeX = 0f, fallSmokeY = -5f, fallSmokeChance = 0.1f;
 
-	public CopterUnitType(String name) {
+	public UAWUnitType(String name) {
 		super(name);
-		flying = lowAltitude = true;
-		constructor = CopterUnitEntity::new;
-		engineSize = 0f;
-		rotateSpeed = 6f;
-		defaultController = CopterAI::new;
-		fallSpeed = 0.006f;
-		onTitleScreen = false;
 	}
 
 	@Override
 	public void draw(Unit unit) {
 		super.draw(unit);
-		drawRotor(unit);
+		if (unit instanceof CopterUnitEntity) {
+			drawRotor(unit);
+		}
 	}
 
 	@Override
 	public void drawSoftShadow(Unit unit, float alpha) {
-		Draw.z(unit.elevation - 0.05f);
+		if (unit instanceof CopterUnitEntity) {
+			Draw.z(unit.elevation - 0.05f);
+		}
 		super.drawSoftShadow(unit, alpha);
 	}
 

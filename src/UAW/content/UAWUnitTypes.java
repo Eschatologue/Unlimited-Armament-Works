@@ -1,5 +1,6 @@
 package UAW.content;
 
+import UAW.ai.types.CopterAI;
 import UAW.entities.abilities.RazorRotorAbility;
 import UAW.entities.bullet.*;
 import UAW.entities.units.*;
@@ -85,7 +86,7 @@ public class UAWUnitTypes implements ContentList {
 
 	@Override
 	public void load() {
-		aglovale = new CopterUnitType("aglovale") {{
+		aglovale = new UAWUnitType("aglovale") {{
 			health = 500;
 			hitSize = 18;
 			speed = 2.5f;
@@ -99,10 +100,14 @@ public class UAWUnitTypes implements ContentList {
 			faceTarget = flying = true;
 			range = 28 * tilesize;
 			maxRange = range;
+			fallSpeed = 0.003f;
 			spinningFallSpeed = 4;
 			fallSmokeY = -10f;
 
 			onTitleScreen = false;
+
+			constructor = CopterUnitEntity::new;
+			defaultController = CopterAI::new;
 
 			rotors.add(
 				new Rotor(name + "-blade") {{
@@ -170,7 +175,7 @@ public class UAWUnitTypes implements ContentList {
 				}}
 			);
 		}};
-		bedivere = new CopterUnitType("bedivere") {{
+		bedivere = new UAWUnitType("bedivere") {{
 			health = 3500;
 			hitSize = 30;
 			speed = 2.5f;
@@ -179,6 +184,7 @@ public class UAWUnitTypes implements ContentList {
 			drag = 0.03f;
 			ammoType = new ItemAmmoType(Items.graphite);
 			faceTarget = flying = circleTarget = true;
+			fallSpeed = 0.006f;
 			spinningFallSpeed = 5f;
 			fallSmokeY = -15f;
 			commandLimit = 3;
@@ -187,6 +193,9 @@ public class UAWUnitTypes implements ContentList {
 			maxRange = range;
 
 			onTitleScreen = false;
+
+			constructor = CopterUnitEntity::new;
+			defaultController = CopterAI::new;
 
 			rotors.add(
 				new Rotor(name + "-blade") {{
@@ -292,7 +301,7 @@ public class UAWUnitTypes implements ContentList {
 			abilities.add(new RazorRotorAbility(25, 10f, 4.5f * tilesize) {
 			});
 		}};
-		calogrenant = new CopterUnitType("calogrenant") {{
+		calogrenant = new UAWUnitType("calogrenant") {{
 			health = 8000;
 			armor = 10;
 			hitSize = 35;
@@ -310,6 +319,9 @@ public class UAWUnitTypes implements ContentList {
 			targetFlags = new BlockFlag[]{BlockFlag.turret, BlockFlag.battery, BlockFlag.extinguisher, null};
 
 			onTitleScreen = false;
+
+			constructor = CopterUnitEntity::new;
+			defaultController = CopterAI::new;
 
 			weapons.add(
 				new PointDefenseWeapon("uaw-point-defense-red") {{
