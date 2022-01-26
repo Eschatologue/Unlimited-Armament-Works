@@ -4,7 +4,7 @@ import UAW.ai.types.CopterAI;
 import UAW.entities.abilities.RazorRotorAbility;
 import UAW.entities.bullet.*;
 import UAW.entities.units.*;
-import UAW.entities.units.entity.CopterUnitEntity;
+import UAW.entities.units.entity.*;
 import UAW.graphics.*;
 import UAW.type.Rotor;
 import UAW.type.weapon.*;
@@ -38,7 +38,8 @@ public class UAWUnitTypes implements ContentList {
 
 	//Steal from Progressed Material which stole from Endless Rusting which stole from Progressed Materials in the past which stole from BetaMindy
 	private static final Entry<Class<? extends Entityc>, Prov<? extends Entityc>>[] types = new Entry[]{
-		prov(CopterUnitEntity.class, CopterUnitEntity::new)
+		prov(CopterUnitEntity.class, CopterUnitEntity::new),
+		prov(TankUnitEntity.class, TankUnitEntity::new)
 	};
 	private static final ObjectIntMap<Class<? extends Entityc>> idMap = new ObjectIntMap<>();
 
@@ -96,6 +97,7 @@ public class UAWUnitTypes implements ContentList {
 			ammoType = new ItemAmmoType(Items.graphite);
 			circleTarget = true;
 			commandLimit = 3;
+			lowAltitude = true;
 
 			faceTarget = flying = true;
 			range = 28 * tilesize;
@@ -188,6 +190,7 @@ public class UAWUnitTypes implements ContentList {
 			spinningFallSpeed = 5f;
 			fallSmokeY = -15f;
 			commandLimit = 3;
+			lowAltitude = true;
 
 			range = 32 * tilesize;
 			maxRange = range;
@@ -302,21 +305,18 @@ public class UAWUnitTypes implements ContentList {
 			});
 		}};
 		calogrenant = new UAWUnitType("calogrenant") {{
-			health = 8000;
-			armor = 10;
-			hitSize = 35;
-			speed = 2f;
-			rotateSpeed = 4f;
-			accel = 0.06f;
-			drag = 0.04f;
-			ammoType = new ItemAmmoType(Items.thorium);
-			faceTarget = flying = true;
-			commandLimit = 4;
-
-			range = 45 * tilesize;
-			maxRange = range;
-			fallSmokeChance = 0;
-			targetFlags = new BlockFlag[]{BlockFlag.turret, BlockFlag.battery, BlockFlag.extinguisher, null};
+			health = 7500;
+			armor = 10f;
+			speed = 3f;
+			drag = 0.07f;
+			accel = 0.03f;
+			fallSpeed = 0.003f;
+			engineSize = 0f;
+			flying = true;
+			hitSize = 35f;
+			range = 35 * tilesize;
+			lowAltitude = true;
+			rotateSpeed = 2.7f;
 
 			onTitleScreen = false;
 
@@ -1010,7 +1010,7 @@ public class UAWUnitTypes implements ContentList {
 			);
 		}};
 
-		gardlacz = new TankUnitType("gardlacz") {{
+		gardlacz = new UAWUnitType("gardlacz") {{
 			health = 750;
 			armor = 18;
 			hitSize = 16;
@@ -1023,8 +1023,9 @@ public class UAWUnitTypes implements ContentList {
 			drag = 0.055f;
 			range = 30 * tilesize;
 			groundTrailInterval = 0.8f;
-			trailSizeMultiplier = 0.6f;
-			drawCell = false;
+			groundTrailSize = 0.6f;
+
+			constructor = TankUnitEntity::new;
 
 			weapons.add(
 				new Weapon("uaw-point-defense-red") {{

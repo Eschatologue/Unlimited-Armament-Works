@@ -1,6 +1,5 @@
 package UAW.entities.units.entity;
 
-import UAW.ai.types.CopterAI;
 import UAW.content.UAWUnitTypes;
 import UAW.entities.units.*;
 import UAW.type.Rotor;
@@ -42,14 +41,14 @@ public class CopterUnitEntity extends UnitEntity {
 	public void update() {
 		super.update();
 		UAWUnitType type = (UAWUnitType) this.type;
-		float rx = x + Angles.trnsx(rotation - 90, type.fallSmokeX, type.fallSmokeY);
-		float ry = y + Angles.trnsy(rotation - 90, type.fallSmokeX, type.fallSmokeY);
+		float rotorX = x + Angles.trnsx(rotation - 90, type.fallSmokeX, type.fallSmokeY);
+		float rotorY = y + Angles.trnsy(rotation - 90, type.fallSmokeX, type.fallSmokeY);
 
 		if (dead || health() <= 0) {
 			rotation += Time.delta * (type.spinningFallSpeed * vel().len()) * Mathf.signs[id % 2];
 			if (Mathf.chanceDelta(type.fallSmokeChance)) {
-				Fx.fallSmoke.at(rx, ry);
-				Fx.burning.at(rx, ry);
+				Fx.fallSmoke.at(rotorX, rotorY);
+				Fx.burning.at(rotorX, rotorY);
 			}
 			rotorSpeedScl = Mathf.lerpDelta(rotorSpeedScl, 0f, type.rotorDeathSlowdown);
 		} else {
