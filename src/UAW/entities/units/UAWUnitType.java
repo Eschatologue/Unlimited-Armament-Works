@@ -8,9 +8,13 @@ import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.struct.Seq;
+import arc.util.Time;
+import mindustry.Vars;
+import mindustry.content.Fx;
 import mindustry.gen.*;
 import mindustry.graphics.Layer;
 import mindustry.type.UnitType;
+import mindustry.world.blocks.environment.Floor;
 
 public class UAWUnitType extends UnitType {
 	// Helicopters
@@ -28,6 +32,8 @@ public class UAWUnitType extends UnitType {
 	public float groundTrailX = 0f, groundTrailY = 0f;
 	public float liquidSpeedMultiplier = 1.2f;
 	protected float timer;
+
+	// Jets
 
 	public UAWUnitType(String name) {
 		super(name);
@@ -48,7 +54,7 @@ public class UAWUnitType extends UnitType {
 			Draw.z(tankLayer - 0.03f);
 			Draw.color(0, 0, 0, 0.4f * alpha);
 			float rad = 1.6f;
-			float size = Math.max(hullRegion.width, hullRegion.height) * Draw.scl;
+			float size = Math.max(hullRegion.width * 1.2f, hullRegion.height * 1.2f) * Draw.scl;
 			Draw.rect(softShadowRegion, unit, size * rad * Draw.xscl, size * rad * Draw.yscl, unit.rotation - 90);
 			Draw.color();
 		} else {
@@ -129,6 +135,30 @@ public class UAWUnitType extends UnitType {
 			Draw.reset();
 		} else {
 			super.drawBody(unit);
+		}
+	}
+
+	@Override
+	public void update(Unit unit) {
+		Floor floor = Vars.world.floorWorld(unit.x, unit.y);
+		Color floorColor = floor.mapColor;
+		super.update(unit);
+		if (unit instanceof TankUnitEntity) {
+			if (((timer += Time.delta) >= groundTrailInterval) && !floor.isLiquid && unit.moving() && groundTrailSize > 0) {
+				Fx.unitLand.at(
+					unit.x + Angles.trnsx(unit.rotation - 90, groundTrailX, groundTrailY),
+					unit.y + Angles.trnsy(unit.rotation - 90, groundTrailX, groundTrailY),
+					(hitSize / 6) * groundTrailSize * unit.vel().len(),
+					floorColor
+				);
+				Fx.unitLand.at(
+					unit.x + Angles.trnsx(unit.rotation - 90, -groundTrailX, groundTrailY),
+					unit.y + Angles.trnsy(unit.rotation - 90, -groundTrailX, groundTrailY),
+					(hitSize / 6) * groundTrailSize * unit.vel().len(),
+					floorColor
+				);
+				timer = 0f;
+			}
 		}
 	}
 

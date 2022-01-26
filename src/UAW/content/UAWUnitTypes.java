@@ -11,7 +11,7 @@ import UAW.type.weapon.*;
 import arc.func.Prov;
 import arc.graphics.Color;
 import arc.math.Mathf;
-import arc.struct.ObjectIntMap;
+import arc.struct.*;
 import arc.struct.ObjectMap.Entry;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
@@ -1021,10 +1021,12 @@ public class UAWUnitTypes implements ContentList {
 
 			accel = 0.05f;
 			drag = 0.055f;
-			range = 30 * tilesize;
+			range = 26 * tilesize;
 			groundTrailInterval = 0.8f;
-			groundTrailSize = 0.6f;
+			groundTrailSize = 0.4f;
+			groundTrailX = 2.5f;
 
+			immunities = ObjectSet.with(StatusEffects.disarmed, UAWStatusEffects.EMP, StatusEffects.freezing);
 			constructor = TankUnitEntity::new;
 
 			weapons.add(
@@ -1042,6 +1044,7 @@ public class UAWUnitTypes implements ContentList {
 						height = 10;
 						width = 7f;
 						lifetime = (range * 0.5f) / speed;
+						maxRange = range * 0.5f;
 						shootEffect = Fx.shootBigSmoke;
 					}};
 				}},
@@ -1087,7 +1090,7 @@ public class UAWUnitTypes implements ContentList {
 				}}
 			);
 		}};
-		arkabuz = new TankUnitType("arkabuz") {{
+		arkabuz = new UAWUnitType("arkabuz") {{
 			health = 7500;
 			armor = 30;
 			hitSize = 25;
@@ -1098,10 +1101,14 @@ public class UAWUnitTypes implements ContentList {
 
 			accel = 0.04f;
 			drag = 0.08f;
-			range = 40 * tilesize;
+			range = 35 * tilesize;
 			maxRange = range;
 			groundTrailInterval = 0.6f;
 			drawCell = false;
+			groundTrailX = 4;
+
+			immunities = ObjectSet.with(StatusEffects.disarmed, UAWStatusEffects.EMP, StatusEffects.freezing);
+			constructor = TankUnitEntity::new;
 
 			weapons.add(
 				new Weapon("uaw-machine-gun-medium-red-r") {{
@@ -1122,6 +1129,7 @@ public class UAWUnitTypes implements ContentList {
 						height = 14;
 						width = 9f;
 						lifetime = (range * 0.5f) / speed;
+						maxRange = range * 0.5f;
 						shootEffect = Fx.shootBigSmoke;
 					}};
 				}},
