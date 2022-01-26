@@ -46,7 +46,11 @@ public class UAWUnitType extends UnitType {
 			super.drawSoftShadow(unit, alpha);
 		} else if (unit instanceof TankUnitEntity) {
 			Draw.z(tankLayer - 0.03f);
-			super.drawSoftShadow(unit, alpha);
+			Draw.color(0, 0, 0, 0.4f * alpha);
+			float rad = 1.6f;
+			float size = Math.max(hullRegion.width, hullRegion.height) * Draw.scl;
+			Draw.rect(softShadowRegion, unit, size * rad * Draw.xscl, size * rad * Draw.yscl, unit.rotation - 90);
+			Draw.color();
 		} else {
 			super.drawSoftShadow(unit, alpha);
 		}
@@ -93,11 +97,14 @@ public class UAWUnitType extends UnitType {
 	public void drawMech(Mechc mech) {
 		Unit unit = (Unit) mech;
 		if (mech instanceof TankUnitEntity tank) {
+			applyColor(unit);
 			Draw.z(tankLayer - 0.025f);
 			Draw.rect(hullOutlineRegion, unit, tank.baseRotation - 90);
+
 			Draw.z(tankLayer - 0.015f);
-			Draw.mixcol(Color.white, unit.hitTime);
+			Draw.mixcol(Color.white, tank.hitTime);
 			Draw.rect(hullRegion, unit, tank.baseRotation - 90);
+
 			Draw.color(cellColor(unit));
 			Draw.rect(hullCellRegion, unit, tank.baseRotation - 90);
 			Draw.reset();
