@@ -8,7 +8,7 @@ import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.struct.Seq;
-import mindustry.gen.Unit;
+import mindustry.gen.*;
 import mindustry.graphics.Layer;
 import mindustry.type.UnitType;
 
@@ -37,8 +37,6 @@ public class UAWUnitType extends UnitType {
 	public void draw(Unit unit) {
 		super.draw(unit);
 		drawRotor(unit);
-		drawTankHull(unit);
-		drawTankTurret(unit);
 	}
 
 	@Override
@@ -49,9 +47,12 @@ public class UAWUnitType extends UnitType {
 		} else if (unit instanceof TankUnitEntity) {
 			Draw.z(tankLayer - 0.03f);
 			super.drawSoftShadow(unit, alpha);
-		} else super.drawSoftShadow(unit, alpha);
+		} else {
+			super.drawSoftShadow(unit, alpha);
+		}
 	}
 
+	// Copter Rotors
 	public void drawRotor(Unit unit) {
 		applyColor(unit);
 		if (unit instanceof CopterUnitEntity copter) {
@@ -87,20 +88,27 @@ public class UAWUnitType extends UnitType {
 		}
 	}
 
-	public void drawTankHull(Unit unit) {
-		if (unit instanceof TankUnitEntity tank) {
+	// Tank Hull
+	@Override
+	public void drawMech(Mechc mech) {
+		Unit unit = (Unit) mech;
+		if (mech instanceof TankUnitEntity tank) {
 			Draw.z(tankLayer - 0.025f);
 			Draw.rect(hullOutlineRegion, unit, tank.baseRotation - 90);
 			Draw.z(tankLayer - 0.015f);
 			Draw.mixcol(Color.white, unit.hitTime);
-			Draw.rect(baseRegion, unit, tank.baseRotation - 90);
+			Draw.rect(hullRegion, unit, tank.baseRotation - 90);
 			Draw.color(cellColor(unit));
 			Draw.rect(hullCellRegion, unit, tank.baseRotation - 90);
 			Draw.reset();
+		} else {
+			super.drawMech(mech);
 		}
 	}
 
-	public void drawTankTurret(Unit unit) {
+	// Tank Turret
+	@Override
+	public void drawBody(Unit unit) {
 		if (unit instanceof TankUnitEntity tank) {
 			float x = unit.x + Angles.trnsx(tank.baseRotation, turretX, turretY);
 			float y = unit.y + Angles.trnsy(tank.baseRotation, turretX, turretY);
@@ -112,6 +120,8 @@ public class UAWUnitType extends UnitType {
 			Draw.rect(turretRegion, x, y, unit.rotation - 90);
 
 			Draw.reset();
+		} else {
+			super.drawBody(unit);
 		}
 	}
 
