@@ -33,8 +33,8 @@ public class UAWUnitType extends UnitType {
 	public float liquidSpeedMultiplier = 1.2f;
 
 	// Jets
-	public float engineSizeShrink = 0.01f;
-	public float engineOffsetX = 0f, engineOffsetY = -2f;
+	public float engineSizeShrink = 0.1f;
+	public float engineSpread = 5f;
 
 	protected float timer;
 
@@ -169,31 +169,25 @@ public class UAWUnitType extends UnitType {
 	@Override
 	public void drawEngine(Unit unit) {
 		if (unit instanceof JetUnitEntity jetUnit) {
+			if (!unit.isFlying()) return;
 			float scale = unit.elevation;
-			float offsetX = engineOffsetX * scale;
-			float offsetY = engineOffsetY * scale;
-			Draw.color(unit.team.color);
-			Fill.circle(
-				unit.x + Angles.trnsx(unit.rotation + 90, offsetX, offsetY),
-				unit.y + Angles.trnsy(unit.rotation + 90, offsetX, offsetY),
-				(engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) * scale * jetUnit.engineSizeScl()
-			);
-			Fill.circle(
-				unit.x + Angles.trnsx(unit.rotation + 90, -offsetX, offsetY),
-				unit.y + Angles.trnsy(unit.rotation + 90, -offsetX, offsetY),
-				(engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) * scale * jetUnit.engineSizeScl()
-			);
-			Draw.color(Color.white);
-			Fill.circle(
-				unit.x + Angles.trnsx(unit.rotation + 90, offsetX, offsetY - 1f),
-				unit.y + Angles.trnsy(unit.rotation + 90, offsetX, offsetY - 1f),
-				(engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) / 2f * scale * jetUnit.engineSizeScl()
-			);
-			Fill.circle(
-				unit.x + Angles.trnsx(unit.rotation + 90, -offsetX, offsetY - 1f),
-				unit.y + Angles.trnsy(unit.rotation + 90, -offsetX, offsetY - 1f),
-				(engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) / 2f * scale * jetUnit.engineSizeScl()
-			);
+			float offset = engineOffset / 2f + engineOffset / 2f * scale;
+			for (int i : Mathf.zeroOne) {
+				int side = Mathf.signs[i];
+				float sideOffset = engineSpread * side;
+				Fill.circle(
+					unit.x + Angles.trnsx(unit.rotation + 90, sideOffset, offset),
+					unit.y + Angles.trnsy(unit.rotation + 90, sideOffset, offset),
+					((engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) * scale) * jetUnit.engineSizeScl()
+				);
+				Draw.color(Color.white);
+				Fill.circle(
+					unit.x + Angles.trnsx(unit.rotation + 90, sideOffset, offset - 1f),
+					unit.y + Angles.trnsy(unit.rotation + 90, sideOffset, offset - 1f),
+					((engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) / 2f * scale) * jetUnit.engineSizeScl()
+				);
+			}
+
 		} else {
 			super.drawEngine(unit);
 		}

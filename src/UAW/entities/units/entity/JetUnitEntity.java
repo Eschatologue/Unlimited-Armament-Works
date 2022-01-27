@@ -54,7 +54,6 @@ public class JetUnitEntity extends UnitEntity {
 		tright.draw(trailColor, type.trailScl);
 		Draw.z(z);
 	}
-
 	public float engineSizeScl() {
 		return this.engineSizeScl;
 	}
