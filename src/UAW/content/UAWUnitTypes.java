@@ -1,6 +1,6 @@
 package UAW.content;
 
-import UAW.ai.types.CopterAI;
+import UAW.ai.types.*;
 import UAW.entities.abilities.RazorRotorAbility;
 import UAW.entities.bullet.*;
 import UAW.entities.units.UAWUnitType;
@@ -468,6 +468,7 @@ public class UAWUnitTypes implements ContentList {
 			engineOffsetY = -4;
 
 			constructor = JetUnitEntity::new;
+			defaultController = BomberJetAI::new;
 
 			weapons.add(
 				new Weapon() {{
