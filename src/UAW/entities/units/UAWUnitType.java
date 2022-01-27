@@ -54,6 +54,7 @@ public class UAWUnitType extends UnitType {
 		super.draw(unit);
 		drawRotor(unit);
 		if (unit instanceof JetUnitEntity) {
+			Draw.z(Layer.effect);
 			trailLeft.draw(unit.team.color, trailWidth);
 			trailRight.draw(unit.team.color, trailWidth);
 		}
@@ -187,23 +188,23 @@ public class UAWUnitType extends UnitType {
 			Fill.circle(
 				unit.x + Angles.trnsx(unit.rotation + 90, offsetX, offsetY),
 				unit.y + Angles.trnsy(unit.rotation + 90, offsetX, offsetY),
-				(engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) * scale * jetUnit.engineSizeScl
+				(engineSize + Mathf.absin(Time.time, 2f, trailWidth)) * scale * jetUnit.engineSizeScl()
 			);
 			Fill.circle(
 				unit.x + Angles.trnsx(unit.rotation + 90, -offsetX, offsetY),
 				unit.y + Angles.trnsy(unit.rotation + 90, -offsetX, offsetY),
-				(engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) * scale * jetUnit.engineSizeScl
+				(engineSize + Mathf.absin(Time.time, 2f, trailWidth)) * scale * jetUnit.engineSizeScl()
 			);
 			Draw.color(Color.white);
 			Fill.circle(
 				unit.x + Angles.trnsx(unit.rotation + 90, offsetX, offsetY - 1f),
 				unit.y + Angles.trnsy(unit.rotation + 90, offsetX, offsetY - 1f),
-				(engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) / 2f * scale * jetUnit.engineSizeScl
+				(engineSize + Mathf.absin(Time.time, 2f, trailWidth)) / 2f * scale * jetUnit.engineSizeScl()
 			);
 			Fill.circle(
 				unit.x + Angles.trnsx(unit.rotation + 90, -offsetX, offsetY - 1f),
 				unit.y + Angles.trnsy(unit.rotation + 90, -offsetX, offsetY - 1f),
-				(engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) / 2f * scale * jetUnit.engineSizeScl
+				(engineSize + Mathf.absin(Time.time, 2f, trailWidth)) / 2f * scale * jetUnit.engineSizeScl()
 			);
 		} else {
 			super.drawEngine(unit);

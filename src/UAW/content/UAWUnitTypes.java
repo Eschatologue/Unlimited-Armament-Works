@@ -452,6 +452,7 @@ public class UAWUnitTypes implements ContentList {
 			circleTarget = true;
 			commandLimit = 4;
 
+			flying = true;
 			lowAltitude = false;
 			range = 45 * tilesize;
 
