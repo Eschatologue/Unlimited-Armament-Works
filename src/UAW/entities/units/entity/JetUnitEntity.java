@@ -29,7 +29,7 @@ public class JetUnitEntity extends UnitEntity {
 		UAWUnitType type = (UAWUnitType) this.type;
 		if (moving()) {
 			engineSizeScl = Mathf.lerpDelta(engineSizeScl, 0f, type.engineSizeShrink);
-		} else if (!isPlayer() && isShooting && isAI()) {
+		} else {
 			engineSizeScl = Mathf.lerpDelta(engineSizeScl, 1f, type.engineSizeShrink);
 		}
 		for (int i = 0; i < 2; i++) {
