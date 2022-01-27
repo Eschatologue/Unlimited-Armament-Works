@@ -459,11 +459,13 @@ public class UAWUnitTypes implements ContentList {
 			targetFlags = new BlockFlag[]{BlockFlag.repair, BlockFlag.generator, BlockFlag.extinguisher, null};
 
 			trailX = 6f;
-			trailY = -2;
-			trailLength = 18;
-			trailScl = 3f;
+			trailY = 0;
+			trailLength = 15;
+			trailScl = 1.5f;
 
-			engineSize = 5f;
+			engineSize = 2f;
+			engineOffsetX = 5f;
+			engineOffsetY = -4;
 
 			constructor = JetUnitEntity::new;
 

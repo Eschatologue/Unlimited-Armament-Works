@@ -39,6 +39,7 @@ public class UAWUnitType extends UnitType {
 
 	// Jets
 	public float engineSizeShrink = 0.01f;
+	public float engineOffsetX = 0f, engineOffsetY = -2f;
 
 	protected float timer;
 
@@ -174,8 +175,8 @@ public class UAWUnitType extends UnitType {
 	public void drawEngine(Unit unit) {
 		if (unit instanceof JetUnitEntity jetUnit) {
 			float scale = unit.elevation;
-			float offsetX = trailX * scale;
-			float offsetY = trailY - 3 * scale;
+			float offsetX = engineOffsetX * scale;
+			float offsetY = engineOffsetY * scale;
 			Draw.color(unit.team.color);
 			Fill.circle(
 				unit.x + Angles.trnsx(unit.rotation + 90, offsetX, offsetY),

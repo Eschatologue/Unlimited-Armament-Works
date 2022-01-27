@@ -8,12 +8,9 @@ import arc.math.*;
 import mindustry.gen.UnitEntity;
 import mindustry.graphics.*;
 
-import static mindustry.gen.Nulls.unit;
-
 public class JetUnitEntity extends UnitEntity {
 	private final transient Trail tleft = new Trail(1);
 	private final transient Trail tright = new Trail(1);
-	private final transient Color trailColor = team.color;
 	public float engineSizeScl = 1;
 
 	@Override
@@ -32,17 +29,17 @@ public class JetUnitEntity extends UnitEntity {
 		UAWUnitType type = (UAWUnitType) this.type;
 		if (moving()) {
 			engineSizeScl = Mathf.lerpDelta(engineSizeScl, 0f, type.engineSizeShrink);
-		} else {
-			engineSizeScl = Mathf.lerpDelta(engineSizeScl, 1f, type.engineSizeShrink);
-		}
-		for (int i = 0; i < 2; i++) {
-			Trail trail = i == 0 ? tleft : tright;
-			trail.length = type.trailLength;
+			for (int i = 0; i < 2; i++) {
+				Trail trail = i == 0 ? tleft : tright;
+				trail.length = type.trailLength;
 
-			int sign = i == 0 ? -1 : 1;
-			float cx = Angles.trnsx(rotation - 90, type.trailX * sign, type.trailY) + x;
-			float cy = Angles.trnsy(rotation - 90, type.trailX * sign, type.trailY) + y;
-			trail.update(cx, cy, type.trailScl);
+				int sign = i == 0 ? -1 : 1;
+				float cx = Angles.trnsx(rotation - 90, type.trailX * sign, type.trailY) + x;
+				float cy = Angles.trnsy(rotation - 90, type.trailX * sign, type.trailY) + y;
+				trail.update(cx, cy, type.trailScl);
+			}
+		} else if (!isPlayer() && isShooting && isAI()) {
+			engineSizeScl = Mathf.lerpDelta(engineSizeScl, 1f, type.engineSizeShrink);
 		}
 		type.omniMovement = !isPlayer() && isShooting && isAI();
 	}
@@ -50,6 +47,7 @@ public class JetUnitEntity extends UnitEntity {
 	@Override
 	public void draw() {
 		super.draw();
+		Color trailColor = team.color;
 		float z = Draw.z();
 		Draw.z(Layer.effect);
 		tleft.draw(trailColor, type.trailScl);
