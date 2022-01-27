@@ -3,7 +3,7 @@ package UAW.content;
 import UAW.ai.types.CopterAI;
 import UAW.entities.abilities.RazorRotorAbility;
 import UAW.entities.bullet.*;
-import UAW.entities.units.*;
+import UAW.entities.units.UAWUnitType;
 import UAW.entities.units.entity.*;
 import UAW.graphics.*;
 import UAW.type.Rotor;
@@ -39,7 +39,8 @@ public class UAWUnitTypes implements ContentList {
 	//Steal from Progressed Material which stole from Endless Rusting which stole from Progressed Materials in the past which stole from BetaMindy
 	private static final Entry<Class<? extends Entityc>, Prov<? extends Entityc>>[] types = new Entry[]{
 		prov(CopterUnitEntity.class, CopterUnitEntity::new),
-		prov(TankUnitEntity.class, TankUnitEntity::new)
+		prov(TankUnitEntity.class, TankUnitEntity::new),
+		prov(JetUnitEntity.class, JetUnitEntity::new)
 	};
 	private static final ObjectIntMap<Class<? extends Entityc>> idMap = new ObjectIntMap<>();
 
@@ -321,7 +322,6 @@ public class UAWUnitTypes implements ContentList {
 			onTitleScreen = false;
 
 			constructor = CopterUnitEntity::new;
-			defaultController = CopterAI::new;
 
 			weapons.add(
 				new PointDefenseWeapon("uaw-point-defense-red") {{
@@ -441,7 +441,7 @@ public class UAWUnitTypes implements ContentList {
 			);
 		}};
 
-		jufeng = new JetUnitType("jufeng") {{
+		jufeng = new UAWUnitType("jufeng") {{
 			health = 650;
 			hitSize = 20;
 			speed = 2.8f;
@@ -461,6 +461,8 @@ public class UAWUnitTypes implements ContentList {
 			trailY = -2;
 			trailLength = 18;
 			trailWidth = 3f;
+
+			constructor = JetUnitEntity::new;
 
 			weapons.add(
 				new Weapon() {{
@@ -1023,7 +1025,7 @@ public class UAWUnitTypes implements ContentList {
 			drag = 0.055f;
 			range = 26 * tilesize;
 			groundTrailInterval = 0.8f;
-			groundTrailSize = 0.4f;
+			groundTrailSize = 0.2f;
 			groundTrailX = 2.5f;
 
 			immunities = ObjectSet.with(StatusEffects.disarmed, UAWStatusEffects.EMP, StatusEffects.freezing);

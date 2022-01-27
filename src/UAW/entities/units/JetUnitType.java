@@ -45,7 +45,8 @@ public class JetUnitType extends UnitType {
 		omniMovement = !unit.isPlayer() && unit.isShooting && unit.isAI();
 		/*
 		trailLeft.update(cx, cy);
-		trailRight.update(cx2, cy2);*/
+		trailRight.update(cx2, cy2);
+		*/
 	}
 
 /*

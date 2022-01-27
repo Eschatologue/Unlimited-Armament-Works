@@ -15,7 +15,7 @@ public class CruiseMissileBulletType extends UAWBasicBulletType {
 		super(speed, damage, sprite);
 		this.speed = speed;
 		this.splashDamage = damage;
-		this.damage = 0;
+		this.damage = damage;
 		height = size;
 		width = size / 2.4f;
 		layer = Layer.effect + 1;

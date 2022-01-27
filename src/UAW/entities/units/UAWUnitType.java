@@ -12,13 +12,18 @@ import arc.util.Time;
 import mindustry.Vars;
 import mindustry.content.Fx;
 import mindustry.gen.*;
-import mindustry.graphics.Layer;
+import mindustry.graphics.*;
 import mindustry.type.UnitType;
 import mindustry.world.blocks.environment.Floor;
 
 public class UAWUnitType extends UnitType {
-	// Helicopters
 	public final Seq<Rotor> rotors = new Seq<>();
+
+	// Universal
+	public int engineCount = 1;
+	public float engineRotOffset = 45;
+
+	// Helicopter
 	public float spinningFallSpeed = 0;
 	public float rotorDeathSlowdown = 0.01f;
 	public float fallSmokeX = 0f, fallSmokeY = -5f, fallSmokeChance = 0.1f;
@@ -31,9 +36,14 @@ public class UAWUnitType extends UnitType {
 	public float groundTrailInterval = 0.5f;
 	public float groundTrailX = 0f, groundTrailY = 0f;
 	public float liquidSpeedMultiplier = 1.2f;
-	protected float timer;
 
 	// Jets
+	public Trail trailLeft = new Trail(trailLength);
+	public Trail trailRight = new Trail(trailLength);
+	public float trailWidth = 4f;
+	public float engineSizeShrink = 0.01f;
+
+	protected float timer;
 
 	public UAWUnitType(String name) {
 		super(name);
@@ -43,6 +53,10 @@ public class UAWUnitType extends UnitType {
 	public void draw(Unit unit) {
 		super.draw(unit);
 		drawRotor(unit);
+		if (unit instanceof JetUnitEntity) {
+			trailLeft.draw(unit.team.color, trailWidth);
+			trailRight.draw(unit.team.color, trailWidth);
+		}
 	}
 
 	@Override
@@ -138,28 +152,81 @@ public class UAWUnitType extends UnitType {
 		}
 	}
 
-	@Override
-	public void update(Unit unit) {
+	// Tank Trail
+	public void drawTankTrail(Unit unit) {
 		Floor floor = Vars.world.floorWorld(unit.x, unit.y);
 		Color floorColor = floor.mapColor;
-		super.update(unit);
 		if (unit instanceof TankUnitEntity) {
-			if (((timer += Time.delta) >= groundTrailInterval) && !floor.isLiquid && unit.moving() && groundTrailSize > 0) {
+			if (((timer += Time.delta) >= groundTrailInterval)
+				&& !floor.isLiquid && unit.moving() && groundTrailSize > 0) {
 				Fx.unitLand.at(
 					unit.x + Angles.trnsx(unit.rotation - 90, groundTrailX, groundTrailY),
 					unit.y + Angles.trnsy(unit.rotation - 90, groundTrailX, groundTrailY),
-					(hitSize / 6) * groundTrailSize * unit.vel().len(),
+					(hitSize / 6) * groundTrailSize,
 					floorColor
 				);
 				Fx.unitLand.at(
 					unit.x + Angles.trnsx(unit.rotation - 90, -groundTrailX, groundTrailY),
 					unit.y + Angles.trnsy(unit.rotation - 90, -groundTrailX, groundTrailY),
-					(hitSize / 6) * groundTrailSize * unit.vel().len(),
+					(hitSize / 6) * groundTrailSize,
 					floorColor
 				);
 				timer = 0f;
 			}
 		}
+	}
+
+	// Jet Engine
+	@Override
+	public void drawEngine(Unit unit) {
+		if (unit instanceof JetUnitEntity jetUnit) {
+			float scale = unit.elevation;
+			float offsetX = trailX * scale;
+			float offsetY = trailY * scale;
+			Draw.color(unit.team.color);
+			Fill.circle(
+				unit.x + Angles.trnsx(unit.rotation + 90, offsetX, offsetY),
+				unit.y + Angles.trnsy(unit.rotation + 90, offsetX, offsetY),
+				(engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) * scale * jetUnit.engineSizeScl
+			);
+			Fill.circle(
+				unit.x + Angles.trnsx(unit.rotation + 90, -offsetX, offsetY),
+				unit.y + Angles.trnsy(unit.rotation + 90, -offsetX, offsetY),
+				(engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) * scale * jetUnit.engineSizeScl
+			);
+			Draw.color(Color.white);
+			Fill.circle(
+				unit.x + Angles.trnsx(unit.rotation + 90, offsetX, offsetY - 1f),
+				unit.y + Angles.trnsy(unit.rotation + 90, offsetX, offsetY - 1f),
+				(engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) / 2f * scale * jetUnit.engineSizeScl
+			);
+			Fill.circle(
+				unit.x + Angles.trnsx(unit.rotation + 90, -offsetX, offsetY - 1f),
+				unit.y + Angles.trnsy(unit.rotation + 90, -offsetX, offsetY - 1f),
+				(engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) / 2f * scale * jetUnit.engineSizeScl
+			);
+		} else {
+			super.drawEngine(unit);
+		}
+	}
+
+	public void drawJetTrail(Unit unit) {
+		float cx = Angles.trnsx(unit.rotation - 90, trailX, trailY) + unit.x;
+		float cy = Angles.trnsy(unit.rotation - 90, trailX, trailY) + unit.y;
+		float cx2 = Angles.trnsx(unit.rotation - 90, -trailX, trailY) + unit.x;
+		float cy2 = Angles.trnsy(unit.rotation - 90, -trailX, trailY) + unit.y;
+		if (unit instanceof JetUnitEntity) {
+			omniMovement = !unit.isPlayer() && unit.isShooting && unit.isAI();
+			trailLeft.update(cx, cy);
+			trailRight.update(cx2, cy2);
+		}
+	}
+
+	@Override
+	public void update(Unit unit) {
+		super.update(unit);
+		drawTankTrail(unit);
+		drawJetTrail(unit);
 	}
 
 	@Override
