@@ -460,7 +460,7 @@ public class UAWUnitTypes implements ContentList {
 
 			trailX = 6f;
 			trailY = 0;
-			trailLength = 15;
+			trailLength = 10;
 			trailScl = 1.5f;
 
 			engineSize = 2f;

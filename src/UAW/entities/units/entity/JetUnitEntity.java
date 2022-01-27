@@ -29,17 +29,17 @@ public class JetUnitEntity extends UnitEntity {
 		UAWUnitType type = (UAWUnitType) this.type;
 		if (moving()) {
 			engineSizeScl = Mathf.lerpDelta(engineSizeScl, 0f, type.engineSizeShrink);
-			for (int i = 0; i < 2; i++) {
-				Trail trail = i == 0 ? tleft : tright;
-				trail.length = type.trailLength;
-
-				int sign = i == 0 ? -1 : 1;
-				float cx = Angles.trnsx(rotation - 90, type.trailX * sign, type.trailY) + x;
-				float cy = Angles.trnsy(rotation - 90, type.trailX * sign, type.trailY) + y;
-				trail.update(cx, cy, type.trailScl);
-			}
 		} else if (!isPlayer() && isShooting && isAI()) {
 			engineSizeScl = Mathf.lerpDelta(engineSizeScl, 1f, type.engineSizeShrink);
+		}
+		for (int i = 0; i < 2; i++) {
+			Trail trail = i == 0 ? tleft : tright;
+			trail.length = type.trailLength;
+
+			int sign = i == 0 ? -1 : 1;
+			float cx = Angles.trnsx(rotation - 90, type.trailX * sign, type.trailY) + x;
+			float cy = Angles.trnsy(rotation - 90, type.trailX * sign, type.trailY) + y;
+			trail.update(cx, cy, type.trailScl);
 		}
 		type.omniMovement = !isPlayer() && isShooting && isAI();
 	}
