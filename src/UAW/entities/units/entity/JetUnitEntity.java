@@ -2,10 +2,18 @@ package UAW.entities.units.entity;
 
 import UAW.content.UAWUnitTypes;
 import UAW.entities.units.UAWUnitType;
-import arc.math.Mathf;
+import arc.graphics.Color;
+import arc.graphics.g2d.Draw;
+import arc.math.*;
 import mindustry.gen.UnitEntity;
+import mindustry.graphics.*;
+
+import static mindustry.gen.Nulls.unit;
 
 public class JetUnitEntity extends UnitEntity {
+	private final transient Trail tleft = new Trail(1);
+	private final transient Trail tright = new Trail(1);
+	private final transient Color trailColor = team.color;
 	public float engineSizeScl = 1;
 
 	@Override
@@ -27,6 +35,26 @@ public class JetUnitEntity extends UnitEntity {
 		} else {
 			engineSizeScl = Mathf.lerpDelta(engineSizeScl, 1f, type.engineSizeShrink);
 		}
+		for (int i = 0; i < 2; i++) {
+			Trail trail = i == 0 ? tleft : tright;
+			trail.length = type.trailLength;
+
+			int sign = i == 0 ? -1 : 1;
+			float cx = Angles.trnsx(rotation - 90, type.trailX * sign, type.trailY) + x;
+			float cy = Angles.trnsy(rotation - 90, type.trailX * sign, type.trailY) + y;
+			trail.update(cx, cy, type.trailScl);
+		}
+		type.omniMovement = !isPlayer() && isShooting && isAI();
+	}
+
+	@Override
+	public void draw() {
+		super.draw();
+		float z = Draw.z();
+		Draw.z(Layer.effect);
+		tleft.draw(trailColor, type.trailScl);
+		tright.draw(trailColor, type.trailScl);
+		Draw.z(z);
 	}
 
 	public float engineSizeScl() {

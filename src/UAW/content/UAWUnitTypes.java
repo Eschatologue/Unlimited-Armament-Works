@@ -461,7 +461,9 @@ public class UAWUnitTypes implements ContentList {
 			trailX = 6f;
 			trailY = -2;
 			trailLength = 18;
-			trailWidth = 3f;
+			trailScl = 3f;
+
+			engineSize = 5f;
 
 			constructor = JetUnitEntity::new;
 

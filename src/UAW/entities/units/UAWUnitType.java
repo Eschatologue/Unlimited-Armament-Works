@@ -12,7 +12,7 @@ import arc.util.Time;
 import mindustry.Vars;
 import mindustry.content.Fx;
 import mindustry.gen.*;
-import mindustry.graphics.*;
+import mindustry.graphics.Layer;
 import mindustry.type.UnitType;
 import mindustry.world.blocks.environment.Floor;
 
@@ -38,9 +38,6 @@ public class UAWUnitType extends UnitType {
 	public float liquidSpeedMultiplier = 1.2f;
 
 	// Jets
-	public Trail trailLeft = new Trail(trailLength);
-	public Trail trailRight = new Trail(trailLength);
-	public float trailWidth = 4f;
 	public float engineSizeShrink = 0.01f;
 
 	protected float timer;
@@ -53,11 +50,6 @@ public class UAWUnitType extends UnitType {
 	public void draw(Unit unit) {
 		super.draw(unit);
 		drawRotor(unit);
-		if (unit instanceof JetUnitEntity) {
-			Draw.z(Layer.effect);
-			trailLeft.draw(unit.team.color, trailWidth);
-			trailRight.draw(unit.team.color, trailWidth);
-		}
 	}
 
 	@Override
@@ -183,51 +175,39 @@ public class UAWUnitType extends UnitType {
 		if (unit instanceof JetUnitEntity jetUnit) {
 			float scale = unit.elevation;
 			float offsetX = trailX * scale;
-			float offsetY = trailY * scale;
+			float offsetY = trailY - 3 * scale;
 			Draw.color(unit.team.color);
 			Fill.circle(
 				unit.x + Angles.trnsx(unit.rotation + 90, offsetX, offsetY),
 				unit.y + Angles.trnsy(unit.rotation + 90, offsetX, offsetY),
-				(engineSize + Mathf.absin(Time.time, 2f, trailWidth)) * scale * jetUnit.engineSizeScl()
+				(engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) * scale * jetUnit.engineSizeScl()
 			);
 			Fill.circle(
 				unit.x + Angles.trnsx(unit.rotation + 90, -offsetX, offsetY),
 				unit.y + Angles.trnsy(unit.rotation + 90, -offsetX, offsetY),
-				(engineSize + Mathf.absin(Time.time, 2f, trailWidth)) * scale * jetUnit.engineSizeScl()
+				(engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) * scale * jetUnit.engineSizeScl()
 			);
 			Draw.color(Color.white);
 			Fill.circle(
 				unit.x + Angles.trnsx(unit.rotation + 90, offsetX, offsetY - 1f),
 				unit.y + Angles.trnsy(unit.rotation + 90, offsetX, offsetY - 1f),
-				(engineSize + Mathf.absin(Time.time, 2f, trailWidth)) / 2f * scale * jetUnit.engineSizeScl()
+				(engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) / 2f * scale * jetUnit.engineSizeScl()
 			);
 			Fill.circle(
 				unit.x + Angles.trnsx(unit.rotation + 90, -offsetX, offsetY - 1f),
 				unit.y + Angles.trnsy(unit.rotation + 90, -offsetX, offsetY - 1f),
-				(engineSize + Mathf.absin(Time.time, 2f, trailWidth)) / 2f * scale * jetUnit.engineSizeScl()
+				(engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) / 2f * scale * jetUnit.engineSizeScl()
 			);
 		} else {
 			super.drawEngine(unit);
 		}
 	}
 
-	public void drawJetTrail(Unit unit) {
-		float cx = Angles.trnsx(unit.rotation - 90, trailX, trailY) + unit.x;
-		float cy = Angles.trnsy(unit.rotation - 90, trailX, trailY) + unit.y;
-		float cx2 = Angles.trnsx(unit.rotation - 90, -trailX, trailY) + unit.x;
-		float cy2 = Angles.trnsy(unit.rotation - 90, -trailX, trailY) + unit.y;
-		if (unit instanceof JetUnitEntity) {
-			omniMovement = !unit.isPlayer() && unit.isShooting && unit.isAI();
-			trailLeft.update(cx, cy);
-			trailRight.update(cx2, cy2);
-		}
-	}
 
 	@Override
 	public void update(Unit unit) {
 		super.update(unit);
 		drawTankTrail(unit);
-		drawJetTrail(unit);
 	}
 
 	@Override
