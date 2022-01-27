@@ -461,12 +461,12 @@ public class UAWUnitTypes implements ContentList {
 
 			trailX = 6f;
 			trailY = -1;
-			trailLength = 12;
-			trailScl = 2f;
+			trailLength = 9;
+			trailScl = 1.75f;
 
 			engineSize = 3.5f;
 			engineSpread = 5.5f;
-			engineOffset = 8f;
+			engineOffset = 3f;
 
 			constructor = JetUnitEntity::new;
 			defaultController = BomberJetAI::new;
