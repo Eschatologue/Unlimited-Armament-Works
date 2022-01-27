@@ -9,10 +9,11 @@ import static mindustry.Vars.state;
 public class CopterAI extends FlyingAI {
 	@Override
 	public void updateMovement() {
+		unloadPayloads();
 		if (target != null && unit.hasWeapons() && command() == UnitCommand.attack) {
 			if (!unit.type.circleTarget) {
+				moveTo(target, unit.type.range * 0.75f);
 				unit.lookAt(target);
-				moveTo(target, unit.type.range * 0.8f);
 			} else {
 				attack(unit.type.range * 0.75f);
 				unit.lookAt(unit.vel().angle());

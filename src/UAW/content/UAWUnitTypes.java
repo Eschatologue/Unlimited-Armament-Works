@@ -311,17 +311,17 @@ public class UAWUnitTypes implements ContentList {
 			speed = 3f;
 			drag = 0.07f;
 			accel = 0.03f;
-			fallSpeed = 0.003f;
 			engineSize = 0f;
 			flying = true;
 			hitSize = 35f;
-			range = 35 * tilesize;
+			range = 40 * tilesize;
 			lowAltitude = true;
 			rotateSpeed = 2.7f;
 
 			onTitleScreen = false;
 
 			constructor = CopterUnitEntity::new;
+			defaultController = CopterAI::new;
 
 			weapons.add(
 				new PointDefenseWeapon("uaw-point-defense-red") {{
@@ -395,7 +395,6 @@ public class UAWUnitTypes implements ContentList {
 					x = y = 0f;
 					inaccuracy = 12;
 					shootCone = 60f;
-					maxRange = range / 1.5f;
 					reload = 5 * 60;
 					shots = 3;
 					shotDelay = 15f;
@@ -409,7 +408,7 @@ public class UAWUnitTypes implements ContentList {
 						keepVelocity = false;
 						splashDamageRadius = 12 * tilesize;
 						splashDamage = damage;
-						lifetime = (range - 5) / speed;
+						lifetime = range / speed;
 						shootEffect = UAWFxS.shootCryoFlame;
 						trailColor = UAWPal.cryoFront;
 						despawnHit = true;
@@ -464,8 +463,8 @@ public class UAWUnitTypes implements ContentList {
 			trailLength = 9;
 			trailScl = 1.75f;
 
-			engineSize = 3.5f;
-			engineSpread = 5.5f;
+			engineSize = 4f;
+			engineSpread = 4f;
 			engineOffset = 3f;
 
 			constructor = JetUnitEntity::new;
@@ -482,7 +481,7 @@ public class UAWUnitTypes implements ContentList {
 					shootSound = Sounds.shotgun;
 					shots = 2;
 					shotDelay = 15f;
-					bullet = new UAWArtilleryBulletType(1.8f, 125) {{
+					bullet = new UAWArtilleryBulletType(1.5f, 125) {{
 						buildingDamageMultiplier = 2.5f;
 						lifetime = (range / 3) / speed;
 						trailMult = 0.5f;
@@ -496,9 +495,9 @@ public class UAWUnitTypes implements ContentList {
 						status = StatusEffects.blasted;
 						statusDuration = 60f;
 						makeFire = true;
-						homingPower = 0.04f;
+						homingPower = 0.1f;
 						homingRange = 32f;
-						fragBullet = fragPlasticFrag;
+						fragBullet = fragGlassFrag;
 					}};
 				}});
 		}};
