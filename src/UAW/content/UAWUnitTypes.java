@@ -466,7 +466,7 @@ public class UAWUnitTypes implements ContentList {
 
 			engineSize = 3.5f;
 			engineOffsetX = 5f;
-			engineOffsetY = -5;
+			engineOffsetY = -4;
 
 			constructor = JetUnitEntity::new;
 			defaultController = BomberJetAI::new;
