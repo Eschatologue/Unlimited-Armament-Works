@@ -175,6 +175,7 @@ public class UAWUnitType extends UnitType {
 			for (int i : Mathf.zeroOne) {
 				int side = Mathf.signs[i];
 				float sideOffset = engineSpread * side;
+				Draw.color(unit.team.color);
 				Fill.circle(
 					unit.x + Angles.trnsx(unit.rotation + 90, sideOffset, offset),
 					unit.y + Angles.trnsy(unit.rotation + 90, sideOffset, offset),
