@@ -452,6 +452,7 @@ public class UAWUnitTypes implements ContentList {
 			circleTarget = true;
 			commandLimit = 4;
 
+			rotateShooting = false;
 			flying = true;
 			lowAltitude = false;
 			range = 45 * tilesize;
@@ -463,9 +464,9 @@ public class UAWUnitTypes implements ContentList {
 			trailLength = 9;
 			trailScl = 1.5f;
 
-			engineSize = 2f;
+			engineSize = 3.5f;
 			engineOffsetX = 5f;
-			engineOffsetY = -4;
+			engineOffsetY = -5;
 
 			constructor = JetUnitEntity::new;
 			defaultController = BomberJetAI::new;
