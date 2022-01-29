@@ -8,7 +8,7 @@ import mindustry.gen.*;
 import mindustry.graphics.*;
 
 public class TankWeapon extends UAWWeapon {
-	public float weaponLayer = Layer.block + 2.5f;
+	public float weaponLayer = Layer.groundUnit - 5;
 
 	/** Weapon that attatches to mech base */
 	public TankWeapon(String name) {

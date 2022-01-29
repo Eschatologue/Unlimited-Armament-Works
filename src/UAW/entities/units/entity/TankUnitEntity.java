@@ -22,11 +22,11 @@ public class TankUnitEntity extends MechUnit {
 		super.update();
 		UAWUnitType type = (UAWUnitType) this.type;
 		Floor floor = Vars.world.floorWorld(x, y);
-
 		if (floor.isLiquid) {
 			speedMultiplier = type.liquidSpeedMultiplier;
 		}
 		type.mechStride = type.mechFrontSway = type.mechSideSway = 0f;
+		type.drawBody = false;
 		type.flying = false;
 	}
 }
