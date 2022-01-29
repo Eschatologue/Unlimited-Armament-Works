@@ -446,9 +446,9 @@ public class UAWUnitTypes implements ContentList {
 			health = 650;
 			hitSize = 20;
 			speed = 3.2f;
-			accel = 0.05f;
+			accel = 0.1f;
 			drag = 0.015f;
-			rotateSpeed = 6f;
+			rotateSpeed = 7f;
 			ammoType = new ItemAmmoType(Items.blastCompound);
 			circleTarget = true;
 			commandLimit = 4;
@@ -461,11 +461,11 @@ public class UAWUnitTypes implements ContentList {
 			targetFlags = new BlockFlag[]{BlockFlag.repair, BlockFlag.generator, BlockFlag.extinguisher, null};
 
 			trailX = 6f;
-			trailY = -2;
+			trailY = -1;
 			trailLength = 9;
 			trailScl = 1.75f;
 
-			engineSize = 4f;
+			engineSize = 3f;
 			engineSpacing = 6f;
 			engineOffset = 3f;
 
