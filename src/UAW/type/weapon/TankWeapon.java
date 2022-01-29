@@ -3,19 +3,11 @@ package UAW.type.weapon;
 import arc.graphics.Blending;
 import arc.graphics.g2d.Draw;
 import arc.math.*;
-import arc.math.geom.Vec2;
-import arc.util.*;
-import mindustry.audio.SoundLoop;
-import mindustry.entities.*;
 import mindustry.entities.units.WeaponMount;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 
-import static mindustry.Vars.*;
-
 public class TankWeapon extends UAWWeapon {
-	public float weaponLayer = Layer.groundUnit;
-
 	/** Weapon that attatches to mech base */
 	public TankWeapon(String name) {
 		this.name = name;
@@ -45,6 +37,8 @@ public class TankWeapon extends UAWWeapon {
 
 	@Override
 	public void draw(Unit unit, WeaponMount mount) {
+		float z = Draw.z();
+		Draw.z(z + layerOffset);
 		Mechc mech = unit instanceof Mechc ? (Mechc) unit : null;
 		Unit mechUnit = (Unit) mech;
 		float rotation = unit.rotation - 90;
@@ -61,7 +55,6 @@ public class TankWeapon extends UAWWeapon {
 			drawOutline(unit, mount);
 		}
 
-		Draw.z(weaponLayer);
 		Draw.rect(region,
 			wx, wy,
 			region.width * Draw.scl * -Mathf.sign(flipSprite),

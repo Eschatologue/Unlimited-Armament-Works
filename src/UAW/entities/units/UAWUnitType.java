@@ -8,7 +8,7 @@ import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.struct.Seq;
-import arc.util.Time;
+import arc.util.*;
 import mindustry.Vars;
 import mindustry.content.Fx;
 import mindustry.gen.*;
@@ -103,13 +103,12 @@ public class UAWUnitType extends UnitType {
 	public void drawMech(Mechc mech) {
 		Unit unit = (Unit) mech;
 		if (mech instanceof TankUnitEntity tank) {
-			applyColor(unit);
+			if (tank.drownTime > 0 && tank.lastDrownFloor != null) {
+				Draw.mixcol(Tmp.c1.set(tank.lastDrownFloor.mapColor).mul(0.83f), tank.drownTime * 0.9f);
+			}
 			drawHullOutline(tank);
-
-			Draw.z(tankLayer - 0.015f);
 			Draw.mixcol(Color.white, tank.hitTime);
 			Draw.rect(hullRegion, unit, tank.baseRotation - 90);
-
 			Draw.color(cellColor(unit));
 			Draw.rect(hullCellRegion, unit, tank.baseRotation - 90);
 			Draw.reset();
@@ -129,17 +128,15 @@ public class UAWUnitType extends UnitType {
 	// Tank Turret
 	@Override
 	public void drawBody(Unit unit) {
-		if (!(unit instanceof TankUnitEntity tank)) {
-			super.drawBody(unit);
-		} else {
+		if (unit instanceof TankUnitEntity tank) {
 			float x = unit.x + Angles.trnsx(tank.baseRotation, turretX, turretY);
 			float y = unit.y + Angles.trnsy(tank.baseRotation, turretX, turretY);
 			applyColor(unit);
-			Draw.z(tankLayer - 0.01f);
 			Draw.rect(turretOutlineRegion, x, y, unit.rotation - 90);
-			Draw.z(tankLayer + 0.02f);
 			Draw.rect(turretRegion, x, y, unit.rotation - 90);
 			Draw.reset();
+		} else {
+			super.drawBody(unit);
 		}
 	}
 
