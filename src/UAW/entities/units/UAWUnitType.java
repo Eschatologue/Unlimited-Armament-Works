@@ -138,7 +138,7 @@ public class UAWUnitType extends UnitType {
 			applyColor(unit);
 			Draw.z(z - 0.01f);
 			Draw.rect(turretOutlineRegion, x, y, tank.rotation - 90);
-			Draw.z(z + 0.01f);
+			Draw.z(z + 0.02f);
 			Draw.rect(turretRegion, x, y, tank.rotation - 90);
 			Draw.reset();
 		} else {
