@@ -103,12 +103,15 @@ public class UAWUnitType extends UnitType {
 	@Override
 	public void drawMech(Mechc mech) {
 		if (mech instanceof TankUnitEntity tank) {
+			float z = tank.elevation > 0.5f ? (lowAltitude ? Layer.flyingUnitLow : Layer.flyingUnit) : groundLayer + Mathf.clamp(hitSize / 4000f, 0, 0.01f);
+			drawHullOutline(tank);
 			if (tank.drownTime > 0 && tank.lastDrownFloor != null) {
 				Draw.mixcol(Tmp.c1.set(tank.lastDrownFloor.mapColor).mul(0.83f), tank.drownTime * 0.9f);
 			}
-			drawHullOutline(tank);
 			Draw.mixcol(Color.white, tank.hitTime);
+			Draw.z(z - 0.3f);
 			Draw.rect(hullRegion, tank, tank.baseRotation - 90);
+			Draw.z(z - 0.2f);
 			Draw.color(cellColor(tank));
 			Draw.rect(hullCellRegion, tank, tank.baseRotation - 90);
 			Draw.reset();
