@@ -49,9 +49,11 @@ public class UAWUnitType extends UnitType {
 		super.draw(unit);
 		drawRotor(unit);
 		if (unit instanceof TankUnitEntity tank) {
+			Draw.z(tankLayer);
 			drawTankHullOutline(tank);
 			drawTankHull(tank);
 			drawTurret(tank);
+			Draw.reset();
 		}
 	}
 

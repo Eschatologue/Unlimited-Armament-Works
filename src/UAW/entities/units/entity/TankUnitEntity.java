@@ -28,5 +28,6 @@ public class TankUnitEntity extends MechUnit {
 		type.mechStride = type.mechFrontSway = type.mechSideSway = 0f;
 		type.drawBody = false;
 		type.flying = false;
+		type.visualElevation = 0.11f;
 	}
 }
