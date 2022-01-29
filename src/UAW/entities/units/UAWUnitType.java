@@ -129,7 +129,9 @@ public class UAWUnitType extends UnitType {
 	// Tank Turret
 	@Override
 	public void drawBody(Unit unit) {
-		if (unit instanceof TankUnitEntity tank) {
+		if (!(unit instanceof TankUnitEntity tank)) {
+			super.drawBody(unit);
+		} else {
 			float x = unit.x + Angles.trnsx(tank.baseRotation, turretX, turretY);
 			float y = unit.y + Angles.trnsy(tank.baseRotation, turretX, turretY);
 			applyColor(unit);
@@ -137,10 +139,8 @@ public class UAWUnitType extends UnitType {
 			Draw.rect(turretOutlineRegion, x, y, unit.rotation - 90);
 			Draw.z(tankLayer + 0.02f);
 			Draw.rect(turretRegion, x, y, unit.rotation - 90);
-		} else {
-			super.drawBody(unit);
+			Draw.reset();
 		}
-		Draw.reset();
 	}
 
 	// Tank Trail
