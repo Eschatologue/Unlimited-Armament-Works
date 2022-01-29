@@ -55,7 +55,7 @@ public class UAWUnitType extends UnitType {
 			Draw.z(unit.elevation - 0.05f);
 			super.drawSoftShadow(unit, alpha);
 		} else if (unit instanceof TankUnitEntity) {
-			Draw.z(tankLayer - 0.03f);
+			Draw.z(unit.elevation - 0.05f);
 			Draw.color(0, 0, 0, 0.4f * alpha);
 			float rad = 1.6f;
 			float size = Math.max(hullRegion.width * 1.2f, hullRegion.height * 1.2f) * Draw.scl;
