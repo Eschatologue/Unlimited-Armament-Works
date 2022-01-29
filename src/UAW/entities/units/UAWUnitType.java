@@ -68,6 +68,7 @@ public class UAWUnitType extends UnitType {
 
 	// Copter Rotors
 	public void drawRotor(Unit unit) {
+		float z = unit.elevation > 0.5f ? (lowAltitude ? Layer.flyingUnitLow : Layer.flyingUnit) : groundLayer + Mathf.clamp(hitSize / 4000f, 0, 0.01f);
 		applyColor(unit);
 		if (unit instanceof CopterUnitEntity copter) {
 			for (RotorMount mount : copter.rotors) {
@@ -77,6 +78,7 @@ public class UAWUnitType extends UnitType {
 
 				for (int i = 0; i < rotor.bladeCount; i++) {
 					float angle = (i * 360f / rotor.bladeCount + mount.rotorRotation) % 360;
+					Draw.z(z + 0.5f);
 					Draw.rect(rotor.bladeOutlineRegion, rx, ry, rotor.bladeOutlineRegion.width * Draw.scl, rotor.bladeOutlineRegion.height * Draw.scl, angle);
 					Draw.mixcol(Color.white, unit.hitTime);
 					Draw.rect(rotor.bladeRegion, rx, ry, rotor.bladeRegion.width * Draw.scl, rotor.bladeRegion.height * Draw.scl, angle);
