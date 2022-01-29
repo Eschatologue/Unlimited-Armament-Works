@@ -106,6 +106,7 @@ public class UAWUnitTypes implements ContentList {
 			fallSpeed = 0.003f;
 			spinningFallSpeed = 4;
 			fallSmokeY = -10f;
+			engineSize = 0;
 
 			onTitleScreen = false;
 
@@ -192,6 +193,7 @@ public class UAWUnitTypes implements ContentList {
 			fallSmokeY = -15f;
 			commandLimit = 3;
 			lowAltitude = true;
+			engineSize = 0;
 
 			range = 32 * tilesize;
 			maxRange = range;
@@ -311,12 +313,12 @@ public class UAWUnitTypes implements ContentList {
 			speed = 3f;
 			drag = 0.07f;
 			accel = 0.03f;
-			engineSize = 0f;
 			flying = true;
 			hitSize = 35f;
 			range = 40 * tilesize;
 			lowAltitude = true;
 			rotateSpeed = 2.7f;
+			engineSize = 0;
 
 			onTitleScreen = false;
 
