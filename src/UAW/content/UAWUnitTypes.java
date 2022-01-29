@@ -422,7 +422,7 @@ public class UAWUnitTypes implements ContentList {
 				}}
 			);
 			float rotX = 17;
-			float rotY = 2;
+			float rotY = -1;
 			float rotSpeed = 13f;
 			rotors.add(
 				new Rotor("uaw-short-blade") {{

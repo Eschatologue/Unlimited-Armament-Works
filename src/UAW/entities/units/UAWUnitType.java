@@ -45,8 +45,8 @@ public class UAWUnitType extends UnitType {
 
 	@Override
 	public void draw(Unit unit) {
-		super.draw(unit);
 		drawRotor(unit);
+		super.draw(unit);
 	}
 
 	@Override
@@ -76,11 +76,7 @@ public class UAWUnitType extends UnitType {
 				float ry = unit.y + Angles.trnsy(unit.rotation - 90, rotor.x, rotor.y);
 
 				for (int i = 0; i < rotor.bladeCount; i++) {
-					if (rotor.layer < 0) {
-						rotor.layer = unit.elevation + 1f;
-					}
 					float angle = (i * 360f / rotor.bladeCount + mount.rotorRotation) % 360;
-					Draw.z(rotor.layer);
 					Draw.rect(rotor.bladeOutlineRegion, rx, ry, rotor.bladeOutlineRegion.width * Draw.scl, rotor.bladeOutlineRegion.height * Draw.scl, angle);
 					Draw.mixcol(Color.white, unit.hitTime);
 					Draw.rect(rotor.bladeRegion, rx, ry, rotor.bladeRegion.width * Draw.scl, rotor.bladeRegion.height * Draw.scl, angle);
@@ -105,9 +101,7 @@ public class UAWUnitType extends UnitType {
 	public void drawMech(Mechc mech) {
 		Unit unit = (Unit) mech;
 		if (mech instanceof TankUnitEntity tank) {
-			applyColor(unit);
-			Draw.z(tankLayer - 0.025f);
-			Draw.rect(hullOutlineRegion, unit, tank.baseRotation - 90);
+			drawHullOutline(tank);
 
 			Draw.z(tankLayer - 0.015f);
 			Draw.mixcol(Color.white, tank.hitTime);
@@ -119,6 +113,14 @@ public class UAWUnitType extends UnitType {
 		} else {
 			super.drawMech(mech);
 		}
+	}
+
+	public void drawHullOutline(TankUnitEntity tank) {
+		Draw.reset();
+		applyColor(tank);
+		applyOutlineColor(tank);
+		Draw.rect(outlineRegion, tank.x, tank.y, tank.baseRotation - 90);
+		Draw.reset();
 	}
 
 	// Tank Turret
@@ -187,7 +189,6 @@ public class UAWUnitType extends UnitType {
 					((engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) / 2f * scale) * jetUnit.engineSizeScl()
 				);
 			}
-
 		} else {
 			super.drawEngine(unit);
 		}
