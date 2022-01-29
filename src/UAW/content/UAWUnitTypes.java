@@ -278,13 +278,12 @@ public class UAWUnitTypes implements ContentList {
 					layerOffset = -0.01f;
 					rotate = false;
 					mirror = true;
+					alternate = false;
 					shootCone = 30;
 					x = 8.5f;
 					y = 3.5f;
-					shots = 1;
-					shotDelay = 20;
 					maxRange = range;
-					reload = 2.5f * 60;
+					reload = 2f * 60;
 					shootSound = UAWSfx.cruiseMissileShoot1;
 					bullet = new CruiseMissileBulletType(3f, 450) {{
 						layer = Layer.flyingUnitLow - 1;
@@ -301,6 +300,7 @@ public class UAWUnitTypes implements ContentList {
 						status = StatusEffects.burning;
 						statusDuration = 4 * 60;
 						ammoMultiplier = 2f;
+						collidesGround = false;
 					}};
 				}}
 			);
