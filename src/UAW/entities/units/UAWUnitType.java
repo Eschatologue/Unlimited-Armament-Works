@@ -109,9 +109,9 @@ public class UAWUnitType extends UnitType {
 				Draw.mixcol(Tmp.c1.set(tank.lastDrownFloor.mapColor).mul(0.83f), tank.drownTime * 0.9f);
 			}
 			Draw.mixcol(Color.white, tank.hitTime);
-			Draw.z(z - 0.3f);
-			Draw.rect(hullRegion, tank, tank.baseRotation - 90);
 			Draw.z(z - 0.2f);
+			Draw.rect(hullRegion, tank, tank.baseRotation - 90);
+			Draw.z(z - 0.1f);
 			Draw.color(cellColor(tank));
 			Draw.rect(hullCellRegion, tank, tank.baseRotation - 90);
 			Draw.reset();
@@ -136,9 +136,9 @@ public class UAWUnitType extends UnitType {
 			float x = tank.x + Angles.trnsx(tank.baseRotation, turretX, turretY);
 			float y = tank.y + Angles.trnsy(tank.baseRotation, turretX, turretY);
 			applyColor(unit);
-			Draw.z(z - 0.001f);
+			Draw.z(z - 0.01f);
 			Draw.rect(turretOutlineRegion, x, y, tank.rotation - 90);
-			Draw.z(z + 0.1f);
+			Draw.z(z);
 			Draw.rect(turretRegion, x, y, tank.rotation - 90);
 			Draw.reset();
 		} else {
