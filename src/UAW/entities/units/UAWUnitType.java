@@ -133,16 +133,14 @@ public class UAWUnitType extends UnitType {
 			float x = unit.x + Angles.trnsx(tank.baseRotation, turretX, turretY);
 			float y = unit.y + Angles.trnsy(tank.baseRotation, turretX, turretY);
 			applyColor(unit);
-
 			Draw.z(tankLayer - 0.01f);
 			Draw.rect(turretOutlineRegion, x, y, unit.rotation - 90);
 			Draw.z(tankLayer + 0.02f);
 			Draw.rect(turretRegion, x, y, unit.rotation - 90);
-
-			Draw.reset();
 		} else {
 			super.drawBody(unit);
 		}
+		Draw.reset();
 	}
 
 	// Tank Trail
