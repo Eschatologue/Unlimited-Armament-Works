@@ -8,7 +8,8 @@ import mindustry.gen.*;
 import mindustry.graphics.*;
 
 public class TankWeapon extends UAWWeapon {
-	public float weaponLayer = Layer.groundUnit;
+	public float weaponLayer = Layer.block + 2.5f;
+
 	/** Weapon that attatches to mech base */
 	public TankWeapon(String name) {
 		this.name = name;
@@ -19,8 +20,7 @@ public class TankWeapon extends UAWWeapon {
 
 	@Override
 	public void drawOutline(Unit unit, WeaponMount mount) {
-		float z = Draw.z();
-		Draw.z(z + layerOffset);
+		Draw.z(weaponLayer);
 		Mechc mech = unit instanceof Mechc ? (Mechc) unit : null;
 		Unit mechUnit = (Unit) mech;
 		float rotation = unit.rotation - 90;
@@ -40,8 +40,7 @@ public class TankWeapon extends UAWWeapon {
 
 	@Override
 	public void draw(Unit unit, WeaponMount mount) {
-		float z = Draw.z();
-		Draw.z(z + layerOffset);
+		Draw.z(weaponLayer);
 		Mechc mech = unit instanceof Mechc ? (Mechc) unit : null;
 		Unit mechUnit = (Unit) mech;
 		float rotation = unit.rotation - 90;
