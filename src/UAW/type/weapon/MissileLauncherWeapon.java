@@ -56,6 +56,7 @@ public class MissileLauncherWeapon extends UAWWeapon {
 			missileRegion.width * Draw.scl * -Mathf.sign(flipSprite),
 			missileRegion.height * Draw.scl,
 			weaponRotation);
+		Draw.reset();
 	}
 
 	@Override

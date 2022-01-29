@@ -95,6 +95,7 @@ public class UAWUnitType extends UnitType {
 					}
 				}
 			}
+			Draw.reset();
 		}
 	}
 
@@ -114,6 +115,7 @@ public class UAWUnitType extends UnitType {
 		} else {
 			super.drawMech(mech);
 		}
+		Draw.reset();
 	}
 
 	public void drawHullOutline(TankUnitEntity tank) {
@@ -131,7 +133,7 @@ public class UAWUnitType extends UnitType {
 			float x = tank.x + Angles.trnsx(tank.baseRotation, turretX, turretY);
 			float y = tank.y + Angles.trnsy(tank.baseRotation, turretX, turretY);
 			applyColor(unit);
-			Draw.z(z);
+			Draw.z(z - 0.15f);
 			Draw.rect(turretOutlineRegion, x, y, tank.rotation - 90);
 			Draw.z(z + 0.1f);
 			Draw.rect(turretRegion, x, y, tank.rotation - 90);
@@ -139,6 +141,7 @@ public class UAWUnitType extends UnitType {
 		} else {
 			super.drawBody(unit);
 		}
+		Draw.reset();
 	}
 
 	// Tank Trail
