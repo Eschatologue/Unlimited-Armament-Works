@@ -63,7 +63,7 @@ public class UAWUnitType extends UnitType {
 		} else if (unit instanceof TankUnitEntity) {
 			float rad = 1.6f;
 			float size = Math.max(hullRegion.width * 1.2f, hullRegion.height * 1.2f) * Draw.scl;
-			Draw.z(Layer.groundUnit + 1);
+			Draw.z(Layer.groundUnit - 1);
 			Draw.color(0, 0, 0, 0.4f * alpha);
 			Draw.rect(softShadowRegion, unit, size * rad * Draw.xscl, size * rad * Draw.yscl, unit.rotation - 90);
 			Draw.color();
@@ -101,7 +101,6 @@ public class UAWUnitType extends UnitType {
 					}
 				}
 			}
-			Draw.reset();
 		}
 	}
 
@@ -117,6 +116,8 @@ public class UAWUnitType extends UnitType {
 			Draw.color(Color.white);
 		}
 		Draw.rect(hullRegion, unit, tank.baseRotation() - 90);
+		Draw.color(unit.team.color);
+		Draw.rect(hullCellRegion, unit, tank.baseRotation() - 90);
 		Draw.mixcol();
 	}
 
@@ -125,7 +126,6 @@ public class UAWUnitType extends UnitType {
 		applyColor(unit);
 		applyOutlineColor(unit);
 		Draw.rect(hullOutlineRegion, unit, tank.baseRotation() - 90);
-		Draw.reset();
 	}
 
 	public void drawTurret(TankUnitEntity tank) {
@@ -136,7 +136,6 @@ public class UAWUnitType extends UnitType {
 		applyOutlineColor(unit);
 		Draw.rect(turretOutlineRegion, x, y, tank.rotation - 90);
 		Draw.rect(turretRegion, x, y, tank.rotation - 90);
-		Draw.reset();
 	}
 
 	// Tank Trail
@@ -190,7 +189,6 @@ public class UAWUnitType extends UnitType {
 			super.drawEngine(unit);
 		}
 	}
-
 
 	@Override
 	public void update(Unit unit) {
