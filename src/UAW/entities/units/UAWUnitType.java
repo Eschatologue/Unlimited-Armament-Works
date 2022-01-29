@@ -119,7 +119,7 @@ public class UAWUnitType extends UnitType {
 		Draw.reset();
 		applyColor(tank);
 		applyOutlineColor(tank);
-		Draw.rect(outlineRegion, tank.x, tank.y, tank.baseRotation - 90);
+		Draw.rect(hullOutlineRegion, tank.x, tank.y, tank.baseRotation - 90);
 		Draw.reset();
 	}
 
