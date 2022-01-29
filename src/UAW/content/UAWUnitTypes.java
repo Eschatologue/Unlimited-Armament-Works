@@ -512,14 +512,12 @@ public class UAWUnitTypes implements ContentList {
 					reload = 4f;
 					shootSound = Sounds.shoot;
 					ejectEffect = Fx.casing1;
-					bullet = new TrailBulletType(6f, 23) {{
+					bullet = new TrailBulletType(6f, 15) {{
 						height = 12f;
 						width = 6f;
-						pierce = true;
 						pierceCap = 2;
 						buildingDamageMultiplier = 0.4f;
 						maxRange = range;
-						homingRange = 60f;
 						lifetime = (range / speed) * 1.2f;
 						ammoMultiplier = 8f;
 						collidesGround = false;

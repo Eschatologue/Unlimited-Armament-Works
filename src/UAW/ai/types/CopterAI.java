@@ -2,6 +2,7 @@ package UAW.ai.types;
 
 import mindustry.ai.types.FlyingAI;
 import mindustry.entities.units.UnitCommand;
+import mindustry.gen.Unit;
 import mindustry.world.meta.BlockFlag;
 
 import static mindustry.Vars.state;
@@ -11,8 +12,8 @@ public class CopterAI extends FlyingAI {
 	public void updateMovement() {
 		unloadPayloads();
 		if (target != null && unit.hasWeapons() && command() == UnitCommand.attack) {
-			if (!unit.type.circleTarget) {
-				moveTo(target, unit.type.range * 0.75f);
+			if (!unit.type.circleTarget || target instanceof Unit unit && unit.isFlying()) {
+				moveTo(target, unit.type.range * 0.8f);
 				unit.lookAt(target);
 			} else {
 				attack(unit.type.range * 0.75f);

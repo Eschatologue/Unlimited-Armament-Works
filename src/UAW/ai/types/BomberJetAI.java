@@ -12,15 +12,12 @@ public class BomberJetAI extends FlyingAI {
 	public void updateMovement() {
 		unloadPayloads();
 		if (target != null && unit.hasWeapons() && command() == UnitCommand.attack) {
-			if (!unit.type.circleTarget) {
+			if (!unit.type.circleTarget || target instanceof Unit unit && unit.isFlying()) {
 				moveTo(target, unit.type.range * 0.8f);
 				unit.lookAt(target);
-			} else if (!(target instanceof Unit unit && unit.isFlying())) {
+			} else {
 				attack(unit.type.range * 0.8f);
 				unit.lookAt(unit.vel().angle());
-			} else {
-				moveTo(target, unit.type.range * 0.8f);
-				unit.lookAt(target);
 			}
 		}
 
