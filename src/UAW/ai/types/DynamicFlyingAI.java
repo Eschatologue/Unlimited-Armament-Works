@@ -7,7 +7,7 @@ import mindustry.world.meta.BlockFlag;
 
 import static mindustry.Vars.state;
 
-public class BomberJetAI extends FlyingAI {
+public class DynamicFlyingAI extends FlyingAI {
 	@Override
 	public void updateMovement() {
 		unloadPayloads();
@@ -16,19 +16,20 @@ public class BomberJetAI extends FlyingAI {
 				moveTo(target, unit.type.range * 0.8f);
 				unit.lookAt(target);
 			} else {
-				attack(unit.type.range * 0.8f);
+				attack(unit.type.range * 0.75f);
 				unit.lookAt(unit.vel().angle());
 			}
 		}
 
 		if (target == null && command() == UnitCommand.attack && state.rules.waves && unit.team == state.rules.defaultTeam) {
-			moveTo(getClosestSpawner(), state.rules.dropZoneRadius + 240f);
+			moveTo(getClosestSpawner(), state.rules.dropZoneRadius + 120f);
 			unit.lookAt(unit.vel().angle());
 		}
 
 		if (command() == UnitCommand.rally) {
-			moveTo(targetFlag(unit.x, unit.y, BlockFlag.rally, false), 120f);
+			moveTo(targetFlag(unit.x, unit.y, BlockFlag.rally, false), 70f);
 			unit.lookAt(unit.vel().angle());
 		}
 	}
 }
+

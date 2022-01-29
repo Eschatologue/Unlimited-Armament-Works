@@ -1,6 +1,6 @@
 package UAW.content;
 
-import UAW.ai.types.*;
+import UAW.ai.types.DynamicFlyingAI;
 import UAW.entities.abilities.RazorRotorAbility;
 import UAW.entities.bullet.*;
 import UAW.entities.units.UAWUnitType;
@@ -111,7 +111,7 @@ public class UAWUnitTypes implements ContentList {
 			onTitleScreen = false;
 
 			constructor = CopterUnitEntity::new;
-			defaultController = CopterAI::new;
+			defaultController = DynamicFlyingAI::new;
 
 			rotors.add(
 				new Rotor(name + "-blade") {{
@@ -201,7 +201,7 @@ public class UAWUnitTypes implements ContentList {
 			onTitleScreen = false;
 
 			constructor = CopterUnitEntity::new;
-			defaultController = CopterAI::new;
+			defaultController = DynamicFlyingAI::new;
 
 			rotors.add(
 				new Rotor(name + "-blade") {{
@@ -323,7 +323,7 @@ public class UAWUnitTypes implements ContentList {
 			onTitleScreen = false;
 
 			constructor = CopterUnitEntity::new;
-			defaultController = CopterAI::new;
+			defaultController = DynamicFlyingAI::new;
 
 			weapons.add(
 				new PointDefenseWeapon("uaw-point-defense-red") {{
@@ -456,7 +456,7 @@ public class UAWUnitTypes implements ContentList {
 			rotateShooting = false;
 			flying = true;
 			lowAltitude = false;
-			range = 45 * tilesize;
+			range = 40 * tilesize;
 
 			targetFlags = new BlockFlag[]{BlockFlag.repair, BlockFlag.generator, BlockFlag.extinguisher, null};
 
@@ -470,11 +470,11 @@ public class UAWUnitTypes implements ContentList {
 			engineOffset = 3f;
 
 			constructor = JetUnitEntity::new;
-			defaultController = BomberJetAI::new;
+			defaultController = DynamicFlyingAI::new;
 
 			weapons.add(
 				new Weapon() {{
-					minShootVelocity = 0.75f;
+					minShootVelocity = 0.55f;
 					x = 3f;
 					reload = 3f * 60;
 					shootCone = 90f;
@@ -485,7 +485,7 @@ public class UAWUnitTypes implements ContentList {
 					shotDelay = 15f;
 					bullet = new UAWArtilleryBulletType(1.5f, 125) {{
 						buildingDamageMultiplier = 2.5f;
-						lifetime = (range / 3) / speed;
+						lifetime = range / speed;
 						trailMult = 0.5f;
 						height = 16f;
 						width = 12f;

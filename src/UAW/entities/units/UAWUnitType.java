@@ -103,6 +103,7 @@ public class UAWUnitType extends UnitType {
 	public void drawMech(Mechc mech) {
 		Unit unit = (Unit) mech;
 		if (mech instanceof TankUnitEntity tank) {
+			applyColor(unit);
 			drawHullOutline(tank);
 
 			Draw.z(tankLayer - 0.015f);
