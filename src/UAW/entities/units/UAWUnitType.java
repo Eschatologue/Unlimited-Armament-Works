@@ -77,9 +77,7 @@ public class UAWUnitType extends UnitType {
 
 				for (int i = 0; i < rotor.bladeCount; i++) {
 					if (rotor.layer < 0) {
-						if (lowAltitude) {
-							rotor.layer = Layer.flyingUnitLow + 0.1f;
-						} else rotor.layer = Layer.flyingUnit + 0.1f;
+						rotor.layer = unit.elevation + 1f;
 					}
 					float angle = (i * 360f / rotor.bladeCount + mount.rotorRotation) % 360;
 					Draw.z(rotor.layer);
