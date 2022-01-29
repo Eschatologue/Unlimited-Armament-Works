@@ -283,7 +283,7 @@ public class UAWTechTree implements ContentList {
 									node(calogrenant)
 								)
 							);
-							node(jufeng);
+							node(bandit);
 						}
 					);
 				});
@@ -310,7 +310,7 @@ public class UAWTechTree implements ContentList {
 		);
 
 		vanillaNode(horizon, () ->
-			node(jufeng)
+			node(bandit)
 		);
 	}
 }

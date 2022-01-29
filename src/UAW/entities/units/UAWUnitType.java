@@ -34,7 +34,8 @@ public class UAWUnitType extends UnitType {
 
 	// Jets
 	public float engineSizeShrink = 0.1f;
-	public float engineSpread = 5f;
+	public float engineSpacing = 5f;
+	public boolean jetMovement = true;
 
 	protected float timer;
 
@@ -174,7 +175,7 @@ public class UAWUnitType extends UnitType {
 			float offset = engineOffset / 2f + engineOffset / 2f * scale;
 			for (int i : Mathf.zeroOne) {
 				int side = Mathf.signs[i];
-				float sideOffset = engineSpread * side;
+				float sideOffset = engineSpacing * side;
 				Draw.color(unit.team.color);
 				Fill.circle(
 					unit.x + Angles.trnsx(unit.rotation + 90, sideOffset, offset),

@@ -31,7 +31,7 @@ import static mindustry.content.Bullets.*;
 public class UAWUnitTypes implements ContentList {
 	public static UnitType
 		aglovale, bedivere, calogrenant, dagonet, esclabor,
-		jufeng,
+		bandit,
 		clurit, kujang, kerambit, cetbang, kiAmuk,
 		hatsuharu, shiratsuyu, kagero, shimakaze,
 		gardlacz, arkabuz, armata, zemsta;
@@ -440,12 +440,12 @@ public class UAWUnitTypes implements ContentList {
 			);
 		}};
 
-		jufeng = new UAWUnitType("jufeng") {{
+		bandit = new UAWUnitType("bandit") {{
 			health = 650;
 			hitSize = 20;
-			speed = 2.8f;
-			accel = 0.1f;
-			drag = 0.016f;
+			speed = 3.2f;
+			accel = 0.05f;
+			drag = 0.015f;
 			rotateSpeed = 6f;
 			ammoType = new ItemAmmoType(Items.blastCompound);
 			circleTarget = true;
@@ -459,12 +459,12 @@ public class UAWUnitTypes implements ContentList {
 			targetFlags = new BlockFlag[]{BlockFlag.repair, BlockFlag.generator, BlockFlag.extinguisher, null};
 
 			trailX = 6f;
-			trailY = -1;
+			trailY = -2;
 			trailLength = 9;
 			trailScl = 1.75f;
 
 			engineSize = 4f;
-			engineSpread = 4f;
+			engineSpacing = 6f;
 			engineOffset = 3f;
 
 			constructor = JetUnitEntity::new;
@@ -485,16 +485,16 @@ public class UAWUnitTypes implements ContentList {
 						buildingDamageMultiplier = 2.5f;
 						lifetime = (range / 3) / speed;
 						trailMult = 0.5f;
-						width = 10f;
-						height = 14f;
+						height = 16f;
+						width = 12f;
 						shootEffect = Fx.none;
 						smokeEffect = Fx.none;
-						splashDamageRadius = 5 * tilesize;
+						hitShake = 5f;
+						splashDamageRadius = 6 * tilesize;
 						hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius);
 						hitSound = Sounds.explosion;
 						status = StatusEffects.blasted;
 						statusDuration = 60f;
-						makeFire = true;
 						homingPower = 0.1f;
 						homingRange = 32f;
 						fragBullet = fragGlassFrag;
