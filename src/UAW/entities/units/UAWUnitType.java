@@ -50,12 +50,11 @@ public class UAWUnitType extends UnitType {
 
 	@Override
 	public void drawSoftShadow(Unit unit, float alpha) {
-		float z = unit.elevation > 0.5f ? (lowAltitude ? Layer.flyingUnitLow : Layer.flyingUnit) : groundLayer + Mathf.clamp(hitSize / 4000f, 0, 0.01f);
 		if (unit instanceof CopterUnitEntity) {
 			Draw.z(unit.elevation - 0.05f);
 			super.drawSoftShadow(unit, alpha);
 		} else if (unit instanceof TankUnitEntity) {
-			Draw.z(z - 0.05f);
+			Draw.z(unit.elevation - 0.05f);
 			Draw.color(0, 0, 0, 0.4f * alpha);
 			float rad = 1.6f;
 			float size = Math.max(hullRegion.width * 1.2f, hullRegion.height * 1.2f) * Draw.scl;
