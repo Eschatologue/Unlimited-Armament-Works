@@ -56,7 +56,7 @@ public class UAWUnitType extends UnitType {
 		} else if (unit instanceof TankUnitEntity) {
 			float rad = 1.6f;
 			float size = Math.max(hullRegion.width * 1.2f, hullRegion.height * 1.2f) * Draw.scl;
-			Draw.z(Layer.groundUnit - 0.1f);
+			Draw.z(Layer.groundUnit - 0.5f);
 			Draw.color(0, 0, 0, 0.4f * alpha);
 			Draw.rect(softShadowRegion, unit, size * rad * Draw.xscl, size * rad * Draw.yscl, unit.rotation - 90);
 			Draw.color();
@@ -102,10 +102,13 @@ public class UAWUnitType extends UnitType {
 	@Override
 	public void drawMech(Mechc mech) {
 		if (mech instanceof TankUnitEntity tank) {
+			Unit unit = (Unit) mech;
 			float z = tank.elevation > 0.5f ? (lowAltitude ? Layer.flyingUnitLow : Layer.flyingUnit) : groundLayer + Mathf.clamp(hitSize / 4000f, 0, 0.01f);
 			drawHullOutline(tank);
-			if (tank.drownTime > 0 && tank.lastDrownFloor != null) {
-				Draw.mixcol(Tmp.c1.set(tank.lastDrownFloor.mapColor).mul(0.83f), tank.drownTime * 0.9f);
+			if (unit.lastDrownFloor != null) {
+				Draw.color(Color.white, Tmp.c1.set(unit.lastDrownFloor.mapColor).mul(0.83f), unit.drownTime * 0.9f);
+			} else {
+				Draw.color(Color.white);
 			}
 			Draw.mixcol(Color.white, tank.hitTime);
 			Draw.z(z - 0.2f);
