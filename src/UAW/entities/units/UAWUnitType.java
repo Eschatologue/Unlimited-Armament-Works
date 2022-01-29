@@ -88,7 +88,7 @@ public class UAWUnitType extends UnitType {
 						Draw.rect(rotor.bladeRegion, rx, ry, rotor.bladeRegion.width * Draw.scl * -Mathf.sign(false), rotor.bladeRegion.height * Draw.scl, -angle);
 					}
 					if (rotor.drawRotorTop) {
-						Draw.z(rotor.layer + 0.001f);
+						Draw.z(z + 0.55f);
 						Draw.rect(rotor.topRegionOutline, rx, ry, rotor.topRegionOutline.width * Draw.scl, rotor.topRegionOutline.height * Draw.scl, unit.rotation - 90);
 						Draw.mixcol(Color.white, unit.hitTime);
 						Draw.rect(rotor.topRegion, rx, ry, rotor.topRegion.width * Draw.scl, rotor.topRegion.height * Draw.scl, unit.rotation - 90);

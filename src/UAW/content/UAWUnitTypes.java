@@ -501,7 +501,31 @@ public class UAWUnitTypes implements ContentList {
 						homingRange = 32f;
 						fragBullet = fragGlassFrag;
 					}};
-				}});
+				}},
+				new Weapon() {{
+					rotate = false;
+					mirror = false;
+					shootCone = 90;
+					inaccuracy = 3f;
+					x = 0f;
+					y = 0f;
+					reload = 4f;
+					shootSound = Sounds.shoot;
+					ejectEffect = Fx.casing1;
+					bullet = new TrailBulletType(6f, 23) {{
+						height = 12f;
+						width = 6f;
+						pierce = true;
+						pierceCap = 2;
+						buildingDamageMultiplier = 0.4f;
+						maxRange = range;
+						homingRange = 60f;
+						lifetime = (range / speed) * 1.2f;
+						ammoMultiplier = 8f;
+						collidesGround = false;
+					}};
+				}}
+			);
 		}};
 
 		clurit = new UnitType("clurit") {{
@@ -1032,7 +1056,7 @@ public class UAWUnitTypes implements ContentList {
 			accel = 0.05f;
 			drag = 0.055f;
 			range = 26 * tilesize;
-			groundTrailInterval = 0.8f;
+			groundTrailInterval = 0.95f;
 			groundTrailSize = 0.2f;
 			groundTrailX = 2.5f;
 
