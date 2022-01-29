@@ -25,6 +25,7 @@ public class UAWUnitType extends UnitType {
 
 	// Tanks
 	public TextureRegion turretRegion, turretOutlineRegion, hullRegion, hullOutlineRegion, hullCellRegion, turretCellRegion;
+	public float tankLayer = Layer.groundUnit;
 	public float turretX = 0f, turretY = 0f;
 	public float groundTrailSize = 1;
 	public float groundTrailInterval = 0.5f;
@@ -103,7 +104,6 @@ public class UAWUnitType extends UnitType {
 	public void drawMech(Mechc mech) {
 		if (mech instanceof TankUnitEntity tank) {
 			Unit unit = (Unit) mech;
-			float z = tank.elevation > 0.5f ? (lowAltitude ? Layer.flyingUnitLow : Layer.flyingUnit) : groundLayer + Mathf.clamp(hitSize / 4000f, 0, 0.01f);
 			drawHullOutline(tank);
 			if (unit.lastDrownFloor != null) {
 				Draw.color(Color.white, Tmp.c1.set(unit.lastDrownFloor.mapColor).mul(0.83f), unit.drownTime * 0.9f);
@@ -111,9 +111,9 @@ public class UAWUnitType extends UnitType {
 				Draw.color(Color.white);
 			}
 			Draw.mixcol(Color.white, tank.hitTime);
-			Draw.z(z - 0.2f);
+			Draw.z(tankLayer - 0.2f);
 			Draw.rect(hullRegion, tank, tank.baseRotation - 90);
-			Draw.z(z - 0.1f);
+			Draw.z(tankLayer - 0.1f);
 			Draw.color(cellColor(tank));
 			Draw.rect(hullCellRegion, tank, tank.baseRotation - 90);
 			Draw.reset();
@@ -133,14 +133,13 @@ public class UAWUnitType extends UnitType {
 	// Tank Turret
 	@Override
 	public void drawBody(Unit unit) {
-		float z = unit.elevation > 0.5f ? (lowAltitude ? Layer.flyingUnitLow : Layer.flyingUnit) : groundLayer + Mathf.clamp(hitSize / 4000f, 0, 0.01f);
 		if (unit instanceof TankUnitEntity tank) {
 			float x = tank.x + Angles.trnsx(tank.baseRotation, turretX, turretY);
 			float y = tank.y + Angles.trnsy(tank.baseRotation, turretX, turretY);
 			applyColor(unit);
-			Draw.z(z - 0.01f);
+			Draw.z(tankLayer - 0.01f);
 			Draw.rect(turretOutlineRegion, x, y, tank.rotation - 90);
-			Draw.z(z + 0.1f);
+			Draw.z(tankLayer + 0.01f);
 			Draw.rect(turretRegion, x, y, tank.rotation - 90);
 			Draw.reset();
 		} else {
