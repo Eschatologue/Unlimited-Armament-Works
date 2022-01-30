@@ -7,6 +7,9 @@ import arc.graphics.g2d.Draw;
 import arc.math.*;
 import mindustry.graphics.*;
 
+/**
+ * Flying unit with jet trail, capable of using rotor
+ */
 public class JetUnitEntity extends CopterUnitEntity {
 	private final transient Trail tleft = new Trail(1);
 	private final transient Trail tright = new Trail(1);
