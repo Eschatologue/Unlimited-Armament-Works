@@ -6,7 +6,7 @@ import arc.graphics.g2d.Draw;
 import arc.math.*;
 import mindustry.entities.units.WeaponMount;
 import mindustry.gen.Unit;
-import mindustry.graphics.*;
+import mindustry.graphics.Drawf;
 
 public class TankWeapon extends UAWWeapon {
 
@@ -74,6 +74,7 @@ public class TankWeapon extends UAWWeapon {
 				Draw.blend();
 				Draw.color();
 			}
+			Draw.z(z);
 		}
 	}
 
