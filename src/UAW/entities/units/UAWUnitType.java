@@ -51,7 +51,6 @@ public class UAWUnitType extends UnitType {
 			Draw.z(z - 0.05f);
 			drawTankHullOutline(tank);
 			drawTankHull(tank);
-			drawTurret(tank);
 		}
 		Draw.z(z);
 		drawRotor(unit);
@@ -126,15 +125,18 @@ public class UAWUnitType extends UnitType {
 		Draw.mixcol();
 	}
 
-	public void drawTurret(TankUnitEntity tank) {
-		Unit unit = (Unit) tank;
-		float x = tank.x + Angles.trnsx(tank.hullRotation, turretX, turretY);
-		float y = tank.y + Angles.trnsy(tank.hullRotation, turretX, turretY);
-		applyColor(unit);
-		applyOutlineColor(unit);
-		Draw.rect(turretOutlineRegion, x, y, tank.rotation - 90);
-		Draw.rect(turretRegion, x, y, tank.rotation - 90);
-		Draw.reset();
+	@Override
+	public void drawBody(Unit unit) {
+		if (unit instanceof TankUnitEntity tank) {
+			float z = unit.elevation > 0.5f ? (lowAltitude ? Layer.flyingUnitLow : Layer.flyingUnit) : groundLayer + Mathf.clamp(hitSize / 4000f, 0, 0.01f);
+			float x = tank.x + Angles.trnsx(tank.hullRotation, turretX, turretY);
+			float y = tank.y + Angles.trnsy(tank.hullRotation, turretX, turretY);
+			applyColor(unit);
+			applyOutlineColor(unit);
+			Draw.rect(turretOutlineRegion, x, y, tank.rotation - 90);
+			Draw.rect(turretRegion, x, y, tank.rotation - 90);
+			Draw.reset();
+		} else super.drawBody(unit);
 	}
 
 	// Tank Trail
