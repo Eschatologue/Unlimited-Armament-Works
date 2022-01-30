@@ -45,13 +45,13 @@ public class UAWUnitType extends UnitType {
 
 	@Override
 	public void draw(Unit unit) {
-		super.draw(unit);
-		drawRotor(unit);
 		if (unit instanceof TankUnitEntity tank) {
 			drawTankHullOutline(tank);
 			drawTankHull(tank);
 			drawTurret(tank);
 		}
+		super.draw(unit);
+		drawRotor(unit);
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class UAWUnitType extends UnitType {
 		} else if (unit instanceof TankUnitEntity) {
 			float rad = 1.6f;
 			float size = Math.max(hullRegion.width * 1.2f, hullRegion.height * 1.2f) * Draw.scl;
-			Draw.z(Layer.groundUnit - 1);
+			Draw.z(tankLayer - 5.5f);
 			Draw.color(0, 0, 0, 0.4f * alpha);
 			Draw.rect(softShadowRegion, unit, size * rad * Draw.xscl, size * rad * Draw.yscl, unit.rotation - 90);
 			Draw.color();
@@ -106,16 +106,16 @@ public class UAWUnitType extends UnitType {
 	// Tank Hull
 	public void drawTankHullOutline(TankUnitEntity tank) {
 		Unit unit = (Unit) tank;
-		Draw.z(tankLayer);
 		applyColor(unit);
 		applyOutlineColor(unit);
+		Draw.z(tankLayer - 0.25f);
 		Draw.rect(hullOutlineRegion, unit, tank.hullRotation - 90);
+		Draw.reset();
 	}
 
 	public void drawTankHull(TankUnitEntity tank) {
 		Unit unit = (Unit) tank;
 		Draw.reset();
-		Draw.z(tankLayer);
 		applyColor(unit);
 		Draw.mixcol(Color.white, unit.hitTime);
 		if (unit.lastDrownFloor != null) {
@@ -123,21 +123,25 @@ public class UAWUnitType extends UnitType {
 		} else {
 			Draw.color(Color.white);
 		}
+		Draw.z(tankLayer - 0.2f);
 		Draw.rect(hullRegion, unit, tank.hullRotation - 90);
 		Draw.color(unit.team.color);
 		Draw.rect(hullCellRegion, unit, tank.hullRotation - 90);
 		Draw.mixcol();
+		Draw.reset();
 	}
 
 	public void drawTurret(TankUnitEntity tank) {
 		Unit unit = (Unit) tank;
 		float x = tank.x + Angles.trnsx(tank.hullRotation, turretX, turretY);
 		float y = tank.y + Angles.trnsy(tank.hullRotation, turretX, turretY);
-		Draw.z(tankLayer);
 		applyColor(unit);
 		applyOutlineColor(unit);
+		Draw.z(tankLayer - 0.1f);
 		Draw.rect(turretOutlineRegion, x, y, tank.rotation - 90);
+		Draw.z(tankLayer - 0.05f);
 		Draw.rect(turretRegion, x, y, tank.rotation - 90);
+		Draw.reset();
 	}
 
 	// Tank Trail
