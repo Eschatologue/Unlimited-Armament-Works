@@ -9,7 +9,6 @@ import mindustry.gen.Unit;
 import mindustry.graphics.*;
 
 public class TankWeapon extends UAWWeapon {
-	public float weaponLayer = Layer.groundUnit - 1;
 
 	/** Weapon that attatches to mech base */
 	public TankWeapon(String name) {
@@ -22,12 +21,13 @@ public class TankWeapon extends UAWWeapon {
 	@Override
 	public void drawOutline(Unit unit, WeaponMount mount) {
 		if (unit instanceof TankUnitEntity tank) {
+			float z = Draw.z();
+			Draw.z(z + layerOffset);
 			float rotation = unit.rotation - 90;
 			float gunRotation = tank.hullRotation - 90;
 			float weaponRotation = rotation + (rotate ? mount.rotation : 0);
 			float wx = tank.x + Angles.trnsx(gunRotation, x, y) + Angles.trnsx(weaponRotation, 0, -mount.recoil);
 			float wy = tank.y + Angles.trnsy(gunRotation, x, y) + Angles.trnsy(weaponRotation, 0, -mount.recoil);
-			Draw.z(weaponLayer);
 			if (outlineRegion.found()) {
 				Draw.rect(outlineRegion,
 					wx, wy,
@@ -40,8 +40,9 @@ public class TankWeapon extends UAWWeapon {
 
 	@Override
 	public void draw(Unit unit, WeaponMount mount) {
-		Draw.z(weaponLayer);
 		if (unit instanceof TankUnitEntity tank) {
+			float z = Draw.z();
+			Draw.z(z + layerOffset);
 			float rotation = unit.rotation - 90;
 			float gunRotation = tank.hullRotation - 90;
 			float weaponRotation = rotation + (rotate ? mount.rotation : 0);
