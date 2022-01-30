@@ -8,7 +8,7 @@ import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.struct.Seq;
-import arc.util.*;
+import arc.util.Time;
 import mindustry.Vars;
 import mindustry.content.Fx;
 import mindustry.gen.Unit;
@@ -45,12 +45,15 @@ public class UAWUnitType extends UnitType {
 
 	@Override
 	public void draw(Unit unit) {
+		float z = unit.elevation > 0.5f ? (lowAltitude ? Layer.flyingUnitLow : Layer.flyingUnit) : groundLayer + Mathf.clamp(hitSize / 4000f, 0, 0.01f);
 		super.draw(unit);
 		if (unit instanceof TankUnitEntity tank) {
+			Draw.z(z - 0.02f);
 			drawTankHullOutline(tank);
 			drawTankHull(tank);
 			drawTurret(tank);
 		}
+		Draw.z(z);
 		drawRotor(unit);
 	}
 
@@ -106,11 +109,11 @@ public class UAWUnitType extends UnitType {
 	// Tank Hull
 	public void drawTankHullOutline(TankUnitEntity tank) {
 		Unit unit = (Unit) tank;
+		Draw.reset();
 		applyColor(unit);
 		applyOutlineColor(unit);
 		Draw.z(tankLayer - 0.15f);
 		Draw.rect(hullOutlineRegion, unit, tank.hullRotation - 90);
-		Draw.reset();
 	}
 
 	public void drawTankHull(TankUnitEntity tank) {
@@ -122,7 +125,6 @@ public class UAWUnitType extends UnitType {
 		Draw.color(unit.team.color);
 		Draw.rect(hullCellRegion, unit, tank.hullRotation - 90);
 		Draw.mixcol();
-		Draw.reset();
 	}
 
 	public void drawTurret(TankUnitEntity tank) {
