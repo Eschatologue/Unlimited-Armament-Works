@@ -1,10 +1,11 @@
 package UAW.type.weapon;
 
+import UAW.entities.units.entity.TankUnitEntity;
 import arc.graphics.Blending;
 import arc.graphics.g2d.Draw;
 import arc.math.*;
 import mindustry.entities.units.WeaponMount;
-import mindustry.gen.*;
+import mindustry.gen.Unit;
 import mindustry.graphics.*;
 
 public class TankWeapon extends UAWWeapon {
@@ -20,59 +21,58 @@ public class TankWeapon extends UAWWeapon {
 
 	@Override
 	public void drawOutline(Unit unit, WeaponMount mount) {
-		Draw.z(weaponLayer);
-		Mechc mech = unit instanceof Mechc ? (Mechc) unit : null;
-		Unit mechUnit = (Unit) mech;
-		float rotation = unit.rotation - 90;
-		float gunRotation = mech.baseRotation() - 90;
-		float weaponRotation = rotation + (rotate ? mount.rotation : 0);
-		float wx = mechUnit.x + Angles.trnsx(gunRotation, x, y) + Angles.trnsx(weaponRotation, 0, -mount.recoil);
-		float wy = mechUnit.y + Angles.trnsy(gunRotation, x, y) + Angles.trnsy(weaponRotation, 0, -mount.recoil);
-
-		if (outlineRegion.found()) {
-			Draw.rect(outlineRegion,
-				wx, wy,
-				outlineRegion.width * Draw.scl * -Mathf.sign(flipSprite),
-				outlineRegion.height * Draw.scl,
-				weaponRotation);
+		if (unit instanceof TankUnitEntity tank) {
+			float rotation = unit.rotation - 90;
+			float gunRotation = tank.hullRotation - 90;
+			float weaponRotation = rotation + (rotate ? mount.rotation : 0);
+			float wx = tank.x + Angles.trnsx(gunRotation, x, y) + Angles.trnsx(weaponRotation, 0, -mount.recoil);
+			float wy = tank.y + Angles.trnsy(gunRotation, x, y) + Angles.trnsy(weaponRotation, 0, -mount.recoil);
+			Draw.z(weaponLayer);
+			if (outlineRegion.found()) {
+				Draw.rect(outlineRegion,
+					wx, wy,
+					outlineRegion.width * Draw.scl * -Mathf.sign(flipSprite),
+					outlineRegion.height * Draw.scl,
+					weaponRotation);
+			}
 		}
 	}
 
 	@Override
 	public void draw(Unit unit, WeaponMount mount) {
 		Draw.z(weaponLayer);
-		Mechc mech = unit instanceof Mechc ? (Mechc) unit : null;
-		Unit mechUnit = (Unit) mech;
-		float rotation = unit.rotation - 90;
-		float gunRotation = mech.baseRotation() - 90;
-		float weaponRotation = rotation + (rotate ? mount.rotation : 0);
-		float wx = unit.x + Angles.trnsx(gunRotation, x, y) + Angles.trnsx(weaponRotation, 0, -mount.recoil);
-		float wy = unit.y + Angles.trnsy(gunRotation, x, y) + Angles.trnsy(weaponRotation, 0, -mount.recoil);
+		if (unit instanceof TankUnitEntity tank) {
+			float rotation = unit.rotation - 90;
+			float gunRotation = tank.hullRotation - 90;
+			float weaponRotation = rotation + (rotate ? mount.rotation : 0);
+			float wx = unit.x + Angles.trnsx(gunRotation, x, y) + Angles.trnsx(weaponRotation, 0, -mount.recoil);
+			float wy = unit.y + Angles.trnsy(gunRotation, x, y) + Angles.trnsy(weaponRotation, 0, -mount.recoil);
 
-		if (shadow > 0) {
-			Drawf.shadow(wx, wy, shadow);
-		}
+			if (shadow > 0) {
+				Drawf.shadow(wx, wy, shadow);
+			}
 
-		if (top) {
-			drawOutline(unit, mount);
-		}
+			if (top) {
+				drawOutline(unit, mount);
+			}
 
-		Draw.rect(region,
-			wx, wy,
-			region.width * Draw.scl * -Mathf.sign(flipSprite),
-			region.height * Draw.scl,
-			weaponRotation);
-
-		if (heatRegion.found() && mount.heat > 0) {
-			Draw.color(heatColor, mount.heat);
-			Draw.blend(Blending.additive);
-			Draw.rect(heatRegion,
+			Draw.rect(region,
 				wx, wy,
-				heatRegion.width * Draw.scl * -Mathf.sign(flipSprite),
-				heatRegion.height * Draw.scl,
+				region.width * Draw.scl * -Mathf.sign(flipSprite),
+				region.height * Draw.scl,
 				weaponRotation);
-			Draw.blend();
-			Draw.color();
+
+			if (heatRegion.found() && mount.heat > 0) {
+				Draw.color(heatColor, mount.heat);
+				Draw.blend(Blending.additive);
+				Draw.rect(heatRegion,
+					wx, wy,
+					heatRegion.width * Draw.scl * -Mathf.sign(flipSprite),
+					heatRegion.height * Draw.scl,
+					weaponRotation);
+				Draw.blend();
+				Draw.color();
+			}
 		}
 	}
 

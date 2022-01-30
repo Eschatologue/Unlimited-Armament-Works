@@ -109,8 +109,9 @@ public class UAWUnitType extends UnitType {
 		Draw.z(tankLayer);
 		applyColor(unit);
 		applyOutlineColor(unit);
-		Draw.rect(hullOutlineRegion, unit, tank.baseRotation() - 90);
+		Draw.rect(hullOutlineRegion, unit, tank.hullRotation - 90);
 	}
+
 	public void drawTankHull(TankUnitEntity tank) {
 		Unit unit = (Unit) tank;
 		Draw.reset();
@@ -122,15 +123,16 @@ public class UAWUnitType extends UnitType {
 		} else {
 			Draw.color(Color.white);
 		}
-		Draw.rect(hullRegion, unit, tank.baseRotation() - 90);
+		Draw.rect(hullRegion, unit, tank.hullRotation - 90);
 		Draw.color(unit.team.color);
-		Draw.rect(hullCellRegion, unit, tank.baseRotation() - 90);
+		Draw.rect(hullCellRegion, unit, tank.hullRotation - 90);
 		Draw.mixcol();
 	}
+
 	public void drawTurret(TankUnitEntity tank) {
 		Unit unit = (Unit) tank;
-		float x = tank.x + Angles.trnsx(tank.baseRotation(), turretX, turretY);
-		float y = tank.y + Angles.trnsy(tank.baseRotation(), turretX, turretY);
+		float x = tank.x + Angles.trnsx(tank.hullRotation, turretX, turretY);
+		float y = tank.y + Angles.trnsy(tank.hullRotation, turretX, turretY);
 		Draw.z(tankLayer);
 		applyColor(unit);
 		applyOutlineColor(unit);

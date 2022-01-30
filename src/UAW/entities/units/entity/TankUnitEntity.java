@@ -2,11 +2,17 @@ package UAW.entities.units.entity;
 
 import UAW.content.UAWUnitTypes;
 import UAW.entities.units.UAWUnitType;
+import arc.math.*;
+import arc.math.geom.Vec2;
+import arc.util.*;
 import mindustry.Vars;
-import mindustry.gen.MechUnit;
+import mindustry.entities.EntityCollisions;
+import mindustry.gen.UnitEntity;
 import mindustry.world.blocks.environment.Floor;
 
-public class TankUnitEntity extends MechUnit {
+public class TankUnitEntity extends UnitEntity {
+	public float hullRotation;
+
 	@Override
 	public String toString() {
 		return "TankUnit#" + id;
@@ -18,6 +24,11 @@ public class TankUnitEntity extends MechUnit {
 	}
 
 	@Override
+	public EntityCollisions.SolidPred solidity() {
+		return isFlying() ? null : EntityCollisions::solid;
+	}
+
+	@Override
 	public void update() {
 		super.update();
 		UAWUnitType type = (UAWUnitType) this.type;
@@ -25,9 +36,18 @@ public class TankUnitEntity extends MechUnit {
 		if (floor.isLiquid) {
 			speedMultiplier = type.liquidSpeedMultiplier;
 		}
-		type.mechStride = type.mechFrontSway = type.mechSideSway = 0f;
-		type.drawBody = false;
 		type.flying = false;
-		type.visualElevation = 0.11f;
+		if (moving()) {
+			float len = deltaLen();
+			hullRotation = Angles.moveToward(hullRotation, deltaAngle(), type().baseRotateSpeed * Mathf.clamp(len / type().speed / Time.delta) * Time.delta);
+		}
+	}
+
+	@Override
+	public void rotateMove(Vec2 vec) {
+		moveAt(Tmp.v2.trns(hullRotation, vec.len()));
+		if (!vec.isZero()) {
+			hullRotation = Angles.moveToward(hullRotation, vec.angle(), type.rotateSpeed * Math.max(Time.delta, 1));
+		}
 	}
 }
