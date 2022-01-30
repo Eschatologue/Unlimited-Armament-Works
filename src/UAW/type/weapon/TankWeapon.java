@@ -35,6 +35,8 @@ public class TankWeapon extends UAWWeapon {
 					outlineRegion.height * Draw.scl,
 					weaponRotation);
 			}
+		} else {
+			super.draw(unit, mount);
 		}
 	}
 
@@ -75,6 +77,8 @@ public class TankWeapon extends UAWWeapon {
 				Draw.color();
 			}
 			Draw.z(z);
+		} else {
+			super.draw(unit, mount);
 		}
 	}
 
