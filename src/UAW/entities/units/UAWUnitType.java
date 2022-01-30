@@ -25,7 +25,7 @@ public class UAWUnitType extends UnitType {
 
 	// Tanks
 	public TextureRegion turretRegion, turretOutlineRegion, hullRegion, hullOutlineRegion, hullCellRegion, turretCellRegion;
-	public float tankLayer = Layer.groundUnit - 5;
+	public float tankLayer = Layer.groundUnit;
 	public float turretX = 0f, turretY = 0f;
 	public float groundTrailSize = 1;
 	public float groundTrailInterval = 0.5f;
@@ -62,7 +62,7 @@ public class UAWUnitType extends UnitType {
 		} else if (unit instanceof TankUnitEntity) {
 			float rad = 1.6f;
 			float size = Math.max(hullRegion.width * 1.2f, hullRegion.height * 1.2f) * Draw.scl;
-			Draw.z(tankLayer - 5.5f);
+			Draw.z(tankLayer - 3f);
 			Draw.color(0, 0, 0, 0.4f * alpha);
 			Draw.rect(softShadowRegion, unit, size * rad * Draw.xscl, size * rad * Draw.yscl, unit.rotation - 90);
 			Draw.color();
@@ -108,22 +108,16 @@ public class UAWUnitType extends UnitType {
 		Unit unit = (Unit) tank;
 		applyColor(unit);
 		applyOutlineColor(unit);
-		Draw.z(tankLayer - 0.25f);
+		Draw.z(tankLayer - 0.15f);
 		Draw.rect(hullOutlineRegion, unit, tank.hullRotation - 90);
 		Draw.reset();
 	}
 
 	public void drawTankHull(TankUnitEntity tank) {
 		Unit unit = (Unit) tank;
-		Draw.reset();
-		applyColor(unit);
 		Draw.mixcol(Color.white, unit.hitTime);
-		if (unit.lastDrownFloor != null) {
-			Draw.color(Color.white, Tmp.c1.set(unit.lastDrownFloor.mapColor).mul(0.83f), unit.drownTime * 0.9f);
-		} else {
-			Draw.color(Color.white);
-		}
-		Draw.z(tankLayer - 0.2f);
+		applyColor(unit);
+		Draw.z(tankLayer - 0.1f);
 		Draw.rect(hullRegion, unit, tank.hullRotation - 90);
 		Draw.color(unit.team.color);
 		Draw.rect(hullCellRegion, unit, tank.hullRotation - 90);
@@ -137,9 +131,9 @@ public class UAWUnitType extends UnitType {
 		float y = tank.y + Angles.trnsy(tank.hullRotation, turretX, turretY);
 		applyColor(unit);
 		applyOutlineColor(unit);
-		Draw.z(tankLayer - 0.1f);
+		Draw.z(tankLayer + 0.1f);
 		Draw.rect(turretOutlineRegion, x, y, tank.rotation - 90);
-		Draw.z(tankLayer - 0.05f);
+		Draw.z(tankLayer + 0.05f);
 		Draw.rect(turretRegion, x, y, tank.rotation - 90);
 		Draw.reset();
 	}

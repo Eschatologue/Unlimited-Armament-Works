@@ -41,6 +41,7 @@ public class TankUnitEntity extends UnitEntity {
 			float len = deltaLen();
 			hullRotation = Angles.moveToward(hullRotation, deltaAngle(), type().baseRotateSpeed * Mathf.clamp(len / type().speed / Time.delta) * Time.delta);
 		}
+		type.drawBody = false;
 	}
 
 	@Override
