@@ -25,7 +25,7 @@ public class UAWUnitType extends UnitType {
 
 	// Tanks
 	public TextureRegion turretRegion, turretOutlineRegion, hullRegion, hullOutlineRegion, hullCellRegion, turretCellRegion;
-	public float tankLayer = Layer.groundUnit;
+	public float tankLayer = Layer.groundUnit - 1;
 	public float turretX = 0f, turretY = 0f;
 	public float groundTrailSize = 1;
 	public float groundTrailInterval = 0.5f;
@@ -45,12 +45,12 @@ public class UAWUnitType extends UnitType {
 
 	@Override
 	public void draw(Unit unit) {
+		super.draw(unit);
 		if (unit instanceof TankUnitEntity tank) {
 			drawTankHullOutline(tank);
 			drawTankHull(tank);
 			drawTurret(tank);
 		}
-		super.draw(unit);
 		drawRotor(unit);
 	}
 
