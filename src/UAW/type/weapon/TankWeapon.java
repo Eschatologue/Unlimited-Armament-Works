@@ -21,8 +21,6 @@ public class TankWeapon extends UAWWeapon {
 	@Override
 	public void drawOutline(Unit unit, WeaponMount mount) {
 		if (unit instanceof TankUnitEntity tank) {
-			float z = Draw.z();
-			Draw.z(z + layerOffset);
 			float rotation = unit.rotation - 90;
 			float gunRotation = tank.hullRotation - 90;
 			float weaponRotation = rotation + (rotate ? mount.rotation : 0);
