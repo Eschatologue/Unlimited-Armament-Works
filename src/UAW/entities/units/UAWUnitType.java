@@ -124,6 +124,7 @@ public class UAWUnitType extends UnitType {
 		Draw.color(unit.team.color);
 		Draw.rect(hullCellRegion, unit, tank.hullRotation - 90);
 		Draw.mixcol();
+		Draw.reset();
 	}
 
 	@Override
