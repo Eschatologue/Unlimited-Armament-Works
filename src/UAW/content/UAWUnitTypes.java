@@ -1134,9 +1134,12 @@ public class UAWUnitTypes implements ContentList {
 			drag = 0.08f;
 			range = 35 * tilesize;
 			maxRange = range;
-			groundTrailInterval = 0.6f;
 			drawCell = false;
-			groundTrailX = 4;
+
+			groundTrailX = 5;
+			groundTrailY = 5;
+			groundTrailSize = 1.3f;
+			groundTrailInterval = 0.6f;
 
 			immunities = ObjectSet.with(StatusEffects.disarmed, UAWStatusEffects.EMP, StatusEffects.freezing);
 			constructor = TankUnitEntity::new;

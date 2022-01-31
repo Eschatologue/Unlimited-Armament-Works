@@ -18,6 +18,7 @@ import mindustry.world.blocks.environment.Floor;
 
 public class UAWUnitType extends UnitType {
 	public final Seq<Rotor> rotors = new Seq<>();
+
 	// Helicopter
 	public float spinningFallSpeed = 0;
 	public float rotorDeathSlowdown = 0.01f;
@@ -60,7 +61,7 @@ public class UAWUnitType extends UnitType {
 		float z = unit.elevation > 0.5f ? (lowAltitude ? Layer.flyingUnitLow : Layer.flyingUnit) : groundLayer + Mathf.clamp(hitSize / 4000f, 0, 0.01f);
 		// Also includes Copter since Jet unit extends off copter
 		if (unit instanceof JetUnitEntity) {
-			Draw.z(z - 0.1f);
+			Draw.z(z - 0.3f);
 			super.drawSoftShadow(unit, alpha);
 		} else if (unit instanceof TankUnitEntity) {
 			float rad = 1.6f;
