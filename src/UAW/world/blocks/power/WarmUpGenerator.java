@@ -60,7 +60,7 @@ public class WarmUpGenerator extends ImpactReactor {
 			super.updateTile();
 			intensity += warmup * edelta();
 			if (warmup >= 0.001) {
-				if (Mathf.chance(intensity / 5)) {
+				if (Mathf.chance(warmup)) {
 					smokeEffect.at(x + Mathf.range(size / 3f * 4f), y + Mathf.range(size / 3f * 4f));
 				}
 			}

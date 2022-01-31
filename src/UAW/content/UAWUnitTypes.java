@@ -1055,7 +1055,6 @@ public class UAWUnitTypes implements ContentList {
 			drag = 0.055f;
 			range = 26 * tilesize;
 			groundTrailInterval = 0.95f;
-			groundTrailSize = 0.2f;
 			groundTrailX = 2.5f;
 
 			immunities = ObjectSet.with(StatusEffects.disarmed, UAWStatusEffects.EMP, StatusEffects.freezing);

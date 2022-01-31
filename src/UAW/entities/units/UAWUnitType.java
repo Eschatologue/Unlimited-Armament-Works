@@ -24,8 +24,7 @@ public class UAWUnitType extends UnitType {
 	public float fallSmokeX = 0f, fallSmokeY = -5f, fallSmokeChance = 0.1f;
 
 	// Tanks
-	public TextureRegion turretRegion, turretOutlineRegion, hullRegion, hullOutlineRegion, hullCellRegion, turretCellRegion;
-	public float tankLayer = Layer.groundUnit - 1;
+	public TextureRegion hullRegion, hullOutlineRegion, hullCellRegion, turretCellRegion;
 	public float turretX = 0f, turretY = 0f;
 	public float groundTrailSize = 1;
 	public float groundTrailInterval = 0.5f;
@@ -148,13 +147,13 @@ public class UAWUnitType extends UnitType {
 				Fx.unitLandSmall.at(
 					unit.x + Angles.trnsx(unit.rotation - 90, groundTrailX, groundTrailY),
 					unit.y + Angles.trnsy(unit.rotation - 90, groundTrailX, groundTrailY),
-					(hitSize / 6) * groundTrailSize,
+					(hitSize / 24) * groundTrailSize,
 					floorColor
 				);
 				Fx.unitLandSmall.at(
 					unit.x + Angles.trnsx(unit.rotation - 90, -groundTrailX, groundTrailY),
 					unit.y + Angles.trnsy(unit.rotation - 90, -groundTrailX, groundTrailY),
-					(hitSize / 6) * groundTrailSize,
+					(hitSize / 24) * groundTrailSize,
 					floorColor
 				);
 				timer = 0f;
