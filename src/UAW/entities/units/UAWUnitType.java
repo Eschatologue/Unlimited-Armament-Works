@@ -61,7 +61,7 @@ public class UAWUnitType extends UnitType {
 		float z = unit.elevation > 0.5f ? (lowAltitude ? Layer.flyingUnitLow : Layer.flyingUnit) : groundLayer + Mathf.clamp(hitSize / 4000f, 0, 0.01f);
 		// Also includes Copter since Jet unit extends off copter
 		if (unit instanceof JetUnitEntity) {
-			Draw.z(z - 0.05f);
+			Draw.z(z - 0.1f);
 			super.drawSoftShadow(unit, alpha);
 		} else if (unit instanceof TankUnitEntity) {
 			float rad = 1.6f;
@@ -132,11 +132,8 @@ public class UAWUnitType extends UnitType {
 		if (unit instanceof TankUnitEntity tank) {
 			float x = tank.x + Angles.trnsx(tank.hullRotation, turretX, turretY);
 			float y = tank.y + Angles.trnsy(tank.hullRotation, turretX, turretY);
-			float z = unit.elevation > 0.5f ? (lowAltitude ? Layer.flyingUnitLow : Layer.flyingUnit) : groundLayer + Mathf.clamp(hitSize / 4000f, 0, 0.01f);
 			applyColor(unit);
-			applyOutlineColor(unit);
-			Draw.rect(turretOutlineRegion, x, y, tank.rotation - 90);
-			Draw.rect(turretRegion, x, y, tank.rotation - 90);
+			Draw.rect(region, x, y, unit.rotation - 90);
 			Draw.reset();
 		} else super.drawBody(unit);
 	}
@@ -203,8 +200,6 @@ public class UAWUnitType extends UnitType {
 	public void load() {
 		super.load();
 		rotors.each(Rotor::load);
-		turretRegion = Core.atlas.find(name + "-turret");
-		turretOutlineRegion = Core.atlas.find(name + "-turret-outline");
 		hullRegion = Core.atlas.find(name + "-hull");
 		hullOutlineRegion = Core.atlas.find(name + "-hull-outline");
 		turretCellRegion = Core.atlas.find(name + "-turret-cell");

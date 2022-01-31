@@ -1081,7 +1081,7 @@ public class UAWUnitTypes implements ContentList {
 					}};
 				}},
 				new TankWeapon(name + "-gun") {{
-					layerOffset = -0.005f;
+					layerOffset = -0.1f;
 					targetFlags = new BlockFlag[]{BlockFlag.extinguisher, null};
 					x = 0f;
 					y = 0f;
