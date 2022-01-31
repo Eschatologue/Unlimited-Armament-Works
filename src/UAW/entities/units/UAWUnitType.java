@@ -121,7 +121,7 @@ public class UAWUnitType extends UnitType {
 		Draw.mixcol(Color.white, unit.hitTime);
 		applyColor(unit);
 		Draw.rect(hullRegion, unit, tank.hullRotation - 90);
-		Draw.color(unit.team.color);
+		Draw.color(cellColor(unit));
 		Draw.rect(hullCellRegion, unit, tank.hullRotation - 90);
 		Draw.mixcol();
 		Draw.reset();
@@ -145,13 +145,13 @@ public class UAWUnitType extends UnitType {
 		if (unit instanceof TankUnitEntity) {
 			if (((timer += Time.delta) >= groundTrailInterval)
 				&& !floor.isLiquid && unit.moving() && groundTrailSize > 0) {
-				Fx.unitLand.at(
+				Fx.unitLandSmall.at(
 					unit.x + Angles.trnsx(unit.rotation - 90, groundTrailX, groundTrailY),
 					unit.y + Angles.trnsy(unit.rotation - 90, groundTrailX, groundTrailY),
 					(hitSize / 6) * groundTrailSize,
 					floorColor
 				);
-				Fx.unitLand.at(
+				Fx.unitLandSmall.at(
 					unit.x + Angles.trnsx(unit.rotation - 90, -groundTrailX, groundTrailY),
 					unit.y + Angles.trnsy(unit.rotation - 90, -groundTrailX, groundTrailY),
 					(hitSize / 6) * groundTrailSize,

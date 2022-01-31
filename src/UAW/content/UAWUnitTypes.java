@@ -1191,7 +1191,7 @@ public class UAWUnitTypes implements ContentList {
 					}};
 				}},
 				new TankWeapon(name + "-gun") {{
-					layerOffset = -1f;
+					layerOffset = -1.5f;
 					x = 0f;
 					y = 0f;
 					shootY = 26f;
