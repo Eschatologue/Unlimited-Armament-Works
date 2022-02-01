@@ -31,7 +31,7 @@ import static mindustry.content.Bullets.*;
 public class UAWUnitTypes implements ContentList {
 	public static UnitType
 		aglovale, bedivere, calogrenant, dagonet, esclabor,
-		bandit,
+		corsair, vindicator, superfortress,
 		clurit, kujang, kerambit, cetbang, kiAmuk,
 		hatsuharu, shiratsuyu, kagero, shimakaze,
 		gardlacz, arkabuz, armata, zemsta;
@@ -444,7 +444,7 @@ public class UAWUnitTypes implements ContentList {
 			);
 		}};
 
-		bandit = new UAWUnitType("bandit") {{
+		corsair = new UAWUnitType("corsair") {{
 			health = 650;
 			hitSize = 20;
 			speed = 3.2f;

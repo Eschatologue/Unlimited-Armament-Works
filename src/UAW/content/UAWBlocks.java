@@ -1059,7 +1059,7 @@ public class UAWBlocks implements ContentList {
 					Items.plastanium, 75,
 					Items.lead, 150
 				)),
-				new UnitPlan(UAWUnitTypes.bandit, 30f * tick, with(
+				new UnitPlan(UAWUnitTypes.corsair, 30f * tick, with(
 					Items.silicon, 85,
 					Items.titanium, 90,
 					Items.lead, 150,

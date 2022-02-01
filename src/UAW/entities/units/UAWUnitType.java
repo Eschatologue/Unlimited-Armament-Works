@@ -61,7 +61,7 @@ public class UAWUnitType extends UnitType {
 		float z = unit.elevation > 0.5f ? (lowAltitude ? Layer.flyingUnitLow : Layer.flyingUnit) : groundLayer + Mathf.clamp(hitSize / 4000f, 0, 0.01f);
 		// Also includes Copter since Jet unit extends off copter
 		if (unit instanceof JetUnitEntity) {
-			Draw.z(z - 0.5f);
+			Draw.z(z - 3f);
 			super.drawSoftShadow(unit, alpha);
 		} else if (unit instanceof TankUnitEntity) {
 			float rad = 1.6f;
@@ -107,7 +107,7 @@ public class UAWUnitType extends UnitType {
 		}
 	}
 
-	// Tank Hull
+	// Tank Hull Outline
 	public void drawTankHullOutline(TankUnitEntity tank) {
 		Unit unit = (Unit) tank;
 		Draw.reset();
@@ -116,6 +116,7 @@ public class UAWUnitType extends UnitType {
 		Draw.rect(hullOutlineRegion, unit, tank.hullRotation - 90);
 	}
 
+	// Tank Hull
 	public void drawTankHull(TankUnitEntity tank) {
 		Unit unit = (Unit) tank;
 		Draw.mixcol(Color.white, unit.hitTime);
@@ -127,6 +128,7 @@ public class UAWUnitType extends UnitType {
 		Draw.reset();
 	}
 
+	// Tank Turret, new method is unnecessary
 	@Override
 	public void drawBody(Unit unit) {
 		if (unit instanceof TankUnitEntity tank) {
