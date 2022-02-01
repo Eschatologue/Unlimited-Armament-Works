@@ -1,7 +1,7 @@
 package UAW.entities.units.entity;
 
 import UAW.content.UAWUnitTypes;
-import UAW.entities.units.*;
+import UAW.entities.units.UAWUnitType;
 import UAW.type.Rotor;
 import UAW.type.Rotor.RotorMount;
 import arc.math.*;
@@ -41,14 +41,14 @@ public class CopterUnitEntity extends UnitEntity {
 	public void update() {
 		super.update();
 		UAWUnitType type = (UAWUnitType) this.type;
-		float rotorX = x + Angles.trnsx(rotation - 90, type.fallSmokeX, type.fallSmokeY);
-		float rotorY = y + Angles.trnsy(rotation - 90, type.fallSmokeX, type.fallSmokeY);
+		float rX = x + Angles.trnsx(rotation - 90, type.fallSmokeX, type.fallSmokeY);
+		float rY = y + Angles.trnsy(rotation - 90, type.fallSmokeX, type.fallSmokeY);
 
 		if (dead || health() <= 0) {
 			rotation += Time.delta * (type.spinningFallSpeed * vel().len()) * Mathf.signs[id % 2];
 			if (Mathf.chanceDelta(type.fallSmokeChance)) {
-				Fx.fallSmoke.at(rotorX, rotorY);
-				Fx.burning.at(rotorX, rotorY);
+				Fx.fallSmoke.at(rX, rY);
+				Fx.burning.at(rX, rY);
 			}
 			rotorSpeedScl = Mathf.lerpDelta(rotorSpeedScl, 0f, type.rotorDeathSlowdown);
 		} else {
@@ -58,7 +58,6 @@ public class CopterUnitEntity extends UnitEntity {
 		for (RotorMount rotor : rotors) {
 			rotor.rotorRotation += ((rotor.rotor.rotorSpeed * rotorSpeedScl) + rotor.rotor.minimumRotorSpeed) * Time.delta;
 		}
-		type.engineSize = 0f;
 		type.fallSpeed = 0.006f;
 		type.onTitleScreen = false;
 	}

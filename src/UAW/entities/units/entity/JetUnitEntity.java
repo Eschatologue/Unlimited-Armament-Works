@@ -8,6 +8,9 @@ import arc.math.*;
 import mindustry.gen.UnitEntity;
 import mindustry.graphics.*;
 
+/**
+ * Flying unit with jet trail, capable of using rotor
+ */
 public class JetUnitEntity extends UnitEntity {
 	private final transient Trail tleft = new Trail(1);
 	private final transient Trail tright = new Trail(1);
@@ -41,7 +44,9 @@ public class JetUnitEntity extends UnitEntity {
 			float cy = Angles.trnsy(rotation - 90, type.trailX * sign, type.trailY) + y;
 			trail.update(cx, cy, type.trailScl);
 		}
-		type.omniMovement = !isPlayer() && isShooting && isAI();
+		if (type.jetMovement) {
+			type.omniMovement = !isPlayer() && isShooting && isAI();
+		}
 	}
 
 	@Override
@@ -54,6 +59,7 @@ public class JetUnitEntity extends UnitEntity {
 		tright.draw(trailColor, type.trailScl);
 		Draw.z(z);
 	}
+
 	public float engineSizeScl() {
 		return this.engineSizeScl;
 	}

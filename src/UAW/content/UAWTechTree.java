@@ -13,7 +13,6 @@ import static UAW.content.UAWLiquids.surgeSolvent;
 import static UAW.content.UAWUnitTypes.*;
 import static mindustry.content.Blocks.*;
 import static mindustry.content.Items.*;
-import static mindustry.content.UnitTypes.*;
 
 public class UAWTechTree implements ContentList {
 	static TechTree.TechNode context = null;
@@ -283,7 +282,7 @@ public class UAWTechTree implements ContentList {
 									node(calogrenant)
 								)
 							);
-							node(jufeng);
+							node(corsair);
 						}
 					);
 				});
@@ -297,20 +296,5 @@ public class UAWTechTree implements ContentList {
 			)
 		);
 
-		vanillaNode(zenith, () ->
-			node(aglovale, () ->
-				node(bedivere, () ->
-					node(calogrenant, Seq.with(
-							new Research(cryogel),
-							new Research(antumbra)
-						)
-					)
-				)
-			)
-		);
-
-		vanillaNode(horizon, () ->
-			node(jufeng)
-		);
 	}
 }

@@ -1,6 +1,6 @@
 package UAW.content;
 
-import UAW.ai.types.*;
+import UAW.ai.types.DynamicFlyingAI;
 import UAW.entities.abilities.RazorRotorAbility;
 import UAW.entities.bullet.*;
 import UAW.entities.units.UAWUnitType;
@@ -31,7 +31,7 @@ import static mindustry.content.Bullets.*;
 public class UAWUnitTypes implements ContentList {
 	public static UnitType
 		aglovale, bedivere, calogrenant, dagonet, esclabor,
-		jufeng,
+		corsair, vindicator, superfortress,
 		clurit, kujang, kerambit, cetbang, kiAmuk,
 		hatsuharu, shiratsuyu, kagero, shimakaze,
 		gardlacz, arkabuz, armata, zemsta;
@@ -42,10 +42,11 @@ public class UAWUnitTypes implements ContentList {
 		prov(TankUnitEntity.class, TankUnitEntity::new),
 		prov(JetUnitEntity.class, JetUnitEntity::new)
 	};
+
 	private static final ObjectIntMap<Class<? extends Entityc>> idMap = new ObjectIntMap<>();
 
 	/**
-	 * Internal function to flatmap {@code Class -> Prov} into an {@link ObjectIntMap.Entry}.
+	 * Internal function to flatmap {@code Class -> Prov} into an {@link Entry}.
 	 *
 	 * @author GlennFolker
 	 */
@@ -88,6 +89,8 @@ public class UAWUnitTypes implements ContentList {
 
 	@Override
 	public void load() {
+		setupID();
+
 		aglovale = new UAWUnitType("aglovale") {{
 			health = 500;
 			hitSize = 18;
@@ -106,11 +109,12 @@ public class UAWUnitTypes implements ContentList {
 			fallSpeed = 0.003f;
 			spinningFallSpeed = 4;
 			fallSmokeY = -10f;
+			engineSize = 0;
 
 			onTitleScreen = false;
 
 			constructor = CopterUnitEntity::new;
-			defaultController = CopterAI::new;
+			defaultController = DynamicFlyingAI::new;
 
 			rotors.add(
 				new Rotor(name + "-blade") {{
@@ -192,6 +196,7 @@ public class UAWUnitTypes implements ContentList {
 			fallSmokeY = -15f;
 			commandLimit = 3;
 			lowAltitude = true;
+			engineSize = 0;
 
 			range = 32 * tilesize;
 			maxRange = range;
@@ -199,7 +204,7 @@ public class UAWUnitTypes implements ContentList {
 			onTitleScreen = false;
 
 			constructor = CopterUnitEntity::new;
-			defaultController = CopterAI::new;
+			defaultController = DynamicFlyingAI::new;
 
 			rotors.add(
 				new Rotor(name + "-blade") {{
@@ -276,13 +281,12 @@ public class UAWUnitTypes implements ContentList {
 					layerOffset = -0.01f;
 					rotate = false;
 					mirror = true;
+					alternate = false;
 					shootCone = 30;
 					x = 8.5f;
 					y = 3.5f;
-					shots = 1;
-					shotDelay = 20;
 					maxRange = range;
-					reload = 2.5f * 60;
+					reload = 2f * 60;
 					shootSound = UAWSfx.cruiseMissileShoot1;
 					bullet = new CruiseMissileBulletType(3f, 450) {{
 						layer = Layer.flyingUnitLow - 1;
@@ -299,6 +303,7 @@ public class UAWUnitTypes implements ContentList {
 						status = StatusEffects.burning;
 						statusDuration = 4 * 60;
 						ammoMultiplier = 2f;
+						collidesGround = false;
 					}};
 				}}
 			);
@@ -311,17 +316,17 @@ public class UAWUnitTypes implements ContentList {
 			speed = 3f;
 			drag = 0.07f;
 			accel = 0.03f;
-			engineSize = 0f;
 			flying = true;
 			hitSize = 35f;
 			range = 40 * tilesize;
 			lowAltitude = true;
 			rotateSpeed = 2.7f;
+			engineSize = 0;
 
 			onTitleScreen = false;
 
 			constructor = CopterUnitEntity::new;
-			defaultController = CopterAI::new;
+			defaultController = DynamicFlyingAI::new;
 
 			weapons.add(
 				new PointDefenseWeapon("uaw-point-defense-red") {{
@@ -420,7 +425,7 @@ public class UAWUnitTypes implements ContentList {
 				}}
 			);
 			float rotX = 17;
-			float rotY = 8;
+			float rotY = 4;
 			float rotSpeed = 13f;
 			rotors.add(
 				new Rotor("uaw-short-blade") {{
@@ -440,13 +445,13 @@ public class UAWUnitTypes implements ContentList {
 			);
 		}};
 
-		jufeng = new UAWUnitType("jufeng") {{
+		corsair = new UAWUnitType("corsair") {{
 			health = 650;
 			hitSize = 20;
-			speed = 2.8f;
+			speed = 3.2f;
 			accel = 0.1f;
-			drag = 0.016f;
-			rotateSpeed = 6f;
+			drag = 0.015f;
+			rotateSpeed = 7f;
 			ammoType = new ItemAmmoType(Items.blastCompound);
 			circleTarget = true;
 			commandLimit = 4;
@@ -454,7 +459,7 @@ public class UAWUnitTypes implements ContentList {
 			rotateShooting = false;
 			flying = true;
 			lowAltitude = false;
-			range = 45 * tilesize;
+			range = 40 * tilesize;
 
 			targetFlags = new BlockFlag[]{BlockFlag.repair, BlockFlag.generator, BlockFlag.extinguisher, null};
 
@@ -463,16 +468,16 @@ public class UAWUnitTypes implements ContentList {
 			trailLength = 9;
 			trailScl = 1.75f;
 
-			engineSize = 4f;
-			engineSpread = 4f;
+			engineSize = 3f;
+			engineSpacing = 6f;
 			engineOffset = 3f;
 
 			constructor = JetUnitEntity::new;
-			defaultController = BomberJetAI::new;
+			defaultController = DynamicFlyingAI::new;
 
 			weapons.add(
 				new Weapon() {{
-					minShootVelocity = 0.75f;
+					minShootVelocity = 0.55f;
 					x = 3f;
 					reload = 3f * 60;
 					shootCone = 90f;
@@ -483,23 +488,45 @@ public class UAWUnitTypes implements ContentList {
 					shotDelay = 15f;
 					bullet = new UAWArtilleryBulletType(1.5f, 125) {{
 						buildingDamageMultiplier = 2.5f;
-						lifetime = (range / 3) / speed;
+						lifetime = range / speed;
 						trailMult = 0.5f;
-						width = 10f;
-						height = 14f;
+						height = 16f;
+						width = 12f;
 						shootEffect = Fx.none;
 						smokeEffect = Fx.none;
-						splashDamageRadius = 5 * tilesize;
+						hitShake = 5f;
+						splashDamageRadius = 6 * tilesize;
 						hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius);
 						hitSound = Sounds.explosion;
 						status = StatusEffects.blasted;
 						statusDuration = 60f;
-						makeFire = true;
 						homingPower = 0.1f;
 						homingRange = 32f;
 						fragBullet = fragGlassFrag;
 					}};
-				}});
+				}},
+				new Weapon() {{
+					controllable = false;
+					rotate = false;
+					mirror = false;
+					shootCone = 90;
+					inaccuracy = 3f;
+					x = 0f;
+					y = 0f;
+					reload = 5f;
+					shootSound = Sounds.shoot;
+					ejectEffect = Fx.casing1;
+					bullet = new TrailBulletType(6f, 15) {{
+						height = 12f;
+						width = 6f;
+						buildingDamageMultiplier = 0.4f;
+						maxRange = range;
+						lifetime = (range / speed) * 1.2f;
+						ammoMultiplier = 8f;
+						collidesGround = false;
+					}};
+				}}
+			);
 		}};
 
 		clurit = new UnitType("clurit") {{
@@ -1030,8 +1057,7 @@ public class UAWUnitTypes implements ContentList {
 			accel = 0.05f;
 			drag = 0.055f;
 			range = 26 * tilesize;
-			groundTrailInterval = 0.8f;
-			groundTrailSize = 0.2f;
+			groundTrailInterval = 0.95f;
 			groundTrailX = 2.5f;
 
 			immunities = ObjectSet.with(StatusEffects.disarmed, UAWStatusEffects.EMP, StatusEffects.freezing);
@@ -1057,7 +1083,7 @@ public class UAWUnitTypes implements ContentList {
 					}};
 				}},
 				new TankWeapon(name + "-gun") {{
-					weaponLayer = Layer.groundUnit;
+					layerOffset = -0.1f;
 					targetFlags = new BlockFlag[]{BlockFlag.extinguisher, null};
 					x = 0f;
 					y = 0f;
@@ -1111,9 +1137,12 @@ public class UAWUnitTypes implements ContentList {
 			drag = 0.08f;
 			range = 35 * tilesize;
 			maxRange = range;
-			groundTrailInterval = 0.6f;
 			drawCell = false;
-			groundTrailX = 4;
+
+			groundTrailX = 5;
+			groundTrailY = -5;
+			groundTrailSize = 1.3f;
+			groundTrailInterval = 0.6f;
 
 			immunities = ObjectSet.with(StatusEffects.disarmed, UAWStatusEffects.EMP, StatusEffects.freezing);
 			constructor = TankUnitEntity::new;
@@ -1167,7 +1196,7 @@ public class UAWUnitTypes implements ContentList {
 					}};
 				}},
 				new TankWeapon(name + "-gun") {{
-					weaponLayer = Layer.groundUnit;
+					layerOffset = -1.5f;
 					x = 0f;
 					y = 0f;
 					shootY = 26f;

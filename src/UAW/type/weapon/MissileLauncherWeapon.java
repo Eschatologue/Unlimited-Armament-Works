@@ -16,7 +16,7 @@ import mindustry.gen.Unit;
  */
 public class MissileLauncherWeapon extends UAWWeapon {
 	public TextureRegion missileRegion, missileOutlineRegion;
-	public String missileName = "uaw-w-cruise-missile-basic";
+	public String missileName = "uaw-cruise-missile-basic";
 
 	public MissileLauncherWeapon(String name) {
 		this.name = name;
@@ -56,6 +56,7 @@ public class MissileLauncherWeapon extends UAWWeapon {
 			missileRegion.width * Draw.scl * -Mathf.sign(flipSprite),
 			missileRegion.height * Draw.scl,
 			weaponRotation);
+		Draw.reset();
 	}
 
 	@Override

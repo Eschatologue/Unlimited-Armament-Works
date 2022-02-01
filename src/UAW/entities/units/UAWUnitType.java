@@ -11,21 +11,21 @@ import arc.struct.Seq;
 import arc.util.Time;
 import mindustry.Vars;
 import mindustry.content.Fx;
-import mindustry.gen.*;
+import mindustry.gen.Unit;
 import mindustry.graphics.Layer;
 import mindustry.type.UnitType;
 import mindustry.world.blocks.environment.Floor;
 
 public class UAWUnitType extends UnitType {
 	public final Seq<Rotor> rotors = new Seq<>();
+
 	// Helicopter
 	public float spinningFallSpeed = 0;
 	public float rotorDeathSlowdown = 0.01f;
 	public float fallSmokeX = 0f, fallSmokeY = -5f, fallSmokeChance = 0.1f;
 
 	// Tanks
-	public TextureRegion turretRegion, turretOutlineRegion, hullRegion, hullOutlineRegion, hullCellRegion, turretCellRegion;
-	public float tankLayer = Layer.groundUnit;
+	public TextureRegion hullRegion, hullOutlineRegion, hullCellRegion, turretCellRegion;
 	public float turretX = 0f, turretY = 0f;
 	public float groundTrailSize = 1;
 	public float groundTrailInterval = 0.5f;
@@ -34,7 +34,8 @@ public class UAWUnitType extends UnitType {
 
 	// Jets
 	public float engineSizeShrink = 0.1f;
-	public float engineSpread = 5f;
+	public float engineSpacing = 5f;
+	public boolean jetMovement = true;
 
 	protected float timer;
 
@@ -44,20 +45,28 @@ public class UAWUnitType extends UnitType {
 
 	@Override
 	public void draw(Unit unit) {
+		float z = unit.elevation > 0.5f ? (lowAltitude ? Layer.flyingUnitLow : Layer.flyingUnit) : groundLayer + Mathf.clamp(hitSize / 4000f, 0, 0.01f);
 		super.draw(unit);
+		if (unit instanceof TankUnitEntity tank) {
+			Draw.z(z - 0.02f);
+			drawTankHullOutline(tank);
+			drawTankHull(tank);
+		}
+		Draw.z(z);
 		drawRotor(unit);
 	}
 
 	@Override
 	public void drawSoftShadow(Unit unit, float alpha) {
+		float z = unit.elevation > 0.5f ? (lowAltitude ? Layer.flyingUnitLow : Layer.flyingUnit) : groundLayer + Mathf.clamp(hitSize / 4000f, 0, 0.01f);
 		if (unit instanceof CopterUnitEntity) {
-			Draw.z(unit.elevation - 0.05f);
+			Draw.z(z - 3f);
 			super.drawSoftShadow(unit, alpha);
 		} else if (unit instanceof TankUnitEntity) {
-			Draw.z(tankLayer - 0.03f);
-			Draw.color(0, 0, 0, 0.4f * alpha);
 			float rad = 1.6f;
 			float size = Math.max(hullRegion.width * 1.2f, hullRegion.height * 1.2f) * Draw.scl;
+			Draw.z(z - 3f);
+			Draw.color(0, 0, 0, 0.4f * alpha);
 			Draw.rect(softShadowRegion, unit, size * rad * Draw.xscl, size * rad * Draw.yscl, unit.rotation - 90);
 			Draw.color();
 		} else {
@@ -67,6 +76,7 @@ public class UAWUnitType extends UnitType {
 
 	// Copter Rotors
 	public void drawRotor(Unit unit) {
+		float z = unit.elevation > 0.5f ? (lowAltitude ? Layer.flyingUnitLow : Layer.flyingUnit) : groundLayer + Mathf.clamp(hitSize / 4000f, 0, 0.01f);
 		applyColor(unit);
 		if (unit instanceof CopterUnitEntity copter) {
 			for (RotorMount mount : copter.rotors) {
@@ -75,13 +85,8 @@ public class UAWUnitType extends UnitType {
 				float ry = unit.y + Angles.trnsy(unit.rotation - 90, rotor.x, rotor.y);
 
 				for (int i = 0; i < rotor.bladeCount; i++) {
-					if (rotor.layer < 0) {
-						if (lowAltitude) {
-							rotor.layer = Layer.flyingUnitLow + 0.1f;
-						} else rotor.layer = Layer.flyingUnit + 0.1f;
-					}
 					float angle = (i * 360f / rotor.bladeCount + mount.rotorRotation) % 360;
-					Draw.z(rotor.layer);
+					Draw.z(z + 0.5f);
 					Draw.rect(rotor.bladeOutlineRegion, rx, ry, rotor.bladeOutlineRegion.width * Draw.scl, rotor.bladeOutlineRegion.height * Draw.scl, angle);
 					Draw.mixcol(Color.white, unit.hitTime);
 					Draw.rect(rotor.bladeRegion, rx, ry, rotor.bladeRegion.width * Draw.scl, rotor.bladeRegion.height * Draw.scl, angle);
@@ -91,7 +96,7 @@ public class UAWUnitType extends UnitType {
 						Draw.rect(rotor.bladeRegion, rx, ry, rotor.bladeRegion.width * Draw.scl * -Mathf.sign(false), rotor.bladeRegion.height * Draw.scl, -angle);
 					}
 					if (rotor.drawRotorTop) {
-						Draw.z(rotor.layer + 0.001f);
+						Draw.z(z + 0.55f);
 						Draw.rect(rotor.topRegionOutline, rx, ry, rotor.topRegionOutline.width * Draw.scl, rotor.topRegionOutline.height * Draw.scl, unit.rotation - 90);
 						Draw.mixcol(Color.white, unit.hitTime);
 						Draw.rect(rotor.topRegion, rx, ry, rotor.topRegion.width * Draw.scl, rotor.topRegion.height * Draw.scl, unit.rotation - 90);
@@ -101,44 +106,37 @@ public class UAWUnitType extends UnitType {
 		}
 	}
 
-	// Tank Hull
-	@Override
-	public void drawMech(Mechc mech) {
-		Unit unit = (Unit) mech;
-		if (mech instanceof TankUnitEntity tank) {
-			applyColor(unit);
-			Draw.z(tankLayer - 0.025f);
-			Draw.rect(hullOutlineRegion, unit, tank.baseRotation - 90);
-
-			Draw.z(tankLayer - 0.015f);
-			Draw.mixcol(Color.white, tank.hitTime);
-			Draw.rect(hullRegion, unit, tank.baseRotation - 90);
-
-			Draw.color(cellColor(unit));
-			Draw.rect(hullCellRegion, unit, tank.baseRotation - 90);
-			Draw.reset();
-		} else {
-			super.drawMech(mech);
-		}
+	// Tank Hull Outline
+	public void drawTankHullOutline(TankUnitEntity tank) {
+		Unit unit = (Unit) tank;
+		Draw.reset();
+		applyColor(unit);
+		applyOutlineColor(unit);
+		Draw.rect(hullOutlineRegion, unit, tank.hullRotation - 90);
 	}
 
-	// Tank Turret
+	// Tank Hull
+	public void drawTankHull(TankUnitEntity tank) {
+		Unit unit = (Unit) tank;
+		Draw.mixcol(Color.white, unit.hitTime);
+		applyColor(unit);
+		Draw.rect(hullRegion, unit, tank.hullRotation - 90);
+		Draw.color(cellColor(unit));
+		Draw.rect(hullCellRegion, unit, tank.hullRotation - 90);
+		Draw.mixcol();
+		Draw.reset();
+	}
+
+	// Tank Turret, new method is unnecessary
 	@Override
 	public void drawBody(Unit unit) {
 		if (unit instanceof TankUnitEntity tank) {
-			float x = unit.x + Angles.trnsx(tank.baseRotation, turretX, turretY);
-			float y = unit.y + Angles.trnsy(tank.baseRotation, turretX, turretY);
+			float x = tank.x + Angles.trnsx(tank.hullRotation, turretX, turretY);
+			float y = tank.y + Angles.trnsy(tank.hullRotation, turretX, turretY);
 			applyColor(unit);
-
-			Draw.z(tankLayer - 0.01f);
-			Draw.rect(turretOutlineRegion, x, y, unit.rotation - 90);
-			Draw.z(tankLayer + 0.02f);
-			Draw.rect(turretRegion, x, y, unit.rotation - 90);
-
+			Draw.rect(region, x, y, unit.rotation - 90);
 			Draw.reset();
-		} else {
-			super.drawBody(unit);
-		}
+		} else super.drawBody(unit);
 	}
 
 	// Tank Trail
@@ -148,16 +146,16 @@ public class UAWUnitType extends UnitType {
 		if (unit instanceof TankUnitEntity) {
 			if (((timer += Time.delta) >= groundTrailInterval)
 				&& !floor.isLiquid && unit.moving() && groundTrailSize > 0) {
-				Fx.unitLand.at(
+				Fx.unitLandSmall.at(
 					unit.x + Angles.trnsx(unit.rotation - 90, groundTrailX, groundTrailY),
 					unit.y + Angles.trnsy(unit.rotation - 90, groundTrailX, groundTrailY),
-					(hitSize / 6) * groundTrailSize,
+					(hitSize / 24) * groundTrailSize,
 					floorColor
 				);
-				Fx.unitLand.at(
+				Fx.unitLandSmall.at(
 					unit.x + Angles.trnsx(unit.rotation - 90, -groundTrailX, groundTrailY),
 					unit.y + Angles.trnsy(unit.rotation - 90, -groundTrailX, groundTrailY),
-					(hitSize / 6) * groundTrailSize,
+					(hitSize / 24) * groundTrailSize,
 					floorColor
 				);
 				timer = 0f;
@@ -174,7 +172,7 @@ public class UAWUnitType extends UnitType {
 			float offset = engineOffset / 2f + engineOffset / 2f * scale;
 			for (int i : Mathf.zeroOne) {
 				int side = Mathf.signs[i];
-				float sideOffset = engineSpread * side;
+				float sideOffset = engineSpacing * side;
 				Draw.color(unit.team.color);
 				Fill.circle(
 					unit.x + Angles.trnsx(unit.rotation + 90, sideOffset, offset),
@@ -188,12 +186,10 @@ public class UAWUnitType extends UnitType {
 					((engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) / 2f * scale) * jetUnit.engineSizeScl()
 				);
 			}
-
 		} else {
 			super.drawEngine(unit);
 		}
 	}
-
 
 	@Override
 	public void update(Unit unit) {
@@ -205,8 +201,6 @@ public class UAWUnitType extends UnitType {
 	public void load() {
 		super.load();
 		rotors.each(Rotor::load);
-		turretRegion = Core.atlas.find(name + "-turret");
-		turretOutlineRegion = Core.atlas.find(name + "-turret-outline");
 		hullRegion = Core.atlas.find(name + "-hull");
 		hullOutlineRegion = Core.atlas.find(name + "-hull-outline");
 		turretCellRegion = Core.atlas.find(name + "-turret-cell");
