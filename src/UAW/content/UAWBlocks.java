@@ -993,14 +993,14 @@ public class UAWBlocks implements ContentList {
 		UAWGroundFactory = new UnitFactory("uaw-ground-factory") {{
 			requirements(Category.units, with(
 				Items.lead, 550,
-				Items.silicon, 80,
-				Items.metaglass, 80,
+				Items.silicon, 90,
+				Items.metaglass, 90,
 				Items.titanium, 250,
 				Items.plastanium, 100
 			));
 			size = 5;
 			consumes.power(3.5f);
-			consumes.liquid(Liquids.oil, 0.5f);
+			consumes.liquid(Liquids.oil, 1f);
 			liquidCapacity = 120f;
 			plans = Seq.with(
 				new UnitPlan(UAWUnitTypes.gardlacz, 35f * tick, with(
@@ -1022,7 +1022,7 @@ public class UAWBlocks implements ContentList {
 			floating = true;
 			size = 5;
 			consumes.power(3.5f);
-			consumes.liquid(Liquids.oil, 0.5f);
+			consumes.liquid(Liquids.oil, 1f);
 			liquidCapacity = 120f;
 			plans = Seq.with(
 				new UnitPlan(UAWUnitTypes.clurit, 45f * tick, with(
@@ -1035,7 +1035,7 @@ public class UAWBlocks implements ContentList {
 					Items.silicon, 55,
 					Items.metaglass, 50,
 					Items.titanium, 100,
-					Items.blastCompound, 30f,
+					Items.blastCompound, 30,
 					Items.lead, 120
 				))
 			);
@@ -1050,7 +1050,7 @@ public class UAWBlocks implements ContentList {
 			));
 			size = 5;
 			consumes.power(3.5f);
-			consumes.liquid(Liquids.oil, 0.5f);
+			consumes.liquid(Liquids.oil, 1f);
 			liquidCapacity = 120f;
 			plans = Seq.with(
 				new UnitPlan(UAWUnitTypes.aglovale, 35f * tick, with(
@@ -1063,7 +1063,8 @@ public class UAWBlocks implements ContentList {
 					Items.silicon, 85,
 					Items.titanium, 90,
 					Items.lead, 150,
-					Items.blastCompound, 50
+					Items.plastanium, 75,
+					Items.blastCompound, 35
 				))
 			);
 		}};
