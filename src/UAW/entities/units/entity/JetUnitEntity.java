@@ -5,12 +5,13 @@ import UAW.entities.units.UAWUnitType;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.math.*;
+import mindustry.gen.UnitEntity;
 import mindustry.graphics.*;
 
 /**
  * Flying unit with jet trail, capable of using rotor
  */
-public class JetUnitEntity extends CopterUnitEntity {
+public class JetUnitEntity extends UnitEntity {
 	private final transient Trail tleft = new Trail(1);
 	private final transient Trail tright = new Trail(1);
 	public float engineSizeScl = 1;
