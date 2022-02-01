@@ -42,6 +42,7 @@ public class UAWUnitTypes implements ContentList {
 		prov(TankUnitEntity.class, TankUnitEntity::new),
 		prov(JetUnitEntity.class, JetUnitEntity::new)
 	};
+
 	private static final ObjectIntMap<Class<? extends Entityc>> idMap = new ObjectIntMap<>();
 
 	/**
@@ -505,19 +506,19 @@ public class UAWUnitTypes implements ContentList {
 					}};
 				}},
 				new Weapon() {{
+					controllable = false;
 					rotate = false;
 					mirror = false;
 					shootCone = 90;
 					inaccuracy = 3f;
 					x = 0f;
 					y = 0f;
-					reload = 4f;
+					reload = 5f;
 					shootSound = Sounds.shoot;
 					ejectEffect = Fx.casing1;
 					bullet = new TrailBulletType(6f, 15) {{
 						height = 12f;
 						width = 6f;
-						pierceCap = 2;
 						buildingDamageMultiplier = 0.4f;
 						maxRange = range;
 						lifetime = (range / speed) * 1.2f;
