@@ -1,3 +1,33 @@
+# Update 0.7.7
+**Update 0.7.7** is finally here.. after a month.. yeah i've been busy with IRL stuff. This update reworks tanks again and some other stuff
+
+## What's new?
+1. Unit Rework
+All unit in UAW has been reworked of slighly tweaked, for example :
+	a. Helicopters
+			- When helicopters dies, their rotor will slow downs.
+			- Fixed a sudden pause when helicopter hits the ground while rotating
+			- New AI : Helicopter will rushes ground target while keeping a distance with airborne targets
+	b. Tanks
+			- Tanks now has multiple mounts on top of its turret
+			- Better Trail effects for tanks
+			- Gun sound fix
+	c.  Jets
+			- Jets has better trail and new sprite, also renamed and will have much much less impact on the game perfomance
+			- Jufeng is renamed to 'Bandit', next in the unit tree name will have similar naming theme
+			- New AI : Jets will rushes ground target while keeping a distance with airborne targets
+2. Unit Constructor
+Its now no longer needed to use a vanilla unit to construct UAW units, all UAW units will have their own unit factory now.
+	 - Ground unit can be produced in "Armor Construction Facility"
+	 - Naval unit can be produced in "Naval Yard"
+	 - Air unit can be produced in "Aeronautic Manufacturing Pad"
+
+Theres probably other stuff i forgotten, you can download the update and check it out yourself
+
+
+	
+
+
 
 [![UAW-update.png](https://i.postimg.cc/2yQfpYLP/UAW-update.png)](https://youtu.be/ML1AriwoQVE)
 # Update 0.7.6

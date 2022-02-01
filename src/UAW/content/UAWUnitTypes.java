@@ -45,7 +45,7 @@ public class UAWUnitTypes implements ContentList {
 	private static final ObjectIntMap<Class<? extends Entityc>> idMap = new ObjectIntMap<>();
 
 	/**
-	 * Internal function to flatmap {@code Class -> Prov} into an {@link ObjectIntMap.Entry}.
+	 * Internal function to flatmap {@code Class -> Prov} into an {@link Entry}.
 	 *
 	 * @author GlennFolker
 	 */
@@ -88,6 +88,8 @@ public class UAWUnitTypes implements ContentList {
 
 	@Override
 	public void load() {
+		setupID();
+
 		aglovale = new UAWUnitType("aglovale") {{
 			health = 500;
 			hitSize = 18;
@@ -422,7 +424,7 @@ public class UAWUnitTypes implements ContentList {
 				}}
 			);
 			float rotX = 17;
-			float rotY = -1;
+			float rotY = 4;
 			float rotSpeed = 13f;
 			rotors.add(
 				new Rotor("uaw-short-blade") {{
@@ -1137,7 +1139,7 @@ public class UAWUnitTypes implements ContentList {
 			drawCell = false;
 
 			groundTrailX = 5;
-			groundTrailY = 5;
+			groundTrailY = -5;
 			groundTrailSize = 1.3f;
 			groundTrailInterval = 0.6f;
 

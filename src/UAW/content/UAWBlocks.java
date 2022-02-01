@@ -1021,14 +1021,13 @@ public class UAWBlocks implements ContentList {
 			));
 			floating = true;
 			size = 5;
-			squareSprite = false;
 			consumes.power(3.5f);
 			consumes.liquid(Liquids.oil, 0.5f);
 			liquidCapacity = 120f;
 			plans = Seq.with(
 				new UnitPlan(UAWUnitTypes.clurit, 45f * tick, with(
-					Items.silicon, 45,
-					Items.metaglass, 40,
+					Items.silicon, 65,
+					Items.metaglass, 60,
 					Items.titanium, 100,
 					Items.lead, 120
 				)),
@@ -1057,6 +1056,7 @@ public class UAWBlocks implements ContentList {
 				new UnitPlan(UAWUnitTypes.aglovale, 35f * tick, with(
 					Items.silicon, 100,
 					Items.titanium, 125,
+					Items.plastanium, 75,
 					Items.lead, 150
 				)),
 				new UnitPlan(UAWUnitTypes.bandit, 30f * tick, with(
