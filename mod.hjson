@@ -3,6 +3,6 @@ name: "uaw"
 author: "Eschatologue"
 main: "UAW.UAWModLoader",
 description: "A port and a sequel to Heavy-Armaments-Industries written in java, expands your Mindustry arsenal"
-version: 0.7.6
+version: 0.7.7
 minGameVersion: 134
 java: true
