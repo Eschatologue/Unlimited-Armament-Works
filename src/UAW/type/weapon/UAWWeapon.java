@@ -31,17 +31,17 @@ public class UAWWeapon extends Weapon {
 			weaponRotation = rotation + (rotate ? mount.rotation : 0),
 			wx = unit.x + Angles.trnsx(rotation, x, y) + Angles.trnsx(weaponRotation, 0, -mount.recoil),
 			wy = unit.y + Angles.trnsy(rotation, x, y) + Angles.trnsy(weaponRotation, 0, -mount.recoil);
-		if (weaponOutline.found() && customIcon) {
-			Draw.rect(weaponOutline,
-				wx, wy,
-				weaponOutline.width * Draw.scl * -Mathf.sign(flipSprite),
-				weaponOutline.height * Draw.scl,
-				weaponRotation);
-		} else if (outlineRegion.found() && !customIcon) {
+		if (outlineRegion.found() && !customIcon) {
 			Draw.rect(outlineRegion,
 				wx, wy,
 				outlineRegion.width * Draw.scl * -Mathf.sign(flipSprite),
 				outlineRegion.height * Draw.scl,
+				weaponRotation);
+		} else if (weaponOutline.found() && customIcon) {
+			Draw.rect(weaponOutline,
+				wx, wy,
+				weaponOutline.width * Draw.scl * -Mathf.sign(flipSprite),
+				weaponOutline.height * Draw.scl,
 				weaponRotation);
 		}
 
@@ -67,7 +67,7 @@ public class UAWWeapon extends Weapon {
 		} else {
 			super.load();
 			outlineRegion = Core.atlas.find(name + "-icon");
-			weaponOutline = Core.atlas.find(name + "-outline");
 		}
+		weaponOutline = Core.atlas.find(name + "-outline");
 	}
 }
