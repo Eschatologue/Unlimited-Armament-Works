@@ -641,12 +641,12 @@ public class UAWBlocks implements ContentList {
 		}};
 		oilDerrick = new Fracker("oil-derrick") {{
 			requirements(Category.production, with(
-				Items.titanium, 225,
-				Items.plastanium, 145,
-				Items.metaglass, 100,
-				Items.silicon, 100,
-				UAWItems.titaniumCarbide, 105,
-				Items.surgeAlloy, 75
+				Items.titanium, 200,
+				Items.plastanium, 125,
+				Items.metaglass, 85,
+				Items.silicon, 85,
+				UAWItems.titaniumCarbide, 95,
+				Items.surgeAlloy, 55
 			));
 			size = 4;
 			result = Liquids.oil;
@@ -655,10 +655,10 @@ public class UAWBlocks implements ContentList {
 				Fx.hitLancer
 			);
 			updateEffectChance = 0.05f;
-			pumpAmount = 1f;
+			pumpAmount = 1.2f;
 			liquidCapacity = 300f;
 			attribute = Attribute.oil;
-			baseEfficiency = 0.5f;
+			baseEfficiency = 0.55f;
 			itemUseTime = 120f;
 			rotateSpeed = -2.5f;
 
@@ -873,22 +873,22 @@ public class UAWBlocks implements ContentList {
 
 		petroleumGenerator = new WarmUpGenerator("petroleum-generator") {{
 			requirements(Category.power, with(
-				Items.copper, 250,
-				Items.titanium, 200,
-				Items.plastanium, 120,
-				Items.silicon, 185,
+				Items.copper, 225,
+				Items.titanium, 150,
+				Items.plastanium, 100,
+				Items.silicon, 155,
 				Items.metaglass, 120
 			));
 			size = 4;
 			health = 300 * size;
-			powerProduction = 25f;
 			hasLiquids = true;
 			hasItems = false;
 			liquidCapacity = 360f;
 			ambientSound = Sounds.machine;
 			ambientSoundVolume = 0.05f;
 
-			consumes.power(5f);
+			powerProduction = 45f;
+			consumes.power(4.5f);
 			consumes.liquid(Liquids.oil, 2.5f);
 		}};
 
