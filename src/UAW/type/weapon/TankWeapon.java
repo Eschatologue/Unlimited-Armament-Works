@@ -92,6 +92,7 @@ public class TankWeapon extends UAWWeapon {
 	@Override
 	public void load() {
 		super.load();
+		outlineRegion = Core.atlas.find(name + "-icon");
 		gunOutline = Core.atlas.find(name + "-outlineTank");
 	}
 }
