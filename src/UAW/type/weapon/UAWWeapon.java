@@ -44,9 +44,7 @@ public class UAWWeapon extends Weapon {
 				weaponOutline.height * Draw.scl,
 				weaponRotation);
 		}
-
 	}
-
 
 	@Override
 	public void addStats(UnitType u, Table t) {

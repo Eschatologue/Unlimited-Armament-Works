@@ -35,11 +35,11 @@ public class TankWeapon extends UAWWeapon {
 					gunOutline.width * Draw.scl * -Mathf.sign(flipSprite),
 					gunOutline.height * Draw.scl,
 					weaponRotation);
-//				Draw.rect(region,
-//					wx, wy,
-//					region.width * Draw.scl * -Mathf.sign(flipSprite),
-//					region.height * Draw.scl,
-//					weaponRotation);
+				Draw.rect(region,
+					wx, wy,
+					region.width * Draw.scl * -Mathf.sign(flipSprite),
+					region.height * Draw.scl,
+					weaponRotation);
 			}
 		} else {
 			// Prevent crashes if I somehow fuck it up
@@ -92,8 +92,7 @@ public class TankWeapon extends UAWWeapon {
 	@Override
 	public void load() {
 		super.load();
-		outlineRegion = Core.atlas.find(name + "-icon");
-		gunOutline = Core.atlas.find(name + "-outline");
+		gunOutline = Core.atlas.find(name + "-outlineTank");
 	}
 }
 
