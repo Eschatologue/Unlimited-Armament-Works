@@ -19,7 +19,7 @@ import mindustry.world.blocks.environment.Floor;
 public class UAWUnitType extends UnitType {
 	public final Seq<Rotor> rotors = new Seq<>();
 
-	// Helicopter
+	// Helicopters
 	public float spinningFallSpeed = 0;
 	public float rotorDeathSlowdown = 0.01f;
 	public float fallSmokeX = 0f, fallSmokeY = -5f, fallSmokeChance = 0.1f;
