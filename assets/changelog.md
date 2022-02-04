@@ -1,28 +1,28 @@
 # Update 0.7.7
-**Update 0.7.7** is finally here.. after a month.. yeah i've been busy with IRL stuff. This update reworks tanks again and some other stuff
+**Update 0.7.7** is finally here.. after a month.. yeah I've been busy with IRL stuff. This update reworks tanks again and some other stuff
 
 ## What's new?
 1. Unit Rework
-All unit in UAW has been reworked of slighly tweaked, for example :
+All unit in UAW has been reworked of slightly tweaked, for example :
 	a. Helicopters
-			- When helicopters dies, their rotor will slow downs.
-			- Fixed a sudden pause when helicopter hits the ground while rotating
-			- New AI : Helicopter will rushes ground target while keeping a distance with airborne targets
+			- When helicopters die, their rotor will slowdowns.
+			- Fixed a sudden pause when the helicopter hits the ground while rotating
+			- New AI: Helicopter will rush ground target while keeping a distance with airborne targets
 	b. Tanks
-			- Tanks now has multiple mounts on top of its turret
+			- Tanks now has multiple mounts on top of their turret
 			- Better Trail effects for tanks
 			- Gun sound fix
 	c.  Jets
-			- Jets has better trail and new sprite, also renamed and will have much much less impact on the game perfomance
-			- Jufeng is renamed to 'Bandit', next in the unit tree name will have similar naming theme
-			- New AI : Jets will rushes ground target while keeping a distance with airborne targets
+			- Jets has better trail and new sprite, also renamed and will have much much less impact on the game performance
+			- Jufeng is renamed to 'Bandit', next in the unit tree name will have a similar naming theme
+			- New AI: Jets will rush ground target while keeping a distance from airborne targets
 2. Unit Constructor
-Its now no longer needed to use a vanilla unit to construct UAW units, all UAW units will have their own unit factory now.
-	 - Ground unit can be produced in "Armor Construction Facility"
+It now no longer needed to use a vanilla unit to construct UAW units, all UAW units will have their own unit factory now.
+	 - Ground unit can be produced in the "Armor Construction Facility"
 	 - Naval unit can be produced in "Naval Yard"
 	 - Air unit can be produced in "Aeronautic Manufacturing Pad"
 
-Theres probably other stuff i forgotten, you can download the update and check it out yourself
+There's probably other stuff i forgot, you can download the update and check it out yourself
 
 
 	

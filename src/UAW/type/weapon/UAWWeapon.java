@@ -1,19 +1,16 @@
 package UAW.type.weapon;
 
 import UAW.world.meta.UAWStatValues;
-import arc.graphics.Blending;
-import arc.graphics.g2d.Draw;
-import arc.math.*;
+import arc.Core;
+import arc.graphics.g2d.TextureRegion;
 import arc.scene.ui.layout.Table;
 import arc.struct.ObjectMap;
 import arc.util.Strings;
-import mindustry.entities.units.WeaponMount;
-import mindustry.gen.Unit;
-import mindustry.graphics.Drawf;
 import mindustry.type.*;
 import mindustry.world.meta.*;
 
 public class UAWWeapon extends Weapon {
+
 	public UAWWeapon(String name) {
 		this.name = name;
 	}

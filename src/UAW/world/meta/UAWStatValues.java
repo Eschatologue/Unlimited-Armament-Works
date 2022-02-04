@@ -239,19 +239,14 @@ public class UAWStatValues {
 			table.row();
 			for (int i = 0; i < weapons.size; i++) {
 				Weapon weapon = weapons.get(i);
-
 				if (weapon.flipSprite) {
 					//flipped weapons are not given stats
 					continue;
 				}
-
 				TextureRegion region = !weapon.name.equals("") && weapon.outlineRegion.found() ? weapon.outlineRegion : unit.fullIcon;
-
 				table.image(region).size(60).scaling(Scaling.bounded).right().top();
-
 				table.table(Tex.underline, w -> {
 					w.left().defaults().padRight(3).left();
-
 					weapon.addStats(unit, w);
 				}).padTop(-9).left();
 				table.row();
