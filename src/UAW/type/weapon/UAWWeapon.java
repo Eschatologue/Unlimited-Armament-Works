@@ -1,8 +1,6 @@
 package UAW.type.weapon;
 
 import UAW.world.meta.UAWStatValues;
-import arc.Core;
-import arc.graphics.g2d.TextureRegion;
 import arc.scene.ui.layout.Table;
 import arc.struct.ObjectMap;
 import arc.util.Strings;
@@ -10,7 +8,6 @@ import mindustry.type.*;
 import mindustry.world.meta.*;
 
 public class UAWWeapon extends Weapon {
-
 	public UAWWeapon(String name) {
 		this.name = name;
 	}
