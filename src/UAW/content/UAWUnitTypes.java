@@ -1283,17 +1283,18 @@ public class UAWUnitTypes implements ContentList {
 				mirror = false;
 				x = 6.75f;
 				y = -7.75f;
-				rotateSpeed = 1.5f;
+				rotateSpeed = 2f;
 				rotate = true;
 				shootY = 7f;
 				shake = 5f;
-				recoil = 4f;
+				recoil = 1.5f;
 				shadow = 12f;
 
 				shots = 3;
 				inaccuracy = 3f;
 				ejectEffect = Fx.casing3;
 				shootSound = Sounds.artillery;
+				velocityRnd = 0.3f;
 
 				bullet = new ArtilleryBulletType(3.2f, 55) {{
 					trailMult = 0.8f;
@@ -1319,14 +1320,15 @@ public class UAWUnitTypes implements ContentList {
 			}});
 			weapons.add(new Weapon(name + "-coaxial-mg") {{
 				layerOffset = -1.5f;
-				rotateShooting = rotate = false;
 				top = false;
+				mirror = false;
 				x = -6.5f;
 				y = 10f;
 				shootY = 5f;
 				reload = 5f;
 				recoil = 2f;
 				ejectEffect = UAWFxS.casing2Long;
+				inaccuracy = 1.5f;
 				bullet = new TrailBulletType(8f, 25) {{
 					height = 15f;
 					width = 7f;
@@ -1344,12 +1346,13 @@ public class UAWUnitTypes implements ContentList {
 			}});
 			weapons.add(new MissileLauncherWeapon("uaw-cruise-missile-launcher-red-2") {{
 				mirror = false;
+				rotate = true;
 				layerOffset = 1;
 				x = -7.5f;
 				y = -1f;
 				reload = 7 * 60f;
 				shootSound = UAWSfx.cruiseMissileShoot1;
-				rotateSpeed = 5f;
+				rotateSpeed = 1.2f;
 				bullet = new CruiseMissileBulletType(3f, 600) {{
 					size = 15;
 					homingRange = range;
