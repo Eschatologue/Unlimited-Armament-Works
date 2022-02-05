@@ -1051,6 +1051,7 @@ public class UAWUnitTypes implements ContentList {
 			hitSize = 16;
 			speed = 1.3f;
 			rotateSpeed = 2f;
+			baseRotateSpeed = rotateSpeed * 2.2f;
 			ammoType = new ItemAmmoType(Items.graphite);
 			singleTarget = true;
 
@@ -1121,6 +1122,7 @@ public class UAWUnitTypes implements ContentList {
 			hitSize = 25;
 			speed = 1.2f;
 			rotateSpeed = 1.4f;
+			baseRotateSpeed = rotateSpeed * 2.2f;
 			ammoType = new ItemAmmoType(Items.graphite);
 			singleTarget = true;
 
@@ -1131,7 +1133,7 @@ public class UAWUnitTypes implements ContentList {
 			drawCell = false;
 
 			groundTrailX = 5;
-			groundTrailY = -5;
+			groundTrailY = -8;
 			groundTrailSize = 1.3f;
 			groundTrailInterval = 0.6f;
 
@@ -1234,24 +1236,25 @@ public class UAWUnitTypes implements ContentList {
 			);
 		}};
 		armata = new UAWUnitType("armata") {{
-			health = 15000;
+			health = 14500;
 			armor = 45;
-			hitSize = 25;
-			speed = 1.2f;
-			rotateSpeed = 1.4f;
-			ammoType = new ItemAmmoType(Items.graphite);
+			hitSize = 32;
+			speed = 1.5f;
+			rotateSpeed = 1.1f;
+			baseRotateSpeed = rotateSpeed * 2.2f;
+			ammoType = new ItemAmmoType(UAWItems.titaniumCarbide);
 			singleTarget = true;
 
-			accel = 0.04f;
+			accel = 0.025f;
 			drag = 0.08f;
 			range = 50 * tilesize;
 			maxRange = range;
 			drawCell = false;
 
-			groundTrailX = 5;
-			groundTrailY = -5;
-			groundTrailSize = 1.3f;
-			groundTrailInterval = 0.6f;
+			groundTrailX = 16;
+			groundTrailY = -17.5f;
+			groundTrailSize = 1.6f;
+			groundTrailInterval = 0.4f;
 
 			immunities = ObjectSet.with(StatusEffects.disarmed, UAWStatusEffects.EMP, StatusEffects.freezing);
 			constructor = TankUnitEntity::new;
@@ -1287,7 +1290,7 @@ public class UAWUnitTypes implements ContentList {
 				rotate = true;
 				shootY = 7f;
 				shake = 5f;
-				recoil = 1.5f;
+				recoil = 0.5f;
 				shadow = 12f;
 
 				shots = 3;
@@ -1328,18 +1331,13 @@ public class UAWUnitTypes implements ContentList {
 				reload = 5f;
 				recoil = 2f;
 				ejectEffect = UAWFxS.casing2Long;
-				inaccuracy = 1.5f;
-				bullet = new TrailBulletType(8f, 25) {{
+				predictTarget = false;
+				inaccuracy = 8f;
+				bullet = new BasicBulletType(8f, 25) {{
 					height = 15f;
 					width = 7f;
-					splashDamage = damage;
-					splashDamageRadius = 16;
-					frontColor = Pal.missileYellow;
-					backColor = Pal.missileYellowBack;
 					buildingDamageMultiplier = 0.3f;
-					maxRange = range * 0.7f;
-					lifetime = range / speed;
-					status = StatusEffects.burning;
+					lifetime = (range * 0.75f) / speed;
 					hitEffect = new MultiEffect(Fx.blastExplosion, Fx.fireHit, Fx.blastsmoke);
 					ammoMultiplier = 8f;
 				}};
@@ -1384,7 +1382,7 @@ public class UAWUnitTypes implements ContentList {
 				soundPitchMax = 2.2f;
 				bullet = new TrailBulletType(12f, 550) {{
 					height = 38f;
-					width = 12f;
+					width = 15f;
 					homingPower = 0.0015f;
 					homingRange = 8 * tilesize;
 					lifetime = range / speed;

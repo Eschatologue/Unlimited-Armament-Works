@@ -64,7 +64,7 @@ public class UAWUnitType extends UnitType {
 			super.drawSoftShadow(unit, alpha);
 		} else if (unit instanceof TankUnitEntity) {
 			float rad = 1.6f;
-			float size = Math.max(hullRegion.width * 1.2f, hullRegion.height * 1.2f) * Draw.scl;
+			float size = Math.max(hullRegion.width * 0.7f, hullRegion.height * 0.7f) * Draw.scl;
 			Draw.z(z - 3f);
 			Draw.color(0, 0, 0, 0.4f * alpha);
 			Draw.rect(softShadowRegion, unit, size * rad * Draw.xscl, size * rad * Draw.yscl, unit.rotation - 90);
