@@ -1056,7 +1056,7 @@ public class UAWUnitTypes implements ContentList {
 
 			accel = 0.05f;
 			drag = 0.055f;
-			range = 26 * tilesize;
+			range = 30 * tilesize;
 			groundTrailInterval = 0.95f;
 			groundTrailX = 2.5f;
 
@@ -1095,37 +1095,28 @@ public class UAWUnitTypes implements ContentList {
 					shake = 6f;
 					soundPitchMin = 1.2f;
 					soundPitchMax = 1.4f;
-					bullet = new TrailBulletType(6f, 125) {{
+					bullet = new TrailBulletType(5f, 125) {{
+						splashDamage = damage;
+						splashDamageRadius = 3 * tilesize;
+						frontColor = Pal.missileYellow;
+						backColor = Pal.missileYellowBack;
 						height = 25f;
 						width = 8f;
 						lifetime = range / speed;
 						knockback = 4f;
-						armorIgnoreScl = 0.4f;
-						shieldDamageMultiplier = 1.5f;
-						trailColor = backColor;
+						shieldDamageMultiplier = 2f;
+						despawnHit = true;
 						shootEffect = new MultiEffect(UAWFxD.railShoot(22f, backColor), Fx.shootPyraFlame, Fx.shootSmallSmoke);
-						hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootSmallSmoke);
-						fragBullets = 4;
-						fragLifeMin = 0f;
-						fragCone = 30f;
+						hitEffect = new MultiEffect(Fx.blastExplosion, Fx.fireHit, Fx.blastsmoke);
+						fragBullets = 8;
 						collidesAir = false;
-						fragBullet = new BasicBulletType(7f, 6) {{
-							height = width = 8f;
-							pierce = true;
-							pierceBuilding = true;
-							pierceCap = 3;
-							lifetime = 30f;
-							hitEffect = Fx.flakExplosion;
-							splashDamage = damage;
-							splashDamageRadius = 8f;
-							hittable = false;
-						}};
+						fragBullet = fragGlassFrag;
 					}};
 				}}
 			);
 		}};
 		arkabuz = new UAWUnitType("arkabuz") {{
-			health = 7500;
+			health = 7250;
 			armor = 30;
 			hitSize = 25;
 			speed = 1.2f;
@@ -1135,7 +1126,7 @@ public class UAWUnitTypes implements ContentList {
 
 			accel = 0.04f;
 			drag = 0.08f;
-			range = 35 * tilesize;
+			range = 40 * tilesize;
 			maxRange = range;
 			drawCell = false;
 
@@ -1214,17 +1205,16 @@ public class UAWUnitTypes implements ContentList {
 						homingRange = 8 * tilesize;
 						lifetime = range / speed;
 						pierce = true;
-						pierceCap = 2;
-						knockback = 6f;
+						pierceCap = 3;
+						knockback = 5f;
 						trailColor = backColor;
-						armorIgnoreScl = 0.6f;
-						shieldDamageMultiplier = 2f;
+						armorIgnoreScl = 0.5f;
+						shieldDamageMultiplier = 1.5f;
 						shootEffect = new MultiEffect(UAWFxD.railShoot(30f, backColor), Fx.shootPyraFlame, UAWFxS.muzzleBreakShootSmoke);
 						hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootBigSmoke2);
-						fragBullets = 6;
+						fragBullets = 5;
 						fragLifeMin = 0f;
 						fragCone = 30f;
-						status = StatusEffects.melting;
 						collidesAir = false;
 						despawnHit = true;
 						fragBullet = new BasicBulletType(7f, 9) {{
