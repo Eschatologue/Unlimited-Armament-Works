@@ -1059,7 +1059,7 @@ public class UAWUnitTypes implements ContentList {
 			drag = 0.055f;
 			range = 30 * tilesize;
 			groundTrailInterval = 0.95f;
-			groundTrailX = 2.5f;
+			groundTrailSpacing = 2.5f;
 
 			immunities = ObjectSet.with(StatusEffects.disarmed, UAWStatusEffects.EMP, StatusEffects.freezing);
 			constructor = TankUnitEntity::new;
@@ -1132,8 +1132,8 @@ public class UAWUnitTypes implements ContentList {
 			maxRange = range;
 			drawCell = false;
 
-			groundTrailX = 5;
-			groundTrailY = -8;
+			groundTrailSpacing = 5;
+			groundTrailY = 8;
 			groundTrailSize = 1.3f;
 			groundTrailInterval = 0.6f;
 
@@ -1241,20 +1241,19 @@ public class UAWUnitTypes implements ContentList {
 			hitSize = 32;
 			speed = 1.5f;
 			rotateSpeed = 1.1f;
-			baseRotateSpeed = rotateSpeed * 2.2f;
+			baseRotateSpeed = rotateSpeed * 2.5f;
 			ammoType = new ItemAmmoType(UAWItems.titaniumCarbide);
-			singleTarget = true;
 
-			accel = 0.025f;
-			drag = 0.08f;
+			accel = 0.25f;
+			drag = 0.06f;
 			range = 50 * tilesize;
 			maxRange = range;
 			drawCell = false;
 
-			groundTrailX = 16;
-			groundTrailY = -17.5f;
-			groundTrailSize = 1.6f;
-			groundTrailInterval = 0.4f;
+			groundTrailSpacing = 16;
+			groundTrailY = 15.5f;
+			groundTrailSize = 1.2f;
+			groundTrailInterval = 0.6f;
 
 			immunities = ObjectSet.with(StatusEffects.disarmed, UAWStatusEffects.EMP, StatusEffects.freezing);
 			constructor = TankUnitEntity::new;
@@ -1290,7 +1289,7 @@ public class UAWUnitTypes implements ContentList {
 				rotate = true;
 				shootY = 7f;
 				shake = 5f;
-				recoil = 0.5f;
+				recoil = 0.25f;
 				shadow = 12f;
 
 				shots = 3;

@@ -29,7 +29,7 @@ public class UAWUnitType extends UnitType {
 	public float turretX = 0f, turretY = 0f;
 	public float groundTrailSize = 1;
 	public float groundTrailInterval = 0.5f;
-	public float groundTrailX = 0f, groundTrailY = 0f;
+	public float groundTrailSpacing = 0f, groundTrailY = 0f;
 	public float liquidSpeedMultiplier = 1.2f;
 
 	// Jets
@@ -143,21 +143,19 @@ public class UAWUnitType extends UnitType {
 	public void drawTankTrail(Unit unit) {
 		Floor floor = Vars.world.floorWorld(unit.x, unit.y);
 		Color floorColor = floor.mapColor;
-		if (unit instanceof TankUnitEntity) {
+		if (unit instanceof TankUnitEntity tank) {
 			if (((timer += Time.delta) >= groundTrailInterval)
 				&& !floor.isLiquid && unit.moving() && groundTrailSize > 0) {
-				Fx.unitLandSmall.at(
-					unit.x + Angles.trnsx(unit.rotation - 90, groundTrailX, groundTrailY),
-					unit.y + Angles.trnsy(unit.rotation - 90, groundTrailX, groundTrailY),
-					(hitSize / 24) * groundTrailSize,
-					floorColor
-				);
-				Fx.unitLandSmall.at(
-					unit.x + Angles.trnsx(unit.rotation - 90, -groundTrailX, groundTrailY),
-					unit.y + Angles.trnsy(unit.rotation - 90, -groundTrailX, groundTrailY),
-					(hitSize / 24) * groundTrailSize,
-					floorColor
-				);
+				for (int i : Mathf.zeroOne) {
+					int side = Mathf.signs[i];
+					float tankTrailOffset = groundTrailSpacing * side;
+					Fx.unitLandSmall.at(
+						unit.x + Angles.trnsx(tank.hullRotation - 90, tankTrailOffset, groundTrailY),
+						unit.y + Angles.trnsy(tank.hullRotation - 90, tankTrailOffset, groundTrailY),
+						(hitSize / 24) * groundTrailSize,
+						floorColor
+					);
+				}
 				timer = 0f;
 			}
 		}

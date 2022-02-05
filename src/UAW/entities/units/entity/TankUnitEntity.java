@@ -8,9 +8,12 @@ import arc.util.*;
 import mindustry.Vars;
 import mindustry.entities.EntityCollisions;
 import mindustry.gen.UnitEntity;
+import mindustry.graphics.Trail;
 import mindustry.world.blocks.environment.Floor;
 
 public class TankUnitEntity extends UnitEntity {
+//	private final transient Trail tleft = new Trail(1);
+//	private final transient Trail tright = new Trail(1);
 	public float hullRotation;
 
 	@Override
