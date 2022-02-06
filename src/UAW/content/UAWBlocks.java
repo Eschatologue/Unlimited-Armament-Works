@@ -1127,8 +1127,8 @@ public class UAWBlocks implements ContentList {
 
 			upgrades.addAll(
 				new UnitType[]{UAWUnitTypes.bedivere, UAWUnitTypes.calogrenant},
-				new UnitType[]{UAWUnitTypes.kujang, UAWUnitTypes.kerambit}
-				//new UnitType[]{UAWUnitTypes.arkabuz, UAWUnitTypes.armata},
+				new UnitType[]{UAWUnitTypes.kujang, UAWUnitTypes.kerambit},
+				new UnitType[]{UAWUnitTypes.arkabuz, UAWUnitTypes.armata}
 				//new UnitType[]{UAWUnitTypes.shiratsuyu, UAWUnitTypes.kagero}
 			);
 		}};

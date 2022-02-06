@@ -6,7 +6,7 @@ import mindustry.type.Item;
 
 public class UAWItems implements ContentList {
 	public static Item placeholder,
-		cryogel, anthracite, titaniumCarbide;
+		cryogel, anthracite, titaniumCarbide, petroleumCore;
 
 	@Override
 	public void load() {
@@ -14,13 +14,11 @@ public class UAWItems implements ContentList {
 			flammability = -10f;
 			explosiveness = 0f;
 		}};
-
 		anthracite = new Item("item-anthracite", Color.valueOf("272727")) {{
 			flammability = 1.8f;
 			explosiveness = 0.25f;
 			hardness = 6;
 		}};
-
 		titaniumCarbide = new Item("item-titanium-carbide", Color.valueOf("7575C8")) {{
 			cost = 2.5f;
 		}};

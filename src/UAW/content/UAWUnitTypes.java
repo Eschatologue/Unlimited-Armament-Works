@@ -809,6 +809,7 @@ public class UAWUnitTypes implements ContentList {
 				rotateSpeed = 1f;
 				x = 0f;
 				y = -3f;
+				shootY = 160 * px;
 				targetFlags = new BlockFlag[]{
 					BlockFlag.turret,
 					BlockFlag.extinguisher,
@@ -1244,7 +1245,7 @@ public class UAWUnitTypes implements ContentList {
 			maxRange = range;
 			drawCell = false;
 
-			groundTrailSpacing = 12;
+			groundTrailSpacing = 10;
 			groundTrailY = -15.5f;
 			groundTrailSize = 0.9f;
 			groundTrailInterval = 0.7f;
@@ -1336,21 +1337,21 @@ public class UAWUnitTypes implements ContentList {
 					homingPower = 0.0015f;
 					homingRange = 8 * tilesize;
 					lifetime = range / speed;
-					pierce = true;
-					pierceCap = 4;
+					pierceCap = 5;
 					trailColor = backColor;
 					armorIgnoreScl = 0.95f;
 					absorbable = false;
 					buildingDamageMultiplier = 0.2f;
 					shootEffect = new MultiEffect(UAWFxD.railShoot(40f, backColor), Fx.shootPyraFlame, UAWFxS.muzzleBreakShootSmoke);
 					hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootBigSmoke2, Fx.railHit);
+					hitSound = Sounds.shotgun;
 					collidesAir = false;
 					despawnHit = true;
 					trailInterval = 2f;
-					trailEffect = new Effect(16f, e -> {
+					trailEffect = new Effect(20f, e -> {
 						color(backColor);
 						for (int s : Mathf.signs) {
-							Drawf.tri(e.x, e.y, 6f, 35f * e.fslope(), e.rotation + 135f * s);
+							Drawf.tri(e.x, e.y, 6f, 40f * e.fslope(), e.rotation + 135f * s);
 						}
 					});
 				}};
