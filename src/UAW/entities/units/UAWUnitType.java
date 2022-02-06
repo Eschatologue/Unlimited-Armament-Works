@@ -49,7 +49,7 @@ public class UAWUnitType extends UnitType {
 		float z = unit.elevation > 0.5f ? (lowAltitude ? Layer.flyingUnitLow : Layer.flyingUnit) : groundLayer + Mathf.clamp(hitSize / 4000f, 0, 0.01f);
 		super.draw(unit);
 		if (unit instanceof TankUnitEntity tank) {
-			Draw.z(z - 0.02f);
+			Draw.z(z - 0.05f);
 			drawTankHullOutline(tank);
 			drawTankHull(tank);
 		}

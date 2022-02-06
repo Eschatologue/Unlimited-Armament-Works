@@ -8,6 +8,7 @@ import arc.util.*;
 import mindustry.Vars;
 import mindustry.entities.EntityCollisions;
 import mindustry.gen.UnitEntity;
+import mindustry.graphics.Layer;
 import mindustry.world.blocks.environment.Floor;
 
 public class TankUnitEntity extends UnitEntity {
@@ -43,6 +44,7 @@ public class TankUnitEntity extends UnitEntity {
 			float len = deltaLen();
 			hullRotation = Angles.moveToward(hullRotation, deltaAngle(), type().baseRotateSpeed * Mathf.clamp(len / type().speed / Time.delta) * Time.delta);
 		}
+		type.groundLayer = Layer.groundUnit - 2;
 	}
 
 	@Override
