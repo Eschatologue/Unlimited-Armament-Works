@@ -1267,8 +1267,8 @@ public class UAWUnitTypes implements ContentList {
 				recoil = 0.5f;
 				recoilTime = 2f;
 				shootCone = 10f;
-				x = 5f;
-				y = 4f;
+				x = 7.5f;
+				y = 3.25f;
 				ejectEffect = Fx.casing2;
 				predictTarget = false;
 				inaccuracy = 10f;
@@ -1278,46 +1278,6 @@ public class UAWUnitTypes implements ContentList {
 					lifetime = (range * 0.5f) / speed;
 					maxRange = range * 0.5f;
 					shootEffect = Fx.shootBigSmoke;
-				}};
-			}});
-			weapons.add(new Weapon("large-artillery") {{
-				reload = 60f;
-				mirror = false;
-				x = 6.75f;
-				y = -7.75f;
-				rotateSpeed = 2f;
-				rotate = true;
-				shootY = 7f;
-				shake = 5f;
-				recoil = 0.25f;
-				shadow = 12f;
-
-				shots = 3;
-				inaccuracy = 3f;
-				ejectEffect = Fx.casing3;
-				shootSound = Sounds.artillery;
-				velocityRnd = 0.3f;
-
-				bullet = new ArtilleryBulletType(3.2f, 55) {{
-					trailMult = 0.8f;
-					hitEffect = Fx.massiveExplosion;
-					knockback = 1.5f;
-					lifetime = 84f;
-					height = 15.5f;
-					width = 15f;
-					collidesTiles = false;
-					splashDamageRadius = 40f;
-					splashDamage = 70f;
-					backColor = Pal.missileYellowBack;
-					frontColor = Pal.missileYellow;
-					trailEffect = Fx.artilleryTrail;
-					trailSize = 6f;
-					hitShake = 4f;
-
-					shootEffect = Fx.shootBig2;
-
-					status = StatusEffects.blasted;
-					statusDuration = 60f;
 				}};
 			}});
 			weapons.add(new Weapon(name + "-coaxial-mg") {{
@@ -1341,12 +1301,29 @@ public class UAWUnitTypes implements ContentList {
 					ammoMultiplier = 8f;
 				}};
 			}});
+			weapons.add(new PointDefenseWeapon("uaw-point-defense-red") {{
+				ignoreRotation = true;
+				mirror = false;
+				x = -6f;
+				y = 3.5f;
+				reload = 4.5f;
+				targetInterval = 5f;
+				targetSwitchInterval = 7.5f;
+				color = Pal.bulletYellow;
+
+				bullet = new BulletType() {{
+					shootEffect = Fx.sparkShoot;
+					hitEffect = Fx.pointHit;
+					maxRange = 100f;
+					damage = 35f;
+				}};
+			}});
 			weapons.add(new MissileLauncherWeapon("uaw-cruise-missile-launcher-red-2") {{
 				mirror = false;
 				rotate = true;
-				layerOffset = 1;
-				x = -7.5f;
-				y = -1f;
+				layerOffset = 0.1f;
+				x = 0f;
+				y = -4.75f;
 				reload = 7 * 60f;
 				shootSound = UAWSfx.cruiseMissileShoot1;
 				rotateSpeed = 1.2f;

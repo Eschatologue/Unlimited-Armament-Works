@@ -8,11 +8,10 @@ import arc.util.*;
 import mindustry.Vars;
 import mindustry.entities.EntityCollisions;
 import mindustry.gen.UnitEntity;
-import mindustry.graphics.Trail;
 import mindustry.world.blocks.environment.Floor;
 
 public class TankUnitEntity extends UnitEntity {
-//	private final transient Trail tleft = new Trail(1);
+	//	private final transient Trail tleft = new Trail(1);
 //	private final transient Trail tright = new Trail(1);
 	public float hullRotation;
 
@@ -52,5 +51,10 @@ public class TankUnitEntity extends UnitEntity {
 		if (!vec.isZero()) {
 			hullRotation = Angles.moveToward(hullRotation, vec.angle(), type.rotateSpeed * Math.max(Time.delta, 1));
 		}
+	}
+
+	@Override
+	public void lookAt(float angle) {
+		this.rotation = Angles.moveToward(this.rotation, angle, this.type.rotateSpeed * Time.delta);
 	}
 }
