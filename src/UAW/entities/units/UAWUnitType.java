@@ -31,6 +31,7 @@ public class UAWUnitType extends UnitType {
 	public float groundTrailInterval = 0.5f;
 	public float groundTrailSpacing = 0f, groundTrailY = 0f;
 	public float liquidSpeedMultiplier = 1.2f;
+	public boolean drawHullCell = true;
 
 	// Jets
 	public float engineSizeShrink = 0.1f;
@@ -121,8 +122,10 @@ public class UAWUnitType extends UnitType {
 		Draw.mixcol(Color.white, unit.hitTime);
 		applyColor(unit);
 		Draw.rect(hullRegion, unit, tank.hullRotation - 90);
-		Draw.color(cellColor(unit));
-		Draw.rect(hullCellRegion, unit, tank.hullRotation - 90);
+		if (drawHullCell) {
+			Draw.color(cellColor(unit));
+			Draw.rect(hullCellRegion, unit, tank.hullRotation - 90);
+		}
 		Draw.mixcol();
 		Draw.reset();
 	}

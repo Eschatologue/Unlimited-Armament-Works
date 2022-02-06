@@ -24,6 +24,7 @@ import mindustry.type.ammo.ItemAmmoType;
 import mindustry.type.weapons.PointDefenseWeapon;
 import mindustry.world.meta.BlockFlag;
 
+import static UAW.Vars.modName;
 import static mindustry.Vars.tilesize;
 import static mindustry.content.Bullets.*;
 
@@ -124,7 +125,7 @@ public class UAWUnitTypes implements ContentList {
 				}}
 			);
 			weapons.add(
-				new Weapon("uaw-missile-small-red-2") {{
+				new Weapon(modName + "missile-small-red-2") {{
 					rotate = false;
 					mirror = true;
 					shootCone = 90;
@@ -157,7 +158,7 @@ public class UAWUnitTypes implements ContentList {
 						ammoMultiplier = 4f;
 					}};
 				}},
-				new Weapon("uaw-machine-gun-small-red") {{
+				new Weapon(modName + "machine-gun-small-red") {{
 					layerOffset = -0.01f;
 					rotate = false;
 					mirror = true;
@@ -216,7 +217,7 @@ public class UAWUnitTypes implements ContentList {
 			);
 
 			weapons.add(
-				new Weapon("uaw-machine-gun-small-red") {{
+				new Weapon(modName + "machine-gun-small-red") {{
 					layerOffset = -0.005f;
 					minShootVelocity = 0.75f;
 					rotate = top = false;
@@ -243,7 +244,7 @@ public class UAWUnitTypes implements ContentList {
 						ammoMultiplier = 8f;
 					}};
 				}},
-				new Weapon("uaw-launcher-medium-red-2") {{
+				new Weapon(modName + "launcher-medium-red-2") {{
 					minShootVelocity = 0.75f;
 					rotate = false;
 					alternate = mirror = true;
@@ -329,7 +330,7 @@ public class UAWUnitTypes implements ContentList {
 			defaultController = DynamicFlyingAI::new;
 
 			weapons.add(
-				new PointDefenseWeapon("uaw-point-defense-red") {{
+				new PointDefenseWeapon(modName + "point-defense-red") {{
 					mirror = false;
 					x = 0f;
 					y = 3f;
@@ -346,7 +347,7 @@ public class UAWUnitTypes implements ContentList {
 						damage = 15f;
 					}};
 				}},
-				new Weapon("uaw-machine-gun-medium-red") {{
+				new Weapon(modName + "machine-gun-medium-red") {{
 					rotate = false;
 					inaccuracy = 6f;
 					mirror = true;
@@ -371,7 +372,7 @@ public class UAWUnitTypes implements ContentList {
 						ammoMultiplier = 8f;
 					}};
 				}},
-				new UAWWeapon("uaw-artillery-small-red") {{
+				new UAWWeapon(modName + "artillery-small-red") {{
 					mirror = alternate = true;
 					rotate = false;
 					x = 11f;
@@ -550,7 +551,7 @@ public class UAWUnitTypes implements ContentList {
 			constructor = UnitWaterMove::create;
 
 			weapons.add(
-				new PointDefenseWeapon("uaw-point-defense-purple") {{
+				new PointDefenseWeapon(modName + "point-defense-purple") {{
 					rotate = autoTarget = true;
 					mirror = controllable = false;
 					x = 0;
@@ -568,7 +569,7 @@ public class UAWUnitTypes implements ContentList {
 						damage = 10f;
 					}};
 				}},
-				new Weapon("uaw-machine-gun-small-purple") {{
+				new Weapon(modName + "machine-gun-small-purple") {{
 					rotate = mirror = autoTarget = true;
 					controllable = false;
 					x = 5f;
@@ -581,7 +582,7 @@ public class UAWUnitTypes implements ContentList {
 					shotDelay = 5f;
 					bullet = flakGlass;
 				}},
-				new Weapon("uaw-artillery-small-purple") {{
+				new Weapon(modName + "artillery-small-purple") {{
 					mirror = rotate = alternate = true;
 					x = 5.5f;
 					y = -8f;
@@ -636,7 +637,7 @@ public class UAWUnitTypes implements ContentList {
 			commandLimit = 4;
 
 			weapons.add(
-				new PointDefenseWeapon("uaw-point-defense-purple") {{
+				new PointDefenseWeapon(modName + "point-defense-purple") {{
 					rotate = autoTarget = true;
 					mirror = controllable = false;
 					x = 0f;
@@ -654,7 +655,7 @@ public class UAWUnitTypes implements ContentList {
 						damage = 10f;
 					}};
 				}},
-				new Weapon("uaw-machine-gun-small-purple") {{
+				new Weapon(modName + "machine-gun-small-purple") {{
 					rotate = mirror = autoTarget = alternate = true;
 					controllable = false;
 					x = 7f;
@@ -665,7 +666,7 @@ public class UAWUnitTypes implements ContentList {
 					ejectEffect = Fx.casing2;
 					bullet = fragGlass;
 				}},
-				new Weapon("uaw-missile-large-purple") {{
+				new Weapon(modName + "missile-large-purple") {{
 					rotate = true;
 					mirror = false;
 					rotateSpeed = 1f;
@@ -729,7 +730,7 @@ public class UAWUnitTypes implements ContentList {
 			constructor = UnitWaterMove::create;
 			forceMultiTarget = true;
 			weapons.add(
-				new PointDefenseWeapon("uaw-point-defense-purple") {{
+				new PointDefenseWeapon(modName + "point-defense-purple") {{
 					mirror = true;
 					x = 9f;
 					y = 12f;
@@ -746,7 +747,7 @@ public class UAWUnitTypes implements ContentList {
 						damage = 15f;
 					}};
 				}},
-				new PointDefenseWeapon("uaw-point-defense-purple") {{
+				new PointDefenseWeapon(modName + "point-defense-purple") {{
 					mirror = true;
 					x = 18f;
 					y = -11f;
@@ -763,7 +764,7 @@ public class UAWUnitTypes implements ContentList {
 						damage = 15f;
 					}};
 				}},
-				new Weapon("uaw-machine-gun-medium-purple") {{
+				new Weapon(modName + "machine-gun-medium-purple") {{
 					rotate = mirror = autoTarget = alternate = true;
 					controllable = false;
 					x = 12f;
@@ -801,7 +802,7 @@ public class UAWUnitTypes implements ContentList {
 						fragBullet = flakGlass;
 					}};
 				}},
-				new Weapon("uaw-artillery-large-purple") {{
+				new Weapon(modName + "artillery-large-purple") {{
 					rotate = true;
 					mirror = false;
 					rotateSpeed = 1f;
@@ -906,7 +907,7 @@ public class UAWUnitTypes implements ContentList {
 						maxEnemyHitSize = 35;
 					}};
 				}},
-				new PointDefenseWeapon("uaw-point-defense-red") {{
+				new PointDefenseWeapon(modName + "point-defense-red") {{
 					rotate = autoTarget = true;
 					mirror = controllable = false;
 					x = 0f;
@@ -969,7 +970,7 @@ public class UAWUnitTypes implements ContentList {
 						hitSizeDamageScl = 4;
 					}};
 				}},
-				new PointDefenseWeapon("uaw-point-defense-red") {{
+				new PointDefenseWeapon(modName + "point-defense-red") {{
 					rotate = autoTarget = true;
 					mirror = controllable = false;
 					x = 0f;
@@ -987,7 +988,7 @@ public class UAWUnitTypes implements ContentList {
 						damage = 15f;
 					}};
 				}},
-				new Weapon("uaw-machine-gun-medium-red") {{
+				new Weapon(modName + "machine-gun-medium-red") {{
 					rotate = true;
 					inaccuracy = 3f;
 					mirror = true;
@@ -1011,7 +1012,7 @@ public class UAWUnitTypes implements ContentList {
 						hitEffect = new MultiEffect(Fx.hitBulletSmall, Fx.shootSmallSmoke);
 					}};
 				}},
-				new Weapon("uaw-missile-medium-red-single") {{
+				new Weapon(modName + "missile-medium-red-single") {{
 					reload = 45f;
 					x = 0f;
 					y = -8f;
@@ -1049,14 +1050,12 @@ public class UAWUnitTypes implements ContentList {
 			health = 750;
 			armor = 18;
 			hitSize = 16;
-			speed = 1.3f;
+			speed = 1.5f;
 			rotateSpeed = 2f;
 			baseRotateSpeed = rotateSpeed * 2.2f;
 			ammoType = new ItemAmmoType(Items.graphite);
 			singleTarget = true;
 
-			accel = 0.05f;
-			drag = 0.055f;
 			range = 30 * tilesize;
 			groundTrailInterval = 0.95f;
 			groundTrailSpacing = 2.5f;
@@ -1065,7 +1064,7 @@ public class UAWUnitTypes implements ContentList {
 			constructor = TankUnitEntity::new;
 
 			weapons.add(
-				new Weapon("uaw-point-defense-red") {{
+				new Weapon(modName + "point-defense-red") {{
 					ignoreRotation = true;
 					mirror = false;
 					reload = 5f;
@@ -1120,20 +1119,18 @@ public class UAWUnitTypes implements ContentList {
 			health = 7250;
 			armor = 30;
 			hitSize = 25;
-			speed = 1.2f;
+			speed = 0.9f;
 			rotateSpeed = 1.4f;
 			baseRotateSpeed = rotateSpeed * 2.2f;
 			ammoType = new ItemAmmoType(Items.graphite);
 			singleTarget = true;
 
-			accel = 0.04f;
-			drag = 0.08f;
 			range = 40 * tilesize;
 			maxRange = range;
 			drawCell = false;
 
 			groundTrailSpacing = 5;
-			groundTrailY = 8;
+			groundTrailY = -7;
 			groundTrailSize = 1.3f;
 			groundTrailInterval = 0.6f;
 
@@ -1141,7 +1138,7 @@ public class UAWUnitTypes implements ContentList {
 			constructor = TankUnitEntity::new;
 
 			weapons.add(
-				new Weapon("uaw-machine-gun-medium-red-r") {{
+				new Weapon(modName + "machine-gun-medium-red-r") {{
 					ignoreRotation = true;
 					layerOffset = 1.5f;
 					rotate = true;
@@ -1163,7 +1160,7 @@ public class UAWUnitTypes implements ContentList {
 						shootEffect = Fx.shootBigSmoke;
 					}};
 				}},
-				new MissileLauncherWeapon("uaw-cruise-missile-launcher-red") {{
+				new MissileLauncherWeapon(modName + "cruise-missile-launcher-red") {{
 					rotate = top = mirror = false;
 					layerOffset = 1;
 					x = 11.5f;
@@ -1238,27 +1235,26 @@ public class UAWUnitTypes implements ContentList {
 		armata = new UAWUnitType("armata") {{
 			health = 14500;
 			armor = 45;
-			hitSize = 32;
-			speed = 1.5f;
+			hitSize = 35;
+			speed = 0.8f;
 			rotateSpeed = 1.1f;
 			baseRotateSpeed = rotateSpeed * 2.5f;
 			ammoType = new ItemAmmoType(UAWItems.titaniumCarbide);
 
 			accel = 0.25f;
-			drag = 0.06f;
 			range = 50 * tilesize;
 			maxRange = range;
 			drawCell = false;
 
 			groundTrailSpacing = 16;
-			groundTrailY = 15.5f;
+			groundTrailY = -15.5f;
 			groundTrailSize = 1.2f;
-			groundTrailInterval = 0.6f;
+			groundTrailInterval = 0.7f;
 
 			immunities = ObjectSet.with(StatusEffects.disarmed, UAWStatusEffects.EMP, StatusEffects.freezing);
 			constructor = TankUnitEntity::new;
 
-			weapons.add(new Weapon("uaw-machine-gun-medium-red") {{
+			weapons.add(new Weapon(modName + "machine-gun-medium-red") {{
 				ignoreRotation = true;
 				layerOffset = 1.5f;
 				rotate = true;
@@ -1301,7 +1297,7 @@ public class UAWUnitTypes implements ContentList {
 					ammoMultiplier = 8f;
 				}};
 			}});
-			weapons.add(new PointDefenseWeapon("uaw-point-defense-red") {{
+			weapons.add(new PointDefenseWeapon(modName + "point-defense-red") {{
 				ignoreRotation = true;
 				mirror = false;
 				x = -6f;
@@ -1318,7 +1314,7 @@ public class UAWUnitTypes implements ContentList {
 					damage = 35f;
 				}};
 			}});
-			weapons.add(new MissileLauncherWeapon("uaw-cruise-missile-launcher-red-2") {{
+			weapons.add(new MissileLauncherWeapon(modName + "cruise-missile-launcher-red-2") {{
 				mirror = false;
 				rotate = true;
 				layerOffset = 0.1f;
