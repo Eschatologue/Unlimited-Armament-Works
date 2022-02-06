@@ -15,6 +15,7 @@ import arc.struct.*;
 import arc.struct.ObjectMap.Entry;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
+import mindustry.entities.Effect;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.gen.*;
@@ -24,7 +25,8 @@ import mindustry.type.ammo.ItemAmmoType;
 import mindustry.type.weapons.PointDefenseWeapon;
 import mindustry.world.meta.BlockFlag;
 
-import static UAW.Vars.modName;
+import static UAW.Vars.*;
+import static arc.graphics.g2d.Draw.color;
 import static mindustry.Vars.tilesize;
 import static mindustry.content.Bullets.*;
 
@@ -1050,15 +1052,15 @@ public class UAWUnitTypes implements ContentList {
 			health = 750;
 			armor = 18;
 			hitSize = 16;
-			speed = 1.5f;
-			rotateSpeed = 2f;
+			speed = 1.2f;
+			rotateSpeed = 1.2f;
 			baseRotateSpeed = rotateSpeed * 2.2f;
 			ammoType = new ItemAmmoType(Items.graphite);
 			singleTarget = true;
 
 			range = 30 * tilesize;
 			groundTrailInterval = 0.95f;
-			groundTrailSpacing = 2.5f;
+			groundTrailSpacing = 2.6f;
 
 			immunities = ObjectSet.with(StatusEffects.disarmed, UAWStatusEffects.EMP, StatusEffects.freezing);
 			constructor = TankUnitEntity::new;
@@ -1120,7 +1122,7 @@ public class UAWUnitTypes implements ContentList {
 			armor = 30;
 			hitSize = 25;
 			speed = 0.9f;
-			rotateSpeed = 1.4f;
+			rotateSpeed = 1f;
 			baseRotateSpeed = rotateSpeed * 2.2f;
 			ammoType = new ItemAmmoType(Items.graphite);
 			singleTarget = true;
@@ -1235,10 +1237,10 @@ public class UAWUnitTypes implements ContentList {
 		armata = new UAWUnitType("armata") {{
 			health = 14500;
 			armor = 45;
-			hitSize = 35;
-			speed = 0.8f;
-			rotateSpeed = 1.1f;
-			baseRotateSpeed = rotateSpeed * 2.5f;
+			hitSize = 30;
+			speed = 1f;
+			rotateSpeed = 1.2f;
+			baseRotateSpeed = rotateSpeed * 2.2f;
 			ammoType = new ItemAmmoType(UAWItems.titaniumCarbide);
 
 			accel = 0.25f;
@@ -1246,9 +1248,9 @@ public class UAWUnitTypes implements ContentList {
 			maxRange = range;
 			drawCell = false;
 
-			groundTrailSpacing = 16;
+			groundTrailSpacing = 14;
 			groundTrailY = -15.5f;
-			groundTrailSize = 1.2f;
+			groundTrailSize = 0.8f;
 			groundTrailInterval = 0.7f;
 
 			immunities = ObjectSet.with(StatusEffects.disarmed, UAWStatusEffects.EMP, StatusEffects.freezing);
@@ -1259,7 +1261,7 @@ public class UAWUnitTypes implements ContentList {
 				layerOffset = 1.5f;
 				rotate = true;
 				mirror = false;
-				reload = 5f;
+				reload = 4f;
 				recoil = 0.5f;
 				recoilTime = 2f;
 				shootCone = 10f;
@@ -1268,33 +1270,12 @@ public class UAWUnitTypes implements ContentList {
 				ejectEffect = Fx.casing2;
 				predictTarget = false;
 				inaccuracy = 10f;
-				bullet = new BasicBulletType(4, 15) {{
+				bullet = new BasicBulletType(6, 35) {{
 					height = 14;
 					width = 9f;
-					lifetime = (range * 0.5f) / speed;
-					maxRange = range * 0.5f;
-					shootEffect = Fx.shootBigSmoke;
-				}};
-			}});
-			weapons.add(new Weapon(name + "-coaxial-mg") {{
-				layerOffset = -1.5f;
-				top = false;
-				mirror = false;
-				x = -6.5f;
-				y = 10f;
-				shootY = 5f;
-				reload = 5f;
-				recoil = 2f;
-				ejectEffect = UAWFxS.casing2Long;
-				predictTarget = false;
-				inaccuracy = 8f;
-				bullet = new BasicBulletType(8f, 25) {{
-					height = 15f;
-					width = 7f;
-					buildingDamageMultiplier = 0.3f;
 					lifetime = (range * 0.75f) / speed;
-					hitEffect = new MultiEffect(Fx.blastExplosion, Fx.fireHit, Fx.blastsmoke);
-					ammoMultiplier = 8f;
+					maxRange = range * 0.75f;
+					shootEffect = Fx.shootBigSmoke;
 				}};
 			}});
 			weapons.add(new PointDefenseWeapon(modName + "point-defense-red") {{
@@ -1345,16 +1326,16 @@ public class UAWUnitTypes implements ContentList {
 				layerOffset = -1.5f;
 				x = 0f;
 				y = 0f;
-				shootY = 26f;
+				shootY = 163f * px;
 				reload = 3 * 60;
 				shootSound = Sounds.shootBig;
-				ejectEffect = UAWFxS.casing3Long;
+				ejectEffect = UAWFxS.casing4Long;
 				shake = 18f;
 				soundPitchMin = 1.8f;
 				soundPitchMax = 2.2f;
-				bullet = new TrailBulletType(12f, 550) {{
+				bullet = new TrailBulletType(10f, 550) {{
 					height = 38f;
-					width = 15f;
+					width = 12f;
 					homingPower = 0.0015f;
 					homingRange = 8 * tilesize;
 					lifetime = range / speed;
@@ -1365,9 +1346,15 @@ public class UAWUnitTypes implements ContentList {
 					absorbable = false;
 					buildingDamageMultiplier = 0.2f;
 					shootEffect = new MultiEffect(UAWFxD.railShoot(40f, backColor), Fx.shootPyraFlame, UAWFxS.muzzleBreakShootSmoke);
-					hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootBigSmoke2);
+					hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootBigSmoke2, Fx.railHit);
 					collidesAir = false;
 					despawnHit = true;
+					trailEffect = new Effect(16f, e -> {
+						color(Pal.heal);
+						for (int s : Mathf.signs) {
+							Drawf.tri(e.x, e.y, 4f, 25f * e.fslope(), e.rotation + 135f * s);
+						}
+					});
 				}};
 			}});
 		}};

@@ -174,6 +174,22 @@ public class UAWFxS {
 		);
 	}).layer(Layer.bullet),
 
+	casing4Long = new Effect(45f, e -> {
+		color(Pal.lightOrange, Pal.lightishGray, Pal.lightishGray, e.fin());
+		alpha(e.fout(0.5f));
+		float rot = Math.abs(e.rotation) + 90f;
+		int i = -Mathf.sign(e.rotation);
+		float len = (4f + e.finpow() * 9f) * i;
+		float lr = rot + Mathf.randomSeedRange(e.id + i + 6, 20f * e.fin()) * i;
+
+		rect(Core.atlas.find("casing"),
+			e.x + trnsx(lr, len) + Mathf.randomSeedRange(e.id + i + 7, 3f * e.fin()),
+			e.y + trnsy(lr, len) + Mathf.randomSeedRange(e.id + i + 8, 3f * e.fin()),
+			3f, 8f,
+			rot + e.fin() * 50f * i
+		);
+	}).layer(Layer.bullet),
+
 	casing5 = new Effect(65f, e -> {
 		color(Pal.lightOrange, Pal.lightishGray, Pal.lightishGray, e.fin());
 		alpha(e.fout(0.5f));
