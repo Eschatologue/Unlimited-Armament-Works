@@ -1052,9 +1052,11 @@ public class UAWUnitTypes implements ContentList {
 			health = 750;
 			armor = 18;
 			hitSize = 16;
-			speed = 1.2f;
-			rotateSpeed = 1.2f;
-			baseRotateSpeed = rotateSpeed * 2.2f;
+			speed = 1.5f;
+			accel = 0.04f;
+			drag = 0.016f;
+			rotateSpeed = 2f;
+			baseRotateSpeed = rotateSpeed * 2.5f;
 			ammoType = new ItemAmmoType(Items.graphite);
 			singleTarget = true;
 
@@ -1121,8 +1123,10 @@ public class UAWUnitTypes implements ContentList {
 			health = 7250;
 			armor = 30;
 			hitSize = 25;
-			speed = 0.9f;
-			rotateSpeed = 1f;
+			speed = 1f;
+			accel = 0.04f;
+			drag = 0.04f;
+			rotateSpeed = 1.3f;
 			baseRotateSpeed = rotateSpeed * 2.2f;
 			ammoType = new ItemAmmoType(Items.graphite);
 			singleTarget = true;
@@ -1238,12 +1242,13 @@ public class UAWUnitTypes implements ContentList {
 			health = 14500;
 			armor = 45;
 			hitSize = 30;
-			speed = 1f;
-			rotateSpeed = 1.2f;
+			speed = 1.2f;
+			accel = 0.04f;
+			drag = 0.04f;
+			rotateSpeed = 1.5f;
 			baseRotateSpeed = rotateSpeed * 2.2f;
 			ammoType = new ItemAmmoType(UAWItems.titaniumCarbide);
 
-			accel = 0.25f;
 			range = 50 * tilesize;
 			maxRange = range;
 			drawCell = false;
@@ -1349,6 +1354,7 @@ public class UAWUnitTypes implements ContentList {
 					hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootBigSmoke2, Fx.railHit);
 					collidesAir = false;
 					despawnHit = true;
+					trailInterval = 3f;
 					trailEffect = new Effect(16f, e -> {
 						color(Pal.heal);
 						for (int s : Mathf.signs) {
