@@ -12,14 +12,6 @@ public class Vars implements Loadable {
 	public static final String pointDefenseRed = modName + "point-defense-red";
 	public static final String pointDefensePurple = modName + "point-defense-purple";
 
-	// Weapon - Machine Gun - MG
-	public static final String machineGunSmallRed = modName + "machine-gun-small-red";
-	public static final String machineGunSmallPurple = modName + "machine-gun-small-purple";
-
-	public static final String machineGunMediumRed = modName + "machine-gun-medium-red";
-	public static final String machineGunMediumMirrored = modName + "machine-gun-medium-red-r";
-	public static final String machineGunMediumPurple = modName + "machine-gun-medium-purple";
-
 	// Weapon - Artillery - ART / LNCH
 	public static final String artillerySmallRed = modName + "artillery-small-red";
 	public static final String artillerySmallPurple = modName + "artillery-small-purple";
@@ -28,5 +20,23 @@ public class Vars implements Loadable {
 
 	public static final String artilleryLargePurple = modName + "artillery-large-purple";
 
+	// Weapon - Machine Gun - MG
+	public static final String machineGunSmallRed = modName + "machine-gun-small-red";
+	public static final String machineGunSmallPurple = modName + "machine-gun-small-purple";
 
+	public static final String machineGunMediumRed = modName + "machine-gun-medium-red";
+	public static final String machineGunMediumRedMirrored = modName + "machine-gun-medium-red-r";
+	public static final String machineGunMediumPurple = modName + "machine-gun-medium-purple";
+
+	// Weapon - Missile - MSL
+	public static final String missileSmallRed1 = modName + "missile-small-red-1";
+	public static final String missileSmallRed2 = modName + "missile-small-red-2";
+
+	public static final String missileMediumRed1 = modName + "missile-medium-red-1";
+	public static final String missileMediumRed2 = modName + "missile-medium-red-2";
+
+	public static final String missileLargePurple1 = modName + "missile-large-purple-1";
+
+	public static final String cruiseMissileLch1 = modName + "cruise-missile-1";
+	public static final String cruiseMissileLch2 = modName + "cruise-missile-2";
 }
