@@ -215,7 +215,7 @@ public class UAWUnitType extends UnitType {
 		if (example instanceof TankUnitEntity) {
 			groundLayer = Layer.groundUnit - 2;
 			if (visualElevation < 0f) {
-				visualElevation = 0.11f;
+				visualElevation = 0.12f;
 			}
 		}
 	}

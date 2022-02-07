@@ -37,6 +37,11 @@ public class Vars implements Loadable {
 
 	public static final String missileLargePurple1 = modName + "missile-large-purple-1";
 
-	public static final String cruiseMissileLch1 = modName + "cruise-missile-1";
-	public static final String cruiseMissileLch2 = modName + "cruise-missile-2";
+	public static final String cruiseMissileMount1 = modName + "cruise-missile-mount-1";
+	public static final String cruiseMissileMount2 = modName + "cruise-missile-mount-2";
+
+	// Cruise Missile Type
+	public static final String cruiseMissileBasic = modName + "cruise-missile-basic";
+	public static final String cruiseMissileCryo = modName + "cruise-missile-cryo";
+	public static final String cruiseMissileSurge = modName + "cruise-missile-surge";
 }

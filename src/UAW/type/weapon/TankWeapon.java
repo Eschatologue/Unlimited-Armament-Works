@@ -5,6 +5,7 @@ import arc.Core;
 import arc.graphics.Blending;
 import arc.graphics.g2d.*;
 import arc.math.*;
+import mindustry.content.StatusEffects;
 import mindustry.entities.units.WeaponMount;
 import mindustry.gen.Unit;
 import mindustry.graphics.Drawf;
@@ -18,6 +19,8 @@ public class TankWeapon extends UAWWeapon {
 		top = false;
 		mirror = false;
 		shootCone = 12f;
+		shootStatus = StatusEffects.unmoving;
+		shootStatusDuration = reload * 1.2f;
 	}
 
 	@Override

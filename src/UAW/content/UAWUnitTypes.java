@@ -63,7 +63,7 @@ public class UAWUnitTypes implements ContentList {
 	/**
 	 * Setups all entity IDs and maps them into {@link EntityMapping}.
 	 * <p>
-	 *     Put this inside load()
+	 * Put this inside load()
 	 * </p>
 	 *
 	 * @author GlennFolker
@@ -332,9 +332,9 @@ public class UAWUnitTypes implements ContentList {
 			defaultController = DynamicFlyingAI::new;
 
 			weapons.add(new PointDefenseWeapon(pointDefenseRed) {{
-				mirror = false;
-				x = 0f;
-				y = 3f;
+				mirror = true;
+				x = 23.5f;
+				y = 4f;
 				reload = 3f;
 				recoil = 0f;
 				targetInterval = 4f;
@@ -348,13 +348,37 @@ public class UAWUnitTypes implements ContentList {
 					damage = 15f;
 				}};
 			}});
+			weapons.add(new Weapon(machineGunSmallRed) {{
+				layerOffset = -0.01f;
+				rotate = false;
+				mirror = true;
+				shootCone = 90;
+				inaccuracy = 3f;
+				x = 4.75f;
+				y = 20.75f;
+				reload = 5f;
+				shootSound = Sounds.shoot;
+				ejectEffect = Fx.casing1;
+				bullet = new TrailBulletType(6f, 23) {{
+					height = 12f;
+					width = 6f;
+					pierce = true;
+					pierceCap = 2;
+					buildingDamageMultiplier = 0.4f;
+					maxRange = range;
+					homingRange = 60f;
+					lifetime = (range / speed) * 1.2f;
+					ammoMultiplier = 8f;
+				}};
+			}});
 			weapons.add(new Weapon(machineGunMediumRed) {{
+				layerOffset = -0.01f;
 				rotate = false;
 				inaccuracy = 6f;
 				mirror = true;
 				shootCone = 30f;
-				x = 8f;
-				y = 12f;
+				x = 10.5f;
+				y = 12.5f;
 				reload = 5;
 				shootSound = Sounds.shootBig;
 				ejectEffect = Fx.casing2;
@@ -373,38 +397,14 @@ public class UAWUnitTypes implements ContentList {
 					ammoMultiplier = 8f;
 				}};
 			}});
-			weapons.add(new UAWWeapon(artillerySmallRed) {{
-				mirror = alternate = true;
+			weapons.add(new MissileLauncherWeapon(cruiseMissileMount1) {{
+				missileName = cruiseMissileCryo;
 				rotate = false;
-				x = 11f;
-				y = 0f;
-				inaccuracy = 0;
-				shootCone = 30;
-				rotateSpeed = 2.2f;
-				reload = 3.5f * 60;
-				recoil = 2.2f;
-				shootSound = Sounds.railgun;
-				shake = 3.5f;
-				ejectEffect = UAWFxS.casing3Long;
-				bullet = new LaserBulletType() {{
-					damage = 350f;
-					sideAngle = 20f;
-					sideWidth = 1.5f;
-					sideLength = 80f;
-					width = 12;
-					length = range / 1.5f;
-					shootEffect = Fx.shockwave;
-					colors = new Color[]{Pal.missileYellowBack, Pal.missileYellow, Color.white};
-				}};
-			}});
-			weapons.add(new Weapon() {{
-				rotate = false;
-				x = y = 0f;
-				inaccuracy = 12;
-				shootCone = 60f;
-				reload = 5 * 60;
-				shots = 3;
-				shotDelay = 15f;
+				mirror = true;
+				layerOffset = 0.1f;
+				x = 10.25f;
+				y = -3.5f;
+				reload = 7 * 60f;
 				shootSound = UAWSfx.cruiseMissileShoot1;
 				bullet = new CruiseMissileBulletType(3f, 500) {{
 					sprite = "uaw-cruise-missile-cryo";
@@ -427,7 +427,7 @@ public class UAWUnitTypes implements ContentList {
 			}});
 
 			float rotX = 17;
-			float rotY = 4;
+			float rotY = 5;
 			float rotSpeed = 13f;
 			rotors.add(
 				new Rotor("uaw-short-blade") {{
@@ -1158,7 +1158,7 @@ public class UAWUnitTypes implements ContentList {
 					shootEffect = Fx.shootBigSmoke;
 				}};
 			}});
-			weapons.add(new MissileLauncherWeapon(cruiseMissileLch1) {{
+			weapons.add(new MissileLauncherWeapon(cruiseMissileMount1) {{
 				rotate = top = mirror = false;
 				layerOffset = 1;
 				x = 11.5f;
@@ -1230,9 +1230,9 @@ public class UAWUnitTypes implements ContentList {
 			}});
 		}};
 		armata = new UAWUnitType("armata") {{
-			health = 14500;
+			health = 12500;
 			armor = 45;
-			hitSize = 30;
+			hitSize = 32;
 			speed = 1.2f;
 			accel = 0.04f;
 			drag = 0.04f;
@@ -1264,14 +1264,16 @@ public class UAWUnitTypes implements ContentList {
 				x = 7.5f;
 				y = 3.25f;
 				ejectEffect = Fx.casing2;
+				shootSound = Sounds.shootBig;
 				predictTarget = false;
-				inaccuracy = 10f;
-				bullet = new BasicBulletType(6, 35) {{
-					height = 14;
-					width = 9f;
-					lifetime = (range * 0.75f) / speed;
-					maxRange = range * 0.75f;
-					shootEffect = Fx.shootBigSmoke;
+				inaccuracy = 5f;
+				bullet = new BasicBulletType(6, 40) {{
+					height = 17;
+					width = 12f;
+					lifetime = (range * 0.6f) / speed;
+					maxRange = range * 0.6f;
+					shootEffect = Fx.shootBig2;
+					smokeEffect = Fx.shootBigSmoke2;
 				}};
 			}});
 			weapons.add(new PointDefenseWeapon(pointDefenseRed) {{
@@ -1291,7 +1293,7 @@ public class UAWUnitTypes implements ContentList {
 					damage = 35f;
 				}};
 			}});
-			weapons.add(new MissileLauncherWeapon(cruiseMissileLch2) {{
+			weapons.add(new MissileLauncherWeapon(cruiseMissileMount2) {{
 				mirror = false;
 				rotate = true;
 				layerOffset = 0.1f;
