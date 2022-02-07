@@ -6,17 +6,17 @@ import arc.math.*;
 import mindustry.entities.units.WeaponMount;
 import mindustry.gen.Unit;
 
+import static UAW.Vars.modName;
+
 /**
  * Inspired from NewestGitHubber / Commandustry missile weapon, modified slightly
- * <p>
- *     Always put this weapon in the last sequence, as it will ruin most weapons alpha and layering above it.
- * </p>
  *
  * @Author SMOLKEYS
  */
 public class MissileLauncherWeapon extends UAWWeapon {
 	public TextureRegion missileRegion, missileOutlineRegion;
-	public String missileName = "uaw-cruise-missile-basic";
+	public String missileName = modName + "cruise-missile-basic";
+	public float missileLayerOffset = 0;
 
 	public MissileLauncherWeapon(String name) {
 		this.name = name;
@@ -45,7 +45,7 @@ public class MissileLauncherWeapon extends UAWWeapon {
 		float wx = unit.x + Angles.trnsx(rotation, x, y) + Angles.trnsx(weaponRotation, 0, -mount.recoil);
 		float wy = unit.y + Angles.trnsy(rotation, x, y) + Angles.trnsy(weaponRotation, 0, -mount.recoil);
 
-		Draw.z(z + layerOffset);
+		Draw.z(z + layerOffset + missileLayerOffset);
 		Draw.alpha(1 - mount.reload / reload);
 		Draw.rect(missileOutlineRegion,
 			wx, wy,

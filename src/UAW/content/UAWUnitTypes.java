@@ -219,7 +219,7 @@ public class UAWUnitTypes implements ContentList {
 			);
 
 			weapons.add(
-				new Weapon(modName + "machine-gun-small-red") {{
+				new Weapon(machineGunSmallRed) {{
 					layerOffset = -0.005f;
 					minShootVelocity = 0.75f;
 					rotate = top = false;
@@ -246,7 +246,7 @@ public class UAWUnitTypes implements ContentList {
 						ammoMultiplier = 8f;
 					}};
 				}},
-				new Weapon(modName + "launcher-medium-red-2") {{
+				new Weapon(artilleryMediumRed) {{
 					minShootVelocity = 0.75f;
 					rotate = false;
 					alternate = mirror = true;
@@ -1049,7 +1049,7 @@ public class UAWUnitTypes implements ContentList {
 			hitSize = 16;
 			speed = 1.5f;
 			accel = 0.04f;
-			drag = 0.03f;
+			drag = 0.04f;
 			rotateSpeed = 2f;
 			baseRotateSpeed = rotateSpeed * 2.5f;
 			ammoType = new ItemAmmoType(Items.graphite);
@@ -1351,7 +1351,7 @@ public class UAWUnitTypes implements ContentList {
 					trailEffect = new Effect(20f, e -> {
 						color(backColor);
 						for (int s : Mathf.signs) {
-							Drawf.tri(e.x, e.y, 6f, 40f * e.fslope(), e.rotation + 135f * s);
+							Drawf.tri(e.x, e.y, 5.5f, 45f * e.fslope(), e.rotation + 135f * s);
 						}
 					});
 				}};

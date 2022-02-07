@@ -66,13 +66,6 @@ public class UAWFxD {
 		});
 	}
 
-	public static Effect jetTrail(float length) {
-		return new Effect(length, e -> {
-			color(e.color);
-			Fill.circle(e.x, e.y, e.rotation * e.fout());
-		});
-	}
-
 	public static Effect shootMassiveSmoke(float size, float lifetime, Color color) {
 		return new Effect(lifetime, e -> {
 			color(color, Color.lightGray, Color.gray, e.fin());
@@ -116,28 +109,6 @@ public class UAWFxD {
 			color();
 			for (int i = 0; i < 4; i++) {
 				Drawf.tri(e.x, e.y, width, (length / 2.7f) * e.fout(), i * 90 + 45);
-			}
-		});
-	}
-
-	public static Effect crossBombBlast(float size, Color color) {
-		return new Effect(50f, 100, e -> {
-			color(color);
-			stroke(e.fout() * 2f);
-			Lines.circle(e.x, e.y, 4f + e.finpow() * size);
-
-			color(Color.gray);
-
-			randLenVectors(e.id, 15, 1.5f + size * e.finpow(), (x, y) -> Fill.circle(e.x + x, e.y + y, e.fout() * 4f + 0.5f));
-
-			color(color);
-			for (int i = 0; i < 4; i++) {
-				Drawf.tri(e.x, e.y, size / 12, size * e.fout(), i * 90);
-			}
-
-			color();
-			for (int i = 0; i < 4; i++) {
-				Drawf.tri(e.x, e.y, size / 24, (size / 3) * e.fout(), i * 90);
 			}
 		});
 	}

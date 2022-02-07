@@ -1097,6 +1097,7 @@ public class UAWBlocks implements ContentList {
 				new UnitType[]{UAWUnitTypes.clurit, UAWUnitTypes.kujang},
 				new UnitType[]{UAWUnitTypes.gardlacz, UAWUnitTypes.arkabuz},
 				new UnitType[]{UAWUnitTypes.hatsuharu, UAWUnitTypes.shiratsuyu}
+//				new UnitType[]{UAWUnitTypes.corsair, UAWUnitTypes.vindicator}
 			);
 		}};
 		tetrativePetroleumReconstructor = new Reconstructor("tetrative-petroleum-reconstructor") {{
@@ -1129,7 +1130,8 @@ public class UAWBlocks implements ContentList {
 				new UnitType[]{UAWUnitTypes.bedivere, UAWUnitTypes.calogrenant},
 				new UnitType[]{UAWUnitTypes.kujang, UAWUnitTypes.kerambit},
 				new UnitType[]{UAWUnitTypes.arkabuz, UAWUnitTypes.armata}
-				//new UnitType[]{UAWUnitTypes.shiratsuyu, UAWUnitTypes.kagero}
+//			new UnitType[]{UAWUnitTypes.shiratsuyu, UAWUnitTypes.kagero}
+//			new UnitType[]{UAWUnitTypes.vindicator, UAWUnitTypes.superfortress}
 			);
 		}};
 

@@ -6,7 +6,7 @@ import mindustry.type.Item;
 
 public class UAWItems implements ContentList {
 	public static Item placeholder,
-		cryogel, anthracite, titaniumCarbide, petroleumCore;
+		cryogel, anthracite, titaniumCarbide, dieselCore;
 
 	@Override
 	public void load() {
