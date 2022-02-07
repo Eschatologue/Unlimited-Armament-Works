@@ -12,9 +12,11 @@ import arc.util.Time;
 import mindustry.Vars;
 import mindustry.content.Fx;
 import mindustry.gen.Unit;
-import mindustry.graphics.Layer;
+import mindustry.graphics.*;
 import mindustry.type.UnitType;
 import mindustry.world.blocks.environment.Floor;
+
+import static mindustry.Vars.world;
 
 public class UAWUnitType extends UnitType {
 	public final Seq<Rotor> rotors = new Seq<>();
@@ -189,6 +191,32 @@ public class UAWUnitType extends UnitType {
 			}
 		} else {
 			super.drawEngine(unit);
+		}
+	}
+
+	@Override
+	public void drawShadow(Unit unit) {
+		if (unit instanceof TankUnitEntity tank) {
+			float e = Math.max(unit.elevation, visualElevation) * (1f - unit.drownTime);
+			float x = unit.x + shadowTX * e, y = unit.y + shadowTY * e;
+			Floor floor = world.floorWorld(x, y);
+			float dest = floor.canShadow ? 1f : 0f;
+			unit.shadowAlpha = unit.shadowAlpha < 0 ? dest : Mathf.approachDelta(unit.shadowAlpha, dest, 0.11f);
+			Draw.color(Pal.shadow, Pal.shadow.a * unit.shadowAlpha);
+			Draw.rect(hullRegion, unit.x + shadowTX * e, unit.y + shadowTY * e, tank.hullRotation - 90);
+			Draw.color();
+		} else super.drawShadow(unit);
+	}
+
+	@Override
+	public void init() {
+		Unit example = constructor.get();
+		super.init();
+		if (example instanceof TankUnitEntity) {
+			groundLayer = Layer.groundUnit - 2;
+			if (visualElevation < 0f) {
+				visualElevation = 0.11f;
+			}
 		}
 	}
 

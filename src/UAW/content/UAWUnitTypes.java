@@ -62,6 +62,9 @@ public class UAWUnitTypes implements ContentList {
 
 	/**
 	 * Setups all entity IDs and maps them into {@link EntityMapping}.
+	 * <p>
+	 *     Put this inside load()
+	 * </p>
 	 *
 	 * @author GlennFolker
 	 */
