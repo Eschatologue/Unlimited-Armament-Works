@@ -270,14 +270,14 @@ public class UAWFxS {
 	}).layer(Layer.flyingUnitLow - 1.05f),
 
 	cryoSmokeTrail = new Effect(33f, 80f, e -> {
-		color(UAWPal.cryoFront, Color.lightGray, Color.valueOf("ddcece"), e.fin() * e.fin());
+		color(UAWPal.cryoMiddle, Color.lightGray, Color.valueOf("ddcece"), e.fin() * e.fin());
 
 		randLenVectors(e.id, 8, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) ->
 			Fill.circle(e.x + x, e.y + y, 0.45f + e.fout() * 2f));
 	}),
 
 	cryoSmokeTrailUnder = new Effect(33f, 80f, e -> {
-		color(UAWPal.cryoFront, Color.lightGray, Color.valueOf("ddcece"), e.fin() * e.fin());
+		color(UAWPal.cryoMiddle, Color.lightGray, Color.valueOf("ddcece"), e.fin() * e.fin());
 
 		randLenVectors(e.id, 8, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) ->
 			Fill.circle(e.x + x, e.y + y, 0.45f + e.fout() * 2f));

@@ -10,7 +10,7 @@ import static UAW.Vars.cruiseMissileBasic;
 import static mindustry.Vars.tilesize;
 
 public class CruiseMissileBulletType extends UAWBasicBulletType {
-	public float sizeScl = 1.5f;
+	public float sizeScl = 1.4f;
 
 	public CruiseMissileBulletType(float speed, float damage, String sprite) {
 		super(speed, damage, sprite);

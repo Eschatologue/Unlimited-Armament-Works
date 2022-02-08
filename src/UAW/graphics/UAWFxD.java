@@ -93,6 +93,7 @@ public class UAWFxD {
 		});
 	}
 
+	/** Explosion in an X pattern */
 	public static Effect crossBlast(float size, Color color) {
 		float length = size * 1.7f;
 		float width = size / 13.3f;
@@ -300,6 +301,23 @@ public class UAWFxD {
 				color(backColor, Color.gray, e.fin());
 				Fill.square(e.x + x, e.y + y, (e.fout() * 15f) / 2f, 45);
 			});
+		});
+	}
+
+	/**
+	 * Trail used by Cruise Missile
+	 *
+	 * @param smokeSize
+	 * 	how big is the circle smoke effect. Default 0.45.
+	 * @param trailColor
+	 * 	the color of the trail before it fades into grey
+	 */
+	public static Effect cruiseMissileTrail(float smokeSize, Color trailColor) {
+		return new Effect(30f, 80f, e -> {
+			color(trailColor, Color.lightGray, Color.valueOf("ddcece"), e.fin() * e.fin());
+
+			randLenVectors(e.id, 8, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) ->
+				Fill.circle(e.x + x, e.y + y, smokeSize + e.fout() * 2f));
 		});
 	}
 
