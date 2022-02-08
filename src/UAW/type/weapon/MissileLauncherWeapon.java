@@ -42,6 +42,7 @@ public class MissileLauncherWeapon extends UAWWeapon {
 	public void drawMissile(Unit unit, WeaponMount mount) {
 		float z = Draw.z();
 		float rotation = unit.rotation - 90;
+		float mScl = missileSizeScl * Draw.scl;
 		float weaponRotation = rotation + (rotate ? mount.rotation : 0);
 		float wx = unit.x + Angles.trnsx(rotation, x, y) + Angles.trnsx(weaponRotation, 0, -mount.recoil);
 		float wy = unit.y + Angles.trnsy(rotation, x, y) + Angles.trnsy(weaponRotation, 0, -mount.recoil);
@@ -50,13 +51,13 @@ public class MissileLauncherWeapon extends UAWWeapon {
 		Draw.alpha(1 - mount.reload / reload);
 		Draw.rect(missileOutlineRegion,
 			wx, wy,
-			missileOutlineRegion.width * missileSizeScl * -Mathf.sign(flipSprite),
-			missileOutlineRegion.height * missileSizeScl,
+			missileOutlineRegion.width * mScl * -Mathf.sign(flipSprite),
+			missileOutlineRegion.height * mScl,
 			weaponRotation);
 		Draw.rect(missileRegion,
 			wx, wy,
-			missileRegion.width * missileSizeScl * -Mathf.sign(flipSprite),
-			missileRegion.height * missileSizeScl,
+			missileRegion.width * mScl * -Mathf.sign(flipSprite),
+			missileRegion.height * mScl,
 			weaponRotation);
 		Draw.reset();
 	}

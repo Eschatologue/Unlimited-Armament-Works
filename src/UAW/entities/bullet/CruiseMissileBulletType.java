@@ -54,9 +54,10 @@ public class CruiseMissileBulletType extends UAWBasicBulletType {
 
 	@Override
 	public void draw(Bullet b) {
+		float mScl = sizeScl * Draw.scl;
 		super.draw(b);
-		Draw.rect(frontRegion, b.x, b.y, frontRegion.width * sizeScl, frontRegion.height * sizeScl, b.rotation() - 90);
-		Draw.rect(backRegion, b.x, b.y, backRegion.width * sizeScl, backRegion.height * sizeScl, b.rotation() - 90);
+		Draw.rect(frontRegion, b.x, b.y, frontRegion.width * mScl, frontRegion.height * mScl, b.rotation() - 90);
+		Draw.rect(backRegion, b.x, b.y, backRegion.width * mScl, backRegion.height * mScl, b.rotation() - 90);
 		Draw.reset();
 	}
 }

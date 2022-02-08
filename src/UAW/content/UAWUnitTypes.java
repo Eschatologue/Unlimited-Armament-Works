@@ -329,7 +329,7 @@ public class UAWUnitTypes implements ContentList {
 			constructor = CopterUnitEntity::new;
 			defaultController = DynamicFlyingAI::new;
 
-			weapons.add(new PointDefenseWeapon(pointDefenseRed) {{
+			weapons.addAll(new PointDefenseWeapon(pointDefenseRed) {{
 				mirror = true;
 				x = 23.5f;
 				y = 4f;
