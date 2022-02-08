@@ -298,7 +298,6 @@ public class UAWUnitTypes implements ContentList {
 					homingPower = 0.05f;
 					keepVelocity = false;
 					splashDamageRadius = 8 * tilesize;
-					splashDamage = damage;
 					lifetime = (range - 5) / speed;
 					shootEffect = UAWFxS.shootPyraFlame;
 					hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius);
@@ -348,10 +347,33 @@ public class UAWUnitTypes implements ContentList {
 					damage = 15f;
 				}};
 			}});
+			weapons.add(new Weapon(machineGunSmallRed) {{
+				layerOffset = -0.01f;
+				rotate = false;
+				mirror = true;
+				shootCone = 90;
+				inaccuracy = 12f;
+				x = 4.75f;
+				y = 20.75f;
+				reload = 2f;
+				shootSound = Sounds.shoot;
+				ejectEffect = Fx.casing1;
+				bullet = new BasicBulletType(7f, 15) {{
+					height = 12f;
+					width = 6f;
+					pierce = true;
+					pierceCap = 2;
+					buildingDamageMultiplier = 0.4f;
+					maxRange = range;
+					homingRange = 60f;
+					lifetime = (range / speed) ;
+					ammoMultiplier = 8f;
+				}};
+			}});
 			weapons.add(new Weapon(machineGunMediumRed) {{
 				layerOffset = -0.01f;
 				rotate = false;
-				inaccuracy = 6f;
+				inaccuracy = 4f;
 				mirror = true;
 				shootCone = 30f;
 				x = 10.5f;
@@ -359,7 +381,7 @@ public class UAWUnitTypes implements ContentList {
 				reload = 8;
 				shootSound = Sounds.shootBig;
 				ejectEffect = Fx.casing2;
-				bullet = new TrailBulletType(5f, 45) {{
+				bullet = new TrailBulletType(6f, 45) {{
 					height = 16f;
 					width = 8f;
 					splashDamage = damage;
@@ -371,29 +393,8 @@ public class UAWUnitTypes implements ContentList {
 					status = StatusEffects.burning;
 					hitEffect = new MultiEffect(Fx.blastExplosion, Fx.fireHit, Fx.blastsmoke);
 					ammoMultiplier = 8f;
-				}};
-			}});
-			weapons.add(new Weapon(machineGunSmallRed) {{
-				layerOffset = -0.01f;
-				rotate = false;
-				mirror = true;
-				shootCone = 90;
-				inaccuracy = 8f;
-				x = 4.75f;
-				y = 20.75f;
-				reload = 2f;
-				shootSound = Sounds.shoot;
-				ejectEffect = Fx.casing1;
-				bullet = new BasicBulletType(8f, 15) {{
-					height = 12f;
-					width = 6f;
-					pierce = true;
-					pierceCap = 2;
-					buildingDamageMultiplier = 0.4f;
-					maxRange = range;
-					homingRange = 60f;
-					lifetime = (range / speed) ;
-					ammoMultiplier = 8f;
+					fragBullets = 3;
+					fragBullet = fragGlassFrag;
 				}};
 			}});
 			weapons.add(new MissileLauncherWeapon(cruiseMissileMount1) {{
@@ -412,7 +413,6 @@ public class UAWUnitTypes implements ContentList {
 					homingPower = 0.05f;
 					keepVelocity = false;
 					splashDamageRadius = 12 * tilesize;
-					splashDamage = damage;
 					lifetime = range / speed;
 					shootEffect = UAWFxS.shootCryoFlame;
 					trailColor = UAWPal.cryoFront;
@@ -1167,12 +1167,11 @@ public class UAWUnitTypes implements ContentList {
 				y = -0f;
 				reload = 8 * 60f;
 				shootSound = UAWSfx.cruiseMissileShoot1;
-				bullet = new CruiseMissileBulletType(3f, 550) {{
+				bullet = new CruiseMissileBulletType(3f, 450) {{
 					size = 15;
 					homingRange = range;
 					homingPower = 0.04f;
 					splashDamageRadius = 8 * tilesize;
-					splashDamage = damage;
 					lifetime = (range - 5) / speed;
 					shootEffect = new MultiEffect(
 						UAWFxS.shootPyraFlame,
@@ -1311,7 +1310,6 @@ public class UAWUnitTypes implements ContentList {
 					homingRange = range;
 					homingPower = 0.04f;
 					splashDamageRadius = 8 * tilesize;
-					splashDamage = damage;
 					lifetime = (range - 5) / speed;
 					shootEffect = new MultiEffect(
 						UAWFxS.shootPyraFlame,

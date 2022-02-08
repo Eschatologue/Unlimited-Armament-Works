@@ -36,8 +36,8 @@ public class TankUnitEntity extends UnitEntity {
 		super.update();
 		UAWUnitType type = (UAWUnitType) this.type;
 		Floor floor = Vars.world.floorWorld(x, y);
-		if (floor.isLiquid) {
-			speedMultiplier = type.liquidSpeedMultiplier;
+		if (floor.isLiquid || floor.speedMultiplier < 1) {
+			speedMultiplier = type.terrainSpeedMultiplier;
 		}
 		type.flying = false;
 		if (moving()) {
@@ -57,14 +57,5 @@ public class TankUnitEntity extends UnitEntity {
 	@Override
 	public void lookAt(float angle) {
 		this.rotation = Angles.moveToward(this.rotation, angle, this.type.rotateSpeed * Time.delta);
-	}
-
-	@Override
-	public float floorSpeedMultiplier() {
-		UAWUnitType type = (UAWUnitType) this.type;
-		Floor on = !this.isFlying() && !this.hovering ? this.floorOn() : Blocks.air.asFloor();
-		if (on.speedMultiplier < 1) {
-			return on.speedMultiplier * this.speedMultiplier * type.terrainSpeedMultiplier;
-		} else return on.speedMultiplier * this.speedMultiplier;
 	}
 }
