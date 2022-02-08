@@ -17,7 +17,7 @@ public class MissileLauncherWeapon extends UAWWeapon {
 	public TextureRegion missileRegion, missileOutlineRegion;
 	public String missileName = cruiseMissileBasic;
 	public float missileLayerOffset = 0;
-	public float missileSizeScl = 1;
+	public float missileSizeScl = 1.2f;
 
 	public MissileLauncherWeapon(String name) {
 		this.name = name;
