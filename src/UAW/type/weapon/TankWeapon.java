@@ -5,7 +5,6 @@ import arc.Core;
 import arc.graphics.Blending;
 import arc.graphics.g2d.*;
 import arc.math.*;
-import mindustry.content.StatusEffects;
 import mindustry.entities.units.WeaponMount;
 import mindustry.gen.Unit;
 import mindustry.graphics.Drawf;
@@ -41,6 +40,17 @@ public class TankWeapon extends UAWWeapon {
 					region.width * Draw.scl * -Mathf.sign(flipSprite),
 					region.height * Draw.scl,
 					weaponRotation);
+				if (heatRegion.found() && mount.heat > 0) {
+					Draw.color(heatColor, mount.heat);
+					Draw.blend(Blending.additive);
+					Draw.rect(heatRegion,
+						wx, wy,
+						heatRegion.width * Draw.scl * -Mathf.sign(flipSprite),
+						heatRegion.height * Draw.scl,
+						weaponRotation);
+					Draw.blend();
+					Draw.color();
+				}
 			}
 		} else {
 			// Prevent crashes if I somehow fuck it up
@@ -72,18 +82,6 @@ public class TankWeapon extends UAWWeapon {
 				region.width * Draw.scl * -Mathf.sign(flipSprite),
 				region.height * Draw.scl,
 				weaponRotation);
-
-			if (heatRegion.found() && mount.heat > 0) {
-				Draw.color(heatColor, mount.heat);
-				Draw.blend(Blending.additive);
-				Draw.rect(heatRegion,
-					wx, wy,
-					heatRegion.width * Draw.scl * -Mathf.sign(flipSprite),
-					heatRegion.height * Draw.scl,
-					weaponRotation);
-				Draw.blend();
-				Draw.color();
-			}
 			Draw.z(z);
 		} else {
 			super.draw(unit, mount);
