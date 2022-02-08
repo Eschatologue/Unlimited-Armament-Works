@@ -63,6 +63,8 @@ public class TankUnitEntity extends UnitEntity {
 	public float floorSpeedMultiplier() {
 		UAWUnitType type = (UAWUnitType) this.type;
 		Floor on = !this.isFlying() && !this.hovering ? this.floorOn() : Blocks.air.asFloor();
-		return on.speedMultiplier * this.speedMultiplier * type.terrainSpeedMultiplier;
+		if (on.speedMultiplier < 1) {
+			return on.speedMultiplier * this.speedMultiplier * type.terrainSpeedMultiplier;
+		} else return on.speedMultiplier * this.speedMultiplier;
 	}
 }
