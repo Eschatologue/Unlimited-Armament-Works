@@ -6,6 +6,7 @@ import arc.graphics.g2d.Draw;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 
+import static UAW.Vars.*;
 import static mindustry.Vars.tilesize;
 
 public class CruiseMissileBulletType extends UAWBasicBulletType {
@@ -38,7 +39,7 @@ public class CruiseMissileBulletType extends UAWBasicBulletType {
 	}
 
 	public CruiseMissileBulletType(float speed, float damage) {
-		this(speed, damage, "uaw-cruise-missile-basic");
+		this(speed, damage, cruiseMissileBasic);
 	}
 
 	public CruiseMissileBulletType() {

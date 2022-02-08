@@ -348,29 +348,6 @@ public class UAWUnitTypes implements ContentList {
 					damage = 15f;
 				}};
 			}});
-			weapons.add(new Weapon(machineGunSmallRed) {{
-				layerOffset = -0.01f;
-				rotate = false;
-				mirror = true;
-				shootCone = 90;
-				inaccuracy = 3f;
-				x = 4.75f;
-				y = 20.75f;
-				reload = 5f;
-				shootSound = Sounds.shoot;
-				ejectEffect = Fx.casing1;
-				bullet = new TrailBulletType(6f, 23) {{
-					height = 12f;
-					width = 6f;
-					pierce = true;
-					pierceCap = 2;
-					buildingDamageMultiplier = 0.4f;
-					maxRange = range;
-					homingRange = 60f;
-					lifetime = (range / speed) * 1.2f;
-					ammoMultiplier = 8f;
-				}};
-			}});
 			weapons.add(new Weapon(machineGunMediumRed) {{
 				layerOffset = -0.01f;
 				rotate = false;
@@ -379,10 +356,10 @@ public class UAWUnitTypes implements ContentList {
 				shootCone = 30f;
 				x = 10.5f;
 				y = 12.5f;
-				reload = 5;
+				reload = 8;
 				shootSound = Sounds.shootBig;
 				ejectEffect = Fx.casing2;
-				bullet = new TrailBulletType(8f, 25) {{
+				bullet = new TrailBulletType(5f, 45) {{
 					height = 16f;
 					width = 8f;
 					splashDamage = damage;
@@ -390,10 +367,32 @@ public class UAWUnitTypes implements ContentList {
 					frontColor = Pal.missileYellow;
 					backColor = Pal.missileYellowBack;
 					buildingDamageMultiplier = 0.3f;
-					maxRange = range - 16;
-					lifetime = range / speed;
+					lifetime = (range * 0.75f) / speed;
 					status = StatusEffects.burning;
 					hitEffect = new MultiEffect(Fx.blastExplosion, Fx.fireHit, Fx.blastsmoke);
+					ammoMultiplier = 8f;
+				}};
+			}});
+			weapons.add(new Weapon(machineGunSmallRed) {{
+				layerOffset = -0.01f;
+				rotate = false;
+				mirror = true;
+				shootCone = 90;
+				inaccuracy = 8f;
+				x = 4.75f;
+				y = 20.75f;
+				reload = 2f;
+				shootSound = Sounds.shoot;
+				ejectEffect = Fx.casing1;
+				bullet = new BasicBulletType(8f, 15) {{
+					height = 12f;
+					width = 6f;
+					pierce = true;
+					pierceCap = 2;
+					buildingDamageMultiplier = 0.4f;
+					maxRange = range;
+					homingRange = 60f;
+					lifetime = (range / speed) ;
 					ammoMultiplier = 8f;
 				}};
 			}});
@@ -404,11 +403,10 @@ public class UAWUnitTypes implements ContentList {
 				layerOffset = 0.1f;
 				x = 10.25f;
 				y = -3.5f;
-				reload = 7 * 60f;
+				reload = 6 * 60f;
 				shootSound = UAWSfx.cruiseMissileShoot1;
 				bullet = new CruiseMissileBulletType(3f, 500) {{
-					sprite = "uaw-cruise-missile-cryo";
-					layer = Layer.flyingUnitLow - 1;
+					sprite = cruiseMissileCryo;
 					size = 45;
 					homingRange = range;
 					homingPower = 0.05f;
@@ -420,7 +418,7 @@ public class UAWUnitTypes implements ContentList {
 					trailColor = UAWPal.cryoFront;
 					despawnHit = true;
 					hitEffect = UAWFxD.dynamicExplosion2(splashDamageRadius, UAWPal.cryoMiddle, UAWPal.cryoBack);
-					trailEffect = UAWFxS.cryoSmokeTrailUnder;
+					trailEffect = UAWFxS.cryoSmokeTrail;
 					status = StatusEffects.freezing;
 					statusDuration = 4 * 60;
 				}};
@@ -430,14 +428,14 @@ public class UAWUnitTypes implements ContentList {
 			float rotY = 5;
 			float rotSpeed = 13f;
 			rotors.add(
-				new Rotor("uaw-short-blade") {{
+				new Rotor(modName + "short-blade") {{
 					x = -rotX;
 					y = rotY;
 					rotorSpeed = rotSpeed;
 					bladeCount = 3;
 					doubleRotor = true;
 				}},
-				new Rotor("uaw-short-blade") {{
+				new Rotor(modName + "short-blade") {{
 					x = rotX;
 					y = rotY;
 					rotorSpeed = rotSpeed;
@@ -1058,6 +1056,8 @@ public class UAWUnitTypes implements ContentList {
 			groundTrailInterval = 0.95f;
 			groundTrailSpacing = 2.6f;
 
+			terrainSpeedMultiplier = 1.2f;
+
 			immunities = ObjectSet.with(StatusEffects.disarmed, UAWStatusEffects.EMP, StatusEffects.freezing);
 			constructor = TankUnitEntity::new;
 
@@ -1132,6 +1132,8 @@ public class UAWUnitTypes implements ContentList {
 			groundTrailY = -7;
 			groundTrailSize = 1.3f;
 			groundTrailInterval = 0.6f;
+
+			terrainSpeedMultiplier = 1.4f;
 
 			immunities = ObjectSet.with(StatusEffects.disarmed, UAWStatusEffects.EMP, StatusEffects.freezing);
 			constructor = TankUnitEntity::new;
@@ -1248,6 +1250,8 @@ public class UAWUnitTypes implements ContentList {
 			groundTrailY = -15.5f;
 			groundTrailSize = 0.9f;
 			groundTrailInterval = 0.7f;
+
+			terrainSpeedMultiplier = 1.6f;
 
 			immunities = ObjectSet.with(StatusEffects.disarmed, UAWStatusEffects.EMP, StatusEffects.freezing);
 			constructor = TankUnitEntity::new;

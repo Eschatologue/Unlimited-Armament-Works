@@ -6,9 +6,9 @@ import arc.math.*;
 import arc.math.geom.Vec2;
 import arc.util.*;
 import mindustry.Vars;
+import mindustry.content.Blocks;
 import mindustry.entities.EntityCollisions;
 import mindustry.gen.UnitEntity;
-import mindustry.graphics.Layer;
 import mindustry.world.blocks.environment.Floor;
 
 public class TankUnitEntity extends UnitEntity {
@@ -57,5 +57,12 @@ public class TankUnitEntity extends UnitEntity {
 	@Override
 	public void lookAt(float angle) {
 		this.rotation = Angles.moveToward(this.rotation, angle, this.type.rotateSpeed * Time.delta);
+	}
+
+	@Override
+	public float floorSpeedMultiplier() {
+		UAWUnitType type = (UAWUnitType) this.type;
+		Floor on = !this.isFlying() && !this.hovering ? this.floorOn() : Blocks.air.asFloor();
+		return on.speedMultiplier * this.speedMultiplier * type.terrainSpeedMultiplier;
 	}
 }

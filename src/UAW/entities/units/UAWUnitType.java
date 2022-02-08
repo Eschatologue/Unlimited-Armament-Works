@@ -32,7 +32,8 @@ public class UAWUnitType extends UnitType {
 	public float groundTrailSize = 1;
 	public float groundTrailInterval = 0.5f;
 	public float groundTrailSpacing = 0f, groundTrailY = 0f;
-	public float liquidSpeedMultiplier = 1.2f;
+	public float liquidSpeedMultiplier = 1f;
+	public float terrainSpeedMultiplier = 1f;
 	public boolean drawHullCell = true;
 
 	// Jets

@@ -29,15 +29,12 @@ public class UAWBulletType extends BulletType {
 
 	@Override
 	public void hitEntity(Bullet b, Hitboxc entity, float health) {
-		float realDamage = b.damage * armorIgnoreScl;
-		if (entity instanceof Healthc h) {
-			h.damagePierce(realDamage);
-			if (armorIgnoreScl < 1) {
-				h.damage(b.damage - realDamage);
-			} else h.damage(b.damage);
+		if (entity instanceof Healthc h && entity instanceof Unit unit) {
+			float armorPierce = unit.armor * armorIgnoreScl;
+			h.damage(b.damage + armorPierce);
 		}
-		if (entity instanceof Shieldc h && shieldDamageMultiplier > 1) {
-			h.damage(b.damage * shieldDamageMultiplier);
+		if (entity instanceof Shieldc shield && shieldDamageMultiplier > 1) {
+			shield.damage(b.damage * shieldDamageMultiplier);
 		}
 		if (entity instanceof Unit unit) {
 			Tmp.v3.set(unit).sub(b).nor().scl(knockback * 80f);
