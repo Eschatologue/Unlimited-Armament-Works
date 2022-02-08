@@ -10,15 +10,15 @@ import static UAW.Vars.cruiseMissileBasic;
 import static mindustry.Vars.tilesize;
 
 public class CruiseMissileBulletType extends UAWBasicBulletType {
-	public float size = 35;
+	public float sizeScl = 1;
 
 	public CruiseMissileBulletType(float speed, float damage, String sprite) {
 		super(speed, damage, sprite);
 		this.speed = speed;
 		this.damage = damage;
 		this.splashDamage = damage * 0.8f;
-		height = size;
-		width = size / 2.4f;
+		height = sizeScl;
+		width = sizeScl / 2.4f;
 		layer = Layer.effect + 1;
 		shrinkX = shrinkY = 0;
 		drag = -0.015f;
@@ -55,8 +55,8 @@ public class CruiseMissileBulletType extends UAWBasicBulletType {
 	@Override
 	public void draw(Bullet b) {
 		super.draw(b);
-		Draw.rect(frontRegion, b.x, b.y, width, height, b.rotation() - 90);
-		Draw.rect(backRegion, b.x, b.y, width, height, b.rotation() - 90);
+		Draw.rect(frontRegion, b.x, b.y, frontRegion.width * sizeScl, frontRegion.height * sizeScl, b.rotation() - 90);
+		Draw.rect(backRegion, b.x, b.y, backRegion.width * sizeScl, backRegion.height * sizeScl, b.rotation() - 90);
 		Draw.reset();
 	}
 }

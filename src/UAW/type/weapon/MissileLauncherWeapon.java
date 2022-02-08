@@ -17,6 +17,7 @@ public class MissileLauncherWeapon extends UAWWeapon {
 	public TextureRegion missileRegion, missileOutlineRegion;
 	public String missileName = cruiseMissileBasic;
 	public float missileLayerOffset = 0;
+	public float missileSizeScl = 1;
 
 	public MissileLauncherWeapon(String name) {
 		this.name = name;
@@ -49,13 +50,13 @@ public class MissileLauncherWeapon extends UAWWeapon {
 		Draw.alpha(1 - mount.reload / reload);
 		Draw.rect(missileOutlineRegion,
 			wx, wy,
-			missileOutlineRegion.width * Draw.scl * -Mathf.sign(flipSprite),
-			missileOutlineRegion.height * Draw.scl,
+			missileOutlineRegion.width * missileSizeScl * -Mathf.sign(flipSprite),
+			missileOutlineRegion.height * missileSizeScl,
 			weaponRotation);
 		Draw.rect(missileRegion,
 			wx, wy,
-			missileRegion.width * Draw.scl * -Mathf.sign(flipSprite),
-			missileRegion.height * Draw.scl,
+			missileRegion.width * missileSizeScl * -Mathf.sign(flipSprite),
+			missileRegion.height * missileSizeScl,
 			weaponRotation);
 		Draw.reset();
 	}

@@ -293,7 +293,6 @@ public class UAWUnitTypes implements ContentList {
 				shootSound = UAWSfx.cruiseMissileShoot1;
 				bullet = new CruiseMissileBulletType(3f, 450) {{
 					layer = Layer.flyingUnitLow - 1;
-					size = 15;
 					homingRange = range * 2;
 					homingPower = 0.05f;
 					keepVelocity = false;
@@ -404,11 +403,10 @@ public class UAWUnitTypes implements ContentList {
 				layerOffset = 0.1f;
 				x = 10.25f;
 				y = -3.5f;
-				reload = 6 * 60f;
+				reload = 5 * tick;
 				shootSound = UAWSfx.cruiseMissileShoot1;
-				bullet = new CruiseMissileBulletType(3f, 500) {{
+				bullet = new CruiseMissileBulletType(3f, 700) {{
 					sprite = cruiseMissileCryo;
-					size = 45;
 					homingRange = range;
 					homingPower = 0.05f;
 					keepVelocity = false;
@@ -1168,7 +1166,6 @@ public class UAWUnitTypes implements ContentList {
 				reload = 8 * 60f;
 				shootSound = UAWSfx.cruiseMissileShoot1;
 				bullet = new CruiseMissileBulletType(3f, 450) {{
-					size = 15;
 					homingRange = range;
 					homingPower = 0.04f;
 					splashDamageRadius = 8 * tilesize;
@@ -1306,7 +1303,6 @@ public class UAWUnitTypes implements ContentList {
 				shootSound = UAWSfx.cruiseMissileShoot1;
 				rotateSpeed = 1.2f;
 				bullet = new CruiseMissileBulletType(3f, 600) {{
-					size = 15;
 					homingRange = range;
 					homingPower = 0.04f;
 					splashDamageRadius = 8 * tilesize;
