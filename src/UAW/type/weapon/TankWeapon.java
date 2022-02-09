@@ -12,12 +12,13 @@ import mindustry.graphics.Drawf;
 public class TankWeapon extends UAWWeapon {
 	public TextureRegion gunOutline;
 
-	/** Weapon that attatches to mech base */
+	/** Weapon that attatches to and rotates based on tank hull */
 	public TankWeapon(String name) {
 		this.name = name;
 		top = false;
 		mirror = false;
 		shootCone = 12f;
+		cooldownTime = 40;
 	}
 
 	@Override

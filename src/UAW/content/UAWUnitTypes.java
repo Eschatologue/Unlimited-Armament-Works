@@ -282,6 +282,7 @@ public class UAWUnitTypes implements ContentList {
 			}});
 			weapons.add(new MissileLauncherWeapon() {{
 				layerOffset = -0.01f;
+				missileSizeScl = 1f;
 				rotate = false;
 				mirror = true;
 				alternate = false;
@@ -293,6 +294,7 @@ public class UAWUnitTypes implements ContentList {
 				shootSound = UAWSfx.cruiseMissileShoot1;
 				bullet = new CruiseMissileBulletType(3f, 450) {{
 					layer = Layer.flyingUnitLow - 1;
+					sizeScl = 1.3f;
 					homingRange = range * 2;
 					homingPower = 0.05f;
 					keepVelocity = false;
@@ -365,7 +367,7 @@ public class UAWUnitTypes implements ContentList {
 					buildingDamageMultiplier = 0.4f;
 					maxRange = range;
 					homingRange = 60f;
-					lifetime = (range / speed) ;
+					lifetime = (range / speed);
 					ammoMultiplier = 8f;
 				}};
 			}});
