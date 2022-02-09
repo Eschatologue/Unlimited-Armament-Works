@@ -2,12 +2,15 @@ package UAW.world.blocks.liquid;
 
 import UAW.content.UAWBlocks;
 import arc.graphics.Color;
-import mindustry.gen.Building;
-import mindustry.type.Liquid;
-import mindustry.world.blocks.liquid.*;
+import mindustry.content.Fx;
+import mindustry.entities.*;
+import mindustry.gen.Sounds;
+import mindustry.world.blocks.liquid.Conduit;
+
+import static mindustry.Vars.tilesize;
 
 public class PressurizedConduit extends Conduit {
-	public float minimumPower = 0.99f;
+	public float explosionDamage = 45f;
 
 	public PressurizedConduit(String name) {
 		super(name);
@@ -18,7 +21,7 @@ public class PressurizedConduit extends Conduit {
 		leaks = false;
 		placeableLiquid = true;
 		outputsPower = consumesPower = hasPower = true;
-		consumes.power(0.0625f);
+		baseExplosiveness = 45;
 	}
 
 	@Override
@@ -30,13 +33,12 @@ public class PressurizedConduit extends Conduit {
 
 	public class PressurizedConduitBuild extends ConduitBuild {
 		@Override
-		public boolean acceptLiquid(Building source, Liquid liquid) {
-			return super.acceptLiquid(source, liquid)
-				&& power.status > minimumPower
-				&& (tile == null
-				|| source.block instanceof Conduit
-				|| (source.relativeTo(tile.x, tile.y) + 2) % 4 != rotation
-			);
+		public void onDestroyed() {
+			super.onDestroyed();
+			Sounds.explosion.at(this);
+			Damage.damage(x, y, 4 * tilesize, explosionDamage);
+			Effect.shake(3f, 3, x, y);
+			Fx.plasticExplosion.at(x, y);
 		}
 	}
 }

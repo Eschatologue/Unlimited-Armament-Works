@@ -11,6 +11,7 @@ import arc.struct.Seq;
 import arc.util.Time;
 import mindustry.Vars;
 import mindustry.content.Fx;
+import mindustry.entities.Effect;
 import mindustry.gen.Unit;
 import mindustry.graphics.*;
 import mindustry.type.UnitType;
@@ -25,6 +26,7 @@ public class UAWUnitType extends UnitType {
 	public float spinningFallSpeed = 0;
 	public float rotorDeathSlowdown = 0.01f;
 	public float fallSmokeX = 0f, fallSmokeY = -5f, fallSmokeChance = 0.1f;
+	public boolean rotorBlur = true;
 
 	// Tanks
 	public TextureRegion hullRegion, hullOutlineRegion, hullCellRegion, turretCellRegion;
@@ -90,19 +92,55 @@ public class UAWUnitType extends UnitType {
 				for (int i = 0; i < rotor.bladeCount; i++) {
 					float angle = (i * 360f / rotor.bladeCount + mount.rotorRotation) % 360;
 					Draw.z(z + 0.5f);
-					Draw.rect(rotor.bladeOutlineRegion, rx, ry, rotor.bladeOutlineRegion.width * Draw.scl, rotor.bladeOutlineRegion.height * Draw.scl, angle);
+//					if (rotorBlur) {
+//						new Effect(7f, e -> {
+//							Draw.alpha(e.fout());
+//							Draw.rect(rotor.bladeRegion,
+//								rx + Angles.trnsx(mount.rotorRotation, 6),
+//								ry + Angles.trnsy(mount.rotorRotation, 6),
+//								e.rotation);
+//						});
+//					}
+					Draw.rect(
+						rotor.bladeOutlineRegion, rx, ry,
+						rotor.bladeOutlineRegion.width * Draw.scl,
+						rotor.bladeOutlineRegion.height * Draw.scl,
+						angle
+					);
 					Draw.mixcol(Color.white, unit.hitTime);
-					Draw.rect(rotor.bladeRegion, rx, ry, rotor.bladeRegion.width * Draw.scl, rotor.bladeRegion.height * Draw.scl, angle);
+					Draw.rect(rotor.bladeRegion, rx, ry,
+						rotor.bladeRegion.width * Draw.scl,
+						rotor.bladeRegion.height * Draw.scl,
+						angle)
+					;
 					if (rotor.doubleRotor) {
-						Draw.rect(rotor.bladeOutlineRegion, rx, ry, rotor.bladeOutlineRegion.width * Draw.scl * -Mathf.sign(false), rotor.bladeOutlineRegion.height * Draw.scl, -angle);
+						Draw.rect(
+							rotor.bladeOutlineRegion, rx, ry,
+							rotor.bladeOutlineRegion.width * Draw.scl * -Mathf.sign(false),
+							rotor.bladeOutlineRegion.height * Draw.scl,
+							-angle
+						);
 						Draw.mixcol(Color.white, unit.hitTime);
-						Draw.rect(rotor.bladeRegion, rx, ry, rotor.bladeRegion.width * Draw.scl * -Mathf.sign(false), rotor.bladeRegion.height * Draw.scl, -angle);
+						Draw.rect(rotor.bladeRegion, rx, ry,
+							rotor.bladeRegion.width * Draw.scl * -Mathf.sign(false),
+							rotor.bladeRegion.height * Draw.scl,
+							-angle
+						);
 					}
 					if (rotor.drawRotorTop) {
 						Draw.z(z + 0.55f);
-						Draw.rect(rotor.topRegionOutline, rx, ry, rotor.topRegionOutline.width * Draw.scl, rotor.topRegionOutline.height * Draw.scl, unit.rotation - 90);
+						Draw.rect(
+							rotor.topRegionOutline, rx, ry,
+							rotor.topRegionOutline.width * Draw.scl,
+							rotor.topRegionOutline.height * Draw.scl,
+							unit.rotation - 90);
 						Draw.mixcol(Color.white, unit.hitTime);
-						Draw.rect(rotor.topRegion, rx, ry, rotor.topRegion.width * Draw.scl, rotor.topRegion.height * Draw.scl, unit.rotation - 90);
+						Draw.rect(
+							rotor.topRegion, rx, ry,
+							rotor.topRegion.width * Draw.scl,
+							rotor.topRegion.height * Draw.scl,
+							unit.rotation - 90
+						);
 					}
 				}
 			}
