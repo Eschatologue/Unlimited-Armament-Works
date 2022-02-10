@@ -20,8 +20,6 @@ public class PressurizedConduit extends Conduit {
 		liquidPressure = 1.5f;
 		leaks = false;
 		placeableLiquid = true;
-		outputsPower = consumesPower = hasPower = true;
-		baseExplosiveness = 45;
 	}
 
 	@Override
