@@ -655,7 +655,7 @@ public class UAWBlocks implements ContentList {
 			);
 			updateEffectChance = 0.05f;
 			pumpAmount = 1.2f;
-			liquidCapacity = 300f;
+			liquidCapacity = 360f;
 			attribute = Attribute.oil;
 			baseEfficiency = 0.55f;
 			itemUseTime = 120f;
