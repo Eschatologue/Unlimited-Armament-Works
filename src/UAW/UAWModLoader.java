@@ -17,6 +17,7 @@ public class UAWModLoader extends Mod {
 		new UAWUnitTypes().load();
 		new UAWItems().load();
 		new UAWLiquids().load();
+		new UAWGas().load();
 		new UAWBlocks().load();
 		new UAWTechTree().load();
 	}
