@@ -5,10 +5,11 @@ import UAW.graphics.*;
 import UAW.world.blocks.defense.*;
 import UAW.world.blocks.defense.turrets.*;
 import UAW.world.blocks.defense.walls.ShieldWall;
-import UAW.world.blocks.liquid.*;
+import UAW.world.blocks.liquid.PressurizedConduit;
 import UAW.world.blocks.power.WarmUpGenerator;
 import UAW.world.blocks.production.*;
 import arc.struct.Seq;
+import gas.world.blocks.sandbox.GasSource;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.UnitSorts;
@@ -22,7 +23,7 @@ import mindustry.world.blocks.liquid.*;
 import mindustry.world.blocks.production.*;
 import mindustry.world.blocks.units.*;
 import mindustry.world.draw.*;
-import mindustry.world.meta.Attribute;
+import mindustry.world.meta.*;
 
 import static UAW.content.UAWBullets.*;
 import static mindustry.Vars.tilesize;
@@ -54,7 +55,10 @@ public class UAWBlocks implements ContentList {
 	// Units Factory
 	UAWGroundFactory, UAWNavalFactory, UAWAirFactory,
 	// Units Reconstructor
-	exponentialPetroleumReconstructor, tetrativePetroleumReconstructor;
+	exponentialPetroleumReconstructor, tetrativePetroleumReconstructor,
+	// Gasses
+	gasSource;
+
 
 	@Override
 	public void load() {
@@ -1133,5 +1137,9 @@ public class UAWBlocks implements ContentList {
 			);
 		}};
 
+		gasSource = new GasSource("gas-source") {{
+			requirements(Category.liquid, BuildVisibility.sandboxOnly, with());
+			alwaysUnlocked = true;
+		}};
 	}
 }
