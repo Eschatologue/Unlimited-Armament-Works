@@ -882,12 +882,11 @@ public class UAWBlocks implements ContentList {
 			health = 300 * size;
 			hasLiquids = true;
 			hasItems = false;
-			liquidCapacity = 360f;
+			liquidCapacity = 480f;
 			ambientSound = Sounds.machine;
 			ambientSoundVolume = 0.05f;
 
 			powerProduction = 45f;
-			consumes.power(4.5f);
 			consumes.liquid(Liquids.oil, 2.5f);
 		}};
 

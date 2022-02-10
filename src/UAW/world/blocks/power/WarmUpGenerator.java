@@ -61,7 +61,7 @@ public class WarmUpGenerator extends ImpactReactor {
 			intensity += warmup * edelta();
 			if (warmup >= 0.001) {
 				if (Mathf.chance(warmup)) {
-					smokeEffect.at(x + Mathf.range(size / 3f * 4f), y + Mathf.range(size / 3f * 4f));
+					smokeEffect.at(x + Mathf.range(size / 3.5f * 4f), y + Mathf.range(size / 3.5f * 4f));
 				}
 			}
 		}
