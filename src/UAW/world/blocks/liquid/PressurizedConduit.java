@@ -17,7 +17,7 @@ public class PressurizedConduit extends Conduit {
 		botColor = Color.valueOf("4a4b53");
 		health = 300;
 		liquidCapacity = 30f;
-		liquidPressure = 1.5f;
+		liquidPressure = 2f;
 		leaks = false;
 		placeableLiquid = true;
 	}

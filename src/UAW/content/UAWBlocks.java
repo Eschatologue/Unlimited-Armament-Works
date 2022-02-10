@@ -581,7 +581,7 @@ public class UAWBlocks implements ContentList {
 			health = 500;
 			baseExplosiveness = 8f;
 		}};
-		pressurizedLiquidRouter = new PressurizedRouter("pressurized-liquid-router") {{
+		pressurizedLiquidRouter = new LiquidRouter("pressurized-liquid-router") {{
 			requirements(Category.liquid, with(
 				UAWItems.titaniumCarbide, 3,
 				Items.plastanium, 2,
@@ -590,7 +590,7 @@ public class UAWBlocks implements ContentList {
 			health = 500;
 			baseExplosiveness = 8f;
 			liquidCapacity = 60f;
-			liquidPressure = 1.5f;
+			liquidPressure = 2f;
 			placeableLiquid = true;
 		}};
 		pressurizedLiquidJunction = new LiquidJunction("pressurized-liquid-junction") {{
@@ -636,17 +636,16 @@ public class UAWBlocks implements ContentList {
 			liquidCapacity = 540f;
 			rotateSpeed = -3f;
 
-			consumes.power(2f);
 			consumes.item(UAWItems.cryogel, 1);
 		}};
 		oilDerrick = new Fracker("oil-derrick") {{
 			requirements(Category.production, with(
-				Items.titanium, 200,
+				Items.titanium, 180,
 				Items.plastanium, 125,
 				Items.metaglass, 85,
-				Items.silicon, 85,
-				UAWItems.titaniumCarbide, 95,
-				Items.surgeAlloy, 55
+				Items.silicon, 65,
+				UAWItems.titaniumCarbide, 85,
+				Items.surgeAlloy, 45
 			));
 			size = 4;
 			result = Liquids.oil;
