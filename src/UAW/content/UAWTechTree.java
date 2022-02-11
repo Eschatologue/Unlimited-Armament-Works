@@ -202,8 +202,7 @@ public class UAWTechTree implements ContentList {
 
 		vanillaNode(siliconCrucible, () ->
 			node(petroleumSmelter, Seq.with(
-					new Research(surgeSmelter),
-					new Research(anthraciteCrystallizer)
+					new Research(surgeSmelter)
 				)
 			)
 		);
@@ -215,13 +214,7 @@ public class UAWTechTree implements ContentList {
 			);
 			node(petrochemicalSeperator, Seq.with(
 				new Research(oilDerrick),
-				new Research(anthracite)), () ->
-				node(anthraciteCrystallizer, Seq.with(
-						new SectorComplete(SectorPresets.nuclearComplex),
-						new Produce(anthracite),
-						new Research(plastaniumForge)
-					)
-				)
+				new Research(anthracite))
 			);
 		});
 
