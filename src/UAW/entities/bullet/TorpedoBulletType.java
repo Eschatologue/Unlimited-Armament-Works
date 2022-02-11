@@ -1,7 +1,6 @@
 package UAW.entities.bullet;
 
 import UAW.graphics.*;
-import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.util.Time;
 import mindustry.Vars;
@@ -47,7 +46,6 @@ public class TorpedoBulletType extends BulletType {
 		lightColor = hitColor;
 		trailLength = 36;
 		trailWidth = trailLength / 13f;
-		trailColor = UAWPal.waterMiddle;
 		trailInterval = 0.2f;
 		shootEffect = UAWFxS.shootWaterFlame;
 		trailEffect = UAWFxS.torpedoCruiseTrail;
@@ -65,7 +63,7 @@ public class TorpedoBulletType extends BulletType {
 		if (trailLength > 0 && b.trail != null) {
 			float z = Draw.z();
 			Draw.z(Layer.debris + 0.001f);
-			b.trail.draw(trailColor, trailWidth);
+			b.trail.draw(Blocks.water.mapColor.cpy().mul(1.5f), trailWidth);
 			Draw.z(z);
 		}
 	}
@@ -73,14 +71,13 @@ public class TorpedoBulletType extends BulletType {
 	@Override
 	public void update(Bullet b) {
 		Floor floor = Vars.world.floorWorld(b.x, b.y);
-		Color liquidColor = floor.mapColor.equals(Color.black) ? Blocks.water.mapColor : floor.mapColor;
 		/**
 		 * Taken from Betamindy - NavalBulletType
 		 * @Author Sk7725
 		 */
 		if (Time.time - b.fdata > rippleInterval) {
 			b.fdata = Time.time;
-			rippleEffect.at(b.x, b.y, hitSize / 3f, liquidColor);
+			rippleEffect.at(b.x, b.y, hitSize / 3f, Blocks.water.mapColor.cpy().mul(1.5f));
 		}
 		if (floor.isDeep()) {
 			b.vel.scl(Math.max(1f - deepDrag * Time.delta, 0.01f));

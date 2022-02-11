@@ -30,12 +30,23 @@ public class UAWWeapon extends Weapon {
 		float weaponRotation = rotation + (rotate ? mount.rotation : 0);
 		float wx = unit.x + Angles.trnsx(rotation, x, y) + Angles.trnsx(weaponRotation, 0, -mount.recoil * baseRecoilMultiplier);
 		float wy = unit.y + Angles.trnsy(rotation, x, y) + Angles.trnsy(weaponRotation, 0, -mount.recoil * baseRecoilMultiplier);
+
 		if (weaponBase.found()) {
 			Draw.rect(weaponBase,
 				wx, wy,
 				weaponBase.width * Draw.scl * -Mathf.sign(flipSprite),
 				weaponBase.height * Draw.scl,
 				weaponRotation);
+		}
+	}
+
+	public void drawBaseOutline(Unit unit, WeaponMount mount) {
+		float rotation = unit.rotation - 90;
+		float weaponRotation = rotation + (rotate ? mount.rotation : 0);
+		float wx = unit.x + Angles.trnsx(rotation, x, y) + Angles.trnsx(weaponRotation, 0, -mount.recoil * baseRecoilMultiplier);
+		float wy = unit.y + Angles.trnsy(rotation, x, y) + Angles.trnsy(weaponRotation, 0, -mount.recoil * baseRecoilMultiplier);
+
+		if (weaponBase.found()) {
 			Draw.rect(weaponBaseOutline,
 				wx, wy,
 				weaponBaseOutline.width * Draw.scl * -Mathf.sign(flipSprite),
@@ -43,6 +54,7 @@ public class UAWWeapon extends Weapon {
 				weaponRotation);
 		}
 	}
+
 
 	@Override
 	public void drawOutline(Unit unit, WeaponMount mount) {
@@ -68,6 +80,7 @@ public class UAWWeapon extends Weapon {
 
 	@Override
 	public void draw(Unit unit, WeaponMount mount) {
+		drawBaseOutline(unit, mount);
 		super.draw(unit, mount);
 		drawBase(unit, mount);
 	}
