@@ -285,7 +285,7 @@ public class UAWFxS {
 
 	torpedoRippleTrail = new Effect(180, e -> {
 		e.lifetime = 30f * e.rotation;
-		color(Tmp.c1.set(e.color).mul(1.5f));
+		color(Tmp.c1.set(e.color));
 		stroke(e.fout() * 1.2f);
 		Lines.circle(e.x, e.y, 3 + e.finpow() * 12f);
 	}).layer(Layer.scorch - 0.1f),
@@ -299,7 +299,6 @@ public class UAWFxS {
 	torpedoTrailFade = new Effect(400f, e -> {
 		if (!(e.data instanceof Trail trail)) return;
 		e.lifetime = trail.length * 1.4f;
-
 		if (!state.isPaused()) {
 			trail.shorten();
 		}

@@ -44,6 +44,7 @@ public class TorpedoBulletType extends BulletType {
 		collideTerrain = collideFloor = true;
 		keepVelocity = collidesAir = absorbable = hittable = reflectable = false;
 		lightColor = hitColor;
+		trailColor = Blocks.water.mapColor.cpy().mul(1.5f);
 		trailLength = 36;
 		trailWidth = trailLength / 13f;
 		trailInterval = 0.2f;
@@ -63,7 +64,7 @@ public class TorpedoBulletType extends BulletType {
 		if (trailLength > 0 && b.trail != null) {
 			float z = Draw.z();
 			Draw.z(Layer.debris + 0.001f);
-			b.trail.draw(Blocks.water.mapColor.cpy().mul(1.5f), trailWidth);
+			b.trail.draw(trailColor, trailWidth);
 			Draw.z(z);
 		}
 	}
@@ -77,7 +78,7 @@ public class TorpedoBulletType extends BulletType {
 		 */
 		if (Time.time - b.fdata > rippleInterval) {
 			b.fdata = Time.time;
-			rippleEffect.at(b.x, b.y, hitSize / 3f, Blocks.water.mapColor.cpy().mul(1.5f));
+			rippleEffect.at(b.x, b.y, hitSize / 3f, trailColor);
 		}
 		if (floor.isDeep()) {
 			b.vel.scl(Math.max(1f - deepDrag * Time.delta, 0.01f));
