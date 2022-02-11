@@ -36,6 +36,11 @@ public class UAWWeapon extends Weapon {
 				weaponBase.width * Draw.scl * -Mathf.sign(flipSprite),
 				weaponBase.height * Draw.scl,
 				weaponRotation);
+			Draw.rect(weaponBaseOutline,
+				wx, wy,
+				weaponBaseOutline.width * Draw.scl * -Mathf.sign(flipSprite),
+				weaponBaseOutline.height * Draw.scl,
+				weaponRotation);
 		}
 	}
 
@@ -57,13 +62,6 @@ public class UAWWeapon extends Weapon {
 				wx, wy,
 				weaponOutline.width * Draw.scl * -Mathf.sign(flipSprite),
 				weaponOutline.height * Draw.scl,
-				weaponRotation);
-		}
-		if (weaponBase.found()) {
-			Draw.rect(weaponBaseOutline,
-				wx, wy,
-				weaponBaseOutline.width * Draw.scl * -Mathf.sign(flipSprite),
-				weaponBaseOutline.height * Draw.scl,
 				weaponRotation);
 		}
 	}
