@@ -264,17 +264,17 @@ public class UAWTechTree implements ContentList {
 
 		vanillaNode(additiveReconstructor, () ->
 			node(UAWGroundFactory, Seq.with(new Research(oilDerrick)), () -> {
-				node(gardlacz, () ->
-					node(arkabuz)
+				node(cavalier, () ->
+					node(centurion)
 				);
 				node(UAWNavalFactory, () -> {
-					node(clurit, () ->
-						node(kujang, () ->
-							node(kerambit)
+					node(arquebus, () ->
+						node(carronade, () ->
+							node(falconet)
 						)
 					);
-					node(hatsuharu, () ->
-						node(shiratsuyu)
+					node(seabass, () ->
+						node(sharpnose)
 					);
 					node(UAWAirFactory, () -> {
 							node(aglovale, () ->

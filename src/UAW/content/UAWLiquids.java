@@ -13,7 +13,7 @@ public class UAWLiquids implements ContentList {
 	public void load() {
 		surgeSolvent = new Liquid("liquid-surge-solvent", Pal.surge) {{
 			viscosity = 0.50f;
-			temperature = 0.5f;
+			temperature = 0.6f;
 			heatCapacity = 0.6f;
 			barColor = Pal.surge;
 			effect = StatusEffects.electrified;

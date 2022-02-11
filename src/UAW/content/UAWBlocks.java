@@ -9,7 +9,6 @@ import UAW.world.blocks.liquid.PressurizedConduit;
 import UAW.world.blocks.power.WarmUpGenerator;
 import UAW.world.blocks.production.*;
 import arc.struct.Seq;
-import gas.world.blocks.sandbox.GasSource;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.UnitSorts;
@@ -57,7 +56,7 @@ public class UAWBlocks implements ContentList {
 	// Units Reconstructor
 	exponentialPetroleumReconstructor, tetrativePetroleumReconstructor,
 	// Gasses
-	gasSource;
+	gasSource, gasConduit;
 
 
 	@Override
@@ -1005,7 +1004,7 @@ public class UAWBlocks implements ContentList {
 			consumes.liquid(Liquids.oil, 1f);
 			liquidCapacity = 120f;
 			plans = Seq.with(
-				new UnitPlan(UAWUnitTypes.gardlacz, 35f * tick, with(
+				new UnitPlan(UAWUnitTypes.cavalier, 35f * tick, with(
 					Items.silicon, 85,
 					Items.titanium, 90,
 					Items.lead, 150,
@@ -1027,13 +1026,13 @@ public class UAWBlocks implements ContentList {
 			consumes.liquid(Liquids.oil, 1f);
 			liquidCapacity = 120f;
 			plans = Seq.with(
-				new UnitPlan(UAWUnitTypes.clurit, 45f * tick, with(
+				new UnitPlan(UAWUnitTypes.arquebus, 45f * tick, with(
 					Items.silicon, 65,
 					Items.metaglass, 60,
 					Items.titanium, 100,
 					Items.lead, 120
 				)),
-				new UnitPlan(UAWUnitTypes.hatsuharu, 55f * tick, with(
+				new UnitPlan(UAWUnitTypes.seabass, 55f * tick, with(
 					Items.silicon, 55,
 					Items.metaglass, 50,
 					Items.titanium, 100,
@@ -1096,9 +1095,9 @@ public class UAWBlocks implements ContentList {
 
 			upgrades.addAll(
 				new UnitType[]{UAWUnitTypes.aglovale, UAWUnitTypes.bedivere},
-				new UnitType[]{UAWUnitTypes.clurit, UAWUnitTypes.kujang},
-				new UnitType[]{UAWUnitTypes.gardlacz, UAWUnitTypes.arkabuz},
-				new UnitType[]{UAWUnitTypes.hatsuharu, UAWUnitTypes.shiratsuyu}
+				new UnitType[]{UAWUnitTypes.arquebus, UAWUnitTypes.carronade},
+				new UnitType[]{UAWUnitTypes.cavalier, UAWUnitTypes.centurion},
+				new UnitType[]{UAWUnitTypes.seabass, UAWUnitTypes.sharpnose}
 //				new UnitType[]{UAWUnitTypes.corsair, UAWUnitTypes.vindicator}
 			);
 		}};
@@ -1130,16 +1129,12 @@ public class UAWBlocks implements ContentList {
 
 			upgrades.addAll(
 				new UnitType[]{UAWUnitTypes.bedivere, UAWUnitTypes.calogrenant},
-				new UnitType[]{UAWUnitTypes.kujang, UAWUnitTypes.kerambit},
-				new UnitType[]{UAWUnitTypes.arkabuz, UAWUnitTypes.armata}
-//			new UnitType[]{UAWUnitTypes.shiratsuyu, UAWUnitTypes.kagero}
+				new UnitType[]{UAWUnitTypes.carronade, UAWUnitTypes.falconet},
+				new UnitType[]{UAWUnitTypes.centurion, UAWUnitTypes.caernarvon}
+//			new UnitType[]{UAWUnitTypes.sharpnose, UAWUnitTypes.sturgeon}
 //			new UnitType[]{UAWUnitTypes.vindicator, UAWUnitTypes.superfortress}
 			);
 		}};
 
-		gasSource = new GasSource("gas-source") {{
-			requirements(Category.liquid, BuildVisibility.sandboxOnly, with());
-			alwaysUnlocked = true;
-		}};
 	}
 }

@@ -33,11 +33,11 @@ import static mindustry.content.Bullets.*;
 @SuppressWarnings("unchecked")
 public class UAWUnitTypes implements ContentList {
 	public static UnitType
-		aglovale, bedivere, calogrenant, dagonet, esclabor,
+		aglovale, bedivere, calogrenant,
 		corsair, vindicator, superfortress,
-		clurit, kujang, kerambit, cetbang, kiAmuk,
-		hatsuharu, shiratsuyu, kagero, shimakaze,
-		gardlacz, arkabuz, armata, zemsta;
+		arquebus, carronade, falconet,
+		seabass, sharpnose, swordfish,
+		cavalier, centurion, caernarvon, challenger;
 
 	//Steal from Progressed Material which stole from Endless Rusting which stole from Progressed Materials in the past which stole from BetaMindy
 	private static final Entry<Class<? extends Entityc>, Prov<? extends Entityc>>[] types = new Entry[]{
@@ -529,7 +529,7 @@ public class UAWUnitTypes implements ContentList {
 			);
 		}};
 
-		clurit = new UnitType("clurit") {{
+		arquebus = new UnitType("arquebus") {{
 			health = 750;
 			speed = 0.75f;
 			accel = 0.2f;
@@ -614,7 +614,7 @@ public class UAWUnitTypes implements ContentList {
 				}};
 			}});
 		}};
-		kujang = new UnitType("kujang") {{
+		carronade = new UnitType("carronade") {{
 			health = 7000;
 			hitSize = 22;
 			speed = 0.8f;
@@ -707,7 +707,7 @@ public class UAWUnitTypes implements ContentList {
 				}}
 			);
 		}};
-		kerambit = new UnitType("kerambit") {{
+		falconet = new UnitType("falconet") {{
 			health = 16000;
 			hitSize = 44;
 			speed = 0.65f;
@@ -799,13 +799,13 @@ public class UAWUnitTypes implements ContentList {
 					fragBullet = flakGlass;
 				}};
 			}});
-			weapons.add(new Weapon(artilleryLargePurple) {{
+			weapons.add(new UAWWeapon(artilleryLargePurple) {{
 				rotate = true;
 				mirror = false;
 				rotateSpeed = 1f;
 				x = 0f;
 				y = -3f;
-				shootY = 160 * px;
+				shootY = 70 * px;
 				targetFlags = new BlockFlag[]{
 					BlockFlag.turret,
 					BlockFlag.extinguisher,
@@ -820,6 +820,8 @@ public class UAWUnitTypes implements ContentList {
 				shootStatusDuration = reload * 1.2f;
 				shootStatus = StatusEffects.unmoving;
 				ejectEffect = UAWFxS.casing5;
+
+				customIcon = true;
 				bullet = new UAWArtilleryBulletType(1.7f, 550) {{
 					height = 42;
 					width = height / 2f;
@@ -862,7 +864,7 @@ public class UAWUnitTypes implements ContentList {
 			}});
 		}};
 
-		hatsuharu = new UnitType("hatsuharu") {{
+		seabass = new UnitType("seabass") {{
 			health = 650;
 			speed = 1.2f;
 			accel = 0.2f;
@@ -922,7 +924,7 @@ public class UAWUnitTypes implements ContentList {
 				}};
 			}});
 		}};
-		shiratsuyu = new UnitType("shiratsuyu") {{
+		sharpnose = new UnitType("sharpnose") {{
 			health = 5500;
 			speed = 1f;
 			accel = 0.2f;
@@ -1040,7 +1042,7 @@ public class UAWUnitTypes implements ContentList {
 			}});
 		}};
 
-		gardlacz = new UAWUnitType("gardlacz") {{
+		cavalier = new UAWUnitType("cavalier") {{
 			health = 750;
 			armor = 18;
 			hitSize = 16;
@@ -1112,7 +1114,7 @@ public class UAWUnitTypes implements ContentList {
 						}}
 			);
 		}};
-		arkabuz = new UAWUnitType("arkabuz") {{
+		centurion = new UAWUnitType("centurion") {{
 			health = 7250;
 			armor = 30;
 			hitSize = 25;
@@ -1229,7 +1231,7 @@ public class UAWUnitTypes implements ContentList {
 				}};
 			}});
 		}};
-		armata = new UAWUnitType("armata") {{
+		caernarvon = new UAWUnitType("caernarvon") {{
 			health = 12500;
 			armor = 45;
 			hitSize = 32;
