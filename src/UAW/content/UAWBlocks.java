@@ -44,9 +44,9 @@ public class UAWBlocks implements ContentList {
 	// Liquids
 	pressurizedConduit, pressurizedLiquidRouter, pressurizedLiquidJunction, pressurizedLiquidBridge, rotodynamicPump,
 	// Drills
-	oilDerrick,
+	oilDerrick, corbonThumper,
 	// Crafters
-	gelatinizer, carburizingFurnace, surgeMixer, petroleumSmelter, petrochemicalSeperator, plastaniumForge, anthraciteCrystallizer,
+	gelatinizer, carburizingFurnace, surgeMixer, petroleumSmelter, petrochemicalSeperator, plastaniumForge,
 	// Power
 	petroleumGenerator,
 	// Defense
@@ -635,11 +635,12 @@ public class UAWBlocks implements ContentList {
 				Items.thorium, 70
 			));
 			size = 3;
-			pumpAmount = 0.40f;
+			pumpAmount = 0.5f;
 			liquidCapacity = 540f;
 			rotateSpeed = -3f;
 
-			consumes.item(UAWItems.cryogel, 1);
+			consumes.item(UAWItems.cryogel, 4);
+			consumes.power(2f);
 		}};
 		oilDerrick = new Fracker("oil-derrick") {{
 			requirements(Category.production, with(
@@ -657,7 +658,7 @@ public class UAWBlocks implements ContentList {
 				Fx.hitLancer
 			);
 			updateEffectChance = 0.05f;
-			pumpAmount = 1.2f;
+			pumpAmount = 1.5f;
 			liquidCapacity = 360f;
 			attribute = Attribute.oil;
 			baseEfficiency = 0.55f;
@@ -747,9 +748,10 @@ public class UAWBlocks implements ContentList {
 			craftTime = 2f * tick;
 			updateEffect = Fx.shieldBreak;
 		}};
+
 		plastaniumForge = new AdvancedGenericCrafter("plastanium-forge") {{
 			requirements(Category.crafting, with(
-				Items.lead, 325,
+				Items.lead, 225,
 				Items.silicon, 160,
 				Items.graphite, 160,
 				Items.titanium, 300,
@@ -772,14 +774,13 @@ public class UAWBlocks implements ContentList {
 			updateEffect = new MultiEffect(Fx.plasticburn, Fx.burning, Fx.fireSmoke);
 			drawer = new DrawSmelter();
 
-			consumes.liquid(Liquids.oil, 2.5f);
-			consumes.power(4f);
+			consumes.liquid(Liquids.oil, 3f);
+			consumes.power(3.5f);
 			consumes.items(
 				new ItemStack(Items.titanium, 7),
 				new ItemStack(UAWItems.anthracite, 2)
 			);
 		}};
-
 		petroleumSmelter = new AdvancedGenericCrafter("petroleum-smelter") {{
 			requirements(Category.crafting, with(
 				Items.titanium, 125,
@@ -813,8 +814,8 @@ public class UAWBlocks implements ContentList {
 				new ItemStack(Items.lead, 4),
 				new ItemStack(UAWItems.anthracite, 3)
 			);
-			consumes.liquid(Liquids.oil, 1.25f);
-			consumes.power(4.5f);
+			consumes.liquid(Liquids.oil, 2);
+			consumes.power(3.5f);
 			outputItems = with(
 				Items.silicon, 13,
 				Items.metaglass, 13
@@ -840,37 +841,8 @@ public class UAWBlocks implements ContentList {
 			updateEffect = new MultiEffect(Fx.fireHit, UAWFxS.plastHit, Fx.oily);
 
 			consumes.power(2f);
-			consumes.liquid(Liquids.oil, 0.5f);
-			consumes.item(Items.sand, 2);
-		}};
-		anthraciteCrystallizer = new AttributeCrafter("anthracite-crystallizer") {{
-			requirements(Category.crafting, with(
-				Items.lead, 250,
-				Items.titanium, 150,
-				Items.plastanium, 120,
-				Items.silicon, 105)
-			);
-			consumes.items(
-				new ItemStack(Items.coal, 4),
-				new ItemStack(Items.thorium, 1)
-			);
-			consumes.liquid(Liquids.oil, 1.5f);
-			outputItems = with(
-				UAWItems.anthracite, 4
-			);
-			size = 3;
-			drawer = new DrawLiquid();
-			hasItems = true;
-			hasLiquids = true;
-			itemCapacity = 30;
-			craftTime = 2.5f * tick;
-			squareSprite = false;
-			craftEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireHit);
-			updateEffect = new MultiEffect(Fx.burning, Fx.fireSmoke, Fx.steam);
-			attribute = Attribute.heat;
-			boostScale = 0.11f;
-			maxBoost = 3f;
-			baseEfficiency = 0.5f;
+			consumes.liquid(Liquids.oil, 1f);
+			consumes.item(Items.sand, 3);
 		}};
 
 		petroleumGenerator = new WarmUpGenerator("petroleum-generator") {{
@@ -890,7 +862,8 @@ public class UAWBlocks implements ContentList {
 			ambientSoundVolume = 0.05f;
 
 			powerProduction = 45f;
-			consumes.liquid(Liquids.oil, 2.5f);
+			consumes.power(5f);
+			consumes.liquid(Liquids.oil, 3.5f);
 		}};
 
 		shieldWall = new ShieldWall("force-wall") {{

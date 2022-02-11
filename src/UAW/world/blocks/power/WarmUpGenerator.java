@@ -21,7 +21,7 @@ import mindustry.world.blocks.power.ImpactReactor;
  */
 public class WarmUpGenerator extends ImpactReactor {
 	public TextureRegion liquidRegion, rotatorRegion, heatRegion, topRegion;
-	public Effect smokeEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
+	public Effect smokeEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke, Fx.fire);
 	public Color heatColor = Color.valueOf("ff5512");
 	public float rotationSpeed = 15f;
 
@@ -31,8 +31,7 @@ public class WarmUpGenerator extends ImpactReactor {
 		squareSprite = false;
 		hasItems = false;
 		baseExplosiveness = 16f;
-		outputsPower = true;
-		consumesPower = false;
+		outputsPower = consumesPower = true;
 		explosionRadius = (size * 5);
 		explosionDamage = size * 125;
 		explodeEffect = UAWFxD.dynamicExplosion(explosionRadius);
@@ -77,7 +76,9 @@ public class WarmUpGenerator extends ImpactReactor {
 			if (rotatorRegion.found()) {
 				Drawf.spinSprite(rotatorRegion, x, y, rotationSpeed * intensity);
 			}
-			Draw.rect(topRegion, x, y);
+			if (topRegion.found()) {
+				Draw.rect(topRegion, x, y);
+			}
 
 			if (heatRegion.found()) {
 				Draw.color(heatColor);
