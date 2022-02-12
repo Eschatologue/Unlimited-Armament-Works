@@ -44,7 +44,7 @@ public class UAWBlocks implements ContentList {
 	// Liquids
 	pressurizedConduit, platedPressurizedConduit, pressurizedLiquidRouter, pressurizedLiquidJunction, pressurizedLiquidBridge, rotodynamicPump,
 	// Drills
-	oilDerrick, corbonThumper,
+	oilDerrick, coalThumper,
 	// Crafters
 	gelatinizer, carburizingFurnace, surgeMixer, petroleumSmelter, petrochemicalSeperator, plastaniumForge,
 	// Power
@@ -772,7 +772,7 @@ public class UAWBlocks implements ContentList {
 			squareSprite = false;
 			hasItems = true;
 			itemCapacity = 48;
-			liquidCapacity = 360f;
+			liquidCapacity = 280f;
 			craftTime = 5.5f * tick;
 			outputItem = new ItemStack(Items.plastanium, 14);
 			hasPower = hasLiquids = true;
@@ -785,7 +785,6 @@ public class UAWBlocks implements ContentList {
 			drawer = new DrawSmelter();
 
 			consumes.liquid(Liquids.oil, 3f);
-			consumes.power(3.5f);
 			consumes.items(
 				new ItemStack(Items.titanium, 7),
 				new ItemStack(UAWItems.anthracite, 2)
@@ -824,8 +823,7 @@ public class UAWBlocks implements ContentList {
 				new ItemStack(Items.lead, 4),
 				new ItemStack(UAWItems.anthracite, 3)
 			);
-			consumes.liquid(Liquids.oil, 2);
-			consumes.power(3.5f);
+			consumes.liquid(Liquids.oil, 3);
 			outputItems = with(
 				Items.silicon, 13,
 				Items.metaglass, 13
@@ -850,8 +848,7 @@ public class UAWBlocks implements ContentList {
 			liquidCapacity = 240f;
 			updateEffect = new MultiEffect(Fx.fireHit, UAWFxS.plastHit, Fx.oily);
 
-			consumes.power(2f);
-			consumes.liquid(Liquids.oil, 1f);
+			consumes.liquid(Liquids.oil, 1.5f);
 			consumes.item(Items.sand, 3);
 		}};
 
@@ -883,7 +880,7 @@ public class UAWBlocks implements ContentList {
 			));
 			size = 1;
 			health = 250;
-			shieldHealth = 8500f;
+			shieldHealth = health * 20;
 			cooldown = 2f;
 			cooldownBrokenShield = 1f;
 			researchCostMultiplier = 2f;

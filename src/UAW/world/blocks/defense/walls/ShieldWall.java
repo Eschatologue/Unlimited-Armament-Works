@@ -29,7 +29,7 @@ public class ShieldWall extends Wall {
 			paramEntity.buildup += trait.damage();
 		}
 	};
-	public float radius = size * 12f;
+	public float radius = size * 15f;
 	public float shieldHealth = 8500;
 	public float cooldown = 1.75f;
 	public float cooldownBrokenShield = 0.35f;
@@ -117,6 +117,11 @@ public class ShieldWall extends Wall {
 			}
 		}
 
+		@Override
+		public void damage(float amount){
+			super.damage(amount);
+		}
+
 		public float realRadius() {
 			return radius * radscl;
 		}
@@ -138,11 +143,8 @@ public class ShieldWall extends Wall {
 		public void drawShield() {
 			if (!broken) {
 				float radius = realRadius();
-
 				Draw.z(Layer.shields);
-
 				Draw.color(team.color, Color.white, Mathf.clamp(hit));
-
 				if (Core.settings.getBool("animatedshields")) {
 					Fill.square(x, y, radius);
 				} else {
