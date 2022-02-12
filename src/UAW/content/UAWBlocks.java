@@ -22,7 +22,7 @@ import mindustry.world.blocks.liquid.*;
 import mindustry.world.blocks.production.*;
 import mindustry.world.blocks.units.*;
 import mindustry.world.draw.*;
-import mindustry.world.meta.*;
+import mindustry.world.meta.Attribute;
 
 import static UAW.content.UAWBullets.*;
 import static mindustry.Vars.tilesize;
@@ -577,7 +577,6 @@ public class UAWBlocks implements ContentList {
 
 		pressurizedConduit = new PressurizedConduit("pressurized-conduit") {{
 			requirements(Category.liquid, with(
-				UAWItems.titaniumCarbide, 3,
 				Items.metaglass, 2,
 				Items.plastanium, 2
 			));
@@ -945,7 +944,7 @@ public class UAWBlocks implements ContentList {
 			boostMultiplier = 3f;
 			boostDuration = 5 * tick;
 			consumes.power(1.6f);
-			consumes.liquid(UAWLiquids.surgeSolvent, 0.5f);
+			consumes.liquid(Liquids.oil, 0.5f);
 		}};
 		rejuvinationDome = new RejuvenationProjector("rejuvination-dome") {{
 			requirements(Category.effect, with(
@@ -961,7 +960,7 @@ public class UAWBlocks implements ContentList {
 			health = 75 * size * size;
 			boostMultiplier = 6f;
 			consumes.power(3f);
-			consumes.liquid(UAWLiquids.surgeSolvent, 1f);
+			consumes.liquid(Liquids.oil, 1f);
 		}};
 
 		UAWGroundFactory = new UnitFactory("uaw-ground-factory") {{
