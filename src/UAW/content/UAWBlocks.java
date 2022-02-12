@@ -616,8 +616,6 @@ public class UAWBlocks implements ContentList {
 			liquidCapacity = 60f;
 			liquidPressure = 1.5f;
 			placeableLiquid = true;
-			consumesPower = outputsPower = hasPower = true;
-			consumes.powerBuffered(250);
 			baseExplosiveness = 8f;
 		}};
 		pressurizedLiquidBridge = new LiquidBridge("pressurized-liquid-bridge") {{
