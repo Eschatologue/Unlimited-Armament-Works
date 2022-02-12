@@ -5,7 +5,7 @@ import UAW.graphics.*;
 import UAW.world.blocks.defense.*;
 import UAW.world.blocks.defense.turrets.*;
 import UAW.world.blocks.defense.walls.ShieldWall;
-import UAW.world.blocks.liquid.PressurizedConduit;
+import UAW.world.blocks.liquid.*;
 import UAW.world.blocks.power.WarmUpGenerator;
 import UAW.world.blocks.production.*;
 import arc.struct.Seq;
@@ -42,7 +42,7 @@ public class UAWBlocks implements ContentList {
 	// Energy
 	heavylight, trailblazer, terravolt,
 	// Liquids
-	pressurizedConduit, pressurizedLiquidRouter, pressurizedLiquidJunction, pressurizedLiquidBridge, rotodynamicPump,
+	pressurizedConduit, platedPressurizedConduit, pressurizedLiquidRouter, pressurizedLiquidJunction, pressurizedLiquidBridge, rotodynamicPump,
 	// Drills
 	oilDerrick, corbonThumper,
 	// Crafters
@@ -577,10 +577,21 @@ public class UAWBlocks implements ContentList {
 
 		pressurizedConduit = new PressurizedConduit("pressurized-conduit") {{
 			requirements(Category.liquid, with(
+				Items.titanium, 3,
 				Items.metaglass, 2,
-				Items.plastanium, 2
+				Items.plastanium, 3
 			));
 			health = 500;
+			baseExplosiveness = 8f;
+		}};
+		platedPressurizedConduit = new PlatedPressurizedConduit("plated-pressurized-conduit") {{
+			requirements(Category.liquid, with(
+				Items.titanium, 3,
+				Items.metaglass, 2,
+				Items.plastanium, 3,
+				Items.thorium, 2
+			));
+			health = 750;
 			baseExplosiveness = 8f;
 		}};
 		pressurizedLiquidRouter = new LiquidRouter("pressurized-liquid-router") {{
