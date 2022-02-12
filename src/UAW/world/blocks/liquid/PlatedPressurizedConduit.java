@@ -23,9 +23,11 @@ public class PlatedPressurizedConduit extends PressurizedConduit {
 		public boolean acceptLiquid(Building source, Liquid liquid) {
 			return super.acceptLiquid(source, liquid)
 				&& (tile == null
-				|| !(source.block instanceof Conduit)
+				|| source.tile.absoluteRelativeTo(tile.x, tile.y) == rotation
+				&& !(source.block instanceof Conduit)
 				|| source.block instanceof PressurizedConduit
-				|| source.tile.absoluteRelativeTo(tile.x, tile.y) == rotation);
+			);
+
 		}
 	}
 }
