@@ -58,7 +58,7 @@ public class PressurizedConduit extends Conduit {
 			return (liquids.current() == liquid || liquids.currentAmount() < 0.2f)
 				&& (tile == null
 				|| (source.relativeTo(tile.x, tile.y) + 2) % 4 != rotation
-				|| !(source.block instanceof Conduit)
+				&& !(source.block instanceof Conduit)
 				|| source.block instanceof PressurizedConduit
 			);
 		}
