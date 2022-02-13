@@ -71,7 +71,9 @@ public class WarmUpGenerator extends ImpactReactor {
 					warmup = 1f;
 				}
 
-				if (!prevOut && (getPowerProduction() > consumes.getPower().requestedPower(this))) {
+				if (minimumPower >= 0 && !prevOut && (getPowerProduction() > consumes.getPower().requestedPower(this))) {
+					Events.fire(EventType.Trigger.impactPower);
+				} else if (minimumPower == 0) {
 					Events.fire(EventType.Trigger.impactPower);
 				}
 

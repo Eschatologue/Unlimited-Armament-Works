@@ -708,19 +708,20 @@ public class UAWBlocks implements ContentList {
 				Items.titanium, 120
 			));
 			size = 3;
-			liquidCapacity = 120f;
+			squareSprite = false;
+			liquidCapacity = 240f;
 			outputsLiquid = true;
 			hasItems = true;
 			hasLiquids = true;
 			drawer = new DrawSmelter(UAWPal.cryoFront);
-			craftTime = 3f * tick;
+			craftTime = 2f * tick;
 			updateEffect = new MultiEffect(Fx.wet, UAWFxD.smokeCloud(45, Layer.effect, Color.white));
 			updateEffectChance = 0.01f;
 			consumes.items(with(
 				Items.titanium, 4,
 				Items.thorium, 1
 			));
-			consumes.liquid(Liquids.water, 1f);
+			consumes.liquid(Liquids.water, 1.2f);
 			outputLiquid = new LiquidStack(Liquids.cryofluid, 60f);
 		}};
 
