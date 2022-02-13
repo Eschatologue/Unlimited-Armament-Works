@@ -1,7 +1,7 @@
 package UAW.world.blocks.power;
 
 import UAW.graphics.UAWFxD;
-import arc.Core;
+import arc.*;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.Mathf;
@@ -9,6 +9,7 @@ import arc.util.Time;
 import mindustry.content.Fx;
 import mindustry.entities.*;
 import mindustry.entities.effect.MultiEffect;
+import mindustry.game.EventType;
 import mindustry.graphics.Drawf;
 import mindustry.world.blocks.power.ImpactReactor;
 
@@ -24,6 +25,8 @@ public class WarmUpGenerator extends ImpactReactor {
 	public Effect smokeEffect = new MultiEffect(Fx.burning, Fx.fireSmoke, Fx.fire);
 	public Color heatColor = Color.valueOf("ff5512");
 	public float rotationSpeed = 15f;
+	/** 0 to disable the kickstart requirement */
+	public float minimumPower = 0.99f;
 
 	public WarmUpGenerator(String name) {
 		super(name);
@@ -31,7 +34,7 @@ public class WarmUpGenerator extends ImpactReactor {
 		squareSprite = false;
 		hasItems = false;
 		baseExplosiveness = 16f;
-		outputsPower = consumesPower = true;
+		outputsPower = true;
 		explosionRadius = (size * 5);
 		explosionDamage = size * 125;
 		explodeEffect = UAWFxD.dynamicExplosion(explosionRadius);
@@ -50,7 +53,9 @@ public class WarmUpGenerator extends ImpactReactor {
 	public TextureRegion[] icons() {
 		if (rotatorRegion.found()) {
 			return new TextureRegion[]{bottomRegion, rotatorRegion, topRegion};
-		} else return new TextureRegion[]{bottomRegion, topRegion};
+		} else if (topRegion.found()) {
+			return new TextureRegion[]{bottomRegion, topRegion};
+		} else return new TextureRegion[]{bottomRegion};
 	}
 
 	public class WarmUpGeneratorBuild extends ImpactReactorBuild {
@@ -58,7 +63,27 @@ public class WarmUpGenerator extends ImpactReactor {
 
 		@Override
 		public void updateTile() {
-			super.updateTile();
+			if (consValid() && power.status >= minimumPower) {
+				boolean prevOut = getPowerProduction() <= consumes.getPower().requestedPower(this);
+
+				warmup = Mathf.lerpDelta(warmup, 1f, warmupSpeed * timeScale);
+				if (Mathf.equal(warmup, 1f, 0.001f)) {
+					warmup = 1f;
+				}
+
+				if (!prevOut && (getPowerProduction() > consumes.getPower().requestedPower(this))) {
+					Events.fire(EventType.Trigger.impactPower);
+				}
+
+				if (timer(timerUse, itemDuration / timeScale)) {
+					consume();
+				}
+			} else {
+				warmup = Mathf.lerpDelta(warmup, 0f, 0.01f);
+			}
+
+			productionEfficiency = Mathf.pow(warmup, 5f);
+
 			intensity += warmup * edelta();
 			if (warmup >= 0.001) {
 				if (Mathf.chance(warmup)) {
