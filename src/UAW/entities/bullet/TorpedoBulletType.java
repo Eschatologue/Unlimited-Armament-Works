@@ -51,7 +51,7 @@ public class TorpedoBulletType extends BulletType {
 		shootEffect = UAWFxS.shootWaterFlame;
 		trailEffect = UAWFxS.torpedoCruiseTrail;
 		trailRotation = true;
-		hitEffect = new MultiEffect(Fx.smokeCloud, Fx.blastExplosion, UAWFxS.torpedoRippleHit, UAWFxD.smokeCloud(trailColor));
+		hitEffect = new MultiEffect(Fx.smokeCloud, Fx.blastExplosion, UAWFxS.torpedoRippleHit, UAWFxD.smokeCloud(80, Layer.effect, trailColor));
 		despawnEffect = UAWFxS.torpedoRippleHit;
 		status = StatusEffects.slow;
 		statusDuration = 3 * 60;

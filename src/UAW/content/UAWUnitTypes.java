@@ -521,7 +521,7 @@ public class UAWUnitTypes implements ContentList {
 						width = 6f;
 						buildingDamageMultiplier = 0.4f;
 						maxRange = range;
-						lifetime = (range / speed) * 1.2f;
+						lifetime = (range / speed);
 						ammoMultiplier = 8f;
 						collidesGround = false;
 					}};

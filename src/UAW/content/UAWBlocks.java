@@ -8,6 +8,7 @@ import UAW.world.blocks.defense.walls.ShieldWall;
 import UAW.world.blocks.liquid.*;
 import UAW.world.blocks.power.WarmUpGenerator;
 import UAW.world.blocks.production.*;
+import arc.graphics.Color;
 import arc.struct.Seq;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
@@ -15,7 +16,7 @@ import mindustry.entities.UnitSorts;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.gen.Sounds;
-import mindustry.graphics.Pal;
+import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.Block;
 import mindustry.world.blocks.liquid.*;
@@ -661,20 +662,19 @@ public class UAWBlocks implements ContentList {
 			size = 4;
 			result = Liquids.oil;
 			updateEffect = new MultiEffect(
-				Fx.smokeCloud,
-				Fx.hitLancer
+				UAWFxD.smokeCloud(35, Layer.effect, Color.gray),
+				Fx.oily
 			);
 			updateEffectChance = 0.05f;
 			pumpAmount = 1.5f;
 			liquidCapacity = 360f;
 			attribute = Attribute.oil;
 			baseEfficiency = 0.5f;
-			itemUseTime = 120f;
 			rotateSpeed = -2.5f;
 
 			squareSprite = false;
 
-			consumes.liquid(Liquids.water, 3f);
+			consumes.liquid(Liquids.water, 4f);
 			consumes.power(3.5f);
 		}};
 

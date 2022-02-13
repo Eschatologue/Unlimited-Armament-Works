@@ -204,6 +204,7 @@ public class UAWFxD {
 		});
 	}
 
+	/** Navanax EMP Blast */
 	public static Effect empBlast(float size, int point, Color frontColor) {
 		float length = (size * 1.7f) / 2;
 		float width = (size / 13.3f) / 2;
@@ -321,14 +322,6 @@ public class UAWFxD {
 		});
 	}
 
-	public static Effect smokeCloud(Color color) {
-		return new Effect(80f, e -> {
-			color(color);
-			randLenVectors(e.id, e.fin(), 12, 15f, (x, y, fin, fout) ->
-				Fill.circle(e.x + x, e.y + y, 6f * fout));
-		});
-	}
-
 	public static Effect effectCloud(Color color) {
 		return new Effect(140, 400f, e ->
 			randLenVectors(e.id, 22, e.finpow() * 160f, (x, y) -> {
@@ -336,5 +329,25 @@ public class UAWFxD {
 				color(color, Color.lightGray, e.fin());
 				Fill.circle(e.x + x, e.y + y, size / 2f);
 			}));
+	}
+
+	/**
+	 * General use smoke cloud
+	 * <p> Based on Fx.SmokeCloud </p>
+	 *
+	 * @param lifetime
+	 * 	How long the effect last, also adjusts the amount of smoke balls and its burst length
+	 * @param layer
+	 * 	In what layer that this effect occurs
+	 * @param color
+	 * 	What Color is the smoke
+	 */
+	public static Effect smokeCloud(float lifetime, float layer, Color color) {
+		return new Effect(lifetime, e ->
+			randLenVectors(e.id, e.fin(), (int) (lifetime / 2), lifetime / 2, (x, y, fin, fout) -> {
+				color(color);
+				alpha((0.5f - Math.abs(fin - 0.5f)) * 2f);
+				Fill.circle(e.x + x, e.y + y, 0.5f + fout * 4f);
+			})).layer(layer);
 	}
 }
