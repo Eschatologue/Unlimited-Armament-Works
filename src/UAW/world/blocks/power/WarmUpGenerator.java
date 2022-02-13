@@ -21,7 +21,7 @@ import mindustry.world.blocks.power.ImpactReactor;
  */
 public class WarmUpGenerator extends ImpactReactor {
 	public TextureRegion liquidRegion, rotatorRegion, heatRegion, topRegion;
-	public Effect smokeEffect = new MultiEffect(Fx.burning, Fx.fireSmoke, Fx.smokeCloud, Fx.fire);
+	public Effect smokeEffect = new MultiEffect(Fx.burning, Fx.fireSmoke, Fx.fire);
 	public Color heatColor = Color.valueOf("ff5512");
 	public float rotationSpeed = 15f;
 

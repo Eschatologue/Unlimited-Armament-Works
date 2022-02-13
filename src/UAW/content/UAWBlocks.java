@@ -662,10 +662,10 @@ public class UAWBlocks implements ContentList {
 			size = 4;
 			result = Liquids.oil;
 			updateEffect = new MultiEffect(
-				UAWFxD.smokeCloud(35, Layer.effect, Color.gray),
+				UAWFxD.smokeCloud(40, Layer.effect, Color.gray),
 				Fx.oily
 			);
-			updateEffectChance = 0.05f;
+			updateEffectChance = 0.1f;
 			pumpAmount = 1.5f;
 			liquidCapacity = 360f;
 			attribute = Attribute.oil;
@@ -674,7 +674,7 @@ public class UAWBlocks implements ContentList {
 
 			squareSprite = false;
 
-			consumes.liquid(Liquids.water, 4f);
+			consumes.liquid(Liquids.water, 3f);
 			consumes.power(3.5f);
 		}};
 

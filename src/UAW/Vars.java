@@ -6,6 +6,7 @@ public class Vars implements Loadable {
 	// Stuff
 	public static final float tick = 60f;
 	public static final float px = 0.25f;
+	public static final float liquidConsumption = 60;
 	public static final String modName = "uaw-";
 
 	// Weapon - Point Defense - PD
