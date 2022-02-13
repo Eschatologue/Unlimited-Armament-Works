@@ -36,12 +36,11 @@ public class PressurizedConduit extends Conduit {
 	}
 
 	@Override
-	public boolean blends(Tile tile, int rotation, int otherX, int othery, int otherrot, Block otherblock) {
-		return otherblock.hasLiquids
-			&& (otherblock.outputsLiquid || (lookingAt(tile, rotation, otherX, othery, otherblock)))
-			&& lookingAtEither(tile, rotation, otherX, othery, otherrot, otherblock)
-			&& !(otherblock instanceof Conduit)
-			|| otherblock instanceof PressurizedConduit;
+	public boolean blends(Tile tile, int rotation, int otherX, int otherY, int otherRot, Block otherBlocks) {
+		return otherBlocks.hasLiquids
+			&& (blendsArmored(tile, rotation, otherX, otherY, otherRot, otherBlocks) && !(otherBlocks instanceof Conduit) || otherBlocks instanceof PressurizedConduit)
+			&& (otherBlocks.outputsLiquid || lookingAt(tile, rotation, otherX, otherY, otherBlocks))
+			&& (lookingAtEither(tile, rotation, otherX, otherY, otherRot, otherBlocks));
 	}
 
 	public class PressurizedConduitBuild extends ConduitBuild {
