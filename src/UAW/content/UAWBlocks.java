@@ -654,28 +654,27 @@ public class UAWBlocks implements ContentList {
 			requirements(Category.production, with(
 				Items.titanium, 150,
 				Items.plastanium, 125,
+				Items.thorium, 115,
 				Items.metaglass, 85,
-				Items.silicon, 65,
-				UAWItems.titaniumCarbide, 85,
-				Items.surgeAlloy, 45
+				Items.silicon, 85
 			));
 			size = 4;
 			result = Liquids.oil;
 			updateEffect = new MultiEffect(
-				Fx.pulverize,
+				Fx.smokeCloud,
 				Fx.hitLancer
 			);
 			updateEffectChance = 0.05f;
 			pumpAmount = 1.5f;
 			liquidCapacity = 360f;
 			attribute = Attribute.oil;
-			baseEfficiency = 0.55f;
+			baseEfficiency = 0.5f;
 			itemUseTime = 120f;
 			rotateSpeed = -2.5f;
 
 			squareSprite = false;
 
-			consumes.liquid(Liquids.cryofluid, 0.25f).boost();
+			consumes.liquid(Liquids.water, 3f);
 			consumes.power(3.5f);
 		}};
 
