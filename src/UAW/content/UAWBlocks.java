@@ -44,7 +44,7 @@ public class UAWBlocks implements ContentList {
 	// Liquids
 	pressurizedConduit, platedPressurizedConduit, pressurizedLiquidRouter, pressurizedLiquidJunction, pressurizedLiquidBridge, rotodynamicPump,
 	// Drills
-	oilDerrick, coalThumper,
+	oilDerrick, anthraciteDrill,
 	// Crafters
 	gelatinizer, carburizingFurnace, surgeMixer, petroleumSmelter, petrochemicalSeperator, plastaniumForge,
 	// Power
@@ -678,6 +678,13 @@ public class UAWBlocks implements ContentList {
 
 			consumes.liquid(Liquids.cryofluid, 0.25f);
 			consumes.power(3.5f);
+		}};
+		anthraciteDrill = new SelectiveDrill("anthracite-drill") {{
+			requirements(Category.production, with(Items.copper, 12), true);
+			tier = 2;
+			drillTime = 600;
+			size = 2;
+			consumes.liquid(Liquids.water, 0.05f);
 		}};
 
 		gelatinizer = new GenericCrafter("gelatinizer") {{

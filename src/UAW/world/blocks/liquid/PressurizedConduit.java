@@ -35,15 +35,6 @@ public class PressurizedConduit extends Conduit {
 		bridgeReplacement = UAWBlocks.pressurizedLiquidBridge;
 	}
 
-	@Override
-	public boolean blends(Tile tile, int rotation, int otherX, int otherY, int otherRot, Block otherBlocks) {
-		return (
-			otherBlocks.hasLiquids
-				&& (otherBlocks.outputsLiquid && (blendsArmored(tile, rotation, otherX, otherY, otherRot, otherBlocks) && !(otherBlocks instanceof Conduit)) || lookingAt(tile, rotation, otherX, otherY, otherBlocks))
-				&& (lookingAtEither(tile, rotation, otherX, otherY, otherRot, otherBlocks))
-		);
-	}
-
 	public class PressurizedConduitBuild extends ConduitBuild {
 
 		@Override
@@ -55,16 +46,16 @@ public class PressurizedConduit extends Conduit {
 			Fx.plasticExplosion.at(x, y);
 		}
 
-		@Override
-		public boolean acceptLiquid(Building source, Liquid liquid) {
-			noSleep();
-			return (liquids.current() == liquid || liquids.currentAmount() < 0.2f)
-				&& (tile == null
-				|| (source.relativeTo(tile.x, tile.y) + 2) % 4 != rotation
-				&& !(source.block instanceof Conduit)
-				|| source.block instanceof PressurizedConduit
-			);
-		}
+//		@Override
+//		public boolean acceptLiquid(Building source, Liquid liquid) {
+//			noSleep();
+//			return (liquids.current() == liquid || liquids.currentAmount() < 0.2f)
+//				&& (tile == null
+//				|| (source.relativeTo(tile.x, tile.y) + 2) % 4 != rotation
+//				&& !(source.block instanceof Conduit)
+//				|| source.block instanceof PressurizedConduit
+//			);
+//		}
 
 		@Override
 		public float moveLiquid(Building next, Liquid liquid) {
