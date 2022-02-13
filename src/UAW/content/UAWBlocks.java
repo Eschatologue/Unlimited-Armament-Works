@@ -652,7 +652,7 @@ public class UAWBlocks implements ContentList {
 		}};
 		oilDerrick = new Fracker("oil-derrick") {{
 			requirements(Category.production, with(
-				Items.titanium, 180,
+				Items.titanium, 150,
 				Items.plastanium, 125,
 				Items.metaglass, 85,
 				Items.silicon, 65,
@@ -674,17 +674,9 @@ public class UAWBlocks implements ContentList {
 			rotateSpeed = -2.5f;
 
 			squareSprite = false;
-			floating = true;
 
-			consumes.liquid(Liquids.cryofluid, 0.25f);
+			consumes.liquid(Liquids.cryofluid, 0.25f).boost();
 			consumes.power(3.5f);
-		}};
-		anthraciteDrill = new SelectiveDrill("anthracite-drill") {{
-			requirements(Category.production, with(Items.copper, 12), true);
-			tier = 2;
-			drillTime = 600;
-			size = 2;
-			consumes.liquid(Liquids.water, 0.05f);
 		}};
 
 		gelatinizer = new GenericCrafter("gelatinizer") {{
