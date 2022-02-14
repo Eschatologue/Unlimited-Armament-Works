@@ -89,7 +89,8 @@ public class UAWTechTree implements ContentList {
 			node(cryogel)
 		);
 		vanillaNode(titanium, () ->
-			node(titaniumCarbide, Seq.with(
+			node(titaniumCarbide,
+				Seq.with(
 					new Research(thorium),
 					new Research(surgeAlloy)
 				)
@@ -101,7 +102,8 @@ public class UAWTechTree implements ContentList {
 		);
 
 		vanillaNode(plastanium, () ->
-			node(anthracite, Seq.with(
+			node(anthracite,
+				Seq.with(
 					new SectorComplete(SectorPresets.tarFields),
 					new Research(titaniumCarbide)
 				)
@@ -110,18 +112,22 @@ public class UAWTechTree implements ContentList {
 
 		vanillaNode(duo, () -> {
 				node(quadra, () ->
-					node(spitfire, Seq.with(
+					node(spitfire,
+						Seq.with(
 							new Research(cyclone)
 						)
 					)
 				);
 				node(solo, () ->
-					node(longsword, Seq.with(
-						new Research(fuse)), () ->
-						node(deadeye, Seq.with(
-								new Research(foreshadow)
+					node(longsword,
+						Seq.with(
+							new Research(fuse)
+						), () ->
+							node(deadeye,
+								Seq.with(
+									new Research(foreshadow)
+								)
 							)
-						)
 					)
 				);
 			}
@@ -129,10 +135,13 @@ public class UAWTechTree implements ContentList {
 
 		vanillaNode(hail, () ->
 			node(buckshot, () -> {
-					node(tempest, Seq.with(
-						new Research(cyclone)
-					));
-					node(strikeforce, Seq.with(
+					node(tempest,
+						Seq.with(
+							new Research(cyclone)
+						)
+					);
+					node(strikeforce,
+						Seq.with(
 							new Research(ripple)
 						)
 					);
@@ -141,7 +150,8 @@ public class UAWTechTree implements ContentList {
 		);
 
 		vanillaNode(ripple, () -> {
-				node(zounderkite, Seq.with(
+				node(zounderkite,
+					Seq.with(
 						new Produce(Items.blastCompound),
 						new Produce(Items.pyratite),
 						new Produce(UAWItems.cryogel),
@@ -149,7 +159,8 @@ public class UAWTechTree implements ContentList {
 						new Produce(Items.sporePod),
 						new Produce(Items.surgeAlloy)
 					), () ->
-						node(skyhammer, Seq.with(
+						node(skyhammer,
+							Seq.with(
 								new Research(spectre),
 								new SectorComplete(SectorPresets.impact0078),
 								new SectorComplete(SectorPresets.nuclearComplex)
@@ -160,7 +171,8 @@ public class UAWTechTree implements ContentList {
 		);
 
 		vanillaNode(phaseWall, () -> {
-			node(shieldWall, Seq.with(
+			node(shieldWall,
+				Seq.with(
 					new Research(forceProjector),
 					new Research(mendProjector)
 				)
@@ -168,7 +180,8 @@ public class UAWTechTree implements ContentList {
 		});
 
 		vanillaNode(mendProjector, () -> {
-				node(statusFieldProjector, Seq.with(
+				node(statusFieldProjector,
+					Seq.with(
 						new Produce(Liquids.cryofluid),
 						new Produce(Liquids.oil),
 						new Produce(Liquids.slag)
@@ -183,10 +196,12 @@ public class UAWTechTree implements ContentList {
 		);
 
 		vanillaNode(blastMixer, () ->
-			node(gelatinizer, Seq.with(
+			node(gelatinizer,
+				Seq.with(
 					new SectorComplete(SectorPresets.frozenForest),
 					new Research(cryofluidMixer)
-				)
+				), () ->
+					node(cryofluidDistillery)
 			)
 		);
 
@@ -201,40 +216,49 @@ public class UAWTechTree implements ContentList {
 		);
 
 		vanillaNode(siliconCrucible, () ->
-			node(petroleumSmelter, Seq.with(
+			node(petroleumSmelter,
+				Seq.with(
 					new Research(surgeSmelter)
 				)
 			)
 		);
 
 		vanillaNode(disassembler, () -> {
-			node(surgeMixer, Seq.with(
+			node(surgeMixer,
+				Seq.with(
 					new Research(cryofluidMixer)
 				)
 			);
-			node(petrochemicalSeperator, Seq.with(
-				new Research(oilDerrick),
-				new Research(anthracite))
+			node(petrochemicalSeperator,
+				Seq.with(
+					new Research(oilDerrick),
+					new Research(anthracite)
+				)
 			);
 		});
 
 		vanillaNode(plastaniumCompressor, () ->
-			node(plastaniumForge, Seq.with(
-				new Research(oilDerrick),
-				new Research(surgeSmelter),
-				new Research(petrochemicalSeperator)
-			))
+			node(plastaniumForge,
+				Seq.with(
+					new Research(oilDerrick),
+					new Research(surgeSmelter),
+					new Research(petrochemicalSeperator)
+				)
+			)
 		);
 
 		vanillaNode(thoriumReactor, () ->
-			node(petroleumGenerator, Seq.with(
-				new Research(oilExtractor),
-				new Research(differentialGenerator))
+			node(petroleumGenerator,
+				Seq.with(
+					new Research(oilExtractor),
+					new Research(differentialGenerator)
+				)
 			)
 		);
 
 		vanillaNode(oilExtractor, () ->
-			node(oilDerrick, Seq.with(
+			node(oilDerrick,
+				Seq.with(
 					new SectorComplete(SectorPresets.tarFields),
 					new SectorComplete(SectorPresets.frozenForest),
 					new Research(thermalPump)
@@ -243,49 +267,61 @@ public class UAWTechTree implements ContentList {
 		);
 
 		vanillaNode(thermalPump, () ->
-			node(rotodynamicPump, Seq.with(
-				new Research(oilExtractor),
-				new Research(titaniumCarbide)), () ->
-				node(pressurizedConduit, () -> {
-						node(pressurizedLiquidRouter);
-						node(pressurizedLiquidJunction, () ->
-							node(pressurizedLiquidBridge));
-					}
-				)
+			node(rotodynamicPump,
+				Seq.with(
+					new Research(oilExtractor),
+					new Research(titaniumCarbide)
+				), () ->
+					node(pressurizedConduit, () -> {
+							node(pressurizedLiquidRouter);
+							node(pressurizedLiquidJunction, () ->
+								node(pressurizedLiquidBridge));
+						}
+					)
 			)
 		);
 
 		vanillaNode(additiveReconstructor, () ->
-			node(UAWGroundFactory, Seq.with(new Research(oilDerrick)), () -> {
-				node(cavalier, () ->
-					node(centurion)
-				);
-				node(UAWNavalFactory, () -> {
-					node(arquebus, () ->
-						node(carronade, () ->
-							node(falconet)
-						)
+			node(UAWGroundFactory,
+				Seq.with(
+					new Research(oilDerrick)
+				), () -> {
+					node(cavalier, () ->
+						node(centurion)
 					);
-					node(seabass, () ->
-						node(sharpnose)
-					);
-					node(UAWAirFactory, () -> {
-							node(aglovale, () ->
-								node(bedivere, () ->
-									node(calogrenant)
-								)
-							);
-							node(corsair);
-						}
-					);
-				});
-			})
+					node(UAWNavalFactory, () -> {
+						node(arquebus, () ->
+							node(carronade, () ->
+								node(falconet)
+							)
+						);
+						node(seabass, () ->
+							node(sharpnose)
+						);
+						node(UAWAirFactory, () -> {
+								node(aglovale, () ->
+									node(bedivere, () ->
+										node(calogrenant)
+									)
+								);
+								node(corsair);
+							}
+						);
+					});
+				})
 		);
 
 		vanillaNode(multiplicativeReconstructor, () ->
-			node(exponentialPetroleumReconstructor, Seq.with(new Research(exponentialReconstructor)), () ->
-				node(tetrativePetroleumReconstructor, Seq.with(new Research(tetrativeReconstructor))
-				)
+			node(exponentialPetroleumReconstructor,
+				Seq.with(
+					new Research(exponentialReconstructor
+					)
+				), () ->
+					node(tetrativePetroleumReconstructor,
+						Seq.with(
+							new Research(tetrativeReconstructor)
+						)
+					)
 			)
 		);
 
