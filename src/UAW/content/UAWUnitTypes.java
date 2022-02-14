@@ -456,7 +456,6 @@ public class UAWUnitTypes implements ContentList {
 			circleTarget = true;
 			commandLimit = 4;
 
-			rotateShooting = false;
 			flying = true;
 			lowAltitude = false;
 			range = 40 * tilesize;
@@ -506,21 +505,19 @@ public class UAWUnitTypes implements ContentList {
 					}};
 				}},
 				new Weapon() {{
-					controllable = false;
 					rotate = false;
 					mirror = false;
 					shootCone = 90;
 					inaccuracy = 3f;
 					x = 0f;
 					y = 0f;
-					reload = 5f;
+					reload = 6f;
 					shootSound = Sounds.shoot;
 					ejectEffect = Fx.casing1;
 					bullet = new TrailBulletType(6f, 15) {{
-						height = 12f;
-						width = 6f;
+						height = 10f;
+						width = 5f;
 						buildingDamageMultiplier = 0.4f;
-						maxRange = range;
 						lifetime = (range / speed);
 						ammoMultiplier = 8f;
 						collidesGround = false;
