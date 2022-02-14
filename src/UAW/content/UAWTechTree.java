@@ -187,10 +187,15 @@ public class UAWTechTree implements ContentList {
 						new Produce(Liquids.slag)
 					)
 				);
-				node(rejuvinationProjector, Seq.with(new Research(overdriveProjector)), () ->
-					node(rejuvinationDome, Seq.with(new Research(overdriveDome)
+				node(rejuvinationProjector,
+					Seq.with(
+						new Research(overdriveProjector)
+					), () ->
+						node(rejuvinationDome,
+							Seq.with(
+								new Research(overdriveDome)
+							)
 						)
-					)
 				);
 			}
 		);

@@ -263,7 +263,7 @@ public class UAWBullets implements ContentList {
 			despawnEffect = hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.burning, Fx.coalSmeltsmoke);
 			shieldDamageMultiplier = 2.5f;
 		}};
-		buckshotMediumIncend = new BuckshotBulletType(5f, 8f) {{
+		buckshotMediumIncend = new BuckshotBulletType(5f, 9f) {{
 			shootEffect = Fx.shootPyraFlame;
 			smokeEffect = Fx.shootBigSmoke2;
 			frontColor = Pal.lightishOrange;
@@ -272,7 +272,7 @@ public class UAWBullets implements ContentList {
 			status = StatusEffects.burning;
 			shieldDamageMultiplier = 1.4f;
 		}};
-		buckshotMediumCryo = new BuckshotBulletType(5f, 8f) {{
+		buckshotMediumCryo = new BuckshotBulletType(5f, 9f) {{
 			shootEffect = UAWFxS.shootCryoFlame;
 			smokeEffect = Fx.shootBigSmoke2;
 			frontColor = UAWPal.cryoFront;
@@ -281,7 +281,7 @@ public class UAWBullets implements ContentList {
 			status = StatusEffects.freezing;
 			shieldDamageMultiplier = 1.4f;
 		}};
-		buckshotMediumPiercing = new BuckshotBulletType(6f, 10f) {{
+		buckshotMediumPiercing = new BuckshotBulletType(6f, 12f) {{
 			height = width = 15;
 			shrinkX = shrinkY = 0.5f;
 			splashDamageRadius = 1.6f * tilesize;
@@ -296,11 +296,11 @@ public class UAWBullets implements ContentList {
 			hitEffect = Fx.hitBulletBig;
 			armorIgnoreScl = 0.4f;
 		}};
-		buckshotMediumFrag = new BuckshotBulletType(5f, 8f) {{
+		buckshotMediumFrag = new BuckshotBulletType(5f, 9f) {{
 			splashDamageRadius = 1.8f * tilesize;
 			splashDamage = damage / 2;
 			fragBullets = 6;
-			fragBullet = fragGlass;
+			fragBullet = fragGlassFrag;
 		}};
 
 		buckshotLargeIncend = new BuckshotBulletType(6.5f, 30f) {{

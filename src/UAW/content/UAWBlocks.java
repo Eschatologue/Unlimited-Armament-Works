@@ -484,8 +484,8 @@ public class UAWBlocks implements ContentList {
 				Items.lead, 200,
 				Items.graphite, 100
 			));
-			health = 160 * size;
 			size = 2;
+			health = 150 * size;
 			squareSprite = true;
 			spread = 1.5f;
 			shots = 10;
@@ -516,13 +516,13 @@ public class UAWBlocks implements ContentList {
 				Items.metaglass, 100,
 				Items.silicon, 100
 			));
-			health = 120 * size * size;
 			size = 3;
+			health = 120 * size * size;
 			spread = 2f;
-			shots = 4;
+			shots = 5;
 			xRand = 3;
-			reloadTime = 7f;
-			shootShake = 0.6f;
+			reloadTime = 10f;
+			shootShake = 0.8f;
 			restitution = 0.08f;
 			range = 30 * tilesize;
 			shootCone = 2.3f;
@@ -550,8 +550,8 @@ public class UAWBlocks implements ContentList {
 				Items.silicon, 200,
 				Items.surgeAlloy, 100
 			));
-			health = 250 * size * size;
 			size = 3;
+			health = 250 * size * size;
 			spread = 2.3f;
 			shots = 20;
 			recoilAmount = 4f;
@@ -889,7 +889,6 @@ public class UAWBlocks implements ContentList {
 			liquidCapacity = 600f;
 			ambientSound = Sounds.machine;
 			ambientSoundVolume = 0.05f;
-			consumesPower = false;
 
 			powerProduction = 45f;
 			consumes.liquid(Liquids.oil, 3f);

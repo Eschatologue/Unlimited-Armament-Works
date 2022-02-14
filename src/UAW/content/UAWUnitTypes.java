@@ -35,7 +35,7 @@ public class UAWUnitTypes implements ContentList {
 	public static UnitType
 		aglovale, bedivere, calogrenant,
 		corsair, vindicator, superfortress,
-		arquebus, carronade, falconet,
+		arquebus, carronade, falconet, audacious, arkRoyal,
 		seabass, sharpnose, swordfish,
 		cavalier, centurion, caernarvon, challenger;
 
@@ -458,6 +458,7 @@ public class UAWUnitTypes implements ContentList {
 
 			flying = true;
 			lowAltitude = false;
+			rotateShooting = false;
 			range = 40 * tilesize;
 
 			targetFlags = new BlockFlag[]{BlockFlag.repair, BlockFlag.generator, BlockFlag.extinguisher, null};

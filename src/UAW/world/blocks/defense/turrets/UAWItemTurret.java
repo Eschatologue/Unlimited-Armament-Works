@@ -22,6 +22,11 @@ public class UAWItemTurret extends ItemTurret {
 	}
 
 	@Override
+	public void init() {
+		super.init();
+	}
+
+	@Override
 	public void setStats() {
 		super.setStats();
 		stats.remove(Stat.ammo);

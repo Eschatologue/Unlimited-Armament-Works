@@ -32,7 +32,7 @@ public class WarmUpGenerator extends ImpactReactor {
 		squareSprite = false;
 		hasItems = false;
 		baseExplosiveness = 16f;
-		outputsPower = true;
+		consumesPower = outputsPower = true;
 		explosionRadius = (size * 5);
 		explosionDamage = size * 125;
 		explodeEffect = UAWFxD.dynamicExplosion(explosionRadius);
