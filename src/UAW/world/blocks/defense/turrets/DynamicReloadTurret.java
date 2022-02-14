@@ -7,9 +7,11 @@ import arc.util.Time;
 import mindustry.entities.bullet.BulletType;
 import mindustry.graphics.*;
 
+import static mindustry.Vars.tilesize;
+
 // A small modification from Yuria-Shikibe/NewHorizonMod
 public class DynamicReloadTurret extends UAWItemTurret {
-	public float maxReloadScl = 0.5f;
+	public float maxSpeedUpScl = 0.5f;
 	public float speedupPerShot = 0.075f;
 	public float slowDownReloadTime = 90f;
 
@@ -26,8 +28,7 @@ public class DynamicReloadTurret extends UAWItemTurret {
 			super.updateTile();
 			if (slowDownReload >= 1f) {
 				slowDownReload -= Time.delta;
-			} else
-				speedupScl = Mathf.lerpDelta(speedupScl, 0f, 0.05f);
+			} else speedupScl = Mathf.lerpDelta(speedupScl, 0f, 0.05f);
 		}
 
 		@Override
@@ -45,19 +46,21 @@ public class DynamicReloadTurret extends UAWItemTurret {
 		protected void shoot(BulletType type) {
 			super.shoot(type);
 			slowDownReload = slowDownReloadTime;
-			if (speedupScl < maxReloadScl) {
+			if (speedupScl < maxSpeedUpScl) {
 				speedupScl += speedupPerShot;
-			} else speedupScl = maxReloadScl;
+			} else speedupScl = maxSpeedUpScl;
 		}
 
 		@Override
 		public void drawSelect() {
-			Draw.z(Layer.bullet);
-			Lines.stroke(speedupScl / maxReloadScl);
-			Draw.color(UAWPal.cryoFront, Pal.darkPyraFlame, (speedupScl / maxReloadScl) * 0.9f);
-			Lines.polySeg(200, 0, (int) (200 * speedupScl / maxReloadScl), x, y, range / 10, rotation);
-			Draw.color();
 			super.drawSelect();
+			Draw.reset();
+			Draw.z(Layer.bullet);
+			Lines.stroke(speedupScl / maxSpeedUpScl);
+			Draw.color(UAWPal.cryoFront, Pal.darkPyraFlame, (speedupScl / maxSpeedUpScl) * 0.9f);
+			Lines.polySeg(150, 0, (int) (150 * speedupScl / maxSpeedUpScl), x, y, ((size * 2) * tilesize), rotation);
+			Draw.color();
+			Draw.reset();
 		}
 	}
 }

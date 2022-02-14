@@ -75,7 +75,7 @@ public class UAWFxD {
 		});
 	}
 
-	public static Effect statusFieldApply(Color frontColor, Color backColor, float size) {
+	public static Effect statusFieldApply(float size, Color frontColor, Color backColor) {
 		return new Effect(50, e -> {
 			color(frontColor, backColor, e.fin());
 			stroke(e.fout() * 5f);
@@ -245,9 +245,9 @@ public class UAWFxD {
 		});
 	}
 
-	/** Used with repeating aftershocks and status field projector */
+	/** Used with repeating aftershock */
 	public static Effect circleSplash(float size, float lifetime, Color lightColor, Color darkColor, Color splashColor) {
-		return new Effect(lifetime, size * 1.5f, e -> {
+		return new Effect(lifetime, size * 2f, e -> {
 			color(lightColor, darkColor, e.fin());
 			stroke(e.fout() * 4f);
 			Lines.circle(e.x, e.y, size + e.fin() * 3f);

@@ -85,7 +85,7 @@ public class UAWBlocks implements ContentList {
 			rotateSpeed = 10f;
 			maxAmmo = 30;
 
-			maxReloadScl = 8f;
+			maxSpeedUpScl = 8f;
 			speedupPerShot = 0.15f;
 			ammo(
 				Items.copper, smallCopper,
@@ -117,7 +117,7 @@ public class UAWBlocks implements ContentList {
 			ammoUseEffect = Fx.casing2Double;
 			xRand = 3;
 
-			maxReloadScl = 16f;
+			maxSpeedUpScl = 16f;
 			speedupPerShot = 0.1f;
 			slowDownReloadTime = 90f;
 			ammo(
@@ -923,7 +923,7 @@ public class UAWBlocks implements ContentList {
 			ammoUseEffect = Fx.doorcloselarge;
 			ammo(
 				Liquids.cryofluid, new SplashBulletType(0, range) {{
-					shootEffect = UAWFxD.statusFieldApply(UAWPal.cryoFront, UAWPal.cryoBack, range);
+					shootEffect = UAWFxD.statusFieldApply(range, UAWPal.cryoFront, UAWPal.cryoBack);
 					smokeEffect = UAWFxS.cryoHit;
 					status = StatusEffects.freezing;
 					frontColor = UAWPal.cryoFront;
@@ -932,7 +932,7 @@ public class UAWBlocks implements ContentList {
 					splashAmount = 1;
 				}},
 				Liquids.slag, new SplashBulletType(0, range) {{
-					shootEffect = UAWFxD.statusFieldApply(Pal.lighterOrange, Pal.lightOrange, range);
+					shootEffect = UAWFxD.statusFieldApply(range, Pal.lighterOrange, Pal.lightOrange);
 					smokeEffect = Fx.fireHit;
 					status = StatusEffects.melting;
 					frontColor = Pal.lighterOrange;
@@ -941,14 +941,14 @@ public class UAWBlocks implements ContentList {
 					splashAmount = 1;
 				}},
 				Liquids.oil, new SplashBulletType(0, range) {{
-					shootEffect = UAWFxD.statusFieldApply(Pal.plastaniumFront, UAWPal.plastDarker, range);
+					shootEffect = UAWFxD.statusFieldApply(range, Pal.plastaniumFront, UAWPal.plastDarker);
 					smokeEffect = UAWFxS.plastHit;
 					status = StatusEffects.tarred;
 					statusDuration = reloadTime * 1.5f;
 					splashAmount = 1;
 				}},
 				UAWLiquids.surgeSolvent, new SplashBulletType(0, range) {{
-					shootEffect = UAWFxD.statusFieldApply(Pal.missileYellow, Pal.missileYellowBack, range);
+					shootEffect = UAWFxD.statusFieldApply(range, Pal.missileYellow, Pal.missileYellowBack);
 					smokeEffect = UAWFxS.surgeHit;
 					status = StatusEffects.electrified;
 					frontColor = Pal.missileYellow;
