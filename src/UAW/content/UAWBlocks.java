@@ -889,7 +889,6 @@ public class UAWBlocks implements ContentList {
 			liquidCapacity = 600f;
 			ambientSound = Sounds.machine;
 			ambientSoundVolume = 0.05f;
-			minimumPower = 0;
 
 			powerProduction = 45f;
 			consumes.liquid(Liquids.oil, 3f);
