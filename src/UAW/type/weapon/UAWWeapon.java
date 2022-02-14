@@ -12,6 +12,8 @@ import mindustry.gen.Unit;
 import mindustry.type.*;
 import mindustry.world.meta.*;
 
+import static mindustry.gen.Groups.unit;
+
 public class UAWWeapon extends Weapon {
 	public TextureRegion weaponOutline, weaponBase, weaponBaseOutline;
 	public float baseRecoilMultiplier = 0f;
@@ -54,7 +56,6 @@ public class UAWWeapon extends Weapon {
 				weaponRotation);
 		}
 	}
-
 
 	@Override
 	public void drawOutline(Unit unit, WeaponMount mount) {

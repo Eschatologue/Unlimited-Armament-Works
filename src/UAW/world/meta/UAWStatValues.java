@@ -1,6 +1,7 @@
 package UAW.world.meta;
 
 import UAW.entities.bullet.*;
+import UAW.entities.bullet.ModdedVanillaBullet.UAWBulletType;
 import arc.Core;
 import arc.func.Boolf;
 import arc.graphics.g2d.TextureRegion;

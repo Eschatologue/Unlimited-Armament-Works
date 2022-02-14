@@ -1,4 +1,4 @@
-package UAW.entities.bullet;
+package UAW.entities.bullet.ModdedVanillaBullet;
 
 import arc.math.geom.Vec2;
 import arc.util.Tmp;

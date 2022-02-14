@@ -15,16 +15,16 @@ import mindustry.graphics.*;
 import mindustry.world.blocks.environment.Floor;
 
 public class MineBulletType extends BulletType {
+	public TextureRegion mineBase, mineFront, mineBack, mineIndicator, mineOutline;
+	public String sprite;
+	public Sound detonationSound = UAWSfx.mineDetonate1;
+	public Effect triggerEffect = Fx.smeltsmoke;
 	/** Light that will appear when mine is triggered */
 	public Color detonationColor = Color.red;
 	/** Lighter Color */
 	public Color frontColor = Pal.bulletYellow;
 	/** Darker Color */
 	public Color backColor = Pal.bulletYellowBack;
-	public TextureRegion mineBase, mineFront, mineBack, mineIndicator, mineOutline;
-	public String sprite;
-	public Sound detonationSound = UAWSfx.mineDetonate1;
-	public Effect triggerEffect = Fx.smeltsmoke;
 	/** The distance of unit that will make the mine detonates */
 	public float explodeRange = 32;
 	/** Time delay of mine detonating when unit steps in its radius */

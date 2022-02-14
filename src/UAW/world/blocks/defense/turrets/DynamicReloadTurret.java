@@ -54,13 +54,10 @@ public class DynamicReloadTurret extends UAWItemTurret {
 		@Override
 		public void drawSelect() {
 			super.drawSelect();
-			Draw.reset();
-			Draw.z(Layer.bullet);
 			Lines.stroke(speedupScl / maxSpeedUpScl);
 			Draw.color(UAWPal.cryoFront, Pal.darkPyraFlame, (speedupScl / maxSpeedUpScl) * 0.9f);
-			Lines.polySeg(150, 0, (int) (150 * speedupScl / maxSpeedUpScl), x, y, ((size * 2) * tilesize), rotation);
+			Lines.polySeg(150, 0, (int) (150 * speedupScl / maxSpeedUpScl), x, y, ((size + 2) * tilesize), rotation);
 			Draw.color();
-			Draw.reset();
 		}
 	}
 }

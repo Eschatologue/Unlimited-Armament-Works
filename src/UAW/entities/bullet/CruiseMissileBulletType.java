@@ -1,5 +1,6 @@
 package UAW.entities.bullet;
 
+import UAW.entities.bullet.ModdedVanillaBullet.UAWBasicBulletType;
 import UAW.graphics.UAWFxS;
 import arc.Core;
 import arc.graphics.g2d.Draw;

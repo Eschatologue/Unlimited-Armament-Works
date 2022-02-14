@@ -255,9 +255,16 @@ public class UAWFxD {
 		});
 	}
 
-	/** Small explosion which cause status Effects */
+	/**
+	 * Based on Fx.BlastExplosion
+	 *
+	 * @param frontColor
+	 * 	The lighter color | Default : Pal.MissileYellow
+	 * @param backColor
+	 * 	The darker color | Default : Pal.MissileYellowBack
+	 */
 	public static Effect thermalExplosion(Color frontColor, Color backColor) {
-		return new Effect(22, e -> {
+		return new Effect(23, e -> {
 			color(frontColor);
 
 			e.scaled(6, i -> {
@@ -265,7 +272,7 @@ public class UAWFxD {
 				Lines.circle(e.x, e.y, 3f + i.fin() * 15f);
 			});
 
-			color(Color.lightGray);
+			color(Color.gray);
 
 			randLenVectors(e.id, 5, 2f + 23f * e.finpow(), (x, y) ->
 				Fill.circle(e.x + x, e.y + y, e.fout() * 4f + 0.5f));

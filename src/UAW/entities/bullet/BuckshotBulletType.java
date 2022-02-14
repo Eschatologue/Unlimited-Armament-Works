@@ -1,5 +1,6 @@
 package UAW.entities.bullet;
 
+import UAW.entities.bullet.ModdedVanillaBullet.UAWBasicBulletType;
 import arc.graphics.Color;
 import mindustry.content.Fx;
 import mindustry.entities.effect.MultiEffect;

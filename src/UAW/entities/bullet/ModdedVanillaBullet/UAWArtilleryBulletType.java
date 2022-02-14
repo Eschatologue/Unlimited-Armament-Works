@@ -1,4 +1,4 @@
-package UAW.entities.bullet;
+package UAW.entities.bullet.ModdedVanillaBullet;
 
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;

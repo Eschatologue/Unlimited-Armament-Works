@@ -1,4 +1,4 @@
-package UAW.entities.bullet;
+package UAW.entities.bullet.ModdedVanillaBullet;
 
 import arc.Core;
 import arc.graphics.Color;
@@ -20,6 +20,12 @@ public class UAWBasicBulletType extends UAWBulletType {
 	public float spin = 0;
 	public String sprite;
 
+	/**
+	 * How long is the generated trail based on height multiplied by this
+	 * <p> -1 to disable | Default is 1 </p>
+	 */
+	public float trailLenghtScl = -1f;
+
 	public TextureRegion backRegion;
 	public TextureRegion frontRegion;
 
@@ -40,6 +46,16 @@ public class UAWBasicBulletType extends UAWBulletType {
 	public void load() {
 		backRegion = Core.atlas.find(sprite + "-back");
 		frontRegion = Core.atlas.find(sprite);
+	}
+
+	@Override
+	public void init(Bullet b) {
+		super.init(b);
+		if (trailLenghtScl > 0) {
+			trailWidth = width / 3.4f;
+			trailLength = Mathf.round(height * trailLenghtScl);
+			trailColor = backColor;
+		}
 	}
 
 	@Override

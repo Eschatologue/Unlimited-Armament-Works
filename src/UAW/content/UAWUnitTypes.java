@@ -3,6 +3,7 @@ package UAW.content;
 import UAW.ai.types.DynamicFlyingAI;
 import UAW.entities.abilities.RazorRotorAbility;
 import UAW.entities.bullet.*;
+import UAW.entities.bullet.ModdedVanillaBullet.*;
 import UAW.entities.units.UAWUnitType;
 import UAW.entities.units.entity.*;
 import UAW.graphics.*;
@@ -173,7 +174,8 @@ public class UAWUnitTypes implements ContentList {
 				reload = 5f;
 				shootSound = Sounds.shoot;
 				ejectEffect = Fx.casing1;
-				bullet = new TrailBulletType(6f, 23) {{
+				bullet = new UAWBasicBulletType(6f, 23) {{
+					trailLenghtScl = 1;
 					height = 12f;
 					width = 6f;
 					pierce = true;
@@ -232,7 +234,8 @@ public class UAWUnitTypes implements ContentList {
 				recoil = 0f;
 				shootSound = Sounds.shoot;
 				ejectEffect = Fx.casing1;
-				bullet = new TrailBulletType(10f, 20) {{
+				bullet = new UAWBasicBulletType(10f, 20) {{
+					trailLenghtScl = 1;
 					height = 10f;
 					width = 6f;
 					pierce = true;
@@ -382,7 +385,8 @@ public class UAWUnitTypes implements ContentList {
 				reload = 8;
 				shootSound = Sounds.shootBig;
 				ejectEffect = Fx.casing2;
-				bullet = new TrailBulletType(6f, 45) {{
+				bullet = new UAWBasicBulletType(6f, 45) {{
+					trailLenghtScl = 1;
 					height = 16f;
 					width = 8f;
 					splashDamage = damage;
@@ -515,13 +519,14 @@ public class UAWUnitTypes implements ContentList {
 					reload = 6f;
 					shootSound = Sounds.shoot;
 					ejectEffect = Fx.casing1;
-					bullet = new TrailBulletType(6f, 15) {{
+					bullet = new UAWBasicBulletType(6f, 15) {{
 						height = 10f;
 						width = 5f;
 						buildingDamageMultiplier = 0.4f;
 						lifetime = (range / speed);
 						ammoMultiplier = 8f;
 						collidesGround = false;
+						trailLenghtScl = 1;
 					}};
 				}}
 			);
@@ -1092,7 +1097,8 @@ public class UAWUnitTypes implements ContentList {
 							shake = 6f;
 							soundPitchMin = 1.2f;
 							soundPitchMax = 1.4f;
-							bullet = new TrailBulletType(5f, 125) {{
+							bullet = new UAWBasicBulletType(5f, 125) {{
+								trailLenghtScl = 1;
 								splashDamage = damage;
 								splashDamageRadius = 3 * tilesize;
 								frontColor = Pal.missileYellow;
@@ -1195,7 +1201,8 @@ public class UAWUnitTypes implements ContentList {
 				shake = 12f;
 				soundPitchMin = 1.4f;
 				soundPitchMax = 1.8f;
-				bullet = new TrailBulletType(10f, 350) {{
+				bullet = new UAWBasicBulletType(10f, 350) {{
+					trailLenghtScl = 1;
 					height = 35f;
 					width = 10f;
 					homingPower = 0.0015f;
@@ -1267,6 +1274,8 @@ public class UAWUnitTypes implements ContentList {
 				y = 3.25f;
 				ejectEffect = Fx.casing2;
 				shootSound = Sounds.shootBig;
+				soundPitchMax = 0.7f;
+				soundPitchMin = 0.5f;
 				predictTarget = false;
 				inaccuracy = 5f;
 				bullet = new BasicBulletType(6, 40) {{
@@ -1332,7 +1341,8 @@ public class UAWUnitTypes implements ContentList {
 				shake = 18f;
 				soundPitchMin = 1.8f;
 				soundPitchMax = 2.2f;
-				bullet = new TrailBulletType(10f, 550) {{
+				bullet = new UAWBasicBulletType(10f, 550) {{
+					trailLenghtScl = 1;
 					height = 38f;
 					width = 12f;
 					homingPower = 0.0015f;

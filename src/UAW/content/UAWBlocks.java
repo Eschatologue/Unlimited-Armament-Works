@@ -1,6 +1,7 @@
 package UAW.content;
 
 import UAW.entities.bullet.*;
+import UAW.entities.bullet.ModdedVanillaBullet.UAWRailBulletType;
 import UAW.graphics.*;
 import UAW.world.blocks.defense.*;
 import UAW.world.blocks.defense.turrets.*;
