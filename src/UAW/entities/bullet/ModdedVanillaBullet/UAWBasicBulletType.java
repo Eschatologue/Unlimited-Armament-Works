@@ -52,6 +52,7 @@ public class UAWBasicBulletType extends UAWBulletType {
 	public void init(Bullet b) {
 		super.init(b);
 		if (trailLenghtScl > 0) {
+			trailRotation = true;
 			trailWidth = width / 3.4f;
 			trailLength = Mathf.round(height * trailLenghtScl);
 			trailColor = backColor;

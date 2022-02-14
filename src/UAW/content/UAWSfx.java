@@ -11,8 +11,8 @@ public class UAWSfx {
 		artilleryShootHuge = new Sound(),
 		artilleryExplosionHuge = new Sound(),
 		bigGunShoot1 = new Sound(),
-		cannonShoot1 = new Sound(),
-		cannonShoot2 = new Sound(),
+		gunShoot1 = new Sound(),
+		gunShoot2 = new Sound(),
 		cruiseMissileShoot1 = new Sound(),
 		launcherShoot1 = new Sound(),
 		mineDetonate1 = new Sound(),
@@ -37,8 +37,8 @@ public class UAWSfx {
 		artilleryShootHuge = loadSound("artillery_shoot_huge");
 		artilleryExplosionHuge = loadSound("artillery_explosion_huge");
 		bigGunShoot1 = loadSound("bigGun_shoot_1");
-		cannonShoot1 = loadSound("cannon_shoot_1");
-		cannonShoot2 = loadSound("cannon_shoot_2");
+		gunShoot1 = loadSound("gun_shoot_1");
+		gunShoot2 = loadSound("gun_shoot_2");
 		cruiseMissileShoot1 = loadSound("cruisemissile_shoot_1");
 		launcherShoot1 = loadSound("launcher_shoot_1");
 		mineDetonate1 = loadSound("mine_detonate_1");

@@ -350,7 +350,7 @@ public class UAWFxD {
 	 * 	What Color is the smoke
 	 */
 	public static Effect smokeCloud(float lifetime, float layer, Color color) {
-		return new Effect(lifetime, e ->
+		return new Effect(lifetime, lifetime * 2.85f, e ->
 			randLenVectors(e.id, e.fin(), (int) (lifetime / 2), lifetime / 2, (x, y, fin, fout) -> {
 				color(color);
 				alpha((0.5f - Math.abs(fin - 0.5f)) * 2f);

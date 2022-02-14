@@ -42,6 +42,9 @@ public class UAWRailBulletType extends UAWBulletType {
 			hitEffect.at(pos.getX(), pos.getY());
 		}
 
+		if (hitSound != Sounds.none) hitSound.at(pos.getX(), pos.getY());
+		if (hitShake > 0) Effect.shake(hitShake, hitShake, pos.getX(), pos.getY());
+
 		b.damage -= Math.min(b.damage, sub);
 
 		if (b.damage <= 0f) {

@@ -1,7 +1,7 @@
 package UAW.content;
 
-import UAW.entities.bullet.*;
 import UAW.entities.bullet.ModdedVanillaBullet.UAWRailBulletType;
+import UAW.entities.bullet.SplashBulletType;
 import UAW.graphics.*;
 import UAW.world.blocks.defense.*;
 import UAW.world.blocks.defense.turrets.*;
@@ -182,7 +182,9 @@ public class UAWBlocks implements ContentList {
 			shootShake = 3f;
 
 			shootCone = 1f;
-			shootSound = Sounds.artillery;
+			shootSound = UAWSfx.gunShoot1;
+			minShootPitch = 1.2f;
+			maxShootPitch = 1.5f;
 			unitSort = (u, x, y) -> -u.health;
 			ammo(
 				Items.surgeAlloy, new PointBulletType() {{
@@ -234,22 +236,24 @@ public class UAWBlocks implements ContentList {
 			ammoUseEffect = UAWFxS.casing7;
 			recoilAmount = 8f;
 			restitution = 0.005f;
-			shootShake = 25f;
+			shootShake = 28f;
 			shootCone = 1f;
 			shootSound = UAWSfx.bigGunShoot1;
+			minShootPitch = 1.5f;
+			maxShootPitch = 1.8f;
 			unitSort = UnitSorts.strongest;
-			cooldown = 1.5f;
+			cooldown = 0.005f;
 			ammo(
 				UAWItems.titaniumCarbide, new UAWRailBulletType() {{
 					damage = 10000;
 					shootEffect = new MultiEffect(
 						UAWFxD.railShoot(64, Pal.bulletYellowBack),
-						UAWFxD.effectCloud(Pal.bulletYellow),
+						UAWFxD.smokeCloud(1.5f * tick, Layer.effect, Color.darkGray),
 						Fx.blastExplosion,
 						Fx.nuclearShockwave
 					);
 					hitEffect = new MultiEffect(
-						UAWFxD.railHit(16, Pal.bulletYellow),
+						UAWFxD.railHit(18, Pal.bulletYellow),
 						Fx.blastExplosion,
 						Fx.flakExplosionBig
 					);
@@ -259,7 +263,7 @@ public class UAWBlocks implements ContentList {
 					);
 					length = range;
 					updateEffect = new MultiEffect(
-						UAWFxD.railTrail(15, Pal.bulletYellowBack),
+						UAWFxD.railTrail(18, Pal.bulletYellowBack),
 						Fx.fireSmoke
 					);
 					trailEffect = UAWFxD.railTrail(15, Pal.bulletYellowBack);
