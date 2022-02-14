@@ -247,7 +247,7 @@ public class UAWFxD {
 
 	/** Used with repeating aftershocks and status field projector */
 	public static Effect circleSplash(float size, float lifetime, Color lightColor, Color darkColor, Color splashColor) {
-		return new Effect(lifetime, e -> {
+		return new Effect(lifetime, size * 1.5f, e -> {
 			color(lightColor, darkColor, e.fin());
 			stroke(e.fout() * 4f);
 			Lines.circle(e.x, e.y, size + e.fin() * 3f);

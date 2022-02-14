@@ -258,12 +258,12 @@ public class UAWBullets implements ContentList {
 			status = StatusEffects.freezing;
 		}};
 
-		buckshotMedium = new BuckshotBulletType(5f, 12f) {{
+		buckshotMedium = new BuckshotBulletType(7f, 12f) {{
 			knockback = 4f;
-			despawnEffect = hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.burning, Fx.coalSmeltsmoke);
+			despawnEffect = hitEffect = new MultiEffect(Fx.burning, Fx.coalSmeltsmoke);
 			shieldDamageMultiplier = 2.5f;
 		}};
-		buckshotMediumIncend = new BuckshotBulletType(5f, 9f) {{
+		buckshotMediumIncend = new BuckshotBulletType(7f, 9f) {{
 			shootEffect = Fx.shootPyraFlame;
 			smokeEffect = Fx.shootBigSmoke2;
 			frontColor = Pal.lightishOrange;
@@ -272,7 +272,7 @@ public class UAWBullets implements ContentList {
 			status = StatusEffects.burning;
 			shieldDamageMultiplier = 1.4f;
 		}};
-		buckshotMediumCryo = new BuckshotBulletType(5f, 9f) {{
+		buckshotMediumCryo = new BuckshotBulletType(7f, 9f) {{
 			shootEffect = UAWFxS.shootCryoFlame;
 			smokeEffect = Fx.shootBigSmoke2;
 			frontColor = UAWPal.cryoFront;
@@ -281,7 +281,7 @@ public class UAWBullets implements ContentList {
 			status = StatusEffects.freezing;
 			shieldDamageMultiplier = 1.4f;
 		}};
-		buckshotMediumPiercing = new BuckshotBulletType(6f, 12f) {{
+		buckshotMediumPiercing = new BuckshotBulletType(8f, 12f) {{
 			height = width = 15;
 			shrinkX = shrinkY = 0.5f;
 			splashDamageRadius = 1.6f * tilesize;
@@ -291,12 +291,12 @@ public class UAWBullets implements ContentList {
 			trailLength = 0;
 			trailInterval = 4.5f;
 			trailColor = Color.lightGray;
-			despawnEffect = shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
+			despawnEffect = shootEffect = new MultiEffect(Fx.sparkShoot);
 			smokeEffect = Fx.shootBigSmoke2;
 			hitEffect = Fx.hitBulletBig;
 			armorIgnoreScl = 0.4f;
 		}};
-		buckshotMediumFrag = new BuckshotBulletType(5f, 9f) {{
+		buckshotMediumFrag = new BuckshotBulletType(7f, 9f) {{
 			splashDamageRadius = 1.8f * tilesize;
 			splashDamage = damage / 2;
 			fragBullets = 6;

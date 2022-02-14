@@ -10,7 +10,7 @@ public class BuckshotBulletType extends UAWBasicBulletType {
 
 	public BuckshotBulletType(float speed, float damage) {
 		super(speed, damage);
-		drag = 0.04f;
+		drag = 0.02f;
 		height = width = 15;
 		hitSize = width / 2;
 		shrinkX = shrinkY = 0.5f;

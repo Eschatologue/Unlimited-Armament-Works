@@ -723,6 +723,7 @@ public class UAWBlocks implements ContentList {
 			));
 			consumes.liquid(Liquids.water, 1.2f);
 			outputLiquid = new LiquidStack(Liquids.cryofluid, 60f);
+			consumes.power(3f);
 		}};
 
 		carburizingFurnace = new AdvancedGenericCrafter("carburizing-furnace") {{
@@ -886,7 +887,7 @@ public class UAWBlocks implements ContentList {
 			health = 300 * size;
 			hasLiquids = true;
 			hasItems = false;
-			liquidCapacity = 600f;
+			liquidCapacity = 1200f;
 			ambientSound = Sounds.machine;
 			ambientSoundVolume = 0.05f;
 
