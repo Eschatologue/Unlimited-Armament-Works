@@ -7,6 +7,7 @@ import mindustry.world.meta.BlockFlag;
 
 import static mindustry.Vars.state;
 
+/** Modified Flying AI that will behave differently depending on the unit its attacking */
 public class DynamicFlyingAI extends FlyingAI {
 	@Override
 	public void updateMovement() {

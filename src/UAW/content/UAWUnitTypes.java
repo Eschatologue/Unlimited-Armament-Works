@@ -294,7 +294,7 @@ public class UAWUnitTypes implements ContentList {
 				y = 3.5f;
 				maxRange = range;
 				reload = 2f * 60;
-				shootSound = UAWSfx.cruiseMissileShoot1;
+				shootSound = UAWSfx.missileShootBig1;
 				bullet = new CruiseMissileBulletType(3f, 450) {{
 					layer = Layer.flyingUnitLow - 1;
 					sizeScl = 1.3f;
@@ -410,7 +410,7 @@ public class UAWUnitTypes implements ContentList {
 				x = 10.25f;
 				y = -3.5f;
 				reload = 5 * tick;
-				shootSound = UAWSfx.cruiseMissileShoot1;
+				shootSound = UAWSfx.missileShootBig1;
 				bullet = new CruiseMissileBulletType(3f, 700) {{
 					sprite = cruiseMissileCryo;
 					homingRange = range;
@@ -818,7 +818,7 @@ public class UAWUnitTypes implements ContentList {
 				inaccuracy = 10f;
 				reload = 5f * 60;
 				recoil = 5f;
-				shootSound = UAWSfx.artilleryShootHuge;
+				shootSound = UAWSfx.cannonShootBig1;
 				shake = 16;
 				shootStatusDuration = reload * 1.2f;
 				shootStatus = StatusEffects.unmoving;
@@ -836,7 +836,7 @@ public class UAWUnitTypes implements ContentList {
 					incendChance = 0.8f;
 					incendSpread = 16f;
 					makeFire = true;
-					hitSound = UAWSfx.artilleryExplosionHuge;
+					hitSound = UAWSfx.explosionHuge1;
 					trailMult = 1f;
 					hitShake = 15f;
 					frontColor = Pal.sapBullet;
@@ -1172,7 +1172,7 @@ public class UAWUnitTypes implements ContentList {
 				x = 11.5f;
 				y = -0f;
 				reload = 8 * 60f;
-				shootSound = UAWSfx.cruiseMissileShoot1;
+				shootSound = UAWSfx.missileShootBig1;
 				bullet = new CruiseMissileBulletType(3f, 450) {{
 					homingRange = range;
 					homingPower = 0.04f;
@@ -1196,7 +1196,7 @@ public class UAWUnitTypes implements ContentList {
 				shootY = 26f;
 				reload = 2 * 60;
 				recoil = 2.5f;
-				shootSound = Sounds.shootBig;
+				shootSound = UAWSfx.cannonShoot1;
 				ejectEffect = UAWFxS.casing3Long;
 				shake = 12f;
 				soundPitchMin = 1.4f;
@@ -1273,14 +1273,14 @@ public class UAWUnitTypes implements ContentList {
 				x = 7.5f;
 				y = 3.25f;
 				ejectEffect = Fx.casing2;
-				shootSound = Sounds.shootBig;
+				shootSound = Sounds.shoot;
 				soundPitchMax = 0.7f;
 				soundPitchMin = 0.5f;
 				predictTarget = false;
 				inaccuracy = 5f;
 				bullet = new BasicBulletType(6, 40) {{
-					height = 17;
-					width = 12f;
+					height = 15;
+					width = 10f;
 					lifetime = (range * 0.6f) / speed;
 					maxRange = range * 0.6f;
 					shootEffect = Fx.shootBig2;
@@ -1311,7 +1311,7 @@ public class UAWUnitTypes implements ContentList {
 				x = 0f;
 				y = -4.75f;
 				reload = 7 * 60f;
-				shootSound = UAWSfx.cruiseMissileShoot1;
+				shootSound = UAWSfx.missileShootBig1;
 				rotateSpeed = 1.2f;
 				bullet = new CruiseMissileBulletType(3f, 600) {{
 					homingRange = range;
@@ -1336,7 +1336,7 @@ public class UAWUnitTypes implements ContentList {
 				recoil = 7f;
 				shootY = 163f * px;
 				reload = 3 * tick;
-				shootSound = Sounds.shootBig;
+				shootSound = UAWSfx.cannonShoot2;
 				ejectEffect = UAWFxS.casing4Long;
 				shake = 18f;
 				soundPitchMin = 1.8f;

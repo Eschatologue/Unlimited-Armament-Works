@@ -9,7 +9,7 @@ import mindustry.gen.UnitEntity;
 import mindustry.graphics.*;
 
 /**
- * Flying unit with jet trail, capable of using rotor
+ * Flying unit with jet trail
  */
 public class JetUnitEntity extends UnitEntity {
 	private final transient Trail tleft = new Trail(1);

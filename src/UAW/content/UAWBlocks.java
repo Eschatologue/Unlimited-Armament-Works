@@ -238,7 +238,7 @@ public class UAWBlocks implements ContentList {
 			restitution = 0.005f;
 			shootShake = 28f;
 			shootCone = 1f;
-			shootSound = UAWSfx.bigGunShoot1;
+			shootSound = UAWSfx.cannonShootBig1;
 			minShootPitch = 1.5f;
 			maxShootPitch = 1.8f;
 			unitSort = UnitSorts.strongest;
@@ -298,12 +298,15 @@ public class UAWBlocks implements ContentList {
 			range = 45 * tilesize;
 			reloadTime = 6 * tick;
 			shootSound = UAWSfx.launcherShoot1;
+			minShootPitch = 1.5f;
+			maxShootPitch = 2f;
 			ammoUseEffect = UAWFxS.casingCanister;
 			ammoPerShot = 15;
 			acceptCoolant = false;
 			canOverdrive = false;
 			limitRange();
 		}};
+
 		skyhammer = new UAWItemTurret("skyhammer") {{
 			requirements(Category.turret, with(
 				Items.copper, 1000,
@@ -332,7 +335,7 @@ public class UAWBlocks implements ContentList {
 			minRange = range / 4.5f;
 			acceptCoolant = false;
 
-			shootSound = UAWSfx.artilleryShootHuge;
+			shootSound = UAWSfx.cannonShootBig2;
 			minShootPitch = 1.5f;
 			maxShootPitch = 1.8f;
 			ammo(
@@ -351,7 +354,7 @@ public class UAWBlocks implements ContentList {
 						Fx.nuclearShockwave
 					);
 					hitEffect = UAWFxD.dynamicExplosion2(splashDamageRadius, frontColor, backColor);
-					hitSound = UAWSfx.artilleryExplosionHuge;
+					hitSound = UAWSfx.explosionHuge1;
 					hitSoundVolume = 3f;
 					hitShake = 34f;
 					makeFire = true;
@@ -389,7 +392,7 @@ public class UAWBlocks implements ContentList {
 						Fx.nuclearShockwave
 					);
 					hitEffect = UAWFxD.dynamicExplosion2(splashDamageRadius, frontColor, backColor);
-					hitSound = UAWSfx.artilleryExplosionHuge;
+					hitSound = UAWSfx.explosionHuge1;
 					hitSoundVolume = 3f;
 					hitShake = 34f;
 					trailMult = 1.5f;
@@ -426,7 +429,7 @@ public class UAWBlocks implements ContentList {
 						Fx.nuclearShockwave
 					);
 					hitEffect = UAWFxD.dynamicExplosion2(splashDamageRadius, frontColor, backColor);
-					hitSound = UAWSfx.artilleryExplosionHuge;
+					hitSound = UAWSfx.explosionHuge1;
 					hitSoundVolume = 3f;
 					hitShake = 34f;
 					trailMult = 1.5f;
@@ -461,7 +464,7 @@ public class UAWBlocks implements ContentList {
 						Fx.nuclearShockwave
 					);
 					hitEffect = UAWFxD.dynamicExplosion2(splashDamageRadius, frontColor, backColor);
-					hitSound = UAWSfx.artilleryExplosionHuge;
+					hitSound = UAWSfx.explosionHuge1;
 					hitSoundVolume = 3f;
 					hitShake = 34f;
 					trailMult = 1.5f;
@@ -569,9 +572,9 @@ public class UAWBlocks implements ContentList {
 			shootCone = 3f;
 			velocityInaccuracy = 0.3f;
 			ammoUseEffect = Fx.casing4;
-			shootSound = UAWSfx.cannonShoot2;
-			minShootPitch = 1.5f;
-			maxShootPitch = 1.8f;
+			shootSound = Sounds.artillery;
+			minShootPitch = 1.8f;
+			maxShootPitch = 2f;
 			inaccuracy = 8f;
 			rotateSpeed = 3f;
 			maxAmmo = 120;
