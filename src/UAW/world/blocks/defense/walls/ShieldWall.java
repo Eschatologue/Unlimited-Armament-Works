@@ -20,7 +20,7 @@ import static mindustry.Vars.tilesize;
 
 //Copy pasted from ForceProjector with modifications
 public class ShieldWall extends Wall {
-	static ShieldBuild paramEntity;
+	static ShieldWallBuild paramEntity;
 	static final Cons<Bullet> shieldConsumer = trait -> {
 		if (trait.team != paramEntity.team && trait.type.absorbable && Intersector.isInsideHexagon(paramEntity.x, paramEntity.y, paramEntity.realRadius() * 2f, trait.x(), trait.y())) {
 			trait.absorb();
@@ -46,7 +46,7 @@ public class ShieldWall extends Wall {
 	@Override
 	public void setBars() {
 		super.setBars();
-		bars.add("shield", (ShieldBuild entity) -> new Bar("stat.shield", Pal.accent, () -> entity.broken ? 0f : 1f - entity.buildup / shieldHealth).blink(Color.white));
+		bars.add("shield", (ShieldWallBuild entity) -> new Bar("stat.shield", Pal.accent, () -> entity.broken ? 0f : 1f - entity.buildup / shieldHealth).blink(Color.white));
 	}
 
 	@Override
@@ -60,9 +60,9 @@ public class ShieldWall extends Wall {
 		stats.add(Stat.shieldHealth, shieldHealth, StatUnit.none);
 	}
 
-	public class ShieldBuild extends Building implements Ranged {
+	public class ShieldWallBuild extends Building implements Ranged {
 		public boolean broken = true;
-		public float buildup, radscl, hit, warmup;
+		public float buildup, radScl, hit, warmup;
 
 		// Shield Real blockRadius
 		@Override
@@ -82,7 +82,7 @@ public class ShieldWall extends Wall {
 		@Override
 		public void updateTile() {
 
-			radscl = Mathf.lerpDelta(radscl, broken ? 0f : warmup, 0.05f);
+			radScl = Mathf.lerpDelta(radScl, broken ? 0f : warmup, 0.05f);
 
 			if (Mathf.chanceDelta(buildup / shieldHealth * 0.1f)) {
 				Fx.reactorsmoke.at(x + Mathf.range(tilesize / 2f), y + Mathf.range(tilesize / 2f));
@@ -123,10 +123,9 @@ public class ShieldWall extends Wall {
 		}
 
 		public float realRadius() {
-			return radius * radscl;
+			return radius * radScl;
 		}
 
-		// Method Call
 		@Override
 		public void draw() {
 			super.draw();
@@ -139,7 +138,6 @@ public class ShieldWall extends Wall {
 			drawShield();
 		}
 
-		// Method
 		public void drawShield() {
 			if (!broken) {
 				float radius = realRadius();
@@ -164,7 +162,7 @@ public class ShieldWall extends Wall {
 			super.write(write);
 			write.bool(broken);
 			write.f(buildup);
-			write.f(radscl);
+			write.f(radScl);
 			write.f(warmup);
 		}
 
@@ -173,7 +171,7 @@ public class ShieldWall extends Wall {
 			super.read(read, revision);
 			broken = read.bool();
 			buildup = read.f();
-			radscl = read.f();
+			radScl = read.f();
 			warmup = read.f();
 		}
 	}

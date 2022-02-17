@@ -286,6 +286,10 @@ public class UAWTechTree implements ContentList {
 			)
 		);
 
+		vanillaNode(liquidTank, () ->
+			node(liquidCistern)
+		);
+
 		vanillaNode(additiveReconstructor, () ->
 			node(UAWGroundFactory,
 				Seq.with(

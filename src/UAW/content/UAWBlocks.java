@@ -24,7 +24,7 @@ import mindustry.world.blocks.liquid.*;
 import mindustry.world.blocks.production.*;
 import mindustry.world.blocks.units.*;
 import mindustry.world.draw.*;
-import mindustry.world.meta.Attribute;
+import mindustry.world.meta.*;
 
 import static UAW.content.UAWBullets.*;
 import static mindustry.Vars.tilesize;
@@ -44,9 +44,10 @@ public class UAWBlocks implements ContentList {
 	// Energy
 	heavylight, trailblazer, terravolt,
 	// Liquids
-	pressurizedConduit, platedPressurizedConduit, pressurizedLiquidRouter, pressurizedLiquidJunction, pressurizedLiquidBridge, rotodynamicPump,
+	pressurizedConduit, platedPressurizedConduit, pressurizedLiquidRouter, pressurizedLiquidJunction, pressurizedLiquidBridge,
+		liquidCistern,
 	// Drills
-	oilDerrick,
+	oilDerrick, rotodynamicPump,
 	// Crafters
 	gelatinizer, cryofluidDistillery, carburizingFurnace, surgeMixer, petroleumSmelter, petrochemicalSeperator, plastaniumForge,
 	// Power
@@ -646,23 +647,20 @@ public class UAWBlocks implements ContentList {
 			baseExplosiveness = 8f;
 		}};
 
-		rotodynamicPump = new RotatingLiquidPump("rotodynamic-pump") {{
+		liquidCistern = new LiquidRouter("liquid-cistern") {{
 			requirements(Category.liquid, with(
-				Items.lead, 150,
-				Items.metaglass, 60,
-				Items.silicon, 60,
-				Items.plastanium, 60,
-				UAWItems.titaniumCarbide, 40,
-				Items.thorium, 70
+				Items.titanium, 90,
+				Items.plastanium, 50,
+				Items.metaglass, 45,
+				Items.silicon, 45
 			));
 			size = 3;
-			pumpAmount = 0.5f;
-			liquidCapacity = 540f;
-			rotateSpeed = -3f;
-
-			consumes.item(UAWItems.cryogel, 4);
-			consumes.power(2f);
+			squareSprite = false;
+			liquidCapacity = 3600f;
+			health = 900;
+			buildCostMultiplier = 1.5f;
 		}};
+
 		oilDerrick = new Fracker("oil-derrick") {{
 			requirements(Category.production, with(
 				Items.titanium, 150,
@@ -688,6 +686,23 @@ public class UAWBlocks implements ContentList {
 
 			consumes.liquid(Liquids.cryofluid, pumpAmount / 2.5f);
 			consumes.power(3.5f);
+		}};
+		rotodynamicPump = new RotatingLiquidPump("rotodynamic-pump") {{
+			requirements(Category.liquid, with(
+				Items.lead, 150,
+				Items.metaglass, 60,
+				Items.silicon, 60,
+				Items.plastanium, 60,
+				UAWItems.titaniumCarbide, 40,
+				Items.thorium, 70
+			));
+			size = 3;
+			pumpAmount = 0.5f;
+			liquidCapacity = 540f;
+			rotateSpeed = -3f;
+
+			consumes.item(UAWItems.cryogel, 4);
+			consumes.power(2f);
 		}};
 
 		gelatinizer = new GenericCrafter("gelatinizer") {{
@@ -818,7 +833,7 @@ public class UAWBlocks implements ContentList {
 			updateEffect = new MultiEffect(Fx.plasticburn, Fx.burning, Fx.fireSmoke);
 			drawer = new DrawSmelter();
 
-			consumes.liquid(Liquids.oil, 3f);
+			consumes.liquid(Liquids.oil, 2.5f);
 			consumes.items(
 				new ItemStack(Items.titanium, 7),
 				new ItemStack(UAWItems.anthracite, 2)

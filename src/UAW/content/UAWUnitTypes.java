@@ -1274,8 +1274,6 @@ public class UAWUnitTypes implements ContentList {
 				y = 3.25f;
 				ejectEffect = Fx.casing2;
 				shootSound = Sounds.shoot;
-				soundPitchMax = 0.7f;
-				soundPitchMin = 0.5f;
 				predictTarget = false;
 				inaccuracy = 5f;
 				bullet = new BasicBulletType(6, 40) {{
@@ -1355,7 +1353,7 @@ public class UAWUnitTypes implements ContentList {
 					buildingDamageMultiplier = 0.2f;
 					shootEffect = new MultiEffect(UAWFxD.railShoot(40f, backColor), Fx.shootPyraFlame, UAWFxS.muzzleBreakShootSmoke);
 					hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootBigSmoke2, Fx.railHit);
-					hitSound = Sounds.shotgun;
+					hitSound = Sounds.shootBig;
 					collidesAir = false;
 					despawnHit = true;
 					trailInterval = 2f;
