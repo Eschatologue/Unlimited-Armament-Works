@@ -14,9 +14,18 @@ public class DynamicReloadTurret extends UAWItemTurret {
 	public float maxSpeedUpScl = 0.5f;
 	public float speedupPerShot = 0.075f;
 	public float slowDownReloadTime = 90f;
+	public float windUpEffectCircleRad = -1;
 
 	public DynamicReloadTurret(String name) {
 		super(name);
+	}
+
+	@Override
+	public void init() {
+		super.init();
+		if (windUpEffectCircleRad <= 0) {
+			windUpEffectCircleRad = size * tilesize;
+		}
 	}
 
 	public class DynamicReloadTurretBuild extends ItemTurretBuild {
@@ -53,11 +62,14 @@ public class DynamicReloadTurret extends UAWItemTurret {
 
 		@Override
 		public void drawSelect() {
-			super.drawSelect();
+			Drawf.dashCircle(x, y, range, team.color);
+
+			Draw.z(Layer.effect);
 			Lines.stroke(speedupScl / maxSpeedUpScl);
 			Draw.color(UAWPal.cryoFront, Pal.darkPyraFlame, (speedupScl / maxSpeedUpScl) * 0.9f);
-			Lines.polySeg(150, 0, (int) (150 * speedupScl / maxSpeedUpScl), x, y, (size * tilesize), rotation);
+			Lines.polySeg(150, 0, (int) (150 * speedupScl / maxSpeedUpScl), x, y, windUpEffectCircleRad, rotation);
 			Draw.color();
+			Draw.reset();
 		}
 	}
 }

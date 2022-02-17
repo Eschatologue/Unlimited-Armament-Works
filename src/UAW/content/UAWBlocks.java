@@ -333,6 +333,8 @@ public class UAWBlocks implements ContentList {
 			acceptCoolant = false;
 
 			shootSound = UAWSfx.artilleryShootHuge;
+			minShootPitch = 1.5f;
+			maxShootPitch = 1.8f;
 			ammo(
 				Items.pyratite, new ArtilleryBulletType(2f, 2500) {{
 					height = 45;
@@ -524,20 +526,20 @@ public class UAWBlocks implements ContentList {
 			size = 3;
 			health = 120 * size * size;
 			spread = 2f;
-			shots = 5;
+			shots = 4;
 			xRand = 3;
-			reloadTime = 10f;
+			reloadTime = 8f;
 			shootShake = 0.8f;
 			restitution = 0.08f;
-			range = 30 * tilesize;
+			range = 28 * tilesize;
 			shootCone = 2.3f;
 			velocityInaccuracy = 0.2f;
 			ammoUseEffect = Fx.casing3;
-			shootSound = UAWSfx.shotgunShoot1;
+			shootSound = UAWSfx.gunShoot4;
 			inaccuracy = 6f;
 			rotateSpeed = 4f;
 			maxAmmo = 60;
-			ammoPerShot = 6;
+			ammoPerShot = 5;
 			ammo(
 				Items.graphite, buckshotMedium,
 				Items.pyratite, buckshotMediumIncend,
@@ -567,7 +569,9 @@ public class UAWBlocks implements ContentList {
 			shootCone = 3f;
 			velocityInaccuracy = 0.3f;
 			ammoUseEffect = Fx.casing4;
-			shootSound = Sounds.artillery;
+			shootSound = UAWSfx.cannonShoot2;
+			minShootPitch = 1.5f;
+			maxShootPitch = 1.8f;
 			inaccuracy = 8f;
 			rotateSpeed = 3f;
 			maxAmmo = 120;
