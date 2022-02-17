@@ -7,7 +7,8 @@ import mindustry.ctype.*;
 import mindustry.game.Objectives.*;
 import mindustry.type.ItemStack;
 
-import static UAW.content.UAWBlocks.*;
+import static UAW.content.blocks.UAWBlocks.*;
+import static UAW.content.blocks.UAWDefenseBlocks.*;
 import static UAW.content.UAWItems.*;
 import static UAW.content.UAWLiquids.surgeSolvent;
 import static UAW.content.UAWUnitTypes.*;
@@ -293,10 +294,14 @@ public class UAWTechTree implements ContentList {
 		vanillaNode(additiveReconstructor, () ->
 			node(UAWGroundFactory,
 				Seq.with(
-					new Research(oilDerrick)
+					new Research(oilDerrick),
+					new Research(plastanium),
+					new SectorComplete(SectorPresets.tarFields)
 				), () -> {
 					node(cavalier, () ->
-						node(centurion)
+						node(centurion, () ->
+							node(caernarvon)
+						)
 					);
 					node(UAWNavalFactory, () -> {
 						node(arquebus, () ->

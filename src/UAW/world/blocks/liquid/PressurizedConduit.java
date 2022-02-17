@@ -1,6 +1,6 @@
 package UAW.world.blocks.liquid;
 
-import UAW.content.UAWBlocks;
+import UAW.content.blocks.UAWBlocks;
 import arc.graphics.Color;
 import arc.math.Mathf;
 import arc.util.Time;
@@ -8,7 +8,6 @@ import mindustry.content.Fx;
 import mindustry.entities.*;
 import mindustry.gen.*;
 import mindustry.type.Liquid;
-import mindustry.world.*;
 import mindustry.world.blocks.liquid.Conduit;
 
 import static mindustry.Vars.tilesize;
