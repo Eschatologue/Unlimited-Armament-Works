@@ -123,6 +123,8 @@ public class UAWBlocksLogistic implements ContentList {
 				Items.metaglass, 1,
 				Items.copper, 3
 			));
+			size = 1;
+			health = 65;
 		}};
 	}
 }
