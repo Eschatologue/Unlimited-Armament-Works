@@ -116,8 +116,9 @@ public class UAWBlocksLogistic implements ContentList {
 			));
 			size = 1;
 			health = 45;
+			junctionReplacement = UAWBlocksLogistic.gasJunction;
 		}};
-		gasJunction = new GasJunction("gas-junction") {{
+		gasJunction = new GasJunction("copper-gas-junction") {{
 			requirements(Category.liquid, with(
 				Items.metaglass, 1,
 				Items.copper, 3
