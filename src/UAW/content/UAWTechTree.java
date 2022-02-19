@@ -7,8 +7,11 @@ import mindustry.ctype.*;
 import mindustry.game.Objectives.*;
 import mindustry.type.ItemStack;
 
-import static UAW.content.blocks.UAWBlocks.*;
-import static UAW.content.blocks.UAWDefenseBlocks.*;
+import static UAW.content.blocks.UAWBlocksDefense.*;
+import static UAW.content.blocks.UAWBlocksLogistic.*;
+import static UAW.content.blocks.UAWBlocksPower.*;
+import static UAW.content.blocks.UAWBlocksProduction.*;
+import static UAW.content.blocks.UAWBlocksUnits.*;
 import static UAW.content.UAWItems.*;
 import static UAW.content.UAWLiquids.surgeSolvent;
 import static UAW.content.UAWUnitTypes.*;

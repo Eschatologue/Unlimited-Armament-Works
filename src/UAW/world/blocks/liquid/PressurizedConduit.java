@@ -1,6 +1,6 @@
 package UAW.world.blocks.liquid;
 
-import UAW.content.blocks.UAWBlocks;
+import UAW.content.blocks.*;
 import arc.graphics.Color;
 import arc.math.Mathf;
 import arc.util.Time;
@@ -30,8 +30,8 @@ public class PressurizedConduit extends Conduit {
 	@Override
 	public void init() {
 		super.init();
-		junctionReplacement = UAWBlocks.pressurizedLiquidJunction;
-		bridgeReplacement = UAWBlocks.pressurizedLiquidBridge;
+		junctionReplacement = UAWBlocksLogistic.pressurizedLiquidJunction;
+		bridgeReplacement = UAWBlocksLogistic.pressurizedLiquidBridge;
 	}
 
 	public class PressurizedConduitBuild extends ConduitBuild {

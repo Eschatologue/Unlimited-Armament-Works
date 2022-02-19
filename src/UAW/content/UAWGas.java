@@ -7,12 +7,12 @@ import mindustry.ctype.ContentList;
 
 public class UAWGas implements ContentList {
 	public static Gas placeholder,
-		steam, lpg, sulfurdioxide;
+		steam, lpg, sulfurDioxide;
 
 	@Override
 	public void load() {
 		steam = new Gas("gas-steam") {{
-			color = Color.valueOf("bcf9ff");
+			color = Color.valueOf("cccedb");
 			explosiveness = 0f;
 			temperature = 1f;
 			effect = StatusEffects.wet;

@@ -25,7 +25,7 @@ import static mindustry.content.Bullets.artilleryPlastic;
 import static mindustry.type.ItemStack.with;
 
 /** Contains defense & support structures, such as Walls, Turrets, and booster */
-public class UAWDefenseBlocks implements ContentList {
+public class UAWBlocksDefense implements ContentList {
 	public static Block placeholder,
 	// Gatling
 	quadra, spitfire, equalizer,

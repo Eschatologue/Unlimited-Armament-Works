@@ -11,6 +11,14 @@ public class UAWModLoader extends Mod {
 		Events.on(FileTreeInitEvent.class, e -> UAWSfx.load());
 	}
 
+	public void UAWBlockContent() {
+		new UAWBlocksPower().load();
+		new UAWBlocksDefense().load();
+		new UAWBlocksLogistic().load();
+		new UAWBlocksProduction().load();
+		new UAWBlocksUnits().load();
+	}
+
 	@Override
 	public void loadContent() {
 		new UAWStatusEffects().load();
@@ -19,8 +27,7 @@ public class UAWModLoader extends Mod {
 		new UAWItems().load();
 		new UAWLiquids().load();
 		new UAWGas().load();
-		new UAWBlocks().load();
-		new UAWDefenseBlocks().load();
+		UAWBlockContent();
 		new UAWTechTree().load();
 	}
 }
