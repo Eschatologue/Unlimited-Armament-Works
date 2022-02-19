@@ -2,7 +2,7 @@ package UAW.content.blocks;
 
 import UAW.content.UAWItems;
 import UAW.world.blocks.liquid.*;
-import gas.world.blocks.gas.GasConduit;
+import gas.world.blocks.gas.*;
 import gas.world.blocks.sandbox.*;
 import mindustry.content.Items;
 import mindustry.ctype.ContentList;
@@ -23,7 +23,7 @@ public class UAWBlocksLogistic implements ContentList {
 		liquidCistern,
 
 	// Gas
-	gasSource, gasVoid, gasPipe, gasRouter, gasDistributor;
+	gasSource, gasVoid, gasPipe, gasJunction, gasRouter, gasDistributor;
 
 	@Override
 	public void load() {
@@ -109,13 +109,19 @@ public class UAWBlocksLogistic implements ContentList {
 			requirements(Category.liquid, BuildVisibility.sandboxOnly, with());
 			alwaysUnlocked = true;
 		}};
-		gasPipe = new GasConduit("gas-pipe") {{
+		gasPipe = new GasConduit("copper-gas-pipe") {{
 			requirements(Category.liquid, with(
 				Items.metaglass, 1,
-				Items.lead, 2
+				Items.copper, 2
 			));
 			size = 1;
 			health = 45;
+		}};
+		gasJunction = new GasJunction("gas-junction") {{
+			requirements(Category.liquid, with(
+				Items.metaglass, 1,
+				Items.copper, 3
+			));
 		}};
 	}
 }
