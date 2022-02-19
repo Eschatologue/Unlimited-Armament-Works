@@ -1,6 +1,7 @@
 package UAW.content.blocks;
 
 import UAW.content.UAWItems;
+import UAW.world.blocks.UAWGasJunction;
 import UAW.world.blocks.liquid.*;
 import gas.world.blocks.gas.*;
 import gas.world.blocks.sandbox.*;
@@ -118,12 +119,13 @@ public class UAWBlocksLogistic implements ContentList {
 			health = 45;
 			junctionReplacement = UAWBlocksLogistic.gasJunction;
 		}};
-		gasJunction = new GasJunction("copper-gas-junction") {{
+		gasJunction = new UAWGasJunction("copper-gas-junction") {{
 			requirements(Category.liquid, with(
 				Items.metaglass, 1,
 				Items.copper, 3
 			));
 			size = 1;
+			hasLiquids = true;
 			health = 65;
 		}};
 	}
