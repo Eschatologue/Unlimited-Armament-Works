@@ -1,7 +1,7 @@
 package UAW.content.blocks;
 
 import UAW.content.UAWItems;
-import UAW.world.blocks.UAWGasJunction;
+import UAW.world.blocks.gas.UAWGasJunction;
 import UAW.world.blocks.liquid.*;
 import gas.world.blocks.gas.*;
 import gas.world.blocks.sandbox.*;
@@ -125,7 +125,7 @@ public class UAWBlocksLogistic implements ContentList {
 				Items.copper, 3
 			));
 			size = 1;
-			hasLiquids = true;
+			hasLiquids = false;
 			health = 65;
 		}};
 	}

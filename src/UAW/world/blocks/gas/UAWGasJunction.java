@@ -1,4 +1,4 @@
-package UAW.world.blocks;
+package UAW.world.blocks.gas;
 
 import arc.Core;
 import arc.func.Func;
@@ -18,6 +18,8 @@ import mindustry.world.consumers.*;
 import mindustry.world.meta.Stat;
 
 public class UAWGasJunction extends GasJunction {
+	public boolean gasBar = false;
+
 	public UAWGasJunction(String name) {
 		super(name);
 	}
@@ -62,9 +64,10 @@ public class UAWGasJunction extends GasJunction {
 			} else {
 				current = entity -> entity.gasses == null ? null : entity.gasses.current();
 			}
-			bars.<GasBuilding>add("gas", entity -> new Bar(() -> entity.gasses.get(current.get(entity)) <= 0.001f ? Core.bundle.get("bar.gas") : current.get(entity).localizedName,
-				() -> current.get(entity).barColor(), () -> entity == null || entity.gasses == null ? 0f : entity.gasses.get(current.get(entity)) / gasCapacity));
-
+			if (gasBar) {
+				bars.<GasBuilding>add("gas", entity -> new Bar(() -> entity.gasses.get(current.get(entity)) <= 0.001f ? Core.bundle.get("bar.gas") : current.get(entity).localizedName,
+					() -> current.get(entity).barColor(), () -> entity == null || entity.gasses == null ? 0f : entity.gasses.get(current.get(entity)) / gasCapacity));
+			}
 		}
 	}
 }
