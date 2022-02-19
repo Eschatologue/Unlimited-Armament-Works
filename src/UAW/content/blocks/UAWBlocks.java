@@ -534,8 +534,11 @@ public class UAWBlocks implements ContentList {
 			requirements(Category.liquid, BuildVisibility.sandboxOnly, with());
 			alwaysUnlocked = true;
 		}};
-
 		gasPipe = new GasConduit("gas-pipe") {{
+			requirements(Category.liquid, with(
+				Items.metaglass, 1,
+				Items.lead, 2
+			));
 			size = 1;
 		}};
 	}
