@@ -7,6 +7,8 @@ import UAW.world.blocks.power.WarmUpGenerator;
 import UAW.world.blocks.production.*;
 import arc.graphics.Color;
 import arc.struct.Seq;
+import gas.world.blocks.gas.GasConduit;
+import gas.world.blocks.sandbox.*;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.effect.MultiEffect;
@@ -18,7 +20,7 @@ import mindustry.world.blocks.liquid.*;
 import mindustry.world.blocks.production.*;
 import mindustry.world.blocks.units.*;
 import mindustry.world.draw.*;
-import mindustry.world.meta.Attribute;
+import mindustry.world.meta.*;
 
 import static UAW.Vars.tick;
 import static mindustry.Vars.tilesize;
@@ -41,7 +43,7 @@ public class UAWBlocks implements ContentList {
 	exponentialPetroleumReconstructor, tetrativePetroleumReconstructor,
 
 	// Gasses
-	gasSource, gasVoid, gasConduit, gasRouter, gasDistributor;
+	gasSource, gasVoid, gasPipe, gasRouter, gasDistributor;
 
 	@Override
 	public void load() {
@@ -524,5 +526,17 @@ public class UAWBlocks implements ContentList {
 			);
 		}};
 
+		gasSource = new GasSource("gas-source") {{
+			requirements(Category.liquid, BuildVisibility.sandboxOnly, with());
+			alwaysUnlocked = true;
+		}};
+		gasVoid = new GasVoid("gas-void") {{
+			requirements(Category.liquid, BuildVisibility.sandboxOnly, with());
+			alwaysUnlocked = true;
+		}};
+
+		gasPipe = new GasConduit("gas-pipe") {{
+			size = 1;
+		}};
 	}
 }
