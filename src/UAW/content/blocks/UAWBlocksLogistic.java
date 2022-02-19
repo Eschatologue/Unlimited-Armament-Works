@@ -115,6 +115,7 @@ public class UAWBlocksLogistic implements ContentList {
 				Items.lead, 2
 			));
 			size = 1;
+			health = 45;
 		}};
 	}
 }
