@@ -110,16 +110,14 @@ public class UAWBlocksLogistic implements ContentList {
 			requirements(Category.liquid, BuildVisibility.sandboxOnly, with());
 			alwaysUnlocked = true;
 		}};
-		copperGasPipe = new GasConduit("copper-gas-pipe") {{
+		copperGasBridge = new GasBridge("copper-gas-bridge") {{
 			requirements(Category.liquid, with(
-				Items.metaglass, 1,
-				Items.copper, 2
+				Items.metaglass, 8,
+				Items.copper, 8
 			));
 			size = 1;
-			gasCapacity = 30f;
-			health = 45;
-			junctionReplacement = UAWBlocksLogistic.copperGasJunction;
-			squareSprite = false;
+			health = 75;
+			range = 6;
 		}};
 		copperGasJunction = new GasJunction("copper-gas-junction") {{
 			requirements(Category.liquid, with(
@@ -131,6 +129,18 @@ public class UAWBlocksLogistic implements ContentList {
 			hasLiquids = false;
 			health = 65;
 		}};
+		copperGasPipe = new GasConduit("copper-gas-pipe") {{
+			requirements(Category.liquid, with(
+				Items.metaglass, 1,
+				Items.copper, 2
+			));
+			size = 1;
+			gasCapacity = 30f;
+			health = 45;
+			junctionReplacement = UAWBlocksLogistic.copperGasJunction;
+			bridgeReplacement = UAWBlocksLogistic.copperGasBridge;
+			squareSprite = false;
+		}};
 		copperGasRouter = new GasRouter("copper-gas-router") {{
 			requirements(Category.liquid, with(
 				Items.metaglass, 2,
@@ -139,15 +149,6 @@ public class UAWBlocksLogistic implements ContentList {
 			size = 1;
 			gasCapacity = 60f;
 			health = 65;
-		}};
-		copperGasBridge = new GasBridge("copper-gas-bridge") {{
-			requirements(Category.liquid, with(
-				Items.metaglass, 8,
-				Items.copper, 8
-			));
-			size = 1;
-			health = 75;
-			range = 5;
 		}};
 	}
 }
