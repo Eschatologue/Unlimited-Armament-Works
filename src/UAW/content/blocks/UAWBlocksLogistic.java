@@ -204,7 +204,7 @@ public class UAWBlocksLogistic implements ContentList {
 			gasCapacity = 120f;
 			health = 380;
 		}};
-		compositeGasBridge = new GasBridge("copper-gas-bridge") {{
+		compositeGasBridge = new GasBridge("composite-gas-bridge") {{
 			requirements(Category.liquid, with(
 				Items.metaglass, 8,
 				Items.titanium, 8,
