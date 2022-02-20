@@ -116,27 +116,38 @@ public class UAWBlocksLogistic implements ContentList {
 				Items.copper, 2
 			));
 			size = 1;
+			gasCapacity = 30f;
 			health = 45;
 			junctionReplacement = UAWBlocksLogistic.copperGasJunction;
 			squareSprite = false;
 		}};
 		copperGasJunction = new GasJunction("copper-gas-junction") {{
 			requirements(Category.liquid, with(
-				Items.metaglass, 1,
-				Items.copper, 3
+				Items.metaglass, 2,
+				Items.copper, 6
 			));
 			size = 1;
+			gasCapacity = 30f;
 			hasLiquids = false;
 			health = 65;
 		}};
 		copperGasRouter = new GasRouter("copper-gas-router") {{
 			requirements(Category.liquid, with(
-				Items.metaglass, 1,
-				Items.copper, 3
+				Items.metaglass, 2,
+				Items.copper, 6
 			));
 			size = 1;
-			gasCapacity = 15f;
+			gasCapacity = 60f;
 			health = 65;
+		}};
+		copperGasBridge = new GasBridge("copper-gas-bridge") {{
+			requirements(Category.liquid, with(
+				Items.metaglass, 8,
+				Items.copper, 8
+			));
+			size = 1;
+			health = 75;
+			range = 5;
 		}};
 	}
 }
