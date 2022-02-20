@@ -170,7 +170,7 @@ public class UAWBlocksLogistic implements ContentList {
 			squareSprite = false;
 			leaks = false;
 		}};
-		platedGasPipe = new GasArmoredConduit("composite-gas-pipe") {{
+		platedGasPipe = new GasArmoredConduit("plated-gas-pipe") {{
 			requirements(Category.liquid, with(
 				Items.metaglass, 2,
 				Items.titanium, 4,
