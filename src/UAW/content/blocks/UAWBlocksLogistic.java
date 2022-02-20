@@ -1,7 +1,6 @@
 package UAW.content.blocks;
 
 import UAW.content.UAWItems;
-import UAW.world.blocks.gas.UAWGasJunction;
 import UAW.world.blocks.liquid.*;
 import gas.world.blocks.gas.*;
 import gas.world.blocks.sandbox.*;
@@ -24,7 +23,8 @@ public class UAWBlocksLogistic implements ContentList {
 		liquidCistern,
 
 	// Gas
-	gasSource, gasVoid, gasPipe, gasJunction, gasRouter, gasDistributor;
+	gasSource, gasVoid, copperGasPipe, copperGasJunction, copperGasRouter, copperGasBridge,
+		compositeGasPipe, compositeGasJunction, compositeGasRouter, compositeGasBridge;
 
 	@Override
 	public void load() {
@@ -110,22 +110,32 @@ public class UAWBlocksLogistic implements ContentList {
 			requirements(Category.liquid, BuildVisibility.sandboxOnly, with());
 			alwaysUnlocked = true;
 		}};
-		gasPipe = new GasConduit("copper-gas-pipe") {{
+		copperGasPipe = new GasConduit("copper-gas-pipe") {{
 			requirements(Category.liquid, with(
 				Items.metaglass, 1,
 				Items.copper, 2
 			));
 			size = 1;
 			health = 45;
-			junctionReplacement = UAWBlocksLogistic.gasJunction;
+			junctionReplacement = UAWBlocksLogistic.copperGasJunction;
+			squareSprite = false;
 		}};
-		gasJunction = new UAWGasJunction("copper-gas-junction") {{
+		copperGasJunction = new GasJunction("copper-gas-junction") {{
 			requirements(Category.liquid, with(
 				Items.metaglass, 1,
 				Items.copper, 3
 			));
 			size = 1;
 			hasLiquids = false;
+			health = 65;
+		}};
+		copperGasRouter = new GasRouter("copper-gas-router") {{
+			requirements(Category.liquid, with(
+				Items.metaglass, 1,
+				Items.copper, 3
+			));
+			size = 1;
+			gasCapacity = 15f;
 			health = 65;
 		}};
 	}
