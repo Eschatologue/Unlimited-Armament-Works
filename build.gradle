@@ -34,7 +34,7 @@ dependencies{
     compileOnly "com.github.Anuken.Mindustry:core:$mindustryVersion"
     annotationProcessor "com.github.Anuken:jabel:$jabelVersion"
 
-    implementation 'com.github.Zelaux.GasLibrary:core:v1.6.01'
+    implementation 'com.github.Zelaux.GasLibrary:core:v1.6.02'
 }
 
 task jarAndroid{
