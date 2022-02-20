@@ -110,15 +110,14 @@ public class UAWBlocksLogistic implements ContentList {
 			requirements(Category.liquid, BuildVisibility.sandboxOnly, with());
 			alwaysUnlocked = true;
 		}};
-		copperGasBridge = new GasBridge("copper-gas-bridge") {{
-			requirements(Category.liquid, with(
-				Items.metaglass, 8,
-				Items.copper, 8
-			));
-			size = 1;
-			health = 75;
-			range = 6;
-		}};
+//		copperGasBridge = new GasBridge("copper-gas-bridge") {{
+//			requirements(Category.liquid, with(
+//				Items.metaglass, 8,
+//				Items.copper, 8
+//			));
+//			size = 1;
+//			health = 75;
+//		}};
 		copperGasJunction = new GasJunction("copper-gas-junction") {{
 			requirements(Category.liquid, with(
 				Items.metaglass, 2,
