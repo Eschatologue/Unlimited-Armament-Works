@@ -137,7 +137,7 @@ public class UAWBlocksLogistic implements ContentList {
 			gasCapacity = 30f;
 			health = 45;
 			junctionReplacement = UAWBlocksLogistic.copperGasJunction;
-			bridgeReplacement = UAWBlocksLogistic.copperGasBridge;
+//			bridgeReplacement = UAWBlocksLogistic.copperGasBridge;
 			squareSprite = false;
 		}};
 		copperGasRouter = new GasRouter("copper-gas-router") {{
