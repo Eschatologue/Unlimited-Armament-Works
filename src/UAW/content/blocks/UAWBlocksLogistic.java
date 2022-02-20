@@ -154,10 +154,13 @@ public class UAWBlocksLogistic implements ContentList {
 			));
 			size = 1;
 			health = 75;
+			gasCapacity = 30f;
+			hasPower = false;
+			consumesPower = false;
 			range = 6;
 		}};
 
-		compositeGasPipe = new GasConduit("composite-gas-pipe") {{
+		compositeGasPipe = new UAWGasConduit("composite-gas-pipe") {{
 			requirements(Category.liquid, with(
 				Items.metaglass, 2,
 				Items.titanium, 4,

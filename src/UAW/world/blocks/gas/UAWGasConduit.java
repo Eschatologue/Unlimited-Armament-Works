@@ -4,29 +4,29 @@ import arc.func.Boolf;
 import arc.math.Mathf;
 import arc.math.geom.Point2;
 import arc.struct.Seq;
-import gas.gen.GasPlacement;
 import gas.world.blocks.distribution.GasItemBridge;
 import gas.world.blocks.gas.*;
 import mindustry.entities.units.BuildPlan;
 import mindustry.world.Tile;
-import mindustry.world.blocks.distribution.ItemBridge;
 
 import static mindustry.Vars.player;
 
 public class UAWGasConduit extends GasConduit {
 	private static final Seq<BuildPlan> plans1 = new Seq<>();
+
 	public UAWGasConduit(String name) {
 		super(name);
 	}
-	public static boolean isSidePlace(Seq<BuildPlan> plans){
+
+	public static boolean isSidePlace(Seq<BuildPlan> plans) {
 		return plans.size > 1 && Mathf.mod(Tile.relativeTo(plans.first().x, plans.first().y, plans.get(1).x, plans.get(1).y) - plans.first().rotation, 2) == 1;
 	}
 
-	public static void calculateGasBridges(Seq<BuildPlan> plans, GasItemBridge bridge){
-		if(isSidePlace(plans)) return;
+	public static void calculateGasBridges(Seq<BuildPlan> plans, GasItemBridge bridge) {
+		if (isSidePlace(plans)) return;
 
 		//check for orthogonal placement + unlocked state
-		if(!(plans.first().x == plans.peek().x || plans.first().y == plans.peek().y) || !bridge.unlockedNow()){
+		if (!(plans.first().x == plans.peek().x || plans.first().y == plans.peek().y) || !bridge.unlockedNow()) {
 			return;
 		}
 
@@ -38,32 +38,32 @@ public class UAWGasConduit extends GasConduit {
 		var rotated = plans.first().tile() != null && plans.first().tile().absoluteRelativeTo(plans.peek().x, plans.peek().y) == Mathf.mod(plans.first().rotation + 2, 4);
 
 		outer:
-		for(int i = 0; i < plans.size;){
+		for (int i = 0; i < plans.size; ) {
 			var cur = plans.get(i);
 			result.add(cur);
 
 			//gap found
-			if(i < plans.size - 1 && placeable.get(cur) && !placeable.get(plans.get(i + 1))){
+			if (i < plans.size - 1 && placeable.get(cur) && !placeable.get(plans.get(i + 1))) {
 
 				//find the closest valid position within range
-				for(int j = i + 1; j < plans.size; j++){
+				for (int j = i + 1; j < plans.size; j++) {
 					var other = plans.get(j);
 
 					//out of range now, set to current position and keep scanning forward for next occurrence
-					if(!bridge.positionsValid(cur.x, cur.y, other.x, other.y)){
+					if (!bridge.positionsValid(cur.x, cur.y, other.x, other.y)) {
 						//add 'missed' conveyors
-						for(int k = i + 1; k < j; k++){
+						for (int k = i + 1; k < j; k++) {
 							result.add(plans.get(k));
 						}
 						i = j;
 						continue outer;
-					}else if(other.placeable(team)){
+					} else if (other.placeable(team)) {
 						//found a link, assign bridges
 						cur.block = bridge;
 						other.block = bridge;
-						if(rotated){
-							other.config = new Point2(cur.x - other.x,  cur.y - other.y);
-						}else{
+						if (rotated) {
+							other.config = new Point2(cur.x - other.x, cur.y - other.y);
+						} else {
 							cur.config = new Point2(other.x - cur.x, other.y - cur.y);
 						}
 
@@ -73,15 +73,14 @@ public class UAWGasConduit extends GasConduit {
 				}
 
 				//if it got here, that means nothing was found. this likely means there's a bunch of stuff at the end; add it and bail out
-				for(int j = i + 1; j < plans.size; j++){
+				for (int j = i + 1; j < plans.size; j++) {
 					result.add(plans.get(j));
 				}
 				break;
-			}else{
-				i ++;
+			} else {
+				i++;
 			}
 		}
-
 		plans.set(result);
 	}
 
