@@ -1,7 +1,6 @@
 package UAW.content.blocks;
 
 import UAW.content.UAWItems;
-import UAW.world.blocks.gas.*;
 import UAW.world.blocks.liquid.*;
 import gas.world.blocks.gas.*;
 import gas.world.blocks.sandbox.*;
@@ -25,8 +24,8 @@ public class UAWBlocksLogistic implements ContentList {
 
 	// Gas
 	gasSource, gasVoid,
-		copperGasPipe, copperGasJunction, copperGasRouter, copperGasBridge,
-		compositeGasPipe, platedGasPipe, compositeGasJunction, compositeGasRouter, compositeGasBridge,
+		copperGasBridge, copperGasPipe, copperGasJunction, copperGasRouter,
+		compositeGasBridge, compositeGasPipe, platedGasPipe, compositeGasJunction, compositeGasRouter,
 
 	// Payload
 	heavyDutyPayloadConveyor;
@@ -116,7 +115,7 @@ public class UAWBlocksLogistic implements ContentList {
 			alwaysUnlocked = true;
 		}};
 
-		copperGasPipe = new UAWGasConduit("copper-gas-pipe") {{
+		copperGasPipe = new GasConduit("copper-gas-pipe") {{
 			requirements(Category.liquid, with(
 				Items.metaglass, 1,
 				Items.copper, 2
@@ -124,8 +123,8 @@ public class UAWBlocksLogistic implements ContentList {
 			size = 1;
 			gasCapacity = 30f;
 			health = 45;
-			junction = UAWBlocksLogistic.copperGasJunction;
-			bridge = UAWBlocksLogistic.copperGasBridge;
+			junctionReplacement = UAWBlocksLogistic.copperGasJunction;
+			bridgeReplacement = UAWBlocksLogistic.copperGasBridge;
 			squareSprite = false;
 		}};
 		copperGasJunction = new GasJunction("copper-gas-junction") {{
@@ -160,7 +159,7 @@ public class UAWBlocksLogistic implements ContentList {
 			range = 6;
 		}};
 
-		compositeGasPipe = new UAWGasConduit("composite-gas-pipe") {{
+		compositeGasPipe = new GasConduit("composite-gas-pipe") {{
 			requirements(Category.liquid, with(
 				Items.metaglass, 2,
 				Items.titanium, 4,
@@ -169,12 +168,12 @@ public class UAWBlocksLogistic implements ContentList {
 			size = 1;
 			gasCapacity = 60f;
 			health = 365;
-			junction = UAWBlocksLogistic.compositeGasJunction;
-			bridge = UAWBlocksLogistic.compositeGasBridge;
+			junctionReplacement = UAWBlocksLogistic.compositeGasJunction;
+			bridgeReplacement = UAWBlocksLogistic.compositeGasBridge;
 			squareSprite = false;
 			leaks = false;
 		}};
-		platedGasPipe = new UAWPlatedGasConduit("plated-gas-pipe") {{
+		platedGasPipe = new GasArmoredConduit("plated-gas-pipe") {{
 			requirements(Category.liquid, with(
 				Items.metaglass, 2,
 				Items.titanium, 4,
