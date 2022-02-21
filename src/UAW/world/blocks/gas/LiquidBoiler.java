@@ -6,6 +6,7 @@ import arc.math.Mathf;
 import arc.util.Nullable;
 import gas.world.blocks.production.GenericCrafterWithGas;
 import mindustry.entities.Effect;
+import mindustry.graphics.Pal;
 import mindustry.world.meta.Attribute;
 
 import java.awt.*;
@@ -24,6 +25,7 @@ public class LiquidBoiler extends GenericCrafterWithGas {
 
 	public LiquidBoiler(String name) {
 		super(name);
+		squareSprite = false;
 		liquidCapacity = 60f;
 		outputsLiquid = false;
 		hasItems = true;
@@ -49,7 +51,7 @@ public class LiquidBoiler extends GenericCrafterWithGas {
 			intensity += warmup * edelta();
 			if (warmup >= 0.001) {
 				if (Mathf.chance(warmup)) {
-					smokeEffect.at(x + Mathf.range(size / 3.5f * 4f), y + Mathf.range(size / 3.5f * 4f), steamSize, Color.lightGray);
+					smokeEffect.at(x + Mathf.range(size / 3.5f * 4f), y + Mathf.range(size / 3.5f * 4f), steamSize, Pal.lightishGray);
 				}
 			}
 		}
