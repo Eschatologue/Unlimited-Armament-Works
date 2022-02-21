@@ -1,7 +1,7 @@
 package UAW.content.blocks;
 
 import UAW.content.UAWItems;
-import UAW.world.blocks.gas.*;
+import UAW.world.blocks.gas.UAWGasConduit;
 import UAW.world.blocks.liquid.*;
 import gas.world.blocks.gas.*;
 import gas.world.blocks.sandbox.*;
@@ -160,7 +160,7 @@ public class UAWBlocksLogistic implements ContentList {
 			range = 6;
 		}};
 
-		compositeGasPipe = new UAWGasConduit("composite-gas-pipe") {{
+		compositeGasPipe = new GasConduit("composite-gas-pipe") {{
 			requirements(Category.liquid, with(
 				Items.metaglass, 2,
 				Items.titanium, 4,
@@ -174,7 +174,7 @@ public class UAWBlocksLogistic implements ContentList {
 			squareSprite = false;
 			leaks = false;
 		}};
-		platedGasPipe = new UAWPlatedGasConduit("plated-gas-pipe") {{
+		platedGasPipe = new GasArmoredConduit("plated-gas-pipe") {{
 			requirements(Category.liquid, with(
 				Items.metaglass, 2,
 				Items.titanium, 4,
@@ -208,15 +208,15 @@ public class UAWBlocksLogistic implements ContentList {
 			gasCapacity = 120f;
 			health = 380;
 		}};
-//		compositeGasBridge = new GasBridge("composite-gas-bridge") {{
-//			requirements(Category.liquid, with(
-//				Items.metaglass, 8,
-//				Items.titanium, 8,
-//				Items.silicon, 5
-//			));
-//			size = 1;
-//			health = 350;
-//			range = 8;
-//		}};
+		compositeGasBridge = new GasBridge("composite-gas-bridge") {{
+			requirements(Category.liquid, with(
+				Items.metaglass, 8,
+				Items.titanium, 8,
+				Items.silicon, 5
+			));
+			size = 1;
+			health = 350;
+			range = 8;
+		}};
 	}
 }
