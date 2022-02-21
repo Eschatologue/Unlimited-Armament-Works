@@ -9,7 +9,7 @@ import mindustry.world.Block;
 
 import static mindustry.type.ItemStack.with;
 
-/** Contains Power Blocks */
+/** Contains Power Blocks or Blocks that produces Power */
 public class UAWBlocksPower implements ContentList {
 	public static Block placeholder,
 

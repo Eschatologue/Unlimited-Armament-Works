@@ -2,8 +2,11 @@ package UAW.content.blocks;
 
 import UAW.content.*;
 import UAW.graphics.*;
+import UAW.world.blocks.gas.LiquidBoiler;
 import UAW.world.blocks.production.*;
 import arc.graphics.Color;
+import gas.GasStack;
+import gas.world.blocks.production.GenericCrafterWithGas;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.effect.MultiEffect;
@@ -23,8 +26,12 @@ public class UAWBlocksProduction implements ContentList {
 	public static Block placeholder,
 	// Drills
 	oilDerrick, rotodynamicPump,
-	// Crafters
-	gelatinizer, cryofluidDistillery, carburizingFurnace, surgeMixer, petroleumSmelter, petrochemicalSeperator, plastaniumForge;
+	// Item Crafter
+	gelatinizer, carburizingFurnace, petroleumSmelter, petrochemicalSeperator, plastaniumForge,
+	// Liquid Mixer
+	cryofluidDistillery, surgeMixer,
+	// Gas
+	coalBoiler;
 
 	@Override
 	public void load() {
@@ -266,6 +273,22 @@ public class UAWBlocksProduction implements ContentList {
 
 			consumes.liquid(Liquids.oil, 1.5f);
 			consumes.item(Items.sand, 3);
+		}};
+
+		// Gasses
+		coalBoiler = new LiquidBoiler("coal-boiler") {{
+			requirements(Category.power, with(
+				Items.copper, 35,
+				Items.graphite, 25,
+				Items.lead, 30
+			));
+			size = 2;
+			updateEffect = new MultiEffect(UAWFxD.smokeCloud(60, Layer.effect, Color.lightGray));
+			consumes.items(with(
+				Items.coal, 1
+			));
+			consumes.liquid(Liquids.water, 0.2f);
+			outputGas = new GasStack(UAWGas.steam, 0.25f);
 		}};
 
 	}
