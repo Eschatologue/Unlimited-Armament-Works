@@ -116,7 +116,7 @@ public class UAWBlocksLogistic implements ContentList {
 			alwaysUnlocked = true;
 		}};
 
-		copperGasPipe = new GasConduit("copper-gas-pipe") {{
+		copperGasPipe = new UAWGasConduit("copper-gas-pipe") {{
 			requirements(Category.liquid, with(
 				Items.metaglass, 1,
 				Items.copper, 2
@@ -124,8 +124,8 @@ public class UAWBlocksLogistic implements ContentList {
 			size = 1;
 			gasCapacity = 30f;
 			health = 45;
-			junctionReplacement = UAWBlocksLogistic.copperGasJunction;
-			bridgeReplacement = UAWBlocksLogistic.copperGasBridge;
+			junction = UAWBlocksLogistic.copperGasJunction;
+			bridge = UAWBlocksLogistic.copperGasBridge;
 			squareSprite = false;
 		}};
 		copperGasJunction = new GasJunction("copper-gas-junction") {{
@@ -160,7 +160,7 @@ public class UAWBlocksLogistic implements ContentList {
 			range = 6;
 		}};
 
-		compositeGasPipe = new GasConduit("composite-gas-pipe") {{
+		compositeGasPipe = new UAWGasConduit("composite-gas-pipe") {{
 			requirements(Category.liquid, with(
 				Items.metaglass, 2,
 				Items.titanium, 4,
@@ -169,8 +169,8 @@ public class UAWBlocksLogistic implements ContentList {
 			size = 1;
 			gasCapacity = 60f;
 			health = 365;
-			junctionReplacement = UAWBlocksLogistic.compositeGasJunction;
-			bridgeReplacement = UAWBlocksLogistic.compositeGasBridge;
+			junction = UAWBlocksLogistic.compositeGasJunction;
+			bridge = UAWBlocksLogistic.compositeGasBridge;
 			squareSprite = false;
 			leaks = false;
 		}};
