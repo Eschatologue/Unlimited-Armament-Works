@@ -25,7 +25,7 @@ public class UAWBlocksLogistic implements ContentList {
 	// Gas
 	gasSource, gasVoid,
 		gasBridge, gasJunction, gasRouter,
-		copperGasPipe, reinforcedGasPipe, platedGasPipe,
+		gasPipe, reinforcedGasPipe, platedGasPipe,
 
 	// Payload
 	heavyDutyPayloadConveyor;
@@ -147,7 +147,7 @@ public class UAWBlocksLogistic implements ContentList {
 			range = 6;
 		}};
 
-		copperGasPipe = new GasConduit("gas-pipe") {{
+		gasPipe = new GasConduit("gas-pipe") {{
 			requirements(Category.liquid, with(
 				Items.metaglass, 1,
 				Items.copper, 2
@@ -167,7 +167,7 @@ public class UAWBlocksLogistic implements ContentList {
 			));
 			size = 1;
 			gasCapacity = 60f;
-			health = 365;
+			health = 150;
 			squareSprite = false;
 			leaks = false;
 		}};
@@ -179,7 +179,7 @@ public class UAWBlocksLogistic implements ContentList {
 			));
 			size = 1;
 			gasCapacity = 60f;
-			health = 365;
+			health = 300;
 			squareSprite = false;
 		}};
 	}
