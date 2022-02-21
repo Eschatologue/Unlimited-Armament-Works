@@ -16,7 +16,7 @@ public class LiquidBoiler extends GenericCrafterWithGas {
 	@Nullable
 	public Attribute attribute = Attribute.heat;
 
-	public float steamSize = 0.8f;
+	public float steamSize = 4f;
 	public float baseEfficiency = 1f;
 	public float boostScale = 1f;
 	public float maxBoost = 1f;
@@ -50,7 +50,7 @@ public class LiquidBoiler extends GenericCrafterWithGas {
 			intensity += warmup * edelta();
 			if (warmup >= 0.001) {
 				if (Mathf.chance(warmup)) {
-					smokeEffect.at(x + Mathf.range(size / 3.5f * 4f), y + Mathf.range(size / 3.5f * 4f), steamSize, Pal.lightishGray);
+					smokeEffect.at(x + Mathf.range(size / 3.5f * 4f), y + Mathf.range(size / 3.5f * 4f), steamSize / 10, Pal.lightishGray);
 				}
 			}
 		}

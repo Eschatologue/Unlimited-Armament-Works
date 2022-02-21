@@ -307,7 +307,7 @@ public class UAWFxS {
 	}).layer(Layer.scorch - 0.1f),
 
 	// endregion Trails
-	steamSmoke = new Effect(30, e -> {
+	steamSmoke = new Effect(25, e -> {
 		color(Tmp.c1.set(e.color).mul(1.1f));
 		randLenVectors(e.id, (int) (6 * e.rotation), 12f * e.finpow() * e.rotation, (x, y) -> {
 			Fill.circle(e.x + x, e.y + y, e.fout() * 3f + 0.1f);

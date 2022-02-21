@@ -6,7 +6,6 @@ import UAW.world.blocks.gas.LiquidBoiler;
 import UAW.world.blocks.production.*;
 import arc.graphics.Color;
 import gas.GasStack;
-import gas.world.blocks.production.GenericCrafterWithGas;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.effect.MultiEffect;
@@ -283,12 +282,11 @@ public class UAWBlocksProduction implements ContentList {
 				Items.lead, 30
 			));
 			size = 2;
-			updateEffect = new MultiEffect(UAWFxD.smokeCloud(60, Layer.effect, Color.lightGray));
 			consumes.items(with(
 				Items.coal, 1
 			));
 			consumes.liquid(Liquids.water, 0.2f);
-			outputGas = new GasStack(UAWGas.steam, 0.25f);
+			outputGas = new GasStack(UAWGas.steam, 15f);
 		}};
 
 	}
