@@ -9,8 +9,6 @@ import mindustry.entities.Effect;
 import mindustry.graphics.Pal;
 import mindustry.world.meta.Attribute;
 
-import java.awt.*;
-
 import static UAW.Vars.tick;
 
 public class LiquidBoiler extends GenericCrafterWithGas {
@@ -18,7 +16,7 @@ public class LiquidBoiler extends GenericCrafterWithGas {
 	@Nullable
 	public Attribute attribute = Attribute.heat;
 
-	public float steamSize = 8f;
+	public float steamSize = 0.8f;
 	public float baseEfficiency = 1f;
 	public float boostScale = 1f;
 	public float maxBoost = 1f;
@@ -30,6 +28,7 @@ public class LiquidBoiler extends GenericCrafterWithGas {
 		outputsLiquid = false;
 		hasItems = true;
 		hasLiquids = true;
+		hasGasses = true;
 		craftTime = 2f * tick;
 	}
 
