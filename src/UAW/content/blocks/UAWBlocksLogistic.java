@@ -2,6 +2,7 @@ package UAW.content.blocks;
 
 import UAW.content.UAWItems;
 import UAW.world.blocks.liquid.*;
+import arc.graphics.Color;
 import gas.world.blocks.gas.*;
 import gas.world.blocks.sandbox.*;
 import mindustry.content.Items;
@@ -153,6 +154,7 @@ public class UAWBlocksLogistic implements ContentList {
 				Items.copper, 2
 			));
 			size = 1;
+			botColor = Color.valueOf("2c2d38");
 			gasCapacity = 30f;
 			health = 45;
 			junctionReplacement = UAWBlocksLogistic.gasJunction;
@@ -166,6 +168,7 @@ public class UAWBlocksLogistic implements ContentList {
 				Items.silicon, 3
 			));
 			size = 1;
+			botColor = Color.valueOf("2c2d38");
 			gasCapacity = 60f;
 			health = 150;
 			squareSprite = false;
@@ -178,6 +181,7 @@ public class UAWBlocksLogistic implements ContentList {
 				Items.silicon, 3
 			));
 			size = 1;
+			botColor = Color.valueOf("2c2d38");
 			gasCapacity = 60f;
 			health = 300;
 			squareSprite = false;
