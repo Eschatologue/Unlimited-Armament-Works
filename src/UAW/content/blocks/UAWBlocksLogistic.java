@@ -116,7 +116,7 @@ public class UAWBlocksLogistic implements ContentList {
 			alwaysUnlocked = true;
 		}};
 
-		copperGasPipe = new UAWGasConduit("copper-gas-pipe") {{
+		copperGasPipe = new GasConduit("copper-gas-pipe") {{
 			requirements(Category.liquid, with(
 				Items.metaglass, 1,
 				Items.copper, 2
@@ -147,7 +147,7 @@ public class UAWBlocksLogistic implements ContentList {
 			gasCapacity = 60f;
 			health = 65;
 		}};
-		copperGasBridge = new UAWGasBridge("copper-gas-bridge") {{
+		copperGasBridge = new GasBridge("copper-gas-bridge") {{
 			requirements(Category.liquid, with(
 				Items.metaglass, 8,
 				Items.copper, 8
