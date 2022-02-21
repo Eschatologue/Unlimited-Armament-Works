@@ -1,7 +1,7 @@
 package UAW.content.blocks;
 
 import UAW.content.UAWItems;
-import UAW.world.blocks.gas.UAWGasConduit;
+import UAW.world.blocks.gas.*;
 import UAW.world.blocks.liquid.*;
 import gas.world.blocks.gas.*;
 import gas.world.blocks.sandbox.*;
@@ -174,7 +174,7 @@ public class UAWBlocksLogistic implements ContentList {
 			squareSprite = false;
 			leaks = false;
 		}};
-		platedGasPipe = new GasArmoredConduit("plated-gas-pipe") {{
+		platedGasPipe = new UAWPlatedGasConduit("plated-gas-pipe") {{
 			requirements(Category.liquid, with(
 				Items.metaglass, 2,
 				Items.titanium, 4,
