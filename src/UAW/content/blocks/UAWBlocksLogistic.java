@@ -172,7 +172,6 @@ public class UAWBlocksLogistic implements ContentList {
 			gasCapacity = 60f;
 			health = 150;
 			squareSprite = false;
-			leaks = false;
 		}};
 		platedGasPipe = new GasArmoredConduit("plated-gas-pipe") {{
 			requirements(Category.liquid, with(
