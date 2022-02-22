@@ -59,7 +59,7 @@ public class LiquidBoiler extends GasCrafter {
 
 		@Override
 		public void updateTile() {
-			if (consValid() && liquids.currentAmount() > waterAmount / 2) {
+			if (consValid()) {
 				progress += getProgressIncrease(craftTime);
 				totalProgress += delta();
 				warmup = Mathf.approachDelta(warmup, 1f, warmupSpeed);
