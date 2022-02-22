@@ -20,6 +20,7 @@ public class AdvancedGenericCrafter extends GenericCrafter {
 
 	public @Nullable
 	Attribute attribute;
+
 	public float baseEfficiency = 1f;
 	public float boostScale = 1f;
 	public float maxBoost = 1f;

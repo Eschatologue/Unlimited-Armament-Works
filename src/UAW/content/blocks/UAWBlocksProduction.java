@@ -282,11 +282,13 @@ public class UAWBlocksProduction implements ContentList {
 				Items.lead, 30
 			));
 			size = 2;
+			steamSize = 5f;
+			smokeEffectMult = 0.5f;
 			consumes.items(with(
 				Items.coal, 1
 			));
 			consumes.liquid(Liquids.water, 0.2f);
-			outputGas = new GasStack(UAWGas.steam, 15f);
+			outputGas = new GasStack(UAWGas.steam, 30f);
 		}};
 
 	}

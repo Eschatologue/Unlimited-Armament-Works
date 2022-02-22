@@ -7,16 +7,17 @@ import arc.util.Nullable;
 import gas.world.blocks.production.GenericCrafterWithGas;
 import mindustry.entities.Effect;
 import mindustry.graphics.Pal;
-import mindustry.world.meta.Attribute;
+import mindustry.world.meta.*;
 
 import static UAW.Vars.tick;
 
 public class LiquidBoiler extends GenericCrafterWithGas {
 	public Effect smokeEffect = UAWFxS.steamSmoke;
 	@Nullable
-	public Attribute attribute = Attribute.heat;
+	public Attribute attribute;
 
 	public float steamSize = 4f;
+	public float smokeEffectMult = 1f;
 	public float baseEfficiency = 1f;
 	public float boostScale = 1f;
 	public float maxBoost = 1f;
@@ -40,6 +41,12 @@ public class LiquidBoiler extends GenericCrafterWithGas {
 		}
 	}
 
+	@Override
+	public void setStats() {
+		super.setStats();
+		if (attribute != null) stats.add(Stat.affinities, attribute, boostScale * size * size);
+	}
+
 	public class LiquidBoilerBuild extends GenericCrafterWithGasBuild {
 		public float attrsum;
 		float intensity;
@@ -49,7 +56,7 @@ public class LiquidBoiler extends GenericCrafterWithGas {
 			super.updateTile();
 			intensity += warmup * edelta();
 			if (warmup >= 0.001) {
-				if (Mathf.chance(warmup)) {
+				if (Mathf.chance(warmup * smokeEffectMult)) {
 					smokeEffect.at(x + Mathf.range(size / 3.5f * 4f), y + Mathf.range(size / 3.5f * 4f), steamSize / 10, Pal.lightishGray);
 				}
 			}
