@@ -5,7 +5,6 @@ import UAW.graphics.*;
 import UAW.world.blocks.gas.LiquidBoiler;
 import UAW.world.blocks.production.*;
 import arc.graphics.Color;
-import gas.GasStack;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.effect.MultiEffect;
@@ -281,6 +280,7 @@ public class UAWBlocksProduction implements ContentList {
 				Items.lead, 12
 			));
 			size = 1;
+			squareSprite = false;
 			steamSize = 4f;
 			steamEffectMult = 0.8f;
 			warmupSpeed = 0.01f;
@@ -296,6 +296,7 @@ public class UAWBlocksProduction implements ContentList {
 				Items.lead, 30
 			));
 			size = 2;
+			squareSprite = false;
 			warmupSpeed = 0.0015f;
 			steamSize = 5f;
 			steamEffectMult = 0.8f;
@@ -312,6 +313,7 @@ public class UAWBlocksProduction implements ContentList {
 				Items.graphite, 50
 			));
 			size = 4;
+			squareSprite = false;
 			warmupSpeed = 0.0002f;
 			steamSize = 8f;
 			steamEffectMult = 0.8f;

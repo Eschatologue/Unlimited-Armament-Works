@@ -28,7 +28,6 @@ public class LiquidBoiler extends GasCrafter {
 	@Override
 	public void init() {
 		super.init();
-		squareSprite = false;
 		gasCapacity = waterAmount * steamMultiplier * 1.5f;
 		liquidCapacity = waterAmount * 1.5f;
 		consumes.liquid(Liquids.water, waterAmount / craftTime);
@@ -69,7 +68,7 @@ public class LiquidBoiler extends GasCrafter {
 			} else {
 				warmup = Mathf.approachDelta(warmup, 0f, warmupSpeed);
 			}
-			if (warmup >= 0.99f) {
+			if (warmup >= 0.85f) {
 				if (progress >= 1f) {
 					craft();
 				}
