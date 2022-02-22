@@ -1,8 +1,10 @@
 package UAW.world.blocks.gas;
 
 import UAW.content.UAWGas;
+import UAW.graphics.UAWFxS;
 import arc.Core;
 import arc.func.Func;
+import arc.math.Mathf;
 import gas.GasStack;
 import mindustry.content.Liquids;
 import mindustry.gen.Building;
@@ -73,9 +75,15 @@ public class LiquidBoiler extends GasCrafter {
 		@Override
 		public void updateTile() {
 			super.updateTile();
+			if (warmup >= 0.5f) {
+				if (Mathf.chance(warmup * steamEffectMult)) {
+					if (steamEffect == UAWFxS.steamSmoke) {
+						steamEffect.at(x + Mathf.range(size / 3.5f * 4f), y + Mathf.range(size / 3.5f * 4f), steamSize / 10, steamColor);
+					} else steamEffect.at(x + Mathf.range(size / 3.5f * 4f), y + Mathf.range(size / 3.5f * 4f));
+				}
+			}
 			if (progress >= 1f) {
 				consume();
-
 				if (outputItems != null) {
 					for (ItemStack output : outputItems) {
 						for (int i = 0; i < output.amount; i++) {
@@ -83,15 +91,12 @@ public class LiquidBoiler extends GasCrafter {
 						}
 					}
 				}
-
 				if (outputLiquid != null) {
 					handleLiquid(this, outputLiquid.liquid, outputLiquid.amount);
 				}
-
 				if (outputGas != null && warmupProgress() >= 0.85f) {
 					handleGas(this, outputGas.gas, outputGas.amount);
 				}
-
 				craftEffect.at(x, y);
 				progress %= 1f;
 			}
