@@ -7,7 +7,7 @@ import mindustry.world.Block;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.draw.DrawBlock;
 
-public class UAWDrawRotator extends DrawBlock {
+public class DrawWarmupRotator extends DrawBlock {
 	public TextureRegion rotator, rotatorTop;
 	public float spinSpeed = 12f;
 

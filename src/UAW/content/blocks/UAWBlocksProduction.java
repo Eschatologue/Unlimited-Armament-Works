@@ -30,7 +30,7 @@ public class UAWBlocksProduction implements ContentList {
 	// Liquid Mixer
 	cryofluidDistillery, surgeMixer,
 	// Gas
-	coalBoiler;
+	coalBoiler, geothermalKettle, pressureBoiler;
 
 	@Override
 	public void load() {
@@ -282,12 +282,15 @@ public class UAWBlocksProduction implements ContentList {
 				Items.lead, 30
 			));
 			size = 2;
+			warmupSpeed = 0.005f;
 			steamSize = 5f;
-			smokeEffectMult = 0.3f;
+			steamEffectMult = 0.8f;
+			craftTime = 1.5f * tick;
+			gasCapacity = 120f;
 			consumes.items(with(
 				Items.coal, 1
 			));
-			consumes.liquid(Liquids.water, 0.5f);
+			consumes.liquid(Liquids.water, 0.25f);
 			outputGas = new GasStack(UAWGas.steam, 60f);
 		}};
 
