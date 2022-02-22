@@ -6,6 +6,7 @@ import arc.math.Mathf;
 import gas.GasStack;
 import mindustry.content.Liquids;
 import mindustry.graphics.Pal;
+import mindustry.type.ItemStack;
 import mindustry.ui.Bar;
 import mindustry.world.meta.Stat;
 
@@ -24,7 +25,6 @@ public class LiquidBoiler extends GasCrafter {
 	@Override
 	public void init() {
 		super.init();
-		outputsLiquid = false;
 		hasItems = true;
 		hasLiquids = true;
 		hasGasses = true;
@@ -44,9 +44,9 @@ public class LiquidBoiler extends GasCrafter {
 	@Override
 	public void setBars() {
 		super.setBars();
-		bars.add("warmup", (LiquidBoilerBuild entity) ->
+		bars.add("heat", (LiquidBoilerBuild entity) ->
 			new Bar(() ->
-				Core.bundle.format("bar.warmup", (int) (entity.warmup)),
+				Core.bundle.format("bar.heat", (int) (entity.warmup)),
 				() -> Pal.lightOrange,
 				entity::warmupProgress));
 	}
@@ -69,10 +69,43 @@ public class LiquidBoiler extends GasCrafter {
 			} else {
 				warmup = Mathf.approachDelta(warmup, 0f, warmupSpeed);
 			}
-			if (progress >= 1f && warmupProgress() > 0.85f) {
-				craft();
+
+			if (progress >= 1f) {
+				consume();
+
+				if (outputItems != null) {
+					for (ItemStack output : outputItems) {
+						for (int i = 0; i < output.amount; i++) {
+							offload(output.item);
+						}
+					}
+				}
+
+				if (outputLiquid != null) {
+					handleLiquid(this, outputLiquid.liquid, outputLiquid.amount);
+				}
+
+				if (outputGas != null && warmupProgress() >= 0.85f) {
+					handleGas(this, outputGas.gas, outputGas.amount);
+				}
+
+				craftEffect.at(x, y);
+				progress %= 1f;
 			}
-			dumpOutputs();
+
+			if (outputItems != null && timer(timerDump, dumpTime / timeScale)) {
+				for (ItemStack output : outputItems) {
+					dump(output.item);
+				}
+			}
+
+			if (outputLiquid != null && outputLiquid.liquid != null && hasLiquids) {
+				dumpLiquid(outputLiquid.liquid);
+			}
+
+			if (outputGas != null && outputGas.gas != null && hasGasses) {
+				dumpGas(outputGas.gas);
+			}
 		}
 	}
 }
