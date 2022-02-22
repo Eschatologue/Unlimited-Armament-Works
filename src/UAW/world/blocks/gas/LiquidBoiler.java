@@ -17,11 +17,6 @@ public class LiquidBoiler extends GasCrafter {
 
 	public LiquidBoiler(String name) {
 		super(name);
-		outputsLiquid = false;
-		hasItems = true;
-		hasLiquids = true;
-		hasGasses = true;
-		outputsGas = true;
 		warmupSpeed = 0.01f;
 		craftTime = 2 * tick;
 	}
@@ -29,6 +24,11 @@ public class LiquidBoiler extends GasCrafter {
 	@Override
 	public void init() {
 		super.init();
+		outputsLiquid = false;
+		hasItems = true;
+		hasLiquids = true;
+		hasGasses = true;
+		outputsGas = true;
 		gasCapacity = waterAmount * steamMultiplier * 1.5f;
 		liquidCapacity = waterAmount * 1.5f;
 		consumes.liquid(Liquids.water, waterAmount / craftTime);
@@ -59,7 +59,7 @@ public class LiquidBoiler extends GasCrafter {
 
 		@Override
 		public void updateTile() {
-			if (consValid()) {
+			if (consValid() && liquids.currentAmount() > waterAmount / 2) {
 				progress += getProgressIncrease(craftTime);
 				totalProgress += delta();
 				warmup = Mathf.approachDelta(warmup, 1f, warmupSpeed);
@@ -69,7 +69,7 @@ public class LiquidBoiler extends GasCrafter {
 			} else {
 				warmup = Mathf.approachDelta(warmup, 0f, warmupSpeed);
 			}
-			if (progress >= 1f && warmup > 0.85f) {
+			if (progress >= 1f && warmupProgress() > 0.85f) {
 				craft();
 			}
 			dumpOutputs();
