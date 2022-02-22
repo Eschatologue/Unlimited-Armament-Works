@@ -2,6 +2,7 @@ package UAW.world.blocks.gas;
 
 import UAW.content.UAWGas;
 import arc.Core;
+import arc.math.Mathf;
 import gas.GasStack;
 import mindustry.content.Liquids;
 import mindustry.graphics.Pal;
@@ -16,7 +17,6 @@ public class LiquidBoiler extends GasCrafter {
 
 	public LiquidBoiler(String name) {
 		super(name);
-		squareSprite = false;
 		outputsLiquid = false;
 		hasItems = true;
 		hasLiquids = true;
@@ -28,6 +28,7 @@ public class LiquidBoiler extends GasCrafter {
 	@Override
 	public void init() {
 		super.init();
+		squareSprite = false;
 		gasCapacity = waterAmount * steamMultiplier * 1.5f;
 		liquidCapacity = waterAmount * 1.5f;
 		consumes.liquid(Liquids.water, waterAmount / craftTime);
@@ -54,6 +55,26 @@ public class LiquidBoiler extends GasCrafter {
 
 		public float warmupProgress() {
 			return warmup;
+		}
+
+		@Override
+		public void updateTile() {
+			if (consValid()) {
+				progress += getProgressIncrease(craftTime);
+				totalProgress += delta();
+				warmup = Mathf.approachDelta(warmup, 1f, warmupSpeed);
+				if (Mathf.chanceDelta(updateEffectChance)) {
+					updateEffect.at(x + Mathf.range(size * 4f), y + Mathf.range(size * 4));
+				}
+			} else {
+				warmup = Mathf.approachDelta(warmup, 0f, warmupSpeed);
+			}
+			if (warmup >= 0.99f) {
+				if (progress >= 1f) {
+					craft();
+				}
+			}
+			dumpOutputs();
 		}
 	}
 }
