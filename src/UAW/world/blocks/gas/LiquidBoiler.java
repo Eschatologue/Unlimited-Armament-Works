@@ -2,12 +2,14 @@ package UAW.world.blocks.gas;
 
 import UAW.content.UAWGas;
 import arc.Core;
-import arc.math.Mathf;
+import arc.func.Func;
 import gas.GasStack;
 import mindustry.content.Liquids;
+import mindustry.gen.Building;
 import mindustry.graphics.Pal;
-import mindustry.type.ItemStack;
+import mindustry.type.*;
 import mindustry.ui.Bar;
+import mindustry.world.consumers.*;
 import mindustry.world.meta.Stat;
 
 import static UAW.Vars.tick;
@@ -44,11 +46,22 @@ public class LiquidBoiler extends GasCrafter {
 	@Override
 	public void setBars() {
 		super.setBars();
+		Func<Building, Liquid> current;
+
 		bars.add("heat", (LiquidBoilerBuild entity) ->
 			new Bar(() ->
 				Core.bundle.format("bar.heat", (int) (entity.warmup)),
 				() -> Pal.lightOrange,
-				entity::warmupProgress));
+				entity::warmupProgress
+			));
+
+		if (consumes.has(ConsumeType.liquid) && consumes.get(ConsumeType.liquid) instanceof ConsumeLiquid) {
+			Liquid liquid = consumes.<ConsumeLiquid>get(ConsumeType.liquid).liquid;
+			current = entity -> liquid;
+		} else current = entity -> entity.liquids == null ? Liquids.water : entity.liquids.current();
+
+		bars.add("liquid", entity -> new Bar(() -> entity.liquids.get(current.get(entity)) <= 0.001f ? Core.bundle.get("bar.liquid") : current.get(entity).localizedName,
+			() -> current.get(entity).barColor(), () -> entity == null || entity.liquids == null ? 0f : entity.liquids.get(current.get(entity)) / liquidCapacity));
 	}
 
 	public class LiquidBoilerBuild extends GasCrafterBuild {
@@ -59,17 +72,7 @@ public class LiquidBoiler extends GasCrafter {
 
 		@Override
 		public void updateTile() {
-			if (consValid()) {
-				progress += getProgressIncrease(craftTime);
-				totalProgress += delta();
-				warmup = Mathf.approachDelta(warmup, 1f, warmupSpeed);
-				if (Mathf.chanceDelta(updateEffectChance)) {
-					updateEffect.at(x + Mathf.range(size * 4f), y + Mathf.range(size * 4));
-				}
-			} else {
-				warmup = Mathf.approachDelta(warmup, 0f, warmupSpeed);
-			}
-
+			super.updateTile();
 			if (progress >= 1f) {
 				consume();
 
