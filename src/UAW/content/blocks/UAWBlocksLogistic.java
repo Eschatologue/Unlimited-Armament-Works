@@ -132,7 +132,7 @@ public class UAWBlocksLogistic implements ContentList {
 				Items.copper, 6
 			));
 			size = 1;
-			gasCapacity = 60f;
+			gasCapacity = 30f;
 			health = 65;
 		}};
 		gasBridge = new GasBridge("gas-bridge") {{
@@ -155,7 +155,7 @@ public class UAWBlocksLogistic implements ContentList {
 			));
 			size = 1;
 			botColor = Color.valueOf("2c2d38");
-			gasCapacity = 30f;
+			gasCapacity = 7.5f;
 			health = 45;
 			junctionReplacement = UAWBlocksLogistic.gasJunction;
 			bridgeReplacement = UAWBlocksLogistic.gasBridge;
@@ -169,7 +169,7 @@ public class UAWBlocksLogistic implements ContentList {
 			));
 			size = 1;
 			botColor = Color.valueOf("2c2d38");
-			gasCapacity = 60f;
+			gasCapacity = 15f;
 			health = 150;
 			squareSprite = false;
 		}};
@@ -181,7 +181,7 @@ public class UAWBlocksLogistic implements ContentList {
 			));
 			size = 1;
 			botColor = Color.valueOf("2c2d38");
-			gasCapacity = 60f;
+			gasCapacity = 30f;
 			health = 300;
 			squareSprite = false;
 		}};

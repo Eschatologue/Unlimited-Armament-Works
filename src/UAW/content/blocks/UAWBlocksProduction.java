@@ -24,13 +24,13 @@ import static mindustry.type.ItemStack.with;
 public class UAWBlocksProduction implements ContentList {
 	public static Block placeholder,
 	// Drills
-	oilDerrick, rotodynamicPump,
+	oilDerrick, rotodynamicPump, steamDrill, steamBore, steamThumper,
 	// Item Crafter
 	gelatinizer, carburizingFurnace, petroleumSmelter, petrochemicalSeperator, plastaniumForge,
 	// Liquid Mixer
 	cryofluidDistillery, surgeMixer,
 	// Gas
-	coalBoiler, geothermalKettle, pressureBoiler;
+	steamKettle, coalBoiler, stirlingBoiler, geothermalKettle, solarBoiler;
 
 	@Override
 	public void load() {
@@ -275,6 +275,20 @@ public class UAWBlocksProduction implements ContentList {
 		}};
 
 		// Gasses
+		steamKettle = new LiquidBoiler("steam-kettle") {{
+			requirements(Category.power, with(
+				Items.copper, 12,
+				Items.lead, 12
+			));
+			size = 1;
+			steamSize = 4f;
+			steamEffectMult = 0.8f;
+			warmupSpeed = 0.00005f;
+			waterAmount = 15f;
+			consumes.items(new ItemStack(
+				Items.coal, 1
+			));
+		}};
 		coalBoiler = new LiquidBoiler("coal-boiler") {{
 			requirements(Category.power, with(
 				Items.copper, 35,
@@ -282,16 +296,30 @@ public class UAWBlocksProduction implements ContentList {
 				Items.lead, 30
 			));
 			size = 2;
-			warmupSpeed = 0.005f;
+			warmupSpeed = 0.0001f;
 			steamSize = 5f;
 			steamEffectMult = 0.8f;
-			craftTime = 1.5f * tick;
-			gasCapacity = 120f;
-			consumes.items(with(
-				Items.coal, 1
+			waterAmount = 30;
+			consumes.items(new ItemStack(
+				Items.coal, 4
 			));
-			consumes.liquid(Liquids.water, 0.25f);
-			outputGas = new GasStack(UAWGas.steam, 60f);
+		}};
+		stirlingBoiler = new LiquidBoiler("stirling-boiler") {{
+			requirements(Category.power, with(
+				Items.copper, 150,
+				Items.lead, 125,
+				Items.titanium, 55,
+				Items.graphite, 50
+			));
+			size = 2;
+			warmupSpeed = 0.0002f;
+			steamSize = 8f;
+			steamEffectMult = 0.8f;
+			waterAmount = 90;
+			consumes.items(with(
+				Items.coal, 6,
+				Items.pyratite, 2
+			));
 		}};
 
 	}

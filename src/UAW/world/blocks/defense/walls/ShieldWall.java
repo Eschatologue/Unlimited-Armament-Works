@@ -46,7 +46,9 @@ public class ShieldWall extends Wall {
 	@Override
 	public void setBars() {
 		super.setBars();
-		bars.add("shield", (ShieldWallBuild entity) -> new Bar("stat.shield", Pal.accent, () -> entity.broken ? 0f : 1f - entity.buildup / shieldHealth).blink(Color.white));
+		bars.add("shield",
+			(ShieldWallBuild entity) -> new Bar(
+				"stat.shield", Pal.accent, () -> entity.broken ? 0f : 1f - entity.buildup / shieldHealth).blink(Color.white));
 	}
 
 	@Override

@@ -9,7 +9,7 @@ import mindustry.type.StatusEffect;
 
 public class UAWStatusEffects implements ContentList {
 	public static StatusEffect
-		concussion, EMP, frostBurn;
+		concussion, EMP, steamBurn;
 
 	@Override
 	public void load() {

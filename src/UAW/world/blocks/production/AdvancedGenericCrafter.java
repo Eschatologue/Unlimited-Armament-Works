@@ -8,7 +8,7 @@ import mindustry.entities.Effect;
 import mindustry.gen.Sounds;
 import mindustry.graphics.*;
 import mindustry.ui.Bar;
-import mindustry.world.blocks.production.*;
+import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.meta.*;
 
 /** GenericCrafter with craft shakes and attributes when enabled */
@@ -54,7 +54,7 @@ public class AdvancedGenericCrafter extends GenericCrafter {
 	public void setBars() {
 		super.setBars();
 		if (attribute != null) {
-			bars.add("efficiency", (AttributeCrafter.AttributeCrafterBuild entity) ->
+			bars.add("efficiency", (AdvancedGenericCrafterBuild entity) ->
 				new Bar(() ->
 					Core.bundle.format("bar.efficiency", (int) (entity.efficiencyScale() * 100)),
 					() -> Pal.lightOrange,
