@@ -21,6 +21,7 @@ public class LiquidBoiler extends GasCrafter {
 		hasItems = true;
 		hasLiquids = true;
 		hasGasses = true;
+		outputsGas = true;
 		warmupSpeed = 0.01f;
 		craftTime = 2 * tick;
 	}
@@ -68,10 +69,8 @@ public class LiquidBoiler extends GasCrafter {
 			} else {
 				warmup = Mathf.approachDelta(warmup, 0f, warmupSpeed);
 			}
-			if (warmup >= 0.85f) {
-				if (progress >= 1f) {
-					craft();
-				}
+			if (progress >= 1f && warmup > 0.85f) {
+				craft();
 			}
 			dumpOutputs();
 		}
