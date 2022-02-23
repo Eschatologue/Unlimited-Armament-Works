@@ -60,7 +60,6 @@ public class LiquidBoiler extends GasCrafter {
 				() -> Pal.lightOrange,
 				entity::warmupProgress
 			));
-		bars.remove("liquid");
 		bars.add("liquid", entity -> new Bar(() -> Core.bundle.format("bar.liquid", entity.items.total()), () -> Pal.items, () -> entity.liquids.currentAmount() / liquidCapacity));
 	}
 
