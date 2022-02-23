@@ -303,7 +303,7 @@ public class UAWBlocksProduction implements ContentList {
 			warmupSpeed = 0.0015f;
 			steamSize = 5f;
 			steamEffectMult = 0.8f;
-			liquidAmount = 30;
+			liquidAmount = 60;
 			consumes.items(new ItemStack(
 				Items.coal, 4
 			));
@@ -322,7 +322,7 @@ public class UAWBlocksProduction implements ContentList {
 			warmupSpeed = 0.0002f;
 			steamSize = 8f;
 			steamEffectMult = 0.8f;
-			liquidAmount = 90;
+			liquidAmount = 180;
 			consumes.items(with(
 				Items.coal, 6,
 				Items.pyratite, 2
