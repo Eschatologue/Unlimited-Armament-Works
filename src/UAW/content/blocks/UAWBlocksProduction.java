@@ -30,7 +30,7 @@ public class UAWBlocksProduction implements ContentList {
 	// Liquid Mixer
 	cryofluidDistillery, surgeMixer,
 	// Gas
-	steamKettle, coalBoiler, stirlingBoiler, geothermalKettle, solarBoiler;
+	steamKettle, coalBoiler, pressureBoiler, geothermalKettle, solarBoiler;
 
 	@Override
 	public void load() {
@@ -285,7 +285,7 @@ public class UAWBlocksProduction implements ContentList {
 			steamSize = 4f;
 			steamEffectMult = 0.8f;
 			warmupSpeed = 0.01f;
-			liquidAmount = 15f;
+			liquidAmount = 14f;
 			consumes.items(new ItemStack(
 				Items.coal, 1
 			));
@@ -300,17 +300,17 @@ public class UAWBlocksProduction implements ContentList {
 			));
 			size = 2;
 			squareSprite = false;
-			warmupSpeed = 0.0015f;
-			steamSize = 5f;
+			warmupSpeed = 0.002f;
+			steamSize = 4.5f;
 			steamEffectMult = 0.8f;
-			liquidAmount = 60;
+			liquidAmount = 36;
 			consumes.items(new ItemStack(
 				Items.coal, 4
 			));
 			consumes.liquid(liquidInput, liquidAmount / craftTime);
 			outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);
 		}};
-		stirlingBoiler = new LiquidBoiler("stirling-boiler") {{
+		pressureBoiler = new LiquidBoiler("pressure-boiler") {{
 			requirements(Category.power, with(
 				Items.copper, 150,
 				Items.lead, 125,
@@ -319,9 +319,10 @@ public class UAWBlocksProduction implements ContentList {
 			));
 			size = 4;
 			squareSprite = false;
-			warmupSpeed = 0.0002f;
-			steamSize = 8f;
-			steamEffectMult = 0.8f;
+			warmupSpeed = 0.0015f;
+			steamSize = 10f;
+			steamEffectMult = 0.7f;
+			steamLifetime = 60f;
 			liquidAmount = 180;
 			consumes.items(with(
 				Items.coal, 6,

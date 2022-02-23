@@ -17,7 +17,7 @@ public class LiquidBoiler extends GasCrafter {
 	/** The amount of liquid unit it consumes */
 	public float liquidAmount = 30f;
 	/** Liquid to gas conversion ratio */
-	public float conversionMultiplier = 1.5f;
+	public float conversionMultiplier = 3f;
 	/** Block inventory capacity multipler */
 	public float capacityMultiplier = 1.5f;
 

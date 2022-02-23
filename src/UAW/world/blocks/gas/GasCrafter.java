@@ -17,6 +17,7 @@ public class GasCrafter extends GenericCrafterWithGas {
 	public Color steamColor = Pal.lightishGray;
 	public float steamSize = 5f;
 	public float steamEffectMult = 1f;
+	public float steamLifetime = 30f;
 
 	@Nullable
 	public Attribute attribute;
@@ -58,8 +59,8 @@ public class GasCrafter extends GenericCrafterWithGas {
 			if (warmup >= 0.001) {
 				if (Mathf.chance(warmup * steamEffectMult)) {
 					if (steamEffect == UAWFxS.steamSmoke) {
-						steamEffect.at(x + Mathf.range(size / 3.5f * 4f), y + Mathf.range(size / 3.5f * 4f), steamSize / 10, steamColor);
-					} else steamEffect.at(x + Mathf.range(size / 3.5f * 4f), y + Mathf.range(size / 3.5f * 4f));
+						steamEffect.at(x + Mathf.range(size / 3f * 4f), y + Mathf.range(size / 3f * 4f), steamSize / 10, steamColor, steamLifetime);
+					} else steamEffect.at(x + Mathf.range(size / 3f * 4f), y + Mathf.range(size / 3f * 4f));
 				}
 			}
 		}

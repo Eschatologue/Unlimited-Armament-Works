@@ -308,6 +308,9 @@ public class UAWFxS {
 
 	// endregion Trails
 	steamSmoke = new Effect(30, e -> {
+		if (e.data instanceof Float) {
+			e.lifetime = (float) e.data;
+		}
 		color(Tmp.c1.set(e.color).mul(1.1f));
 		randLenVectors(e.id, (int) (6 * e.rotation), 12f * e.finpow() * e.rotation, (x, y) -> {
 			Draw.alpha(0.5f);
