@@ -5,6 +5,7 @@ import UAW.graphics.*;
 import UAW.world.blocks.gas.LiquidBoiler;
 import UAW.world.blocks.production.*;
 import arc.graphics.Color;
+import gas.GasStack;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.effect.MultiEffect;
@@ -288,6 +289,8 @@ public class UAWBlocksProduction implements ContentList {
 			consumes.items(new ItemStack(
 				Items.coal, 1
 			));
+			consumes.liquid(liquidInput, liquidAmount / craftTime);
+			outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);
 		}};
 		coalBoiler = new LiquidBoiler("coal-boiler") {{
 			requirements(Category.power, with(
@@ -304,6 +307,8 @@ public class UAWBlocksProduction implements ContentList {
 			consumes.items(new ItemStack(
 				Items.coal, 4
 			));
+			consumes.liquid(liquidInput, liquidAmount / craftTime);
+			outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);
 		}};
 		stirlingBoiler = new LiquidBoiler("stirling-boiler") {{
 			requirements(Category.power, with(
@@ -322,6 +327,8 @@ public class UAWBlocksProduction implements ContentList {
 				Items.coal, 6,
 				Items.pyratite, 2
 			));
+			consumes.liquid(liquidInput, liquidAmount / craftTime);
+			outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);
 		}};
 
 	}
