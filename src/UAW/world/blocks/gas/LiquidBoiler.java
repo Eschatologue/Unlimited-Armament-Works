@@ -3,22 +3,28 @@ package UAW.world.blocks.gas;
 import UAW.content.UAWGas;
 import UAW.graphics.UAWFxS;
 import arc.Core;
-import arc.func.Func;
 import arc.math.Mathf;
 import gas.GasStack;
+import gas.type.Gas;
 import mindustry.content.Liquids;
-import mindustry.gen.Building;
 import mindustry.graphics.Pal;
 import mindustry.type.*;
 import mindustry.ui.Bar;
-import mindustry.world.consumers.*;
 import mindustry.world.meta.Stat;
 
 import static UAW.Vars.tick;
 
+/** Boils crafter to convert liquid to gas based on conversion ratio */
 public class LiquidBoiler extends GasCrafter {
-	public float waterAmount = 30f;
-	public float steamMultiplier = 1.5f;
+	/** The amount of liquid unit it consumes */
+	public float liquidAmount = 30f;
+	/** Liquid to gas conversion ratio */
+	public float conversionMultiplier = 1.5f;
+	/** Block inventory capacity multipler */
+	public float capacityMultiplier = 1.5f;
+
+	public Liquid liquidInput = Liquids.water;
+	public Gas gasResult = UAWGas.steam;
 
 	public LiquidBoiler(String name) {
 		super(name);
@@ -33,10 +39,10 @@ public class LiquidBoiler extends GasCrafter {
 		hasLiquids = true;
 		hasGasses = true;
 		outputsGas = true;
-		gasCapacity = waterAmount * steamMultiplier * 1.5f;
-		liquidCapacity = waterAmount * 1.5f;
-		consumes.liquid(Liquids.water, waterAmount / craftTime);
-		outputGas = new GasStack(UAWGas.steam, waterAmount * steamMultiplier);
+		gasCapacity = liquidAmount * conversionMultiplier * capacityMultiplier;
+		liquidCapacity = liquidAmount * capacityMultiplier;
+		consumes.liquid(liquidInput, liquidAmount / craftTime);
+		outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);
 	}
 
 	@Override
@@ -48,22 +54,14 @@ public class LiquidBoiler extends GasCrafter {
 	@Override
 	public void setBars() {
 		super.setBars();
-		Func<Building, Liquid> current;
-
 		bars.add("heat", (LiquidBoilerBuild entity) ->
 			new Bar(() ->
 				Core.bundle.format("bar.heat", (int) (entity.warmup)),
 				() -> Pal.lightOrange,
 				entity::warmupProgress
 			));
-
-		if (consumes.has(ConsumeType.liquid) && consumes.get(ConsumeType.liquid) instanceof ConsumeLiquid) {
-			Liquid liquid = consumes.<ConsumeLiquid>get(ConsumeType.liquid).liquid;
-			current = entity -> liquid;
-		} else current = entity -> entity.liquids == null ? Liquids.water : entity.liquids.current();
-
-		bars.add("liquid", entity -> new Bar(() -> entity.liquids.get(current.get(entity)) <= 0.001f ? Core.bundle.get("bar.liquid") : current.get(entity).localizedName,
-			() -> current.get(entity).barColor(), () -> entity == null || entity.liquids == null ? 0f : entity.liquids.get(current.get(entity)) / liquidCapacity));
+		bars.remove("liquids");
+		bars.add("liquids", entity -> new Bar(() -> Core.bundle.format("bar.liquid", entity.items.total()), () -> Pal.items, () -> entity.liquids.currentAmount() / liquidCapacity));
 	}
 
 	public class LiquidBoilerBuild extends GasCrafterBuild {
@@ -74,13 +72,19 @@ public class LiquidBoiler extends GasCrafter {
 
 		@Override
 		public void updateTile() {
-			super.updateTile();
-			if (warmup >= 0.5f) {
-				if (Mathf.chance(warmup * steamEffectMult)) {
-					if (steamEffect == UAWFxS.steamSmoke) {
-						steamEffect.at(x + Mathf.range(size / 3.5f * 4f), y + Mathf.range(size / 3.5f * 4f), steamSize / 10, steamColor);
-					} else steamEffect.at(x + Mathf.range(size / 3.5f * 4f), y + Mathf.range(size / 3.5f * 4f));
+			if (consValid()) {
+				progress += getProgressIncrease(craftTime);
+				totalProgress += delta();
+				warmup = Mathf.approachDelta(warmup, 1f, warmupSpeed);
+				if (warmup >= 0.001) {
+					if (Mathf.chance(warmup * steamEffectMult)) {
+						if (steamEffect == UAWFxS.steamSmoke) {
+							steamEffect.at(x + Mathf.range(size / 3.5f * 4f), y + Mathf.range(size / 3.5f * 4f), steamSize / 10, steamColor);
+						} else steamEffect.at(x + Mathf.range(size / 3.5f * 4f), y + Mathf.range(size / 3.5f * 4f));
+					}
 				}
+			} else {
+				warmup = Mathf.approachDelta(warmup, 0f, warmupSpeed);
 			}
 			if (progress >= 1f) {
 				consume();
@@ -100,7 +104,6 @@ public class LiquidBoiler extends GasCrafter {
 				craftEffect.at(x, y);
 				progress %= 1f;
 			}
-
 			if (outputItems != null && timer(timerDump, dumpTime / timeScale)) {
 				for (ItemStack output : outputItems) {
 					dump(output.item);

@@ -181,9 +181,8 @@ public class UAWUnitTypes implements ContentList {
 					pierce = true;
 					pierceCap = 2;
 					buildingDamageMultiplier = 0.4f;
-					maxRange = range;
+					maxRange = range / 0.8f;
 					homingRange = 60f;
-					lifetime = (range / speed) * 1.2f;
 					ammoMultiplier = 8f;
 				}};
 			}});

@@ -284,7 +284,7 @@ public class UAWBlocksProduction implements ContentList {
 			steamSize = 4f;
 			steamEffectMult = 0.8f;
 			warmupSpeed = 0.01f;
-			waterAmount = 15f;
+			liquidAmount = 15f;
 			consumes.items(new ItemStack(
 				Items.coal, 1
 			));
@@ -300,7 +300,7 @@ public class UAWBlocksProduction implements ContentList {
 			warmupSpeed = 0.0015f;
 			steamSize = 5f;
 			steamEffectMult = 0.8f;
-			waterAmount = 30;
+			liquidAmount = 30;
 			consumes.items(new ItemStack(
 				Items.coal, 4
 			));
@@ -317,7 +317,7 @@ public class UAWBlocksProduction implements ContentList {
 			warmupSpeed = 0.0002f;
 			steamSize = 8f;
 			steamEffectMult = 0.8f;
-			waterAmount = 90;
+			liquidAmount = 90;
 			consumes.items(with(
 				Items.coal, 6,
 				Items.pyratite, 2
