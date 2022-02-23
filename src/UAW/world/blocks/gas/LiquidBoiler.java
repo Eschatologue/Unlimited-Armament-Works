@@ -28,6 +28,10 @@ public class LiquidBoiler extends GasCrafter {
 
 	public LiquidBoiler(String name) {
 		super(name);
+		hasItems = true;
+		hasLiquids = true;
+		hasGasses = true;
+		outputsGas = true;
 		warmupSpeed = 0.01f;
 		craftTime = 2 * tick;
 	}
@@ -35,10 +39,6 @@ public class LiquidBoiler extends GasCrafter {
 	@Override
 	public void init() {
 		super.init();
-		hasItems = true;
-		hasLiquids = true;
-		hasGasses = true;
-		outputsGas = true;
 		gasCapacity = liquidAmount * conversionMultiplier * capacityMultiplier;
 		liquidCapacity = liquidAmount * capacityMultiplier;
 		consumes.liquid(liquidInput, liquidAmount / craftTime);
@@ -60,7 +60,7 @@ public class LiquidBoiler extends GasCrafter {
 				() -> Pal.lightOrange,
 				entity::warmupProgress
 			));
-		bars.add("liquid", entity -> new Bar(() -> Core.bundle.format("bar.liquid", entity.items.total()), () -> Pal.items, () -> entity.liquids.currentAmount() / liquidCapacity));
+//		bars.add("liquid", entity -> new Bar(() -> Core.bundle.format("bar.liquid", entity.items.total()), () -> Pal.items, () -> entity.liquids.currentAmount() / liquidCapacity));
 	}
 
 	public class LiquidBoilerBuild extends GasCrafterBuild {
