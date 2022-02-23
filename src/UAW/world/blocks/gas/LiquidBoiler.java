@@ -28,10 +28,6 @@ public class LiquidBoiler extends GasCrafter {
 
 	public LiquidBoiler(String name) {
 		super(name);
-		hasItems = true;
-		hasLiquids = true;
-		hasGasses = true;
-		outputsGas = true;
 		warmupSpeed = 0.01f;
 		craftTime = 2 * tick;
 	}
@@ -39,10 +35,14 @@ public class LiquidBoiler extends GasCrafter {
 	@Override
 	public void init() {
 		super.init();
-		gasCapacity = liquidAmount * conversionMultiplier * capacityMultiplier;
-		liquidCapacity = liquidAmount * capacityMultiplier;
-		consumes.liquid(liquidInput, liquidAmount / craftTime);
-		outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);
+		this.hasItems = true;
+		this.hasLiquids = true;
+		this.hasGasses = true;
+		this.outputsGas = true;
+		this.gasCapacity = liquidAmount * conversionMultiplier * capacityMultiplier;
+		this.liquidCapacity = liquidAmount * capacityMultiplier;
+		this.consumes.liquid(liquidInput, liquidAmount / craftTime);
+		this.outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);
 	}
 
 	@Override
@@ -97,7 +97,7 @@ public class LiquidBoiler extends GasCrafter {
 				if (outputLiquid != null) {
 					handleLiquid(this, outputLiquid.liquid, outputLiquid.amount);
 				}
-				if (outputGas != null && warmupProgress() >= 0.85f) {
+				if (outputGas != null && warmupProgress() >= 0.85f && consValid()) {
 					handleGas(this, outputGas.gas, outputGas.amount);
 				}
 				craftEffect.at(x, y);
