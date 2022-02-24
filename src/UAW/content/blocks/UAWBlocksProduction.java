@@ -90,8 +90,8 @@ public class UAWBlocksProduction implements ContentList {
 			pumpAmount = 0.2f;
 			liquidCapacity = 60f;
 			hasPower = false;
-			updateEffectChance = 0.05f;
-			updateEffect = UAWFxD.steamCloud(8f, 75f, Layer.flyingUnitLow - 1, Pal.lightishGray);
+			updateEffectChance = 0.02f;
+			updateEffect = UAWFxD.steamCloud(4f, 75f);
 
 			consumes.addGas(new ConsumeGas(UAWGas.steam, 0.25f));
 		}};
@@ -300,11 +300,11 @@ public class UAWBlocksProduction implements ContentList {
 			));
 			size = 1;
 			squareSprite = false;
-			steamSize = 4f;
-			steamEffectMult = 0.7f;
 			warmupSpeed = 0.01f;
-			steamLifetime = 45f;
 			liquidAmount = 15f;
+			gasEffect = UAWFxD.steamCloud(3f, 60);
+			gasEffectRnd = 0;
+			gasEffectWarmupMult = 0.3f;
 			consumes.items(new ItemStack(
 				Items.coal, 1
 			));
@@ -320,9 +320,9 @@ public class UAWBlocksProduction implements ContentList {
 			size = 2;
 			squareSprite = false;
 			warmupSpeed = 0.002f;
-			steamSize = 4.5f;
-			steamEffectMult = 0.8f;
-			steamLifetime = 55f;
+			gasEffect = UAWFxD.steamCloud(4.5f, 75);
+			gasEffectWarmupMult = 0.4f;
+			gasEffectRnd = 0.2f;
 			liquidAmount = 36;
 			consumes.items(new ItemStack(
 				Items.coal, 4
@@ -340,9 +340,9 @@ public class UAWBlocksProduction implements ContentList {
 			size = 4;
 			squareSprite = false;
 			warmupSpeed = 0.0015f;
-			steamSize = 10f;
-			steamEffectMult = 0.6f;
-			steamLifetime = 80f;
+			gasEffect = UAWFxD.steamCloud(7.5f, 90);
+			gasEffectWarmupMult = 0.4f;
+			gasEffectRnd = 0.05f;
 			liquidAmount = 180;
 			consumes.items(with(
 				Items.coal, 6,

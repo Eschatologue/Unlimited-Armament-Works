@@ -1,10 +1,13 @@
 package UAW.world.blocks.gas;
 
 import UAW.content.UAWGas;
+import UAW.graphics.UAWFxS;
 import arc.Core;
+import arc.math.Mathf;
 import gas.GasStack;
 import gas.type.Gas;
 import mindustry.content.Liquids;
+import mindustry.entities.Effect;
 import mindustry.graphics.Pal;
 import mindustry.type.Liquid;
 import mindustry.ui.Bar;
@@ -14,6 +17,12 @@ import static UAW.Vars.tick;
 
 /** Boils crafter to convert liquid to gas based on conversion ratio */
 public class LiquidBoiler extends GasCrafter {
+	public Effect gasEffect = UAWFxS.steamSmoke;
+	/** The randomness of the gas Effect | -1 = Block Size */
+	public float gasEffectRnd = 0f;
+	public float gasEffectChance = -1f;
+	public float gasEffectWarmupMult = 1f;
+
 	/** The amount of liquid unit it consumes */
 	public float liquidAmount = 30f;
 	/** Liquid to gas conversion ratio */
@@ -41,6 +50,8 @@ public class LiquidBoiler extends GasCrafter {
 		super.init();
 		gasCapacity = liquidAmount * conversionMultiplier * capacityMultiplier;
 		liquidCapacity = liquidAmount * capacityMultiplier;
+
+		if (gasEffectRnd < 0) gasEffectRnd = size;
 	}
 
 
@@ -66,6 +77,20 @@ public class LiquidBoiler extends GasCrafter {
 
 		public float warmupProgress() {
 			return warmup;
+		}
+
+		@Override
+		public void updateTile() {
+			super.updateTile();
+			if (warmup > 0.5f && gasEffectChance < 0) {
+				if (Mathf.chance(warmup * gasEffectWarmupMult)) {
+					gasEffect.at(x + Mathf.range(gasEffectRnd), y + Mathf.range(gasEffectRnd));
+				}
+			} else if (gasEffectChance > 0) {
+				if (Mathf.chance(gasEffectChance)) {
+					gasEffect.at(x + Mathf.range(gasEffectRnd), y + Mathf.range(gasEffectRnd));
+				}
+			}
 		}
 
 		@Override

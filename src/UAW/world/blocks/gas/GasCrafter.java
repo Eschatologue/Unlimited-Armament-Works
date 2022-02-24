@@ -1,24 +1,14 @@
 package UAW.world.blocks.gas;
 
-import UAW.graphics.UAWFxS;
 import arc.Core;
-import arc.graphics.Color;
-import arc.math.Mathf;
 import arc.util.Nullable;
 import gas.world.blocks.production.GenericCrafterWithGas;
-import mindustry.entities.Effect;
 import mindustry.graphics.Pal;
 import mindustry.ui.Bar;
 import mindustry.world.meta.Attribute;
 
 /** General use GasCrafter that can have attributes */
 public class GasCrafter extends GenericCrafterWithGas {
-	public Effect steamEffect = UAWFxS.steamSmoke;
-	public Color steamColor = Pal.lightishGray;
-	public float steamSize = 5f;
-	public float steamEffectMult = 1f;
-	public float steamLifetime = 30f;
-
 	@Nullable
 	public Attribute attribute;
 
@@ -52,18 +42,6 @@ public class GasCrafter extends GenericCrafterWithGas {
 
 	public class GasCrafterBuild extends GenericCrafterWithGasBuild {
 		public float attrsum;
-
-		@Override
-		public void updateTile() {
-			super.updateTile();
-			if (warmup >= 0.001) {
-				if (Mathf.chance(warmup * steamEffectMult)) {
-					if (steamEffect == UAWFxS.steamSmoke) {
-						steamEffect.at(x + Mathf.range(size / 3f * 4f), y + Mathf.range(size / 3f * 4f), steamSize / 10, steamColor, steamLifetime);
-					} else steamEffect.at(x + Mathf.range(size / 3f * 4f), y + Mathf.range(size / 3f * 4f));
-				}
-			}
-		}
 
 		@Override
 		public float getProgressIncrease(float base) {
