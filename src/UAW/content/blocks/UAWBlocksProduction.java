@@ -6,6 +6,8 @@ import UAW.world.blocks.gas.LiquidBoiler;
 import UAW.world.blocks.production.*;
 import arc.graphics.Color;
 import gas.GasStack;
+import gas.world.blocks.production.GasDrill;
+import gas.world.consumers.ConsumeGas;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.effect.MultiEffect;
@@ -24,7 +26,7 @@ import static mindustry.type.ItemStack.with;
 public class UAWBlocksProduction implements ContentList {
 	public static Block placeholder,
 	// Drills
-	oilDerrick, rotodynamicPump, steamDrill, steamBore, steamThumper,
+	oilDerrick, steamPump, steamPulsometerPump, steamDrill, advancedSteamDrill, steamThumper,
 	// Item Crafter
 	gelatinizer, carburizingFurnace, petroleumSmelter, petrochemicalSeperator, plastaniumForge,
 	// Liquid Mixer
@@ -60,22 +62,29 @@ public class UAWBlocksProduction implements ContentList {
 			consumes.liquid(Liquids.cryofluid, pumpAmount / 2.5f);
 			consumes.power(3.5f);
 		}};
-		rotodynamicPump = new RotatingLiquidPump("rotodynamic-pump") {{
-			requirements(Category.liquid, with(
-				Items.lead, 150,
-				Items.metaglass, 60,
-				Items.silicon, 60,
-				Items.plastanium, 60,
-				UAWItems.titaniumCarbide, 40,
-				Items.thorium, 70
-			));
-			size = 3;
-			pumpAmount = 0.5f;
-			liquidCapacity = 540f;
-			rotateSpeed = -3f;
+		steamDrill = new GasDrill("steam-drill"){{
+			requirements(Category.production, with(Items.copper, 15, Items.graphite, 10));
+			tier = 3;
+			drillTime = 320;
+			size = 2;
 
-			consumes.item(UAWItems.cryogel, 4);
-			consumes.power(2f);
+			consumes.addGas(new ConsumeGas(UAWGas.steam, 0.5f));
+		}};
+		steamPump = new UAWGasPump("steam-pump") {{
+			requirements(Category.liquid, with(
+				Items.copper, 80,
+				Items.metaglass, 40,
+				Items.silicon, 15,
+				Items.titanium, 25
+			));
+			size = 2;
+			pumpAmount = 0.3f;
+			liquidCapacity = 60f;
+			hasPower = false;
+			steamEffectMult = 0.5f;
+			steamLifetime = 50f;
+
+			consumes.addGas(new ConsumeGas(UAWGas.steam, 0.5f));
 		}};
 
 		gelatinizer = new GenericCrafter("gelatinizer") {{
@@ -283,9 +292,10 @@ public class UAWBlocksProduction implements ContentList {
 			size = 1;
 			squareSprite = false;
 			steamSize = 4f;
-			steamEffectMult = 0.8f;
+			steamEffectMult = 0.7f;
 			warmupSpeed = 0.01f;
-			liquidAmount = 14f;
+			steamLifetime = 45f;
+			liquidAmount = 15f;
 			consumes.items(new ItemStack(
 				Items.coal, 1
 			));
@@ -303,6 +313,7 @@ public class UAWBlocksProduction implements ContentList {
 			warmupSpeed = 0.002f;
 			steamSize = 4.5f;
 			steamEffectMult = 0.8f;
+			steamLifetime = 55f;
 			liquidAmount = 36;
 			consumes.items(new ItemStack(
 				Items.coal, 4
@@ -321,8 +332,8 @@ public class UAWBlocksProduction implements ContentList {
 			squareSprite = false;
 			warmupSpeed = 0.0015f;
 			steamSize = 10f;
-			steamEffectMult = 0.7f;
-			steamLifetime = 60f;
+			steamEffectMult = 0.6f;
+			steamLifetime = 80f;
 			liquidAmount = 180;
 			consumes.items(with(
 				Items.coal, 6,
