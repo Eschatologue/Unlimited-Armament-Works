@@ -362,7 +362,7 @@ public class UAWFxD {
 	public static Effect steamCloud(float smokeSize, float lifetime, float layer, Color color) {
 		return new Effect(lifetime, lifetime * 2.85f, e -> {
 			color(Tmp.c1.set(color).mul(1.1f));
-			randLenVectors(e.id, (int) (6 * smokeSize), 12f * e.finpow() * smokeSize / 10, (x, y) -> {
+			randLenVectors(e.id, (int) (6 * smokeSize), 12f * e.finpow() * smokeSize / 8, (x, y) -> {
 				Draw.alpha(0.5f);
 				Fill.circle(e.x + x, e.y + y, e.fout() * 3f + 0.1f);
 				Draw.reset();
@@ -373,7 +373,7 @@ public class UAWFxD {
 	public static Effect steamCloud(float smokeSize, float lifetime, float layer) {
 		return new Effect(lifetime, lifetime * 2.85f, e -> {
 			color(Tmp.c1.set(Pal.lightishGray).mul(1.1f));
-			randLenVectors(e.id, (int) (6 * smokeSize), 12f * e.finpow() * smokeSize / 10, (x, y) -> {
+			randLenVectors(e.id, (int) (6 * smokeSize), 12f * e.finpow() * smokeSize / 8, (x, y) -> {
 				Draw.alpha(0.5f);
 				Fill.circle(e.x + x, e.y + y, e.fout() * 3f + 0.1f);
 				Draw.reset();
@@ -384,7 +384,7 @@ public class UAWFxD {
 	public static Effect steamCloud(float smokeSize, float lifetime) {
 		return new Effect(lifetime, lifetime * 2.85f, e -> {
 			color(Tmp.c1.set(Pal.lightishGray).mul(1.1f));
-			randLenVectors(e.id, (int) (6 * smokeSize), 12f * e.finpow() * smokeSize / 10, (x, y) -> {
+			randLenVectors(e.id, (int) (6 * smokeSize), 12f * e.finpow() * smokeSize / 8, (x, y) -> {
 				Draw.alpha(0.5f);
 				Fill.circle(e.x + x, e.y + y, e.fout() * 3f + 0.1f);
 				Draw.reset();

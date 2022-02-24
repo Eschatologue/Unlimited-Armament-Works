@@ -302,7 +302,7 @@ public class UAWBlocksProduction implements ContentList {
 			squareSprite = false;
 			warmupSpeed = 0.01f;
 			liquidAmount = 15f;
-			gasEffect = UAWFxD.steamCloud(3f, 60);
+			gasEffect = UAWFxD.steamCloud(1.5f, 60);
 			gasEffectRnd = 0;
 			gasEffectWarmupMult = 0.3f;
 			consumes.items(new ItemStack(
@@ -321,7 +321,7 @@ public class UAWBlocksProduction implements ContentList {
 			squareSprite = false;
 			warmupSpeed = 0.002f;
 			gasEffect = UAWFxD.steamCloud(4.5f, 75);
-			gasEffectWarmupMult = 0.4f;
+			gasEffectWarmupMult = 0.01f;
 			gasEffectRnd = 0.2f;
 			liquidAmount = 36;
 			consumes.items(new ItemStack(
@@ -341,7 +341,7 @@ public class UAWBlocksProduction implements ContentList {
 			squareSprite = false;
 			warmupSpeed = 0.0015f;
 			gasEffect = UAWFxD.steamCloud(7.5f, 90);
-			gasEffectWarmupMult = 0.4f;
+			gasEffectWarmupMult = 0.05f;
 			gasEffectRnd = 0.05f;
 			liquidAmount = 180;
 			consumes.items(with(
