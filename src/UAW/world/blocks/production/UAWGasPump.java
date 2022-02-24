@@ -15,13 +15,13 @@ import mindustry.graphics.*;
  */
 public class UAWGasPump extends GasPump {
 	public TextureRegion rotatorRegion, heatRegion, topRegion;
-	public Effect steamEffect = UAWFxS.steamSmoke;
+	public Effect updateEffect = UAWFxS.steamSmoke;
 	public Color heatColor = Color.valueOf("ff5512");
 
-	public float steamSize = 5f;
-	public float steamLifetime = 45f;
-	public Color steamColor = Pal.lightishGray;
-	public float steamEffectMult = 1f;
+	public float updateEffectSize = 5f;
+	public float updateEffectLifetime = 45f;
+	public Color updateEffectColor = Pal.lightishGray;
+	public float updateEffectChance = 1f;
 	public float rotateSpeed = -1.5f;
 
 	public UAWGasPump(String name) {
@@ -53,10 +53,10 @@ public class UAWGasPump extends GasPump {
 				float maxPump = Math.min(liquidCapacity - liquids.total(), amount * pumpAmount * edelta());
 				liquids.add(liquidDrop, maxPump);
 				warmup = Mathf.lerpDelta(warmup, 1f, 0.02f);
-				if (Mathf.chance(warmup * steamEffectMult))
-					if (steamEffect == UAWFxS.steamSmoke) {
-						steamEffect.at(x + Mathf.range(size / 3f * 4f), y + Mathf.range(size / 3f * 4f), steamSize / 10, steamColor, steamLifetime);
-					} else steamEffect.at(x + Mathf.range(size / 3f * 4f), y + Mathf.range(size / 3f * 4f));
+				if (Mathf.chance(warmup * updateEffectChance))
+					if (updateEffect == UAWFxS.steamSmoke) {
+						updateEffect.at(x + Mathf.range(size / 3f * 4f), y + Mathf.range(size / 3f * 4f), updateEffectSize / 10, updateEffectColor, updateEffectLifetime);
+					} else updateEffect.at(x + Mathf.range(size / 3f * 4f), y + Mathf.range(size / 3f * 4f));
 			} else {
 				warmup = Mathf.lerpDelta(warmup, 0f, 0.02f);
 			}

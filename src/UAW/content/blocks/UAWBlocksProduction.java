@@ -62,13 +62,21 @@ public class UAWBlocksProduction implements ContentList {
 			consumes.liquid(Liquids.cryofluid, pumpAmount / 2.5f);
 			consumes.power(3.5f);
 		}};
-		steamDrill = new GasDrill("steam-drill"){{
-			requirements(Category.production, with(Items.copper, 15, Items.graphite, 10));
+		steamDrill = new GasDrill("steam-drill") {{
+			requirements(Category.production, with(
+				Items.copper, 24,
+				Items.graphite, 12
+			));
+			squareSprite = false;
 			tier = 3;
-			drillTime = 320;
+			drillTime = 350;
 			size = 2;
+			liquidBoostIntensity = 1f;
+			hasLiquids = false;
+			updateEffect = UAWFxD.steamCloud(5f, 60f);
+			drillEffect = UAWFxD.steamCloud(6f, 75f);
 
-			consumes.addGas(new ConsumeGas(UAWGas.steam, 0.5f));
+			consumes.addGas(new ConsumeGas(UAWGas.steam, 0.25f));
 		}};
 		steamPump = new UAWGasPump("steam-pump") {{
 			requirements(Category.liquid, with(
@@ -78,13 +86,14 @@ public class UAWBlocksProduction implements ContentList {
 				Items.titanium, 25
 			));
 			size = 2;
-			pumpAmount = 0.3f;
+			squareSprite = false;
+			pumpAmount = 0.2f;
 			liquidCapacity = 60f;
 			hasPower = false;
-			steamEffectMult = 0.5f;
-			steamLifetime = 50f;
+			updateEffectChance = 0.05f;
+			updateEffect = UAWFxD.steamCloud(8f, 75f, Layer.effect - 1, Pal.lightishGray);
 
-			consumes.addGas(new ConsumeGas(UAWGas.steam, 0.5f));
+			consumes.addGas(new ConsumeGas(UAWGas.steam, 0.25f));
 		}};
 
 		gelatinizer = new GenericCrafter("gelatinizer") {{

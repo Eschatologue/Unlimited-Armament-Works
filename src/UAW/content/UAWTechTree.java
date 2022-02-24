@@ -280,8 +280,8 @@ public class UAWTechTree implements ContentList {
 
 		vanillaNode(mechanicalPump, () ->
 			// Steam Kettle | the start of steam system
-			node(steamKettle, () ->
-				node(gasPipe, () ->
+			node(steamKettle, () -> {
+				node(gasPipe, () -> {
 					node(gasJunction, () -> {
 						node(gasRouter, () -> {
 							node(gasBridge);
@@ -290,16 +290,16 @@ public class UAWTechTree implements ContentList {
 							);
 						});
 						node(coalBoiler, () -> {
-							node(steamPump);
-							node(steamDrill);
 							node(pressureBoiler,
 								Seq.with(
 									new Research(platedGasPipe)
 								));
 						});
-					})
-				)
-			)
+					});
+					node(steamDrill);
+					node(steamPump);
+				});
+			})
 		);
 
 		vanillaNode(thoriumReactor, () ->
@@ -328,7 +328,10 @@ public class UAWTechTree implements ContentList {
 			node(pressurizedConduit, () -> {
 					node(pressurizedLiquidRouter);
 					node(pressurizedLiquidJunction, () ->
-						node(pressurizedLiquidBridge));
+						node(pressurizedLiquidBridge, () ->
+							node(platedPressurizedConduit)
+						)
+					);
 				}
 			)
 		);
