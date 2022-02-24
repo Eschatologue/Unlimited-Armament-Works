@@ -294,10 +294,10 @@ public class UAWTechTree implements ContentList {
 								Seq.with(
 									new Research(platedGasPipe)
 								));
+							node(steamPump);
 						});
 					});
 					node(steamDrill);
-					node(steamPump);
 				});
 			})
 		);
@@ -347,6 +347,7 @@ public class UAWTechTree implements ContentList {
 			node(UAWGroundFactory,
 				Seq.with(
 					new Research(oilDerrick),
+					new Research(pressureBoiler),
 					new Research(plastanium),
 					new SectorComplete(SectorPresets.tarFields)
 				), () -> {

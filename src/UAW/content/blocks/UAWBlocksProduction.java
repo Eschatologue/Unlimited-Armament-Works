@@ -91,7 +91,7 @@ public class UAWBlocksProduction implements ContentList {
 			liquidCapacity = 60f;
 			hasPower = false;
 			updateEffectChance = 0.05f;
-			updateEffect = UAWFxD.steamCloud(8f, 75f, Layer.effect - 1, Pal.lightishGray);
+			updateEffect = UAWFxD.steamCloud(8f, 75f, Layer.flyingUnitLow - 1, Pal.lightishGray);
 
 			consumes.addGas(new ConsumeGas(UAWGas.steam, 0.25f));
 		}};
