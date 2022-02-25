@@ -2,12 +2,13 @@ package UAW.content.blocks;
 
 import UAW.content.*;
 import UAW.graphics.*;
-import UAW.world.blocks.gas.LiquidBoiler;
+import UAW.world.blocks.gas.*;
 import UAW.world.blocks.production.*;
 import arc.graphics.Color;
 import gas.GasStack;
 import gas.world.blocks.production.GasDrill;
 import gas.world.consumers.ConsumeGas;
+import gas.world.draw.GasDrawAnimation;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.effect.MultiEffect;
@@ -27,8 +28,12 @@ public class UAWBlocksProduction implements ContentList {
 	public static Block placeholder,
 	// Drills
 	oilDerrick, steamPump, steamPulsometerPump, steamDrill, advancedSteamDrill, steamThumper,
-	// Item Crafter
-	gelatinizer, carburizingFurnace, petroleumSmelter, petrochemicalSeperator, plastaniumForge,
+	// General Crafter
+	gelatinizer, carburizingFurnace,
+	// Steam Crafter
+	steamGraphitePress, plastaniumSteamPress,
+	// Petroleum Crafter
+	petroleumSmelter, petrochemicalSeperator,
 	// Liquid Mixer
 	cryofluidDistillery, surgeMixer,
 	// Gas
@@ -69,6 +74,7 @@ public class UAWBlocksProduction implements ContentList {
 			));
 			squareSprite = false;
 			tier = 3;
+			itemCapacity = 20;
 			drillTime = 350;
 			size = 2;
 			liquidBoostIntensity = 1f;
@@ -199,37 +205,6 @@ public class UAWBlocksProduction implements ContentList {
 			outputLiquid = new LiquidStack(UAWLiquids.surgeSolvent, 30f);
 		}};
 
-		plastaniumForge = new AdvancedGenericCrafter("plastanium-forge") {{
-			requirements(Category.crafting, with(
-				Items.lead, 225,
-				Items.silicon, 160,
-				Items.graphite, 160,
-				Items.titanium, 300,
-				Items.plastanium, 250
-			));
-			size = 3;
-			health = 500 * size;
-			squareSprite = false;
-			hasItems = true;
-			itemCapacity = 48;
-			liquidCapacity = 280f;
-			craftTime = 5.5f * tick;
-			outputItem = new ItemStack(Items.plastanium, 14);
-			hasPower = hasLiquids = true;
-			craftEffect = new MultiEffect(
-				UAWFxD.burstSmelt(2.5f * tilesize, Pal.plastaniumFront, Pal.plastaniumBack),
-				Fx.plasticExplosion
-			);
-			craftShake = 6f;
-			updateEffect = new MultiEffect(Fx.plasticburn, Fx.burning, Fx.fireSmoke);
-			drawer = new DrawSmelter();
-
-			consumes.liquid(Liquids.oil, 2.5f);
-			consumes.items(
-				new ItemStack(Items.titanium, 7),
-				new ItemStack(UAWItems.anthracite, 2)
-			);
-		}};
 		petroleumSmelter = new AdvancedGenericCrafter("petroleum-smelter") {{
 			requirements(Category.crafting, with(
 				Items.titanium, 125,
@@ -292,6 +267,31 @@ public class UAWBlocksProduction implements ContentList {
 			consumes.item(Items.sand, 3);
 		}};
 
+		plastaniumSteamPress = new GasCrafter("plastanium-steam-press") {{
+			requirements(Category.crafting, with(
+				Items.silicon, 140,
+				Items.coal, 120,
+				Items.lead, 220,
+				Items.graphite, 120,
+				Items.titanium, 160
+			));
+			size = 3;
+			hasItems = true;
+			liquidCapacity = 60f;
+			craftTime = 30f;
+			hasLiquids = true;
+			craftEffect = Fx.formsmoke;
+			updateEffect = Fx.plasticburn;
+			drawer = new GasDrawAnimation() {{
+				frameCount = 10;
+			}};
+			outputItem = new ItemStack(Items.plastanium, 3);
+
+			consumes.addGas(new ConsumeGas(UAWGas.steam, 3.5f));
+			consumes.liquid(Liquids.oil, 0.75f);
+			consumes.item(Items.titanium, 6);
+		}};
+
 		// Gasses
 		steamKettle = new LiquidBoiler("steam-kettle") {{
 			requirements(Category.power, with(
@@ -321,7 +321,7 @@ public class UAWBlocksProduction implements ContentList {
 			squareSprite = false;
 			warmupSpeed = 0.002f;
 			gasEffect = UAWFxD.steamCloud(4.5f, 75);
-			gasEffectWarmupMult = 0.01f;
+			gasEffectWarmupMult = 0.25f;
 			gasEffectRnd = 0.2f;
 			liquidAmount = 36;
 			consumes.items(new ItemStack(
@@ -339,13 +339,14 @@ public class UAWBlocksProduction implements ContentList {
 			));
 			size = 4;
 			squareSprite = false;
+			itemCapacity = 30;
 			warmupSpeed = 0.0015f;
-			gasEffect = UAWFxD.steamCloud(7.5f, 90);
-			gasEffectWarmupMult = 0.05f;
+			gasEffect = UAWFxD.steamCloud(8f, 90);
+			gasEffectWarmupMult = 0.25f;
 			gasEffectRnd = 0.05f;
 			liquidAmount = 180;
 			consumes.items(with(
-				Items.coal, 6,
+				Items.coal, 5,
 				Items.pyratite, 2
 			));
 			consumes.liquid(liquidInput, liquidAmount / craftTime);

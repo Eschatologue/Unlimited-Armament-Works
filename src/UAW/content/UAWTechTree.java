@@ -268,7 +268,7 @@ public class UAWTechTree implements ContentList {
 
 		vanillaNode(plastaniumCompressor, () ->
 			// Plast Forge
-			node(plastaniumForge,
+			node(plastaniumSteamPress,
 				Seq.with(
 					new Research(oilDerrick),
 					new Research(surgeSmelter),
