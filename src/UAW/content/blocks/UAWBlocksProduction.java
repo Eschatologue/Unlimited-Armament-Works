@@ -283,7 +283,8 @@ public class UAWBlocksProduction implements ContentList {
 			craftEffect = Fx.formsmoke;
 			updateEffect = Fx.plasticburn;
 			drawer = new GasDrawAnimation() {{
-				frameCount = 10;
+				frameCount = 17;
+				frameSpeed = craftTime / frameCount;
 			}};
 			outputItem = new ItemStack(Items.plastanium, 3);
 

@@ -266,16 +266,6 @@ public class UAWTechTree implements ContentList {
 			);
 		});
 
-		vanillaNode(plastaniumCompressor, () ->
-			// Plast Forge
-			node(plastaniumSteamPress,
-				Seq.with(
-					new Research(oilDerrick),
-					new Research(surgeSmelter),
-					new Research(petrochemicalSeperator)
-				)
-			)
-		);
 		//endregion Crafters
 
 		vanillaNode(mechanicalPump, () ->
@@ -297,7 +287,10 @@ public class UAWTechTree implements ContentList {
 							node(steamPump);
 						});
 					});
-					node(steamDrill);
+					node(steamDrill, () ->
+						node(steamGraphitePress, () ->
+							node(plastaniumSteamPress)
+						));
 				});
 			})
 		);
