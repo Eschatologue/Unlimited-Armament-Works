@@ -7,7 +7,7 @@ import UAW.world.blocks.production.*;
 import arc.graphics.Color;
 import gas.GasStack;
 import gas.world.blocks.production.GasDrill;
-import gas.world.consumers.ConsumeGas;
+import gas.world.consumers.*;
 import gas.world.draw.GasDrawAnimation;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
@@ -291,6 +291,25 @@ public class UAWBlocksProduction implements ContentList {
 			consumes.addGas(new ConsumeGas(UAWGas.steam, 3.5f));
 			consumes.liquid(Liquids.oil, 0.75f);
 			consumes.item(Items.titanium, 6);
+		}};
+		steamGraphitePress = new GasCrafter("steam-graphite-press") {{
+			requirements(Category.crafting, with(
+				Items.titanium, 100,
+				Items.silicon, 25,
+				Items.lead, 100,
+				Items.graphite, 50
+			));
+			craftEffect = Fx.pulverizeMedium;
+			outputItem = new ItemStack(Items.graphite, 8);
+			craftTime = 60f;
+			itemCapacity = 24;
+			size = 3;
+			hasItems = true;
+			hasLiquids = false;
+			hasPower = false;
+
+			consumes.addGas(new ConsumeGas(UAWGas.steam, 3.5f));
+			consumes.item(Items.coal, 4);
 		}};
 
 		// Gasses
