@@ -7,7 +7,7 @@ import UAW.world.blocks.production.*;
 import arc.graphics.Color;
 import gas.GasStack;
 import gas.world.blocks.production.GasDrill;
-import gas.world.consumers.*;
+import gas.world.consumers.ConsumeGas;
 import gas.world.draw.GasDrawAnimation;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
@@ -267,6 +267,24 @@ public class UAWBlocksProduction implements ContentList {
 			consumes.item(Items.sand, 3);
 		}};
 
+		steamGraphitePress = new GasCrafter("steam-graphite-press") {{
+			requirements(Category.crafting, with(
+				Items.titanium, 100,
+				Items.silicon, 25,
+				Items.lead, 100,
+				Items.graphite, 50
+			));
+			craftEffect = Fx.pulverizeMedium;
+			outputItem = new ItemStack(Items.graphite, 12);
+			craftTime = 90f;
+			itemCapacity = 40;
+			size = 3;
+			hasItems = true;
+			hasGasses = true;
+
+			consumes.addGas(new ConsumeGas(UAWGas.steam, 3f));
+			consumes.item(Items.coal, 5);
+		}};
 		plastaniumSteamPress = new GasCrafter("plastanium-steam-press") {{
 			requirements(Category.crafting, with(
 				Items.silicon, 140,
@@ -276,40 +294,24 @@ public class UAWBlocksProduction implements ContentList {
 				Items.titanium, 160
 			));
 			size = 3;
+			squareSprite = false;
 			hasItems = true;
 			liquidCapacity = 60f;
-			craftTime = 30f;
+			craftTime = 90f;
+			itemCapacity = 40;
 			hasLiquids = true;
+			hasGasses = true;
 			craftEffect = Fx.formsmoke;
-			updateEffect = Fx.plasticburn;
+			updateEffect = UAWFxD.steamCloud(8, 75, Layer.flyingUnitLow);
 			drawer = new GasDrawAnimation() {{
 				frameCount = 17;
-				frameSpeed = craftTime / frameCount;
+				frameSpeed = (craftTime / frameCount);
 			}};
-			outputItem = new ItemStack(Items.plastanium, 3);
+			outputItem = new ItemStack(Items.plastanium, 6);
 
-			consumes.addGas(new ConsumeGas(UAWGas.steam, 3.5f));
+			consumes.addGas(new ConsumeGas(UAWGas.steam, 3f));
 			consumes.liquid(Liquids.oil, 0.75f);
-			consumes.item(Items.titanium, 6);
-		}};
-		steamGraphitePress = new GasCrafter("steam-graphite-press") {{
-			requirements(Category.crafting, with(
-				Items.titanium, 100,
-				Items.silicon, 25,
-				Items.lead, 100,
-				Items.graphite, 50
-			));
-			craftEffect = Fx.pulverizeMedium;
-			outputItem = new ItemStack(Items.graphite, 8);
-			craftTime = 60f;
-			itemCapacity = 24;
-			size = 3;
-			hasItems = true;
-			hasLiquids = false;
-			hasPower = false;
-
-			consumes.addGas(new ConsumeGas(UAWGas.steam, 3.5f));
-			consumes.item(Items.coal, 4);
+			consumes.item(Items.titanium, 10);
 		}};
 
 		// Gasses
