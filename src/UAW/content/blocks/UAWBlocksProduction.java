@@ -68,7 +68,7 @@ public class UAWBlocksProduction implements ContentList {
 			consumes.power(3.5f);
 		}};
 
-		steamDrill = new UAWGasDrill("steam-drill") {{
+		steamDrill = new GasDrill("steam-drill") {{
 			requirements(Category.production, with(
 				Items.copper, 24,
 				Items.graphite, 12
