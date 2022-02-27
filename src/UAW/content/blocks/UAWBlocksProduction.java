@@ -68,7 +68,7 @@ public class UAWBlocksProduction implements ContentList {
 			consumes.power(3.5f);
 		}};
 
-		steamDrill = new GasDrill("steam-drill") {{
+		steamDrill = new UAWGasDrill("steam-drill") {{
 			requirements(Category.production, with(
 				Items.copper, 24,
 				Items.graphite, 12
@@ -98,12 +98,13 @@ public class UAWBlocksProduction implements ContentList {
 			squareSprite = false;
 			tier = 4;
 			itemCapacity = 45;
-			drillTime = 200;
+			drillTime = 180;
 			hasLiquids = true;
 			drawRim = true;
 			updateEffectChance = 0.01f;
 			updateEffect = UAWFxD.steamCloud(5f);
-			drillEffect = Fx.mineHuge;
+			drillEffect = Fx.mineBig;
+			rotateSpeed = 6f;
 
 			consumes.addGas(new ConsumeGas(UAWGas.steam, 2.25f));
 			consumes.liquid(Liquids.oil, 0.05f).boost();
@@ -413,7 +414,6 @@ public class UAWBlocksProduction implements ContentList {
 				Items.coal, 4,
 				Items.pyratite, 2
 			));
-			consumes.items(with(UAWItems.anthracite, 1)).boost();
 			consumes.liquid(liquidInput, liquidAmount / craftTime);
 			outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);
 		}};

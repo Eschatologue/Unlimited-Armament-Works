@@ -1,26 +1,23 @@
 package UAW.world.blocks.production;
 
-import UAW.graphics.UAWFxS;
 import arc.Core;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.Mathf;
-import arc.util.Time;
+import arc.util.*;
 import gas.world.blocks.production.GasPump;
 import mindustry.entities.Effect;
-import mindustry.graphics.*;
+import mindustry.graphics.Drawf;
 
 /**
  * Liquid Pump but with rotating rotor and liquid at different layer
  */
 public class UAWGasPump extends GasPump {
 	public TextureRegion rotatorRegion, heatRegion, topRegion;
-	public Effect updateEffect = UAWFxS.steamSmoke;
+	@Nullable
+	public Effect updateEffect;
 	public Color heatColor = Color.valueOf("ff5512");
 
-	public float updateEffectSize = 5f;
-	public float updateEffectLifetime = 45f;
-	public Color updateEffectColor = Pal.lightishGray;
 	public float updateEffectChance = 1f;
 	public float rotateSpeed = -1.5f;
 
@@ -55,10 +52,8 @@ public class UAWGasPump extends GasPump {
 				float maxPump = Math.min(liquidCapacity - liquids.total(), amount * pumpAmount * edelta());
 				liquids.add(liquidDrop, maxPump);
 				warmup = Mathf.lerpDelta(warmup, 1f, 0.02f);
-				if (Mathf.chance(warmup * updateEffectChance))
-					if (updateEffect == UAWFxS.steamSmoke) {
-						updateEffect.at(x + Mathf.range(size / 3f * 4f), y + Mathf.range(size / 3f * 4f), updateEffectSize / 10, updateEffectColor, updateEffectLifetime);
-					} else updateEffect.at(x + Mathf.range(size / 3f * 4f), y + Mathf.range(size / 3f * 4f));
+				if (Mathf.chance(warmup * updateEffectChance) && updateEffect != null)
+					updateEffect.at(x + Mathf.range(size / 3f * 4f), y + Mathf.range(size / 3f * 4f));
 			} else {
 				warmup = Mathf.lerpDelta(warmup, 0f, 0.02f);
 			}
