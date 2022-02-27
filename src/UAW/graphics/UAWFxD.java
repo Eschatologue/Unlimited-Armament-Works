@@ -358,9 +358,20 @@ public class UAWFxD {
 			})).layer(layer);
 	}
 
-	/** Steam Cloud used for steam effects on various buildings */
-	public static Effect steamCloud(float smokeSize, float lifetime, float layer, Color color) {
-		return new Effect(lifetime, lifetime * 2.85f, e -> {
+	static float smokeSizeLfMult = 10.75f;
+
+	/**
+	 * Steam Cloud used for steam effects on various buildings | 1st Variation
+	 *
+	 * @param smokeSize
+	 * 	How big is the smoke 'puff', based on tilesize, also adjusts the amount of 'puff'
+	 * @param layer
+	 * 	The layer on where does the effect occurs
+	 * @param color
+	 * 	The color of the smoke puff
+	 */
+	public static Effect steamCloud(float smokeSize, float layer, Color color) {
+		return new Effect(smokeSize * smokeSizeLfMult, smokeSize * smokeSizeLfMult * 2.85f, e -> {
 			color(Tmp.c1.set(color).mul(1.1f));
 			randLenVectors(e.id, (int) (6 * smokeSize), 12f * e.finpow() * smokeSize / 8, (x, y) -> {
 				Draw.alpha(0.5f);
@@ -370,8 +381,16 @@ public class UAWFxD {
 		}).layer(layer);
 	}
 
-	public static Effect steamCloud(float smokeSize, float lifetime, float layer) {
-		return new Effect(lifetime, lifetime * 2.85f, e -> {
+	/**
+	 * Steam Cloud used for steam effects on various buildings | 2nd Variation
+	 *
+	 * @param smokeSize
+	 * 	How big is the smoke 'puff', based on tilesize, also adjusts the amount of 'puff'
+	 * @param layer
+	 * 	The layer on where does the effect occurs
+	 */
+	public static Effect steamCloud(float smokeSize, float layer) {
+		return new Effect(smokeSize * smokeSizeLfMult, smokeSize * smokeSizeLfMult * 2.85f, e -> {
 			color(Tmp.c1.set(Pal.lightishGray).mul(1.1f));
 			randLenVectors(e.id, (int) (6 * smokeSize), 12f * e.finpow() * smokeSize / 8, (x, y) -> {
 				Draw.alpha(0.5f);
@@ -381,8 +400,14 @@ public class UAWFxD {
 		}).layer(layer);
 	}
 
-	public static Effect steamCloud(float smokeSize, float lifetime) {
-		return new Effect(lifetime, lifetime * 2.85f, e -> {
+	/**
+	 * Steam Cloud used for steam effects on various buildings | 3rd Variation
+	 *
+	 * @param smokeSize
+	 * 	How big is the smoke 'puff', based on tilesize, also adjusts the amount of 'puff'
+	 */
+	public static Effect steamCloud(float smokeSize) {
+		return new Effect(smokeSize * smokeSizeLfMult, smokeSize * smokeSizeLfMult * 2.85f, e -> {
 			color(Tmp.c1.set(Pal.lightishGray).mul(1.1f));
 			randLenVectors(e.id, (int) (6 * smokeSize), 12f * e.finpow() * smokeSize / 8, (x, y) -> {
 				Draw.alpha(0.5f);

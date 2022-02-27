@@ -284,13 +284,21 @@ public class UAWTechTree implements ContentList {
 								Seq.with(
 									new Research(platedGasPipe)
 								));
-							node(steamPump);
+							node(steamPump, () ->
+								node(pulsometerPump)
+							);
+						});
+						node(steamDrill, () -> {
+							node(steamGraphitePress, () ->
+								node(plastaniumSteamPress)
+							);
+							node(advancedSteamDrill,
+								Seq.with(
+									new Research(plastaniumSteamPress)
+								)
+							);
 						});
 					});
-					node(steamDrill, () ->
-						node(steamGraphitePress, () ->
-							node(plastaniumSteamPress)
-						));
 				});
 			})
 		);

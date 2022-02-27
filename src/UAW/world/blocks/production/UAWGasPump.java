@@ -27,6 +27,8 @@ public class UAWGasPump extends GasPump {
 	public UAWGasPump(String name) {
 		super(name);
 		placeableLiquid = true;
+		hasGasses = true;
+		squareSprite = false;
 		hasPower = false;
 	}
 
