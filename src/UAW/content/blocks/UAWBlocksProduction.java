@@ -6,7 +6,7 @@ import UAW.world.blocks.gas.*;
 import UAW.world.blocks.production.*;
 import arc.graphics.Color;
 import gas.GasStack;
-import gas.world.blocks.production.GasDrill;
+import gas.world.blocks.production.*;
 import gas.world.consumers.ConsumeGas;
 import gas.world.draw.GasDrawAnimation;
 import mindustry.content.*;
@@ -41,7 +41,7 @@ public class UAWBlocksProduction implements ContentList {
 
 	@Override
 	public void load() {
-		oilDerrick = new Fracker("oil-derrick") {{
+		oilDerrick = new GasFracker("oil-derrick") {{
 			requirements(Category.production, with(
 				Items.titanium, 150,
 				Items.plastanium, 125,
@@ -64,8 +64,8 @@ public class UAWBlocksProduction implements ContentList {
 
 			squareSprite = false;
 
-			consumes.liquid(Liquids.cryofluid, pumpAmount / 2.5f);
-			consumes.power(3.5f);
+			consumes.liquid(Liquids.cryofluid, pumpAmount / 2.5f).boost();
+			consumes.addGas(new ConsumeGas(UAWGas.steam, 3.5f));
 		}};
 
 		steamDrill = new GasDrill("steam-drill") {{
