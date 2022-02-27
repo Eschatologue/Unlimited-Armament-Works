@@ -81,7 +81,7 @@ public class UAWBlocksProduction implements ContentList {
 			warmupSpeed = 0.001f;
 			hasLiquids = false;
 			drawRim = true;
-			updateEffectChance = 0.01f;
+			updateEffectChance = 0.03f;
 			updateEffect = UAWFxD.steamCloud(7.5f);
 			drillEffect = Fx.mineBig;
 
@@ -103,7 +103,7 @@ public class UAWBlocksProduction implements ContentList {
 			warmupSpeed = 0.0005f;
 			hasLiquids = true;
 			drawRim = true;
-			updateEffectChance = 0.01f;
+			updateEffectChance = 0.03f;
 			updateEffect = UAWFxD.steamCloud(5f);
 			drillEffect = Fx.mineBig;
 			rotateSpeed = 6f;
@@ -388,7 +388,7 @@ public class UAWBlocksProduction implements ContentList {
 			squareSprite = false;
 			warmupSpeed = 0.002f;
 			gasEffect = UAWFxD.steamCloud(3.5f);
-			gasEffectWarmupMult = 0.1f;
+			gasEffectWarmupMult = 0.2f;
 			gasEffectRnd = 0.2f;
 			liquidAmount = 36;
 			consumes.items(new ItemStack(
