@@ -79,31 +79,35 @@ public class UAWBlocksProduction implements ContentList {
 			itemCapacity = 25;
 			drillTime = 300;
 			hasLiquids = false;
+			drawRim = true;
+			updateEffectChance = 0.01f;
 			updateEffect = UAWFxD.steamCloud(7.5f);
 			drillEffect = Fx.mineBig;
 
 			consumes.addGas(new ConsumeGas(UAWGas.steam, 0.25f));
+			consumes.liquid(Liquids.oil, 0.025f).boost();
 		}};
-
 		advancedSteamDrill = new GasDrill("advanced-steam-drill") {{
 			requirements(Category.production, with(
-				Items.copper, 35,
-				Items.graphite, 30,
-				Items.silicon, 30,
-				Items.titanium, 20
+				Items.copper, 85,
+				Items.silicon, 50,
+				Items.titanium, 40,
+				Items.graphite, 75
 			));
 			size = 3;
 			squareSprite = false;
 			tier = 4;
-			itemCapacity = 35;
-			drillTime = 225;
-			hasLiquids = false;
+			itemCapacity = 45;
+			drillTime = 200;
+			hasLiquids = true;
+			drawRim = true;
+			updateEffectChance = 0.01f;
 			updateEffect = UAWFxD.steamCloud(5f);
-			drillEffect = UAWFxD.steamCloud(6f);
+			drillEffect = Fx.mineHuge;
 
 			consumes.addGas(new ConsumeGas(UAWGas.steam, 2.25f));
+			consumes.liquid(Liquids.oil, 0.05f).boost();
 		}};
-
 
 		steamPump = new UAWGasPump("steam-pump") {{
 			requirements(Category.liquid, with(
@@ -380,8 +384,8 @@ public class UAWBlocksProduction implements ContentList {
 			size = 2;
 			squareSprite = false;
 			warmupSpeed = 0.002f;
-			gasEffect = UAWFxD.steamCloud(4.5f);
-			gasEffectWarmupMult = 0.15f;
+			gasEffect = UAWFxD.steamCloud(3.5f);
+			gasEffectWarmupMult = 0.1f;
 			gasEffectRnd = 0.2f;
 			liquidAmount = 36;
 			consumes.items(new ItemStack(
@@ -406,9 +410,10 @@ public class UAWBlocksProduction implements ContentList {
 			gasEffectRnd = 0.05f;
 			liquidAmount = 180;
 			consumes.items(with(
-				Items.coal, 5,
+				Items.coal, 4,
 				Items.pyratite, 2
 			));
+			consumes.items(with(UAWItems.anthracite, 1)).boost();
 			consumes.liquid(liquidInput, liquidAmount / craftTime);
 			outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);
 		}};
