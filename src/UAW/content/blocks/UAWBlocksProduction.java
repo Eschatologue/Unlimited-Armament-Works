@@ -15,7 +15,7 @@ import mindustry.entities.effect.MultiEffect;
 import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.Block;
-import mindustry.world.blocks.production.*;
+import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.draw.*;
 import mindustry.world.meta.Attribute;
 
@@ -43,20 +43,20 @@ public class UAWBlocksProduction implements ContentList {
 	public void load() {
 		oilDerrick = new GasFracker("oil-derrick") {{
 			requirements(Category.production, with(
-				Items.titanium, 150,
-				Items.plastanium, 125,
-				Items.thorium, 115,
-				Items.metaglass, 85,
-				Items.silicon, 85
+				Items.copper, 200,
+				Items.graphite, 150,
+				Items.lead, 100,
+				Items.silicon, 75,
+				Items.metaglass, 75
 			));
 			size = 4;
 			result = Liquids.oil;
 			updateEffect = new MultiEffect(
-				UAWFxD.smokeCloud(40, Layer.effect, Color.gray),
+				UAWFxD.steamCloud(8),
 				Fx.oily
 			);
-			updateEffectChance = 0.1f;
-			pumpAmount = 1.5f;
+			updateEffectChance = 0.05f;
+			pumpAmount = 0.5f;
 			liquidCapacity = 360f;
 			attribute = Attribute.oil;
 			baseEfficiency = 0.5f;

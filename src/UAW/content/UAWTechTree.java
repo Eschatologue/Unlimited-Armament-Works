@@ -285,7 +285,14 @@ public class UAWTechTree implements ContentList {
 									new Research(platedGasPipe)
 								));
 							node(steamPump, () ->
-								node(pulsometerPump)
+								node(pulsometerPump, () ->
+									node(oilDerrick,
+										Seq.with(
+											new SectorComplete(SectorPresets.tarFields),
+											new SectorComplete(SectorPresets.frozenForest),
+											new Research(pressureBoiler)
+										)
+									))
 							);
 						});
 					});
@@ -309,17 +316,6 @@ public class UAWTechTree implements ContentList {
 				Seq.with(
 					new Research(oilExtractor),
 					new Research(differentialGenerator)
-				)
-			)
-		);
-
-		vanillaNode(oilExtractor, () ->
-			// Oil Derrick
-			node(oilDerrick,
-				Seq.with(
-					new SectorComplete(SectorPresets.tarFields),
-					new SectorComplete(SectorPresets.frozenForest),
-					new Research(thermalPump)
 				)
 			)
 		);
