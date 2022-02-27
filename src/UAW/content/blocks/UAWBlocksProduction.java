@@ -78,6 +78,7 @@ public class UAWBlocksProduction implements ContentList {
 			tier = 3;
 			itemCapacity = 25;
 			drillTime = 300;
+			warmupSpeed = 0.001f;
 			hasLiquids = false;
 			drawRim = true;
 			updateEffectChance = 0.01f;
@@ -99,6 +100,7 @@ public class UAWBlocksProduction implements ContentList {
 			tier = 4;
 			itemCapacity = 45;
 			drillTime = 180;
+			warmupSpeed = 0.0005f;
 			hasLiquids = true;
 			drawRim = true;
 			updateEffectChance = 0.01f;
