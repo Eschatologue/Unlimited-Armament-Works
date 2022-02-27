@@ -1,6 +1,7 @@
 package UAW.content.blocks;
 
 import UAW.content.UAWItems;
+import UAW.world.blocks.gas.*;
 import UAW.world.blocks.liquid.*;
 import arc.graphics.Color;
 import gas.world.blocks.gas.*;
@@ -148,7 +149,7 @@ public class UAWBlocksLogistic implements ContentList {
 			range = 6;
 		}};
 
-		gasPipe = new GasConduit("gas-pipe") {{
+		gasPipe = new GasPipe("gas-pipe") {{
 			requirements(Category.liquid, with(
 				Items.metaglass, 1,
 				Items.copper, 2
@@ -161,7 +162,7 @@ public class UAWBlocksLogistic implements ContentList {
 			bridgeReplacement = UAWBlocksLogistic.gasBridge;
 			squareSprite = false;
 		}};
-		reinforcedGasPipe = new GasConduit("reinforced-gas-pipe") {{
+		reinforcedGasPipe = new GasPipe("reinforced-gas-pipe") {{
 			requirements(Category.liquid, with(
 				Items.metaglass, 2,
 				Items.titanium, 4,
@@ -173,7 +174,7 @@ public class UAWBlocksLogistic implements ContentList {
 			health = 150;
 			squareSprite = false;
 		}};
-		platedGasPipe = new GasArmoredConduit("plated-gas-pipe") {{
+		platedGasPipe = new PlatedGasPipe("plated-gas-pipe") {{
 			requirements(Category.liquid, with(
 				Items.metaglass, 2,
 				Items.titanium, 4,
