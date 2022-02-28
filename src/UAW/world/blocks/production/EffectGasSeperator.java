@@ -6,6 +6,7 @@ import arc.math.Mathf;
 import gas.world.blocks.production.GasSeparator;
 import mindustry.content.Fx;
 import mindustry.entities.Effect;
+import mindustry.graphics.Drawf;
 
 public class EffectGasSeperator extends GasSeparator {
 	public TextureRegion topRegion;
@@ -44,10 +45,11 @@ public class EffectGasSeperator extends GasSeparator {
 
 		@Override
 		public void draw() {
-			super.draw();
-//			if (Core.atlas.isFound(spinnerRegion)) {
-//				Draw.rect(spinnerRegion, x, y, warmup * spinnerSpeed);
-//			}
+			Draw.rect(region, x, y);
+			Drawf.liquid(liquidRegion, x, y, liquids.total() / liquidCapacity, liquids.current().color);
+			if (Core.atlas.isFound(spinnerRegion)) {
+				Drawf.spinSprite(spinnerRegion, x, y, totalProgress * spinnerSpeed);
+			}
 			Draw.rect(topRegion, x, y);
 		}
 
