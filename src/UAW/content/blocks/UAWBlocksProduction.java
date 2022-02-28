@@ -33,7 +33,7 @@ public class UAWBlocksProduction implements ContentList {
 	// Steam Crafter
 	steamGraphitePress, plastaniumSteamPress,
 	// Petroleum Crafter
-	petroleumSmelter, petrochemicalSeperator,
+	petroleumSmelter, petrochemicalCentrifuge,
 	// Liquid Mixer
 	cryofluidDistillery, surgeMixer,
 	// Gas
@@ -57,7 +57,7 @@ public class UAWBlocksProduction implements ContentList {
 			);
 			updateEffectChance = 0.05f;
 			pumpAmount = 0.5f;
-			liquidCapacity = 360f;
+			gasCapacity = liquidCapacity = 360f;
 			attribute = Attribute.oil;
 			baseEfficiency = 0.5f;
 			rotateSpeed = -2.5f;
@@ -66,6 +66,27 @@ public class UAWBlocksProduction implements ContentList {
 
 			consumes.liquid(Liquids.cryofluid, pumpAmount / 2.5f).boost();
 			consumes.addGas(new ConsumeGas(UAWGas.steam, 3.5f));
+		}};
+		petrochemicalCentrifuge = new EffectGasSeperator("petrochemical-centrifuge") {{
+			requirements(Category.crafting, with(
+				Items.plastanium, 30,
+				Items.titanium, 90,
+				Items.silicon, 50,
+				Items.coal, 180
+			));
+			results = with(
+				UAWItems.anthracite, 2,
+				Items.coal, 2
+			);
+			size = 3;
+			craftTime = 0.5f * tick;
+			itemCapacity = 30;
+			squareSprite = false;
+			liquidCapacity = 240f;
+			updateEffect = new MultiEffect(Fx.fireHit, UAWFxS.plastHit, Fx.oily);
+
+			consumes.liquid(Liquids.oil, 0.2f);
+			consumes.addGas(new ConsumeGas(UAWGas.steam, 0.25f));
 		}};
 
 		steamDrill = new GasDrill("steam-drill") {{
@@ -284,28 +305,6 @@ public class UAWBlocksProduction implements ContentList {
 				Items.silicon, 13,
 				Items.metaglass, 13
 			);
-		}};
-		petrochemicalSeperator = new EffectSeparator("petrochemical-seperator") {{
-			requirements(Category.crafting, with(
-				Items.lead, 120,
-				Items.titanium, 100,
-				Items.plastanium, 80,
-				Items.silicon, 80
-			));
-			results = with(
-				UAWItems.anthracite, 2,
-				Items.coal, 2,
-				Items.coal, 2
-			);
-			size = 3;
-			craftTime = 2.5f * tick;
-			itemCapacity = 30;
-			squareSprite = false;
-			liquidCapacity = 240f;
-			updateEffect = new MultiEffect(Fx.fireHit, UAWFxS.plastHit, Fx.oily);
-
-			consumes.liquid(Liquids.oil, 1.5f);
-			consumes.item(Items.sand, 3);
 		}};
 
 		steamGraphitePress = new GasCrafter("steam-graphite-press") {{

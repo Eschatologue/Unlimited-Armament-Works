@@ -257,13 +257,6 @@ public class UAWTechTree implements ContentList {
 					new Research(cryofluidMixer)
 				)
 			);
-			// Petrochemical Seperator
-			node(petrochemicalSeperator,
-				Seq.with(
-					new Research(oilDerrick),
-					new Research(anthracite)
-				)
-			);
 		});
 
 		//endregion Crafters
@@ -283,16 +276,18 @@ public class UAWTechTree implements ContentList {
 							node(pressureBoiler,
 								Seq.with(
 									new Research(platedGasPipe)
-								));
+								)
+							);
 							node(steamPump, () ->
 								node(pulsometerPump, () ->
 									node(oilDerrick,
 										Seq.with(
 											new SectorComplete(SectorPresets.tarFields),
-											new SectorComplete(SectorPresets.frozenForest),
 											new Research(pressureBoiler)
-										)
-									))
+										), () ->
+											node(petrochemicalCentrifuge)
+									)
+								)
 							);
 						});
 					});
