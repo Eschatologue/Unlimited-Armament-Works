@@ -45,9 +45,9 @@ public class EffectGasSeperator extends GasSeparator {
 		@Override
 		public void draw() {
 			super.draw();
-			if (Core.atlas.isFound(spinnerRegion)) {
-				Draw.rect(spinnerRegion, x, y, warmup * spinnerSpeed);
-			}
+//			if (Core.atlas.isFound(spinnerRegion)) {
+//				Draw.rect(spinnerRegion, x, y, warmup * spinnerSpeed);
+//			}
 			Draw.rect(topRegion, x, y);
 		}
 
