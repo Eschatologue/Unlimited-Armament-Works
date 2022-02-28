@@ -82,11 +82,16 @@ public class UAWBlocksProduction implements ContentList {
 			craftTime = 0.5f * tick;
 			itemCapacity = 30;
 			squareSprite = false;
-			liquidCapacity = 240f;
-			updateEffect = new MultiEffect(Fx.fireHit, UAWFxS.plastHit, Fx.oily);
+			gasCapacity = liquidCapacity = 240f;
+			updateEffect = new MultiEffect(
+				UAWFxD.steamCloud(5f),
+				Fx.fireHit,
+				UAWFxS.plastHit,
+				Fx.oily
+			);
 
 			consumes.liquid(Liquids.oil, 0.2f);
-			consumes.addGas(new ConsumeGas(UAWGas.steam, 0.25f));
+			consumes.addGas(new ConsumeGas(UAWGas.steam, 0.5f));
 		}};
 
 		steamDrill = new GasDrill("steam-drill") {{
