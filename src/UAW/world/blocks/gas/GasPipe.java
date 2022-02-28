@@ -4,6 +4,8 @@ import arc.Core;
 import arc.graphics.g2d.TextureRegion;
 import gas.world.blocks.gas.GasConduit;
 
+import static UAW.Vars.modName;
+
 public class GasPipe extends GasConduit {
 	public TextureRegion pipeIcon;
 
@@ -21,7 +23,7 @@ public class GasPipe extends GasConduit {
 	@Override
 	public void load() {
 		super.load();
-		pipeIcon = Core.atlas.find("pipe-bottom");
+		pipeIcon = Core.atlas.find(modName + "pipe-bottom");
 	}
 
 	public class GasPipeBuild extends GasConduitBuild {
