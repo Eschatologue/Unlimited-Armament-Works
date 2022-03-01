@@ -82,7 +82,7 @@ public class DrawEverything extends DrawBlock {
 		// Draws Heat
 		if (heatRegion.found()) {
 			Draw.color(heatColor);
-			Draw.alpha(build.warmup * 0.6f * (1f - 0.3f + Mathf.absin(Time.time, 3f, 0.3f)));
+			Draw.alpha(build.totalProgress * 0.6f * (1f - 0.3f + Mathf.absin(Time.time, 3f, 0.3f)));
 			Draw.blend(Blending.additive);
 			Draw.rect(heatRegion, build.x, build.y);
 			Draw.blend();
@@ -91,11 +91,11 @@ public class DrawEverything extends DrawBlock {
 
 		// Rotator
 		if (primaryRotatorRegion.found()) {
-			Drawf.spinSprite(primaryRotatorRegion, build.x, build.y, build.warmup * rotatorSpinSpeed);
+			Drawf.spinSprite(primaryRotatorRegion, build.x, build.y, build.totalProgress * rotatorSpinSpeed);
 		}
 
 		if (secondaryRotatorRegion.found()) {
-			Drawf.spinSprite(secondaryRotatorRegion, build.x, build.y, build.warmup * (rotatorSpinSpeed * secondaryRotatorSpinSpeedMult));
+			Drawf.spinSprite(secondaryRotatorRegion, build.x, build.y, build.totalProgress * (rotatorSpinSpeed * secondaryRotatorSpinSpeedMult));
 		}
 
 		// Liquid Input
