@@ -65,7 +65,7 @@ public class UAWBlocksProduction implements ContentList {
 			consumes.liquid(Liquids.cryofluid, pumpAmount / 2.5f).boost();
 			consumes.addGas(new ConsumeGas(UAWGas.steam, 3.5f));
 		}};
-		steamThumper = new ThumperDrill("steam-drill") {{
+		steamThumper = new ThumperDrill("steam-thumper") {{
 			requirements(Category.production, with(
 				Items.copper, 24,
 				Items.graphite, 12
