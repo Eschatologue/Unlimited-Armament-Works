@@ -6,6 +6,7 @@ import UAW.world.blocks.gas.*;
 import UAW.world.blocks.production.*;
 import UAW.world.drawer.DrawEverything;
 import arc.graphics.Color;
+import arc.graphics.g2d.TextureRegion;
 import gas.GasStack;
 import gas.world.blocks.production.*;
 import gas.world.consumers.ConsumeGas;
@@ -248,7 +249,7 @@ public class UAWBlocksProduction implements ContentList {
 				Fx.flakExplosionBig
 			);
 			updateEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
-			craftShake = 80;
+			craftShake = 8;
 		}};
 		surgeMixer = new GenericCrafter("surge-mixer") {{
 			requirements(Category.crafting, with(
