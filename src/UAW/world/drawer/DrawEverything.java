@@ -15,7 +15,7 @@ import mindustry.world.draw.DrawBlock;
 /** Combines all drawers */
 public class DrawEverything extends DrawBlock {
 	public TextureRegion bottomRegion, primaryRotatorRegion, secondaryRotatorRegion, heatRegion, inputLiquidRegion, outputLiquidRegion, smelterFlameRegion, topRegion;
-	public TextureRegion iconRegion;
+	public TextureRegion clearSprite;
 	/** Rotation Spin of the main rotator */
 	public float rotatorSpinSpeed = 12f;
 	/** Rotation speed multiplier for secondary rotator */
@@ -144,15 +144,12 @@ public class DrawEverything extends DrawBlock {
 
 	@Override
 	public TextureRegion[] icons(Block block) {
-		if (iconRegion.found()) {
-			return new TextureRegion[]{iconRegion};
-		} else
 			return new TextureRegion[]{
-				bottomRegion.found() ? bottomRegion : null,
+				bottomRegion.found() ? bottomRegion : clearSprite,
 				block.region,
-				primaryRotatorRegion.found() ? primaryRotatorRegion : null,
-				secondaryRotatorRegion.found() ? secondaryRotatorRegion : null,
-				topRegion.found() ? bottomRegion : null
+				primaryRotatorRegion.found() ? primaryRotatorRegion : clearSprite,
+				secondaryRotatorRegion.found() ? secondaryRotatorRegion : clearSprite,
+				topRegion.found() ? bottomRegion : clearSprite
 			};
 	}
 
@@ -172,6 +169,7 @@ public class DrawEverything extends DrawBlock {
 		outputLiquidRegion = Core.atlas.find(block.name + "-output-liquid");
 		topRegion = Core.atlas.find(block.name + "-top");
 		smelterFlameRegion = Core.atlas.find(block.name + "-smelterFlame");
-		iconRegion = Core.atlas.find(block.name + "-full");
+		clearSprite = Core.atlas.find("clear");
+
 	}
 }
