@@ -12,7 +12,7 @@ import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.consumers.*;
 import mindustry.world.draw.DrawBlock;
 
-/** Combines all drawers */
+/** The cursed amalgamation of every block drawer code */
 public class DrawEverything extends DrawBlock {
 	public TextureRegion bottomRegion, primaryRotatorRegion, secondaryRotatorRegion, heatRegion, inputLiquidRegion, outputLiquidRegion, smelterFlameRegion, topRegion;
 	public TextureRegion clearSprite;
@@ -21,6 +21,7 @@ public class DrawEverything extends DrawBlock {
 	/** Rotation speed multiplier for secondary rotator */
 	public float secondaryRotatorSpinSpeedMult = 0.5f;
 
+	/** The color of the heat light | Only valid if heatRegion exists */
 	public Color heatColor = Color.valueOf("ff5512");
 
 	// Arc Smelter

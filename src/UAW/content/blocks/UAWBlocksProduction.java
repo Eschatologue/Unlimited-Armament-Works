@@ -243,7 +243,6 @@ public class UAWBlocksProduction implements ContentList {
 			craftTime = 3.5f * tick;
 			drawer = new DrawEverything() {{
 				drawArcSmelter = true;
-				circleSpark = true;
 				drawSmokeCells = false;
 			}};
 			craftEffect = new MultiEffect(
