@@ -4,6 +4,7 @@ import UAW.content.*;
 import UAW.graphics.*;
 import UAW.world.blocks.gas.*;
 import UAW.world.blocks.production.*;
+import UAW.world.drawer.DrawEverything;
 import arc.graphics.Color;
 import gas.GasStack;
 import gas.world.blocks.production.*;
@@ -239,15 +240,15 @@ public class UAWBlocksProduction implements ContentList {
 			size = 3;
 			itemCapacity = 30;
 			craftTime = 3.5f * tick;
-			drawer = new DrawArcSmelter() {{
-
+			drawer = new DrawEverything() {{
+				drawArcSmelter = true;
 			}};
 			craftEffect = new MultiEffect(
 				UAWFxD.burstSmelt(3.5f * tilesize, Pal.missileYellow, Pal.missileYellowBack),
 				Fx.flakExplosionBig
 			);
 			updateEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
-			craftShake = 8;
+			craftShake = 80;
 		}};
 		surgeMixer = new GenericCrafter("surge-mixer") {{
 			requirements(Category.crafting, with(
