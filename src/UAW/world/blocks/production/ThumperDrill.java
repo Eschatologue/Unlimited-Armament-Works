@@ -7,21 +7,15 @@ import mindustry.world.*;
 
 public class ThumperDrill extends GasDrill {
 	public Block specificOre = Blocks.oreCoal;
+
 	public ThumperDrill(String name) {
 		super(name);
 	}
 
 	@Override
 	public boolean canPlaceOn(Tile tile, Team team, int rotation) {
-		if (isMultiblock()) {
-			for (var other : tile.getLinkedTilesAs(this, tempTiles)) {
-				if (canMine(other) && tile.floor() == specificOre) {
-					return true;
-				}
-			}
-			return false;
-		} else {
-			return canMine(tile);
-		}
+		if (tile.floor() == specificOre) {
+			return super.canPlaceOn(tile, team, rotation);
+		} else return false;
 	}
 }

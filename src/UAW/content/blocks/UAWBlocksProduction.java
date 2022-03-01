@@ -72,6 +72,7 @@ public class UAWBlocksProduction implements ContentList {
 			));
 			size = 2;
 			squareSprite = false;
+			specificOre = Blocks.oreCoal;
 			tier = 3;
 			itemCapacity = 25;
 			drillTime = 300;
