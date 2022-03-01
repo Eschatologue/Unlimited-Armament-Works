@@ -149,7 +149,7 @@ public class DrawEverything extends DrawBlock {
 			block.region,
 			primaryRotatorRegion.found() ? primaryRotatorRegion : clearSprite,
 			secondaryRotatorRegion.found() ? secondaryRotatorRegion : clearSprite,
-			topRegion.found() ? bottomRegion : clearSprite
+			topRegion.found() ? topRegion : clearSprite
 		};
 	}
 
