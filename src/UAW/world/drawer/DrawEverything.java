@@ -144,13 +144,13 @@ public class DrawEverything extends DrawBlock {
 
 	@Override
 	public TextureRegion[] icons(Block block) {
-			return new TextureRegion[]{
-				bottomRegion.found() ? bottomRegion : clearSprite,
-				block.region,
-				primaryRotatorRegion.found() ? primaryRotatorRegion : clearSprite,
-				secondaryRotatorRegion.found() ? secondaryRotatorRegion : clearSprite,
-				topRegion.found() ? bottomRegion : clearSprite
-			};
+		return new TextureRegion[]{
+			bottomRegion.found() ? bottomRegion : clearSprite,
+			block.region,
+			primaryRotatorRegion.found() ? primaryRotatorRegion : clearSprite,
+			secondaryRotatorRegion.found() ? secondaryRotatorRegion : clearSprite,
+			topRegion.found() ? bottomRegion : clearSprite
+		};
 	}
 
 	@Override
