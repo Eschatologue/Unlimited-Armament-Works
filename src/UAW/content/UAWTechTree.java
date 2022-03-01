@@ -12,7 +12,7 @@ import static UAW.content.UAWLiquids.surgeSolvent;
 import static UAW.content.UAWUnitTypes.*;
 import static UAW.content.blocks.UAWBlocksDefense.*;
 import static UAW.content.blocks.UAWBlocksLogistic.*;
-import static UAW.content.blocks.UAWBlocksPower.petroleumGenerator;
+import static UAW.content.blocks.UAWBlocksPower.*;
 import static UAW.content.blocks.UAWBlocksProduction.*;
 import static UAW.content.blocks.UAWBlocksUnits.*;
 import static mindustry.content.Blocks.*;

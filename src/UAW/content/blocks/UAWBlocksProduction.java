@@ -2,12 +2,10 @@ package UAW.content.blocks;
 
 import UAW.content.*;
 import UAW.graphics.*;
-import UAW.world.blocks.gas.*;
+import UAW.world.blocks.gas.GasCrafter;
 import UAW.world.blocks.production.*;
-import UAW.world.drawer.DrawEverything;
+import UAW.world.drawer.GasDrawEverything;
 import arc.graphics.Color;
-import arc.graphics.g2d.TextureRegion;
-import gas.GasStack;
 import gas.world.blocks.production.*;
 import gas.world.consumers.ConsumeGas;
 import gas.world.draw.GasDrawAnimation;
@@ -37,9 +35,7 @@ public class UAWBlocksProduction implements ContentList {
 	// Petroleum Crafter
 	petroleumSmelter, petrochemicalCentrifuge,
 	// Liquid Mixer
-	cryofluidDistillery, surgeMixer,
-	// Gas
-	steamKettle, coalBoiler, pressureBoiler, geothermalKettle, solarBoiler;
+	cryofluidDistillery, surgeMixer;
 
 	@Override
 	public void load() {
@@ -69,6 +65,27 @@ public class UAWBlocksProduction implements ContentList {
 			consumes.liquid(Liquids.cryofluid, pumpAmount / 2.5f).boost();
 			consumes.addGas(new ConsumeGas(UAWGas.steam, 3.5f));
 		}};
+		steamThumper = new ThumperDrill("steam-drill") {{
+			requirements(Category.production, with(
+				Items.copper, 24,
+				Items.graphite, 12
+			));
+			size = 2;
+			squareSprite = false;
+			tier = 3;
+			itemCapacity = 25;
+			drillTime = 300;
+			warmupSpeed = 0.001f;
+			hasLiquids = false;
+			drawRim = true;
+			updateEffectChance = 0.03f;
+			updateEffect = UAWFxD.steamCloud(7.5f);
+			drillEffect = Fx.mineBig;
+
+			consumes.addGas(new ConsumeGas(UAWGas.steam, 0.25f));
+			consumes.liquid(Liquids.oil, 0.025f).boost();
+		}};
+
 		petrochemicalCentrifuge = new EffectGasSeperator("petrochemical-centrifuge") {{
 			requirements(Category.crafting, with(
 				Items.plastanium, 30,
@@ -219,7 +236,7 @@ public class UAWBlocksProduction implements ContentList {
 			consumes.power(3f);
 		}};
 
-		carburizingFurnace = new AdvancedGenericCrafter("carburizing-furnace") {{
+		carburizingFurnace = new GasCrafter("carburizing-furnace") {{
 			requirements(Category.crafting, with(
 				Items.titanium, 150,
 				Items.thorium, 125,
@@ -227,30 +244,30 @@ public class UAWBlocksProduction implements ContentList {
 				Items.silicon, 95,
 				Items.graphite, 95
 			));
+			hasItems = true;
+			hasLiquids = false;
+			size = 3;
+			itemCapacity = 30;
+			craftTime = 3.5f * tick;
+			drawer = new GasDrawEverything() {{
+				drawArcSmelter = true;
+				arcParticles = 32;
+				arcFlameRad = 1.2f;
+				drawSmokeCells = false;
+			}};
+			craftEffect = new MultiEffect(
+				UAWFxD.steamCloud(12f),
+				Fx.flakExplosionBig
+			);
+			updateEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
 			consumes.items(
 				new ItemStack(Items.titanium, 4),
 				new ItemStack(Items.coal, 8)
 			);
-			consumes.liquid(Liquids.slag, 1.5f);
+			consumes.addGas(new ConsumeGas(UAWGas.steam, 4.5f));
 			outputItem = new ItemStack(
 				UAWItems.titaniumCarbide, 1
 			);
-			consumes.power(5.5f);
-			hasItems = true;
-			hasLiquids = true;
-			size = 3;
-			itemCapacity = 30;
-			craftTime = 3.5f * tick;
-			drawer = new DrawEverything() {{
-				drawArcSmelter = true;
-				drawSmokeCells = false;
-			}};
-			craftEffect = new MultiEffect(
-				UAWFxD.burstSmelt(3.5f * tilesize, Pal.missileYellow, Pal.missileYellowBack),
-				Fx.flakExplosionBig
-			);
-			updateEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
-			craftShake = 8;
 		}};
 		surgeMixer = new GenericCrafter("surge-mixer") {{
 			requirements(Category.crafting, with(
@@ -368,66 +385,6 @@ public class UAWBlocksProduction implements ContentList {
 			consumes.item(Items.titanium, 10);
 		}};
 
-		// Gasses
-		steamKettle = new LiquidBoiler("steam-kettle") {{
-			requirements(Category.power, with(
-				Items.copper, 12,
-				Items.lead, 12
-			));
-			size = 1;
-			squareSprite = false;
-			warmupSpeed = 0.01f;
-			liquidAmount = 15f;
-			gasEffect = UAWFxD.steamCloud(1.5f);
-			gasEffectRnd = 0;
-			gasEffectWarmupMult = 0.10f;
-			consumes.items(new ItemStack(
-				Items.coal, 1
-			));
-			consumes.liquid(liquidInput, liquidAmount / craftTime);
-			outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);
-		}};
-		coalBoiler = new LiquidBoiler("coal-boiler") {{
-			requirements(Category.power, with(
-				Items.copper, 35,
-				Items.graphite, 25,
-				Items.lead, 30
-			));
-			size = 2;
-			squareSprite = false;
-			warmupSpeed = 0.002f;
-			gasEffect = UAWFxD.steamCloud(3.5f);
-			gasEffectWarmupMult = 0.2f;
-			gasEffectRnd = 0.2f;
-			liquidAmount = 36;
-			consumes.items(new ItemStack(
-				Items.coal, 4
-			));
-			consumes.liquid(liquidInput, liquidAmount / craftTime);
-			outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);
-		}};
-		pressureBoiler = new LiquidBoiler("pressure-boiler") {{
-			requirements(Category.power, with(
-				Items.copper, 150,
-				Items.lead, 125,
-				Items.titanium, 55,
-				Items.graphite, 50
-			));
-			size = 4;
-			squareSprite = false;
-			itemCapacity = 30;
-			warmupSpeed = 0.0015f;
-			gasEffect = UAWFxD.steamCloud(8f);
-			gasEffectWarmupMult = 0.15f;
-			gasEffectRnd = 0.05f;
-			liquidAmount = 180;
-			consumes.items(with(
-				Items.coal, 4,
-				Items.pyratite, 2
-			));
-			consumes.liquid(liquidInput, liquidAmount / craftTime);
-			outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);
-		}};
 
 	}
 }

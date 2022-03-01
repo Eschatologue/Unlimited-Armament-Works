@@ -87,17 +87,6 @@ public class AdvancedGenericCrafter extends GenericCrafter {
 		}
 
 		@Override
-		public void draw() {
-			super.draw();
-			if (rotator.found()) {
-				Drawf.spinSprite(rotator, x, y, rotatorSpinSpeed * rotatorRot);
-			}
-			if (rotatorTop.found()) {
-				Draw.rect(rotatorTop, x, y);
-			}
-		}
-
-		@Override
 		public float getProgressIncrease(float base) {
 			if (attribute != null) {
 				return super.getProgressIncrease(base) * efficiencyScale();

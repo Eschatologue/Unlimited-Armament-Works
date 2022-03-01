@@ -5,15 +5,15 @@ import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.util.Time;
+import gas.world.blocks.production.GasGenericCrafter;
+import gas.world.draw.GasDrawBlock;
 import mindustry.graphics.*;
 import mindustry.type.Liquid;
 import mindustry.world.Block;
-import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.consumers.*;
-import mindustry.world.draw.DrawBlock;
 
 /** The cursed amalgamation of every block drawer code */
-public class DrawEverything extends DrawBlock {
+public class GasDrawEverything extends GasDrawBlock {
 	public TextureRegion bottomRegion, primaryRotatorRegion, secondaryRotatorRegion, heatRegion, inputLiquidRegion, outputLiquidRegion, smelterFlameRegion, topRegion;
 	public TextureRegion clearSprite;
 	/** Rotation Spin of the main rotator */
@@ -46,8 +46,8 @@ public class DrawEverything extends DrawBlock {
 
 
 	@Override
-	public void draw(GenericCrafter.GenericCrafterBuild build) {
-		GenericCrafter type = (GenericCrafter) build.block;
+	public void draw(GasGenericCrafter.GasGenericCrafterBuild build) {
+		GasGenericCrafter type = (GasGenericCrafter) build.block;
 
 		// Draws Bottom Region
 		if (bottomRegion.found()) {
@@ -174,7 +174,6 @@ public class DrawEverything extends DrawBlock {
 		}
 	}
 
-	@Override
 	public TextureRegion[] icons(Block block) {
 		return new TextureRegion[]{
 			bottomRegion.found() ? bottomRegion : clearSprite,
@@ -186,12 +185,11 @@ public class DrawEverything extends DrawBlock {
 	}
 
 	@Override
-	public void drawLight(GenericCrafter.GenericCrafterBuild build) {
+	public void drawLight(GasGenericCrafter.GasGenericCrafterBuild build) {
 		if (smelterFlameRegion.found())
 			Drawf.light(build.team, build.x, build.y, (smelterLightRadius + Mathf.absin(smelterLightSinScl, smelterLightSinMag)) * build.warmup * build.block.size, smelterFlameColor, smelterLightAlpha);
 	}
 
-	@Override
 	public void load(Block block) {
 		bottomRegion = Core.atlas.find(block.name + "-bottom");
 		heatRegion = Core.atlas.find(block.name + "-heat");
