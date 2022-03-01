@@ -239,7 +239,9 @@ public class UAWBlocksProduction implements ContentList {
 			size = 3;
 			itemCapacity = 30;
 			craftTime = 3.5f * tick;
-			drawer = new DrawSmelter();
+			drawer = new DrawArcSmelter() {{
+
+			}};
 			craftEffect = new MultiEffect(
 				UAWFxD.burstSmelt(3.5f * tilesize, Pal.missileYellow, Pal.missileYellowBack),
 				Fx.flakExplosionBig
