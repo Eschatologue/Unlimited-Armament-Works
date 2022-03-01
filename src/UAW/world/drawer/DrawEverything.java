@@ -25,6 +25,7 @@ public class DrawEverything extends DrawBlock {
 
 	// Arc Smelter
 	public boolean drawArcSmelter = false;
+	public boolean circleSpark = false;
 	public Color arcFlameColor = Color.valueOf("f58349"), arcMidColor = Color.valueOf("f2d585");
 	public float arcFlameRad = 1f, arcCircleSpace = 2f, arcFlameRadiusScl = 3f, arcFlameRadiusMag = 0.3f, arcCircleStroke = 1.5f;
 	public float arcAlpha = 0.68f;
@@ -75,7 +76,10 @@ public class DrawEverything extends DrawBlock {
 					float fin = (rand.random(1f) + base) % 1f, fout = 1f - fin;
 					float angle = rand.random(360f);
 					float len = arcParticleRad * Interp.pow2Out.apply(fin);
-					Lines.lineAngle(build.x + Angles.trnsx(angle, len), build.y + Angles.trnsy(angle, len), angle, argParticleLength * fout * build.warmup);
+					if (!circleSpark) {
+						Lines.lineAngle(build.x + Angles.trnsx(angle, len), build.y + Angles.trnsy(angle, len), angle, argParticleLength * fout * build.warmup);
+					} else
+						Fill.circle(build.x + Angles.trnsx(angle, len), build.y + Angles.trnsy(angle, len), argParticleLength * fout * build.warmup);
 				}
 
 				Draw.blend();

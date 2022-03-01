@@ -242,9 +242,9 @@ public class UAWBlocksProduction implements ContentList {
 			itemCapacity = 30;
 			craftTime = 3.5f * tick;
 			drawer = new DrawEverything() {{
-				drawArcSmelter = false;
-				drawSmokeCells = true;
-				smokeParticleColorFrom = UAWPal.steamFront;
+				drawArcSmelter = true;
+				circleSpark = true;
+				drawSmokeCells = false;
 			}};
 			craftEffect = new MultiEffect(
 				UAWFxD.burstSmelt(3.5f * tilesize, Pal.missileYellow, Pal.missileYellowBack),
