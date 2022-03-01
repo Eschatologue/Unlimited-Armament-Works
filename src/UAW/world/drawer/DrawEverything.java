@@ -82,7 +82,7 @@ public class DrawEverything extends DrawBlock {
 		// Draws Heat
 		if (heatRegion.found()) {
 			Draw.color(heatColor);
-			Draw.alpha(build.totalProgress * 0.6f * (1f - 0.3f + Mathf.absin(Time.time, 3f, 0.3f)));
+			Draw.alpha(build.warmup * 0.6f * (1f - 0.3f + Mathf.absin(Time.time, 3f, 0.3f)));
 			Draw.blend(Blending.additive);
 			Draw.rect(heatRegion, build.x, build.y);
 			Draw.blend();
@@ -162,7 +162,7 @@ public class DrawEverything extends DrawBlock {
 	@Override
 	public void load(Block block) {
 		bottomRegion = Core.atlas.find(block.name + "-bottom");
-		heatRegion = Core.atlas.find(block.name + "=-heat");
+		heatRegion = Core.atlas.find(block.name + "-heat");
 		primaryRotatorRegion = Core.atlas.find(block.name + "-rotator-1");
 		secondaryRotatorRegion = Core.atlas.find(block.name + "-rotator-2");
 		inputLiquidRegion = Core.atlas.find(block.name + "-input-liquid");
