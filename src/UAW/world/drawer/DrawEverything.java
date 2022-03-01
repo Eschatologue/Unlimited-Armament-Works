@@ -98,6 +98,7 @@ public class DrawEverything extends DrawBlock {
 					Fill.circle(build.x + x, build.y + y, fslope * smokeRadius);
 				}
 			}
+			Draw.reset();
 		}
 
 		// Draws the block
@@ -111,6 +112,7 @@ public class DrawEverything extends DrawBlock {
 			Draw.rect(heatRegion, build.x, build.y);
 			Draw.blend();
 			Draw.color();
+			Draw.reset();
 		}
 
 		// Rotator
@@ -170,7 +172,7 @@ public class DrawEverything extends DrawBlock {
 	public TextureRegion[] icons(Block block) {
 		return new TextureRegion[]{
 			bottomRegion.found() ? bottomRegion : clearSprite,
-			block.region,
+			block.region.found() ? block.region : clearSprite,
 			primaryRotatorRegion.found() ? primaryRotatorRegion : clearSprite,
 			secondaryRotatorRegion.found() ? secondaryRotatorRegion : clearSprite,
 			topRegion.found() ? topRegion : clearSprite

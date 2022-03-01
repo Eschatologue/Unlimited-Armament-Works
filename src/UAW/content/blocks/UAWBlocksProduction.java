@@ -242,7 +242,7 @@ public class UAWBlocksProduction implements ContentList {
 			itemCapacity = 30;
 			craftTime = 3.5f * tick;
 			drawer = new DrawEverything() {{
-				drawArcSmelter = true;
+				drawArcSmelter = false;
 				drawSmokeCells = true;
 				smokeParticleColorFrom = UAWPal.steamFront;
 			}};
