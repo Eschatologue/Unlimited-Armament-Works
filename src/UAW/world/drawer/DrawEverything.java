@@ -31,10 +31,17 @@ public class DrawEverything extends DrawBlock {
 	public int arcParticles = 25;
 	public float arcParticleLife = 40f, arcParticleRad = 7f, arcParticleSmoke = 1.1f, argParticleLength = 3f;
 
+	// Cells
+	public boolean drawSmokeCells = true;
+	public Color smokeColor = Color.white.cpy(), smokeParticleColorFrom = Color.black.cpy(), smokeParticleColorTo = Color.black.cpy();
+	public int smokeParticles = 12;
+	public float smokeRange = 4f, smokeRecurrance = 6f, smokeRadius = 3f, lifetime = 60f;
+
 	// Smelter
 	public Color smelterFlameColor = Color.valueOf("ffc999");
 	public float smelterLightRadius = 60f, smelterLightAlpha = 0.65f, smelterLightSinScl = 10f, smelterLightSinMag = 5;
 	public float smelterFlameRadius = 3f, smelterFlameRadiusIn = 1.9f, smelterFlameRadiusScl = 5f, smelterFlameRadiusMag = 2f, smelterFlameRadiusInMag = 1f;
+
 
 	@Override
 	public void draw(GenericCrafter.GenericCrafterBuild build) {
@@ -73,6 +80,23 @@ public class DrawEverything extends DrawBlock {
 
 				Draw.blend();
 				Draw.reset();
+			}
+		}
+
+		if (drawSmokeCells && build.warmup > 0.001f) {
+			rand.setSeed(build.id);
+			for (int i = 0; i < smokeParticles; i++) {
+				float offset = rand.nextFloat() * 999999f;
+				float x = rand.range(smokeRange), y = rand.range(smokeRange);
+				float fin = 1f - (((Time.time + offset) / lifetime) % smokeRecurrance);
+				float ca = rand.random(0.1f, 1f);
+				float fslope = Mathf.slope(fin);
+
+				if (fin > 0) {
+					Draw.color(smokeParticleColorFrom, smokeParticleColorTo, ca);
+					Draw.alpha(build.warmup);
+					Fill.circle(build.x + x, build.y + y, fslope * smokeRadius);
+				}
 			}
 		}
 
