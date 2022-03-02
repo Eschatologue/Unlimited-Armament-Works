@@ -379,7 +379,7 @@ public class UAWBlocksProduction implements ContentList {
 			updateEffect = UAWFxD.steamCloud(9.5f, Layer.flyingUnitLow);
 			updateEffectChance = 0.01f;
 			drawer = new GasDrawAnimation() {{
-				frameCount = 8;
+				frameCount = 9;
 				frameSpeed = (craftTime / frameCount);
 			}};
 			outputItem = new ItemStack(Items.plastanium, 6);
