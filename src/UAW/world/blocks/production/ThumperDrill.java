@@ -14,7 +14,7 @@ import mindustry.world.*;
 import static mindustry.Vars.*;
 
 public class ThumperDrill extends GasDrill {
-	public Block specificOre = Blocks.oreCoal;
+	public Block oreOverlay = Blocks.oreCoal;
 	public Item drilledItem = UAWItems.anthracite;
 
 	public ThumperDrill(String name) {
@@ -23,7 +23,7 @@ public class ThumperDrill extends GasDrill {
 
 	@Override
 	public boolean canPlaceOn(Tile tile, Team team, int rotation) {
-		if (tile.overlay() == specificOre) {
+		if (tile.overlay() == oreOverlay) {
 			if (isMultiblock()) {
 				for (var other : tile.getLinkedTilesAs(this, tempTiles)) {
 					if (canMine(other)) {
@@ -73,7 +73,7 @@ public class ThumperDrill extends GasDrill {
 		if (tile == null)
 			return;
 		countOre(tile);
-		if (returnItem != null && tile.overlay() == specificOre) {
+		if (returnItem != null && tile.overlay() == oreOverlay) {
 			float width = drawPlaceText(Core.bundle.formatFloat("bar.drillspeed", 60f / (drillTime + hardnessDrillMultiplier * returnItem.hardness) * returnCount, 2), x, y, valid);
 			float dx = x * tilesize + offset - width / 2f - 4f, dy = y * tilesize + offset + size * tilesize / 2f + 5, s = iconSmall / 4f;
 			Draw.mixcol(Color.darkGray, 1f);
@@ -86,7 +86,7 @@ public class ThumperDrill extends GasDrill {
 				Draw.color();
 			}
 		} else {
-			Tile to = tile.getLinkedTilesAs(this, tempTiles).find(t -> t.drop() != null && t.drop().hardness > tier);
+			Tile to = tile.getLinkedTilesAs(this, tempTiles).find(t -> tile.overlay() != oreOverlay);
 			Item item = to == null ? null : to.drop();
 			if (item != null) {
 				drawPlaceText(Core.bundle.get("bar.inoperative"), x, y, valid);
