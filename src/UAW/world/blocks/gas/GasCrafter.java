@@ -21,6 +21,12 @@ public class GasCrafter extends GenericCrafterWithGas {
 	}
 
 	@Override
+	public void init() {
+		super.init();
+		gasCapacity = size * 60f;
+	}
+
+	@Override
 	public void drawPlace(int x, int y, int rotation, boolean valid) {
 		if (attribute != null) {
 			drawPlaceText(Core.bundle.format("bar.efficiency",

@@ -1,5 +1,6 @@
 package UAW.content.blocks;
 
+import UAW.content.UAWItems;
 import UAW.graphics.UAWFxD;
 import UAW.world.blocks.gas.LiquidBoiler;
 import UAW.world.blocks.power.WarmUpGenerator;
@@ -54,7 +55,7 @@ public class UAWBlocksPower implements ContentList {
 			liquidAmount = 15f;
 			gasEffect = UAWFxD.steamCloud(1.5f);
 			gasEffectRnd = 0;
-			gasEffectWarmupMult = 0.10f;
+			gasEffectWarmupMult = 0.15f;
 			consumes.items(new ItemStack(
 				Items.coal, 1
 			));
@@ -71,7 +72,7 @@ public class UAWBlocksPower implements ContentList {
 			squareSprite = false;
 			warmupSpeed = 0.002f;
 			gasEffect = UAWFxD.steamCloud(3.5f);
-			gasEffectWarmupMult = 0.2f;
+			gasEffectWarmupMult = 0.25f;
 			gasEffectRnd = 0.2f;
 			liquidAmount = 36;
 			consumes.items(new ItemStack(
@@ -92,12 +93,11 @@ public class UAWBlocksPower implements ContentList {
 			itemCapacity = 30;
 			warmupSpeed = 0.0015f;
 			gasEffect = UAWFxD.steamCloud(8f);
-			gasEffectWarmupMult = 0.15f;
+			gasEffectWarmupMult = 0.18f;
 			gasEffectRnd = 0.05f;
 			liquidAmount = 180;
 			consumes.items(with(
-				Items.coal, 4,
-				Items.pyratite, 2
+				UAWItems.anthracite, 3
 			));
 			consumes.liquid(liquidInput, liquidAmount / craftTime);
 			outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);

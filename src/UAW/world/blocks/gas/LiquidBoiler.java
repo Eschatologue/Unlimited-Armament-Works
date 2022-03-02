@@ -29,7 +29,7 @@ public class LiquidBoiler extends GasCrafter {
 	/** Liquid to gas conversion ratio */
 	public float conversionMultiplier = 3f;
 	/** Block inventory capacity multipler */
-	public float capacityMultiplier = 1.5f;
+	public float capacityMultiplier = 2f;
 
 	public Liquid liquidInput = Liquids.water;
 	public Gas gasResult = UAWGas.steam;

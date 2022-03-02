@@ -76,15 +76,16 @@ public class UAWBlocksProduction implements ContentList {
 			drilledItem = UAWItems.anthracite;
 			tier = 3;
 			itemCapacity = 25;
-			drillTime = 900;
+			drillTime = 600;
 			warmupSpeed = 0.001f;
-			hasLiquids = false;
+			hasLiquids = true;
 			drawRim = true;
 			gasCapacity = 90f;
 			gasEffectRnd = 0;
 			gasEffectChance = 0.04f;
 			gasEffect = UAWFxD.steamCloud(5.5f);
 			drillEffect = Fx.none;
+			updateEffect = Fx.steam;
 
 			consumes.addGas(new ConsumeGas(UAWGas.steam, 0.5f));
 			consumes.liquid(Liquids.oil, 0.025f).boost();
@@ -164,34 +165,35 @@ public class UAWBlocksProduction implements ContentList {
 				UAWItems.titaniumCarbide, 1
 			);
 		}};
-		petrochemicalCentrifuge = new EffectGasSeperator("petrochemical-centrifuge") {{
-			requirements(Category.crafting, with(
-				Items.plastanium, 30,
-				Items.titanium, 90,
-				Items.silicon, 50,
-				Items.coal, 180
-			));
-			results = with(
-				UAWItems.anthracite, 3,
-				Items.coal, 2
-			);
-			size = 3;
-			craftTime = 0.5f * tick;
-			itemCapacity = 30;
-			squareSprite = false;
-			gasCapacity = liquidCapacity = 240f;
-			updateEffect = new MultiEffect(
-				UAWFxD.steamCloud(5f),
-				Fx.fireHit,
-				UAWFxS.plastHit,
-				Fx.oily
-			);
 
-			researchCostMultiplier = 3.5f;
-
-			consumes.liquid(Liquids.oil, 0.2f);
-			consumes.addGas(new ConsumeGas(UAWGas.steam, 0.5f));
-		}};
+//		petrochemicalCentrifuge = new EffectGasSeperator("petrochemical-centrifuge") {{
+//			requirements(Category.crafting, with(
+//				Items.plastanium, 30,
+//				Items.titanium, 90,
+//				Items.silicon, 50,
+//				Items.coal, 180
+//			));
+//			results = with(
+//				UAWItems.anthracite, 3,
+//				Items.coal, 2
+//			);
+//			size = 3;
+//			craftTime = 0.5f * tick;
+//			itemCapacity = 30;
+//			squareSprite = false;
+//			gasCapacity = liquidCapacity = 240f;
+//			updateEffect = new MultiEffect(
+//				UAWFxD.steamCloud(5f),
+//				Fx.fireHit,
+//				UAWFxS.plastHit,
+//				Fx.oily
+//			);
+//
+//			researchCostMultiplier = 3.5f;
+//
+//			consumes.liquid(Liquids.oil, 0.2f);
+//			consumes.addGas(new ConsumeGas(UAWGas.steam, 0.5f));
+//		}};
 
 		steamPump = new UAWGasPump("steam-pump") {{
 			requirements(Category.liquid, with(
@@ -345,17 +347,17 @@ public class UAWBlocksProduction implements ContentList {
 				Items.copper, 100,
 				Items.graphite, 50
 			));
+			size = 3;
+			hasItems = true;
+			hasGasses = true;
 			craftEffect = Fx.pulverizeMedium;
 			outputItem = new ItemStack(Items.graphite, 12);
 			craftTime = 90f;
 			itemCapacity = 40;
-			size = 3;
-			hasItems = true;
-			hasGasses = true;
 			updateEffect = UAWFxD.steamCloud(9, Layer.flyingUnitLow);
 			updateEffectChance = 0.02f;
 
-			consumes.addGas(new ConsumeGas(UAWGas.steam, 3f));
+			consumes.addGas(new ConsumeGas(UAWGas.steam, 2f));
 			consumes.item(Items.coal, 5);
 		}};
 		plastaniumSteamPress = new GasCrafter("plastanium-steam-press") {{
@@ -383,11 +385,10 @@ public class UAWBlocksProduction implements ContentList {
 			}};
 			outputItem = new ItemStack(Items.plastanium, 6);
 
-			consumes.addGas(new ConsumeGas(UAWGas.steam, 3f));
+			consumes.addGas(new ConsumeGas(UAWGas.steam, 2.5f));
 			consumes.liquid(Liquids.oil, 0.75f);
 			consumes.item(Items.titanium, 10);
 		}};
-
 
 	}
 }
