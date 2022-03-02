@@ -68,7 +68,7 @@ public class ThumperDrill extends GasDrill {
 
 	@Override
 	public void drawPlace(int x, int y, int rotation, boolean valid) {
-		super.drawPlace(x, y, rotation, valid);
+		drawPotentialLinks(x, y);
 		Tile tile = world.tile(x, y);
 		if (tile == null)
 			return;
