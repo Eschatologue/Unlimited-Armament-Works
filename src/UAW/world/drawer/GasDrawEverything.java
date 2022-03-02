@@ -49,13 +49,37 @@ public class GasDrawEverything extends GasDrawBlock {
 	@Override
 	public void draw(GasGenericCrafter.GasGenericCrafterBuild build) {
 		GasGenericCrafter type = (GasGenericCrafter) build.block;
+		// Draws the block
+		Draw.rect(build.block.region, build.x, build.y);
 
-		// Draws Bottom Region
-		if (bottomRegion.found()) {
-			Draw.rect(bottomRegion, build.x, build.y);
+		// Draws Heat
+		if (heatRegion.found()) {
+			Draw.color(heatColor);
+			Draw.alpha(build.warmup * 0.6f * (1f - 0.3f + Mathf.absin(Time.time, 3f, 0.3f)));
+			Draw.blend(Blending.additive);
+			Draw.rect(heatRegion, build.x, build.y);
+			Draw.blend();
+			Draw.color();
+			Draw.reset();
 		}
 
-		// Draws Arc Smelter
+		// Liquid Input
+		if ((inputLiquidRegion.found()) && type.consumes.has(ConsumeType.liquid)) {
+			Liquid input = type.consumes.<ConsumeLiquid>get(ConsumeType.liquid).liquid;
+			Drawf.liquid(inputLiquidRegion, build.x, build.y,
+				build.liquids.get(input) / type.liquidCapacity,
+				input.color
+			);
+		}
+
+		// Liquid Output
+		if (outputLiquidRegion.found() && type.outputLiquid != null && build.liquids.get(type.outputLiquid.liquid) > 0) {
+			Drawf.liquid(outputLiquidRegion, build.x, build.y,
+				build.liquids.get(type.outputLiquid.liquid) / type.liquidCapacity,
+				type.outputLiquid.liquid.color
+			);
+		}
+
 		if (drawArcSmelter) {
 			if (build.warmup > 0f && arcFlameColor.a > 0.001f) {
 				float si = Mathf.absin(arcFlameRadiusScl, arcFlameRadiusMag);
@@ -108,20 +132,6 @@ public class GasDrawEverything extends GasDrawBlock {
 			Draw.reset();
 		}
 
-		// Draws the block
-		Draw.rect(build.block.region, build.x, build.y);
-
-		// Draws Heat
-		if (heatRegion.found()) {
-			Draw.color(heatColor);
-			Draw.alpha(build.warmup * 0.6f * (1f - 0.3f + Mathf.absin(Time.time, 3f, 0.3f)));
-			Draw.blend(Blending.additive);
-			Draw.rect(heatRegion, build.x, build.y);
-			Draw.blend();
-			Draw.color();
-			Draw.reset();
-		}
-
 		// Rotator
 		if (primaryRotatorRegion.found()) {
 			Drawf.spinSprite(primaryRotatorRegion, build.x, build.y, build.totalProgress * rotatorSpinSpeed);
@@ -129,23 +139,6 @@ public class GasDrawEverything extends GasDrawBlock {
 
 		if (secondaryRotatorRegion.found()) {
 			Drawf.spinSprite(secondaryRotatorRegion, build.x, build.y, build.totalProgress * (rotatorSpinSpeed * secondaryRotatorSpinSpeedMult));
-		}
-
-		// Liquid Input
-		if ((inputLiquidRegion.found()) && type.consumes.has(ConsumeType.liquid)) {
-			Liquid input = type.consumes.<ConsumeLiquid>get(ConsumeType.liquid).liquid;
-			Drawf.liquid(inputLiquidRegion, build.x, build.y,
-				build.liquids.get(input) / type.liquidCapacity,
-				input.color
-			);
-		}
-
-		// Liquid Output
-		if (outputLiquidRegion.found() && type.outputLiquid != null && build.liquids.get(type.outputLiquid.liquid) > 0) {
-			Drawf.liquid(outputLiquidRegion, build.x, build.y,
-				build.liquids.get(type.outputLiquid.liquid) / type.liquidCapacity,
-				type.outputLiquid.liquid.color
-			);
 		}
 
 		// Top Region
@@ -183,12 +176,11 @@ public class GasDrawEverything extends GasDrawBlock {
 
 	@Override
 	public void load(GasBlock block) {
-		this.bottomRegion = Core.atlas.find(block.name + "-bottom");
 		heatRegion = Core.atlas.find(block.name + "-heat");
 		primaryRotatorRegion = Core.atlas.find(block.name + "-rotator-1");
 		secondaryRotatorRegion = Core.atlas.find(block.name + "-rotator-2");
-		inputLiquidRegion = Core.atlas.find(block.name + "-input-liquid");
-		outputLiquidRegion = Core.atlas.find(block.name + "-output-liquid");
+		inputLiquidRegion = Core.atlas.find(block.name + "-liquid-input");
+		outputLiquidRegion = Core.atlas.find(block.name + "-liquid-output");
 		topRegion = Core.atlas.find(block.name + "-top");
 		smelterFlameRegion = Core.atlas.find(block.name + "-smelterFlame");
 		clearSprite = Core.atlas.find("clear");
@@ -197,7 +189,6 @@ public class GasDrawEverything extends GasDrawBlock {
 	@Override
 	public TextureRegion[] icons(GasBlock block) {
 		return new TextureRegion[]{
-			bottomRegion.found() ? bottomRegion : clearSprite,
 			block.region,
 			primaryRotatorRegion.found() ? primaryRotatorRegion : clearSprite,
 			secondaryRotatorRegion.found() ? secondaryRotatorRegion : clearSprite,
