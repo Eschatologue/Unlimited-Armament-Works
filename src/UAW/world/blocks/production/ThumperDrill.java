@@ -14,15 +14,17 @@ public class ThumperDrill extends GasDrill {
 
 	@Override
 	public boolean canPlaceOn(Tile tile, Team team, int rotation) {
-		if (isMultiblock() && tile.overlay() == specificOre) {
-			for (var other : tile.getLinkedTilesAs(this, tempTiles)) {
-				if (canMine(other)) {
-					return true;
+		if (tile.overlay() == specificOre) {
+			if (isMultiblock()) {
+				for (var other : tile.getLinkedTilesAs(this, tempTiles)) {
+					if (canMine(other)) {
+						return true;
+					}
 				}
+				return false;
+			} else {
+				return canMine(tile);
 			}
-			return false;
-		} else {
-			return canMine(tile);
-		}
+		} else return false;
 	}
 }
