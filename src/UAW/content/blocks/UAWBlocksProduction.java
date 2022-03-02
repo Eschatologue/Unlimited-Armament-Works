@@ -8,7 +8,6 @@ import UAW.world.drawer.GasDrawEverything;
 import arc.graphics.Color;
 import gas.world.blocks.production.*;
 import gas.world.consumers.ConsumeGas;
-import gas.world.draw.GasDrawAnimation;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.effect.MultiEffect;
@@ -370,19 +369,17 @@ public class UAWBlocksProduction implements ContentList {
 			size = 3;
 			squareSprite = false;
 			hasItems = true;
-			liquidCapacity = 60f;
+			liquidCapacity = 180f;
 			craftTime = 90f;
 			itemCapacity = 40;
 			hasLiquids = true;
 			hasGasses = true;
 			craftEffect = Fx.formsmoke;
-			updateEffect = UAWFxD.steamCloud(9.5f, Layer.flyingUnitLow);
+			updateEffect = UAWFxD.steamCloud(7.5f, Layer.flyingUnitLow);
 			updateEffectChance = 0.01f;
-			drawer = new GasDrawEverything(){{
-				drawArcSmelter = true;
-				circleSpark = true;
-				arcParticles = 34;
-				arcFlameColor = Pal.lightishGray;
+			drawer = new GasDrawEverything() {{
+				drawSmokeCells = true;
+				smokeRecurrance = 10f;
 			}};
 			outputItem = new ItemStack(Items.plastanium, 6);
 

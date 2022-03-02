@@ -110,12 +110,7 @@ public class UAWTechTree implements ContentList {
 
 		vanillaNode(plastanium, () ->
 			// Anthracite
-			node(anthracite,
-				Seq.with(
-					new SectorComplete(SectorPresets.tarFields),
-					new Research(titaniumCarbide)
-				)
-			)
+			nodeProduce(anthracite)
 		);
 		// endregion consumeables
 		// region Turrets
@@ -264,39 +259,37 @@ public class UAWTechTree implements ContentList {
 						node(coalBoiler, () -> {
 							node(pressureBoiler,
 								Seq.with(
-									new Research(platedGasPipe)
+									new Research(platedGasPipe),
+									new Research(steamThumper)
 								)
 							);
 							node(steamPump, () ->
 								node(pulsometerPump, () ->
 									node(oilDerrick,
 										Seq.with(
-											new Research(pressureBoiler)
-										), () ->
-											node(carburizingFurnace, () ->
-												node(petrochemicalCentrifuge,
-													Seq.with(
-														new Research(steamThumper)
-													)
-												)
-											)
+											new Research(pressureBoiler),
+											new Research(carburizingFurnace)
+										)
 									)
 								)
 							);
 						});
 					});
+
+					// Steam Drills
 					node(steamDrill, () -> {
 						node(steamGraphitePress, () ->
 							node(plastaniumSteamPress)
 						);
-						node(advancedSteamDrill,
-							Seq.with(
-								new Research(plastaniumSteamPress)
+						node(advancedSteamDrill);
+						// Steam Thumper
+						node(steamThumper, () ->
+							node(carburizingFurnace,
+								Seq.with(
+									new Produce(anthracite)
+								)
 							)
 						);
-						node(steamThumper, Seq.with(
-							new Research(advancedSteamDrill)
-						));
 					});
 				});
 			})
@@ -324,7 +317,6 @@ public class UAWTechTree implements ContentList {
 				}
 			)
 		);
-
 
 		vanillaNode(liquidTank, () ->
 			// Cistern
