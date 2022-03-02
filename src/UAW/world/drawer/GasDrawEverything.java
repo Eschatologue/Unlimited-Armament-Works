@@ -174,16 +174,6 @@ public class GasDrawEverything extends GasDrawBlock {
 		}
 	}
 
-	public TextureRegion[] icons(Block block) {
-		return new TextureRegion[]{
-			bottomRegion.found() ? bottomRegion : clearSprite,
-			block.region,
-			primaryRotatorRegion.found() ? primaryRotatorRegion : clearSprite,
-			secondaryRotatorRegion.found() ? secondaryRotatorRegion : clearSprite,
-			topRegion.found() ? topRegion : clearSprite
-		};
-	}
-
 	@Override
 	public void drawLight(GasGenericCrafter.GasGenericCrafterBuild build) {
 		if (smelterFlameRegion.found())
@@ -200,6 +190,15 @@ public class GasDrawEverything extends GasDrawBlock {
 		topRegion = Core.atlas.find(block.name + "-top");
 		smelterFlameRegion = Core.atlas.find(block.name + "-smelterFlame");
 		clearSprite = Core.atlas.find("clear");
+	}
 
+	public TextureRegion[] icons(Block block) {
+		return new TextureRegion[]{
+			bottomRegion.found() ? bottomRegion : clearSprite,
+			block.region,
+			primaryRotatorRegion.found() ? primaryRotatorRegion : clearSprite,
+			secondaryRotatorRegion.found() ? secondaryRotatorRegion : clearSprite,
+			topRegion.found() ? topRegion : clearSprite
+		};
 	}
 }

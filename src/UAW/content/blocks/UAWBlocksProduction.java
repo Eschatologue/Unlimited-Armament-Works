@@ -254,7 +254,6 @@ public class UAWBlocksProduction implements ContentList {
 				drawArcSmelter = true;
 				arcParticles = 32;
 				arcFlameRad = 1.2f;
-				drawSmokeCells = false;
 			}};
 			craftEffect = new MultiEffect(
 				UAWFxD.steamCloud(12f),
