@@ -134,7 +134,7 @@ public class UAWBlocksProduction implements ContentList {
 			consumes.addGas(new ConsumeGas(UAWGas.steam, 0.25f));
 			consumes.liquid(Liquids.oil, 0.025f).boost();
 		}};
-		advancedSteamDrill = new GasDrill("advanced-steam-drill") {{
+		advancedSteamDrill = new UAWGasDrill("advanced-steam-drill") {{
 			requirements(Category.production, with(
 				Items.copper, 85,
 				Items.silicon, 50,

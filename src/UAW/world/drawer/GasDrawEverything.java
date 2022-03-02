@@ -177,7 +177,7 @@ public class GasDrawEverything extends GasDrawBlock {
 	public TextureRegion[] icons(Block block) {
 		return new TextureRegion[]{
 			bottomRegion.found() ? bottomRegion : clearSprite,
-			block.region.found() ? block.region : clearSprite,
+			block.region,
 			primaryRotatorRegion.found() ? primaryRotatorRegion : clearSprite,
 			secondaryRotatorRegion.found() ? secondaryRotatorRegion : clearSprite,
 			topRegion.found() ? topRegion : clearSprite

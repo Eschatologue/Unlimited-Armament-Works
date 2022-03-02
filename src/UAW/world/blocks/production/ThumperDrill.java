@@ -3,17 +3,19 @@ package UAW.world.blocks.production;
 import UAW.content.UAWItems;
 import arc.Core;
 import arc.graphics.Color;
-import arc.graphics.g2d.Draw;
-import arc.math.Mathf;
+import arc.graphics.g2d.*;
+import arc.math.*;
+import arc.util.Time;
 import gas.world.blocks.production.GasDrill;
 import mindustry.content.Blocks;
 import mindustry.game.Team;
 import mindustry.type.Item;
 import mindustry.world.*;
 
+import static arc.math.Mathf.rand;
 import static mindustry.Vars.*;
 
-public class ThumperDrill extends GasDrill {
+public class ThumperDrill extends UAWGasDrill {
 	public Block oreOverlay = Blocks.oreCoal;
 	public Item drilledItem = UAWItems.anthracite;
 
@@ -23,18 +25,16 @@ public class ThumperDrill extends GasDrill {
 
 	@Override
 	public boolean canPlaceOn(Tile tile, Team team, int rotation) {
-		if (tile.overlay() == oreOverlay) {
-			if (isMultiblock()) {
-				for (var other : tile.getLinkedTilesAs(this, tempTiles)) {
-					if (canMine(other)) {
-						return true;
-					}
+		if (isMultiblock()) {
+			for (var other : tile.getLinkedTilesAs(this, tempTiles)) {
+				if (canMine(other) && tile.overlay() == oreOverlay) {
+					return true;
 				}
-				return false;
-			} else {
-				return canMine(tile);
 			}
-		} else return false;
+			return false;
+		} else {
+			return canMine(tile) && tile.overlay() == oreOverlay;
+		}
 	}
 
 	void countOre(Tile tile) {
@@ -94,7 +94,22 @@ public class ThumperDrill extends GasDrill {
 		}
 	}
 
-	public class ThumperDrillBuild extends GasDrillBuild {
+	public class ThumperDrillBuild extends UAWGasDrillBuild {
+
+		@Override
+		public void drawParticles() {
+			float base = (Time.time / particleLife);
+			rand.setSeed(id);
+			for (int i = 0; i < particles; i++) {
+				float fin = (rand.random(1f) + base) % 1f, fout = 1f - fin;
+				float angle = rand.random(360f);
+				float len = particleRad * Interp.pow2Out.apply(fin);
+				Draw.color(drilledItem.color);
+				Fill.circle(x + Angles.trnsx(angle, len), y + Angles.trnsy(angle, len), particleLength * fout * warmup);
+			}
+			Draw.blend();
+			Draw.reset();
+		}
 
 		@Override
 		public void drawSelect() {
