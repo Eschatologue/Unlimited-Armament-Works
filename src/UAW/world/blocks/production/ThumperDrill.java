@@ -29,7 +29,7 @@ public class ThumperDrill extends UAWGasDrill {
 	}
 
 	@Override
-	public void setStats(){
+	public void setStats() {
 		super.setStats();
 		stats.remove(Stat.drillTier);
 	}
@@ -141,9 +141,41 @@ public class ThumperDrill extends UAWGasDrill {
 
 		@Override
 		public void updateTile() {
-			super.updateTile();
-			if (Mathf.chanceDelta(gasEffectChance * warmup))
-				gasEffect.at(x + Mathf.range(gasEffectRnd), y + Mathf.range(gasEffectRnd));
+			if (dominantItem == null) {
+				return;
+			}
+			if (timer(timerDump, dumpTime)) {
+				dump(items.has(drilledItem) ? drilledItem : null);
+			}
+			timeDrilled += warmup * delta();
+			if (items.total() < itemCapacity && dominantItems > 0 && consValid()) {
+				float speed = 1f;
+				if (cons.optionalValid()) {
+					speed = liquidBoostIntensity;
+				}
+				// Drill slower when not at full power
+				speed *= efficiency();
+				lastDrillSpeed = (speed * dominantItems * warmup) / (drillTime + hardnessDrillMultiplier * dominantItem.hardness);
+				warmup = Mathf.approachDelta(warmup, speed, warmupSpeed);
+				progress += delta() * dominantItems * speed * warmup;
+				if (Mathf.chanceDelta(updateEffectChance * warmup)) {
+					updateEffect.at(x + Mathf.range(size * 2), y + Mathf.range(size * 2));
+				}
+				if (Mathf.chanceDelta(gasEffectChance * warmup)) {
+					gasEffect.at(x + Mathf.range(gasEffectRnd), y + Mathf.range(gasEffectRnd));
+				}
+			} else {
+				lastDrillSpeed = 0f;
+				warmup = Mathf.approachDelta(warmup, 0f, warmupSpeed);
+				return;
+			}
+			float delay = drillTime + hardnessDrillMultiplier * dominantItem.hardness;
+			if (dominantItems > 0 && progress >= delay && items.total() < itemCapacity) {
+				offload(drilledItem);
+				progress %= delay;
+				drillEffect.at(x + Mathf.range(drillEffectRnd), y + Mathf.range(drillEffectRnd), drilledItem.color);
+			}
+
 		}
 	}
 }

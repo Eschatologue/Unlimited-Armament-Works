@@ -378,9 +378,11 @@ public class UAWBlocksProduction implements ContentList {
 			craftEffect = Fx.formsmoke;
 			updateEffect = UAWFxD.steamCloud(9.5f, Layer.flyingUnitLow);
 			updateEffectChance = 0.01f;
-			drawer = new GasDrawAnimation() {{
-				frameCount = 9;
-				frameSpeed = (craftTime / frameCount);
+			drawer = new GasDrawEverything(){{
+				drawArcSmelter = true;
+				circleSpark = true;
+				arcParticles = 34;
+				arcFlameColor = Pal.lightishGray;
 			}};
 			outputItem = new ItemStack(Items.plastanium, 6);
 
