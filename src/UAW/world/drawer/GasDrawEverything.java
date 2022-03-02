@@ -5,6 +5,7 @@ import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.util.Time;
+import gas.world.GasBlock;
 import gas.world.blocks.production.GasGenericCrafter;
 import gas.world.draw.GasDrawBlock;
 import mindustry.graphics.*;
@@ -180,8 +181,9 @@ public class GasDrawEverything extends GasDrawBlock {
 			Drawf.light(build.team, build.x, build.y, (smelterLightRadius + Mathf.absin(smelterLightSinScl, smelterLightSinMag)) * build.warmup * build.block.size, smelterFlameColor, smelterLightAlpha);
 	}
 
-	public void load(Block block) {
-		bottomRegion = Core.atlas.find(block.name + "-bottom");
+	@Override
+	public void load(GasBlock block) {
+		this.bottomRegion = Core.atlas.find(block.name + "-bottom");
 		heatRegion = Core.atlas.find(block.name + "-heat");
 		primaryRotatorRegion = Core.atlas.find(block.name + "-rotator-1");
 		secondaryRotatorRegion = Core.atlas.find(block.name + "-rotator-2");
@@ -192,7 +194,8 @@ public class GasDrawEverything extends GasDrawBlock {
 		clearSprite = Core.atlas.find("clear");
 	}
 
-	public TextureRegion[] icons(Block block) {
+	@Override
+	public TextureRegion[] icons(GasBlock block) {
 		return new TextureRegion[]{
 			bottomRegion.found() ? bottomRegion : clearSprite,
 			block.region,
