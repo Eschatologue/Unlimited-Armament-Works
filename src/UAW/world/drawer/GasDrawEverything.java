@@ -35,7 +35,7 @@ public class GasDrawEverything extends GasDrawBlock {
 	public float arcParticleLife = 40f, arcParticleRad = 7f, arcParticleSmoke = 1.1f, argParticleLength = 3f;
 
 	// Cells
-	public boolean drawSmokeCells = true;
+	public boolean drawSmokeCells = false;
 	public Color smokeColor = Color.white.cpy(), smokeParticleColorFrom = Color.black.cpy(), smokeParticleColorTo = Color.black.cpy();
 	public int smokeParticles = 12;
 	public float smokeRange = 4f, smokeRecurrance = 6f, smokeRadius = 3f, lifetime = 60f;

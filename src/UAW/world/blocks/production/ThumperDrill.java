@@ -6,7 +6,6 @@ import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.util.Time;
-import gas.world.blocks.production.GasDrill;
 import mindustry.content.Blocks;
 import mindustry.game.Team;
 import mindustry.type.Item;
@@ -18,9 +17,16 @@ import static mindustry.Vars.*;
 public class ThumperDrill extends UAWGasDrill {
 	public Block oreOverlay = Blocks.oreCoal;
 	public Item drilledItem = UAWItems.anthracite;
+	public float updateEffectRnd = -1f;
 
 	public ThumperDrill(String name) {
 		super(name);
+	}
+
+	@Override
+	public void init() {
+		super.init();
+		if (updateEffectRnd < 0) updateEffectRnd = size;
 	}
 
 	@Override
@@ -142,7 +148,7 @@ public class ThumperDrill extends UAWGasDrill {
 				warmup = Mathf.approachDelta(warmup, speed, warmupSpeed);
 				progress += delta() * dominantItems * speed * warmup;
 				if (Mathf.chanceDelta(updateEffectChance * warmup))
-					updateEffect.at(x + Mathf.range(size * 2f), y + Mathf.range(size * 2f));
+					updateEffect.at(x + Mathf.range(updateEffectRnd), y + Mathf.range(updateEffectRnd));
 			} else {
 				lastDrillSpeed = 0f;
 				warmup = Mathf.approachDelta(warmup, 0f, warmupSpeed);

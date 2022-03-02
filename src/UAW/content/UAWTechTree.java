@@ -230,17 +230,6 @@ public class UAWTechTree implements ContentList {
 			)
 		);
 
-		vanillaNode(surgeSmelter, () ->
-			// Carburizing Furnace
-			node(carburizingFurnace,
-				Seq.with(
-					new SectorComplete(SectorPresets.windsweptIslands),
-					new Research(siliconCrucible),
-					new Research(titaniumCarbide)
-				)
-			)
-		);
-
 		vanillaNode(siliconCrucible, () ->
 			// Petroleum Smelter
 			node(petroleumSmelter,
@@ -282,10 +271,15 @@ public class UAWTechTree implements ContentList {
 								node(pulsometerPump, () ->
 									node(oilDerrick,
 										Seq.with(
-											new SectorComplete(SectorPresets.tarFields),
 											new Research(pressureBoiler)
 										), () ->
-											node(petrochemicalCentrifuge)
+											node(carburizingFurnace, () ->
+												node(petrochemicalCentrifuge,
+													Seq.with(
+														new Research(steamThumper)
+													)
+												)
+											)
 									)
 								)
 							);
@@ -295,6 +289,7 @@ public class UAWTechTree implements ContentList {
 						node(steamGraphitePress, () ->
 							node(plastaniumSteamPress)
 						);
+						node(steamThumper);
 						node(advancedSteamDrill,
 							Seq.with(
 								new Research(plastaniumSteamPress)

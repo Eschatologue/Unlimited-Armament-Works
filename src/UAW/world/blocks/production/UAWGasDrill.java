@@ -10,7 +10,6 @@ import mindustry.graphics.Drawf;
 import static arc.math.Mathf.rand;
 
 public class UAWGasDrill extends GasDrill {
-	public float particleAlpha = 0.68f;
 	public int particles = 25;
 	public float particleLife = 40f, particleRad = 7f, particleLength = 3f;
 
@@ -39,7 +38,6 @@ public class UAWGasDrill extends GasDrill {
 			float s = 0.3f;
 			float ts = 0.6f;
 			Draw.rect(region, x, y);
-			if (warmup > 0) drawParticles();
 			super.drawCracks();
 			if (drawRim) {
 				Draw.color(heatColor);
@@ -49,6 +47,7 @@ public class UAWGasDrill extends GasDrill {
 				Draw.blend();
 				Draw.color();
 			}
+			if (warmup > 0) drawParticles();
 			if (drawSpinSprite) {
 				Drawf.spinSprite(rotatorRegion, x, y, timeDrilled * rotateSpeed);
 			} else {
