@@ -17,7 +17,7 @@ public class UAWItems implements ContentList {
 		anthracite = new Item("item-anthracite", Color.valueOf("272727")) {{
 			flammability = 1.8f;
 			explosiveness = 0.25f;
-			hardness = 6;
+			hardness = 4;
 		}};
 		titaniumCarbide = new Item("item-titanium-carbide", Color.valueOf("7575C8")) {{
 			cost = 2.5f;

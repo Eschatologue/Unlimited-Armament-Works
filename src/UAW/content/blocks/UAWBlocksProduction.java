@@ -77,12 +77,14 @@ public class UAWBlocksProduction implements ContentList {
 			drilledItem = UAWItems.anthracite;
 			tier = 3;
 			itemCapacity = 25;
-			drillTime = 300;
+			drillTime = 900;
 			warmupSpeed = 0.001f;
 			hasLiquids = false;
 			drawRim = true;
-			updateEffectRnd = 0;
-			updateEffect = UAWFxD.steamCloud(5.5f);
+			gasCapacity = 90f;
+			gasEffectRnd = 0;
+			gasEffectChance = 0.04f;
+			gasEffect = UAWFxD.steamCloud(5.5f);
 			drillEffect = Fx.none;
 
 			consumes.addGas(new ConsumeGas(UAWGas.steam, 0.5f));
@@ -145,20 +147,18 @@ public class UAWBlocksProduction implements ContentList {
 			hasLiquids = false;
 			size = 3;
 			itemCapacity = 30;
+			gasCapacity = 180f;
 			craftTime = 3.5f * tick;
 			drawer = new GasDrawEverything() {{
 				drawArcSmelter = true;
 				arcParticles = 32;
 				arcFlameRad = 1.2f;
 			}};
-			craftEffect = new MultiEffect(
-				UAWFxD.steamCloud(12f),
-				Fx.flakExplosionBig
-			);
+			craftEffect = UAWFxD.steamCloud(12f);
 			updateEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
 			consumes.items(
 				new ItemStack(Items.titanium, 4),
-				new ItemStack(Items.coal, 8)
+				new ItemStack(UAWItems.anthracite, 4)
 			);
 			consumes.addGas(new ConsumeGas(UAWGas.steam, 4.5f));
 			outputItem = new ItemStack(
@@ -379,7 +379,7 @@ public class UAWBlocksProduction implements ContentList {
 			updateEffect = UAWFxD.steamCloud(9.5f, Layer.flyingUnitLow);
 			updateEffectChance = 0.01f;
 			drawer = new GasDrawAnimation() {{
-				frameCount = 17;
+				frameCount = 8;
 				frameSpeed = (craftTime / frameCount);
 			}};
 			outputItem = new ItemStack(Items.plastanium, 6);

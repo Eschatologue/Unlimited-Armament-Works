@@ -289,12 +289,14 @@ public class UAWTechTree implements ContentList {
 						node(steamGraphitePress, () ->
 							node(plastaniumSteamPress)
 						);
-						node(steamThumper);
 						node(advancedSteamDrill,
 							Seq.with(
 								new Research(plastaniumSteamPress)
 							)
 						);
+						node(steamThumper, Seq.with(
+							new Research(advancedSteamDrill)
+						));
 					});
 				});
 			})

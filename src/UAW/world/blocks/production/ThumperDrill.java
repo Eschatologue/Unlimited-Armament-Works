@@ -6,10 +6,12 @@ import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.util.Time;
-import mindustry.content.Blocks;
+import mindustry.content.*;
+import mindustry.entities.Effect;
 import mindustry.game.Team;
 import mindustry.type.Item;
 import mindustry.world.*;
+import mindustry.world.meta.Stat;
 
 import static arc.math.Mathf.rand;
 import static mindustry.Vars.*;
@@ -17,16 +19,25 @@ import static mindustry.Vars.*;
 public class ThumperDrill extends UAWGasDrill {
 	public Block oreOverlay = Blocks.oreCoal;
 	public Item drilledItem = UAWItems.anthracite;
-	public float updateEffectRnd = -1f;
+	public Effect gasEffect = Fx.fire;
+	public float gasEffectChance = 0.02f;
+	public float gasEffectRnd = -1f;
 
 	public ThumperDrill(String name) {
 		super(name);
+		drawMineItem = false;
+	}
+
+	@Override
+	public void setStats(){
+		super.setStats();
+		stats.remove(Stat.drillTier);
 	}
 
 	@Override
 	public void init() {
 		super.init();
-		if (updateEffectRnd < 0) updateEffectRnd = size;
+		if (gasEffectRnd < 0) gasEffectRnd = size;
 	}
 
 	@Override
@@ -130,36 +141,9 @@ public class ThumperDrill extends UAWGasDrill {
 
 		@Override
 		public void updateTile() {
-			if (dominantItem == null) {
-				return;
-			}
-			if (timer(timerDump, dumpTime)) {
-				dump(items.has(drilledItem) ? drilledItem : null);
-			}
-			timeDrilled += warmup * delta();
-			if (items.total() < itemCapacity && dominantItems > 0 && consValid()) {
-				float speed = 1f;
-				if (cons.optionalValid()) {
-					speed = liquidBoostIntensity;
-				}
-				// Drill slower when not at full power
-				speed *= efficiency();
-				lastDrillSpeed = (speed * dominantItems * warmup) / (drillTime + hardnessDrillMultiplier * dominantItem.hardness);
-				warmup = Mathf.approachDelta(warmup, speed, warmupSpeed);
-				progress += delta() * dominantItems * speed * warmup;
-				if (Mathf.chanceDelta(updateEffectChance * warmup))
-					updateEffect.at(x + Mathf.range(updateEffectRnd), y + Mathf.range(updateEffectRnd));
-			} else {
-				lastDrillSpeed = 0f;
-				warmup = Mathf.approachDelta(warmup, 0f, warmupSpeed);
-				return;
-			}
-			float delay = drillTime + hardnessDrillMultiplier * dominantItem.hardness;
-			if (dominantItems > 0 && progress >= delay && items.total() < itemCapacity) {
-				offload(drilledItem);
-				progress %= delay;
-				drillEffect.at(x + Mathf.range(drillEffectRnd), y + Mathf.range(drillEffectRnd), drilledItem.color);
-			}
+			super.updateTile();
+			if (Mathf.chanceDelta(gasEffectChance * warmup))
+				gasEffect.at(x + Mathf.range(gasEffectRnd), y + Mathf.range(gasEffectRnd));
 		}
 	}
 }
