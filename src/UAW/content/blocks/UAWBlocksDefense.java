@@ -143,7 +143,7 @@ public class UAWBlocksDefense implements ContentList {
 			float brange = range = 65 * tilesize;
 			requirements(Category.turret, with(
 				Items.thorium, 400,
-				UAWItems.titaniumCarbide, 175,
+				Items.titanium, 275,
 				Items.graphite, 250,
 				Items.silicon, 200,
 				Items.plastanium, 150

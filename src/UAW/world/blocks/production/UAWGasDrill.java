@@ -10,11 +10,16 @@ import mindustry.graphics.Drawf;
 import static arc.math.Mathf.rand;
 
 public class UAWGasDrill extends GasDrill {
-	public int particles = 25;
-	public float particleLife = 40f, particleRad = 7f, particleLength = 3f;
+	public int particles = 35;
+	public float particleLife = -1f, particleSpreadRadius = 7f, particleLength = 3f;
 
 	public UAWGasDrill(String name) {
 		super(name);
+	}
+
+	@Override
+	public void init(){
+		if (particleLife < 0) particleLife = (size * 2) * 10;
 	}
 
 	public class UAWGasDrillBuild extends GasDrillBuild {
@@ -25,7 +30,7 @@ public class UAWGasDrill extends GasDrill {
 			for (int i = 0; i < particles; i++) {
 				float fin = (rand.random(1f) + base) % 1f, fout = 1f - fin;
 				float angle = rand.random(360f);
-				float len = particleRad * Interp.pow2Out.apply(fin);
+				float len = particleSpreadRadius * Interp.pow2Out.apply(fin);
 				Draw.color(dominantItem.color);
 				Fill.circle(x + Angles.trnsx(angle, len), y + Angles.trnsy(angle, len), particleLength * fout * warmup);
 			}

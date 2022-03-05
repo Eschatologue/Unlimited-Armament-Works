@@ -120,7 +120,7 @@ public class ThumperDrill extends UAWGasDrill {
 			for (int i = 0; i < particles; i++) {
 				float fin = (rand.random(1f) + base) % 1f, fout = 1f - fin;
 				float angle = rand.random(360f);
-				float len = particleRad * Interp.pow2Out.apply(fin);
+				float len = particleSpreadRadius * Interp.pow2Out.apply(fin);
 				Draw.color(drilledItem.color);
 				Fill.circle(x + Angles.trnsx(angle, len), y + Angles.trnsy(angle, len), particleLength * fout * warmup);
 			}

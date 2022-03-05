@@ -3,7 +3,7 @@ package UAW.content.blocks;
 import UAW.content.UAWItems;
 import UAW.graphics.UAWFxD;
 import UAW.world.blocks.gas.LiquidBoiler;
-import UAW.world.blocks.power.WarmUpGenerator;
+import UAW.world.blocks.power.*;
 import gas.GasStack;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
@@ -18,6 +18,7 @@ public class UAWBlocksPower implements ContentList {
 	public static Block placeholder,
 
 	petroleumGenerator,
+		steamTurbine,
 		steamKettle, coalBoiler, pressureBoiler, geothermalKettle, solarBoiler;
 
 	@Override
@@ -43,7 +44,9 @@ public class UAWBlocksPower implements ContentList {
 			consumes.liquid(Liquids.oil, 3f);
 		}};
 
-		// Gasses
+		// Steam to Power
+
+		// Steam Production
 		steamKettle = new LiquidBoiler("steam-kettle") {{
 			requirements(Category.power, with(
 				Items.copper, 12,
@@ -85,7 +88,7 @@ public class UAWBlocksPower implements ContentList {
 			requirements(Category.power, with(
 				Items.copper, 150,
 				Items.lead, 125,
-				Items.titanium, 55,
+				Items.titanium, 65,
 				Items.graphite, 50
 			));
 			size = 4;
