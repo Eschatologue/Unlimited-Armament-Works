@@ -15,6 +15,7 @@ public class UAWGasDrill extends GasDrill {
 
 	public UAWGasDrill(String name) {
 		super(name);
+		hasGasses = true;
 	}
 
 	@Override
