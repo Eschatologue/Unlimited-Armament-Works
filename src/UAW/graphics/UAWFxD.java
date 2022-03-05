@@ -358,7 +358,7 @@ public class UAWFxD {
 			})).layer(layer);
 	}
 
-	static float smokeSizeLfMult = 11f;
+	static float smokeSizeLfMult = 12f;
 
 	/**
 	 * Steam Cloud used for steam effects on various buildings | 1st Variation
