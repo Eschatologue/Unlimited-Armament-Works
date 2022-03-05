@@ -102,9 +102,6 @@ public class UAWTechTree implements ContentList {
 				)
 			)
 		);
-		vanillaNode(water, () ->
-			nodeProduce(UAWGas.steam)
-		);
 
 		vanillaNode(surgeAlloy, () ->
 			// Surge Solvent
