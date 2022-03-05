@@ -20,6 +20,7 @@ public class UAWGasDrill extends GasDrill {
 
 	@Override
 	public void init(){
+		super.init();
 		if (particleLife < 0) particleLife = (size * 2) * 10;
 	}
 

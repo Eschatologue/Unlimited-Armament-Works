@@ -166,34 +166,6 @@ public class UAWBlocksProduction implements ContentList {
 			);
 		}};
 
-//		petrochemicalCentrifuge = new EffectGasSeperator("petrochemical-centrifuge") {{
-//			requirements(Category.crafting, with(
-//				Items.plastanium, 30,
-//				Items.titanium, 90,
-//				Items.silicon, 50,
-//				Items.coal, 180
-//			));
-//			results = with(
-//				UAWItems.anthracite, 3,
-//				Items.coal, 2
-//			);
-//			size = 3;
-//			craftTime = 0.5f * tick;
-//			itemCapacity = 30;
-//			squareSprite = false;
-//			gasCapacity = liquidCapacity = 240f;
-//			updateEffect = new MultiEffect(
-//				UAWFxD.steamCloud(5f),
-//				Fx.fireHit,
-//				UAWFxS.plastHit,
-//				Fx.oily
-//			);
-//
-//			researchCostMultiplier = 3.5f;
-//
-//			consumes.liquid(Liquids.oil, 0.2f);
-//			consumes.addGas(new ConsumeGas(UAWGas.steam, 0.5f));
-//		}};
 
 		steamPump = new UAWGasPump("steam-pump") {{
 			requirements(Category.liquid, with(
