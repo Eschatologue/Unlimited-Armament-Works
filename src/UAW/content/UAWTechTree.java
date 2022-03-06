@@ -112,6 +112,10 @@ public class UAWTechTree implements ContentList {
 			// Anthracite
 			nodeProduce(anthracite)
 		);
+
+		vanillaNode(water, () ->
+			nodeProduce(UAWGas.steam)
+		);
 		// endregion consumeables
 		// region Turrets
 		vanillaNode(duo, () -> {

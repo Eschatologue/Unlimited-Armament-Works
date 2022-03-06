@@ -49,7 +49,7 @@ public class UAWBlocksProduction implements ContentList {
 			size = 4;
 			result = Liquids.oil;
 			updateEffect = new MultiEffect(
-				UAWFxD.steamCloud(8),
+				UAWFxD.steamCloud(5),
 				Fx.oily
 			);
 			updateEffectChance = 0.05f;
@@ -81,8 +81,11 @@ public class UAWBlocksProduction implements ContentList {
 			hasLiquids = true;
 			drawRim = true;
 			gasCapacity = 90f;
-			drillEffect = Fx.none;
-			updateEffect = Fx.steam;
+			drillEffect = new MultiEffect(
+				Fx.mineHuge,
+				Fx.oily
+			);
+			updateEffect = UAWFxD.steamCloud(4);
 
 			consumes.addGas(new ConsumeGas(UAWGas.steam, 0.5f));
 			consumes.liquid(Liquids.oil, 0.025f).boost();
@@ -102,7 +105,7 @@ public class UAWBlocksProduction implements ContentList {
 			hasLiquids = false;
 			drawRim = true;
 			updateEffectChance = 0.03f;
-			updateEffect = UAWFxD.steamCloud(7.5f);
+			updateEffect = UAWFxD.steamCloud(3.5f);
 			drillEffect = Fx.mineBig;
 
 			consumes.addGas(new ConsumeGas(UAWGas.steam, 0.25f));
@@ -162,7 +165,6 @@ public class UAWBlocksProduction implements ContentList {
 				UAWItems.titaniumCarbide, 1
 			);
 		}};
-
 
 		steamPump = new UAWGasPump("steam-pump") {{
 			requirements(Category.liquid, with(
@@ -324,10 +326,7 @@ public class UAWBlocksProduction implements ContentList {
 			craftTime = 90f;
 			itemCapacity = 40;
 			drawer = new GasDrawEverything(){{
-				drawSmokeCells = true;
-				smokeParticles = 22;
-				smokeParticleColorFrom = Pal.lightishGray;
-				smokeParticleColorTo = UAWPal.steamFront;
+				drawSteam = true;
 			}};
 
 			consumes.addGas(new ConsumeGas(UAWGas.steam, 2f));

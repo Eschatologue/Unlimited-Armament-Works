@@ -414,6 +414,6 @@ public class UAWFxD {
 				Fill.circle(e.x + x, e.y + y, e.fout() * 3f + 0.1f);
 				Draw.reset();
 			});
-		}).layer(Layer.effect);
+		}).layer(Layer.flyingUnitLow);
 	}
 }
