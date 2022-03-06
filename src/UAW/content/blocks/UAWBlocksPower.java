@@ -1,7 +1,6 @@
 package UAW.content.blocks;
 
 import UAW.content.*;
-import UAW.graphics.UAWFxD;
 import UAW.world.blocks.gas.LiquidBoiler;
 import UAW.world.blocks.power.WarmUpGenerator;
 import UAW.world.drawer.GasDrawEverything;
@@ -11,7 +10,6 @@ import gas.world.consumers.ConsumeGas;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.gen.Sounds;
-import mindustry.graphics.Layer;
 import mindustry.type.*;
 import mindustry.world.Block;
 
@@ -49,13 +47,15 @@ public class UAWBlocksPower implements ContentList {
 		}};
 
 		// Steam to Power
-		steamTurbine = new GasPowerGenerator("steam-turbine"){{
+		steamTurbine = new GasItemLiquidGenerator("steam-turbine") {{
 			requirements(Category.power, with(Items.copper, 75, Items.lead, 30));
 			size = 2;
 			hasGasses = true;
 			outputsGas = false;
 			hasPower = true;
 			outputsPower = true;
+			hasItems = false;
+			hasLiquids = false;
 
 			powerProduction = 1f;
 			consumes.add(new ConsumeGas(UAWGas.steam, 0.25f));
