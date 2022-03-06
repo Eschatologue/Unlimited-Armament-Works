@@ -2,7 +2,8 @@ package UAW.content.blocks;
 
 import UAW.graphics.UAWFxD;
 import UAW.world.blocks.gas.LiquidBoiler;
-import UAW.world.blocks.power.*;
+import UAW.world.blocks.power.WarmUpGenerator;
+import UAW.world.drawer.GasDrawEverything;
 import gas.GasStack;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
@@ -58,6 +59,13 @@ public class UAWBlocksPower implements ContentList {
 			gasEffect = UAWFxD.steamCloud(1.5f);
 			gasEffectRnd = 0;
 			gasEffectWarmupMult = 0.08f;
+			drawer = new GasDrawEverything() {{
+				drawSteam = true;
+				steamParticleCount = 8;
+				steamParticleLifetime = 45f;
+				steamParticleSize = 6f;
+			}};
+
 			consumes.items(new ItemStack(
 				Items.coal, 1
 			));

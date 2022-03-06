@@ -10,7 +10,6 @@ import gas.world.blocks.production.GasGenericCrafter;
 import gas.world.draw.GasDrawBlock;
 import mindustry.graphics.*;
 import mindustry.type.Liquid;
-import mindustry.world.Block;
 import mindustry.world.consumers.*;
 
 /** The cursed amalgamation of every block drawer code */
@@ -45,6 +44,14 @@ public class GasDrawEverything extends GasDrawBlock {
 	public float smelterLightRadius = 60f, smelterLightAlpha = 0.65f, smelterLightSinScl = 10f, smelterLightSinMag = 5;
 	public float smelterFlameRadius = 3f, smelterFlameRadiusIn = 1.9f, smelterFlameRadiusScl = 5f, smelterFlameRadiusMag = 2f, smelterFlameRadiusInMag = 1f;
 
+	// Steam
+	public boolean drawSteam = false;
+	public Color steamColor = Pal.lightishGray;
+	public float steamLayer = Layer.effect;
+	public int steamParticleCount = 25;
+	public float steamParticleLifetime = 60f;
+	public float steamParticleSpreadRadius= 7f;
+	public float steamParticleSize = 3f;
 
 	@Override
 	public void draw(GasGenericCrafter.GasGenericCrafterBuild build) {
@@ -166,6 +173,21 @@ public class GasDrawEverything extends GasDrawBlock {
 				Draw.reset();
 			}
 		}
+
+		// Steam
+		Draw.z(steamLayer);
+		float base = (Time.time / steamParticleLifetime);
+		rand.setSeed(build.id);
+		for (int i = 0; i < steamParticleCount; i++) {
+			float fin = (rand.random(1f) + base) % 1f, fout = 1f - fin;
+			float angle = rand.random(360f);
+			float len = steamParticleSpreadRadius * Interp.pow2Out.apply(fin);
+			Draw.color(steamColor);
+			Fill.circle(build.x + Angles.trnsx(angle, len), build.y + Angles.trnsy(angle, len), steamParticleSize * fout * build.warmup);
+		}
+		Draw.blend();
+		Draw.reset();
+
 	}
 
 	@Override

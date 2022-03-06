@@ -6,9 +6,9 @@ import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.util.Time;
-import mindustry.content.*;
-import mindustry.entities.Effect;
+import mindustry.content.Blocks;
 import mindustry.game.Team;
+import mindustry.graphics.*;
 import mindustry.type.Item;
 import mindustry.world.*;
 import mindustry.world.meta.Stat;
@@ -19,7 +19,7 @@ import static mindustry.Vars.*;
 public class ThumperDrill extends UAWGasDrill {
 	public Block oreOverlay = Blocks.oreCoal;
 	public Item drilledItem = UAWItems.anthracite;
-	public Effect gasEffect = Fx.fire;
+	public Color steamColor = Pal.lightishGray;
 	public float gasEffectChance = 0.02f;
 	public float gasEffectRnd = -1f;
 
@@ -128,6 +128,21 @@ public class ThumperDrill extends UAWGasDrill {
 			Draw.reset();
 		}
 
+		public void drawSteam() {
+			Draw.z(Layer.effect);
+			float base = (Time.time / particleLife);
+			rand.setSeed(id);
+			for (int i = 0; i < particles; i++) {
+				float fin = (rand.random(1f) + base) % 1f, fout = 1f - fin;
+				float angle = rand.random(360f);
+				float len = particleSpreadRadius * Interp.pow2Out.apply(fin);
+				Draw.color(steamColor);
+				Fill.circle(x + Angles.trnsx(angle, len), y + Angles.trnsy(angle, len), particleLength * fout * warmup);
+			}
+			Draw.blend();
+			Draw.reset();
+		}
+
 		@Override
 		public void drawSelect() {
 			if (dominantItem != null) {
@@ -161,9 +176,6 @@ public class ThumperDrill extends UAWGasDrill {
 				if (Mathf.chanceDelta(updateEffectChance * warmup)) {
 					updateEffect.at(x + Mathf.range(size * 2), y + Mathf.range(size * 2));
 				}
-				if (Mathf.chanceDelta(gasEffectChance * warmup)) {
-					gasEffect.at(x + Mathf.range(gasEffectRnd), y + Mathf.range(gasEffectRnd));
-				}
 			} else {
 				lastDrillSpeed = 0f;
 				warmup = Mathf.approachDelta(warmup, 0f, warmupSpeed);
@@ -175,7 +187,12 @@ public class ThumperDrill extends UAWGasDrill {
 				progress %= delay;
 				drillEffect.at(x + Mathf.range(drillEffectRnd), y + Mathf.range(drillEffectRnd), drilledItem.color);
 			}
+		}
 
+		@Override
+		public void draw() {
+			super.draw();
+			if (warmup > 0) drawSteam();
 		}
 	}
 }

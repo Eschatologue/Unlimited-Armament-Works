@@ -2,7 +2,6 @@ package UAW.world.blocks.gas;
 
 import UAW.content.UAWGas;
 import arc.Core;
-import arc.math.Mathf;
 import arc.util.Nullable;
 import gas.GasStack;
 import gas.type.Gas;
@@ -51,8 +50,6 @@ public class LiquidBoiler extends GasCrafter {
 		super.init();
 		gasCapacity = liquidAmount * conversionMultiplier * capacityMultiplier;
 		liquidCapacity = liquidAmount * capacityMultiplier;
-
-		if (gasEffectRnd < 0) gasEffectRnd = size;
 	}
 
 
@@ -78,22 +75,6 @@ public class LiquidBoiler extends GasCrafter {
 
 		public float warmupProgress() {
 			return warmup;
-		}
-
-		@Override
-		public void updateTile() {
-			super.updateTile();
-			if (gasEffect != null) {
-				if (warmup > 0.5f && gasEffectChance < 0) {
-					if (Mathf.chance(warmup * gasEffectWarmupMult)) {
-						gasEffect.at(x + Mathf.range(gasEffectRnd), y + Mathf.range(gasEffectRnd));
-					}
-				} else if (gasEffectChance > 0) {
-					if (Mathf.chance(gasEffectChance)) {
-						gasEffect.at(x + Mathf.range(gasEffectRnd), y + Mathf.range(gasEffectRnd));
-					}
-				}
-			}
 		}
 
 		@Override
