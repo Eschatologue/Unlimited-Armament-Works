@@ -19,8 +19,6 @@ import static mindustry.Vars.*;
 public class ThumperDrill extends UAWGasDrill {
 	public Block oreOverlay = Blocks.oreCoal;
 	public Item drilledItem = UAWItems.anthracite;
-	public float gasEffectChance = 0.02f;
-	public float gasEffectRnd = -1f;
 
 	public ThumperDrill(String name) {
 		super(name);
@@ -36,7 +34,6 @@ public class ThumperDrill extends UAWGasDrill {
 	@Override
 	public void init() {
 		super.init();
-		if (gasEffectRnd < 0) gasEffectRnd = size;
 	}
 
 	@Override
@@ -111,21 +108,6 @@ public class ThumperDrill extends UAWGasDrill {
 	}
 
 	public class ThumperDrillBuild extends UAWGasDrillBuild {
-
-		@Override
-		public void drawParticles() {
-			float base = (Time.time / particleLife);
-			rand.setSeed(this.id);
-			for (int i = 0; i < particles; i++) {
-				float fin = (rand.random(1f) + base) % 1f, fout = 1f - fin;
-				float angle = rand.random(360f);
-				float len = particleSpreadRadius * Interp.pow2Out.apply(fin);
-				Draw.color(drilledItem.color);
-				Fill.circle(x + Angles.trnsx(angle, len), y + Angles.trnsy(angle, len), particleLength * fout * warmup);
-			}
-			Draw.blend();
-			Draw.reset();
-		}
 
 		@Override
 		public void drawSelect() {

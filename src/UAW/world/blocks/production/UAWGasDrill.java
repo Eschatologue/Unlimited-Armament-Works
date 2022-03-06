@@ -26,20 +26,6 @@ public class UAWGasDrill extends GasDrill {
 
 	public class UAWGasDrillBuild extends GasDrillBuild {
 
-		public void drawParticles() {
-			float base = (Time.time / particleLife);
-			rand.setSeed(this.id);
-			for (int i = 0; i < particles; i++) {
-				float fin = (rand.random(1f) + base) % 1f, fout = 1f - fin;
-				float angle = rand.random(360f);
-				float len = particleSpreadRadius * Interp.pow2Out.apply(fin);
-				Draw.color(dominantItem.color);
-				Fill.circle(x + Angles.trnsx(angle, len), y + Angles.trnsy(angle, len), particleLength * fout * warmup);
-			}
-			Draw.blend();
-			Draw.reset();
-		}
-
 		@Override
 		public void draw() {
 			float s = 0.3f;
@@ -54,7 +40,6 @@ public class UAWGasDrill extends GasDrill {
 				Draw.blend();
 				Draw.color();
 			}
-			if (warmup > 0) drawParticles();
 			if (drawSpinSprite) {
 				Drawf.spinSprite(rotatorRegion, x, y, timeDrilled * rotateSpeed);
 			} else {
