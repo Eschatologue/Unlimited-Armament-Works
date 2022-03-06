@@ -32,7 +32,7 @@ public class UAWBlocksProduction implements ContentList {
 	// Steam Crafter
 	steamPress, plastaniumSteamPress,
 	// Petroleum Crafter
-	petroleumSmelter, petrochemicalCentrifuge,
+	petroleumSmelter,
 	// Liquid Mixer
 	cryofluidDistillery, surgeMixer;
 

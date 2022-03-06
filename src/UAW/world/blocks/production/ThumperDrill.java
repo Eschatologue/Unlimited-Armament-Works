@@ -19,7 +19,6 @@ import static mindustry.Vars.*;
 public class ThumperDrill extends UAWGasDrill {
 	public Block oreOverlay = Blocks.oreCoal;
 	public Item drilledItem = UAWItems.anthracite;
-	public Color steamColor = Pal.lightishGray;
 	public float gasEffectChance = 0.02f;
 	public float gasEffectRnd = -1f;
 
@@ -116,7 +115,7 @@ public class ThumperDrill extends UAWGasDrill {
 		@Override
 		public void drawParticles() {
 			float base = (Time.time / particleLife);
-			rand.setSeed(id);
+			rand.setSeed(this.id);
 			for (int i = 0; i < particles; i++) {
 				float fin = (rand.random(1f) + base) % 1f, fout = 1f - fin;
 				float angle = rand.random(360f);
