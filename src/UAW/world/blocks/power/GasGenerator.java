@@ -36,9 +36,10 @@ public class GasGenerator extends GasPowerGenerator {
 		@Override
 		public void updateTile() {
 			super.updateTile();
-			if (gasses.currentAmount() > minimumGas) {
-				warmup = Mathf.lerpDelta(warmup, 1f, warmupSpeed * timeScale);
-			} else warmup = Mathf.lerpDelta(warmup, 0f, 0.01f);
+			if (consValid()) {
+				warmup = Mathf.approachDelta(warmup, 1f, warmupSpeed);
+				totalTime += delta();
+			} else warmup = Mathf.approachDelta(warmup, 0f, warmupSpeed);
 
 			productionEfficiency = warmup;
 		}
