@@ -30,6 +30,7 @@ public class GasGenerator extends GasPowerGenerator {
 	@Override
 	public void load() {
 		super.load();
+		heatRegion = Core.atlas.find(name + "-heat");
 		rotatorRegion1 = Core.atlas.find(name + "-rotator-1");
 		rotatorRegion2 = Core.atlas.find(name + "-rotator-2");
 		topRegion = Core.atlas.find(name + "-top");
