@@ -37,6 +37,12 @@ public class GasGenerator extends GasPowerGenerator {
 	}
 
 	@Override
+	public void init() {
+		super.init();
+
+	}
+
+	@Override
 	public TextureRegion[] icons() {
 		return new TextureRegion[]{
 			region,
@@ -55,8 +61,8 @@ public class GasGenerator extends GasPowerGenerator {
 			super.draw();
 			if (heatRegion.found()) drawHeat();
 			if (steamBottom) drawSteam();
-			if (rotatorRegion1.found()) Drawf.spinSprite(rotatorRegion1, x, y, rotatorSpeed * warmup);
-			if (rotatorRegion2.found()) Drawf.spinSprite(rotatorRegion2, x, y, -rotatorSpeed * warmup);
+			if (rotatorRegion1.found()) Drawf.spinSprite(rotatorRegion1, x, y, (rotatorSpeed * totalTime));
+			if (rotatorRegion2.found()) Drawf.spinSprite(rotatorRegion2, x, y, -(rotatorSpeed * totalTime));
 			if (topRegion.found()) Draw.rect(topRegion, x, y);
 			if (steamTop) drawSteam();
 		}
@@ -91,7 +97,7 @@ public class GasGenerator extends GasPowerGenerator {
 			super.updateTile();
 			if (consValid()) {
 				warmup = Mathf.lerpDelta(warmup, 1f, warmupSpeed);
-				totalTime += delta();
+				totalTime += warmup * edelta();
 			} else warmup = Mathf.lerpDelta(warmup, 0f, warmupSpeed);
 
 			productionEfficiency = warmup;
