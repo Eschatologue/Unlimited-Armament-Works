@@ -40,7 +40,7 @@ public class GasGenerator extends GasPowerGenerator {
 				warmup = Mathf.lerpDelta(warmup, 1f, warmupSpeed * timeScale);
 			} else warmup = Mathf.lerpDelta(warmup, 0f, 0.01f);
 
-			productionEfficiency += warmup * edelta();
+			productionEfficiency = warmup;
 		}
 	}
 }
