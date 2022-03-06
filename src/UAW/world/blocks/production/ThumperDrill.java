@@ -128,22 +128,6 @@ public class ThumperDrill extends UAWGasDrill {
 			Draw.reset();
 		}
 
-		public void drawSteam() {
-			Draw.z(Layer.effect);
-			Draw.alpha(0.45f);
-			float base = (Time.time / particleLife);
-			rand.setSeed(id);
-			for (int i = 0; i < particles; i++) {
-				float fin = (rand.random(1f) + base) % 1f, fout = 1f - fin;
-				float angle = rand.random(360f);
-				float len = particleSpreadRadius * Interp.pow2Out.apply(fin);
-				Draw.color(steamColor);
-				Fill.circle(x + Angles.trnsx(angle, len), y + Angles.trnsy(angle, len), particleLength * fout * warmup);
-			}
-			Draw.blend();
-			Draw.reset();
-		}
-
 		@Override
 		public void drawSelect() {
 			if (dominantItem != null) {
@@ -188,12 +172,6 @@ public class ThumperDrill extends UAWGasDrill {
 				progress %= delay;
 				drillEffect.at(x + Mathf.range(drillEffectRnd), y + Mathf.range(drillEffectRnd), drilledItem.color);
 			}
-		}
-
-		@Override
-		public void draw() {
-			super.draw();
-			if (warmup > 0) drawSteam();
 		}
 	}
 }

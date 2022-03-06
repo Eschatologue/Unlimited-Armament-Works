@@ -8,6 +8,7 @@ import gas.GasStack;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.gen.Sounds;
+import mindustry.graphics.Layer;
 import mindustry.type.*;
 import mindustry.world.Block;
 
@@ -61,10 +62,11 @@ public class UAWBlocksPower implements ContentList {
 			gasEffectWarmupMult = 0.08f;
 			drawer = new GasDrawEverything() {{
 				drawSteam = true;
-				steamParticleCount = 8;
+				steamLayer = Layer.flyingUnitLow;
+				steamParticleCount = 12;
 				steamParticleLifetime = 150f;
-				steamParticleSize = 2f;
-				steamParticleSpreadRadius = 1.5f;
+				steamParticleSize = 1.5f;
+				steamParticleSpreadRadius = 2f;
 			}};
 
 			consumes.items(new ItemStack(
