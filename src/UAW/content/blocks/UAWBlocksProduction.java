@@ -81,8 +81,6 @@ public class UAWBlocksProduction implements ContentList {
 			hasLiquids = true;
 			drawRim = true;
 			gasCapacity = 90f;
-			gasEffectRnd = 0;
-			gasEffectChance = 0.04f;
 			drillEffect = Fx.none;
 			updateEffect = Fx.steam;
 
