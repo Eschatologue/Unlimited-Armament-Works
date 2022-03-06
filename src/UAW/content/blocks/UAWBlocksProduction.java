@@ -83,7 +83,6 @@ public class UAWBlocksProduction implements ContentList {
 			gasCapacity = 90f;
 			gasEffectRnd = 0;
 			gasEffectChance = 0.04f;
-			gasEffect = UAWFxD.steamCloud(5.5f);
 			drillEffect = Fx.none;
 			updateEffect = Fx.steam;
 
