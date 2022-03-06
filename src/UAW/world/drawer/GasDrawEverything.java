@@ -1,5 +1,6 @@
 package UAW.world.drawer;
 
+import UAW.graphics.UAWPal;
 import arc.Core;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
@@ -46,8 +47,8 @@ public class GasDrawEverything extends GasDrawBlock {
 
 	// Steam
 	public boolean drawSteam = false;
-	public Color steamColor = Pal.lightishGray;
-	public float steamLayer = Layer.effect;
+	public Color steamColor = UAWPal.steamFront;
+	public float steamLayer = Layer.flyingUnitLow;
 	public int steamParticleCount = 25;
 	public float steamParticleLifetime = 60f;
 	public float steamParticleSpreadRadius= 7f;

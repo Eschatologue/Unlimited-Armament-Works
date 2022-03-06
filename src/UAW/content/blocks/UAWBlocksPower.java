@@ -62,8 +62,7 @@ public class UAWBlocksPower implements ContentList {
 			gasEffectWarmupMult = 0.08f;
 			drawer = new GasDrawEverything() {{
 				drawSteam = true;
-				steamLayer = Layer.flyingUnitLow;
-				steamParticleCount = 12;
+				steamParticleCount = 15;
 				steamParticleLifetime = 150f;
 				steamParticleSize = 1.5f;
 				steamParticleSpreadRadius = 2f;
@@ -91,6 +90,13 @@ public class UAWBlocksPower implements ContentList {
 			consumes.items(new ItemStack(
 				Items.coal, 4
 			));
+			drawer = new GasDrawEverything() {{
+				drawSteam = true;
+				steamParticleCount = 35;
+				steamParticleLifetime = 160f;
+				steamParticleSize = 3f;
+				steamParticleSpreadRadius = 4f;
+			}};
 			consumes.liquid(liquidInput, liquidAmount / craftTime);
 			outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);
 		}};
@@ -113,6 +119,13 @@ public class UAWBlocksPower implements ContentList {
 				Items.coal, 4,
 				Items.pyratite, 2
 			));
+			drawer = new GasDrawEverything() {{
+				drawSteam = true;
+				steamParticleCount = 45;
+				steamParticleLifetime = 180f;
+				steamParticleSize = 6f;
+				steamParticleSpreadRadius = 8f;
+			}};
 			consumes.liquid(liquidInput, liquidAmount / craftTime);
 			outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);
 		}};
