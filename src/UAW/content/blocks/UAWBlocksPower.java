@@ -64,6 +64,7 @@ public class UAWBlocksPower implements ContentList {
 				steamParticleCount = 8;
 				steamParticleLifetime = 45f;
 				steamParticleSize = 6f;
+				steamParticleSpreadRadius = 3f;
 			}};
 
 			consumes.items(new ItemStack(
