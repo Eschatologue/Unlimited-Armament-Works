@@ -47,7 +47,7 @@ public class GasDrawEverything extends GasDrawBlock {
 	// Steam
 	public boolean drawSteam = false;
 	public Color steamColor = Pal.lightishGray;
-	public float steamLayer = Layer.flyingUnitLow;
+	public float steamLayer = Layer.effect;
 	public int steamParticleCount = 25;
 	public float steamParticleLifetime = 60f;
 	public float steamParticleSpreadRadius= 7f;
@@ -176,7 +176,6 @@ public class GasDrawEverything extends GasDrawBlock {
 
 		// Steam
 		Draw.z(steamLayer);
-		Draw.alpha(0.45f);
 		float base = (Time.time / steamParticleLifetime);
 		rand.setSeed(build.id);
 		for (int i = 0; i < steamParticleCount; i++) {
@@ -184,6 +183,7 @@ public class GasDrawEverything extends GasDrawBlock {
 			float angle = rand.random(360f);
 			float len = steamParticleSpreadRadius * Interp.pow2Out.apply(fin);
 			Draw.color(steamColor);
+			Draw.alpha(0.45f);
 			Fill.circle(build.x + Angles.trnsx(angle, len), build.y + Angles.trnsy(angle, len), steamParticleSize * fout * build.warmup);
 		}
 		Draw.blend();

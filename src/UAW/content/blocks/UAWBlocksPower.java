@@ -62,9 +62,9 @@ public class UAWBlocksPower implements ContentList {
 			drawer = new GasDrawEverything() {{
 				drawSteam = true;
 				steamParticleCount = 8;
-				steamParticleLifetime = 120f;
-				steamParticleSize = 3.5f;
-				steamParticleSpreadRadius = 3f;
+				steamParticleLifetime = 150f;
+				steamParticleSize = 2f;
+				steamParticleSpreadRadius = 1.5f;
 			}};
 
 			consumes.items(new ItemStack(
