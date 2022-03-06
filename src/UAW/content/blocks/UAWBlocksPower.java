@@ -81,7 +81,7 @@ public class UAWBlocksPower implements ContentList {
 			size = 2;
 			squareSprite = false;
 			warmupSpeed = 0.002f;
-			liquidAmount = 36;
+			liquidAmount = 45;
 			consumes.items(new ItemStack(
 				Items.coal, 3
 			));
@@ -106,7 +106,7 @@ public class UAWBlocksPower implements ContentList {
 			squareSprite = false;
 			itemCapacity = 30;
 			warmupSpeed = 0.0015f;
-			liquidAmount = 180;
+			liquidAmount = 135;
 			consumes.items(with(
 				UAWItems.anthracite, 2
 			));

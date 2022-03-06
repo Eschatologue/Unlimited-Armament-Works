@@ -67,22 +67,23 @@ public class UAWBlocksProduction implements ContentList {
 		steamThumper = new ThumperDrill("steam-thumper") {{
 			requirements(Category.production, with(
 				Items.copper, 55,
+				Items.lead, 45,
 				Items.graphite, 40,
 				Items.silicon, 30
 			));
 			size = 3;
 			squareSprite = false;
-			oreOverlay = Blocks.oreCoal;
+			tileRequirement = Blocks.oreCoal;
 			drilledItem = UAWItems.anthracite;
 			tier = 3;
 			itemCapacity = 25;
-			drillTime = 600;
+			drillTime = 550;
 			warmupSpeed = 0.001f;
 			hasLiquids = true;
 			drawRim = true;
 			gasCapacity = 90f;
 			drillEffect = new MultiEffect(
-				Fx.mineHuge,
+				Fx.mineBig,
 				Fx.oily
 			);
 			updateEffect = UAWFxD.steamCloud(4);
@@ -131,7 +132,7 @@ public class UAWBlocksProduction implements ContentList {
 			drillEffect = Fx.mineBig;
 			rotateSpeed = 6f;
 
-			consumes.addGas(new ConsumeGas(UAWGas.steam, 2.25f));
+			consumes.addGas(new ConsumeGas(UAWGas.steam, 1.8f));
 			consumes.liquid(Liquids.oil, 0.05f).boost();
 		}};
 
@@ -160,7 +161,7 @@ public class UAWBlocksProduction implements ContentList {
 				new ItemStack(Items.titanium, 4),
 				new ItemStack(UAWItems.anthracite, 4)
 			);
-			consumes.addGas(new ConsumeGas(UAWGas.steam, 4.5f));
+			consumes.addGas(new ConsumeGas(UAWGas.steam, 3.25f));
 			outputItem = new ItemStack(
 				UAWItems.titaniumCarbide, 1
 			);
@@ -329,7 +330,7 @@ public class UAWBlocksProduction implements ContentList {
 				drawSteam = true;
 			}};
 
-			consumes.addGas(new ConsumeGas(UAWGas.steam, 2f));
+			consumes.addGas(new ConsumeGas(UAWGas.steam, 1.8f));
 			consumes.item(Items.coal, 5);
 		}};
 		plastaniumSteamPress = new GasCrafter("plastanium-steam-press") {{
@@ -357,7 +358,7 @@ public class UAWBlocksProduction implements ContentList {
 			}};
 			outputItem = new ItemStack(Items.plastanium, 6);
 
-			consumes.addGas(new ConsumeGas(UAWGas.steam, 2.25f));
+			consumes.addGas(new ConsumeGas(UAWGas.steam, 2f));
 			consumes.liquid(Liquids.oil, 0.75f);
 			consumes.item(Items.titanium, 10);
 		}};

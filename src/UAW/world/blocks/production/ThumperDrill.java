@@ -3,22 +3,24 @@ package UAW.world.blocks.production;
 import UAW.content.UAWItems;
 import arc.Core;
 import arc.graphics.Color;
-import arc.graphics.g2d.*;
-import arc.math.*;
-import arc.util.Time;
+import arc.graphics.g2d.Draw;
+import arc.math.Mathf;
 import mindustry.content.Blocks;
 import mindustry.game.Team;
-import mindustry.graphics.*;
 import mindustry.type.Item;
 import mindustry.world.*;
-import mindustry.world.meta.Stat;
+import mindustry.world.blocks.environment.Floor;
+import mindustry.world.meta.*;
 
-import static arc.math.Mathf.rand;
 import static mindustry.Vars.*;
 
 public class ThumperDrill extends UAWGasDrill {
-	public Block oreOverlay = Blocks.oreCoal;
+	/** This drill placing requirement */
+	public Block tileRequirement = Blocks.oreCoal;
+	/** The drilling result */
 	public Item drilledItem = UAWItems.anthracite;
+	/** Whenever if the placing requirement is an overlay or a floor */
+	public boolean isFloor = false;
 
 	public ThumperDrill(String name) {
 		super(name);
@@ -40,13 +42,13 @@ public class ThumperDrill extends UAWGasDrill {
 	public boolean canPlaceOn(Tile tile, Team team, int rotation) {
 		if (isMultiblock()) {
 			for (var other : tile.getLinkedTilesAs(this, tempTiles)) {
-				if (canMine(other) && tile.overlay() == oreOverlay) {
+				if (canMine(other) && !isFloor ? tile.overlay() == tileRequirement : tile.floor() == tileRequirement) {
 					return true;
 				}
 			}
 			return false;
 		} else {
-			return canMine(tile) && tile.overlay() == oreOverlay;
+			return canMine(tile) && !isFloor ? tile.overlay() == tileRequirement : tile.floor() == tileRequirement;
 		}
 	}
 
@@ -86,7 +88,7 @@ public class ThumperDrill extends UAWGasDrill {
 		if (tile == null)
 			return;
 		countOre(tile);
-		if (returnItem != null && tile.overlay() == oreOverlay) {
+		if (returnItem != null && !isFloor ? tile.overlay() == tileRequirement : tile.floor() == tileRequirement) {
 			float width = drawPlaceText(Core.bundle.formatFloat("bar.drillspeed", 60f / (drillTime + hardnessDrillMultiplier * returnItem.hardness) * returnCount, 2), x, y, valid);
 			float dx = x * tilesize + offset - width / 2f - 4f, dy = y * tilesize + offset + size * tilesize / 2f + 5, s = iconSmall / 4f;
 			Draw.mixcol(Color.darkGray, 1f);
@@ -99,7 +101,7 @@ public class ThumperDrill extends UAWGasDrill {
 				Draw.color();
 			}
 		} else {
-			Tile to = tile.getLinkedTilesAs(this, tempTiles).find(t -> tile.overlay() != oreOverlay);
+			Tile to = tile.getLinkedTilesAs(this, tempTiles).find(t -> !isFloor ? tile.overlay() != tileRequirement : tile.floor() != tileRequirement);
 			Item item = to == null ? null : to.drop();
 			if (item != null) {
 				drawPlaceText(Core.bundle.get("bar.inoperative"), x, y, valid);
