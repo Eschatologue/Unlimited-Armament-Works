@@ -176,6 +176,7 @@ public class GasDrawEverything extends GasDrawBlock {
 
 		// Steam
 		Draw.z(steamLayer);
+		Draw.alpha(0.45f);
 		float base = (Time.time / steamParticleLifetime);
 		rand.setSeed(build.id);
 		for (int i = 0; i < steamParticleCount; i++) {

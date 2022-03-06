@@ -130,6 +130,7 @@ public class ThumperDrill extends UAWGasDrill {
 
 		public void drawSteam() {
 			Draw.z(Layer.effect);
+			Draw.alpha(0.45f);
 			float base = (Time.time / particleLife);
 			rand.setSeed(id);
 			for (int i = 0; i < particles; i++) {
