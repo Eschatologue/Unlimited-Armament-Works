@@ -30,7 +30,7 @@ public class UAWBlocksProduction implements ContentList {
 	// General Crafter
 	gelatinizer, carburizingFurnace,
 	// Steam Crafter
-	steamGraphitePress, plastaniumSteamPress,
+	steamPress, plastaniumSteamPress,
 	// Petroleum Crafter
 	petroleumSmelter, petrochemicalCentrifuge,
 	// Liquid Mixer
@@ -310,7 +310,7 @@ public class UAWBlocksProduction implements ContentList {
 			);
 		}};
 
-		steamGraphitePress = new GasCrafter("steam-graphite-press") {{
+		steamPress = new GasCrafter("steam-press") {{
 			requirements(Category.crafting, with(
 				Items.titanium, 90,
 				Items.silicon, 25,
@@ -325,8 +325,12 @@ public class UAWBlocksProduction implements ContentList {
 			outputItem = new ItemStack(Items.graphite, 12);
 			craftTime = 90f;
 			itemCapacity = 40;
-			updateEffect = UAWFxD.steamCloud(9, Layer.flyingUnitLow);
-			updateEffectChance = 0.02f;
+			drawer = new GasDrawEverything(){{
+				drawSmokeCells = true;
+				smokeParticles = 22;
+				smokeParticleColorFrom = Pal.lightishGray;
+				smokeParticleColorTo = UAWPal.steamFront;
+			}};
 
 			consumes.addGas(new ConsumeGas(UAWGas.steam, 2f));
 			consumes.item(Items.coal, 5);
@@ -356,7 +360,7 @@ public class UAWBlocksProduction implements ContentList {
 			}};
 			outputItem = new ItemStack(Items.plastanium, 6);
 
-			consumes.addGas(new ConsumeGas(UAWGas.steam, 2.5f));
+			consumes.addGas(new ConsumeGas(UAWGas.steam, 2.25f));
 			consumes.liquid(Liquids.oil, 0.75f);
 			consumes.item(Items.titanium, 10);
 		}};

@@ -278,7 +278,7 @@ public class UAWTechTree implements ContentList {
 
 					// Steam Drills
 					node(steamDrill, () -> {
-						node(steamGraphitePress, () ->
+						node(steamPress, () ->
 							node(plastaniumSteamPress)
 						);
 						node(advancedSteamDrill);

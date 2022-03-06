@@ -1,5 +1,6 @@
 package UAW.content.blocks;
 
+import UAW.content.UAWItems;
 import UAW.graphics.UAWFxD;
 import UAW.world.blocks.gas.LiquidBoiler;
 import UAW.world.blocks.power.WarmUpGenerator;
@@ -57,12 +58,9 @@ public class UAWBlocksPower implements ContentList {
 			squareSprite = false;
 			warmupSpeed = 0.01f;
 			liquidAmount = 15f;
-			gasEffect = UAWFxD.steamCloud(1.5f);
-			gasEffectRnd = 0;
-			gasEffectWarmupMult = 0.08f;
 			drawer = new GasDrawEverything() {{
 				drawSteam = true;
-				steamParticleCount = 15;
+				steamParticleCount = 20;
 				steamParticleLifetime = 150f;
 				steamParticleSize = 1.5f;
 				steamParticleSpreadRadius = 2f;
@@ -83,19 +81,16 @@ public class UAWBlocksPower implements ContentList {
 			size = 2;
 			squareSprite = false;
 			warmupSpeed = 0.002f;
-			gasEffect = UAWFxD.steamCloud(4.5f);
-			gasEffectWarmupMult = 0.15f;
-			gasEffectRnd = 0.1f;
 			liquidAmount = 36;
 			consumes.items(new ItemStack(
-				Items.coal, 4
+				Items.coal, 3
 			));
 			drawer = new GasDrawEverything() {{
 				drawSteam = true;
 				steamParticleCount = 35;
 				steamParticleLifetime = 160f;
 				steamParticleSize = 3f;
-				steamParticleSpreadRadius = 4f;
+				steamParticleSpreadRadius = 5f;
 			}};
 			consumes.liquid(liquidInput, liquidAmount / craftTime);
 			outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);
@@ -111,20 +106,16 @@ public class UAWBlocksPower implements ContentList {
 			squareSprite = false;
 			itemCapacity = 30;
 			warmupSpeed = 0.0015f;
-			gasEffect = UAWFxD.steamCloud(12f);
-			gasEffectWarmupMult = 0.05f;
-			gasEffectRnd = 0.05f;
 			liquidAmount = 180;
 			consumes.items(with(
-				Items.coal, 4,
-				Items.pyratite, 2
+				UAWItems.anthracite, 2
 			));
 			drawer = new GasDrawEverything() {{
 				drawSteam = true;
 				steamParticleCount = 45;
 				steamParticleLifetime = 180f;
 				steamParticleSize = 6f;
-				steamParticleSpreadRadius = 8f;
+				steamParticleSpreadRadius = 12f;
 			}};
 			consumes.liquid(liquidInput, liquidAmount / craftTime);
 			outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);

@@ -2,11 +2,9 @@ package UAW.world.blocks.gas;
 
 import UAW.content.UAWGas;
 import arc.Core;
-import arc.util.Nullable;
 import gas.GasStack;
 import gas.type.Gas;
 import mindustry.content.Liquids;
-import mindustry.entities.Effect;
 import mindustry.graphics.Pal;
 import mindustry.type.Liquid;
 import mindustry.ui.Bar;
@@ -16,12 +14,6 @@ import static UAW.Vars.tick;
 
 /** Boils crafter to convert liquid to gas based on conversion ratio */
 public class LiquidBoiler extends GasCrafter {
-	@Nullable
-	public Effect gasEffect;
-	/** The randomness of the gas Effect | -1 = Block Size */
-	public float gasEffectRnd = 0f;
-	public float gasEffectChance = -1f;
-	public float gasEffectWarmupMult = 1f;
 
 	/** The amount of liquid unit it consumes */
 	public float liquidAmount = 30f;
@@ -68,7 +60,6 @@ public class LiquidBoiler extends GasCrafter {
 				() -> Pal.lightOrange,
 				entity::warmupProgress
 			));
-//		bars.add("liquid", entity -> new Bar(() -> Core.bundle.format("bar.liquid", entity.items.total()), () -> Pal.items, () -> entity.liquids.currentAmount() / liquidCapacity));
 	}
 
 	public class LiquidBoilerBuild extends GasCrafterBuild {

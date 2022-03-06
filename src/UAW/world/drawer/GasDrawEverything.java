@@ -36,7 +36,7 @@ public class GasDrawEverything extends GasDrawBlock {
 
 	// Cells
 	public boolean drawSmokeCells = false;
-	public Color smokeColor = Color.white.cpy(), smokeParticleColorFrom = Color.black.cpy(), smokeParticleColorTo = Color.black.cpy();
+	public Color smokeParticleColorFrom = Color.black.cpy(), smokeParticleColorTo = Color.black.cpy();
 	public int smokeParticles = 12;
 	public float smokeRange = 4f, smokeRecurrance = 6f, smokeRadius = 3f, lifetime = 60f;
 
@@ -51,7 +51,7 @@ public class GasDrawEverything extends GasDrawBlock {
 	public float steamLayer = Layer.flyingUnitLow;
 	public int steamParticleCount = 25;
 	public float steamParticleLifetime = 60f;
-	public float steamParticleSpreadRadius= 7f;
+	public float steamParticleSpreadRadius = 7f;
 	public float steamParticleSize = 3f;
 
 	@Override
@@ -176,19 +176,21 @@ public class GasDrawEverything extends GasDrawBlock {
 		}
 
 		// Steam
-		Draw.z(steamLayer);
-		float base = (Time.time / steamParticleLifetime);
-		rand.setSeed(build.id);
-		for (int i = 0; i < steamParticleCount; i++) {
-			float fin = (rand.random(1f) + base) % 1f, fout = 1f - fin;
-			float angle = rand.random(360f);
-			float len = steamParticleSpreadRadius * Interp.pow2Out.apply(fin);
-			Draw.color(steamColor);
-			Draw.alpha(0.45f);
-			Fill.circle(build.x + Angles.trnsx(angle, len), build.y + Angles.trnsy(angle, len), steamParticleSize * fout * build.warmup);
+		if (drawSteam) {
+			Draw.z(steamLayer);
+			float base = (Time.time / steamParticleLifetime);
+			rand.setSeed(build.id);
+			for (int i = 0; i < steamParticleCount; i++) {
+				float fin = (rand.random(1f) + base) % 1f, fout = 1f - fin;
+				float angle = rand.random(360f);
+				float len = steamParticleSpreadRadius * Interp.pow2Out.apply(fin);
+				Draw.color(steamColor);
+				Draw.alpha(0.45f);
+				Fill.circle(build.x + Angles.trnsx(angle, len), build.y + Angles.trnsy(angle, len), steamParticleSize * fout * build.warmup);
+			}
+			Draw.blend();
+			Draw.reset();
 		}
-		Draw.blend();
-		Draw.reset();
 
 	}
 
@@ -213,7 +215,7 @@ public class GasDrawEverything extends GasDrawBlock {
 	@Override
 	public TextureRegion[] icons(GasBlock block) {
 		return new TextureRegion[]{
-			block.region,
+			block.region.found() ? block.region : clearSprite,
 			primaryRotatorRegion.found() ? primaryRotatorRegion : clearSprite,
 			secondaryRotatorRegion.found() ? secondaryRotatorRegion : clearSprite,
 			topRegion.found() ? topRegion : clearSprite
