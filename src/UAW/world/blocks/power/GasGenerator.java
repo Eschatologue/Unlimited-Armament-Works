@@ -9,7 +9,7 @@ public class GasGenerator extends GasPowerGenerator {
 	public TextureRegion rotatorRegion1, rotatorRegion2, topRegion;
 
 	public float minimumGas = 0.1f;
-	public float warmupSpeed = 0.01f;
+	public float warmupSpeed = 0.5f;
 
 	public boolean drawSteam = false;
 	public int steamParticleCount = 25;
