@@ -1,11 +1,13 @@
 package UAW.content.blocks;
 
-import UAW.content.UAWItems;
+import UAW.content.*;
 import UAW.graphics.UAWFxD;
 import UAW.world.blocks.gas.LiquidBoiler;
 import UAW.world.blocks.power.WarmUpGenerator;
 import UAW.world.drawer.GasDrawEverything;
 import gas.GasStack;
+import gas.world.blocks.power.*;
+import gas.world.consumers.ConsumeGas;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.gen.Sounds;
@@ -20,7 +22,7 @@ public class UAWBlocksPower implements ContentList {
 	public static Block placeholder,
 
 	petroleumGenerator,
-		steamTurbine,
+		steamTurbine, advancedSteamTurbine,
 		steamKettle, coalBoiler, pressureBoiler, geothermalKettle, solarBoiler;
 
 	@Override
@@ -47,6 +49,17 @@ public class UAWBlocksPower implements ContentList {
 		}};
 
 		// Steam to Power
+		steamTurbine = new GasPowerGenerator("steam-turbine"){{
+			requirements(Category.power, with(Items.copper, 75, Items.lead, 30));
+			size = 2;
+			hasGasses = true;
+			outputsGas = false;
+			hasPower = true;
+			outputsPower = true;
+
+			powerProduction = 1f;
+			consumes.add(new ConsumeGas(UAWGas.steam, 0.25f));
+		}};
 
 		// Steam Production
 		steamKettle = new LiquidBoiler("steam-kettle") {{
