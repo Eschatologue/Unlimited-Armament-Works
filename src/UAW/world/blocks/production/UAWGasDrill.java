@@ -8,7 +8,7 @@ import gas.world.blocks.production.GasDrill;
 import mindustry.graphics.Drawf;
 
 public class UAWGasDrill extends GasDrill {
-	public int particles = 35;
+	public int particles = -1;
 	public float particleLife = -1f, particleSpreadRadius = -1, particleSize = -1;
 
 	public UAWGasDrill(String name) {
@@ -19,9 +19,10 @@ public class UAWGasDrill extends GasDrill {
 	@Override
 	public void init() {
 		super.init();
-		if (particleLife < 0) particleLife = (size * 2) * 10;
-		if (particleSpreadRadius < 0) particleSpreadRadius = size * 1.8f;
-		if (particleSize < 0) particleSize = size * 1.2f;
+		if (particles < 0) particles = (int) (size * 10.5);
+		if (particleLife < 0) particleLife = (size * 3) * 10;
+		if (particleSpreadRadius < 0) particleSpreadRadius = size * 3.25f;
+		if (particleSize < 0) particleSize = size * 1.5f;
 	}
 
 	public class UAWGasDrillBuild extends GasDrillBuild {
