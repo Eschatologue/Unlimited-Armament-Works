@@ -3,14 +3,14 @@ package UAW.world.blocks.production;
 import UAW.content.UAWItems;
 import arc.Core;
 import arc.graphics.Color;
-import arc.graphics.g2d.Draw;
-import arc.math.Mathf;
+import arc.graphics.g2d.*;
+import arc.math.*;
+import arc.util.Time;
 import mindustry.content.Blocks;
 import mindustry.game.Team;
 import mindustry.type.Item;
 import mindustry.world.*;
-import mindustry.world.blocks.environment.Floor;
-import mindustry.world.meta.*;
+import mindustry.world.meta.Stat;
 
 import static mindustry.Vars.*;
 
@@ -110,6 +110,21 @@ public class ThumperDrill extends UAWGasDrill {
 	}
 
 	public class ThumperDrillBuild extends UAWGasDrillBuild {
+
+		@Override
+		public void drawDrillParticles() {
+			float base = (Time.time / particleLife);
+			rand.setSeed(this.id);
+			for (int i = 0; i < particles; i++) {
+				float fin = (rand.random(1f) + base) % 1f, fout = 1f - fin;
+				float angle = rand.random(360f);
+				float len = particleSpreadRadius * Interp.pow2Out.apply(fin);
+				Draw.color(drilledItem.color);
+				Fill.circle(x + Angles.trnsx(angle, len), y + Angles.trnsy(angle, len), particleSize * fout * warmup);
+			}
+			Draw.blend();
+			Draw.reset();
+		}
 
 		@Override
 		public void drawSelect() {

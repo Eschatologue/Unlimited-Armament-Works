@@ -7,11 +7,9 @@ import arc.util.Time;
 import gas.world.blocks.production.GasDrill;
 import mindustry.graphics.Drawf;
 
-import static arc.math.Mathf.rand;
-
 public class UAWGasDrill extends GasDrill {
 	public int particles = 35;
-	public float particleLife = -1f, particleSpreadRadius = 7f, particleLength = 3f;
+	public float particleLife = -1f, particleSpreadRadius = -1, particleSize = -1;
 
 	public UAWGasDrill(String name) {
 		super(name);
@@ -19,12 +17,30 @@ public class UAWGasDrill extends GasDrill {
 	}
 
 	@Override
-	public void init(){
+	public void init() {
 		super.init();
 		if (particleLife < 0) particleLife = (size * 2) * 10;
+		if (particleSpreadRadius < 0) particleSpreadRadius = size * 1.8f;
+		if (particleSize < 0) particleSize = size * 1.2f;
 	}
 
 	public class UAWGasDrillBuild extends GasDrillBuild {
+		/** Without this, it would fuck up other drills */
+		protected static final Rand rand = new Rand();
+
+		public void drawDrillParticles() {
+			float base = (Time.time / particleLife);
+			rand.setSeed(this.id);
+			for (int i = 0; i < particles; i++) {
+				float fin = (rand.random(1f) + base) % 1f, fout = 1f - fin;
+				float angle = rand.random(360f);
+				float len = particleSpreadRadius * Interp.pow2Out.apply(fin);
+				Draw.color(dominantItem.color);
+				Fill.circle(x + Angles.trnsx(angle, len), y + Angles.trnsy(angle, len), particleSize * fout * warmup);
+			}
+			Draw.blend();
+			Draw.reset();
+		}
 
 		@Override
 		public void draw() {
@@ -40,6 +56,7 @@ public class UAWGasDrill extends GasDrill {
 				Draw.blend();
 				Draw.color();
 			}
+			if (warmup > 0) drawDrillParticles();
 			if (drawSpinSprite) {
 				Drawf.spinSprite(rotatorRegion, x, y, timeDrilled * rotateSpeed);
 			} else {
