@@ -54,14 +54,8 @@ public class UAWBlocksPower implements ContentList {
 				Items.silicon, 15
 			));
 			size = 2;
-			hasGasses = true;
-			outputsGas = false;
-			hasPower = true;
-			outputsPower = true;
-			hasItems = false;
-			hasLiquids = false;
-
-			powerProduction = 6f;
+			powerProduction = 5.5f;
+			gasCapacity = 60f;
 			consumes.add(new ConsumeGas(UAWGas.steam, 0.5f).optional(false, false));
 		}};
 

@@ -73,7 +73,6 @@ public class LiquidBoiler extends GasCrafter {
 			return super.getProgressIncrease(base) * warmupProgress();
 		}
 
-
 	}
 }
 

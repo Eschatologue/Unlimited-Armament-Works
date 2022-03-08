@@ -23,11 +23,14 @@ public class GasGenerator extends GasPowerGenerator {
 
 	public GasGenerator(String name) {
 		super(name);
-		if (steamParticleCount < 0) steamParticleCount = (int) (size * 10.5);
-		if (steamParticleLifetime < 0) steamParticleLifetime = (size * 3) * 10;
-		if (steamParticleSpreadRadius < 0) steamParticleSpreadRadius = size * 3.25f;
-		if (steamParticleSize < 0) steamParticleSize = size * 1.5f;
+		hasGasses = true;
+		outputsGas = false;
+		hasPower = true;
+		outputsPower = true;
+		hasItems = false;
+		hasLiquids = false;
 	}
+
 
 	@Override
 	public void load() {
@@ -41,7 +44,10 @@ public class GasGenerator extends GasPowerGenerator {
 	@Override
 	public void init() {
 		super.init();
-
+		if (steamParticleCount < 0) steamParticleCount = (int) (size * 10.5);
+		if (steamParticleLifetime < 0) steamParticleLifetime = (size * 3) * 10;
+		if (steamParticleSpreadRadius < 0) steamParticleSpreadRadius = size * 3.25f;
+		if (steamParticleSize < 0) steamParticleSize = size * 1.5f;
 	}
 
 	@Override

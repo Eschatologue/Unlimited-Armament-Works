@@ -20,12 +20,12 @@ public class UAWGasDrill extends GasDrill {
 	public void init() {
 		super.init();
 		if (particles < 0) particles = (int) (size * 10.5);
-		if (particleLife < 0) particleLife = (size * 3) * 10;
-		if (particleSpreadRadius < 0) particleSpreadRadius = size * 3.25f;
+		if (particleLife < 0) particleLife = (size * 2.8f) * 10;
+		if (particleSpreadRadius < 0) particleSpreadRadius = size * 3f;
 		if (particleSize < 0) particleSize = size * 1.5f;
 	}
 
-	public class UAWGasDrillBuild extends GasDrillBuild {
+	public class UAWGasDrillBuild extends GasDrillBuild{
 		/** Without this, it would fuck up other drills */
 		protected static final Rand rand = new Rand();
 
