@@ -69,6 +69,8 @@ public class UAWBlocksPower implements ContentList {
 				Items.metaglass, 45
 			));
 			size = 4;
+			rotatorSpeed = 7f;
+			warmupSpeed = 0.0005f;
 			squareSprite = false;
 			powerProduction = 20f;
 			gasCapacity = 320f;

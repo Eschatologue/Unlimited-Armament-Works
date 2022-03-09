@@ -15,7 +15,7 @@ public class GasGenerator extends GasPowerGenerator {
 	public Color heatColor = Color.valueOf("ff5512");
 
 	public float warmupSpeed = 0.001f;
-	public float rotatorSpeed = 12f;
+	public float rotatorSpeed = 9f;
 
 	public boolean steamTop = false, steamBottom = true;
 	public int steamParticleCount = -1;
@@ -46,7 +46,7 @@ public class GasGenerator extends GasPowerGenerator {
 		super.init();
 		if (steamParticleCount < 0) steamParticleCount = (int) (size * 10.5);
 		if (steamParticleLifetime < 0) steamParticleLifetime = (size * 3) * 10;
-		if (steamParticleSpreadRadius < 0) steamParticleSpreadRadius = size * 3.25f;
+		if (steamParticleSpreadRadius < 0) steamParticleSpreadRadius = size * 3f;
 		if (steamParticleSize < 0) steamParticleSize = size * 1.5f;
 	}
 
@@ -69,8 +69,8 @@ public class GasGenerator extends GasPowerGenerator {
 			super.draw();
 			if (heatRegion.found()) drawHeat();
 			if (steamBottom) drawSteam();
-			if (rotatorRegion1.found()) Drawf.spinSprite(rotatorRegion1, x, y, (rotatorSpeed * totalTime));
-			if (rotatorRegion2.found()) Drawf.spinSprite(rotatorRegion2, x, y, -(rotatorSpeed * totalTime));
+			if (rotatorRegion1.found()) Drawf.spinSprite(rotatorRegion1, x, y, (rotatorSpeed * warmup));
+			if (rotatorRegion2.found()) Drawf.spinSprite(rotatorRegion2, x, y, -((rotatorSpeed * 0.8f) * warmup));
 			if (topRegion.found()) Draw.rect(topRegion, x, y);
 			if (steamTop) drawSteam();
 		}
