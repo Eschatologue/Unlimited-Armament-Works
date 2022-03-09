@@ -105,9 +105,8 @@ public class GasGenerator extends GasPowerGenerator {
 			super.updateTile();
 			if (consValid()) {
 				warmup = Mathf.lerpDelta(warmup, 1f, warmupSpeed);
-				totalTime += warmup * edelta();
 			} else warmup = Mathf.lerpDelta(warmup, 0f, warmupSpeed);
-
+			totalTime += warmup * edelta();
 			productionEfficiency = warmup;
 		}
 	}
