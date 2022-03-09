@@ -54,9 +54,25 @@ public class UAWBlocksPower implements ContentList {
 				Items.silicon, 15
 			));
 			size = 2;
-			powerProduction = 5.5f;
-			gasCapacity = 60f;
-			consumes.add(new ConsumeGas(UAWGas.steam, 0.5f).optional(false, false));
+			squareSprite = false;
+			powerProduction = 6f;
+			gasCapacity = 120f;
+			consumes.add(new ConsumeGas(UAWGas.steam, 0.75f).optional(false, false));
+		}};
+
+		advancedSteamTurbine = new GasGenerator("advanced-steam-turbine") {{
+			requirements(Category.power, with(
+				Items.copper, 90,
+				Items.titanium, 60,
+				Items.lead, 150,
+				Items.silicon, 90,
+				Items.metaglass, 45
+			));
+			size = 4;
+			squareSprite = false;
+			powerProduction = 20f;
+			gasCapacity = 320f;
+			consumes.add(new ConsumeGas(UAWGas.steam, 2f).optional(false, false));
 		}};
 
 		// Steam Production
