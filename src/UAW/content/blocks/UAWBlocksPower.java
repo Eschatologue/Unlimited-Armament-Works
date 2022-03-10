@@ -73,7 +73,7 @@ public class UAWBlocksPower implements ContentList {
 			squareSprite = false;
 			powerProduction = 20f;
 			gasCapacity = 320f;
-			steamTop = true;
+			steamBottom = false;
 			steamIntensityMult = 0.8f;
 			consumes.add(new ConsumeGas(UAWGas.steam, 2f).optional(false, false));
 		}};
@@ -144,7 +144,7 @@ public class UAWBlocksPower implements ContentList {
 				drawSteam = true;
 				steamParticleCount = 45;
 				steamParticleLifetime = 180f;
-				steamParticleSize = 6f;
+				steamParticleSize = 5f;
 				steamParticleSpreadRadius = 12f;
 			}};
 			consumes.liquid(liquidInput, liquidAmount / craftTime);

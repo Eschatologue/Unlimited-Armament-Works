@@ -10,14 +10,14 @@ import gas.world.blocks.power.GasPowerGenerator;
 import mindustry.graphics.Drawf;
 
 public class GasGenerator extends GasPowerGenerator {
-	public TextureRegion heatRegion, rotatorRegion1, rotatorRegion2, topRegion;
+	public TextureRegion heatRegionBottom, rotatorRegion1, rotatorRegion2, topRegion, heatRegionTop;
 	public Color heatColor = Color.valueOf("ff5512");
 
 	public float warmupSpeed = 0.001f;
 	public float rotatorSpeed = 9f;
 
-	public Color steamColor = UAWPal.steamBloom;
-	public boolean steamTop = false, steamBottom = true;
+	public Color steamColor = UAWPal.steamFront;
+	public boolean steamBottom = true;
 	public float steamIntensityMult = 1;
 	public int steamParticleCount = -1;
 	public float steamParticleLifetime = -1f, steamParticleSpreadRadius = -1f, steamParticleSize = -1;
@@ -36,10 +36,11 @@ public class GasGenerator extends GasPowerGenerator {
 	@Override
 	public void load() {
 		super.load();
-		heatRegion = Core.atlas.find(name + "-heat");
+		heatRegionBottom = Core.atlas.find(name + "-heat-bottom");
 		rotatorRegion1 = Core.atlas.find(name + "-rotator-1");
 		rotatorRegion2 = Core.atlas.find(name + "-rotator-2");
 		topRegion = Core.atlas.find(name + "-top");
+		heatRegionTop = Core.atlas.find(name + "-heat-top");
 	}
 
 	@Override
@@ -68,15 +69,16 @@ public class GasGenerator extends GasPowerGenerator {
 		@Override
 		public void draw() {
 			super.draw();
-			if (heatRegion.found()) drawHeat();
-			if (steamBottom) drawSteamBottom();
+			if (heatRegionBottom.found()) drawHeatBottom();
+			if (steamBottom) drawSteam();
 			if (rotatorRegion1.found()) Drawf.spinSprite(rotatorRegion1, x, y, (rotatorSpeed * totalTime));
 			if (rotatorRegion2.found()) Drawf.spinSprite(rotatorRegion2, x, y, -((rotatorSpeed * 0.8f) * totalTime));
 			if (topRegion.found()) Draw.rect(topRegion, x, y);
-			if (steamTop) drawSteamTop();
+			if (heatRegionTop.found()) drawHeatTop();
+			if (!steamBottom) drawSteam();
 		}
 
-		public void drawSteamBottom() {
+		public void drawSteam() {
 			final Rand rand = new Rand();
 			float base = (Time.time / steamParticleLifetime);
 			rand.setSeed(id);
@@ -92,27 +94,21 @@ public class GasGenerator extends GasPowerGenerator {
 			Draw.reset();
 		}
 
-		public void drawSteamTop() {
-			final Rand rand = new Rand();
-			float base = (Time.time / steamParticleLifetime);
-			rand.setSeed(id);
-			for (int i = 0; i < steamParticleCount; i++) {
-				float fin = (rand.random(1f) + base) % 1f, fout = 1f - fin;
-				float angle = rand.random(360f);
-				float len = steamParticleSpreadRadius * Interp.pow2Out.apply(fin);
-				Draw.color(steamColor);
-				Draw.alpha(0.45f);
-				Fill.circle(x + Angles.trnsx(angle, len), y + Angles.trnsy(angle, len), steamParticleSize * fout * warmup);
-			}
-			Draw.blend();
-			Draw.reset();
-		}
-
-		public void drawHeat() {
+		public void drawHeatBottom() {
 			Draw.color(heatColor);
 			Draw.alpha(warmup * 0.6f * (1f - 0.3f + Mathf.absin(Time.time, 3f, 0.3f)));
 			Draw.blend(Blending.additive);
-			Draw.rect(heatRegion, x, y);
+			Draw.rect(heatRegionBottom, x, y);
+			Draw.blend();
+			Draw.color();
+			Draw.reset();
+		}
+
+		public void drawHeatTop() {
+			Draw.color(heatColor);
+			Draw.alpha(warmup * 0.6f * (1f - 0.3f + Mathf.absin(Time.time, 3f, 0.3f)));
+			Draw.blend(Blending.additive);
+			Draw.rect(heatRegionTop, x, y);
 			Draw.blend();
 			Draw.color();
 			Draw.reset();

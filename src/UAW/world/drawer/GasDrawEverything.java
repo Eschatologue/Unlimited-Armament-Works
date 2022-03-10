@@ -47,7 +47,7 @@ public class GasDrawEverything extends GasDrawBlock {
 
 	// Steam
 	public boolean drawSteam = false;
-	public Color steamColor = UAWPal.steamBloom;
+	public Color steamColor = UAWPal.steamFront;
 	public float steamLayer = Layer.flyingUnitLow;
 	public int steamParticleCount = 25;
 	public float steamParticleLifetime = 60f;
