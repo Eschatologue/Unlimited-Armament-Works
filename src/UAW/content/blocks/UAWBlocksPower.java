@@ -75,6 +75,7 @@ public class UAWBlocksPower implements ContentList {
 			gasCapacity = 320f;
 			steamBottom = false;
 			steamIntensityMult = 0.8f;
+			steamParticleSize = 6f;
 			consumes.add(new ConsumeGas(UAWGas.steam, 2f).optional(false, false));
 		}};
 

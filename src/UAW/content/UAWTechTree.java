@@ -295,6 +295,10 @@ public class UAWTechTree implements ContentList {
 							)
 						);
 					});
+					// Steam Turbine
+					node(steamTurbine, () ->
+						node(advancedSteamTurbine)
+					);
 				});
 			})
 		);
