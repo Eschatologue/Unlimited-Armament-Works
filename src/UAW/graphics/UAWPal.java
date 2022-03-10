@@ -44,10 +44,11 @@ public class UAWPal {
 
 	coalFront = Color.valueOf("404040"),
 		coalBack = Color.valueOf("2a2a2a"),
-		coalBackB0lom = new Color(Color.valueOf("2a2a2a")).lerp(Color.white, 0.15f),
+		coalBackBloom = new Color(coalBack).lerp(Color.white, 0.15f),
 
-	steamFront = Color.valueOf("ececec")
+	steamFront = Color.valueOf("ececec"),
+		steamBloom = new Color(Color.valueOf("#c6c6c6").lerp(steamFront, 0.15f))
 
-		// end
-		;
+			// end
+			;
 }

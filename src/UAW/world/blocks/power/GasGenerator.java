@@ -17,7 +17,9 @@ public class GasGenerator extends GasPowerGenerator {
 	public float warmupSpeed = 0.001f;
 	public float rotatorSpeed = 9f;
 
+	public Color steamColor = UAWPal.steamBloom;
 	public boolean steamTop = false, steamBottom = true;
+	public float steamIntensityMult = 1;
 	public int steamParticleCount = -1;
 	public float steamParticleLifetime = -1f, steamParticleSpreadRadius = -1f, steamParticleSize = -1;
 
@@ -44,10 +46,10 @@ public class GasGenerator extends GasPowerGenerator {
 	@Override
 	public void init() {
 		super.init();
-		if (steamParticleCount < 0) steamParticleCount = (int) (size * 10.5);
-		if (steamParticleLifetime < 0) steamParticleLifetime = (size * 3) * 10;
-		if (steamParticleSpreadRadius < 0) steamParticleSpreadRadius = size * 3f;
-		if (steamParticleSize < 0) steamParticleSize = size * 1.5f;
+		if (steamParticleCount < 0) steamParticleCount = (int) ((int) (size * 10.5) * steamIntensityMult);
+		if (steamParticleLifetime < 0) steamParticleLifetime = (size * 3) * 10 * steamIntensityMult;
+		if (steamParticleSpreadRadius < 0) steamParticleSpreadRadius = size * 3f * steamIntensityMult;
+		if (steamParticleSize < 0) steamParticleSize = size * 1.5f * steamIntensityMult;
 	}
 
 	@Override
@@ -82,7 +84,7 @@ public class GasGenerator extends GasPowerGenerator {
 				float fin = (rand.random(1f) + base) % 1f, fout = 1f - fin;
 				float angle = rand.random(360f);
 				float len = steamParticleSpreadRadius * Interp.pow2Out.apply(fin);
-				Draw.color(UAWPal.steamFront);
+				Draw.color(steamColor);
 				Draw.alpha(0.45f);
 				Fill.circle(x + Angles.trnsx(angle, len), y + Angles.trnsy(angle, len), steamParticleSize * fout * warmup);
 			}

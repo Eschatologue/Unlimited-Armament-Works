@@ -59,7 +59,6 @@ public class UAWBlocksPower implements ContentList {
 			gasCapacity = 120f;
 			consumes.add(new ConsumeGas(UAWGas.steam, 0.75f).optional(false, false));
 		}};
-
 		advancedSteamTurbine = new GasGenerator("advanced-steam-turbine") {{
 			requirements(Category.power, with(
 				Items.copper, 90,
@@ -74,6 +73,8 @@ public class UAWBlocksPower implements ContentList {
 			squareSprite = false;
 			powerProduction = 20f;
 			gasCapacity = 320f;
+			steamTop = true;
+			steamIntensityMult = 0.8f;
 			consumes.add(new ConsumeGas(UAWGas.steam, 2f).optional(false, false));
 		}};
 
