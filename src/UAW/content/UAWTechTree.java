@@ -326,8 +326,7 @@ public class UAWTechTree implements ContentList {
 				Seq.with(
 					new Research(oilDerrick),
 					new Research(pressureBoiler),
-					new Research(plastanium),
-					new SectorComplete(SectorPresets.tarFields)
+					new Research(plastanium)
 				), () -> {
 					node(cavalier, () ->
 						node(centurion, () ->
