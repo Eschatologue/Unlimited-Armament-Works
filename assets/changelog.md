@@ -18,11 +18,12 @@ A... lot, and your old save would probably dont work anymore
 	- Oil Derrick will now also be a part of the brand new steam engines tech tree, and UAW modded unit factories will require Oil Derrick to be researched also.
 6. Liquid Cistern
 	- A new block for storing liquid, bigger storage capacity than liquid tanks
-7. Tier 5 Ground Unit - Main Battle Tank - 'Caernarvon'
+7. Petroleum Generator
+	- Got yeeted into the oblivion / removed
+8. Tier 5 Ground Unit - Main Battle Tank - 'Caernarvon'
 ![image.png](https://i.postimg.cc/BnkYWr5w/image.png)
-Its main gun shells completely bypasses enemy force shields, and 90% of their units armor. Its also heavily armored and slightly faster than its predecessor.
-
-
+Its main gun shells completely bypasses enemy force shields, and most their units armor. Its also heavily armored and slightly faster than its predecessor.
+9. Balance Changes for units that I definitely forgot to document, so you have to figure it out yourseld
 
 
 
