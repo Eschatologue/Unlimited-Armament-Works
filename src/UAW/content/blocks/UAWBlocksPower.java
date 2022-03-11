@@ -2,15 +2,15 @@ package UAW.content.blocks;
 
 import UAW.content.*;
 import UAW.world.blocks.gas.LiquidBoiler;
-import UAW.world.blocks.power.*;
+import UAW.world.blocks.power.GasGenerator;
 import UAW.world.drawer.GasDrawEverything;
 import gas.GasStack;
 import gas.world.consumers.ConsumeGas;
-import mindustry.content.*;
+import mindustry.content.Items;
 import mindustry.ctype.ContentList;
-import mindustry.gen.Sounds;
 import mindustry.type.*;
 import mindustry.world.Block;
+import mindustry.world.meta.Attribute;
 
 import static mindustry.type.ItemStack.with;
 
@@ -18,9 +18,9 @@ import static mindustry.type.ItemStack.with;
 public class UAWBlocksPower implements ContentList {
 	public static Block placeholder,
 
-	petroleumGenerator,
-		steamWheel, steamTurbine, advancedSteamTurbine,
-		steamKettle, coalBoiler, pressureBoiler, geothermalKettle, solarBoiler;
+	steamTurbine, advancedSteamTurbine,
+
+	steamKettle, coalBoiler, pressureBoiler, geothermalBoiler, solarBoiler;
 
 	@Override
 	public void load() {
@@ -92,7 +92,7 @@ public class UAWBlocksPower implements ContentList {
 			size = 2;
 			squareSprite = false;
 			warmupSpeed = 0.002f;
-			liquidAmount = 30;
+			liquidAmount = 35;
 			consumes.items(new ItemStack(
 				Items.coal, 3
 			));
@@ -130,6 +130,61 @@ public class UAWBlocksPower implements ContentList {
 			}};
 			consumes.liquid(liquidInput, liquidAmount / craftTime);
 			outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);
+		}};
+
+		geothermalBoiler = new LiquidBoiler("geothermal-boiler") {{
+			requirements(Category.power, with(
+				Items.copper, 60,
+				Items.graphite, 45,
+				Items.lead, 45,
+				Items.silicon, 30,
+				Items.metaglass, 30
+			));
+			size = 2;
+			squareSprite = false;
+			warmupSpeed = 0.0025f;
+			liquidAmount = 25f;
+			drawer = new GasDrawEverything() {{
+				drawSteam = true;
+				steamParticleCount = 35;
+				steamParticleLifetime = 160f;
+				steamParticleSize = 3f;
+				steamParticleSpreadRadius = 5f;
+			}};
+			consumes.liquid(liquidInput, liquidAmount / craftTime);
+			outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);
+
+			attribute = Attribute.heat;
+			baseEfficiency = 0f;
+			boostScale = 0.25f;
+			maxBoost = 1.5f;
+		}};
+		solarBoiler = new LiquidBoiler("solar-boiler") {{
+			requirements(Category.power, with(
+				Items.copper, 160,
+				Items.lead, 90,
+				Items.silicon, 120,
+				Items.metaglass, 120,
+				Items.phaseFabric, 15
+			));
+			size = 2;
+			squareSprite = false;
+			warmupSpeed = 0.0025f;
+			liquidAmount = 15f;
+			drawer = new GasDrawEverything() {{
+				drawSteam = true;
+				steamParticleCount = 35;
+				steamParticleLifetime = 160f;
+				steamParticleSize = 3f;
+				steamParticleSpreadRadius = 5f;
+			}};
+			consumes.liquid(liquidInput, liquidAmount / craftTime);
+			outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);
+
+			attribute = Attribute.light;
+			baseEfficiency = 0f;
+			boostScale = 0.25f;
+			maxBoost = 1f;
 		}};
 
 	}
