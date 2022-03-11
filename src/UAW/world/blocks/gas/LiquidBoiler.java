@@ -5,9 +5,11 @@ import arc.Core;
 import gas.GasStack;
 import gas.type.Gas;
 import mindustry.content.Liquids;
+import mindustry.game.Team;
 import mindustry.graphics.Pal;
 import mindustry.type.Liquid;
 import mindustry.ui.Bar;
+import mindustry.world.Tile;
 import mindustry.world.meta.Stat;
 
 import static UAW.Vars.tick;
@@ -44,11 +46,18 @@ public class LiquidBoiler extends GasCrafter {
 		liquidCapacity = liquidAmount * capacityMultiplier;
 	}
 
-
 	@Override
 	public void setStats() {
 		super.setStats();
 		stats.remove(Stat.productionTime);
+	}
+
+	@Override
+	public boolean canPlaceOn(Tile tile, Team team, int rotate) {
+		if (attribute == null) {
+			return super.canPlaceOn(tile, team, rotate);
+		} else
+			return tile.getLinkedTilesAs(this, tempTiles).sumf(other -> other.floor().attributes.get(attribute)) > 0.01f;
 	}
 
 	@Override
@@ -70,7 +79,7 @@ public class LiquidBoiler extends GasCrafter {
 
 		@Override
 		public float getProgressIncrease(float base) {
-			return super.getProgressIncrease(base) * warmupProgress() * (attribute != null ? efficiencyScale() : 1);
+			return super.getProgressIncrease(base) * (warmupProgress() * (attribute != null ? efficiencyScale() : 1));
 		}
 
 	}

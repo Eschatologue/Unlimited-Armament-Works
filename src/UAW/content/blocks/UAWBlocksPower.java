@@ -171,18 +171,11 @@ public class UAWBlocksPower implements ContentList {
 			squareSprite = false;
 			warmupSpeed = 0.0025f;
 			liquidAmount = 15f;
-			drawer = new GasDrawEverything() {{
-				drawSteam = true;
-				steamParticleCount = 35;
-				steamParticleLifetime = 160f;
-				steamParticleSize = 3f;
-				steamParticleSpreadRadius = 5f;
-			}};
 			consumes.liquid(liquidInput, liquidAmount / craftTime);
 			outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);
 
 			attribute = Attribute.light;
-			baseEfficiency = 0f;
+			baseEfficiency = 1f;
 			boostScale = 0.25f;
 			maxBoost = 1f;
 		}};
