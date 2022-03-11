@@ -5,7 +5,7 @@ import arc.util.Nullable;
 import gas.world.blocks.production.GenericCrafterWithGas;
 import mindustry.graphics.Pal;
 import mindustry.ui.Bar;
-import mindustry.world.meta.Attribute;
+import mindustry.world.meta.*;
 
 /** General use GasCrafter that can have attributes */
 public class GasCrafter extends GenericCrafterWithGas {
@@ -26,6 +26,13 @@ public class GasCrafter extends GenericCrafterWithGas {
 			drawPlaceText(Core.bundle.format("bar.efficiency",
 				(int) ((baseEfficiency + Math.min(maxBoost, boostScale * sumAttribute(attribute, x, y))) * 100f)), x, y, valid);
 		}
+	}
+
+	@Override
+	public void setStats() {
+		super.setStats();
+
+		if (attribute != null) stats.add(Stat.affinities, attribute, boostScale * size * size);
 	}
 
 	@Override
