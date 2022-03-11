@@ -24,26 +24,6 @@ public class UAWBlocksPower implements ContentList {
 
 	@Override
 	public void load() {
-		petroleumGenerator = new WarmUpGenerator("petroleum-generator") {{
-			requirements(Category.power, with(
-				Items.copper, 200,
-				Items.lead, 200,
-				Items.titanium, 150,
-				Items.plastanium, 100,
-				Items.silicon, 120,
-				Items.metaglass, 120
-			));
-			size = 4;
-			health = 300 * size;
-			hasLiquids = true;
-			hasItems = false;
-			liquidCapacity = 1200f;
-			ambientSound = Sounds.machine;
-			ambientSoundVolume = 0.05f;
-
-			powerProduction = 45f;
-			consumes.liquid(Liquids.oil, 3f);
-		}};
 
 		// Steam to Power
 		steamTurbine = new GasGenerator("steam-turbine") {{

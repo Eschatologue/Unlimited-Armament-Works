@@ -302,17 +302,6 @@ public class UAWTechTree implements ContentList {
 				});
 			})
 		);
-
-		vanillaNode(thoriumReactor, () ->
-			// Petroleum Generator
-			node(petroleumGenerator,
-				Seq.with(
-					new Research(oilExtractor),
-					new Research(differentialGenerator)
-				)
-			)
-		);
-
 		vanillaNode(thermalPump, () ->
 			// Conduits
 			node(pressurizedConduit, () -> {
