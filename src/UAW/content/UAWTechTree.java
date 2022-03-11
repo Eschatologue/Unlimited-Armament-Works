@@ -267,6 +267,7 @@ public class UAWTechTree implements ContentList {
 									new Research(steamThumper)
 								)
 							);
+							node(geothermalBoiler);
 							node(steamPump, () ->
 								node(pulsometerPump, () ->
 									node(oilDerrick,
@@ -279,6 +280,11 @@ public class UAWTechTree implements ContentList {
 							);
 						});
 					});
+					// Steam Turbine
+					node(steamTurbine, () -> {
+							node(advancedSteamTurbine);
+						}
+					);
 
 					// Steam Drills
 					node(steamDrill, () -> {
@@ -295,10 +301,6 @@ public class UAWTechTree implements ContentList {
 							)
 						);
 					});
-					// Steam Turbine
-					node(steamTurbine, () ->
-						node(advancedSteamTurbine)
-					);
 				});
 			})
 		);

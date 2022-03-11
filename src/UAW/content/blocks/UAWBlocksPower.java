@@ -146,7 +146,7 @@ public class UAWBlocksPower implements ContentList {
 			liquidAmount = 25f;
 			drawer = new GasDrawEverything() {{
 				drawSteam = true;
-				steamParticleCount = 35;
+				steamParticleCount = 30;
 				steamParticleLifetime = 160f;
 				steamParticleSize = 3f;
 				steamParticleSpreadRadius = 5f;
@@ -155,30 +155,32 @@ public class UAWBlocksPower implements ContentList {
 			outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);
 
 			attribute = Attribute.heat;
+			floating = true;
 			baseEfficiency = 0f;
-			boostScale = 0.25f;
-			maxBoost = 1.5f;
+			boostScale = 0.5f;
+			maxBoost = 2f;
 		}};
-		solarBoiler = new LiquidBoiler("solar-boiler") {{
-			requirements(Category.power, with(
-				Items.copper, 160,
-				Items.lead, 90,
-				Items.silicon, 120,
-				Items.metaglass, 120,
-				Items.phaseFabric, 15
-			));
-			size = 2;
-			squareSprite = false;
-			warmupSpeed = 0.0025f;
-			liquidAmount = 15f;
-			consumes.liquid(liquidInput, liquidAmount / craftTime);
-			outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);
 
-			attribute = Attribute.light;
-			baseEfficiency = 1f;
-			boostScale = 0.25f;
-			maxBoost = 1f;
-		}};
+//		solarBoiler = new LiquidBoiler("solar-boiler") {{
+//			requirements(Category.power, with(
+//				Items.copper, 160,
+//				Items.lead, 90,
+//				Items.silicon, 120,
+//				Items.metaglass, 120,
+//				Items.phaseFabric, 15
+//			));
+//			size = 2;
+//			squareSprite = false;
+//			warmupSpeed = 0.0025f;
+//			liquidAmount = 15f;
+//			consumes.liquid(liquidInput, liquidAmount / craftTime);
+//			outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);
+//
+//			attribute = Attribute.light;
+//			baseEfficiency = 1f;
+//			boostScale = 0.25f;
+//			maxBoost = 1f;
+//		}};
 
 	}
 }

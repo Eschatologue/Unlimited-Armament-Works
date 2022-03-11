@@ -74,12 +74,12 @@ public class LiquidBoiler extends GasCrafter {
 	public class LiquidBoilerBuild extends GasCrafterBuild {
 
 		public float warmupProgress() {
-			return warmup;
+			return warmup * (attribute != null ? efficiencyScale() : 1);
 		}
 
 		@Override
 		public float getProgressIncrease(float base) {
-			return super.getProgressIncrease(base) * (warmupProgress() * (attribute != null ? efficiencyScale() : 1));
+			return super.getProgressIncrease(base) * warmupProgress();
 		}
 
 	}
