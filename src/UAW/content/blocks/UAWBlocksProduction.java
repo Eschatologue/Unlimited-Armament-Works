@@ -161,7 +161,7 @@ public class UAWBlocksProduction implements ContentList {
 				new ItemStack(Items.titanium, 4),
 				new ItemStack(UAWItems.anthracite, 4)
 			);
-			consumes.addGas(new ConsumeGas(UAWGas.steam, 3.25f));
+			consumes.addGas(new ConsumeGas(UAWGas.steam, 2.75f));
 			outputItem = new ItemStack(
 				UAWItems.titaniumCarbide, 1
 			);
@@ -321,6 +321,7 @@ public class UAWBlocksProduction implements ContentList {
 			));
 			size = 3;
 			hasItems = true;
+			squareSprite = false;
 			hasGasses = true;
 			craftEffect = Fx.pulverizeMedium;
 			outputItem = new ItemStack(Items.graphite, 12);

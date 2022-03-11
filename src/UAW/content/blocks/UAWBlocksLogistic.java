@@ -123,7 +123,7 @@ public class UAWBlocksLogistic implements ContentList {
 				Items.copper, 6
 			));
 			size = 1;
-			gasCapacity = 30f;
+			gasCapacity = 50f;
 			hasLiquids = false;
 			health = 65;
 		}};
@@ -133,7 +133,7 @@ public class UAWBlocksLogistic implements ContentList {
 				Items.copper, 6
 			));
 			size = 1;
-			gasCapacity = 35f;
+			gasCapacity = 50f;
 			health = 65;
 		}};
 		gasBridge = new GasBridge("gas-bridge") {{
@@ -143,7 +143,7 @@ public class UAWBlocksLogistic implements ContentList {
 			));
 			size = 1;
 			health = 75;
-			gasCapacity = 30f;
+			gasCapacity = 60f;
 			outputsGas = true;
 			hasGasses = true;
 			range = 6;
