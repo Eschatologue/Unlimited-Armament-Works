@@ -68,7 +68,7 @@ public class UAWBlocksPower implements ContentList {
 			size = 1;
 			squareSprite = false;
 			warmupSpeed = 0.01f;
-			liquidAmount = 15f;
+			liquidAmount = 7.5f;
 			drawer = new GasDrawEverything() {{
 				drawSteam = true;
 				steamParticleCount = 20;
@@ -92,7 +92,7 @@ public class UAWBlocksPower implements ContentList {
 			size = 2;
 			squareSprite = false;
 			warmupSpeed = 0.002f;
-			liquidAmount = 45;
+			liquidAmount = 30;
 			consumes.items(new ItemStack(
 				Items.coal, 3
 			));
@@ -117,7 +117,7 @@ public class UAWBlocksPower implements ContentList {
 			squareSprite = false;
 			itemCapacity = 30;
 			warmupSpeed = 0.0015f;
-			liquidAmount = 135;
+			liquidAmount = 90;
 			consumes.items(with(
 				UAWItems.anthracite, 2
 			));
