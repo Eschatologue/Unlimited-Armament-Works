@@ -28,7 +28,7 @@ public class LiquidBoiler extends GasCrafter {
 	public LiquidBoiler(String name) {
 		super(name);
 		warmupSpeed = 0.01f;
-		craftTime = 3f * tick;
+		craftTime = 1.5f * tick;
 		hasItems = true;
 		hasLiquids = true;
 		hasGasses = true;

@@ -37,7 +37,7 @@ public class UAWBlocksPower implements ContentList {
 			squareSprite = false;
 			powerProduction = 6f;
 			gasCapacity = 120f;
-			consumes.add(new ConsumeGas(UAWGas.steam, 0.75f).optional(false, false));
+			consumes.add(new ConsumeGas(UAWGas.steam, 0.5f).optional(false, false));
 		}};
 		advancedSteamTurbine = new GasGenerator("advanced-steam-turbine") {{
 			requirements(Category.power, with(
@@ -56,7 +56,7 @@ public class UAWBlocksPower implements ContentList {
 			steamBottom = false;
 			steamIntensityMult = 0.8f;
 			steamParticleSize = 6f;
-			consumes.add(new ConsumeGas(UAWGas.steam, 2f).optional(false, false));
+			consumes.add(new ConsumeGas(UAWGas.steam, 1.8f).optional(false, false));
 		}};
 
 		// Steam Production
