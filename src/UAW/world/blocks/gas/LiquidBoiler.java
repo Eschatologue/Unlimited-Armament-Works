@@ -2,6 +2,7 @@ package UAW.world.blocks.gas;
 
 import UAW.content.UAWGas;
 import arc.Core;
+import arc.math.Mathf;
 import gas.GasStack;
 import gas.type.Gas;
 import mindustry.content.Liquids;
@@ -65,21 +66,31 @@ public class LiquidBoiler extends GasCrafter {
 		super.setBars();
 		bars.add("heat", (LiquidBoilerBuild entity) ->
 			new Bar(() ->
-				Core.bundle.format("bar.heat", (int) (entity.warmup)),
+				Core.bundle.format("bar.heat", (int) (entity.steamBuildUp)),
 				() -> Pal.lightOrange,
-				entity::warmupProgress
+				entity::steamBuildUpProgress
 			));
 	}
 
 	public class LiquidBoilerBuild extends GasCrafterBuild {
+		public float steamBuildUp;
 
-		public float warmupProgress() {
-			return warmup * (attribute != null ? efficiencyScale() : 1);
+		public float steamBuildUpProgress() {
+			return steamBuildUp;
+		}
+
+		@Override
+		public void updateTile() {
+			super.updateTile();
+			if (consValid()) {
+				steamBuildUp = Mathf.approachDelta(steamBuildUp, 1f, warmupSpeed * (attribute != null ? efficiencyScale() : 1));
+			} else
+				steamBuildUp = Mathf.approachDelta(steamBuildUp, 0f, warmupSpeed * (attribute != null ? efficiencyScale() : 1));
 		}
 
 		@Override
 		public float getProgressIncrease(float base) {
-			return super.getProgressIncrease(base) * warmupProgress();
+			return super.getProgressIncrease(base) * steamBuildUpProgress();
 		}
 
 	}
