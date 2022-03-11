@@ -91,16 +91,11 @@ public class UAWTechTree implements ContentList {
 		// region Consumeables
 		vanillaNode(pyratite, () ->
 			// Cryogel
-			node(cryogel)
+			nodeProduce(cryogel)
 		);
 		vanillaNode(titanium, () ->
 			// Titanium Carbide
-			node(titaniumCarbide,
-				Seq.with(
-					new Research(thorium),
-					new Research(surgeAlloy)
-				)
-			)
+			nodeProduce(titaniumCarbide)
 		);
 
 		vanillaNode(surgeAlloy, () ->
@@ -279,13 +274,12 @@ public class UAWTechTree implements ContentList {
 								)
 							);
 						});
+						// Steam Turbine
+						node(steamTurbine, () -> {
+								node(advancedSteamTurbine);
+							}
+						);
 					});
-					// Steam Turbine
-					node(steamTurbine, () -> {
-							node(advancedSteamTurbine);
-						}
-					);
-
 					// Steam Drills
 					node(steamDrill, () -> {
 						node(steamPress, () ->

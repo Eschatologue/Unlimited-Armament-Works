@@ -37,6 +37,7 @@ public class UAWBlocksPower implements ContentList {
 			squareSprite = false;
 			powerProduction = 6f;
 			gasCapacity = 120f;
+			steamBottom = false;
 			consumes.add(new ConsumeGas(UAWGas.steam, 0.5f).optional(false, false));
 		}};
 		advancedSteamTurbine = new GasGenerator("advanced-steam-turbine") {{
@@ -92,7 +93,7 @@ public class UAWBlocksPower implements ContentList {
 			size = 2;
 			squareSprite = false;
 			warmupSpeed = 0.002f;
-			liquidAmount = 35;
+			liquidAmount = 36;
 			consumes.items(new ItemStack(
 				Items.coal, 3
 			));

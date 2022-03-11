@@ -12,7 +12,7 @@ public class UAWGas implements ContentList {
 	@Override
 	public void load() {
 		steam = new Gas("gas-steam") {{
-			localizedName = "Steam";
+			alwaysUnlocked = true;
 			color = Color.valueOf("ececec");
 			explosiveness = 0f;
 			temperature = 0.6f;
