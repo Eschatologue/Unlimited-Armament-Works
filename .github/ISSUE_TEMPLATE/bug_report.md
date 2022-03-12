@@ -2,7 +2,7 @@
 name: Bug report
 about: Found a bug? Report it
 title: "[BUG]"
-labels: 'bug'
+labels: bug
 assignees: ''
 
 ---
@@ -10,7 +10,7 @@ assignees: ''
 ---
 name: Bug report
 about: Create a report to help fix an issue.
-title: 
+title: Bug Report
 labels: bug
 assignees: ''
 
