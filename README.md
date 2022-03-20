@@ -58,6 +58,13 @@ Only compatible on Desktop and Android, both Java and JavaScript mod doesn't wor
 
 ---
 
+<details>
+   <summary> 
+      <h2> 
+         Building 
+      </h2>
+   </summary>
+
 ## Building through Github Actions
 
 This repository is set up with Github Actions CI to automatically build the mod for you every commit. This requires a
@@ -90,6 +97,8 @@ anyway.*
 currently no way to download it as a single file.*
 
 ---
+   
+</details>
 
 ## Notes
 
