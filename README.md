@@ -41,6 +41,8 @@ Also available in the in-game mod browser, where installation is automatic, just
 For unreleased builds you can find it at the [Actions](https://github.com/Eschatologue/Unlimited-Armament-Works/actions) tab and open the last workflow with a green ✅. The zip will contain the latest unreleased build of **UAW** which you  should install with caution since it may crashes your game.
 
 Only compatible on Desktop and Android, both Java and JavaScript mod doesn't work on iOS.
+   
+Do not play this mod on Mindustry Bleeding-Edge build.
 
 </div>
 
@@ -55,8 +57,10 @@ Only compatible on Desktop and Android, both Java and JavaScript mod doesn't wor
 ## Contributors
 - [`Boris#7771`](https://github.com/BorisA11) [Serbian Translator]
 - [`Cato-1#6280`](https://github.com/MissAmity) [Indonesian Translator]
+- [`Prosta4ok_ua#6336`](https://github.com/Prosta4okua) [Ukranian Translator]
 
 ---
+
 
 ## Building through Github Actions
 
@@ -90,6 +94,7 @@ anyway.*
 currently no way to download it as a single file.*
 
 ---
+
 
 ## Notes
 
