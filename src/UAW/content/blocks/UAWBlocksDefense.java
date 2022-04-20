@@ -36,7 +36,7 @@ public class UAWBlocksDefense implements ContentList {
 	// Artillery
 	ashlock, zounderkite, skyhammer,
 	// Energy
-	heavylight, trailblazer, terravolt,
+	heavylight, silence, trailblazer, sundouser,
 
 	// Defense
 	shieldWall, statusFieldProjector, rejuvinationProjector, rejuvinationDome;

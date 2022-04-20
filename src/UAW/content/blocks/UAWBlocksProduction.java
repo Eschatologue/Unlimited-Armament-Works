@@ -49,7 +49,7 @@ public class UAWBlocksProduction implements ContentList {
 			size = 4;
 			result = Liquids.oil;
 			updateEffect = new MultiEffect(
-				UAWFxD.steamCloud(5),
+				UAWFxD.steamCloud(5, Layer.flyingUnitLow),
 				Fx.oily
 			);
 			updateEffectChance = 0.05f;
@@ -86,7 +86,7 @@ public class UAWBlocksProduction implements ContentList {
 				Fx.mineBig,
 				Fx.oily
 			);
-			updateEffect = UAWFxD.steamCloud(4);
+			updateEffect = UAWFxD.steamCloud(4, Layer.flyingUnitLow);
 
 			consumes.addGas(new ConsumeGas(UAWGas.steam, 0.5f));
 			consumes.liquid(Liquids.oil, 0.025f).boost();
