@@ -5,6 +5,7 @@ import arc.graphics.g2d.*;
 import arc.math.*;
 import mindustry.entities.units.WeaponMount;
 import mindustry.gen.Unit;
+import mindustry.graphics.MultiPacker;
 
 import static UAW.Vars.cruiseMissileBasic;
 

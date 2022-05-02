@@ -29,49 +29,42 @@ public class UAWFxS {
 			Drawf.tri(e.x, e.y, 3f, 30f * e.fout(), i * 90);
 		}
 	}),
-
 	shootWaterFlame = new Effect(33f, 80f, e -> {
 		color(UAWPal.waterFront, UAWPal.waterMiddle, Color.gray, e.fin());
 
 		randLenVectors(e.id, 12, e.finpow() * 70f, e.rotation, 10f, (x, y) ->
 			Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 1.6f));
 	}),
-
 	shootCryoFlame = new Effect(33f, 80f, e -> {
 		color(UAWPal.cryoMiddle, UAWPal.cryoBack, Color.gray, e.fin());
 
 		randLenVectors(e.id, 12, e.finpow() * 70f, e.rotation, 10f, (x, y) ->
 			Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 1.6f));
 	}),
-
 	shootSurgeFlame = new Effect(33f, 80f, e -> {
 		color(UAWPal.surgeFront, UAWPal.surgeBack, Color.gray, e.fin());
 
 		randLenVectors(e.id, 12, e.finpow() * 70f, e.rotation, 10f, (x, y) ->
 			Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 1.6f));
 	}),
-
 	shootPlastFlame = new Effect(33f, 80f, e -> {
 		color(Pal.plastaniumFront, Pal.plastaniumBack, Color.gray, e.fin());
 
 		randLenVectors(e.id, 12, e.finpow() * 70f, e.rotation, 10f, (x, y) ->
 			Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 1.6f));
 	}),
-
 	shootSporeFlame = new Effect(33f, 80f, e -> {
 		color(UAWPal.sporeFront, UAWPal.sporeBack, Color.gray, e.fin());
 
 		randLenVectors(e.id, 12, e.finpow() * 70f, e.rotation, 10f, (x, y) ->
 			Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 1.6f));
 	}),
-
 	shootPyraFlame = new Effect(35f, 80f, e -> {
 		color(Pal.darkPyraFlame, Pal.lightPyraFlame, Color.gray, e.fin());
 
 		randLenVectors(e.id, 13, e.finpow() * 70f, e.rotation, 10f, (x, y) ->
 			Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 1.6f));
 	}),
-
 	muzzleBreakShootSmoke = new Effect(38f, e -> {
 		int amount = 12;
 		float length = 40f;
@@ -84,6 +77,7 @@ public class UAWFxS {
 			Fill.circle(e.x + x, e.y + y, e.fout() * 2.4f + 0.2f));
 	}),
 	// endregion Shooting
+
 	// region Hit
 	torpedoRippleHit = new Effect(40f, 100f, e -> {
 		color(UAWPal.waterMiddle);
@@ -129,6 +123,7 @@ public class UAWFxS {
 		});
 	}),
 	// endregion Hit
+
 	// region Casings
 	casing1Double = new Effect(32f, e -> {
 		color(Pal.lightOrange, Color.lightGray, Pal.lightishGray, e.fin());
@@ -254,48 +249,19 @@ public class UAWFxS {
 		);
 	}).layer(Layer.bullet),
 	// endregion Casings
+
 	// region Trails
-	pyraSmokeTrail = new Effect(33f, 80f, e -> {
-		color(Pal.lightPyraFlame, Color.lightGray, Color.valueOf("ddcece"), e.fin() * e.fin());
-
-		randLenVectors(e.id, 8, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) ->
-			Fill.circle(e.x + x, e.y + y, 0.45f + e.fout() * 2f));
-	}),
-
-	pyraSmokeTrailUnder = new Effect(33f, 80f, e -> {
-		color(Pal.lightPyraFlame, Color.lightGray, Color.valueOf("ddcece"), e.fin() * e.fin());
-
-		randLenVectors(e.id, 8, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) ->
-			Fill.circle(e.x + x, e.y + y, 0.45f + e.fout() * 2f));
-	}).layer(Layer.flyingUnitLow - 1.05f),
-
-	cryoSmokeTrail = new Effect(33f, 80f, e -> {
-		color(UAWPal.cryoMiddle, Color.lightGray, Color.valueOf("ddcece"), e.fin() * e.fin());
-
-		randLenVectors(e.id, 8, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) ->
-			Fill.circle(e.x + x, e.y + y, 0.45f + e.fout() * 2f));
-	}),
-
-	cryoSmokeTrailUnder = new Effect(33f, 80f, e -> {
-		color(UAWPal.cryoMiddle, Color.lightGray, Color.valueOf("ddcece"), e.fin() * e.fin());
-
-		randLenVectors(e.id, 8, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) ->
-			Fill.circle(e.x + x, e.y + y, 0.45f + e.fout() * 2f));
-	}).layer(Layer.flyingUnitLow - 1.05f),
-
 	torpedoRippleTrail = new Effect(180, e -> {
 		e.lifetime = 30f * e.rotation;
 		color(Tmp.c1.set(e.color));
 		stroke(e.fout() * 1.2f);
 		Lines.circle(e.x, e.y, 3 + e.finpow() * 12f);
 	}).layer(Layer.scorch - 0.1f),
-
 	torpedoCruiseTrail = new Effect(25f, e -> {
 		color(Color.valueOf("d0d0d0"), Color.valueOf("e8e8e8"), Color.valueOf("f5f5f5"), e.fout());
 		randLenVectors(e.id, 16, 2f + e.fin() * 7f, (x, y) ->
 			Fill.circle(e.x + x, e.y + y, 0.5f + e.fslope() * 1.5f));
 	}).layer(Layer.debris + 0.1f),
-
 	torpedoTrailFade = new Effect(400f, e -> {
 		if (!(e.data instanceof Trail trail)) return;
 		e.lifetime = trail.length * 1.4f;
@@ -304,21 +270,7 @@ public class UAWFxS {
 		}
 		trail.drawCap(e.color, e.rotation);
 		trail.draw(e.color, e.rotation);
-	}).layer(Layer.scorch - 0.1f),
-
+	}).layer(Layer.scorch - 0.1f);
 	// endregion Trails
-	steamSmoke = new Effect(30, e -> {
-		if (e.data instanceof Float) {
-			e.lifetime = (float) e.data;
-		}
-		color(Tmp.c1.set(e.color).mul(1.1f));
-		randLenVectors(e.id, (int) (6 * e.rotation), 12f * e.finpow() * e.rotation, (x, y) -> {
-			Draw.alpha(0.5f);
-			Fill.circle(e.x + x, e.y + y, e.fout() * 3f + 0.1f);
-			Draw.reset();
-		});
-	});
-
-
 
 }

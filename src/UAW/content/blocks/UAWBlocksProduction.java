@@ -4,9 +4,9 @@ import UAW.content.*;
 import UAW.graphics.*;
 import UAW.world.blocks.gas.GasCrafter;
 import UAW.world.blocks.production.*;
-import UAW.world.drawer.GasDrawEverything;
+import UAW.world.drawer.*;
 import arc.graphics.Color;
-import gas.world.blocks.production.*;
+import gas.world.blocks.production.GasFracker;
 import gas.world.consumers.ConsumeGas;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
@@ -48,10 +48,7 @@ public class UAWBlocksProduction implements ContentList {
 			));
 			size = 4;
 			result = Liquids.oil;
-			updateEffect = new MultiEffect(
-				UAWFxD.steamCloud(5, Layer.flyingUnitLow),
-				Fx.oily
-			);
+			updateEffect = UAWFxD.steamCloud(5, Layer.flyingUnitLow - 1);
 			updateEffectChance = 0.05f;
 			pumpAmount = 0.5f;
 			gasCapacity = liquidCapacity = 360f;
@@ -136,7 +133,7 @@ public class UAWBlocksProduction implements ContentList {
 			consumes.liquid(Liquids.oil, 0.05f).boost();
 		}};
 
-		carburizingFurnace = new GasCrafter("carburizing-furnace") {{
+		carburizingFurnace = new AdvancedGenericCrafter("carburizing-furnace") {{
 			requirements(Category.crafting, with(
 				Items.titanium, 150,
 				Items.thorium, 125,
@@ -148,22 +145,21 @@ public class UAWBlocksProduction implements ContentList {
 			hasLiquids = false;
 			size = 3;
 			itemCapacity = 30;
-			gasCapacity = 180f;
-			craftTime = 3.5f * tick;
-			drawer = new GasDrawEverything() {{
+			craftTime = 4f * tick;
+			drawer = new DrawEverything() {{
 				drawArcSmelter = true;
 				arcParticles = 32;
 				arcFlameRad = 1.2f;
 			}};
-			craftEffect = UAWFxD.steamCloud(12f);
+			craftEffect = UAWFxD.steamCloud(10f, Layer.flyingUnitLow, new Color(UAWPal.steamFront).lerp(Color.gray, 0.15f));
 			updateEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
+			consumes.power(3.5f);
 			consumes.items(
-				new ItemStack(Items.titanium, 4),
+				new ItemStack(Items.titanium, 6),
 				new ItemStack(UAWItems.anthracite, 4)
 			);
-			consumes.addGas(new ConsumeGas(UAWGas.steam, 2.75f));
 			outputItem = new ItemStack(
-				UAWItems.titaniumCarbide, 1
+				UAWItems.titaniumCarbide, 2
 			);
 		}};
 
@@ -178,7 +174,7 @@ public class UAWBlocksProduction implements ContentList {
 			pumpAmount = 0.2f;
 			liquidCapacity = 60f;
 			updateEffectChance = 0.02f;
-			updateEffect = UAWFxD.steamCloud(4);
+			updateEffect = UAWFxD.steamCloud(4, Layer.flyingUnitLow);
 
 			consumes.addGas(new ConsumeGas(UAWGas.steam, 0.25f));
 		}};
@@ -327,7 +323,7 @@ public class UAWBlocksProduction implements ContentList {
 			outputItem = new ItemStack(Items.graphite, 12);
 			craftTime = 90f;
 			itemCapacity = 40;
-			drawer = new GasDrawEverything(){{
+			drawer = new GasDrawEverything() {{
 				drawSteam = true;
 			}};
 

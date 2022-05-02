@@ -1,12 +1,12 @@
 package UAW.entities.bullet;
 
+import UAW.entities.bullet.ModdedVanillaBullet.UAWBulletType;
 import UAW.graphics.*;
 import arc.graphics.g2d.Draw;
 import arc.util.Time;
 import mindustry.Vars;
 import mindustry.content.*;
 import mindustry.entities.Effect;
-import mindustry.entities.bullet.BulletType;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.gen.*;
 import mindustry.graphics.Layer;
@@ -17,7 +17,7 @@ import static mindustry.Vars.tilesize;
 /**
  * Water based bullet that deals extra damage based one enemy hitSize
  */
-public class TorpedoBulletType extends BulletType {
+public class TorpedoBulletType extends UAWBulletType {
 	/**
 	 * Scaling damage based on enemy hitSize
 	 */
@@ -72,9 +72,9 @@ public class TorpedoBulletType extends BulletType {
 	@Override
 	public void update(Bullet b) {
 		Floor floor = Vars.world.floorWorld(b.x, b.y);
-		/**
+		/*
 		 * Taken from Betamindy - NavalBulletType
-		 * @Author Sk7725
+		 * @author Sk7725
 		 */
 		if (Time.time - b.fdata > rippleInterval) {
 			b.fdata = Time.time;

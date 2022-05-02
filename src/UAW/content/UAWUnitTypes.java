@@ -137,7 +137,7 @@ public class UAWUnitTypes implements ContentList {
 				x = 5f;
 				y = -3f;
 				inaccuracy = 4;
-				reload = 12;
+				reload = 15;
 				shots = 2;
 				shotDelay = 5f;
 				shootSound = Sounds.missile;
@@ -304,7 +304,7 @@ public class UAWUnitTypes implements ContentList {
 					lifetime = (range - 5) / speed;
 					shootEffect = UAWFxS.shootPyraFlame;
 					hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius);
-					trailEffect = UAWFxS.pyraSmokeTrailUnder;
+					trailColor = Pal.lightPyraFlame;
 					status = StatusEffects.burning;
 					statusDuration = 4 * 60;
 					ammoMultiplier = 2f;
@@ -421,7 +421,7 @@ public class UAWUnitTypes implements ContentList {
 					trailColor = UAWPal.cryoFront;
 					despawnHit = true;
 					hitEffect = UAWFxD.dynamicExplosion2(splashDamageRadius, UAWPal.cryoMiddle, UAWPal.cryoBack);
-					trailEffect = UAWFxS.cryoSmokeTrail;
+					trailColor = UAWPal.cryoMiddle;
 					status = StatusEffects.freezing;
 					statusDuration = 4 * 60;
 				}};
@@ -462,13 +462,13 @@ public class UAWUnitTypes implements ContentList {
 			flying = true;
 			lowAltitude = false;
 			rotateShooting = false;
-			range = 40 * tilesize;
+			range = 45 * tilesize;
 
-			targetFlags = new BlockFlag[]{BlockFlag.repair, BlockFlag.generator, BlockFlag.extinguisher, null};
+			targetFlags = new BlockFlag[]{BlockFlag.repair, BlockFlag.turret, BlockFlag.generator, BlockFlag.extinguisher, null};
 
 			trailX = 6f;
 			trailY = -1;
-			trailLength = 9;
+			trailLength = 10;
 			trailScl = 1.75f;
 
 			engineSize = 3f;
@@ -483,18 +483,18 @@ public class UAWUnitTypes implements ContentList {
 					minShootVelocity = 0.55f;
 					x = 3f;
 					reload = 3f * 60;
-					shootCone = 90f;
+					shootCone = 45f;
 					ejectEffect = Fx.none;
 					inaccuracy = 24f;
 					shootSound = Sounds.shotgun;
 					shots = 2;
 					shotDelay = 15f;
-					bullet = new UAWArtilleryBulletType(1.5f, 125) {{
+					bullet = new UAWArtilleryBulletType(5f, 125) {{
 						buildingDamageMultiplier = 2.5f;
 						lifetime = range / speed;
 						trailMult = 0.5f;
-						height = 16f;
-						width = 12f;
+						height = 25f;
+						width = 25f;
 						shootEffect = Fx.none;
 						smokeEffect = Fx.none;
 						hitShake = 5f;
@@ -504,8 +504,14 @@ public class UAWUnitTypes implements ContentList {
 						status = StatusEffects.blasted;
 						statusDuration = 60f;
 						homingPower = 0.1f;
-						homingRange = 32f;
+						homingRange = 8f * tilesize;
 						fragBullet = fragGlassFrag;
+						drag = 0.001f;
+
+						keepVelocity = false;
+						lobbingShot = false;
+
+						explodeRange = 5 * tilesize;
 					}};
 				}},
 				new Weapon() {{
@@ -843,7 +849,7 @@ public class UAWUnitTypes implements ContentList {
 					shootEffect = new MultiEffect(
 						UAWFxS.shootSporeFlame,
 						UAWFxD.instShoot(65, Pal.sapBullet),
-						UAWFxD.shootMassiveSmoke(5, 30, backColor)
+						UAWFxD.shootBigSmoke(5, 30, backColor)
 					);
 					smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
 					despawnHit = true;
@@ -1182,7 +1188,7 @@ public class UAWUnitTypes implements ContentList {
 						Fx.sparkShoot
 					);
 					hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius);
-					trailEffect = UAWFxS.pyraSmokeTrail;
+					trailColor = Pal.lightPyraFlame;
 					status = StatusEffects.blasted;
 					statusDuration = 4 * 60;
 					ammoMultiplier = 2f;
@@ -1320,7 +1326,6 @@ public class UAWUnitTypes implements ContentList {
 						Fx.sparkShoot
 					);
 					hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius);
-					trailEffect = UAWFxS.pyraSmokeTrail;
 					status = StatusEffects.blasted;
 					statusDuration = 4 * 60;
 					ammoMultiplier = 2f;

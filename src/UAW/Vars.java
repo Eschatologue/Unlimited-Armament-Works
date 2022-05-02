@@ -29,6 +29,8 @@ public class Vars implements Loadable {
 	public static final String machineGunMediumRedMirrored = modName + "machine-gun-medium-red-r";
 	public static final String machineGunMediumPurple = modName + "machine-gun-medium-purple";
 
+	public static final String machineGunMediumSingleRed = modName + "machine-gun-medium-single-red";
+
 	// Weapon - Missile - MSL
 	public static final String missileSmallRed1 = modName + "missile-small-red-1";
 	public static final String missileSmallRed2 = modName + "missile-small-red-2";

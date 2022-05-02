@@ -15,6 +15,8 @@ import mindustry.graphics.Pal;
 public class UAWBasicBulletType extends UAWBulletType {
 	public Color backColor = Pal.bulletYellowBack, frontColor = Pal.bulletYellow;
 	public Color mixColorFrom = new Color(1f, 1f, 1f, 0f), mixColorTo = new Color(1f, 1f, 1f, 0f);
+	/** If > 0, the bullet height will use this value, and the width will be multiplied by the size ratio */
+	public float size = 0f, sizeRatio = 0.5f;
 	public float width = 5f, height = 7f;
 	public float shrinkX = 0f, shrinkY = 0.5f;
 	public float spin = 0;
@@ -22,9 +24,9 @@ public class UAWBasicBulletType extends UAWBulletType {
 
 	/**
 	 * How long is the generated trail based on height multiplied by this
-	 * <p> -1 to disable | Default is 1 </p>
+	 * <p> 0 to disable | Disabled by default </p>
 	 */
-	public float trailLenghtScl = -1f;
+	public float trailLenghtScl = 0f;
 
 	public TextureRegion backRegion;
 	public TextureRegion frontRegion;
@@ -42,6 +44,10 @@ public class UAWBasicBulletType extends UAWBulletType {
 		this(speed, damage, "bullet");
 	}
 
+	public UAWBasicBulletType() {
+		this(0f, 0f, "bullet");
+	}
+
 	@Override
 	public void load() {
 		backRegion = Core.atlas.find(sprite + "-back");
@@ -51,10 +57,14 @@ public class UAWBasicBulletType extends UAWBulletType {
 	@Override
 	public void init(Bullet b) {
 		super.init(b);
+		if (size > 0) {
+			height = size;
+			width = size * sizeRatio;
+		}
 		if (trailLenghtScl > 0) {
 			trailRotation = true;
-			trailWidth = width / 3.4f;
-			trailLength = Mathf.round(height * trailLenghtScl);
+			trailWidth = size > 0 ? size : width / 3.45f;
+			trailLength = Mathf.round(size > 0 ? size : height * trailLenghtScl);
 			trailColor = backColor;
 		}
 	}

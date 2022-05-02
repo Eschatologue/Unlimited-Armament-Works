@@ -281,7 +281,7 @@ public class UAWStatValues {
 				table.table(bt -> {
 					bt.left().defaults().padRight(3).left();
 
-					if (type.damage > 0 && (type.collides || type.splashDamage <= 0)) {
+					if (type.damage > 0 && (type.collides || type.splashDamage <= 0) && !(type instanceof CanisterBulletType)) {
 						if (type.continuousDamage() > 0) {
 							bt.add(Core.bundle.format("bullet.damage", type.continuousDamage()) + StatUnit.perSecond.localized());
 						} else {
@@ -293,10 +293,11 @@ public class UAWStatValues {
 						sep(bt, Core.bundle.format("bullet.buildingdamage", (int) (type.buildingDamageMultiplier * 100)));
 					}
 
-					if (type.splashDamage > 0) {
+					if (type.splashDamage > 0 && !(type instanceof CanisterBulletType)) {
 						sep(bt, Core.bundle.format("bullet.splashdamage", (int) type.splashDamage, Strings.fixed(type.splashDamageRadius / tilesize, 1)));
 					}
 
+					// Armor piercing and shield damage
 					if (type instanceof UAWBulletType types) {
 						if (types.armorIgnoreScl > 0) {
 							sep(bt, Core.bundle.format("bullet.uaw-armorPenetration", (int) (types.armorIgnoreScl * 100)));
@@ -306,6 +307,7 @@ public class UAWStatValues {
 						}
 					}
 
+					// Mines
 					if (type instanceof MineBulletType types) {
 						if (types.lifetime != 1) {
 							sep(bt, Core.bundle.format("bullet.uaw-mineLifetime", (int) (types.lifetime / 60)));
@@ -354,21 +356,24 @@ public class UAWStatValues {
 						sep(bt, (type.status.minfo.mod == null ? type.status.emoji() : "") + "[stat]" + type.status.localizedName);
 					}
 
-					if (type instanceof MineCanisterBulletType types) {
+					// Mine Canister
+					if (type instanceof CanisterBulletType types) {
 						if (types.fragBullet != null) {
-							sep(bt, Core.bundle.format("bullet.uaw-mineCount", types.fragBullets));
+							if (!(types.airBurst)) {
+								sep(bt, Core.bundle.format("bullet.uaw-mineCount", types.fragBullets));
+							} else sep(bt, Core.bundle.format("bullet.uaw-burstCount", types.fragBullets));
 							bt.row();
-
 							ammo(ObjectMap.of(t, types.fragBullet), indent + 1).display(bt);
 						}
 					}
 
-					if (type.fragBullet != null && !(type instanceof MineCanisterBulletType)) {
+					if (type.fragBullet != null && !(type instanceof CanisterBulletType)) {
 						sep(bt, Core.bundle.format("bullet.frags", type.fragBullets));
 						bt.row();
 
 						ammo(ObjectMap.of(t, type.fragBullet), indent + 1).display(bt);
 					}
+
 				}).padTop(compact ? 0 : -9).padLeft(indent * 8).left().get().background(compact ? null : Tex.underline);
 
 				table.row();

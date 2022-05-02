@@ -14,6 +14,8 @@ import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.world.blocks.environment.Floor;
 
+import static UAW.Vars.modName;
+
 public class MineBulletType extends BulletType {
 	public TextureRegion mineBase, mineFront, mineBack, mineIndicator, mineOutline;
 	public String sprite;
@@ -32,8 +34,7 @@ public class MineBulletType extends BulletType {
 	/** How big is the mine */
 	public float size = 24;
 	/**
-	 * [TODO]
-	 * How long does it takes for the mine to drown, set to < 0 to disable
+	 * [TODO] How long does it takes for the mine to drown, set to < 0 to disable
 	 */
 	public float mineDrownTime = 30f;
 
@@ -57,15 +58,15 @@ public class MineBulletType extends BulletType {
 	}
 
 	public MineBulletType(float damage, float splashRadius, float lifetime) {
-		this(damage, splashRadius, lifetime, "uaw-mine");
+		this(damage, splashRadius, lifetime, modName + "mine");
 	}
 
 	public MineBulletType(float damage, float splashRadius) {
-		this(damage, splashRadius, 25 * 60, "uaw-mine");
+		this(damage, splashRadius, 25 * 60, modName + "mine");
 	}
 
 	public MineBulletType() {
-		this(550, 64, 25 * 60, "uaw-mine");
+		this(550, 64, 25 * 60, modName + "mine");
 	}
 
 	@Override

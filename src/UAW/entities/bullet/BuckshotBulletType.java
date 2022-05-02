@@ -9,10 +9,11 @@ import static mindustry.Vars.tilesize;
 
 public class BuckshotBulletType extends UAWBasicBulletType {
 
-	public BuckshotBulletType(float speed, float damage) {
+	public BuckshotBulletType(float size, float speed, float damage) {
 		super(speed, damage);
+		this.height = size;
+		this.width = size;
 		drag = 0.02f;
-		height = width = 15;
 		hitSize = width / 2;
 		shrinkX = shrinkY = 0.5f;
 		despawnHit = true;
@@ -25,5 +26,9 @@ public class BuckshotBulletType extends UAWBasicBulletType {
 		shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
 		smokeEffect = Fx.shootBigSmoke2;
 		hitEffect = Fx.hitBulletBig;
+	}
+
+	public BuckshotBulletType(float speed, float damage) {
+		this(15, speed, damage);
 	}
 }

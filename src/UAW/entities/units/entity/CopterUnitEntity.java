@@ -24,7 +24,7 @@ public class CopterUnitEntity extends UnitEntity {
 		return UAWUnitTypes.classID(getClass());
 	}
 
-	/** @author GlennFolker */
+	/** @author GlennFolker#6881 */
 	@Override
 	public void setType(UnitType type) {
 		super.setType(type);

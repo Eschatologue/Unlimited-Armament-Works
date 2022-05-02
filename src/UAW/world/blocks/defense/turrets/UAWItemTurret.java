@@ -17,6 +17,7 @@ import static mindustry.Vars.tilesize;
  * </p>
  */
 public class UAWItemTurret extends ItemTurret {
+
 	public float minShootPitch = 0.9f, maxShootPitch = 1.1f;
 
 	public UAWItemTurret(String name) {
@@ -49,6 +50,7 @@ public class UAWItemTurret extends ItemTurret {
 	}
 
 	public class UAWItemTurretBuild extends ItemTurretBuild {
+
 		@Override
 		public void drawSelect() {
 			super.drawSelect();

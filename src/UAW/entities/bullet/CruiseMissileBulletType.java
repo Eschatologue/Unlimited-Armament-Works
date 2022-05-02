@@ -1,9 +1,10 @@
 package UAW.entities.bullet;
 
 import UAW.entities.bullet.ModdedVanillaBullet.UAWBasicBulletType;
-import UAW.graphics.UAWFxS;
+import UAW.graphics.UAWFxD;
 import arc.Core;
 import arc.graphics.g2d.Draw;
+import arc.util.Time;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 
@@ -22,7 +23,7 @@ public class CruiseMissileBulletType extends UAWBasicBulletType {
 		width = sizeScl / 2.4f;
 		layer = Layer.effect + 1;
 		shrinkX = shrinkY = 0;
-		drag = -0.015f;
+		drag = -0.0125f;
 		homingRange = 30 * tilesize;
 		homingPower = 0.035f;
 		splashDamageRadius = 12 * tilesize;
@@ -33,7 +34,6 @@ public class CruiseMissileBulletType extends UAWBasicBulletType {
 		backColor = Pal.missileYellowBack;
 		frontColor = Pal.missileYellow;
 		trailInterval = 0.5f;
-		trailEffect = UAWFxS.pyraSmokeTrail;
 		trailRotation = true;
 		despawnHit = true;
 		keepVelocity = false;
@@ -54,9 +54,15 @@ public class CruiseMissileBulletType extends UAWBasicBulletType {
 	}
 
 	@Override
+	public void init() {
+		super.init();
+		trailEffect = UAWFxD.cruiseMissileTrail(trailColor, layer > Layer.effect ? Layer.effect : layer - 0.01f);
+	}
+
+	@Override
 	public void draw(Bullet b) {
 		float mScl = sizeScl * Draw.scl;
-		super.draw(b);
+		drawTrail(b);
 		Draw.rect(frontRegion, b.x, b.y, frontRegion.width * mScl, frontRegion.height * mScl, b.rotation() - 90);
 		Draw.rect(backRegion, b.x, b.y, backRegion.width * mScl, backRegion.height * mScl, b.rotation() - 90);
 		Draw.reset();

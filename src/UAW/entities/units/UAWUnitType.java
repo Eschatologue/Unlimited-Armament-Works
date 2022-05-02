@@ -1,8 +1,10 @@
 package UAW.entities.units;
 
 import UAW.entities.units.entity.*;
+import UAW.graphics.Outliner;
 import UAW.type.Rotor;
 import UAW.type.Rotor.RotorMount;
+import UAW.type.weapon.TankWeapon;
 import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
@@ -11,7 +13,6 @@ import arc.struct.Seq;
 import arc.util.Time;
 import mindustry.Vars;
 import mindustry.content.Fx;
-import mindustry.entities.Effect;
 import mindustry.gen.Unit;
 import mindustry.graphics.*;
 import mindustry.type.UnitType;
@@ -21,12 +22,12 @@ import static mindustry.Vars.world;
 
 public class UAWUnitType extends UnitType {
 	public final Seq<Rotor> rotors = new Seq<>();
+	public final Seq<TankWeapon> tWeapons = new Seq<>();
 
 	// Helicopters
 	public float spinningFallSpeed = 0;
 	public float rotorDeathSlowdown = 0.01f;
 	public float fallSmokeX = 0f, fallSmokeY = -5f, fallSmokeChance = 0.1f;
-	public boolean rotorBlur = true;
 
 	// Tanks
 	public TextureRegion hullRegion, hullOutlineRegion, hullCellRegion, turretCellRegion;
@@ -92,15 +93,6 @@ public class UAWUnitType extends UnitType {
 				for (int i = 0; i < rotor.bladeCount; i++) {
 					float angle = (i * 360f / rotor.bladeCount + mount.rotorRotation) % 360;
 					Draw.z(z + 0.5f);
-//					if (rotorBlur) {
-//						new Effect(7f, e -> {
-//							Draw.alpha(e.fout());
-//							Draw.rect(rotor.bladeRegion,
-//								rx + Angles.trnsx(mount.rotorRotation, 6),
-//								ry + Angles.trnsy(mount.rotorRotation, 6),
-//								e.rotation);
-//						});
-//					}
 					Draw.rect(
 						rotor.bladeOutlineRegion, rx, ry,
 						rotor.bladeOutlineRegion.width * Draw.scl,
@@ -149,22 +141,20 @@ public class UAWUnitType extends UnitType {
 
 	// Tank Hull Outline
 	public void drawTankHullOutline(TankUnitEntity tank) {
-		Unit unit = (Unit) tank;
 		Draw.reset();
-		applyColor(unit);
-		applyOutlineColor(unit);
-		Draw.rect(hullOutlineRegion, unit, tank.hullRotation - 90);
+		applyColor(tank);
+		applyOutlineColor(tank);
+		Draw.rect(hullOutlineRegion, tank, tank.hullRotation - 90);
 	}
 
 	// Tank Hull
 	public void drawTankHull(TankUnitEntity tank) {
-		Unit unit = (Unit) tank;
-		Draw.mixcol(Color.white, unit.hitTime);
-		applyColor(unit);
-		Draw.rect(hullRegion, unit, tank.hullRotation - 90);
+		Draw.mixcol(Color.white, tank.hitTime);
+		applyColor(tank);
+		Draw.rect(hullRegion, tank, tank.hullRotation - 90);
 		if (drawHullCell) {
-			Draw.color(cellColor(unit));
-			Draw.rect(hullCellRegion, unit, tank.hullRotation - 90);
+			Draw.color(cellColor(tank));
+			Draw.rect(hullCellRegion, tank, tank.hullRotation - 90);
 		}
 		Draw.mixcol();
 		Draw.reset();
@@ -262,6 +252,21 @@ public class UAWUnitType extends UnitType {
 	public void update(Unit unit) {
 		super.update(unit);
 		drawTankTrail(unit);
+	}
+
+	@Override
+	public void createIcons(MultiPacker packer) {
+		super.createIcons(packer);
+		// Helicopter Rotors
+		for (Rotor rotor : rotors) {
+			Outliner.outlineRegion(packer, rotor.bladeRegion, outlineColor, rotor.name + "-outline", outlineRadius);
+			Outliner.outlineRegion(packer, rotor.topRegion, outlineColor, rotor.name + "-top-outline", outlineRadius);
+		}
+		// Tanks
+		Outliner.outlineRegion(packer, hullRegion, outlineColor, name + "-hull-outline", outlineRadius);
+		for (TankWeapon tankWeapon : tWeapons) {
+			Outliner.outlineRegion(packer, tankWeapon.gunOutline, outlineColor, tankWeapon.name + "-outline", outlineRadius);
+		}
 	}
 
 	@Override

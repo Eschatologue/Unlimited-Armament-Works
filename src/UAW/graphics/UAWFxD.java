@@ -16,7 +16,9 @@ import static arc.math.Angles.randLenVectors;
 public class UAWFxD {
 	private static final Rand rand = new Rand();
 	private static final Vec2 v = new Vec2();
+	static float smokeSizeLfMult = 12f;
 
+	// region Railgun and InstShoot
 	public static Effect instShoot(float size, Color color) {
 		return new Effect(24.0F, size * 8, (e) -> {
 			e.scaled(12.0F, (b) -> {
@@ -65,32 +67,54 @@ public class UAWFxD {
 			}
 		});
 	}
+	// endregion Railgun and InstShoot
 
-	public static Effect shootMassiveSmoke(float size, float lifetime, Color color) {
+	/**
+	 * Based on Fx.shootBigSmoke
+	 *
+	 * @param size
+	 * 	how big is the smoke | default is 2.6f
+	 * @param lifetime
+	 * 	how long does the smoke last, default is 17
+	 * @param color
+	 * 	the color of the smoke, will lerp to lightGray then gray
+	 */
+	public static Effect shootBigSmoke(float size, float lifetime, Color color) {
 		return new Effect(lifetime, e -> {
 			color(color, Color.lightGray, Color.gray, e.fin());
 
-			randLenVectors(e.id, 12, e.finpow() * 23f, e.rotation, size * 8, (x, y) ->
+			randLenVectors(e.id, (int) (size * 3.6f), e.finpow() * 23f, e.rotation, size * 8, (x, y) ->
 				Fill.circle(e.x + x, e.y + y, e.fout() * size));
 		});
 	}
+	public static Effect hitBulletBig(Color color) {
+		return new Effect(13, e -> {
+			color(Color.white, color, e.fin());
+			stroke(0.5f + e.fout() * 1.5f);
 
-	public static Effect statusFieldApply(float size, Color frontColor, Color backColor) {
-		return new Effect(50, e -> {
-			color(frontColor, backColor, e.fin());
-			stroke(e.fout() * 5f);
-			Lines.circle(e.x, e.y, size + e.fin() * 4f);
-			int points = 6;
-			float offset = Mathf.randomSeed(e.id, 360f);
-			for (int i = 0; i < points; i++) {
-				float angle = (i * 360f / points + (Time.time * 3)) + (offset + 4);
-				float rx = Angles.trnsx(angle, size), ry = Angles.trnsy(angle, size);
-				Drawf.tri(
-					e.x + rx, e.y + ry, 48f, 28f * e.fout(), angle);
-			}
-			Fill.light(e.x, e.y, circleVertices(size / 2), size, Color.white.cpy().a(0f), Tmp.c4.set(backColor).a(e.fout()));
-			Drawf.light(e.x, e.y, size * 1.6f, backColor, e.fout());
+			randLenVectors(e.id, 8, e.finpow() * 30f, e.rotation, 50f, (x, y) -> {
+				float ang = Mathf.angle(x, y);
+				lineAngle(e.x + x, e.y + y, ang, e.fout() * 4 + 1.5f);
+			});
 		});
+	}
+
+	public static Effect cruiseMissileTrail(Color trailColor, float layer) {
+		return new Effect(33f, 80f, e -> {
+			color(trailColor, Color.lightGray, Color.valueOf("ddcece"), e.fin() * e.fin());
+
+			randLenVectors(e.id, 8, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) ->
+				Fill.circle(e.x + x, e.y + y, 0.45f + e.fout() * 2f));
+		}).layer(layer);
+	}
+
+	public static Effect cruiseMissileTrail(Color trailColor) {
+		return new Effect(33f, 80f, e -> {
+			color(trailColor, Color.lightGray, Color.valueOf("ddcece"), e.fin() * e.fin());
+
+			randLenVectors(e.id, 8, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) ->
+				Fill.circle(e.x + x, e.y + y, 0.45f + e.fout() * 2f));
+		}).layer(Layer.effect);
 	}
 
 	/** Explosion in an X pattern */
@@ -245,45 +269,93 @@ public class UAWFxD {
 		});
 	}
 
-	/** Used with repeating aftershock */
-	public static Effect circleSplash(float size, float lifetime, Color lightColor, Color darkColor, Color splashColor) {
+	/**
+	 * Used with repeating aftershocks and statusfieldprojectors
+	 *
+	 * @param size
+	 * 	How big is the affected area
+	 * @param lifetime
+	 * 	How long does the circle last
+	 * @param splashColor
+	 * 	the color that appears on the bottom of the affected area
+	 * @param pointCount
+	 * 	How many circling point does the effect has
+	 */
+	public static Effect circleSplash(float size, float lifetime, Color lightColor, Color darkColor, Color splashColor, int pointCount) {
 		return new Effect(lifetime, size * 2f, e -> {
-			color(lightColor, darkColor, e.fin());
-			stroke(e.fout() * 4f);
-			Lines.circle(e.x, e.y, size + e.fin() * 3f);
+			Draw.color(lightColor, darkColor, e.fin());
+			Lines.stroke(e.fout() * 4f);
+			Lines.circle(e.x, e.y, size + e.fout() * 3f - 2f);
+			Draw.reset();
+			if (pointCount > 0) {
+				float offset = Mathf.randomSeed(e.id, 360f);
+				for (int i = 0; i < pointCount; i++) {
+					float angle = (i * 360f / pointCount + (Time.time * 3)) + (offset + 4);
+					float rx = Angles.trnsx(angle, size - 2f), ry = Angles.trnsy(angle, size);
+					Draw.color(lightColor, darkColor, e.fin());
+					Drawf.tri(
+						e.x + rx, e.y + ry, 48f, 28f * e.fout(), angle);
+				}
+			}
+			Draw.z(Layer.debris);
 			Fill.light(e.x, e.y, circleVertices(size / 2), size, Color.white.cpy().a(0f), Tmp.c4.set(splashColor).a(e.fout()));
+			Draw.reset();
+			Drawf.light(e.x, e.y, size * 1.6f, darkColor, e.fout());
 		});
 	}
 
 	/**
-	 * Based on Fx.BlastExplosion
+	 * Based on Fx.blastExplosion
 	 *
 	 * @param frontColor
 	 * 	The lighter color | Default : Pal.MissileYellow
 	 * @param backColor
 	 * 	The darker color | Default : Pal.MissileYellowBack
 	 */
-	public static Effect thermalExplosion(Color frontColor, Color backColor) {
+	public static Effect blastExplosion(Color frontColor, Color backColor) {
 		return new Effect(23, e -> {
 			color(frontColor);
-
 			e.scaled(6, i -> {
 				stroke(3f * i.fout());
 				Lines.circle(e.x, e.y, 3f + i.fin() * 15f);
 			});
-
 			color(Color.gray);
-
 			randLenVectors(e.id, 5, 2f + 23f * e.finpow(), (x, y) ->
 				Fill.circle(e.x + x, e.y + y, e.fout() * 4f + 0.5f));
-
 			color(backColor);
 			stroke(e.fout());
-
 			randLenVectors(e.id + 1, 4, 1f + 23f * e.finpow(), (x, y) ->
 				lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), 0.7f + e.fout() * 3f));
 
 			Drawf.light(e.x, e.y, 45f, backColor, 0.8f * e.fout());
+		});
+	}
+
+	/**
+	 * Based on Fx.massiveExplosion
+	 *
+	 * @param frontColor
+	 * 	The lighter color | Default : Pal.MissileYellow
+	 * @param backColor
+	 * 	The darker color | Default : Pal.MissileYellowBack
+	 */
+	public static Effect massiveExplosion(Color frontColor, Color backColor) {
+		return new Effect(30, e -> {
+			color(frontColor);
+			e.scaled(7, i -> {
+				stroke(3f * i.fout());
+				Lines.circle(e.x, e.y, 4f + i.fin() * 30f);
+			});
+			color(Color.gray);
+			randLenVectors(e.id, 8, 2f + 30f * e.finpow(), (x, y) -> {
+				Fill.circle(e.x + x, e.y + y, e.fout() * 4f + 0.5f);
+			});
+			color(backColor);
+			stroke(e.fout());
+			randLenVectors(e.id + 1, 6, 1f + 29f * e.finpow(), (x, y) -> {
+				lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), 1f + e.fout() * 4f);
+			});
+			Drawf.light(e.x, e.y, 50f, backColor, 0.8f * e.fout());
 		});
 	}
 
@@ -312,24 +384,7 @@ public class UAWFxD {
 		});
 	}
 
-	/**
-	 * Trail used by Cruise Missile
-	 *
-	 * @param smokeSize
-	 * 	how big is the circle smoke effect. Default 0.45.
-	 * @param trailColor
-	 * 	the color of the trail before it fades into grey
-	 */
-	public static Effect cruiseMissileTrail(float smokeSize, Color trailColor) {
-		return new Effect(30f, 80f, e -> {
-			color(trailColor, Color.lightGray, Color.valueOf("ddcece"), e.fin() * e.fin());
-
-			randLenVectors(e.id, 8, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) ->
-				Fill.circle(e.x + x, e.y + y, smokeSize + e.fout() * 2f));
-		});
-	}
-
-	public static Effect effectCloud(Color color) {
+	public static Effect impactCloud(Color color) {
 		return new Effect(140, 400f, e ->
 			randLenVectors(e.id, 22, e.finpow() * 160f, (x, y) -> {
 				float size = e.fout() * 15f;
@@ -339,8 +394,7 @@ public class UAWFxD {
 	}
 
 	/**
-	 * General use smoke cloud
-	 * <p> Based on Fx.SmokeCloud </p>
+	 * Based on Fx.SmokeCloud
 	 *
 	 * @param lifetime
 	 * 	How long the effect last, also adjusts the amount of smoke balls and its burst length
@@ -357,8 +411,6 @@ public class UAWFxD {
 				Fill.circle(e.x + x, e.y + y, 0.5f + fout * 4f);
 			})).layer(layer);
 	}
-
-	static float smokeSizeLfMult = 12f;
 
 	/**
 	 * Steam Cloud used for steam effects on various buildings | 1st Variation
