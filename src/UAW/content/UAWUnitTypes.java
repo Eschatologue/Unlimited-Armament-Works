@@ -14,7 +14,7 @@ import arc.graphics.Color;
 import arc.math.Mathf;
 import arc.struct.*;
 import arc.struct.ObjectMap.Entry;
-import com.sun.istack.internal.NotNull;
+import com.sun.istack.NotNull;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.Effect;
