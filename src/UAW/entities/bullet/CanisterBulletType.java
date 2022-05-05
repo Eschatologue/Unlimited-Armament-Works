@@ -10,7 +10,6 @@ import mindustry.entities.effect.MultiEffect;
 import mindustry.gen.*;
 
 public class CanisterBulletType extends UAWArtilleryBulletType {
-	public boolean airBurst = false;
 	public float trailMult = 0.3f, trailSize = 5f;
 
 	public CanisterBulletType(BulletType bulletType, int projectileCount, float speed) {
@@ -49,7 +48,7 @@ public class CanisterBulletType extends UAWArtilleryBulletType {
 		super.init(b);
 		damage = 0f;
 		splashDamage = 0f;
-//		if (!airBurst){
+//		if (!isMine){
 //
 //		}
 	}

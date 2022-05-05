@@ -427,7 +427,7 @@ public class UAWUnitTypes implements ContentList {
 					shootEffect = UAWFxS.shootCryoFlame;
 					trailColor = UAWPal.cryoFront;
 					despawnHit = true;
-					hitEffect = UAWFxD.dynamicExplosion2(splashDamageRadius, UAWPal.cryoMiddle, UAWPal.cryoBack);
+					hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius, UAWPal.cryoMiddle, UAWPal.cryoBack);
 					trailColor = UAWPal.cryoMiddle;
 					status = StatusEffects.freezing;
 					statusDuration = 4 * 60;
@@ -856,11 +856,11 @@ public class UAWUnitTypes implements ContentList {
 					shootEffect = new MultiEffect(
 						UAWFxS.shootSporeFlame,
 						UAWFxD.instShoot(65, Pal.sapBullet),
-						UAWFxD.shootBigSmoke(5, 30, backColor)
+						UAWFxD.shootBigSmoke(5, backColor)
 					);
 					smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
 					despawnHit = true;
-					hitEffect = UAWFxD.dynamicExplosion2(splashDamageRadius, frontColor, backColor);
+					hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius, frontColor, backColor);
 					fragBullets = 1;
 					fragBullet = new SplashBulletType(splashDamage / 2, splashDamageRadius / 1.2f) {{
 						splashAmount = 5;
@@ -1097,37 +1097,37 @@ public class UAWUnitTypes implements ContentList {
 				}};
 			}});
 			weapons.add(new TankWeapon(name + "-gun") {{
-							layerOffset = -0.1f;
-							targetFlags = new BlockFlag[]{BlockFlag.extinguisher, null};
-							x = 0f;
-							y = 0f;
-							shootY = 16f;
-							reload = 1.5f * 60;
-							recoil = 4.5f;
-							shootSound = Sounds.shootBig;
-							ejectEffect = UAWFxS.casing2Long;
-							shake = 6f;
-							soundPitchMin = 1.2f;
-							soundPitchMax = 1.4f;
-							bullet = new UAWBasicBulletType(5f, 125) {{
-								trailLenghtScl = 1;
-								splashDamage = damage;
-								splashDamageRadius = 3 * tilesize;
-								frontColor = Pal.missileYellow;
-								backColor = Pal.missileYellowBack;
-								height = 25f;
-								width = 8f;
-								lifetime = range / speed;
-								knockback = 4f;
-								shieldDamageMultiplier = 2f;
-								despawnHit = true;
-								shootEffect = new MultiEffect(UAWFxD.railShoot(22f, backColor), Fx.shootPyraFlame, Fx.shootSmallSmoke);
-								hitEffect = new MultiEffect(Fx.blastExplosion, Fx.fireHit, Fx.blastsmoke);
-								fragBullets = 8;
-								collidesAir = false;
-								fragBullet = fragGlassFrag;
-							}};
-						}}
+								layerOffset = -0.1f;
+								targetFlags = new BlockFlag[]{BlockFlag.extinguisher, null};
+								x = 0f;
+								y = 0f;
+								shootY = 16f;
+								reload = 1.5f * 60;
+								recoil = 4.5f;
+								shootSound = Sounds.shootBig;
+								ejectEffect = UAWFxS.casing2Long;
+								shake = 6f;
+								soundPitchMin = 1.2f;
+								soundPitchMax = 1.4f;
+								bullet = new UAWBasicBulletType(5f, 125) {{
+									trailLenghtScl = 1;
+									splashDamage = damage;
+									splashDamageRadius = 3 * tilesize;
+									frontColor = Pal.missileYellow;
+									backColor = Pal.missileYellowBack;
+									height = 25f;
+									width = 8f;
+									lifetime = range / speed;
+									knockback = 4f;
+									shieldDamageMultiplier = 2f;
+									despawnHit = true;
+									shootEffect = new MultiEffect(UAWFxD.railShoot(22f, backColor), Fx.shootPyraFlame, Fx.shootSmallSmoke);
+									hitEffect = new MultiEffect(Fx.blastExplosion, Fx.fireHit, Fx.blastsmoke);
+									fragBullets = 8;
+									collidesAir = false;
+									fragBullet = fragGlassFrag;
+								}};
+							}}
 			);
 		}};
 		centurion = new UAWUnitType("centurion") {{

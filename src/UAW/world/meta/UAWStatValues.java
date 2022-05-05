@@ -359,18 +359,24 @@ public class UAWStatValues {
 					// Mine Canister
 					if (type instanceof CanisterBulletType types) {
 						if (types.fragBullet != null) {
-							if (!(types.airBurst)) {
+							if ((types.fragBullet instanceof MineBulletType)) {
 								sep(bt, Core.bundle.format("bullet.uaw-mineCount", types.fragBullets));
-							} else sep(bt, Core.bundle.format("bullet.uaw-burstCount", types.fragBullets));
+							} else {
+								sep(bt, Core.bundle.format("bullet.uaw-burstCount", types.fragBullets));
+							}
 							bt.row();
 							ammo(ObjectMap.of(t, types.fragBullet), indent + 1).display(bt);
 						}
 					}
 
-					if (type.fragBullet != null && !(type instanceof CanisterBulletType)) {
+					// Frag Bullets
+					if (type.fragBullet != null && !(type instanceof CanisterBulletType) && !(type.fragBullet instanceof SplashBulletType)) {
 						sep(bt, Core.bundle.format("bullet.frags", type.fragBullets));
 						bt.row();
-
+						ammo(ObjectMap.of(t, type.fragBullet), indent + 1).display(bt);
+					} else if (type.fragBullet instanceof SplashBulletType splashBulletType) {
+						sep(bt, Core.bundle.format("bullet.uaw-aftershock", splashBulletType.splashAmount));
+						bt.row();
 						ammo(ObjectMap.of(t, type.fragBullet), indent + 1).display(bt);
 					}
 

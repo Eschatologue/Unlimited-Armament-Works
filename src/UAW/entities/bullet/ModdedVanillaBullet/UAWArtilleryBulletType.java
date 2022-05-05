@@ -26,6 +26,7 @@ public class UAWArtilleryBulletType extends UAWBasicBulletType {
 		this.splashDamage = splashDamage;
 		this.damage = splashDamage;
 		this.splashDamageRadius = splashDamageRadius;
+		despawnHit = true;
 		collides = collidesTiles = collidesAir = false;
 		pierceBuilding = scaleVelocity = true;
 		hitShake = 5f;
@@ -82,9 +83,9 @@ public class UAWArtilleryBulletType extends UAWBasicBulletType {
 			Draw.mixcol(mix, mix.a);
 
 			Draw.color(backColor);
-			Draw.rect(backRegion, b.x, b.y, width, height, b.rotation());
+			Draw.rect(backRegion, b.x, b.y, width, height, b.rotation() - 90);
 			Draw.color(frontColor);
-			Draw.rect(frontRegion, b.x, b.y, width, height, b.rotation());
+			Draw.rect(frontRegion, b.x, b.y, width, height, b.rotation() - 90);
 
 		}
 		Draw.reset();

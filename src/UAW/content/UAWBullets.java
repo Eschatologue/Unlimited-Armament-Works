@@ -397,14 +397,14 @@ public class UAWBullets implements ContentList {
 			smokeEffect = new MultiEffect(Fx.smokeCloud, Fx.shootBigSmoke2);
 			hitEffect = new MultiEffect(UAWFxS.hitLaserSpark, Fx.hitLancer);
 			shootEffect = new MultiEffect(UAWFxD.instShoot(56, backColor));
-			despawnEffect = UAWFxD.empBlast(splashDamageRadius, 3, backColor);
+			despawnEffect = UAWFxD.empExplosion(splashDamageRadius, 3, backColor);
 			status = UAWStatusEffects.EMP;
 			hitSound = Sounds.plasmaboom;
 			statusDuration = 0.3f * 60;
 			ammoMultiplier = 6f;
 		}};
 
-		artilleryMediumPlast = new UAWArtilleryBulletType(1.5f, 250) {{
+		artilleryMediumPlast = new UAWArtilleryBulletType(1.5f, 350) {{
 			size = 20f;
 			hitShake = 16f;
 			lifetime = 120f;
@@ -418,12 +418,12 @@ public class UAWBullets implements ContentList {
 			size = 45;
 			splashDamageRadius = 15 * tilesize;
 			shootEffect = new MultiEffect(
-				UAWFxD.railShoot(height + (width * 1.5f), Pal.lightOrange),
+				UAWFxD.railShoot(size + (size * sizeRatio * 1.5f), backColor),
 				UAWFxD.impactCloud(frontColor),
-				UAWFxD.shootBigSmoke(5, 30, backColor),
+				UAWFxD.shootBigSmoke(size / 9, frontColor),
 				Fx.nuclearShockwave
 			);
-			hitEffect = UAWFxD.dynamicExplosion2(splashDamageRadius, frontColor, backColor);
+			hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius, frontColor, backColor);
 			hitSound = UAWSfx.explosionHuge1;
 			hitSoundVolume = 3f;
 			hitShake = 34f;
@@ -440,7 +440,7 @@ public class UAWBullets implements ContentList {
 				backColor = Pal.bulletYellowBack;
 				bottomColor = frontColor;
 				hitShake = 28;
-				particleEffect = Fx.burning;
+				particleEffect = UAWFxD.effectHit(0.5f, frontColor, backColor);
 				makeFire = true;
 				applySound = Sounds.explosionbig;
 			}};
@@ -451,12 +451,12 @@ public class UAWBullets implements ContentList {
 			frontColor = UAWPal.cryoFront;
 			backColor = UAWPal.cryoBack;
 			shootEffect = new MultiEffect(
-				UAWFxD.railShoot(height + (width * 1.5f), UAWPal.cryoBack),
+				UAWFxD.railShoot(size + (size * sizeRatio * 1.5f), backColor),
 				UAWFxD.impactCloud(frontColor),
-				UAWFxD.shootBigSmoke(5, 30, frontColor),
+				UAWFxD.shootBigSmoke(size / 9, frontColor),
 				Fx.nuclearShockwave
 			);
-			hitEffect = UAWFxD.dynamicExplosion2(splashDamageRadius, frontColor, backColor);
+			hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius, frontColor, backColor);
 			hitSound = UAWSfx.explosionHuge1;
 			hitSoundVolume = 3f;
 			hitShake = 34f;
@@ -473,7 +473,7 @@ public class UAWBullets implements ContentList {
 				bottomColor = UAWPal.cryoFront;
 				status = StatusEffects.freezing;
 				statusDuration = 30f;
-				particleEffect = Fx.freezing;
+				particleEffect = UAWFxD.effectHit(0.5f, frontColor, backColor);
 				makeFire = true;
 				applySound = Sounds.plasmaboom;
 			}};
@@ -484,12 +484,12 @@ public class UAWBullets implements ContentList {
 			frontColor = Pal.lightishOrange;
 			backColor = Pal.lightOrange;
 			shootEffect = new MultiEffect(
-				UAWFxD.railShoot(height + (width * 1.5f), Pal.lightishOrange),
+				UAWFxD.railShoot(size + (size * sizeRatio * 1.5f), backColor),
 				UAWFxD.impactCloud(frontColor),
-				UAWFxD.shootBigSmoke(5, 30, frontColor),
+				UAWFxD.shootBigSmoke(size / 9, frontColor),
 				Fx.nuclearShockwave
 			);
-			hitEffect = UAWFxD.dynamicExplosion2(splashDamageRadius, frontColor, backColor);
+			hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius, frontColor, backColor);
 			hitSound = UAWSfx.explosionHuge1;
 			hitSoundVolume = 3f;
 			hitShake = 34f;
@@ -506,20 +506,25 @@ public class UAWBullets implements ContentList {
 				bottomColor = Pal.lightishOrange;
 				status = StatusEffects.melting;
 				statusDuration = 30f;
-				particleEffect = Fx.melting;
+				particleEffect = UAWFxD.effectHit(0.5f, frontColor, backColor);
 				makeFire = true;
 				applySound = Sounds.plasmaboom;
 			}};
 		}};
-		artilleryLargeFrag = new CanisterBulletType(artilleryMediumPlast, 48) {{
-			size = 30;
+		artilleryLargeFrag = new CanisterBulletType(artilleryMediumPlast, 36) {{
+			size = 45;
+			lobbingShot = false;
 			backColor = Pal.plastaniumBack;
 			frontColor = Pal.plastaniumFront;
 			shootEffect = new MultiEffect(
-				UAWFxD.railShoot(height + (width * 1.5f), UAWPal.plastBackBloom),
+				UAWFxD.railShoot(size + (size * sizeRatio * 1.5f), backColor),
 				UAWFxD.impactCloud(frontColor),
-				UAWFxD.shootBigSmoke(5, 30, frontColor),
+				UAWFxD.shootBigSmoke(size / 9, frontColor),
 				Fx.nuclearShockwave
+			);
+			hitEffect = new MultiEffect(
+				UAWFxD.hitBulletBig(frontColor),
+				UAWFxD.crossBlast(size / 2, frontColor)
 			);
 			hitSoundVolume = 3f;
 			hitShake = 34f;
@@ -549,7 +554,7 @@ public class UAWBullets implements ContentList {
 			explodeDelay = 45f;
 			explodeRange = 6 * tilesize;
 			knockback = 8f;
-			hitEffect = UAWFxD.dynamicExplosion2(splashDamageRadius, frontColor, backColor);
+			hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius, frontColor, backColor);
 		}};
 		mineCryo = new MineBulletType(125, 10 * tilesize, 35 * tick) {{
 			status = StatusEffects.freezing;
@@ -558,7 +563,7 @@ public class UAWBullets implements ContentList {
 			explodeDelay = 45f;
 			explodeRange = 6f * tilesize;
 			knockback = 8f;
-			hitEffect = UAWFxD.dynamicExplosion2(splashDamageRadius, frontColor, backColor);
+			hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius, frontColor, backColor);
 		}};
 		mineEMP = new MineBulletType(75, 10 * tilesize, 30 * tick) {{
 			status = UAWStatusEffects.EMP;
@@ -574,11 +579,12 @@ public class UAWBullets implements ContentList {
 			lightningLength = 12;
 			lightningLengthRand = 7;
 			hitSound = Sounds.plasmaboom;
-			hitEffect = UAWFxD.empBlast(splashDamageRadius, 6, frontColor);
+			hitEffect = UAWFxD.empExplosion(splashDamageRadius, 6, frontColor);
 		}};
 
 		canisterBasic = new CanisterBulletType(mineBasic) {{
 			ammoMultiplier = 2f;
+
 		}};
 		canisterIncend = new CanisterBulletType(mineIncend, 3) {{
 			ammoMultiplier = 2f;

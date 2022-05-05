@@ -29,42 +29,49 @@ public class UAWFxS {
 			Drawf.tri(e.x, e.y, 3f, 30f * e.fout(), i * 90);
 		}
 	}),
+
 	shootWaterFlame = new Effect(33f, 80f, e -> {
 		color(UAWPal.waterFront, UAWPal.waterMiddle, Color.gray, e.fin());
 
 		randLenVectors(e.id, 12, e.finpow() * 70f, e.rotation, 10f, (x, y) ->
 			Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 1.6f));
 	}),
+
 	shootCryoFlame = new Effect(33f, 80f, e -> {
 		color(UAWPal.cryoMiddle, UAWPal.cryoBack, Color.gray, e.fin());
 
 		randLenVectors(e.id, 12, e.finpow() * 70f, e.rotation, 10f, (x, y) ->
 			Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 1.6f));
 	}),
+
 	shootSurgeFlame = new Effect(33f, 80f, e -> {
 		color(UAWPal.surgeFront, UAWPal.surgeBack, Color.gray, e.fin());
 
 		randLenVectors(e.id, 12, e.finpow() * 70f, e.rotation, 10f, (x, y) ->
 			Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 1.6f));
 	}),
+
 	shootPlastFlame = new Effect(33f, 80f, e -> {
 		color(Pal.plastaniumFront, Pal.plastaniumBack, Color.gray, e.fin());
 
 		randLenVectors(e.id, 12, e.finpow() * 70f, e.rotation, 10f, (x, y) ->
 			Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 1.6f));
 	}),
+
 	shootSporeFlame = new Effect(33f, 80f, e -> {
 		color(UAWPal.sporeFront, UAWPal.sporeBack, Color.gray, e.fin());
 
 		randLenVectors(e.id, 12, e.finpow() * 70f, e.rotation, 10f, (x, y) ->
 			Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 1.6f));
 	}),
+
 	shootPyraFlame = new Effect(35f, 80f, e -> {
 		color(Pal.darkPyraFlame, Pal.lightPyraFlame, Color.gray, e.fin());
 
 		randLenVectors(e.id, 13, e.finpow() * 70f, e.rotation, 10f, (x, y) ->
 			Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 1.6f));
 	}),
+
 	muzzleBreakShootSmoke = new Effect(38f, e -> {
 		int amount = 12;
 		float length = 40f;
@@ -86,9 +93,9 @@ public class UAWFxS {
 		Lines.circle(e.x, e.y, circleRad);
 	}).layer(Layer.debris),
 
-	bulletImpactHit = new Effect(38f, e -> {
+	bulletImpactHit = new Effect(40f, e -> {
 		color(e.color, e.fin());
-		randLenVectors(e.id, 4, 2f + e.fin() * 10f, (x, y) -> Fill.circle(e.x + x, e.y + y, 0.2f + e.fout() * 1.6f));
+		randLenVectors(e.id, 8, 0.6f + e.fin() * 10f, (x, y) -> Fill.circle(e.x + x, e.y + y, 2f + e.fout() * 1.6f));
 		color();
 	}),
 
@@ -242,8 +249,8 @@ public class UAWFxS {
 		float lr = rot + Mathf.randomSeedRange(e.id + i + 6, 20f * e.fin()) * i;
 
 		rect(Core.atlas.find("casing"),
-			e.x + trnsx(lr, len) + Mathf.randomSeedRange(e.id + i + 7, 3f * e.fin()),
-			e.y + trnsy(lr, len) + Mathf.randomSeedRange(e.id + i + 8, 3f * e.fin()),
+			e.x + trnsx(lr, len) + Mathf.randomSeedRange(e.id + i + 8, 3f * e.fin()),
+			e.y + trnsy(lr, len) + Mathf.randomSeedRange(e.id + i + 7, 3f * e.fin()),
 			5.5f, 12f,
 			rot + e.fin() * 50f * i
 		);
@@ -257,11 +264,13 @@ public class UAWFxS {
 		stroke(e.fout() * 1.2f);
 		Lines.circle(e.x, e.y, 3 + e.finpow() * 12f);
 	}).layer(Layer.scorch - 0.1f),
+
 	torpedoCruiseTrail = new Effect(25f, e -> {
 		color(Color.valueOf("d0d0d0"), Color.valueOf("e8e8e8"), Color.valueOf("f5f5f5"), e.fout());
 		randLenVectors(e.id, 16, 2f + e.fin() * 7f, (x, y) ->
 			Fill.circle(e.x + x, e.y + y, 0.5f + e.fslope() * 1.5f));
 	}).layer(Layer.debris + 0.1f),
+
 	torpedoTrailFade = new Effect(400f, e -> {
 		if (!(e.data instanceof Trail trail)) return;
 		e.lifetime = trail.length * 1.4f;

@@ -49,7 +49,6 @@ public class SplashBulletType extends UAWBulletType {
 		smokeEffect = despawnEffect = hitEffect = Fx.none;
 		displayAmmoMultiplier = false;
 		absorbable = hittable = false;
-		pierceBuilding = pierce = true;
 	}
 
 	@Override
@@ -63,11 +62,18 @@ public class SplashBulletType extends UAWBulletType {
 			).at(b.x, b.y);
 			applySound.at(b.x, b.y);
 			for (int j = 0; j < ((splashAmount) * 15); j++) {
-				particleEffect.at(
-					b.x + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius)),
-					b.y + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius)),
-					frontColor
-				);
+				if (particleEffect == UAWFxS.bulletImpactHit) {
+					particleEffect.at(
+						b.x + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius)),
+						b.y + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius)),
+						frontColor
+					);
+				} else {
+					particleEffect.at(
+						b.x + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius)),
+						b.y + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius))
+					);
+				}
 			}
 			if (status != StatusEffects.none) {
 				Damage.status(b.team, b.x, b.y, splashDamageRadius, status, statusDuration, collidesAir, collidesGround);

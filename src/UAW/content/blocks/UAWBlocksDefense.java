@@ -168,7 +168,7 @@ public class UAWBlocksDefense implements ContentList {
 					damage = 300;
 					speed = brange;
 					splashDamage = 150;
-					splashDamageRadius = 3 * 8;
+					splashDamageRadius = 3 * tilesize;
 					shootEffect = new MultiEffect(UAWFxD.railShoot(32, Pal.orangeSpark), Fx.blockExplosionSmoke);
 					smokeEffect = Fx.smokeCloud;
 					trailEffect = UAWFxD.railTrail(12, Pal.orangeSpark);
@@ -310,6 +310,7 @@ public class UAWBlocksDefense implements ContentList {
 			shootShake = 48f;
 			range = 65 * tilesize;
 			minRange = range / 4.5f;
+			cooldown = 0.002f;
 
 			shootSound = UAWSfx.cannonShootBig2;
 			minShootPitch = 1.5f;

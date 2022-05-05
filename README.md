@@ -60,7 +60,10 @@ Do not play this mod on Mindustry Bleeding-Edge build.
 - [`Prosta4ok_ua#6336`](https://github.com/Prosta4okua) [Ukranian Translator]
 
 ---
-
+## Building for Desktop Testing
+1. Install JDK 17.
+2. Run `gradlew jar` [1].
+3. Your mod jar will be in the build/libs directory. Only use this version for testing on desktop. It will not work with Android. To build an [Android-compatible version](##Building Locally), you need the **Android SDK**. You can either let Github Actions handle this, or set it up yourself. See steps below.
 
 ## Building through Github Actions
 
