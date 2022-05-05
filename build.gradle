@@ -37,6 +37,7 @@ dependencies {
 
     // Other Libs
     implementation 'com.github.Zelaux.GasLibrary:core:a55948ec113566f3a3a4a1f1508d6f9f07161157'
+    compileOnly 'com.sun.istack:istack-commons-runtime:4.1.1'
 }
 
 task jarAndroid {

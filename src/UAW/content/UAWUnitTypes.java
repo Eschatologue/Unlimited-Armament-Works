@@ -14,6 +14,7 @@ import arc.graphics.Color;
 import arc.math.Mathf;
 import arc.struct.*;
 import arc.struct.ObjectMap.Entry;
+import com.sun.istack.NotNull;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.entities.Effect;
@@ -24,6 +25,7 @@ import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.type.ammo.ItemAmmoType;
 import mindustry.type.weapons.PointDefenseWeapon;
+import mindustry.world.blocks.payloads.PayloadSource;
 import mindustry.world.meta.BlockFlag;
 
 import static UAW.Vars.*;
@@ -85,6 +87,10 @@ public class UAWUnitTypes implements ContentList {
 		}
 	}
 
+	private static void setupPayloadSource(){
+		registerPayloadSource(UAWUnitType.class);
+	}
+
 	/**
 	 * Retrieves the class ID for a certain entity type.
 	 *
@@ -97,6 +103,7 @@ public class UAWUnitTypes implements ContentList {
 	@Override
 	public void load() {
 		setupID();
+		setupPayloadSource();
 
 		aglovale = new UAWUnitType("aglovale") {{
 			health = 500;
@@ -1370,5 +1377,19 @@ public class UAWUnitTypes implements ContentList {
 				}};
 			}});
 		}};
+	}
+
+	public static <T extends UnitType>
+	void registerPayloadSource(@NotNull Class<T> clz) {
+		var source = (PayloadSource) Blocks.payloadSource;
+		source.config((Class<UnitType>) clz,
+				(PayloadSource.PayloadSourceBuild build, UnitType type) -> {
+					if (source.canProduce(type) && build.unit != type) {
+						build.unit = type;
+						build.block = null;
+						build.payload = null;
+						build.scl = 0f;
+					}
+				});
 	}
 }
