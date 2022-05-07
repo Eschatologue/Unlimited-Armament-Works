@@ -87,7 +87,7 @@ public class UAWUnitTypes implements ContentList {
 		}
 	}
 
-	private static void setupPayloadSource(){
+	private static void setupPayloadSource() {
 		registerPayloadSource(UAWUnitType.class);
 	}
 
@@ -98,6 +98,19 @@ public class UAWUnitTypes implements ContentList {
 	 */
 	public static <T extends Entityc> int classID(Class<T> type) {
 		return idMap.get(type, -1);
+	}
+
+	public static <T extends UnitType> void registerPayloadSource(@NotNull Class<T> clz) {
+		var source = (PayloadSource) Blocks.payloadSource;
+		source.config((Class<UnitType>) clz,
+			(PayloadSource.PayloadSourceBuild build, UnitType type) -> {
+				if (source.canProduce(type) && build.unit != type) {
+					build.unit = type;
+					build.block = null;
+					build.payload = null;
+					build.scl = 0f;
+				}
+			});
 	}
 
 	@Override
@@ -1377,19 +1390,5 @@ public class UAWUnitTypes implements ContentList {
 				}};
 			}});
 		}};
-	}
-
-	public static <T extends UnitType>
-	void registerPayloadSource(@NotNull Class<T> clz) {
-		var source = (PayloadSource) Blocks.payloadSource;
-		source.config((Class<UnitType>) clz,
-				(PayloadSource.PayloadSourceBuild build, UnitType type) -> {
-					if (source.canProduce(type) && build.unit != type) {
-						build.unit = type;
-						build.block = null;
-						build.payload = null;
-						build.scl = 0f;
-					}
-				});
 	}
 }
