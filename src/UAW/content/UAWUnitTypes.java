@@ -36,6 +36,7 @@ import static mindustry.content.Bullets.*;
 @SuppressWarnings("unchecked")
 public class UAWUnitTypes implements ContentList {
 	public static UnitType
+		// Helis
 		aglovale, bedivere, calogrenant,
 		corsair, vindicator, superfortress,
 		arquebus, carronade, falconet, audacious, arkRoyal,
