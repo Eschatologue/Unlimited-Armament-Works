@@ -3,7 +3,6 @@ package UAW.content.blocks;
 import UAW.content.*;
 import arc.struct.Seq;
 import mindustry.content.*;
-import mindustry.ctype.ContentList;
 import mindustry.type.*;
 import mindustry.world.Block;
 import mindustry.world.blocks.units.*;
@@ -12,15 +11,14 @@ import static UAW.Vars.tick;
 import static mindustry.type.ItemStack.with;
 
 /** Contains Unit related Blocks such as factories, reconstructors, etc */
-public class UAWBlocksUnits implements ContentList {
+public class UAWBlocksUnits {
 	public static Block placeholder,
 	// Units Factory
 	UAWGroundFactory, UAWNavalFactory, UAWAirFactory,
 	// Units Reconstructor
 	exponentialPetroleumReconstructor, tetrativePetroleumReconstructor;
 
-	@Override
-	public void load() {
+	public static void load() {
 		UAWGroundFactory = new UnitFactory("uaw-ground-factory") {{
 			requirements(Category.units, with(
 				Items.lead, 550,
@@ -30,8 +28,8 @@ public class UAWBlocksUnits implements ContentList {
 				Items.plastanium, 100
 			));
 			size = 5;
-			consumes.power(3.5f);
-			consumes.liquid(Liquids.oil, 1f);
+			consumePower(3.5f);
+			consumeLiquid(Liquids.oil, 1f);
 			liquidCapacity = 120f;
 			plans = Seq.with(
 				new UnitPlan(UAWUnitTypes.cavalier, 35f * tick, with(
@@ -52,8 +50,8 @@ public class UAWBlocksUnits implements ContentList {
 			));
 			floating = true;
 			size = 5;
-			consumes.power(3.5f);
-			consumes.liquid(Liquids.oil, 1f);
+			consumePower(3.5f);
+			consumeLiquid(Liquids.oil, 1f);
 			liquidCapacity = 120f;
 			plans = Seq.with(
 				new UnitPlan(UAWUnitTypes.arquebus, 45f * tick, with(
@@ -80,8 +78,8 @@ public class UAWBlocksUnits implements ContentList {
 				Items.plastanium, 100
 			));
 			size = 5;
-			consumes.power(3.5f);
-			consumes.liquid(Liquids.oil, 1f);
+			consumePower(3.5f);
+			consumeLiquid(Liquids.oil, 1f);
 			liquidCapacity = 120f;
 			plans = Seq.with(
 				new UnitPlan(UAWUnitTypes.aglovale, 35f * tick, with(
@@ -110,14 +108,14 @@ public class UAWBlocksUnits implements ContentList {
 			));
 
 			size = 7;
-			consumes.power(7f);
-			consumes.items(with(
+			consumePower(7f);
+			consumeItems(with(
 				Items.silicon, 425,
 				Items.metaglass, 325,
 				UAWItems.titaniumCarbide, 250,
 				Items.plastanium, 225
 			));
-			consumes.liquid(Liquids.oil, 1.5f);
+			consumeLiquid(Liquids.oil, 1.5f);
 
 			constructTime = 80 * tick;
 			liquidCapacity = 240f;
@@ -143,15 +141,15 @@ public class UAWBlocksUnits implements ContentList {
 			));
 
 			size = 9;
-			consumes.power(20f);
-			consumes.items(with(
+			consumePower(20f);
+			consumeItems(with(
 				Items.silicon, 550,
 				Items.metaglass, 450,
 				Items.plastanium, 300,
 				Items.surgeAlloy, 350,
 				UAWItems.titaniumCarbide, 350
 			));
-			consumes.liquid(Liquids.oil, 3.5f);
+			consumeLiquid(Liquids.oil, 3.5f);
 
 			constructTime = 225 * tick;
 			liquidCapacity = 480f;

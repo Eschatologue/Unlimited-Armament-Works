@@ -59,6 +59,5 @@ public class CopterUnitEntity extends UnitEntity {
 			rotor.rotorRotation += ((rotor.rotor.rotorSpeed * rotorSpeedScl) + rotor.rotor.minimumRotorSpeed) * Time.delta;
 		}
 		type.fallSpeed = 0.006f;
-		type.onTitleScreen = false;
 	}
 }

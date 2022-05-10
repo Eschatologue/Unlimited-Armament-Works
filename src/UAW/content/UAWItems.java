@@ -1,15 +1,13 @@
 package UAW.content;
 
 import arc.graphics.Color;
-import mindustry.ctype.ContentList;
 import mindustry.type.Item;
 
-public class UAWItems implements ContentList {
+public class UAWItems {
 	public static Item placeholder,
 		cryogel, anthracite, titaniumCarbide, dieselCore;
 
-	@Override
-	public void load() {
+	public static void load() {
 		cryogel = new Item("item-cryogel", Color.valueOf("87ceeb")) {{
 			flammability = -10f;
 			explosiveness = 0f;

@@ -4,10 +4,9 @@ import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.Mathf;
 import arc.math.geom.Geometry;
-import arc.util.*;
+import arc.util.Time;
 import mindustry.content.Fx;
-import mindustry.gen.*;
-import mindustry.graphics.Drawf;
+import mindustry.gen.Sounds;
 import mindustry.logic.Ranged;
 import mindustry.world.blocks.defense.MendProjector;
 import mindustry.world.meta.*;
@@ -56,24 +55,31 @@ public class RejuvenationProjector extends MendProjector {
 
 		@Override
 		public void updateTile() {
-			heat = Mathf.lerpDelta(heat, consValid() || cheating() ? 1f : 0f, 0.08f);
+			boolean canHeal = !checkSuppression();
+
+			smoothEfficiency = Mathf.lerpDelta(smoothEfficiency, efficiency, 0.08f);
+			heat = Mathf.lerpDelta(heat, efficiency > 0 && canHeal ? 1f : 0f, 0.08f);
 			charge += heat * delta();
 
-			if (cons.optionalValid() && timer(timerUse, useTime) && efficiency() > 0) {
+			if (optionalEfficiency > 0 && timer(timerUse, useTime) && canHeal) {
 				consume();
 			}
 
-			if (charge >= reload) {
+			if (charge >= reload && canHeal) {
+				float realRange = range + phaseHeat * phaseRangeBoost;
 				charge = 0f;
-				indexer.eachBlock(this, range, Building::damaged, other -> {
-					other.heal(other.maxHealth() * (healPercent) / 100f * efficiency());
-					Fx.hitMeltHeal.at(other.x + Mathf.range(size * 6f), other.y + Mathf.range(size * 6f));
+
+				indexer.eachBlock(this, realRange, b -> b.damaged() && !b.isHealSuppressed(), other -> {
+					other.heal(other.maxHealth() * (healPercent + phaseHeat * phaseBoost) / 100f * efficiency);
+					other.recentlyHealed();
+					Fx.healBlockFull.at(other.x, other.y, other.block.size, baseColor, other.block);
 					if (other.health() > (other.maxHealth / 100) * speedStart && other.health() < (other.maxHealth / 100) * (speedStart + 5)) {
 						other.applyBoost(boostMultiplier, boostDuration);
 						Fx.overdriven.at(other.x + Mathf.range(size * 6f), other.y + Mathf.range(size * 6f));
 						Sounds.shield.at(other.x, other.y);
 					}
 				});
+
 			}
 		}
 

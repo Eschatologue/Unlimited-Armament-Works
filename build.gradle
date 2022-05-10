@@ -15,6 +15,7 @@ repositories {
 
 ext {
     //the build number that this mod is made for
+    erekirBranch = 'erekir-SNAPSHOT'
     mindustryVersion = 'v135'
     jabelVersion = "0.4.0"
     sdkRoot = System.getenv("ANDROID_HOME") ?: System.getenv("ANDROID_SDK_ROOT")
@@ -30,11 +31,10 @@ allprojects {
 dependencies {
     // Base Mindustry
     compileOnly "com.github.Anuken.Arc:arc-core:$mindustryVersion"
-    compileOnly "com.github.Anuken.Mindustry:core:$mindustryVersion"
-    annotationProcessor "com.github.Anuken:jabel:$jabelVersion"
+//    compileOnly "com.github.Anuken.Mindustry:core:$mindustryVersion"
+    compileOnly(files("E:\\Mindustry Mods\\MindustryErekir\\desktop\\build\\libs\\Mindustry.jar"))
 
     // Other Libs
-    implementation 'com.github.Zelaux.GasLibrary:core:a55948ec113566f3a3a4a1f1508d6f9f07161157'
     compileOnly 'com.sun.istack:istack-commons-runtime:4.1.1'
 }
 

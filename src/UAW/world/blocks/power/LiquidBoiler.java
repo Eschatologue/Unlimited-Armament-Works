@@ -1,22 +1,23 @@
-package UAW.world.blocks.gas;
+package UAW.world.blocks.power;
 
-import UAW.content.UAWGas;
+import UAW.content.UAWLiquids;
+import UAW.world.blocks.production.AdvancedGenericCrafter;
 import arc.Core;
 import arc.math.Mathf;
-import gas.GasStack;
-import gas.type.Gas;
+import arc.util.Nullable;
 import mindustry.content.Liquids;
 import mindustry.game.Team;
 import mindustry.graphics.Pal;
 import mindustry.type.Liquid;
 import mindustry.ui.Bar;
 import mindustry.world.Tile;
+import mindustry.world.consumers.ConsumeItemFilter;
 import mindustry.world.meta.Stat;
 
 import static UAW.Vars.tick;
 
 /** Boils crafter to convert liquid to gas based on conversion ratio */
-public class LiquidBoiler extends GasCrafter {
+public class LiquidBoiler extends AdvancedGenericCrafter {
 
 	/** The amount of liquid unit it consumes */
 	public float liquidAmount = 30f;
@@ -25,8 +26,11 @@ public class LiquidBoiler extends GasCrafter {
 	/** Block inventory capacity multipler */
 	public float capacityMultiplier = 1.5f;
 
+	public @Nullable
+	ConsumeItemFilter filterItem;
+
 	public Liquid liquidInput = Liquids.water;
-	public Gas gasResult = UAWGas.steam;
+	public Liquid gasResult = UAWLiquids.steam;
 
 	public LiquidBoiler(String name) {
 		super(name);
@@ -34,17 +38,7 @@ public class LiquidBoiler extends GasCrafter {
 		craftTime = 1.5f * tick;
 		hasItems = true;
 		hasLiquids = true;
-		hasGasses = true;
-		outputsGas = true;
-		consumes.liquid(liquidInput, liquidAmount / craftTime);
-		outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);
-	}
-
-	@Override
-	public void init() {
-		super.init();
-		gasCapacity = liquidAmount * conversionMultiplier * capacityMultiplier;
-		liquidCapacity = liquidAmount * capacityMultiplier;
+		outputsLiquid = true;
 	}
 
 	@Override
@@ -64,7 +58,7 @@ public class LiquidBoiler extends GasCrafter {
 	@Override
 	public void setBars() {
 		super.setBars();
-		bars.add("heat", (LiquidBoilerBuild entity) ->
+		addBar("heat", (LiquidBoilerBuild entity) ->
 			new Bar(() ->
 				Core.bundle.format("bar.heat", (int) (entity.steamBuildUp)),
 				() -> Pal.lightOrange,
@@ -72,17 +66,17 @@ public class LiquidBoiler extends GasCrafter {
 			));
 	}
 
-	public class LiquidBoilerBuild extends GasCrafterBuild {
+	public class LiquidBoilerBuild extends AdvancedGenericCrafterBuild {
 		public float steamBuildUp;
 
 		public float steamBuildUpProgress() {
-			return steamBuildUp;
+			return steamBuildUp * filterItem.efficiency(this);
 		}
 
 		@Override
 		public void updateTile() {
 			super.updateTile();
-			if (consValid()) {
+			if (efficiency > 0.1f) {
 				steamBuildUp = Mathf.approachDelta(steamBuildUp, 1f, warmupSpeed * (attribute != null ? efficiencyScale() : 1));
 			} else
 				steamBuildUp = Mathf.approachDelta(steamBuildUp, 0f, warmupSpeed * (attribute != null ? efficiencyScale() : 1));

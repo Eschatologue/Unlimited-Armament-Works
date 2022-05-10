@@ -40,9 +40,9 @@ public class JetUnitEntity extends UnitEntity {
 			trail.length = type.trailLength;
 
 			int sign = i == 0 ? -1 : 1;
-			float cx = Angles.trnsx(rotation - 90, type.trailX * sign, type.trailY) + x;
-			float cy = Angles.trnsy(rotation - 90, type.trailX * sign, type.trailY) + y;
-			trail.update(cx, cy, type.trailScl);
+			float cx = Angles.trnsx(rotation - 90, type.waveTrailX * sign, type.waveTrailY) + x;
+			float cy = Angles.trnsy(rotation - 90, type.waveTrailX * sign, type.waveTrailY) + y;
+			trail.update(cx, cy, type.tailScl);
 		}
 		if (type.jetMovement) {
 			type.omniMovement = !isPlayer() && isShooting && isAI();
@@ -55,8 +55,8 @@ public class JetUnitEntity extends UnitEntity {
 		Color trailColor = team.color;
 		float z = Draw.z();
 		Draw.z(Layer.effect);
-		tleft.draw(trailColor, type.trailScl);
-		tright.draw(trailColor, type.trailScl);
+		tleft.draw(trailColor, type.tailScl);
+		tright.draw(trailColor, type.tailScl);
 		Draw.z(z);
 	}
 

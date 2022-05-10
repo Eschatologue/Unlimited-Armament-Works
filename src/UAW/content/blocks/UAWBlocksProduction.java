@@ -2,19 +2,15 @@ package UAW.content.blocks;
 
 import UAW.content.*;
 import UAW.graphics.*;
-import UAW.world.blocks.gas.GasCrafter;
 import UAW.world.blocks.production.*;
-import UAW.world.drawer.*;
+import UAW.world.drawer.DrawBoilerSmoke;
 import arc.graphics.Color;
-import gas.world.blocks.production.GasFracker;
-import gas.world.consumers.ConsumeGas;
 import mindustry.content.*;
-import mindustry.ctype.ContentList;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.Block;
-import mindustry.world.blocks.production.GenericCrafter;
+import mindustry.world.blocks.production.*;
 import mindustry.world.draw.*;
 import mindustry.world.meta.Attribute;
 
@@ -23,7 +19,7 @@ import static mindustry.Vars.tilesize;
 import static mindustry.type.ItemStack.with;
 
 /** Contains Production structures, such as factories, drills, pumps, etc */
-public class UAWBlocksProduction implements ContentList {
+public class UAWBlocksProduction {
 	public static Block placeholder,
 	// Drills
 	oilDerrick, steamPump, pulsometerPump, steamDrill, advancedSteamDrill, steamThumper,
@@ -36,9 +32,8 @@ public class UAWBlocksProduction implements ContentList {
 	// Liquid Mixer
 	cryofluidDistillery, surgeMixer;
 
-	@Override
-	public void load() {
-		oilDerrick = new GasFracker("oil-derrick") {{
+	public static void load() {
+		oilDerrick = new Fracker("oil-derrick") {{
 			requirements(Category.production, with(
 				Items.copper, 200,
 				Items.graphite, 150,
@@ -51,15 +46,14 @@ public class UAWBlocksProduction implements ContentList {
 			updateEffect = UAWFxD.steamCloud(5, Layer.flyingUnitLow - 1);
 			updateEffectChance = 0.05f;
 			pumpAmount = 0.5f;
-			gasCapacity = liquidCapacity = 360f;
+			liquidCapacity = 360f;
 			attribute = Attribute.oil;
 			baseEfficiency = 0.5f;
 			rotateSpeed = -2.5f;
 
 			squareSprite = false;
 
-			consumes.liquid(Liquids.cryofluid, pumpAmount / 2.5f).boost();
-			consumes.addGas(new ConsumeGas(UAWGas.steam, 3.5f));
+			consumeLiquid(UAWLiquids.steam, pumpAmount / 2.5f);
 		}};
 		steamThumper = new ThumperDrill("steam-thumper") {{
 			requirements(Category.production, with(
@@ -78,18 +72,17 @@ public class UAWBlocksProduction implements ContentList {
 			warmupSpeed = 0.001f;
 			hasLiquids = true;
 			drawRim = true;
-			gasCapacity = 90f;
+			liquidCapacity = 90f;
 			drillEffect = new MultiEffect(
 				Fx.mineBig,
 				Fx.oily
 			);
 			updateEffect = UAWFxD.steamCloud(4, Layer.flyingUnitLow);
 
-			consumes.addGas(new ConsumeGas(UAWGas.steam, 0.5f));
-			consumes.liquid(Liquids.oil, 0.025f).boost();
+			consumeLiquid(UAWLiquids.steam, 0.5f);
 		}};
 
-		steamDrill = new UAWGasDrill("steam-drill") {{
+		steamDrill = new UAWDrill("steam-drill") {{
 			requirements(Category.production, with(
 				Items.copper, 24,
 				Items.graphite, 12
@@ -106,10 +99,9 @@ public class UAWBlocksProduction implements ContentList {
 			updateEffect = UAWFxD.steamCloud(3.5f);
 			drillEffect = Fx.mineBig;
 
-			consumes.addGas(new ConsumeGas(UAWGas.steam, 0.25f));
-			consumes.liquid(Liquids.oil, 0.025f).boost();
+			consumeLiquid(UAWLiquids.steam, 0.25f);
 		}};
-		advancedSteamDrill = new UAWGasDrill("advanced-steam-drill") {{
+		advancedSteamDrill = new UAWDrill("advanced-steam-drill") {{
 			requirements(Category.production, with(
 				Items.copper, 85,
 				Items.silicon, 50,
@@ -129,8 +121,7 @@ public class UAWBlocksProduction implements ContentList {
 			drillEffect = Fx.mineBig;
 			rotateSpeed = 6f;
 
-			consumes.addGas(new ConsumeGas(UAWGas.steam, 1.8f));
-			consumes.liquid(Liquids.oil, 0.05f).boost();
+			consumeLiquid(UAWLiquids.steam, 1.8f);
 		}};
 
 		carburizingFurnace = new AdvancedGenericCrafter("carburizing-furnace") {{
@@ -146,15 +137,14 @@ public class UAWBlocksProduction implements ContentList {
 			size = 3;
 			itemCapacity = 30;
 			craftTime = 4f * tick;
-			drawer = new DrawEverything() {{
-				drawArcSmelter = true;
-				arcParticles = 32;
-				arcFlameRad = 1.2f;
+			drawer = new DrawArcSmelt() {{
+				particles = 32;
+				flameRad = 1.2f;
 			}};
 			craftEffect = UAWFxD.steamCloud(10f, Layer.flyingUnitLow, new Color(UAWPal.steamFront).lerp(Color.gray, 0.15f));
 			updateEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
-			consumes.power(3.5f);
-			consumes.items(
+			consumePower(3.5f);
+			consumeItems(
 				new ItemStack(Items.titanium, 6),
 				new ItemStack(UAWItems.anthracite, 4)
 			);
@@ -163,7 +153,7 @@ public class UAWBlocksProduction implements ContentList {
 			);
 		}};
 
-		steamPump = new UAWGasPump("steam-pump") {{
+		steamPump = new UAWPump("steam-pump") {{
 			requirements(Category.liquid, with(
 				Items.copper, 80,
 				Items.metaglass, 40,
@@ -176,9 +166,9 @@ public class UAWBlocksProduction implements ContentList {
 			updateEffectChance = 0.02f;
 			updateEffect = UAWFxD.steamCloud(4, Layer.flyingUnitLow);
 
-			consumes.addGas(new ConsumeGas(UAWGas.steam, 0.25f));
+			consumeLiquid(UAWLiquids.steam, 0.25f);
 		}};
-		pulsometerPump = new UAWGasPump("pulsometer-pump") {{
+		pulsometerPump = new UAWPump("pulsometer-pump") {{
 			requirements(Category.liquid, with(
 				Items.copper, 80,
 				Items.metaglass, 90,
@@ -191,7 +181,8 @@ public class UAWBlocksProduction implements ContentList {
 			liquidCapacity = 80f;
 			updateEffectChance = 0.02f;
 			updateEffect = UAWFxD.steamCloud(6f, Layer.flyingUnitLow);
-			consumes.addGas(new ConsumeGas(UAWGas.steam, 1f));
+
+			consumeLiquid(UAWLiquids.steam, 1f);
 		}};
 
 		gelatinizer = new GenericCrafter("gelatinizer") {{
@@ -200,12 +191,12 @@ public class UAWBlocksProduction implements ContentList {
 				Items.graphite, 30,
 				Items.thorium, 20
 			));
-			consumes.items(
+			consumeItems(
 				new ItemStack(
 					Items.sand, 2
 				));
-			consumes.liquid(Liquids.cryofluid, 0.25f);
-			consumes.power(0.5f);
+			consumeLiquid(Liquids.cryofluid, 0.25f);
+			consumePower(0.5f);
 			outputItem = new ItemStack(
 				UAWItems.cryogel, 1
 			);
@@ -213,7 +204,7 @@ public class UAWBlocksProduction implements ContentList {
 			hasItems = true;
 			hasLiquids = true;
 			size = 2;
-			drawer = new DrawLiquid();
+			drawer = new DrawLiquidRegion();
 			craftEffect = Fx.freezing;
 			updateEffect = Fx.wet;
 		}};
@@ -229,42 +220,17 @@ public class UAWBlocksProduction implements ContentList {
 			outputsLiquid = true;
 			hasItems = true;
 			hasLiquids = true;
-			drawer = new DrawSmelter(UAWPal.cryoFront);
+			drawer = new DrawFlame(UAWPal.cryoFront);
 			craftTime = 2f * tick;
 			updateEffect = new MultiEffect(Fx.wet, UAWFxD.smokeCloud(45, Layer.effect, Color.white));
 			updateEffectChance = 0.01f;
-			consumes.items(with(
+			consumeItems(with(
 				Items.titanium, 4,
 				Items.thorium, 1
 			));
-			consumes.liquid(Liquids.water, 1.2f);
+			consumeLiquid(Liquids.water, 1.2f);
 			outputLiquid = new LiquidStack(Liquids.cryofluid, 60f);
-			consumes.power(3f);
-		}};
-
-		surgeMixer = new GenericCrafter("surge-mixer") {{
-			requirements(Category.crafting, with(
-				Items.thorium, 30,
-				Items.lead, 45,
-				Items.silicon, 35,
-				Items.metaglass, 20
-			));
-			size = 3;
-			liquidCapacity = 120f;
-			outputsLiquid = true;
-			hasItems = true;
-			hasLiquids = true;
-			drawer = new DrawLiquid(true);
-			craftTime = 2f * tick;
-			updateEffect = new MultiEffect(Fx.shieldBreak, Fx.hitBulletSmall);
-			consumes.items(with(
-				Items.copper, 1,
-				Items.titanium, 1,
-				Items.silicon, 1
-			));
-			consumes.liquid(Liquids.oil, 0.25f);
-
-			outputLiquid = new LiquidStack(UAWLiquids.surgeSolvent, 30f);
+			consumePower(3f);
 		}};
 
 		petroleumSmelter = new AdvancedGenericCrafter("petroleum-smelter") {{
@@ -283,7 +249,7 @@ public class UAWBlocksProduction implements ContentList {
 			liquidCapacity = 360f;
 			craftTime = 2.5f * tick;
 			squareSprite = false;
-			drawer = new DrawSmelter();
+			drawer = new DrawFlame();
 			craftEffect = new MultiEffect(
 				UAWFxD.burstSmelt(4 * tilesize, Pal.plastaniumFront, Pal.plastaniumBack),
 				Fx.flakExplosionBig
@@ -295,19 +261,19 @@ public class UAWBlocksProduction implements ContentList {
 			);
 			craftSoundVolume = 1.2f;
 			craftShake = 15f;
-			consumes.items(
+			consumeItems(
 				new ItemStack(Items.sand, 12),
 				new ItemStack(Items.lead, 4),
 				new ItemStack(UAWItems.anthracite, 3)
 			);
-			consumes.liquid(Liquids.oil, 3);
+			consumeLiquid(Liquids.oil, 3);
 			outputItems = with(
 				Items.silicon, 13,
 				Items.metaglass, 13
 			);
 		}};
 
-		steamPress = new GasCrafter("steam-press") {{
+		steamPress = new AdvancedGenericCrafter("steam-press") {{
 			requirements(Category.crafting, with(
 				Items.titanium, 90,
 				Items.silicon, 25,
@@ -318,19 +284,16 @@ public class UAWBlocksProduction implements ContentList {
 			size = 3;
 			hasItems = true;
 			squareSprite = false;
-			hasGasses = true;
 			craftEffect = Fx.pulverizeMedium;
 			outputItem = new ItemStack(Items.graphite, 12);
 			craftTime = 90f;
 			itemCapacity = 40;
-			drawer = new GasDrawEverything() {{
-				drawSteam = true;
-			}};
+			drawer = new DrawBoilerSmoke();
 
-			consumes.addGas(new ConsumeGas(UAWGas.steam, 1.8f));
-			consumes.item(Items.coal, 5);
+			consumeLiquid(UAWLiquids.steam, 1.8f);
+			consumeItem(Items.coal, 5);
 		}};
-		plastaniumSteamPress = new GasCrafter("plastanium-steam-press") {{
+		plastaniumSteamPress = new GenericCrafter("plastanium-steam-press") {{
 			requirements(Category.crafting, with(
 				Items.silicon, 140,
 				Items.coal, 120,
@@ -345,19 +308,16 @@ public class UAWBlocksProduction implements ContentList {
 			craftTime = 90f;
 			itemCapacity = 40;
 			hasLiquids = true;
-			hasGasses = true;
 			craftEffect = Fx.formsmoke;
 			updateEffect = UAWFxD.steamCloud(7.5f, Layer.flyingUnitLow);
 			updateEffectChance = 0.01f;
-			drawer = new GasDrawEverything() {{
-				drawSmokeCells = true;
-				smokeRecurrance = 10f;
-			}};
 			outputItem = new ItemStack(Items.plastanium, 6);
 
-			consumes.addGas(new ConsumeGas(UAWGas.steam, 2f));
-			consumes.liquid(Liquids.oil, 0.75f);
-			consumes.item(Items.titanium, 10);
+			consumeLiquids(
+				new LiquidStack(Liquids.oil, 0.75f),
+				new LiquidStack(UAWLiquids.steam, 1)
+			);
+			consumeItem(Items.titanium, 10);
 		}};
 
 	}

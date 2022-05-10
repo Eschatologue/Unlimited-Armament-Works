@@ -1,0 +1,55 @@
+package UAW.world.drawer;
+
+import UAW.graphics.UAWPal;
+import arc.graphics.*;
+import arc.graphics.g2d.*;
+import arc.math.*;
+import arc.util.Time;
+import mindustry.gen.Building;
+import mindustry.world.draw.DrawBlock;
+
+/** Modified version of the Draw Arc Smelter, replaced Lines with Circles */
+public class DrawBoilerSmoke extends DrawBlock {
+	/** The Color of the particle */
+	public Color particleColor = UAWPal.steamFront;
+	/** The amount of particles generated */
+	public int particles = 25;
+	/** How big is the particle, calculated in tilesize */
+	public float size = 3f;
+	/** The alpha or the opacity of the particles */
+	public float alpha = 0.45f;
+	/** How long does the particle lives, calculated in ticks */
+	public float lifetime = 60f;
+	/** How wide does the particle spreads */
+	public float spreadRadius = 7f;
+	/** How much does the particles opacity/alpha fades */
+	public float fadeMargin = 0.4f;
+
+	public Blending blending = Blending.normal;
+
+	@Override
+	public void draw(Building build) {
+
+		if (build.warmup() > 0f) {
+			float a = alpha * build.warmup();
+			float base = (Time.time / lifetime);
+
+			Draw.blend(blending);
+			Draw.color(particleColor);
+			rand.setSeed(build.id);
+			for (int i = 0; i < particles; i++) {
+				float fin = (rand.random(1f) + base) % 1f, fout = 1f - fin;
+				float angle = rand.random(360f);
+				float len = spreadRadius * Interp.pow2Out.apply(fin);
+				Draw.alpha(a * (1f - Mathf.curve(fin, 1f - fadeMargin)));
+				Fill.circle(
+					build.x + Angles.trnsx(angle, len),
+					build.y + Angles.trnsy(angle, len),
+					size * fout * build.warmup()
+				);
+			}
+			Draw.blend();
+			Draw.reset();
+		}
+	}
+}

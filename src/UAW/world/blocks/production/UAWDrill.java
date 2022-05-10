@@ -4,16 +4,15 @@ import arc.graphics.Blending;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.util.Time;
-import gas.world.blocks.production.GasDrill;
 import mindustry.graphics.Drawf;
+import mindustry.world.blocks.production.Drill;
 
-public class UAWGasDrill extends GasDrill {
+public class UAWDrill extends Drill {
 	public int particles = -1;
 	public float particleLife = -1f, particleSpreadRadius = -1, particleSize = -1;
 
-	public UAWGasDrill(String name) {
+	public UAWDrill(String name) {
 		super(name);
-		hasGasses = true;
 	}
 
 	@Override
@@ -25,7 +24,7 @@ public class UAWGasDrill extends GasDrill {
 		if (particleSize < 0) particleSize = size * 1.5f;
 	}
 
-	public class UAWGasDrillBuild extends GasDrillBuild{
+	public class UAWDrillBuild extends DrillBuild {
 		/** Without this, it would fuck up other drills */
 		protected static final Rand rand = new Rand();
 

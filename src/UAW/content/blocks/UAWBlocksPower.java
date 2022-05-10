@@ -1,64 +1,62 @@
 package UAW.content.blocks;
 
 import UAW.content.*;
-import UAW.world.blocks.gas.LiquidBoiler;
-import UAW.world.blocks.power.GasGenerator;
-import UAW.world.drawer.GasDrawEverything;
-import gas.GasStack;
-import gas.world.consumers.ConsumeGas;
+import UAW.graphics.UAWPal;
+import UAW.world.blocks.power.LiquidBoiler;
+import UAW.world.blocks.power.*;
+import UAW.world.drawer.DrawBoilerSmoke;
 import mindustry.content.Items;
-import mindustry.ctype.ContentList;
 import mindustry.type.*;
 import mindustry.world.Block;
+import mindustry.world.consumers.ConsumeItemFlammable;
+import mindustry.world.draw.*;
 import mindustry.world.meta.Attribute;
 
 import static mindustry.type.ItemStack.with;
 
 /** Contains Power Blocks or Blocks that produces Power */
-public class UAWBlocksPower implements ContentList {
+public class UAWBlocksPower {
 	public static Block placeholder,
 
 	steamTurbine, advancedSteamTurbine,
 
 	steamKettle, coalBoiler, pressureBoiler, geothermalBoiler, solarBoiler;
 
-	@Override
-	public void load() {
+	public static void load() {
 
 		// Steam to Power
-		steamTurbine = new GasGenerator("steam-turbine") {{
-			requirements(Category.power, with(
-				Items.copper, 65,
-				Items.graphite, 40,
-				Items.lead, 55,
-				Items.silicon, 15
-			));
-			size = 2;
-			squareSprite = false;
-			powerProduction = 6f;
-			gasCapacity = 120f;
-			steamBottom = false;
-			consumes.add(new ConsumeGas(UAWGas.steam, 0.5f).optional(false, false));
-		}};
-		advancedSteamTurbine = new GasGenerator("advanced-steam-turbine") {{
-			requirements(Category.power, with(
-				Items.copper, 90,
-				Items.titanium, 60,
-				Items.lead, 150,
-				Items.silicon, 90,
-				Items.metaglass, 45
-			));
-			size = 4;
-			rotatorSpeed = 7f;
-			warmupSpeed = 0.0005f;
-			squareSprite = false;
-			powerProduction = 20f;
-			gasCapacity = 320f;
-			steamBottom = false;
-			steamIntensityMult = 0.8f;
-			steamParticleSize = 6f;
-			consumes.add(new ConsumeGas(UAWGas.steam, 1.8f).optional(false, false));
-		}};
+//		steamTurbine = new SimplePowerGenerator("steam-turbine") {{
+//			requirements(Category.power, with(
+//				Items.copper, 65,
+//				Items.graphite, 40,
+//				Items.lead, 55,
+//				Items.silicon, 15
+//			));
+//			size = 2;
+//			squareSprite = false;
+//			powerProduction = 6f;
+//			liquidCapacity = 120f;
+//			consumeLiquid(UAWLiquids.steam, 0.5f);
+//		}};
+//		advancedSteamTurbine = new GasGenerator("advanced-steam-turbine") {{
+//			requirements(Category.power, with(
+//				Items.copper, 90,
+//				Items.titanium, 60,
+//				Items.lead, 150,
+//				Items.silicon, 90,
+//				Items.metaglass, 45
+//			));
+//			size = 4;
+//			rotatorSpeed = 7f;
+//			warmupSpeed = 0.0005f;
+//			squareSprite = false;
+//			powerProduction = 20f;
+//			liquidCapacity = 320f;
+//			steamBottom = false;
+//			steamIntensityMult = 0.8f;
+//			steamParticleSize = 6f;
+//			consumes.add(new ConsumeGas(UAWLiquids.steam, 1.8f).optional(false, false));
+//		}};
 
 		// Steam Production
 		steamKettle = new LiquidBoiler("steam-kettle") {{
@@ -70,19 +68,24 @@ public class UAWBlocksPower implements ContentList {
 			squareSprite = false;
 			warmupSpeed = 0.01f;
 			liquidAmount = 7.5f;
-			drawer = new GasDrawEverything() {{
-				drawSteam = true;
-				steamParticleCount = 20;
-				steamParticleLifetime = 150f;
-				steamParticleSize = 1.5f;
-				steamParticleSpreadRadius = 2f;
-			}};
+			drawer = new DrawMulti(
+				new DrawParticles() {{
+					reverse = true;
+					color = UAWPal.steamFront;
+					alpha = 0.6f;
+					particleSize = 4f;
+					particles = 10;
+					particleRad = 12f;
+					particleLife = 140f;
+				}},
+				new DrawHeatRegion("-heat")
+			);
 
-			consumes.items(new ItemStack(
+			consumeItems(new ItemStack(
 				Items.coal, 1
 			));
-			consumes.liquid(liquidInput, liquidAmount / craftTime);
-			outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);
+			consumeLiquid(liquidInput, liquidAmount / craftTime);
+			outputLiquid = new LiquidStack(gasResult, liquidAmount * conversionMultiplier);
 		}};
 		coalBoiler = new LiquidBoiler("coal-boiler") {{
 			requirements(Category.power, with(
@@ -94,18 +97,19 @@ public class UAWBlocksPower implements ContentList {
 			squareSprite = false;
 			warmupSpeed = 0.002f;
 			liquidAmount = 36;
-			consumes.items(new ItemStack(
-				Items.coal, 3
-			));
-			drawer = new GasDrawEverything() {{
-				drawSteam = true;
-				steamParticleCount = 35;
-				steamParticleLifetime = 160f;
-				steamParticleSize = 3f;
-				steamParticleSpreadRadius = 5f;
-			}};
-			consumes.liquid(liquidInput, liquidAmount / craftTime);
-			outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);
+			consume(new ConsumeItemFlammable());
+			drawer = new DrawMulti(
+				new DrawBoilerSmoke() {{
+					particles = 35;
+					lifetime = 160f;
+					size = 3f;
+					spreadRadius = 5f;
+				}},
+				new DrawHeatRegion("-heat"),
+				new DrawDefault()
+			);
+			consumeLiquid(liquidInput, liquidAmount / craftTime);
+			outputLiquid = new LiquidStack(gasResult, liquidAmount * conversionMultiplier);
 		}};
 		pressureBoiler = new LiquidBoiler("pressure-boiler") {{
 			requirements(Category.power, with(
@@ -119,18 +123,21 @@ public class UAWBlocksPower implements ContentList {
 			itemCapacity = 30;
 			warmupSpeed = 0.0015f;
 			liquidAmount = 90;
-			consumes.items(with(
+			consumeItems(with(
 				UAWItems.anthracite, 2
 			));
-			drawer = new GasDrawEverything() {{
-				drawSteam = true;
-				steamParticleCount = 45;
-				steamParticleLifetime = 180f;
-				steamParticleSize = 5f;
-				steamParticleSpreadRadius = 12f;
-			}};
-			consumes.liquid(liquidInput, liquidAmount / craftTime);
-			outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);
+			drawer = new DrawMulti(
+				new DrawBoilerSmoke() {{
+					particles = 45;
+					lifetime = 180f;
+					size = 5f;
+					spreadRadius = 12f;
+				}},
+				new DrawHeatRegion("-heat"),
+				new DrawDefault()
+			);
+			consumeLiquid(liquidInput, liquidAmount / craftTime);
+			outputLiquid = new LiquidStack(gasResult, liquidAmount * conversionMultiplier);
 		}};
 
 		geothermalBoiler = new LiquidBoiler("geothermal-boiler") {{
@@ -145,15 +152,18 @@ public class UAWBlocksPower implements ContentList {
 			squareSprite = false;
 			warmupSpeed = 0.0025f;
 			liquidAmount = 25f;
-			drawer = new GasDrawEverything() {{
-				drawSteam = true;
-				steamParticleCount = 30;
-				steamParticleLifetime = 160f;
-				steamParticleSize = 3f;
-				steamParticleSpreadRadius = 5f;
-			}};
-			consumes.liquid(liquidInput, liquidAmount / craftTime);
-			outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);
+			drawer = new DrawMulti(
+				new DrawBoilerSmoke() {{
+					particles = 30;
+					lifetime = 160f;
+					size = 3f;
+					spreadRadius = 5f;
+				}},
+				new DrawHeatRegion("-heat"),
+				new DrawDefault()
+			);
+			consumeLiquid(liquidInput, liquidAmount / craftTime);
+			outputLiquid = new LiquidStack(gasResult, liquidAmount * conversionMultiplier);
 
 			attribute = Attribute.heat;
 			floating = true;
@@ -174,7 +184,7 @@ public class UAWBlocksPower implements ContentList {
 //			squareSprite = false;
 //			warmupSpeed = 0.0025f;
 //			liquidAmount = 15f;
-//			consumes.liquid(liquidInput, liquidAmount / craftTime);
+//			consumeLiquid(liquidInput, liquidAmount / craftTime);
 //			outputGas = new GasStack(gasResult, liquidAmount * conversionMultiplier);
 //
 //			attribute = Attribute.light;

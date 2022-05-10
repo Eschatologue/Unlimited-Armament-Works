@@ -2,17 +2,16 @@ package UAW.content.blocks;
 
 import UAW.content.*;
 import UAW.entities.bullet.ModdedVanillaBullet.UAWRailBulletType;
-import UAW.entities.bullet.SplashBulletType;
 import UAW.graphics.*;
-import UAW.world.blocks.defense.*;
+import UAW.world.blocks.defense.RejuvenationProjector;
 import UAW.world.blocks.defense.turrets.*;
 import UAW.world.blocks.defense.walls.ShieldWall;
 import arc.graphics.Color;
 import mindustry.content.*;
-import mindustry.ctype.ContentList;
 import mindustry.entities.UnitSorts;
-import mindustry.entities.bullet.PointBulletType;
+import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
+import mindustry.entities.pattern.*;
 import mindustry.gen.Sounds;
 import mindustry.graphics.*;
 import mindustry.type.Category;
@@ -24,7 +23,7 @@ import static mindustry.Vars.tilesize;
 import static mindustry.type.ItemStack.with;
 
 /** Contains defense & support structures, such as Walls, Turrets, and booster */
-public class UAWBlocksDefense implements ContentList {
+public class UAWBlocksDefense {
 	public static Block placeholder,
 	// Gatling
 	quadra, spitfire, equalizer,
@@ -40,8 +39,7 @@ public class UAWBlocksDefense implements ContentList {
 	// Defense
 	shieldWall, statusFieldProjector, rejuvinationProjector, rejuvinationDome;
 
-	@Override
-	public void load() {
+	public static void load() {
 		quadra = new DynamicReloadTurret("quadra") {{
 			requirements(Category.turret, with(
 				Items.copper, 115,
@@ -51,11 +49,8 @@ public class UAWBlocksDefense implements ContentList {
 			health = 160 * size;
 			size = 2;
 			squareSprite = true;
-			spread = 4f;
-			shots = 2;
-			alternate = true;
-			reloadTime = 30f;
-			restitution = 0.03f;
+			reload = 30f;
+			recoilTime = 0.03f;
 			range = 20 * tilesize;
 			shootCone = 15f;
 			ammoUseEffect = Fx.casing2Double;
@@ -65,6 +60,13 @@ public class UAWBlocksDefense implements ContentList {
 
 			maxSpeedUpScl = 8f;
 			speedupPerShot = 0.15f;
+
+			shoot = new ShootAlternate() {{
+				barrels = 2;
+				barrelOffset = 5;
+				spread = 4f;
+			}};
+
 			ammo(
 				Items.copper, smallCopper,
 				Items.graphite, smallDense,
@@ -85,19 +87,25 @@ public class UAWBlocksDefense implements ContentList {
 			size = 3;
 			health = 150 * size * size;
 			maxAmmo = 200;
-			reloadTime = 30f;
+			reload = 30f;
 			range = 35 * tilesize;
 			rotateSpeed = 7f;
 			inaccuracy = 7.5f;
-			recoilAmount = 3f;
-			restitution = 0.05f;
+			recoil = 3f;
+			recoilTime = 0.05f;
 			shootSound = Sounds.shootBig;
 			ammoUseEffect = Fx.casing2Double;
-			xRand = 3;
 
 			maxSpeedUpScl = 16f;
 			speedupPerShot = 0.1f;
 			slowDownReloadTime = 90f;
+			shoot = new ShootBarrel() {{
+				barrels = new float[]{
+					0f, 1f, 0f,
+					3f, 0f, 0f,
+					-3f, 0f, 0f,
+				};
+			}};
 			ammo(
 				Items.graphite, mediumStandard,
 				UAWItems.titaniumCarbide, mediumPiercing,
@@ -116,15 +124,13 @@ public class UAWBlocksDefense implements ContentList {
 			));
 			health = 160 * size;
 			size = 2;
-			squareSprite = true;
-			spread = 0f;
-			reloadTime = 0.8f * tick;
-			shootShake = 3f;
-			restitution = 0.05f;
+			inaccuracy = 0f;
+			reload = 0.8f * tick;
+			shake = 3f;
+			recoilTime = 0.05f;
 			range = 30 * tilesize;
 			ammoUseEffect = Fx.casing3;
 			shootSound = Sounds.shootBig;
-			inaccuracy = 1.5f;
 			rotateSpeed = 5f;
 			unitSort = (u, x, y) -> -u.health;
 			maxAmmo = 20;
@@ -152,16 +158,16 @@ public class UAWBlocksDefense implements ContentList {
 			maxAmmo = 30;
 			ammoPerShot = 6;
 			rotateSpeed = 2.5f;
-			reloadTime = 3 * tick;
+			reload = 3 * tick;
 			ammoUseEffect = Fx.casing4;
-			recoilAmount = 4f;
-			restitution = 0.01f;
-			shootShake = 3f;
+			recoil = 4f;
+			recoilTime = 0.01f;
+			shake = 3f;
 
 			shootCone = 1f;
 			shootSound = UAWSfx.gunShoot1;
-			minShootPitch = 1.2f;
-			maxShootPitch = 1.5f;
+			soundPitchMin = 1.2f;
+			soundPitchMax = 1.5f;
 			unitSort = (u, x, y) -> -u.health;
 			ammo(
 				Items.surgeAlloy, new PointBulletType() {{
@@ -179,15 +185,16 @@ public class UAWBlocksDefense implements ContentList {
 					ammoMultiplier = 1f;
 					status = StatusEffects.electrified;
 				}},
-				UAWItems.titaniumCarbide, new UAWRailBulletType() {{
+				UAWItems.titaniumCarbide, new RailBulletType() {{
 					damage = 350f;
 					length = range;
 					shootEffect = new MultiEffect(UAWFxD.railShoot(36, Pal.orangeSpark), Fx.blockExplosionSmoke);
 					hitEffect = new MultiEffect(Fx.railHit, Fx.massiveExplosion);
 					pierceEffect = Fx.railHit;
-					updateEffect = Fx.railTrail;
+					pointEffect = Fx.railTrail;
 					smokeEffect = Fx.smokeCloud;
 					pierceCap = 4;
+					pierceArmor = true;
 					buildingDamageMultiplier = 0.5f;
 					ammoMultiplier = 1f;
 				}}
@@ -209,25 +216,24 @@ public class UAWBlocksDefense implements ContentList {
 			maxAmmo = 150;
 			ammoPerShot = 50;
 			rotateSpeed = 0.625f;
-			reloadTime = 15 * tick;
+			reload = 15 * tick;
 			ammoUseEffect = UAWFxS.casing7;
-			recoilAmount = 8f;
-			restitution = 0.005f;
-			shootShake = 28f;
+			recoil = 8f;
+			recoilTime = 0.005f;
+			shake = 28f;
 			shootCone = 1f;
 			shootSound = UAWSfx.cannonShootBig1;
-			minShootPitch = 1.5f;
-			maxShootPitch = 1.8f;
+			soundPitchMin = 1.5f;
+			soundPitchMax = 1.8f;
 			unitSort = UnitSorts.strongest;
-			cooldown = 0.005f;
+			cooldownTime = 0.005f;
 			ammo(
 				UAWItems.titaniumCarbide, new UAWRailBulletType() {{
 					damage = 10000;
 					shootEffect = new MultiEffect(
 						UAWFxD.railShoot(64, Pal.bulletYellowBack),
 						UAWFxD.smokeCloud(1.5f * tick, Layer.effect, Color.darkGray),
-						Fx.blastExplosion,
-						Fx.nuclearShockwave
+						Fx.blastExplosion
 					);
 					hitEffect = new MultiEffect(
 						UAWFxD.railHit(18, Pal.bulletYellow),
@@ -239,13 +245,13 @@ public class UAWBlocksDefense implements ContentList {
 						Fx.blastsmoke
 					);
 					length = range;
-					updateEffect = new MultiEffect(
+					pointEffect = new MultiEffect(
 						UAWFxD.railTrail(18, Pal.bulletYellowBack),
 						Fx.fireSmoke
 					);
 					trailEffect = UAWFxD.railTrail(15, Pal.bulletYellowBack);
 					pierceDamageFactor = 0.8f;
-					updateEffectSeg = 30f;
+					pointEffectSpace = 30f;
 					buildingDamageMultiplier = 0.1f;
 					hitShake = 25f;
 					ammoMultiplier = 1f;
@@ -253,7 +259,7 @@ public class UAWBlocksDefense implements ContentList {
 					knockback = 24f;
 				}}
 			);
-			consumes.powerCond(15f, TurretBuild::isActive);
+			consumePowerCond(15f, TurretBuild::isActive);
 		}};
 
 		zounderkite = new UAWItemTurret("zounderkite") {{
@@ -273,13 +279,12 @@ public class UAWBlocksDefense implements ContentList {
 			size = 3;
 			squareSprite = false;
 			range = 45 * tilesize;
-			reloadTime = 6 * tick;
+			reload = 6 * tick;
 			shootSound = UAWSfx.launcherShoot1;
-			minShootPitch = 1.5f;
-			maxShootPitch = 2f;
+			soundPitchMin = 1.5f;
+			soundPitchMax = 2f;
 			ammoUseEffect = UAWFxS.casingCanister;
 			ammoPerShot = 15;
-			acceptCoolant = false;
 			canOverdrive = false;
 			limitRange();
 		}};
@@ -299,22 +304,22 @@ public class UAWBlocksDefense implements ContentList {
 			inaccuracy = 4f;
 			rotateSpeed = 1f;
 			unitSort = (unit, x, y) -> unit.hitSize;
-			reloadTime = 10 * tick;
+			reload = 10 * tick;
 			ammoEjectBack = 5f;
 			ammoUseEffect = UAWFxS.casing7;
 			ammoPerShot = 20;
 			itemCapacity = 60;
-			velocityInaccuracy = 0.2f;
-			restitution = 0.02f;
-			recoilAmount = 6f;
-			shootShake = 48f;
+			velocityRnd = 0.2f;
+			recoilTime = 0.02f;
+			recoil = 6f;
+			shake = 48f;
 			range = 65 * tilesize;
 			minRange = range / 4.5f;
-			cooldown = 0.002f;
+			cooldownTime = 0.002f;
 
 			shootSound = UAWSfx.cannonShootBig2;
-			minShootPitch = 1.5f;
-			maxShootPitch = 1.8f;
+			soundPitchMin = 1.5f;
+			soundPitchMax = 1.8f;
 			ammo(
 				Items.pyratite, artilleryLargeAftershockIncend,
 				UAWItems.cryogel, artilleryLargeAftershockCryo,
@@ -332,13 +337,10 @@ public class UAWBlocksDefense implements ContentList {
 			size = 2;
 			health = 150 * size;
 			squareSprite = true;
-			spread = 2.8f;
-			shots = 10;
-			reloadTime = 1 * tick;
-			shootShake = 2f;
-			restitution = 0.05f;
+			reload = 1 * tick;
+			shake = 2f;
+			recoilTime = 0.05f;
 			shootCone = 0.5f;
-			velocityInaccuracy = 0.3f;
 			ammoUseEffect = Fx.casing3;
 			shootSound = Sounds.artillery;
 			inaccuracy = 5f;
@@ -347,6 +349,11 @@ public class UAWBlocksDefense implements ContentList {
 			ammoPerShot = 12;
 			range = 100f;
 			targetAir = false;
+			shoot = new ShootSpread() {{
+				spread = 2.8f;
+				shots = 10;
+				velocityRnd = 0.3f;
+			}};
 			ammo(
 				Items.lead, buckshotLead,
 				Items.graphite, buckshotGraphite,
@@ -364,21 +371,31 @@ public class UAWBlocksDefense implements ContentList {
 			));
 			size = 3;
 			health = 120 * size * size;
-			spread = 2.6f;
-			shots = 4;
-			xRand = 3;
-			reloadTime = 8f;
-			shootShake = 0.8f;
-			restitution = 0.08f;
+			reload = 8f;
+			shake = 0.8f;
+			recoilTime = 0.08f;
 			range = 28 * tilesize;
 			shootCone = 2.3f;
-			velocityInaccuracy = 0.2f;
 			ammoUseEffect = Fx.casing3;
 			shootSound = UAWSfx.gunShoot4;
 			inaccuracy = 6f;
 			rotateSpeed = 4f;
 			maxAmmo = 60;
 			ammoPerShot = 5;
+			shoot = new ShootMulti(
+				new ShootSpread() {{
+					spread = 2.6f;
+					shots = 4;
+					velocityRnd = 0.2f;
+				}},
+				new ShootBarrel() {{
+					barrels = new float[]{
+						0f, 1f, 0f,
+						3f, 0f, 0f,
+						-3f, 0f, 0f,
+					};
+				}}
+			);
 			ammo(
 				Items.graphite, buckshotMedium,
 				Items.pyratite, buckshotMediumIncend,
@@ -397,24 +414,26 @@ public class UAWBlocksDefense implements ContentList {
 				Items.surgeAlloy, 100
 			));
 			size = 3;
-			health = 250 * size * size;
-			spread = 3.5f;
-			shots = 20;
-			recoilAmount = 4f;
-			reloadTime = 95f;
-			shootShake = 8f;
-			restitution = 0.08f;
+			scaledHealth = 350;
+			recoil = 4f;
+			reload = 95f;
+			shake = 8f;
+			recoilTime = 0.08f;
 			range = 175f;
 			shootCone = 3f;
-			velocityInaccuracy = 0.3f;
 			ammoUseEffect = Fx.casing4;
 			shootSound = Sounds.artillery;
-			minShootPitch = 1.8f;
-			maxShootPitch = 2f;
+			soundPitchMin = 1.8f;
+			soundPitchMax = 2f;
 			inaccuracy = 8f;
 			rotateSpeed = 3f;
 			maxAmmo = 120;
 			ammoPerShot = 30;
+			shoot = new ShootSpread() {{
+				spread = 3.5f;
+				shots = 20;
+				velocityRnd = 0.3f;
+			}};
 			ammo(
 				Items.pyratite, buckshotLargeIncend,
 				UAWItems.cryogel, buckshotLargeCryo,
@@ -436,60 +455,60 @@ public class UAWBlocksDefense implements ContentList {
 			cooldownBrokenShield = 1f;
 			researchCostMultiplier = 2f;
 
-			consumes.power(0.5f);
+			consumePower(0.5f);
 		}};
 
-		statusFieldProjector = new EffectFieldProjector("status-field-projector") {{
-			requirements(Category.effect, with(
-				Items.lead, 100,
-				Items.titanium, 75,
-				Items.metaglass, 75,
-				Items.silicon, 75
-			));
-			size = 2;
-			reloadTime = 1.2f * 60;
-			range = 24 * tilesize;
-			ammoUseEffect = Fx.doorcloselarge;
-			ammo(
-				Liquids.cryofluid, new SplashBulletType(0, range) {{
-					smokeEffect = UAWFxS.cryoHit;
-					status = StatusEffects.freezing;
-					frontColor = UAWPal.cryoFront;
-					backColor = UAWPal.cryoBack;
-					statusDuration = reloadTime * 1.5f;
-					splashAmount = 1;
-					shootEffect = UAWFxD.circleSplash(range, reloadTime / 2, frontColor, backColor, backColor, 6);
-				}},
-				Liquids.slag, new SplashBulletType(0, range) {{
-					smokeEffect = Fx.fireHit;
-					status = StatusEffects.melting;
-					frontColor = Pal.lighterOrange;
-					backColor = Pal.lightOrange;
-					statusDuration = reloadTime * 1.5f;
-					splashAmount = 1;
-					shootEffect = UAWFxD.circleSplash(range, reloadTime / 2, frontColor, backColor, backColor, 6);
-				}},
-				Liquids.oil, new SplashBulletType(0, range) {{
-					frontColor = Pal.plastaniumFront;
-					backColor = Pal.plastaniumBack;
-					smokeEffect = UAWFxS.plastHit;
-					status = StatusEffects.tarred;
-					statusDuration = reloadTime * 1.5f;
-					splashAmount = 1;
-					shootEffect = UAWFxD.circleSplash(range, reloadTime / 2, frontColor, backColor, backColor, 6);
-				}},
-				UAWLiquids.surgeSolvent, new SplashBulletType(0, range) {{
-					smokeEffect = UAWFxS.surgeHit;
-					status = StatusEffects.electrified;
-					frontColor = Pal.missileYellow;
-					backColor = Pal.missileYellowBack;
-					statusDuration = reloadTime * 1.5f;
-					splashAmount = 1;
-					shootEffect = UAWFxD.circleSplash(range, reloadTime / 2, frontColor, backColor, backColor, 6);
-				}}
-			);
-			consumes.power(2.4f);
-		}};
+//		statusFieldProjector = new EffectFieldProjector("status-field-projector") {{
+//			requirements(Category.effect, with(
+//				Items.lead, 100,
+//				Items.titanium, 75,
+//				Items.metaglass, 75,
+//				Items.silicon, 75
+//			));
+//			size = 2;
+//			reload = 1.2f * 60;
+//			range = 24 * tilesize;
+//			ammoUseEffect = Fx.doorcloselarge;
+//			ammo(
+//				Liquids.cryofluid, new SplashBulletType(0, range) {{
+//					smokeEffect = UAWFxS.cryoHit;
+//					status = StatusEffects.freezing;
+//					frontColor = UAWPal.cryoFront;
+//					backColor = UAWPal.cryoBack;
+//					statusDuration = reload * 1.5f;
+//					splashAmount = 1;
+//					shootEffect = UAWFxD.circleSplash(range, reload / 2, frontColor, backColor, backColor, 6);
+//				}},
+//				Liquids.slag, new SplashBulletType(0, range) {{
+//					smokeEffect = Fx.fireHit;
+//					status = StatusEffects.melting;
+//					frontColor = Pal.lighterOrange;
+//					backColor = Pal.lightOrange;
+//					statusDuration = reload * 1.5f;
+//					splashAmount = 1;
+//					shootEffect = UAWFxD.circleSplash(range, reload / 2, frontColor, backColor, backColor, 6);
+//				}},
+//				Liquids.oil, new SplashBulletType(0, range) {{
+//					frontColor = Pal.plastaniumFront;
+//					backColor = Pal.plastaniumBack;
+//					smokeEffect = UAWFxS.plastHit;
+//					status = StatusEffects.tarred;
+//					statusDuration = reload * 1.5f;
+//					splashAmount = 1;
+//					shootEffect = UAWFxD.circleSplash(range, reload / 2, frontColor, backColor, backColor, 6);
+//				}},
+//				UAWLiquids.surgeSolvent, new SplashBulletType(0, range) {{
+//					smokeEffect = UAWFxS.surgeHit;
+//					status = StatusEffects.electrified;
+//					frontColor = Pal.missileYellow;
+//					backColor = Pal.missileYellowBack;
+//					statusDuration = reload * 1.5f;
+//					splashAmount = 1;
+//					shootEffect = UAWFxD.circleSplash(range, reload / 2, frontColor, backColor, backColor, 6);
+//				}}
+//			);
+//			consumePower(2.4f);
+//		}};
 		rejuvinationProjector = new RejuvenationProjector("rejuvination-projector") {{
 			requirements(Category.effect, with(
 				Items.lead, 150,
@@ -504,8 +523,8 @@ public class UAWBlocksDefense implements ContentList {
 			health = 60 * size * size;
 			boostMultiplier = 3f;
 			boostDuration = 5 * tick;
-			consumes.power(1.6f);
-			consumes.liquid(Liquids.oil, 0.5f);
+			consumePower(1.6f);
+			consumeLiquid(Liquids.oil, 0.5f);
 		}};
 		rejuvinationDome = new RejuvenationProjector("rejuvination-dome") {{
 			requirements(Category.effect, with(
@@ -520,8 +539,8 @@ public class UAWBlocksDefense implements ContentList {
 			healPercent = 1.2f;
 			health = 75 * size * size;
 			boostMultiplier = 6f;
-			consumes.power(3f);
-			consumes.liquid(Liquids.oil, 1f);
+			consumePower(3f);
+			consumeLiquid(Liquids.oil, 1f);
 		}};
 	}
 }

@@ -112,7 +112,7 @@ public class SimplePowerGenerator extends PowerGenerator {
 		@Override
 		public void updateTile() {
 			super.updateTile();
-			if (consValid()) {
+			if (canConsume()) {
 				warmup = Mathf.lerpDelta(warmup, 1f, warmupSpeed);
 			} else warmup = Mathf.lerpDelta(warmup, 0f, warmupSpeed);
 			totalTime += warmup * edelta();

@@ -29,8 +29,6 @@ public class CanisterBulletType extends UAWArtilleryBulletType {
 		shrinkX = 0.18f;
 		shrinkY = 0.68f;
 		hitSound = Sounds.mineDeploy;
-		fragCone = 360f;
-		fragAngle = 1;
 		trailColor = backColor;
 		displayAmmoMultiplier = false;
 	}

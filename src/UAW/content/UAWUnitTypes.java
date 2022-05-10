@@ -16,10 +16,10 @@ import arc.struct.*;
 import arc.struct.ObjectMap.Entry;
 import com.sun.istack.NotNull;
 import mindustry.content.*;
-import mindustry.ctype.ContentList;
 import mindustry.entities.Effect;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
+import mindustry.entities.pattern.ShootAlternate;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
@@ -29,14 +29,14 @@ import mindustry.world.blocks.payloads.PayloadSource;
 import mindustry.world.meta.BlockFlag;
 
 import static UAW.Vars.*;
+import static UAW.content.UAWBullets.fragGlassFrag;
 import static arc.graphics.g2d.Draw.color;
 import static mindustry.Vars.tilesize;
-import static mindustry.content.Bullets.*;
 
 @SuppressWarnings("unchecked")
-public class UAWUnitTypes implements ContentList {
+public class UAWUnitTypes {
 	public static UnitType
-		// Helis
+		// Helicopters
 		aglovale, bedivere, calogrenant,
 		corsair, vindicator, superfortress,
 		arquebus, carronade, falconet, audacious, arkRoyal,
@@ -114,8 +114,7 @@ public class UAWUnitTypes implements ContentList {
 			});
 	}
 
-	@Override
-	public void load() {
+	public static void load() {
 		setupID();
 		setupPayloadSource();
 
@@ -128,7 +127,6 @@ public class UAWUnitTypes implements ContentList {
 			rotateSpeed = 5.5f;
 			ammoType = new ItemAmmoType(Items.graphite);
 			circleTarget = true;
-			commandLimit = 3;
 			lowAltitude = true;
 
 			faceTarget = flying = true;
@@ -139,10 +137,8 @@ public class UAWUnitTypes implements ContentList {
 			fallSmokeY = -10f;
 			engineSize = 0;
 
-			onTitleScreen = false;
-
 			constructor = CopterUnitEntity::new;
-			defaultController = DynamicFlyingAI::new;
+			aiController = DynamicFlyingAI::new;
 
 			rotors.add(
 				new Rotor(name + "-blade") {{
@@ -159,8 +155,8 @@ public class UAWUnitTypes implements ContentList {
 				y = -3f;
 				inaccuracy = 4;
 				reload = 15;
-				shots = 2;
-				shotDelay = 5f;
+				shoot.shots = 2;
+				shoot.shotDelay = 5f;
 				shootSound = Sounds.missile;
 				bullet = new MissileBulletType(6f, 45) {{
 					width = 6f;
@@ -220,17 +216,14 @@ public class UAWUnitTypes implements ContentList {
 			fallSpeed = 0.006f;
 			spinningFallSpeed = 5f;
 			fallSmokeY = -15f;
-			commandLimit = 3;
 			lowAltitude = true;
 			engineSize = 0;
 
 			range = 32 * tilesize;
 			maxRange = range;
 
-			onTitleScreen = false;
-
 			constructor = CopterUnitEntity::new;
-			defaultController = DynamicFlyingAI::new;
+			aiController = DynamicFlyingAI::new;
 
 			rotors.add(
 				new Rotor(name + "-blade") {{
@@ -282,9 +275,9 @@ public class UAWUnitTypes implements ContentList {
 				shake = 2f;
 				ejectEffect = Fx.casing3;
 				shootSound = Sounds.shootBig;
-				shots = 4;
+				shoot.shots = 4;
 				inaccuracy = 6f;
-				shotDelay = 5f;
+				shoot.shotDelay = 5f;
 				bullet = new ArtilleryBulletType(5, 50) {{
 					height = 20f;
 					width = 15f;
@@ -298,8 +291,6 @@ public class UAWUnitTypes implements ContentList {
 					backColor = Pal.plastaniumBack;
 					splashDamage = 16f;
 					splashDamageRadius = 2 * tilesize;
-					fragBullets = 5;
-					fragBullet = artilleryPlasticFrag;
 					ammoMultiplier = 6f;
 				}};
 			}});
@@ -349,10 +340,8 @@ public class UAWUnitTypes implements ContentList {
 			rotateSpeed = 2.7f;
 			engineSize = 0;
 
-			onTitleScreen = false;
-
 			constructor = CopterUnitEntity::new;
-			defaultController = DynamicFlyingAI::new;
+			aiController = DynamicFlyingAI::new;
 
 			weapons.add(new PointDefenseWeapon(pointDefenseRed) {{
 				mirror = true;
@@ -478,26 +467,27 @@ public class UAWUnitTypes implements ContentList {
 			rotateSpeed = 7f;
 			ammoType = new ItemAmmoType(Items.blastCompound);
 			circleTarget = true;
-			commandLimit = 4;
 
 			flying = true;
 			lowAltitude = false;
-			rotateShooting = false;
+			faceTarget = false;
 			range = 45 * tilesize;
 
 			targetFlags = new BlockFlag[]{BlockFlag.repair, BlockFlag.turret, BlockFlag.generator, BlockFlag.extinguisher, null};
 
-			trailX = 6f;
-			trailY = -1;
+			waveTrailX = 6f;
+			waveTrailY = -1;
 			trailLength = 10;
-			trailScl = 1.75f;
+			tailScl = 1.75f;
 
 			engineSize = 3f;
-			engineSpacing = 6f;
 			engineOffset = 3f;
+			setEnginesMirror(
+				new UnitEngine(38 / 4f, -46 / 4f, 3f, 315f)
+			);
 
 			constructor = JetUnitEntity::new;
-			defaultController = DynamicFlyingAI::new;
+			aiController = DynamicFlyingAI::new;
 
 			weapons.add(
 				new Weapon() {{
@@ -508,8 +498,8 @@ public class UAWUnitTypes implements ContentList {
 					ejectEffect = Fx.none;
 					inaccuracy = 24f;
 					shootSound = Sounds.shotgun;
-					shots = 2;
-					shotDelay = 15f;
+					shoot.shots = 2;
+					shoot.shotDelay = 15f;
 					bullet = new UAWArtilleryBulletType(5f, 125) {{
 						buildingDamageMultiplier = 2.5f;
 						lifetime = range / speed;
@@ -568,13 +558,13 @@ public class UAWUnitTypes implements ContentList {
 			armor = 5;
 			range = 30 * tilesize;
 			maxRange = range;
-			rotateShooting = false;
+			faceTarget = false;
 			ammoType = new ItemAmmoType(Items.graphite, 2);
 
 			trailLength = 22;
-			trailX = 7f;
-			trailY = -9f;
-			trailScl = 1.4f;
+			waveTrailX = 7f;
+			waveTrailY = -9f;
+			tailScl = 1.4f;
 
 			constructor = UnitWaterMove::create;
 
@@ -605,9 +595,18 @@ public class UAWUnitTypes implements ContentList {
 				reload = 30f;
 				shootSound = Sounds.shoot;
 				ejectEffect = Fx.casing1;
-				shots = 4;
-				shotDelay = 5f;
-				bullet = flakGlass;
+				shoot.shots = 4;
+				shoot.shotDelay = 5f;
+				bullet = new BasicBulletType(3f, 5) {{
+					width = 5f;
+					height = 12f;
+					shrinkY = 1f;
+					lifetime = 20f;
+					backColor = Pal.gray;
+					frontColor = Color.white;
+					despawnEffect = Fx.none;
+					collidesGround = false;
+				}};
 			}});
 			weapons.add(new Weapon(artillerySmallPurple) {{
 				mirror = rotate = alternate = true;
@@ -649,18 +648,17 @@ public class UAWUnitTypes implements ContentList {
 			speed = 0.8f;
 			accel = 0.20f;
 			rotateSpeed = 1.5f;
-			rotateShooting = false;
+			faceTarget = false;
 			range = 40 * tilesize;
 			maxRange = range;
 			ammoType = new ItemAmmoType(Items.graphite, 2);
 
 			trailLength = 35;
-			trailX = 9f;
-			trailY = -15f;
-			trailScl = 2f;
+			waveTrailX = 9f;
+			waveTrailY = -15f;
+			tailScl = 2f;
 
 			constructor = UnitWaterMove::create;
-			commandLimit = 4;
 
 			weapons.add(
 				new PointDefenseWeapon(pointDefensePurple) {{
@@ -690,7 +688,16 @@ public class UAWUnitTypes implements ContentList {
 					reload = 12f;
 					shootSound = Sounds.shoot;
 					ejectEffect = Fx.casing2;
-					bullet = fragGlass;
+					bullet = new BasicBulletType(3f, 5) {{
+						width = 5f;
+						height = 12f;
+						shrinkY = 1f;
+						lifetime = 20f;
+						backColor = Pal.gray;
+						frontColor = Color.white;
+						despawnEffect = Fx.none;
+						collidesGround = false;
+					}};
 				}},
 				new Weapon(missileLargePurple1) {{
 					rotate = true;
@@ -706,9 +713,12 @@ public class UAWUnitTypes implements ContentList {
 					shake = 6;
 					shootStatusDuration = reload * 1.2f;
 					shootStatus = StatusEffects.unmoving;
-					xRand = 3;
-					shots = 6;
-					shotDelay = 6.5f;
+					shoot = new ShootAlternate() {{
+						shots = 6;
+						shotDelay = 6.5f;
+						spread = 4f;
+						barrels = 3;
+					}};
 					velocityRnd = 0.4f;
 					ejectEffect = new MultiEffect(Fx.casing3Double, Fx.casing3Double, Fx.casing3Double);
 					bullet = new UAWArtilleryBulletType(1.8f, 90) {{
@@ -731,7 +741,15 @@ public class UAWUnitTypes implements ContentList {
 							UAWFxD.dynamicExplosion(splashDamageRadius)
 						);
 						fragBullets = 4;
-						fragBullet = fragPlasticFrag;
+						fragBullet = new BasicBulletType(2.5f, 10) {{
+							width = 10f;
+							height = 12f;
+							shrinkY = 1f;
+							lifetime = 15f;
+							backColor = Pal.plastaniumBack;
+							frontColor = Pal.plastaniumFront;
+							despawnEffect = Fx.none;
+						}};
 					}};
 				}}
 			);
@@ -743,15 +761,15 @@ public class UAWUnitTypes implements ContentList {
 			drag = 0.17f;
 			accel = 0.2f;
 			rotateSpeed = 1f;
-			rotateShooting = false;
+			faceTarget = false;
 			range = 55 * tilesize;
 			maxRange = range;
 			ammoType = new ItemAmmoType(Items.thorium, 2);
 
 			trailLength = 50;
-			trailX = 18f;
-			trailY = -15f;
-			trailScl = 3.2f;
+			waveTrailX = 18f;
+			waveTrailY = -15f;
+			tailScl = 3.2f;
 
 			constructor = UnitWaterMove::create;
 			forceMultiTarget = true;
@@ -825,7 +843,28 @@ public class UAWUnitTypes implements ContentList {
 					fragBullets = 4;
 					fragLifeMin = 0.3f;
 					fragLifeMax = 0.6f;
-					fragBullet = flakGlass;
+					fragBullet = new FlakBulletType(4f, 3) {{
+						lifetime = 60f;
+						ammoMultiplier = 5f;
+						shootEffect = Fx.shootSmall;
+						reloadMultiplier = 0.8f;
+						width = 6f;
+						height = 8f;
+						hitEffect = Fx.flakExplosion;
+						splashDamage = 25f * 1.5f;
+						splashDamageRadius = 20f;
+						fragBullet = new BasicBulletType(3f, 5, "bullet") {{
+							width = 5f;
+							height = 12f;
+							shrinkY = 1f;
+							lifetime = 20f;
+							backColor = Pal.gray;
+							frontColor = Color.white;
+							despawnEffect = Fx.none;
+						}};
+						fragBullets = 6;
+					}};
+					;
 				}};
 			}});
 			weapons.add(new UAWWeapon(artilleryLargePurple) {{
@@ -902,13 +941,13 @@ public class UAWUnitTypes implements ContentList {
 			hitSize = 18;
 			range = 35 * tilesize;
 			maxRange = range;
-			rotateShooting = false;
+			faceTarget = false;
 			ammoType = new ItemAmmoType(Items.graphite, 2);
 
 			trailLength = 20;
-			trailX = 6f;
-			trailY = -4f;
-			trailScl = 1.9f;
+			waveTrailX = 6f;
+			waveTrailY = -4f;
+			tailScl = 1.9f;
 
 			constructor = UnitWaterMove::create;
 
@@ -961,15 +1000,15 @@ public class UAWUnitTypes implements ContentList {
 			drag = 0.17f;
 			hitSize = 22f;
 			armor = 5f;
-			rotateShooting = false;
+			faceTarget = false;
 			range = 45 * tilesize;
 			maxRange = range;
 			ammoType = new ItemAmmoType(Items.graphite, 2);
 
 			trailLength = 25;
-			trailX = 8f;
-			trailY = -9f;
-			trailScl = 2.2f;
+			waveTrailX = 8f;
+			waveTrailY = -9f;
+			tailScl = 2.2f;
 
 			constructor = UnitWaterMove::create;
 
@@ -1045,8 +1084,8 @@ public class UAWUnitTypes implements ContentList {
 				rotateSpeed = 4f;
 				rotate = true;
 				mirror = false;
-				shots = 2;
-				shotDelay = 6f;
+				shoot.shots = 2;
+				shoot.shotDelay = 6f;
 				inaccuracy = 5f;
 				velocityRnd = 0.1f;
 				shootSound = Sounds.missile;
@@ -1238,13 +1277,13 @@ public class UAWUnitTypes implements ContentList {
 					pierceCap = 3;
 					knockback = 5f;
 					trailColor = backColor;
-					armorIgnoreScl = 0.5f;
+					pierceArmor = true;
 					shieldDamageMultiplier = 1.5f;
 					shootEffect = new MultiEffect(UAWFxD.railShoot(30f, backColor), Fx.shootPyraFlame, UAWFxS.muzzleBreakShootSmoke);
 					hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootBigSmoke2);
 					fragBullets = 5;
 					fragLifeMin = 0f;
-					fragCone = 30f;
+					fragRandomSpread = 30f;
 					collidesAir = false;
 					despawnHit = true;
 					fragBullet = new BasicBulletType(7f, 9) {{
@@ -1373,7 +1412,7 @@ public class UAWUnitTypes implements ContentList {
 					lifetime = range / speed;
 					pierceCap = 5;
 					trailColor = backColor;
-					armorIgnoreScl = 0.95f;
+					pierceArmor = true;
 					absorbable = false;
 					buildingDamageMultiplier = 0.2f;
 					shootEffect = new MultiEffect(UAWFxD.railShoot(40f, backColor), Fx.shootPyraFlame, UAWFxS.muzzleBreakShootSmoke);

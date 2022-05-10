@@ -13,8 +13,6 @@ import mindustry.world.meta.*;
 
 /** GenericCrafter with craft shakes and attributes when enabled */
 public class AdvancedGenericCrafter extends GenericCrafter {
-	public TextureRegion rotator, rotatorTop;
-	public float rotatorSpinSpeed = -15f;
 	public float craftShake = 0, craftSoundVolume = 1f;
 	public Sound craftSound = Sounds.plasmaboom;
 
@@ -36,13 +34,6 @@ public class AdvancedGenericCrafter extends GenericCrafter {
 	}
 
 	@Override
-	public void load() {
-		super.load();
-		rotator = Core.atlas.find(name + "-rotator");
-		rotatorTop = Core.atlas.find(name + "-rotator-top");
-	}
-
-	@Override
 	public void drawPlace(int x, int y, int rotation, boolean valid) {
 		if (attribute != null) {
 			drawPlaceText(Core.bundle.format("bar.efficiency",
@@ -54,7 +45,7 @@ public class AdvancedGenericCrafter extends GenericCrafter {
 	public void setBars() {
 		super.setBars();
 		if (attribute != null) {
-			bars.add("efficiency", (AdvancedGenericCrafterBuild entity) ->
+			addBar("efficiency", (AdvancedGenericCrafterBuild entity) ->
 				new Bar(() ->
 					Core.bundle.format("bar.efficiency", (int) (entity.efficiencyScale() * 100)),
 					() -> Pal.lightOrange,

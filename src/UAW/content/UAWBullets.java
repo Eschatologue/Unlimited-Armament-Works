@@ -5,7 +5,6 @@ import UAW.entities.bullet.ModdedVanillaBullet.*;
 import UAW.graphics.*;
 import arc.graphics.Color;
 import mindustry.content.*;
-import mindustry.ctype.ContentList;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.gen.Sounds;
@@ -13,10 +12,12 @@ import mindustry.graphics.Pal;
 
 import static UAW.Vars.tick;
 import static mindustry.Vars.tilesize;
-import static mindustry.content.Bullets.*;
 
-public class UAWBullets implements ContentList {
+public class UAWBullets {
 	public static BulletType placeholder,
+
+	// Vanilla Bullets
+	fragGlassFrag, heavySlagShot, heavyCryoShot, heavyOilShot,
 
 	// Standard / Basic
 	smallCopper, smallDense, smallPiercing, smallIncendiary, smallCryo,
@@ -39,8 +40,51 @@ public class UAWBullets implements ContentList {
 	// Mine Canister
 	canisterBasic, canisterIncend, canisterCryo, canisterEMP, canisterSpore, canisterNuke;
 
-	@Override
-	public void load() {
+	public static void load() {
+
+		fragGlassFrag = new BasicBulletType(3f, 5, "bullet") {{
+			width = 5f;
+			height = 12f;
+			shrinkY = 1f;
+			lifetime = 20f;
+			backColor = Pal.gray;
+			frontColor = Color.white;
+			despawnEffect = Fx.none;
+		}};
+		heavySlagShot = new LiquidBulletType(Liquids.slag) {{
+			lifetime = 49f;
+			speed = 4f;
+			knockback = 1.3f;
+			puddleSize = 8f;
+			orbSize = 4f;
+			damage = 4.75f;
+			drag = 0.001f;
+			ammoMultiplier = 0.4f;
+			statusDuration = 60f * 4f;
+		}};
+		heavyCryoShot = new LiquidBulletType(Liquids.cryofluid) {{
+			lifetime = 49f;
+			speed = 4f;
+			knockback = 1.3f;
+			puddleSize = 8f;
+			orbSize = 4f;
+			drag = 0.001f;
+			ammoMultiplier = 0.4f;
+			statusDuration = 60f * 4f;
+			damage = 0.2f;
+		}};
+		heavyOilShot = new LiquidBulletType(Liquids.oil) {{
+			lifetime = 49f;
+			speed = 4f;
+			knockback = 1.3f;
+			puddleSize = 8f;
+			orbSize = 4f;
+			drag = 0.001f;
+			ammoMultiplier = 0.4f;
+			statusDuration = 60f * 4f;
+			damage = 0.2f;
+		}};
+
 		smallCopper = new BasicBulletType(4f, 9) {{
 			width = 7f;
 			height = 9f;
@@ -84,7 +128,7 @@ public class UAWBullets implements ContentList {
 		smallPiercing = new UAWBasicBulletType(10f, 10f) {{
 			height = 15f;
 			width = 5f;
-			armorIgnoreScl = 0.25f;
+			pierceArmor = true;
 			shieldDamageMultiplier = 1.5f;
 			shootEffect = Fx.shootBig;
 			smokeEffect = Fx.shootBigSmoke;
@@ -110,7 +154,7 @@ public class UAWBullets implements ContentList {
 			width = 5;
 			pierce = true;
 			reloadMultiplier = 1.2f;
-			armorIgnoreScl = 0.5f;
+			pierceArmor = true;
 			hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.generatespark);
 			despawnEffect = Fx.hitBulletBig;
 			smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.fireSmoke);
@@ -221,7 +265,7 @@ public class UAWBullets implements ContentList {
 			height = 22f;
 			width = 10f;
 			shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame, UAWFxS.muzzleBreakShootSmoke);
-			armorIgnoreScl = 0.6f;
+			pierceArmor = true;
 			smokeEffect = Fx.shootBigSmoke;
 			ammoMultiplier = 2;
 			trailLenghtScl = 1;
@@ -233,7 +277,7 @@ public class UAWBullets implements ContentList {
 			shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame, UAWFxS.muzzleBreakShootSmoke);
 			hitEffect = Fx.hitBulletBig;
 			despawnHit = true;
-			armorIgnoreScl = 0.6f;
+			pierceArmor = true;
 			smokeEffect = Fx.shootBigSmoke;
 			ammoMultiplier = 2;
 			pierce = true;
@@ -326,7 +370,7 @@ public class UAWBullets implements ContentList {
 			despawnEffect = shootEffect = new MultiEffect(Fx.sparkShoot);
 			smokeEffect = Fx.shootBigSmoke2;
 			hitEffect = Fx.hitBulletBig;
-			armorIgnoreScl = 0.4f;
+			pierceArmor = true;
 		}};
 		buckshotMediumFrag = new BuckshotBulletType(7f, 9f) {{
 			splashDamageRadius = 1.8f * tilesize;
@@ -420,8 +464,7 @@ public class UAWBullets implements ContentList {
 			shootEffect = new MultiEffect(
 				UAWFxD.railShoot(size + (size * sizeRatio * 1.5f), backColor),
 				UAWFxD.impactCloud(frontColor),
-				UAWFxD.shootBigSmoke(size / 9, frontColor),
-				Fx.nuclearShockwave
+				UAWFxD.shootBigSmoke(size / 9, frontColor)
 			);
 			hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius, frontColor, backColor);
 			hitSound = UAWSfx.explosionHuge1;
@@ -453,8 +496,7 @@ public class UAWBullets implements ContentList {
 			shootEffect = new MultiEffect(
 				UAWFxD.railShoot(size + (size * sizeRatio * 1.5f), backColor),
 				UAWFxD.impactCloud(frontColor),
-				UAWFxD.shootBigSmoke(size / 9, frontColor),
-				Fx.nuclearShockwave
+				UAWFxD.shootBigSmoke(size / 9, frontColor)
 			);
 			hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius, frontColor, backColor);
 			hitSound = UAWSfx.explosionHuge1;
@@ -486,8 +528,7 @@ public class UAWBullets implements ContentList {
 			shootEffect = new MultiEffect(
 				UAWFxD.railShoot(size + (size * sizeRatio * 1.5f), backColor),
 				UAWFxD.impactCloud(frontColor),
-				UAWFxD.shootBigSmoke(size / 9, frontColor),
-				Fx.nuclearShockwave
+				UAWFxD.shootBigSmoke(size / 9, frontColor)
 			);
 			hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius, frontColor, backColor);
 			hitSound = UAWSfx.explosionHuge1;
@@ -519,8 +560,7 @@ public class UAWBullets implements ContentList {
 			shootEffect = new MultiEffect(
 				UAWFxD.railShoot(size + (size * sizeRatio * 1.5f), backColor),
 				UAWFxD.impactCloud(frontColor),
-				UAWFxD.shootBigSmoke(size / 9, frontColor),
-				Fx.nuclearShockwave
+				UAWFxD.shootBigSmoke(size / 9, frontColor)
 			);
 			hitEffect = new MultiEffect(
 				UAWFxD.hitBulletBig(frontColor),
@@ -528,7 +568,7 @@ public class UAWBullets implements ContentList {
 			);
 			hitSoundVolume = 3f;
 			hitShake = 34f;
-			fragCone = 60;
+			fragAngle = 60;
 			explodeRange = 20 * tilesize;
 			fragVelocityMin = 0.4f;
 			fragVelocityMax = 1.2f;

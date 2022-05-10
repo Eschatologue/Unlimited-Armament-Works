@@ -14,7 +14,7 @@ import mindustry.world.meta.Stat;
 
 import static mindustry.Vars.*;
 
-public class ThumperDrill extends UAWGasDrill {
+public class ThumperDrill extends UAWDrill {
 	/** This drill placing requirement */
 	public Block tileRequirement = Blocks.oreCoal;
 	/** The drilling result */
@@ -52,7 +52,8 @@ public class ThumperDrill extends UAWGasDrill {
 		}
 	}
 
-	void countOre(Tile tile) {
+	@Override
+	protected void countOre(Tile tile) {
 		returnItem = null;
 		returnCount = 0;
 		oreCount.clear();
@@ -109,7 +110,7 @@ public class ThumperDrill extends UAWGasDrill {
 		}
 	}
 
-	public class ThumperDrillBuild extends UAWGasDrillBuild {
+	public class ThumperDrillBuild extends UAWDrillBuild {
 
 		@Override
 		public void drawDrillParticles() {
@@ -146,19 +147,15 @@ public class ThumperDrill extends UAWGasDrill {
 				dump(items.has(drilledItem) ? drilledItem : null);
 			}
 			timeDrilled += warmup * delta();
-			if (items.total() < itemCapacity && dominantItems > 0 && consValid()) {
-				float speed = 1f;
-				if (cons.optionalValid()) {
-					speed = liquidBoostIntensity;
-				}
-				// Drill slower when not at full power
-				speed *= efficiency();
+			if (items.total() < itemCapacity && dominantItems > 0 && efficiency > 0) {
+				float speed = Mathf.lerp(1f, liquidBoostIntensity, optionalEfficiency) * efficiency;
+
 				lastDrillSpeed = (speed * dominantItems * warmup) / (drillTime + hardnessDrillMultiplier * dominantItem.hardness);
 				warmup = Mathf.approachDelta(warmup, speed, warmupSpeed);
 				progress += delta() * dominantItems * speed * warmup;
-				if (Mathf.chanceDelta(updateEffectChance * warmup)) {
-					updateEffect.at(x + Mathf.range(size * 2), y + Mathf.range(size * 2));
-				}
+
+				if (Mathf.chanceDelta(updateEffectChance * warmup))
+					updateEffect.at(x + Mathf.range(size * 2f), y + Mathf.range(size * 2f));
 			} else {
 				lastDrillSpeed = 0f;
 				warmup = Mathf.approachDelta(warmup, 0f, warmupSpeed);

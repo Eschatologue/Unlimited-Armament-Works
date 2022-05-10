@@ -65,11 +65,11 @@ public class RazorRotorAbility extends Ability {
 		if (curStroke > 0) {
 			for (int i = 0; i < sectors; i++) {
 				float rot = i * 360f / sectors + Time.time * rotateSpeed;
-				Lines.swirl(rx, ry, range, sectorRad, rot);
+				Lines.arc(rx, ry, range, sectorRad, rot);
 			}
 			for (int i = 0; i < sectors; i++) {
 				float rot = i * 360f / sectors + Time.time * -(rotateSpeed / 1.5f);
-				Lines.swirl(rx, ry, (range / 1.5f), sectorRad, rot);
+				Lines.arc(rx, ry, (range / 1.5f), sectorRad, rot);
 			}
 		}
 		Draw.reset();

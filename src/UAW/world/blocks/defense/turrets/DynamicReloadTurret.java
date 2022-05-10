@@ -42,7 +42,7 @@ public class DynamicReloadTurret extends UAWItemTurret {
 
 		@Override
 		protected void updateShooting() {
-			if (reload >= reloadTime) {
+			if (reload >= reloadCounter) {
 				BulletType type = peekAmmo();
 				shoot(type);
 				reload = 0f;
@@ -65,9 +65,6 @@ public class DynamicReloadTurret extends UAWItemTurret {
 			Drawf.dashCircle(x, y, range, team.color);
 
 			Draw.z(Layer.effect);
-			Lines.stroke(speedupScl / maxSpeedUpScl);
-			Draw.color(UAWPal.cryoFront, Pal.darkPyraFlame, (speedupScl / maxSpeedUpScl) * 0.9f);
-			Lines.polySeg(150, 0, (int) (150 * speedupScl / maxSpeedUpScl), x, y, windUpEffectCircleRad, rotation);
 			Draw.color();
 			Draw.reset();
 		}

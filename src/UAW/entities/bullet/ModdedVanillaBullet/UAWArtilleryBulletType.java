@@ -28,7 +28,7 @@ public class UAWArtilleryBulletType extends UAWBasicBulletType {
 		this.splashDamageRadius = splashDamageRadius;
 		despawnHit = true;
 		collides = collidesTiles = collidesAir = false;
-		pierceBuilding = scaleVelocity = true;
+		pierceBuilding = scaleLife = true;
 		hitShake = 5f;
 		hitSound = Sounds.explosion;
 		shootEffect = Fx.shootBig;
