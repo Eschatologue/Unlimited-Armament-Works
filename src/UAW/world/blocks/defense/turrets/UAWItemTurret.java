@@ -7,6 +7,7 @@ import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.draw.DrawTurret;
 import mindustry.world.meta.Stat;
 
+import static UAW.Vars.modName;
 import static mindustry.Vars.tilesize;
 
 /**
@@ -25,7 +26,7 @@ public class UAWItemTurret extends ItemTurret {
 	public void init() {
 		super.init();
 		if (!squareSprite) {
-			drawer = new DrawTurret("armored-");
+			drawer = new DrawTurret(modName + "armored-");
 		}
 	}
 

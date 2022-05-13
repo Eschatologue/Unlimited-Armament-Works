@@ -16,8 +16,10 @@ import mindustry.gen.Sounds;
 import mindustry.graphics.*;
 import mindustry.type.Category;
 import mindustry.world.Block;
+import mindustry.world.blocks.defense.turrets.ItemTurret;
+import mindustry.world.draw.DrawTurret;
 
-import static UAW.Vars.tick;
+import static UAW.Vars.*;
 import static UAW.content.UAWBullets.*;
 import static mindustry.Vars.tilesize;
 import static mindustry.type.ItemStack.with;
@@ -40,13 +42,13 @@ public class UAWBlocksDefense {
 	shieldWall, statusFieldProjector, rejuvinationProjector, rejuvinationDome;
 
 	public static void load() {
-		quadra = new DynamicReloadTurret("quadra") {{
+		quadra = new ItemTurret("quadra") {{
 			requirements(Category.turret, with(
 				Items.copper, 115,
 				Items.lead, 120,
 				Items.graphite, 80
 			));
-			health = 160 * size;
+			scaledHealth = 160;
 			size = 2;
 			squareSprite = true;
 			reload = 30f;
@@ -57,10 +59,6 @@ public class UAWBlocksDefense {
 			inaccuracy = 7.5f;
 			rotateSpeed = 10f;
 			maxAmmo = 30;
-
-			maxSpeedUpScl = 8f;
-			speedupPerShot = 0.15f;
-
 			shoot = new ShootAlternate() {{
 				barrels = 2;
 				barrelOffset = 5;
@@ -75,8 +73,9 @@ public class UAWBlocksDefense {
 				Items.titanium, smallPiercing
 			);
 			limitRange();
+			drawer = new DrawTurret("armored-");
 		}};
-		spitfire = new DynamicReloadTurret("spitfire") {{
+		spitfire = new UAWItemTurret("spitfire") {{
 			requirements(Category.turret, with(
 				Items.lead, 350,
 				Items.titanium, 280,
@@ -96,9 +95,6 @@ public class UAWBlocksDefense {
 			shootSound = Sounds.shootBig;
 			ammoUseEffect = Fx.casing2Double;
 
-			maxSpeedUpScl = 16f;
-			speedupPerShot = 0.1f;
-			slowDownReloadTime = 90f;
 			shoot = new ShootBarrel() {{
 				barrels = new float[]{
 					0f, 1f, 0f,

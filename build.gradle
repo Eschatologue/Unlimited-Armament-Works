@@ -2,7 +2,7 @@ apply plugin: "java"
 
 version '1.0'
 
-//compile java 17 code, targeting java 8
+//compile java 16 code, targeting java 8
 targetCompatibility = 8
 sourceCompatibility = JavaVersion.VERSION_17
 
@@ -15,9 +15,8 @@ repositories {
 
 ext {
     //the build number that this mod is made for
-    erekirBranch = 'erekir-SNAPSHOT'
     mindustryVersion = 'v135'
-    jabelVersion = "0.4.0"
+    jabelVersion = "0.7.0"
     sdkRoot = System.getenv("ANDROID_HOME") ?: System.getenv("ANDROID_SDK_ROOT")
 }
 
@@ -30,9 +29,10 @@ allprojects {
 
 dependencies {
     // Base Mindustry
-    compileOnly "com.github.Anuken.Arc:arc-core:$mindustryVersion"
-//    compileOnly "com.github.Anuken.Mindustry:core:$mindustryVersion"
-    compileOnly(files("E:\\Mindustry Mods\\MindustryErekir\\desktop\\build\\libs\\Mindustry.jar"))
+    compileOnly "com.github.Anuken.MindustryJitpack:core:935b478139"
+    compileOnly "com.github.Anuken.Arc:arc-core:dfcb21ce56"
+
+    annotationProcessor "com.github.Anuken:jabel:$jabelVersion"
 
     // Other Libs
     compileOnly 'com.sun.istack:istack-commons-runtime:4.1.1'

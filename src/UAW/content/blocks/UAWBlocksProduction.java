@@ -77,8 +77,7 @@ public class UAWBlocksProduction {
 				Fx.mineBig,
 				Fx.oily
 			);
-			updateEffect = UAWFxD.steamCloud(4, Layer.flyingUnitLow);
-
+			updateEffect = UAWFxD.steamCloud(4);
 			consumeLiquid(UAWLiquids.steam, 0.5f);
 		}};
 
@@ -124,7 +123,7 @@ public class UAWBlocksProduction {
 			consumeLiquid(UAWLiquids.steam, 1.8f);
 		}};
 
-		carburizingFurnace = new AdvancedGenericCrafter("carburizing-furnace") {{
+		carburizingFurnace = new GenericCrafter("carburizing-furnace") {{
 			requirements(Category.crafting, with(
 				Items.titanium, 150,
 				Items.thorium, 125,
@@ -137,11 +136,12 @@ public class UAWBlocksProduction {
 			size = 3;
 			itemCapacity = 30;
 			craftTime = 4f * tick;
-			drawer = new DrawArcSmelt() {{
-				particles = 32;
-				flameRad = 1.2f;
-			}};
-			craftEffect = UAWFxD.steamCloud(10f, Layer.flyingUnitLow, new Color(UAWPal.steamFront).lerp(Color.gray, 0.15f));
+			drawer = new DrawMulti(
+				new DrawRegion("-bottom"),
+				new DrawCrucibleFlame(),
+				new DrawDefault()
+			);
+			craftEffect = UAWFxD.steamCloud(10f);
 			updateEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
 			consumePower(3.5f);
 			consumeItems(

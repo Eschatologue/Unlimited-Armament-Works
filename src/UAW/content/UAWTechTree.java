@@ -255,7 +255,7 @@
 //								node(platedGasPipe)
 //							);
 //						});
-//						node(coalBoiler, () -> {
+//						node(steamBoiler, () -> {
 //							node(pressureBoiler,
 //								Seq.with(
 //									new Research(platedGasPipe),

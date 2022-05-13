@@ -1,10 +1,10 @@
 package UAW.world.blocks.production;
 
-import arc.graphics.Blending;
+import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.util.Time;
-import mindustry.graphics.Drawf;
+import mindustry.graphics.*;
 import mindustry.world.blocks.production.Drill;
 
 public class UAWDrill extends Drill {
@@ -18,10 +18,10 @@ public class UAWDrill extends Drill {
 	@Override
 	public void init() {
 		super.init();
-		if (particles < 0) particles = (int) (size * 10.5);
-		if (particleLife < 0) particleLife = (size * 2.8f) * 10;
-		if (particleSpreadRadius < 0) particleSpreadRadius = size * 3f;
-		if (particleSize < 0) particleSize = size * 1.5f;
+		if (particles < 0) particles = (int) (size * 9.5);
+		if (particleLife < 0) particleLife = (size * 2.5f) * 10;
+		if (particleSpreadRadius < 0) particleSpreadRadius = size * 2.8f;
+		if (particleSize < 0) particleSize = size * 1.4f;
 	}
 
 	public class UAWDrillBuild extends DrillBuild {
@@ -44,6 +44,7 @@ public class UAWDrill extends Drill {
 
 		@Override
 		public void draw() {
+			super.draw();
 			float s = 0.3f;
 			float ts = 0.6f;
 			Draw.rect(region, x, y);
