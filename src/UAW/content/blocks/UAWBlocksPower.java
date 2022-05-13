@@ -44,27 +44,27 @@ public class UAWBlocksPower {
 			consumeLiquid(UAWLiquids.steam, 0.5f);
 		}};
 
-		advancedSteamTurbine = new ConsumeGenerator("steam-turbine") {{
-			requirements(Category.power, with(
-				Items.copper, 90,
-				Items.titanium, 60,
-				Items.lead, 150,
-				Items.silicon, 90,
-				Items.metaglass, 45
-			));
-			size = 4;
-			squareSprite = false;
-			powerProduction = 20f;
-			liquidCapacity = 320f;
-			drawer = new DrawMulti(
-				new DrawDefault(),
-				new DrawBlurSpin("-rotator-1", 8),
-				new DrawBlurSpin("-rotator-2", -8),
-				new DrawRegion("-top")
-
-			);
-			consumeLiquid(UAWLiquids.steam, 0.5f);
-		}};
+//		advancedSteamTurbine = new ConsumeGenerator("advanced-steam-turbine") {{
+//			requirements(Category.power, with(
+//				Items.copper, 90,
+//				Items.titanium, 60,
+//				Items.lead, 150,
+//				Items.silicon, 90,
+//				Items.metaglass, 45
+//			));
+//			size = 4;
+//			squareSprite = false;
+//			powerProduction = 20f;
+//			liquidCapacity = 320f;
+//			drawer = new DrawMulti(
+//				new DrawDefault(),
+//				new DrawBlurSpin("-rotator-1", 8),
+//				new DrawBlurSpin("-rotator-2", -8),
+//				new DrawRegion("-top")
+//
+//			);
+//			consumeLiquid(UAWLiquids.steam, 0.5f);
+//		}};
 
 		steamKettle = new LiquidBoiler("steam-kettle") {{
 			requirements(Category.power, with(
