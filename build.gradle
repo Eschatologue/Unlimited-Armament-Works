@@ -29,7 +29,7 @@ allprojects {
 
 dependencies {
     // Base Mindustry
-    compileOnly "com.github.Anuken.MindustryJitpack:core:935b478139"
+    compileOnly "com.github.Anuken.MindustryJitpack:core:4dcf491abf"
     compileOnly "com.github.Anuken.Arc:arc-core:dfcb21ce56"
 
     annotationProcessor "com.github.Anuken:jabel:$jabelVersion"

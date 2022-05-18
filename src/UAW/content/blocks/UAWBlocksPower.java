@@ -1,16 +1,18 @@
 package UAW.content.blocks;
 
 import UAW.content.UAWLiquids;
-import UAW.world.blocks.power.*;
+import UAW.world.blocks.power.LiquidBoiler;
 import UAW.world.drawer.DrawBoilerSmoke;
 import mindustry.content.*;
 import mindustry.type.*;
 import mindustry.world.Block;
 import mindustry.world.blocks.power.ConsumeGenerator;
+import mindustry.world.blocks.production.AttributeCrafter;
 import mindustry.world.consumers.*;
 import mindustry.world.draw.*;
 import mindustry.world.meta.Attribute;
 
+import static UAW.Vars.tick;
 import static mindustry.type.ItemStack.with;
 
 /** Contains Power Blocks or Blocks that produces Power */
@@ -19,7 +21,7 @@ public class UAWBlocksPower {
 
 	steamTurbine, advancedSteamTurbine,
 
-	steamKettle, steamBoiler, pressureBoiler, geothermalBoiler, solarBoiler;
+	steamKettle, industrialBoiler, pressureBoiler, geothermalBoiler, solarBoiler;
 
 	public static void load() {
 
@@ -89,7 +91,7 @@ public class UAWBlocksPower {
 			liquidOutput = new LiquidStack(UAWLiquids.steam, 0.25f * 3);
 
 		}};
-		steamBoiler = new LiquidBoiler("steam-boiler") {{
+		industrialBoiler = new LiquidBoiler("industrial-boiler") {{
 			requirements(Category.power, with(
 				Items.copper, 35,
 				Items.graphite, 25,
@@ -133,7 +135,7 @@ public class UAWBlocksPower {
 			liquidOutput = new LiquidStack(UAWLiquids.steam, 2f * 3);
 		}};
 
-		geothermalBoiler = new AttributeLiquidBoiler("geothermal-boiler") {{
+		geothermalBoiler = new AttributeCrafter("geothermal-boiler") {{
 			requirements(Category.power, with(
 				Items.copper, 65,
 				Items.graphite, 55,
@@ -144,6 +146,11 @@ public class UAWBlocksPower {
 			squareSprite = false;
 			hasItems = false;
 			acceptsItems = false;
+			minEfficiency = 0.1f;
+			baseEfficiency = 0f;
+			boostScale = 0.25f;
+			maxBoost = 3f;
+			craftTime = 2 * tick;
 			drawer = new DrawMulti(
 				new DrawRegion("-bottom"),
 				new DrawLiquidTile(UAWLiquids.steam, 4f),
@@ -151,8 +158,8 @@ public class UAWBlocksPower {
 				new DrawRegion("-top")
 			);
 			attribute = Attribute.heat;
-			consumeLiquid(Liquids.water, 0.5f);
-			outputLiquid = new LiquidStack(UAWLiquids.steam, 0.5f * 3);
+			consumeLiquid(Liquids.water, 0.25f);
+			outputLiquid = new LiquidStack(UAWLiquids.steam, 0.25f);
 		}};
 	}
 }

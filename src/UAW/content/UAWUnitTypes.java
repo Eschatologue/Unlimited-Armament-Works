@@ -191,7 +191,7 @@ public class UAWUnitTypes {
 				reload = 5f;
 				shootSound = Sounds.shoot;
 				ejectEffect = Fx.casing1;
-				bullet = new UAWBasicBulletType(6f, 23) {{
+				bullet = new TrailBulletType(6f, 23) {{
 					trailLenghtScl = 1;
 					height = 12f;
 					width = 6f;
@@ -247,7 +247,7 @@ public class UAWUnitTypes {
 				recoil = 0f;
 				shootSound = Sounds.shoot;
 				ejectEffect = Fx.casing1;
-				bullet = new UAWBasicBulletType(10f, 20) {{
+				bullet = new TrailBulletType(10f, 20) {{
 					trailLenghtScl = 1;
 					height = 10f;
 					width = 6f;
@@ -394,7 +394,7 @@ public class UAWUnitTypes {
 				reload = 8;
 				shootSound = Sounds.shootBig;
 				ejectEffect = Fx.casing2;
-				bullet = new UAWBasicBulletType(6f, 45) {{
+				bullet = new TrailBulletType(6f, 45) {{
 					trailLenghtScl = 1;
 					height = 16f;
 					width = 8f;
@@ -478,7 +478,7 @@ public class UAWUnitTypes {
 			waveTrailX = 6f;
 			waveTrailY = -1;
 			trailLength = 10;
-			tailScl = 1.75f;
+			trailScl = 1.75f;
 
 			engineSize = 3f;
 			engineOffset = 3f;
@@ -500,7 +500,7 @@ public class UAWUnitTypes {
 					shootSound = Sounds.shotgun;
 					shoot.shots = 2;
 					shoot.shotDelay = 15f;
-					bullet = new UAWArtilleryBulletType(5f, 125) {{
+					bullet = new SplashArtilleryBulletType(5f, 125) {{
 						buildingDamageMultiplier = 2.5f;
 						lifetime = range / speed;
 						trailMult = 0.5f;
@@ -520,9 +520,6 @@ public class UAWUnitTypes {
 						drag = 0.001f;
 
 						keepVelocity = false;
-						lobbingShot = false;
-
-						explodeRange = 5 * tilesize;
 					}};
 				}},
 				new Weapon() {{
@@ -535,7 +532,7 @@ public class UAWUnitTypes {
 					reload = 6f;
 					shootSound = Sounds.shoot;
 					ejectEffect = Fx.casing1;
-					bullet = new UAWBasicBulletType(6f, 15) {{
+					bullet = new TrailBulletType(6f, 15) {{
 						height = 10f;
 						width = 5f;
 						buildingDamageMultiplier = 0.4f;
@@ -564,7 +561,7 @@ public class UAWUnitTypes {
 			trailLength = 22;
 			waveTrailX = 7f;
 			waveTrailY = -9f;
-			tailScl = 1.4f;
+			trailScl = 1.4f;
 
 			constructor = UnitWaterMove::create;
 
@@ -623,7 +620,7 @@ public class UAWUnitTypes {
 				shootStatusDuration = reload * 1.2f;
 				shootStatus = StatusEffects.unmoving;
 				ejectEffect = Fx.casing3;
-				bullet = new UAWArtilleryBulletType(2f, 35) {{
+				bullet = new SplashArtilleryBulletType(2f, 35) {{
 					splashDamageRadius = 4 * tilesize;
 					buildingDamageMultiplier = 2f;
 					height = 15;
@@ -656,7 +653,7 @@ public class UAWUnitTypes {
 			trailLength = 35;
 			waveTrailX = 9f;
 			waveTrailY = -15f;
-			tailScl = 2f;
+			trailScl = 2f;
 
 			constructor = UnitWaterMove::create;
 
@@ -721,7 +718,7 @@ public class UAWUnitTypes {
 					}};
 					velocityRnd = 0.4f;
 					ejectEffect = new MultiEffect(Fx.casing3Double, Fx.casing3Double, Fx.casing3Double);
-					bullet = new UAWArtilleryBulletType(1.8f, 90) {{
+					bullet = new SplashArtilleryBulletType(1.8f, 90) {{
 						splashDamageRadius = 5 * tilesize;
 						buildingDamageMultiplier = 2f;
 						height = 24;
@@ -769,7 +766,7 @@ public class UAWUnitTypes {
 			trailLength = 50;
 			waveTrailX = 18f;
 			waveTrailY = -15f;
-			tailScl = 3.2f;
+			trailScl = 3.2f;
 
 			constructor = UnitWaterMove::create;
 			forceMultiTarget = true;
@@ -864,7 +861,7 @@ public class UAWUnitTypes {
 						}};
 						fragBullets = 6;
 					}};
-					;
+
 				}};
 			}});
 			weapons.add(new UAWWeapon(artilleryLargePurple) {{
@@ -890,12 +887,11 @@ public class UAWUnitTypes {
 				ejectEffect = UAWFxS.casing5;
 
 				customIcon = true;
-				bullet = new UAWArtilleryBulletType(1.7f, 550) {{
+				bullet = new SplashArtilleryBulletType(1.7f, 550) {{
 					height = 42;
 					width = height / 2f;
 					splashDamageRadius = 12 * tilesize;
 					buildingDamageMultiplier = 3.5f;
-					shieldDamageMultiplier = 4f;
 					lifetime = range / speed;
 					status = StatusEffects.burning;
 					incendChance = 0.8f;
@@ -947,7 +943,7 @@ public class UAWUnitTypes {
 			trailLength = 20;
 			waveTrailX = 6f;
 			waveTrailY = -4f;
-			tailScl = 1.9f;
+			trailScl = 1.9f;
 
 			constructor = UnitWaterMove::create;
 
@@ -1008,7 +1004,7 @@ public class UAWUnitTypes {
 			trailLength = 25;
 			waveTrailX = 8f;
 			waveTrailY = -9f;
-			tailScl = 2.2f;
+			trailScl = 2.2f;
 
 			constructor = UnitWaterMove::create;
 
@@ -1162,7 +1158,7 @@ public class UAWUnitTypes {
 								shake = 6f;
 								soundPitchMin = 1.2f;
 								soundPitchMax = 1.4f;
-								bullet = new UAWBasicBulletType(5f, 125) {{
+								bullet = new TrailBulletType(5f, 125) {{
 									trailLenghtScl = 1;
 									splashDamage = damage;
 									splashDamageRadius = 3 * tilesize;
@@ -1172,7 +1168,6 @@ public class UAWUnitTypes {
 									width = 8f;
 									lifetime = range / speed;
 									knockback = 4f;
-									shieldDamageMultiplier = 2f;
 									despawnHit = true;
 									shootEffect = new MultiEffect(UAWFxD.railShoot(22f, backColor), Fx.shootPyraFlame, Fx.shootSmallSmoke);
 									hitEffect = new MultiEffect(Fx.blastExplosion, Fx.fireHit, Fx.blastsmoke);
@@ -1266,7 +1261,7 @@ public class UAWUnitTypes {
 				shake = 12f;
 				soundPitchMin = 1.4f;
 				soundPitchMax = 1.8f;
-				bullet = new UAWBasicBulletType(10f, 350) {{
+				bullet = new TrailBulletType(10f, 350) {{
 					trailLenghtScl = 1;
 					height = 35f;
 					width = 10f;
@@ -1278,7 +1273,7 @@ public class UAWUnitTypes {
 					knockback = 5f;
 					trailColor = backColor;
 					pierceArmor = true;
-					shieldDamageMultiplier = 1.5f;
+
 					shootEffect = new MultiEffect(UAWFxD.railShoot(30f, backColor), Fx.shootPyraFlame, UAWFxS.muzzleBreakShootSmoke);
 					hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.shootBigSmoke2);
 					fragBullets = 5;
@@ -1403,7 +1398,7 @@ public class UAWUnitTypes {
 				shake = 18f;
 				soundPitchMin = 1.8f;
 				soundPitchMax = 2.2f;
-				bullet = new UAWBasicBulletType(10f, 550) {{
+				bullet = new TrailBulletType(10f, 550) {{
 					trailLenghtScl = 1;
 					height = 38f;
 					width = 12f;

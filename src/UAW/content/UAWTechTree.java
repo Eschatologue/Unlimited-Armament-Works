@@ -123,7 +123,7 @@
 //					)
 //				);
 //				// Sniper Tree
-//				node(solo, () ->
+//				node(ashlock, () ->
 //					node(longsword,
 //						Seq.with(
 //							new Research(fuse)
@@ -255,7 +255,7 @@
 //								node(platedGasPipe)
 //							);
 //						});
-//						node(steamBoiler, () -> {
+//						node(industrialBoiler, () -> {
 //							node(pressureBoiler,
 //								Seq.with(
 //									new Research(platedGasPipe),

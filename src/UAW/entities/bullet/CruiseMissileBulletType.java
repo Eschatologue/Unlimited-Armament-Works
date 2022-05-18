@@ -1,17 +1,16 @@
 package UAW.entities.bullet;
 
-import UAW.entities.bullet.ModdedVanillaBullet.UAWBasicBulletType;
+import UAW.entities.bullet.ModdedVanillaBullet.TrailBulletType;
 import UAW.graphics.UAWFxD;
 import arc.Core;
 import arc.graphics.g2d.Draw;
-import arc.util.Time;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 
 import static UAW.Vars.cruiseMissileBasic;
 import static mindustry.Vars.tilesize;
 
-public class CruiseMissileBulletType extends UAWBasicBulletType {
+public class CruiseMissileBulletType extends TrailBulletType {
 	public float sizeScl = 1.4f;
 
 	public CruiseMissileBulletType(float speed, float damage, String sprite) {

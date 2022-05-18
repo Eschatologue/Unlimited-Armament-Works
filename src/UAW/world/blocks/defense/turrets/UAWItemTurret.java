@@ -16,6 +16,7 @@ import static mindustry.Vars.tilesize;
  * Displays minimum range when selected
  * </p>
  */
+@Deprecated
 public class UAWItemTurret extends ItemTurret {
 	public UAWItemTurret(String name) {
 		super(name);
@@ -42,18 +43,7 @@ public class UAWItemTurret extends ItemTurret {
 		super.drawPlace(x, y, rotation, valid);
 		Drawf.dashCircle(x * tilesize + offset, y * tilesize + offset, range, Pal.placing);
 		if (minRange > 0) {
-			Drawf.dashCircle(x * tilesize + offset, y * tilesize + offset, minRange, UAWPal.darkPyraBloom);
-		}
-	}
-
-	public class UAWItemTurretBuild extends ItemTurretBuild {
-
-		@Override
-		public void drawSelect() {
-			super.drawSelect();
-			if (minRange > 0) {
-				Drawf.dashCircle(x, y, minRange, UAWPal.darkPyraBloom);
-			}
+			Drawf.dashCircle(x * tilesize + offset, y * tilesize + offset, minRange, Pal.lightishOrange);
 		}
 	}
 }

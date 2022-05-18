@@ -21,7 +21,7 @@ public class UAWStatusEffects {
 				Fx.hitLancer,
 				Fx.smoke
 			);
-			color = UAWPal.titaniumBlueFront;
+			color = UAWPal.titaniumFront;
 			buildSpeedMultiplier = speedMultiplier = 0.2f;
 			reloadMultiplier = 0f;
 		}};
