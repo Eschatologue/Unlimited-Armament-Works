@@ -1305,7 +1305,7 @@ public class UAWUnitTypes {
 			drag = 0.04f;
 			rotateSpeed = 1.5f;
 			baseRotateSpeed = rotateSpeed * 2.2f;
-			ammoType = new ItemAmmoType(UAWItems.titaniumCarbide);
+			ammoType = new ItemAmmoType(UAWItems.compositeAlloy);
 
 			range = 50 * tilesize;
 			maxRange = range;

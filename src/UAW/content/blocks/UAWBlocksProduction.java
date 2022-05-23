@@ -149,7 +149,7 @@ public class UAWBlocksProduction {
 				new ItemStack(UAWItems.anthracite, 4)
 			);
 			outputItem = new ItemStack(
-				UAWItems.titaniumCarbide, 2
+				UAWItems.compositeAlloy, 2
 			);
 		}};
 

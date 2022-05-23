@@ -1,11 +1,12 @@
 package UAW.content;
 
+import UAW.graphics.UAWPal;
 import arc.graphics.Color;
 import mindustry.type.Item;
 
 public class UAWItems {
 	public static Item placeholder,
-		cryogel, anthracite, titaniumCarbide, dieselCore;
+		cryogel, anthracite, compositeAlloy, dieselCore;
 
 	public static void load() {
 		cryogel = new Item("item-cryogel", Color.valueOf("87ceeb")) {{
@@ -17,7 +18,7 @@ public class UAWItems {
 			explosiveness = 0.25f;
 			hardness = 4;
 		}};
-		titaniumCarbide = new Item("item-titanium-carbide", Color.valueOf("7575C8")) {{
+		compositeAlloy = new Item("item-composite-alloy", UAWPal.compAlloyMid) {{
 			cost = 2.5f;
 		}};
 

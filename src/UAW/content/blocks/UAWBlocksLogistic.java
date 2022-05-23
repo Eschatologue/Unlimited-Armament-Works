@@ -44,7 +44,7 @@ public class UAWBlocksLogistic {
 		}};
 		pressurizedLiquidRouter = new LiquidRouter("pressurized-liquid-router") {{
 			requirements(Category.liquid, with(
-				UAWItems.titaniumCarbide, 3,
+				UAWItems.compositeAlloy, 3,
 				Items.plastanium, 2,
 				Items.metaglass, 2
 			));
@@ -56,7 +56,7 @@ public class UAWBlocksLogistic {
 		}};
 		pressurizedLiquidJunction = new LiquidJunction("pressurized-liquid-junction") {{
 			requirements(Category.liquid, with(
-				UAWItems.titaniumCarbide, 3,
+				UAWItems.compositeAlloy, 3,
 				Items.plastanium, 2,
 				Items.metaglass, 2
 			));
@@ -68,7 +68,7 @@ public class UAWBlocksLogistic {
 		}};
 		pressurizedLiquidBridge = new LiquidBridge("pressurized-liquid-bridge") {{
 			requirements(Category.liquid, with(
-				UAWItems.titaniumCarbide, 3,
+				UAWItems.compositeAlloy, 3,
 				Items.plastanium, 2,
 				Items.metaglass, 2
 			));

@@ -95,7 +95,7 @@
 //		);
 //		vanillaNode(titanium, () ->
 //			// Titanium Carbide
-//			nodeProduce(titaniumCarbide)
+//			nodeProduce(compositeAlloy)
 //		);
 //
 //		vanillaNode(surgeAlloy, () ->
@@ -124,7 +124,7 @@
 //				);
 //				// Sniper Tree
 //				node(ashlock, () ->
-//					node(longsword,
+//					node(longbow,
 //						Seq.with(
 //							new Research(fuse)
 //						), () ->

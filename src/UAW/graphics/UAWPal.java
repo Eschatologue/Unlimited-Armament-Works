@@ -33,6 +33,10 @@ public class UAWPal {
 		surgeMiddle = Color.valueOf("e8d174"),
 		surgeBack = Color.valueOf("d99f6b"),
 
+	compAlloyFront = Color.valueOf("828b98"),
+		compAlloyMid = Color.valueOf("828b98"),
+		compAlloyBack = Color.valueOf("444858"),
+
 	coalFront = Color.valueOf("404040"),
 		coalBack = Color.valueOf("2a2a2a"),
 
