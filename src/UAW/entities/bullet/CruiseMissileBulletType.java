@@ -1,7 +1,7 @@
 package UAW.entities.bullet;
 
 import UAW.entities.bullet.ModdedVanillaBullet.TrailBulletType;
-import UAW.graphics.UAWFxD;
+import UAW.audiovisual.UAWFx;
 import arc.Core;
 import arc.graphics.g2d.Draw;
 import mindustry.gen.*;
@@ -55,7 +55,7 @@ public class CruiseMissileBulletType extends TrailBulletType {
 	@Override
 	public void init() {
 		super.init();
-		trailEffect = UAWFxD.cruiseMissileTrail(trailColor, layer > Layer.effect ? Layer.effect : layer - 0.01f);
+		trailEffect = UAWFx.cruiseMissileTrail(trailColor, layer > Layer.effect ? Layer.effect : layer - 0.01f);
 	}
 
 	@Override

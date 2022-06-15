@@ -1,10 +1,10 @@
 package UAW.entities.bullet.ModdedVanillaBullet;
 
+import UAW.audiovisual.*;
 import arc.Core;
 import arc.math.Mathf;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.gen.Bullet;
-import mindustry.graphics.Pal;
 
 /**
  * BasicBulletType with automatic adjusting trails
@@ -42,11 +42,19 @@ public class TrailBulletType extends BasicBulletType {
 	@Override
 	public void init(Bullet b) {
 		super.init(b);
+		drawSize = Math.max(drawSize, trailLength * speed * 4.5f);
 		if (trailLenghtScl > 0) {
 			trailRotation = true;
-			trailWidth = width / 3.39f;
+			trailWidth = width / 3.45f;
 			trailLength = Mathf.round(height * trailLenghtScl);
 			trailColor = backColor;
+		}
+	}
+
+	@Override
+	public void removed(Bullet b) {
+		if (trailLength > 0 && b.trail != null && b.trail.size() > 0) {
+			UAWFx.trailFade.at(b.x, b.y, trailWidth, trailColor, b.trail.copy());
 		}
 	}
 }

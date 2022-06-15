@@ -1,12 +1,9 @@
 package UAW.entities.bullet;
 
-import UAW.entities.bullet.ModdedVanillaBullet.TrailBulletType;
 import arc.graphics.Color;
-import mindustry.content.Fx;
 import mindustry.entities.bullet.BasicBulletType;
-import mindustry.entities.effect.MultiEffect;
 
-import static mindustry.Vars.tilesize;
+import static UAW.Vars.modName;
 
 public class BuckshotBulletType extends BasicBulletType {
 
@@ -14,22 +11,31 @@ public class BuckshotBulletType extends BasicBulletType {
 		super(speed, damage);
 		this.height = size;
 		this.width = size;
-		drag = 0.02f;
-		hitSize = width / 2;
+		this.hitSize = size * 1.5f;
+		this.damage = damage;
+		spin = (float) Math.floor((Math.random() * 25f) - 25f);
+		sprite = modName + "buckshot";
+		hitColor = backColor;
 		shrinkX = shrinkY = 0.5f;
-		despawnHit = true;
-		splashDamageRadius = 1.6f * tilesize;
-		splashDamage = damage / 1.8f;
 		pierceCap = 2;
 		knockback = 2;
 		trailInterval = 4.5f;
+		trailChance = 0.35f;
 		trailColor = Color.lightGray;
-		shootEffect = new MultiEffect(Fx.shootBig2, Fx.shootPyraFlame);
-		smokeEffect = Fx.shootBigSmoke2;
-		hitEffect = Fx.hitBulletBig;
+
+		collidesTiles = true;
 	}
 
 	public BuckshotBulletType(float speed, float damage) {
 		this(15, speed, damage);
+	}
+
+	public float bulletSize() {
+		return (height + width) / 2;
+	}
+
+	@Override
+	public void init() {
+		super.init();
 	}
 }

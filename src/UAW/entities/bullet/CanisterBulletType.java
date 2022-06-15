@@ -1,12 +1,14 @@
 package UAW.entities.bullet;
 
-import UAW.graphics.UAWFxS;
+import UAW.audiovisual.UAWFx;
 import arc.util.*;
 import mindustry.content.Fx;
 import mindustry.entities.Units;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.gen.*;
+
+import static UAW.Vars.modName;
 
 public class CanisterBulletType extends ArtilleryBulletType {
 	public float burstRange = 80f;
@@ -20,11 +22,11 @@ public class CanisterBulletType extends ArtilleryBulletType {
 		trailSize = 5f;
 		height = 32;
 		width = 16;
-		sprite = "uaw-canister";
+		sprite = modName + "canister";
 		despawnHit = true;
 		hitEffect = new MultiEffect(Fx.generatespark, Fx.steam, Fx.flakExplosionBig);
 		smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.blastsmoke);
-		shootEffect = UAWFxS.muzzleBreakShootSmoke;
+		shootEffect = UAWFx.shootSmoke(width, backColor, true);
 		hitSound = Sounds.mineDeploy;
 		trailColor = backColor;
 		displayAmmoMultiplier = false;

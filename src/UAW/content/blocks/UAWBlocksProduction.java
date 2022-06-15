@@ -1,7 +1,7 @@
 package UAW.content.blocks;
 
 import UAW.content.*;
-import UAW.graphics.*;
+import UAW.audiovisual.*;
 import UAW.world.blocks.production.*;
 import UAW.world.drawer.DrawBoilerSmoke;
 import arc.graphics.Color;
@@ -43,7 +43,7 @@ public class UAWBlocksProduction {
 			));
 			size = 4;
 			result = Liquids.oil;
-			updateEffect = UAWFxD.steamCloud(5, Layer.flyingUnitLow - 1);
+			updateEffect = UAWFx.steamCloud(5, Layer.flyingUnitLow - 1);
 			updateEffectChance = 0.05f;
 			pumpAmount = 0.5f;
 			liquidCapacity = 360f;
@@ -77,7 +77,7 @@ public class UAWBlocksProduction {
 				Fx.mineBig,
 				Fx.oily
 			);
-			updateEffect = UAWFxD.steamCloud(4);
+			updateEffect = UAWFx.steamCloud(4);
 			consumeLiquid(UAWLiquids.steam, 0.5f);
 		}};
 
@@ -95,7 +95,7 @@ public class UAWBlocksProduction {
 			hasLiquids = false;
 			drawRim = true;
 			updateEffectChance = 0.03f;
-			updateEffect = UAWFxD.steamCloud(3.5f);
+			updateEffect = UAWFx.steamCloud(3.5f);
 			drillEffect = Fx.mineBig;
 
 			consumeLiquid(UAWLiquids.steam, 0.25f);
@@ -116,7 +116,7 @@ public class UAWBlocksProduction {
 			hasLiquids = true;
 			drawRim = true;
 			updateEffectChance = 0.03f;
-			updateEffect = UAWFxD.steamCloud(5f);
+			updateEffect = UAWFx.steamCloud(5f);
 			drillEffect = Fx.mineBig;
 			rotateSpeed = 6f;
 
@@ -141,7 +141,7 @@ public class UAWBlocksProduction {
 				new DrawCrucibleFlame(),
 				new DrawDefault()
 			);
-			craftEffect = UAWFxD.steamCloud(10f);
+			craftEffect = UAWFx.steamCloud(10f);
 			updateEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
 			consumePower(3.5f);
 			consumeItems(
@@ -164,7 +164,7 @@ public class UAWBlocksProduction {
 			pumpAmount = 0.2f;
 			liquidCapacity = 60f;
 			updateEffectChance = 0.02f;
-			updateEffect = UAWFxD.steamCloud(4, Layer.flyingUnitLow);
+			updateEffect = UAWFx.steamCloud(4, Layer.flyingUnitLow);
 
 			consumeLiquid(UAWLiquids.steam, 0.25f);
 		}};
@@ -180,7 +180,7 @@ public class UAWBlocksProduction {
 			pumpAmount = 0.25f;
 			liquidCapacity = 80f;
 			updateEffectChance = 0.02f;
-			updateEffect = UAWFxD.steamCloud(6f, Layer.flyingUnitLow);
+			updateEffect = UAWFx.steamCloud(6f, Layer.flyingUnitLow);
 
 			consumeLiquid(UAWLiquids.steam, 1f);
 		}};
@@ -222,7 +222,7 @@ public class UAWBlocksProduction {
 			hasLiquids = true;
 			drawer = new DrawFlame(UAWPal.cryoFront);
 			craftTime = 2f * tick;
-			updateEffect = new MultiEffect(Fx.wet, UAWFxD.smokeCloud(45, Layer.effect, Color.white));
+			updateEffect = new MultiEffect(Fx.wet, UAWFx.smokeCloud(45, Layer.effect, Color.white));
 			updateEffectChance = 0.01f;
 			consumeItems(with(
 				Items.titanium, 4,
@@ -251,11 +251,11 @@ public class UAWBlocksProduction {
 			squareSprite = false;
 			drawer = new DrawFlame();
 			craftEffect = new MultiEffect(
-				UAWFxD.burstSmelt(4 * tilesize, Pal.plastaniumFront, Pal.plastaniumBack),
+				UAWFx.burstSmelt(4 * tilesize, Pal.plastaniumFront, Pal.plastaniumBack),
 				Fx.flakExplosionBig
 			);
 			updateEffect = new MultiEffect(
-				UAWFxS.plastHit,
+				UAWFx.plastHit,
 				Fx.burning,
 				Fx.fireSmoke
 			);
@@ -309,7 +309,7 @@ public class UAWBlocksProduction {
 			itemCapacity = 40;
 			hasLiquids = true;
 			craftEffect = Fx.formsmoke;
-			updateEffect = UAWFxD.steamCloud(7.5f, Layer.flyingUnitLow);
+			updateEffect = UAWFx.steamCloud(7.5f, Layer.flyingUnitLow);
 			updateEffectChance = 0.01f;
 			outputItem = new ItemStack(Items.plastanium, 6);
 

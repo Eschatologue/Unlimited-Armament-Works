@@ -1,13 +1,10 @@
 package UAW.world.blocks.defense.turrets;
 
-import UAW.graphics.UAWPal;
 import UAW.world.meta.UAWStatValues;
 import mindustry.graphics.*;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
-import mindustry.world.draw.DrawTurret;
 import mindustry.world.meta.Stat;
 
-import static UAW.Vars.modName;
 import static mindustry.Vars.tilesize;
 
 /**
@@ -16,19 +13,10 @@ import static mindustry.Vars.tilesize;
  * Displays minimum range when selected
  * </p>
  */
-@Deprecated
 public class UAWItemTurret extends ItemTurret {
+
 	public UAWItemTurret(String name) {
 		super(name);
-		squareSprite = false;
-	}
-
-	@Override
-	public void init() {
-		super.init();
-		if (!squareSprite) {
-			drawer = new DrawTurret(modName + "armored-");
-		}
 	}
 
 	@Override
@@ -41,7 +29,6 @@ public class UAWItemTurret extends ItemTurret {
 	@Override
 	public void drawPlace(int x, int y, int rotation, boolean valid) {
 		super.drawPlace(x, y, rotation, valid);
-		Drawf.dashCircle(x * tilesize + offset, y * tilesize + offset, range, Pal.placing);
 		if (minRange > 0) {
 			Drawf.dashCircle(x * tilesize + offset, y * tilesize + offset, minRange, Pal.lightishOrange);
 		}

@@ -1,8 +1,8 @@
 package UAW.content;
 
+import UAW.audiovisual.*;
 import UAW.entities.bullet.*;
-import UAW.entities.bullet.ModdedVanillaBullet.*;
-import UAW.graphics.*;
+import UAW.entities.bullet.ModdedVanillaBullet.SplashArtilleryBulletType;
 import arc.graphics.Color;
 import mindustry.content.*;
 import mindustry.entities.bullet.*;
@@ -50,7 +50,7 @@ public class UAWBullets {
 	mineBasic, mineIncend, mineCryo, mineAA, mineEMP, mineSpore,
 
 	// Mine Canister
-	canisterBasic, canisterIncend, canisterCryo, canisterEMP, canisterSpore, canisterNuke;
+	mineCanisterBasic, mineCanisterIncendiary, mineCanisterCryo, mineCanisterEMP, canisterSpore, canisterNuke;
 
 	public static void load() {
 
@@ -99,164 +99,6 @@ public class UAWBullets {
 		}};
 		// endregion Vanilla
 
-		buckshotSmallBasic = new BuckshotBulletType(4.5f, 12f) {{
-			pierceCap = 3;
-			lifetime = 30f;
-			knockback = 5f;
-			despawnHit = true;
-			hitEffect = Fx.flakExplosion;
-			shootEffect = UAWFxD.instShoot(32, Pal.bulletYellowBack);
-			smokeEffect = Fx.shootSmallSmoke;
-			ammoMultiplier = 3;
-		}};
-		buckshotSmallDense = new BuckshotBulletType(3f, 16f) {{
-			pierceCap = 4;
-			lifetime = 30f;
-			knockback = 8f;
-			reloadMultiplier = 0.5f;
-			despawnHit = true;
-			hitEffect = Fx.flakExplosion;
-			shootEffect = UAWFxD.instShoot(32, Pal.bulletYellowBack);
-			smokeEffect = Fx.shootSmallSmoke;
-			ammoMultiplier = 3;
-		}};
-		buckshotSmallIncendiary = new BuckshotBulletType(4.5f, 9f) {{
-			height = width = 12f;
-			pierceCap = 3;
-			lifetime = 30f;
-			knockback = 4f;
-			shootEffect = UAWFxD.instShoot(32, Pal.lightishOrange);
-			smokeEffect = Fx.shootSmallSmoke;
-			hitEffect = new MultiEffect(Fx.hitBulletSmall, Fx.fireHit, Fx.fireSmoke);
-			frontColor = Pal.lightishOrange;
-			backColor = Pal.lightOrange;
-			status = StatusEffects.burning;
-		}};
-		buckshotSmallCryo = new BuckshotBulletType(4.5f, 9f) {{
-			height = width = 12f;
-			pierceCap = 3;
-			lifetime = 30f;
-			knockback = 4f;
-			shootEffect = UAWFxD.instShoot(32, Color.valueOf("87CEEB"));
-			smokeEffect = Fx.shootSmallSmoke;
-			hitEffect = new MultiEffect(Fx.hitBulletSmall, UAWFxS.cryoHit, Fx.fireSmoke);
-			frontColor = UAWPal.cryoFront;
-			backColor = UAWPal.cryoBack;
-			status = StatusEffects.freezing;
-		}};
-
-		buckshotMediumBasic = new BuckshotBulletType(7f, 12f) {{
-			knockback = 4f;
-			despawnEffect = hitEffect = new MultiEffect(Fx.hitBulletSmall);
-		}};
-		buckshotMediumPiercing = new BuckshotBulletType(8f, 12f) {{
-			height = width = 15;
-			shrinkX = shrinkY = 0.5f;
-			splashDamageRadius = 1.6f * tilesize;
-			splashDamage = damage / 1.8f;
-			pierceCap = 2;
-			knockback = 2;
-			trailLength = 0;
-			trailInterval = 4.5f;
-			trailColor = Color.lightGray;
-			despawnEffect = shootEffect = new MultiEffect(Fx.sparkShoot);
-			smokeEffect = Fx.shootBigSmoke2;
-			hitEffect = Fx.hitBulletBig;
-			pierceArmor = true;
-		}};
-		buckshotMediumFrag = new BuckshotBulletType(7f, 9f) {{
-			splashDamageRadius = 1.8f * tilesize;
-			splashDamage = damage / 2;
-			fragBullets = 6;
-			fragBullet = fragGlassFrag;
-		}};
-		buckshotMediumIncendiary = new BuckshotBulletType(7f, 9f) {{
-			shootEffect = Fx.shootPyraFlame;
-			smokeEffect = Fx.shootBigSmoke2;
-			frontColor = Pal.lightishOrange;
-			backColor = Pal.lightOrange;
-			despawnEffect = hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.burning, Fx.fireHit);
-			status = StatusEffects.burning;
-		}};
-		buckshotMediumCryo = new BuckshotBulletType(7f, 9f) {{
-			shootEffect = UAWFxS.shootCryoFlame;
-			smokeEffect = Fx.shootBigSmoke2;
-			frontColor = UAWPal.cryoFront;
-			backColor = UAWPal.cryoMiddle;
-			despawnEffect = hitEffect = new MultiEffect(
-				UAWFxD.hitBulletBig(UAWPal.cryoMiddle),
-				Fx.freezing,
-				UAWFxS.cryoHit
-			);
-			status = StatusEffects.freezing;
-		}};
-
-		buckshotLargeIncendiary = new BuckshotBulletType(25, 6.5f, 30f) {{
-			pierceCap = 3;
-			frontColor = Pal.lightishOrange;
-			backColor = Pal.lightOrange;
-			smokeEffect = new MultiEffect(Fx.smokeCloud, Fx.shootBigSmoke2);
-			hitEffect = new MultiEffect(Fx.blastExplosion, Fx.fireHit, Fx.blastsmoke);
-			shootEffect = new MultiEffect(UAWFxD.instShoot(64, frontColor), Fx.shootPyraFlame);
-			despawnEffect = UAWFxD.blastExplosion(frontColor, backColor);
-			status = StatusEffects.burning;
-			fragBullets = 6;
-			fragBullet = heavySlagShot;
-			fragVelocityMin = 0.3f;
-			fragVelocityMax = fragVelocityMin * 1.2f;
-			fragLifeMin = 0.2f;
-			fragLifeMax = 0.5f;
-			ammoMultiplier = 4f;
-		}};
-		buckshotLargeCryo = new BuckshotBulletType(25, 6.5f, 30f) {{
-			pierceCap = 3;
-			frontColor = UAWPal.cryoFront;
-			backColor = UAWPal.cryoBack;
-			smokeEffect = new MultiEffect(Fx.smokeCloud, Fx.shootBigSmoke2);
-			hitEffect = new MultiEffect(Fx.hitBulletBig, UAWFxS.cryoHit, Fx.freezing);
-			shootEffect = new MultiEffect(UAWFxD.instShoot(64, frontColor), UAWFxS.shootCryoFlame);
-			despawnEffect = UAWFxD.blastExplosion(frontColor, backColor);
-			status = StatusEffects.freezing;
-			fragBullets = 6;
-			fragBullet = heavyCryoShot;
-			fragVelocityMin = 0.3f;
-			fragVelocityMax = fragVelocityMin * 1.2f;
-			fragLifeMin = 0.2f;
-			fragLifeMax = 0.5f;
-			ammoMultiplier = 4f;
-		}};
-		buckshotLargeOil = new BuckshotBulletType(25, 6.5f, 30f) {{
-			pierceCap = 3;
-			frontColor = Pal.plastaniumFront;
-			backColor = Pal.plastaniumBack;
-			smokeEffect = new MultiEffect(Fx.smokeCloud, Fx.shootBigSmoke2);
-			hitEffect = new MultiEffect(Fx.hitBulletBig, Fx.oily);
-			shootEffect = new MultiEffect(UAWFxD.instShoot(64, backColor), Fx.shootPyraFlame);
-			despawnEffect = UAWFxD.blastExplosion(frontColor, backColor);
-			status = StatusEffects.tarred;
-			fragBullets = 8;
-			fragBullet = heavyOilShot;
-			fragVelocityMin = 0.3f;
-			fragVelocityMax = fragVelocityMin * 1.2f;
-			fragLifeMin = 0.2f;
-			fragLifeMax = 0.5f;
-			ammoMultiplier = 4f;
-		}};
-		buckshotLargeSurge = new BuckshotBulletType(25, 6.5f, 30f) {{
-			splashDamage = 2.5f * tilesize;
-			pierceCap = 2;
-			frontColor = Color.white;
-			backColor = Pal.lancerLaser;
-			smokeEffect = new MultiEffect(Fx.smokeCloud, Fx.shootBigSmoke2);
-			hitEffect = new MultiEffect(UAWFxS.hitLaserSpark, Fx.hitLancer);
-			shootEffect = new MultiEffect(UAWFxD.instShoot(56, backColor));
-			despawnEffect = UAWFxD.empExplosion(splashDamageRadius, 3, backColor);
-			status = UAWStatusEffects.EMP;
-			hitSound = Sounds.plasmaboom;
-			statusDuration = 0.3f * 60;
-			ammoMultiplier = 6f;
-		}};
-
 		artilleryMediumPlast = new SplashArtilleryBulletType(1.5f, 350) {{
 			height = 35f;
 			width = height / 2;
@@ -265,7 +107,7 @@ public class UAWBullets {
 			splashDamageRadius = 5 * tilesize;
 			backColor = Pal.plastaniumBack;
 			frontColor = Pal.plastaniumFront;
-			hitEffect = UAWFxD.massiveExplosion(frontColor, backColor);
+			hitEffect = UAWFx.massiveExplosion(frontColor, backColor);
 		}};
 
 		artilleryLargeAftershockBasic = new SplashArtilleryBulletType(2f, 4500) {{
@@ -273,12 +115,12 @@ public class UAWBullets {
 			width = height / 2f;
 			splashDamageRadius = 15 * tilesize;
 			shootEffect = new MultiEffect(
-				UAWFxD.railShoot(width, backColor),
-				UAWFxD.impactCloud(frontColor),
-				UAWFxD.shootBigSmoke(width, frontColor)
+				UAWFx.railShoot(width, backColor),
+				UAWFx.impactCloud(frontColor),
+				UAWFx.shootSmoke(width, frontColor, false)
 			);
-			hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius, frontColor, backColor);
-			hitSound = UAWSfx.explosionHuge1;
+			hitEffect = UAWFx.dynamicExplosion(splashDamageRadius, frontColor, backColor);
+			hitSound = Sfx.explosionHuge1;
 			hitSoundVolume = 3f;
 			hitShake = 34f;
 			trailEffect = Fx.artilleryTrail;
@@ -294,7 +136,7 @@ public class UAWBullets {
 				backColor = Pal.bulletYellowBack;
 				bottomColor = frontColor;
 				hitShake = 28;
-				particleEffect = UAWFxD.effectHit(0.5f, frontColor, backColor);
+				particleEffect = UAWFx.effectHit(0.5f, frontColor, backColor);
 				makeFire = true;
 				applySound = Sounds.explosionbig;
 			}};
@@ -306,12 +148,12 @@ public class UAWBullets {
 			frontColor = UAWPal.cryoFront;
 			backColor = UAWPal.cryoBack;
 			shootEffect = new MultiEffect(
-				UAWFxD.railShoot(height, backColor),
-				UAWFxD.impactCloud(frontColor),
-				UAWFxD.shootBigSmoke(width, frontColor)
+				UAWFx.railShoot(height, backColor),
+				UAWFx.impactCloud(frontColor),
+				UAWFx.shootSmoke(width, frontColor, false)
 			);
-			hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius, frontColor, backColor);
-			hitSound = UAWSfx.explosionHuge1;
+			hitEffect = UAWFx.dynamicExplosion(splashDamageRadius, frontColor, backColor);
+			hitSound = Sfx.explosionHuge1;
 			hitSoundVolume = 3f;
 			hitShake = 34f;
 			trailEffect = Fx.artilleryTrail;
@@ -327,7 +169,7 @@ public class UAWBullets {
 				bottomColor = UAWPal.cryoFront;
 				status = StatusEffects.freezing;
 				statusDuration = 30f;
-				particleEffect = UAWFxD.effectHit(0.5f, frontColor, backColor);
+				particleEffect = UAWFx.effectHit(0.5f, frontColor, backColor);
 				makeFire = true;
 				applySound = Sounds.plasmaboom;
 			}};
@@ -339,12 +181,12 @@ public class UAWBullets {
 			frontColor = Pal.lightishOrange;
 			backColor = Pal.lightOrange;
 			shootEffect = new MultiEffect(
-				UAWFxD.railShoot(width, backColor),
-				UAWFxD.impactCloud(frontColor),
-				UAWFxD.shootBigSmoke(width, frontColor)
+				UAWFx.railShoot(width, backColor),
+				UAWFx.impactCloud(frontColor),
+				UAWFx.shootSmoke(width, frontColor, false)
 			);
-			hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius, frontColor, backColor);
-			hitSound = UAWSfx.explosionHuge1;
+			hitEffect = UAWFx.dynamicExplosion(splashDamageRadius, frontColor, backColor);
+			hitSound = Sfx.explosionHuge1;
 			hitSoundVolume = 3f;
 			hitShake = 34f;
 			trailEffect = Fx.artilleryTrail;
@@ -360,7 +202,7 @@ public class UAWBullets {
 				bottomColor = Pal.lightishOrange;
 				status = StatusEffects.melting;
 				statusDuration = 30f;
-				particleEffect = UAWFxD.effectHit(0.5f, frontColor, backColor);
+				particleEffect = UAWFx.effectHit(0.5f, frontColor, backColor);
 				makeFire = true;
 				applySound = Sounds.plasmaboom;
 			}};
@@ -371,13 +213,13 @@ public class UAWBullets {
 			backColor = Pal.plastaniumBack;
 			frontColor = Pal.plastaniumFront;
 			shootEffect = new MultiEffect(
-				UAWFxD.railShoot(height, backColor),
-				UAWFxD.impactCloud(frontColor),
-				UAWFxD.shootBigSmoke(height, frontColor)
+				UAWFx.railShoot(height, backColor),
+				UAWFx.impactCloud(frontColor),
+				UAWFx.shootSmoke(height, frontColor, false)
 			);
 			hitEffect = new MultiEffect(
-				UAWFxD.hitBulletBig(frontColor),
-				UAWFxD.crossBlast(width, frontColor)
+				Fx.hitBulletColor,
+				UAWFx.crossBlast(width, frontColor)
 			);
 			hitSoundVolume = 3f;
 			hitShake = 34f;
@@ -389,15 +231,15 @@ public class UAWBullets {
 			fragLifeMax = 1.4f;
 		}};
 
-		mineBasic = new MineBulletType(150, 8 * tilesize, 35 * tick) {{
-			hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius);
+		mineBasic = new MineBulletType(350, 8 * tilesize, 35 * tick) {{
+			hitEffect = UAWFx.dynamicExplosion(splashDamageRadius);
 			frontColor = Color.valueOf("eab678");
 			backColor = Color.valueOf("d4816b");
 			explodeDelay = 45f;
 			explodeRange = 4 * tilesize;
 			knockback = 16f;
 		}};
-		mineIncend = new MineBulletType(125, 10 * tilesize, 35 * tick) {{
+		mineIncend = new MineBulletType(280, 10 * tilesize, 35 * tick) {{
 			status = StatusEffects.burning;
 			puddleAmount = 30;
 			puddleLiquid = Liquids.oil;
@@ -407,18 +249,18 @@ public class UAWBullets {
 			explodeDelay = 45f;
 			explodeRange = 6 * tilesize;
 			knockback = 8f;
-			hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius, frontColor, backColor);
+			hitEffect = UAWFx.dynamicExplosion(splashDamageRadius, frontColor, backColor);
 		}};
-		mineCryo = new MineBulletType(125, 10 * tilesize, 35 * tick) {{
+		mineCryo = new MineBulletType(280, 10 * tilesize, 35 * tick) {{
 			status = StatusEffects.freezing;
 			frontColor = UAWPal.cryoFront;
 			backColor = UAWPal.cryoMiddle;
 			explodeDelay = 45f;
 			explodeRange = 6f * tilesize;
 			knockback = 8f;
-			hitEffect = UAWFxD.dynamicExplosion(splashDamageRadius, frontColor, backColor);
+			hitEffect = UAWFx.dynamicExplosion(splashDamageRadius, frontColor, backColor);
 		}};
-		mineEMP = new MineBulletType(75, 10 * tilesize, 30 * tick) {{
+		mineEMP = new MineBulletType(200, 10 * tilesize, 30 * tick) {{
 			status = UAWStatusEffects.EMP;
 			collidesAir = true;
 			statusDuration = 120f;
@@ -432,24 +274,23 @@ public class UAWBullets {
 			lightningLength = 12;
 			lightningLengthRand = 7;
 			hitSound = Sounds.plasmaboom;
-			hitEffect = UAWFxD.empExplosion(splashDamageRadius, 6, frontColor);
+			hitEffect = UAWFx.empExplosion(splashDamageRadius, 6, frontColor);
 		}};
 
-		canisterBasic = new CanisterBulletType(mineBasic) {{
+		mineCanisterBasic = new CanisterBulletType(mineBasic) {{
 			ammoMultiplier = 2f;
-
 		}};
-		canisterIncend = new CanisterBulletType(mineIncend, 3) {{
+		mineCanisterIncendiary = new CanisterBulletType(mineIncend, 3) {{
 			ammoMultiplier = 2f;
 			frontColor = Pal.lightishOrange;
 			backColor = Pal.lightOrange;
 		}};
-		canisterCryo = new CanisterBulletType(mineCryo, 3) {{
+		mineCanisterCryo = new CanisterBulletType(mineCryo, 3) {{
 			ammoMultiplier = 2f;
 			frontColor = UAWPal.cryoFront;
 			backColor = UAWPal.cryoMiddle;
 		}};
-		canisterEMP = new CanisterBulletType(mineEMP, 3) {{
+		mineCanisterEMP = new CanisterBulletType(mineEMP, 3) {{
 			ammoMultiplier = 2f;
 			frontColor = UAWPal.titaniumFront;
 			backColor = UAWPal.titaniumBack;

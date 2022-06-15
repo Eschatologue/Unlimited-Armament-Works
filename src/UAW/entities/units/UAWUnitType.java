@@ -1,10 +1,9 @@
 package UAW.entities.units;
 
 import UAW.entities.units.entity.*;
-import UAW.graphics.Outliner;
+import UAW.audiovisual.Outliner;
 import UAW.type.Rotor;
 import UAW.type.Rotor.RotorMount;
-import UAW.type.weapon.TankWeapon;
 import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
@@ -22,7 +21,7 @@ import static mindustry.Vars.world;
 
 public class UAWUnitType extends UnitType {
 	public final Seq<Rotor> rotors = new Seq<>();
-	public final Seq<TankWeapon> tWeapons = new Seq<>();
+//	public final Seq<TankWeapon> tWeapons = new Seq<>();
 
 	// Helicopters
 	public float spinningFallSpeed = 0;
@@ -235,10 +234,10 @@ public class UAWUnitType extends UnitType {
 			Outliner.outlineRegion(packer, rotor.topRegion, outlineColor, rotor.name + "-top-outline", outlineRadius);
 		}
 		// Tanks
-		Outliner.outlineRegion(packer, hullRegion, outlineColor, name + "-hull-outline", outlineRadius);
-		for (TankWeapon tankWeapon : tWeapons) {
-			Outliner.outlineRegion(packer, tankWeapon.gunOutline, outlineColor, tankWeapon.name + "-outline", outlineRadius);
-		}
+//		Outliner.outlineRegion(packer, hullRegion, outlineColor, name + "-hull-outline", outlineRadius);
+//		for (TankWeapon tankWeapon : tWeapons) {
+//			Outliner.outlineRegion(packer, tankWeapon.gunOutline, outlineColor, tankWeapon.name + "-outline", outlineRadius);
+//		}
 	}
 
 	@Override

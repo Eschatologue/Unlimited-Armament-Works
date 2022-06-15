@@ -1,9 +1,7 @@
 package UAW.content;
 
-import UAW.graphics.UAWPal;
-import arc.graphics.Color;
+import UAW.audiovisual.UAWPal;
 import mindustry.content.StatusEffects;
-import mindustry.graphics.Pal;
 import mindustry.type.Liquid;
 
 public class UAWLiquids {

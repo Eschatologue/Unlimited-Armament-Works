@@ -1,6 +1,6 @@
 package UAW.content;
 
-import UAW.graphics.UAWPal;
+import UAW.audiovisual.UAWPal;
 import mindustry.content.Fx;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.graphics.Pal;

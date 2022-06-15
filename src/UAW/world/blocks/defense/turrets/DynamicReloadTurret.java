@@ -1,6 +1,5 @@
 package UAW.world.blocks.defense.turrets;
 
-import UAW.graphics.UAWPal;
 import arc.graphics.g2d.*;
 import arc.math.Mathf;
 import arc.util.Time;

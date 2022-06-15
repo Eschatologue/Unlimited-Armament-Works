@@ -1,4 +1,4 @@
-package UAW.content;
+package UAW.audiovisual;
 
 import arc.Core;
 import arc.assets.AssetDescriptor;
@@ -6,7 +6,7 @@ import arc.assets.loaders.SoundLoader;
 import arc.audio.Sound;
 import mindustry.Vars;
 
-public class UAWSfx {
+public class Sfx {
 	public static Sound
 		cannonShoot1 = new Sound(),
 		cannonShoot2 = new Sound(),

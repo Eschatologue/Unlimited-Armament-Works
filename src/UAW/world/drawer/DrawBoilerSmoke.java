@@ -1,6 +1,6 @@
 package UAW.world.drawer;
 
-import UAW.graphics.UAWPal;
+import UAW.audiovisual.UAWPal;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;

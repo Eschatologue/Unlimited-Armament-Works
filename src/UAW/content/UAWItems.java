@@ -1,6 +1,6 @@
 package UAW.content;
 
-import UAW.graphics.UAWPal;
+import UAW.audiovisual.UAWPal;
 import arc.graphics.Color;
 import mindustry.type.Item;
 

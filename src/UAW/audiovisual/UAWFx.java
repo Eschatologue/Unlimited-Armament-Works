@@ -1,5 +1,6 @@
-package UAW.graphics;
+package UAW.audiovisual;
 
+import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.*;
@@ -9,32 +10,286 @@ import mindustry.content.Fx;
 import mindustry.entities.Effect;
 import mindustry.graphics.*;
 
-public class UAWFxD {
+import static arc.graphics.g2d.Draw.*;
+import static arc.graphics.g2d.Lines.lineAngle;
+import static arc.math.Angles.*;
+import static mindustry.Vars.state;
+
+public class UAWFx {
+	// region Static
+	public static final Effect none = new Effect(0, 0f, e -> {
+	}),
+
+	// region Shooting
+	shootSmoke = new Effect(30f, e -> {
+		Draw.color(e.color, Color.lightGray, Color.gray, e.fin());
+
+		Angles.randLenVectors(e.id, 9, e.finpow() * 23f, e.rotation, 20f, (x, y) -> {
+			Fill.circle(e.x + x, e.y + y, e.fout() * 2.4f + 0.2f);
+		});
+	}),
+
+	shootHugeColor = new Effect(20, e -> {
+		color(e.color, Color.gray, e.fin());
+		float w = 18.5f * e.fout();
+		Drawf.tri(e.x, e.y, w, 52 * e.fout(), e.rotation);
+		Drawf.tri(e.x, e.y, w, 5.4f * e.fout(), e.rotation + 180f);
+	}),
+
+	// endregion Shooting
+
+	// region Torpedoes
+	torpedoRippleHit = new Effect(40f, 100f, e -> {
+		Draw.color(e.color);
+		Draw.z((Float) e.data);
+		Lines.stroke(e.fout() * 1.4f);
+		float circleRad = 4f + e.finpow() * 55f;
+		Lines.circle(e.x, e.y, circleRad);
+		Draw.reset();
+	}),
+
+	torpedoRippleTrail = new Effect(180, e -> {
+		e.lifetime = 30f * e.rotation;
+		Draw.z((Float) e.data - 0.01f);
+		Draw.color(Tmp.c1.set(e.color));
+		Lines.stroke(e.fout() * 1.2f);
+		Lines.circle(e.x, e.y, 3 + e.finpow() * 12f);
+		Draw.reset();
+	}),
+
+	torpedoCruiseTrail = new Effect(25f, e -> {
+		Draw.z((Float) e.data);
+		Draw.color(Color.valueOf("d0d0d0"), Color.valueOf("e8e8e8"), Color.valueOf("f5f5f5"), e.fout());
+		Angles.randLenVectors(e.id, 16, 2f + e.fin() * 7f, (x, y) ->
+			Fill.circle(e.x + x, e.y + y, 0.5f + e.fslope() * 1.5f)
+		);
+		Draw.reset();
+	}),
+
+	torpedoTrailFade = new Effect(400f, 400, e -> {
+		if (!(e.data instanceof Trail trail)) return;
+		e.lifetime = trail.length * 1.4f;
+		if (!state.isPaused()) {
+			trail.shorten();
+		}
+		trail.drawCap(e.color, e.rotation);
+		trail.draw(e.color, e.rotation);
+	}).layer(Layer.scorch - 0.1f),
+
+	// endregion Torpedoes
+
+	// region Hit
+
+	hitBulletBigColor = new Effect(13, e -> {
+		Draw.color(Color.white, e.color, e.fin());
+		Lines.stroke(0.5f + e.fout() * 1.5f);
+		Angles.randLenVectors(e.id, 8, e.finpow() * 30f, e.rotation, 50f, (x, y) -> {
+			float ang = Mathf.angle(x, y);
+			lineAngle(e.x + x, e.y + y, ang, e.fout() * 4 + 1.5f);
+		});
+	}),
+
+	/** Based on Fx.fireHit */
+	cryoHit = new Effect(38f, e -> {
+		Draw.color(UAWPal.cryoFront, UAWPal.cryoBack, e.fin());
+		Angles.randLenVectors(e.id, 5, 2f + e.fin() * 10f, (x, y) -> Fill.circle(e.x + x, e.y + y, 0.2f + e.fout() * 1.6f));
+		Draw.color();
+	}),
+
+	/** Based on Fx.fireHit */
+	plastHit = new Effect(38f, e -> {
+		color(Pal.plastaniumFront, Pal.plastaniumBack, e.fin());
+		randLenVectors(e.id, 5, 2f + e.fin() * 10f, (x, y) ->
+			Fill.circle(e.x + x, e.y + y, 0.2f + e.fout() * 1.6f));
+		color();
+	}),
+
+	/** Based on Fx.fireHit */
+	surgeHit = new Effect(38f, e -> {
+		color(UAWPal.surgeFront, UAWPal.surgeBack, e.fin());
+		randLenVectors(e.id, 5, 2f + e.fin() * 10f, (x, y) ->
+			Fill.circle(e.x + x, e.y + y, 0.2f + e.fout() * 1.6f));
+		color();
+	}),
+
+	// endregion Hit
+
+	// region Casings
+	casing1Double = new Effect(32f, e -> {
+		color(Pal.lightOrange, Color.lightGray, Pal.lightishGray, e.fin());
+		alpha(e.fout(0.5f));
+		float rot = Math.abs(e.rotation) + 90f;
+		for (int i : Mathf.signs) {
+			float len = (2f + e.finpow() * 10f) * i;
+			float lr = rot + e.fin() * 20f * i;
+			rect(Core.atlas.find("casing"),
+				e.x + trnsx(lr, len) + Mathf.randomSeedRange(e.id + i + 7, 3f * e.fin()),
+				e.y + trnsy(lr, len) + Mathf.randomSeedRange(e.id + i + 8, 3f * e.fin()),
+				1f, 2f, rot + e.fin() * 50f * i
+			);
+		}
+
+	}).layer(Layer.bullet),
+
+	casing2Long = new Effect(36f, e -> {
+		color(Pal.lightOrange, Color.lightGray, Pal.lightishGray, e.fin());
+		alpha(e.fout(0.5f));
+		float rot = Math.abs(e.rotation) + 90f;
+		int i = -Mathf.sign(e.rotation);
+		float len = (2f + e.finpow() * 10f) * i;
+		float lr = rot + e.fin() * 20f * i;
+		rect(Core.atlas.find("casing"),
+			e.x + trnsx(lr, len) + Mathf.randomSeedRange(e.id + i + 7, 3f * e.fin()),
+			e.y + trnsy(lr, len) + Mathf.randomSeedRange(e.id + i + 8, 3f * e.fin()),
+			2.5f, 5f, rot + e.fin() * 50f * i
+		);
+	}).layer(Layer.bullet),
+
+	casing3Long = new Effect(55f, e -> {
+		color(Pal.lightOrange, Color.lightGray, Pal.lightishGray, e.fin());
+		alpha(e.fout(0.5f));
+		float rot = Math.abs(e.rotation) + 90f;
+		int i = -Mathf.sign(e.rotation);
+		float len = (2f + e.finpow() * 10f) * i;
+		float lr = rot + e.fin() * 20f * i;
+		rect(Core.atlas.find("casing"),
+			e.x + trnsx(lr, len) + Mathf.randomSeedRange(e.id + i + 7, 3f * e.fin()),
+			e.y + trnsy(lr, len) + Mathf.randomSeedRange(e.id + i + 8, 3f * e.fin()),
+			3f, 6.5f, rot + e.fin() * 50f * i
+		);
+	}).layer(Layer.bullet),
+
+	casing4Long = new Effect(45f, e -> {
+		color(Pal.lightOrange, Pal.lightishGray, Pal.lightishGray, e.fin());
+		alpha(e.fout(0.5f));
+		float rot = Math.abs(e.rotation) + 90f;
+		int i = -Mathf.sign(e.rotation);
+		float len = (4f + e.finpow() * 9f) * i;
+		float lr = rot + Mathf.randomSeedRange(e.id + i + 6, 20f * e.fin()) * i;
+
+		rect(Core.atlas.find("casing"),
+			e.x + trnsx(lr, len) + Mathf.randomSeedRange(e.id + i + 7, 3f * e.fin()),
+			e.y + trnsy(lr, len) + Mathf.randomSeedRange(e.id + i + 8, 3f * e.fin()),
+			3f, 8f,
+			rot + e.fin() * 50f * i
+		);
+	}).layer(Layer.bullet),
+
+	casing5 = new Effect(65f, e -> {
+		color(Pal.lightOrange, Pal.lightishGray, Pal.lightishGray, e.fin());
+		alpha(e.fout(0.5f));
+		float rot = Math.abs(e.rotation) + 90f;
+		int i = -Mathf.sign(e.rotation);
+		float len = (4f + e.finpow() * 9f) * i;
+		float lr = rot + Mathf.randomSeedRange(e.id + i + 6, 20f * e.fin()) * i;
+
+		rect(Core.atlas.find("casing"),
+			e.x + trnsx(lr, len) + Mathf.randomSeedRange(e.id + i + 7, 3f * e.fin()),
+			e.y + trnsy(lr, len) + Mathf.randomSeedRange(e.id + i + 8, 3f * e.fin()),
+			3.5f, 8f,
+			rot + e.fin() * 50f * i
+		);
+	}).layer(Layer.bullet),
+
+	casingCanister = new Effect(50f, e -> {
+		color(Pal.lightOrange, Pal.lightishGray, Pal.lightishGray, e.fin());
+		alpha(e.fout(0.5f));
+		float rot = Math.abs(e.rotation) + 90f;
+		int i = -Mathf.sign(e.rotation);
+		float len = (4f + e.finpow() * 9f) * i;
+		float lr = rot + Mathf.randomSeedRange(e.id + i + 6, 20f * e.fin()) * i;
+
+		rect(Core.atlas.find("casing"),
+			e.x + trnsx(lr, len) + Mathf.randomSeedRange(e.id + i + 7, 3f * e.fin()),
+			e.y + trnsy(lr, len) + Mathf.randomSeedRange(e.id + i + 8, 3f * e.fin()),
+			5.4f, 9f,
+			rot + e.fin() * 50f * i
+		);
+	}).layer(Layer.bullet),
+
+	casing6 = new Effect(55f, e -> {
+		color(Pal.lightOrange, Pal.lightishGray, Pal.lightishGray, e.fin());
+		alpha(e.fout(0.5f));
+		float rot = Math.abs(e.rotation) + 90f;
+		int i = -Mathf.sign(e.rotation);
+		float len = (4f + e.finpow() * 9f) * i;
+		float lr = rot + Mathf.randomSeedRange(e.id + i + 6, 20f * e.fin()) * i;
+
+		rect(Core.atlas.find("casing"),
+			e.x + trnsx(lr, len) + Mathf.randomSeedRange(e.id + i + 7, 3f * e.fin()),
+			e.y + trnsy(lr, len) + Mathf.randomSeedRange(e.id + i + 8, 3f * e.fin()),
+			4.5f, 10f,
+			rot + e.fin() * 50f * i
+		);
+	}).layer(Layer.bullet),
+
+	casing7 = new Effect(75f, e -> {
+		color(Pal.lightOrange, Pal.lightishGray, Pal.lightishGray, e.fin());
+		alpha(e.fout(0.5f));
+		float rot = Math.abs(e.rotation) + 90f;
+		int i = -Mathf.sign(e.rotation);
+		float len = (4f + e.finpow() * 9f) * i;
+		float lr = rot + Mathf.randomSeedRange(e.id + i + 6, 20f * e.fin()) * i;
+
+		rect(Core.atlas.find("casing"),
+			e.x + trnsx(lr, len) + Mathf.randomSeedRange(e.id + i + 8, 3f * e.fin()),
+			e.y + trnsy(lr, len) + Mathf.randomSeedRange(e.id + i + 7, 3f * e.fin()),
+			5.5f, 12f,
+			rot + e.fin() * 50f * i
+		);
+	}).layer(Layer.bullet),
+	// endregion Casings
+
+	// region Trails
+
+	/**
+	 * Vanilla trail fade but with much larger clipsize
+	 */
+	trailFade = new Effect(400f, 400, e -> {
+		if (!(e.data instanceof Trail trail)) return;
+		//lifetime is how many frames it takes to fade out the trail
+		e.lifetime = trail.length * 1.4f;
+
+		if (!state.isPaused()) {
+			trail.shorten();
+		}
+		trail.drawCap(e.color, e.rotation);
+		trail.draw(e.color, e.rotation);
+	});
 	private static final Rand rand = new Rand();
 	private static final Vec2 v = new Vec2();
 	static float smokeSizeLfMult = 12f;
 
+	// endregion Trails
+
+	//endregion Static
+
+	// region Dynamic
+
 	/**
 	 * Based on Fx.instShoot
 	 *
-	 * @param size
-	 * 	The effect flame "Burst" length and width
+	 * @param lifetime
+	 * 	[24] Adjusts the effect lifetime along with its size etc.
 	 * @param color
 	 * 	Flame burst color
 	 */
-	public static Effect instShoot(float size, Color color) {
-		return new Effect(size / 2.6f, size * 8, (e) -> {
-			e.scaled(size / 4.12f, (b) -> {
+	public static Effect instShoot(float lifetime, Color color) {
+		return new Effect(lifetime, lifetime * 4, e -> {
+			e.scaled(lifetime * 0.415f, b -> {
 				Draw.color(Color.white, color, b.fin());
-				Lines.stroke(b.fout() * 3.0F + 0.4F);
-				Lines.circle(b.x, b.y, b.fin() * size);
+				Lines.stroke(b.fout() * (lifetime * 0.125f) + 0.2f);
+				Lines.circle(b.x, b.y, b.fin() * (lifetime * 2.083f));
 			});
+
 			Draw.color(color);
 
 			for (int i : Mathf.signs) {
-				Drawf.tri(e.x, e.y, size / 2.3f * e.fout(), size, e.rotation + 90 * i);
-				Drawf.tri(e.x, e.y, size / 3.6f * e.fout(), size, e.rotation + 20 * i);
+				Drawf.tri(e.x, e.y, (lifetime * 0.541f) * e.fout(), (lifetime * 3.541f), e.rotation + 90f * i);
+				Drawf.tri(e.x, e.y, (lifetime * 0.541f) * e.fout(), (lifetime * 2.083f), e.rotation + 20f * i);
 			}
+
+			Drawf.light(e.x, e.y, (lifetime * 7.5f), color, 0.9f * e.fout());
 		});
 	}
 
@@ -42,20 +297,20 @@ public class UAWFxD {
 	 * Based on Fx.railShoot
 	 *
 	 * @param size
-	 * 	How big is the effect, also adjust lifetime
+	 * 	How big is the effect, based on circle radius | Default = 24
 	 * @param color
 	 * 	The effect color
 	 */
 	public static Effect railShoot(float size, Color color) {
-		return new Effect(size * 0.6f, size * 8, (e) -> {
-			e.scaled(size / 1.5f, (b) -> {
+		return new Effect(size * 0.48f, size * 8, (e) -> {
+			e.scaled(size * 0.2f, (b) -> {
 				Draw.color(Color.white, Color.lightGray, b.fin());
-				Lines.stroke(b.fout() * 3.2f);
-				Lines.circle(b.x, b.y, b.fin() * size * 0.8f);
+				Lines.stroke(b.fout() * (size * 0.064f));
+				Lines.circle(b.x, b.y, b.fin() * size);
 			});
 			Draw.color(color);
 			for (int i : Mathf.signs) {
-				Drawf.tri(e.x, e.y, (size * 0.30f) * e.fout(), (size * 1.5f), e.rotation + 90f * i);
+				Drawf.tri(e.x, e.y, (size * 0.30f) * e.fout(), (size * 1.7f), e.rotation + 90f * i);
 			}
 		});
 	}
@@ -82,13 +337,11 @@ public class UAWFxD {
 	 * Based on Fx.railHit
 	 *
 	 * @param size
-	 * 	How large is the hit effect, adjusts the width and length of the flame burst
-	 * @param color
-	 * 	The color of the effect
+	 * 	How large is the hit effect, adjusts the width and length of the flame burst || Default width is 10
 	 */
-	public static Effect railHit(float size, Color color) {
-		return new Effect(20f, 200f, e -> {
-			Draw.color(color);
+	public static Effect railHit(float size) {
+		return new Effect(size * 2, size * 100, e -> {
+			Draw.color(e.color);
 			for (int i : Mathf.signs) {
 				Drawf.tri(e.x, e.y, size * e.fout(), size * 6, e.rotation + 140f * i);
 			}
@@ -96,38 +349,99 @@ public class UAWFxD {
 	}
 
 	/**
-	 * Based on Fx.shootBigSmoke
+	 * Based on Fx.instHit
 	 *
-	 * @param size
-	 * 	How big is the smoke, also adjusts its lifetime | default is 2.6f
-	 * @param color
-	 * 	the color of the smoke, will lerp to lightGray then gray
+	 * @param lifetime
+	 * 	[20] How long does the effect lasts, adjusts sizes as well
 	 */
-	public static Effect shootBigSmoke(float size, Color color) {
-		return new Effect(size * 6.5f, e -> {
-			Draw.color(color, Color.lightGray, Color.gray, e.fin());
+	public static Effect instHit(float lifetime, Color frontColor, Color backColor) {
+		return new Effect(lifetime, lifetime * 10, e -> {
+			Draw.color(backColor);
 
-			Angles.randLenVectors(e.id, (int) (size * 3.6f), e.finpow() * 23f, e.rotation, size * 8, (x, y) ->
-				Fill.circle(e.x + x, e.y + y, e.fout() * size));
+			for (int i = 0; i < 2; i++) {
+				Draw.color(i == 0 ? backColor : frontColor);
+
+				float m = i == 0 ? 1f : 0.5f;
+
+				for (int j = 0; j < 5; j++) {
+					float rot = e.rotation + Mathf.randomSeedRange(e.id + j, 50);
+					float w = (lifetime * 1.15f) * e.fout() * m;
+					Drawf.tri(e.x, e.y, w, ((lifetime * 4) + Mathf.randomSeedRange(e.id + j, 40f)) * m, rot);
+					Drawf.tri(e.x, e.y, w, lifetime * m, rot + 180f);
+				}
+			}
+
+			e.scaled((lifetime * 0.5f), c -> {
+				Draw.color(frontColor);
+				Lines.stroke(c.fout() * (lifetime * 0.1f) + (lifetime * 0.01f));
+				Lines.circle(e.x, e.y, c.fin() * (lifetime * 1.5f));
+			});
+
+			e.scaled((lifetime * 0.6f), c -> {
+				Draw.color(backColor);
+				Angles.randLenVectors(e.id, (int) (lifetime * 1.25), (lifetime * 0.25f) + e.fin() * (lifetime * 4), e.rotation, (lifetime * 3), (x, y) -> {
+					Fill.square(e.x + x, e.y + y, c.fout() * (lifetime * 0.15f), 45f);
+				});
+			});
 		});
 	}
 
 	/**
-	 * Based on Fx.hitBulletBig
+	 * Based on Fx.ShootBigSmoke2
 	 *
+	 * @param lifetime
+	 * 	[18] How long does the smoke lasts, also adjusts amount, spreads, and radius.
 	 * @param color
-	 * 	The spark color
+	 * 	The color of the beginning of the smoke, will lerp to gray
+	 * @param muzzleBreak
+	 * 	[False] Whenever to cause 2 instances of the effect and make it spread horizontally
 	 */
-	public static Effect hitBulletBig(Color color) {
-		return new Effect(15, e -> {
-			Draw.color(Color.white, color, e.fin());
-			Lines.stroke(0.5f + e.fout() * 1.5f);
+	public static Effect shootSmoke(float lifetime, Color color, boolean muzzleBreak) {
+		float amountMod = 0.44f;
+		float lengthMod = 1.4f;
+		float rangeMod = 1f;
+		float sizeMod = 0.13f;
+		return new Effect(lifetime, e -> {
+			Draw.color(color, Color.lightGray, Color.gray, e.fin());
 
-			Angles.randLenVectors(e.id, 9, e.finpow() * 30f, e.rotation, 50f, (x, y) -> {
-				float ang = Mathf.angle(x, y);
-				Lines.lineAngle(e.x + x, e.y + y, ang, e.fout() * 4 + 1.5f);
-			});
+			randLenVectors(e.id, (int) (lifetime * amountMod), e.finpow() * lifetime * lengthMod, e.rotation + (muzzleBreak ? 90 : 0), lifetime * rangeMod, (x, y) ->
+				Fill.circle(e.x + x, e.y + y, e.fout() * lifetime * sizeMod));
+			if (muzzleBreak) {
+				randLenVectors(e.id, (int) (lifetime * amountMod), e.finpow() * lifetime * lengthMod, e.rotation - 90, lifetime * rangeMod, (x, y) ->
+					Fill.circle(e.x + x, e.y + y, e.fout() * lifetime * sizeMod));
+			}
+			Draw.reset();
 		});
+	}
+
+	/**
+	 * Based on Fx.ShootBigSmoke2
+	 *
+	 * @param lifetime
+	 * 	[18] How long does the smoke lasts, also adjusts amount, spreads, and radius.
+	 * @param color
+	 * 	The color of the beginning of the smoke, will lerp to gray
+	 * @param muzzleBreak
+	 * 	[False] Whenever to cause 2 instances of the effect and make it spread horizontally
+	 * @param layer
+	 * 	On what layer the effect occurs
+	 */
+	public static Effect shootSmoke(float lifetime, Color color, boolean muzzleBreak, float layer) {
+		float amountMod = 0.44f;
+		float lengthMod = 1.27f;
+		float rangeMod = 0.83f;
+		float sizeMod = 0.13f;
+		return new Effect(lifetime, e -> {
+			Draw.color(color, Color.lightGray, Color.gray, e.fin());
+
+			randLenVectors(e.id, (int) (lifetime * amountMod), e.finpow() * lifetime * lengthMod, e.rotation + (muzzleBreak ? 90 : 0), lifetime * rangeMod, (x, y) ->
+				Fill.circle(e.x + x, e.y + y, e.fout() * lifetime * sizeMod));
+			if (muzzleBreak) {
+				randLenVectors(e.id, (int) (lifetime * amountMod), e.finpow() * lifetime * lengthMod, e.rotation - 90, lifetime * rangeMod, (x, y) ->
+					Fill.circle(e.x + x, e.y + y, e.fout() * lifetime * sizeMod));
+			}
+			Draw.reset();
+		}).layer(layer);
 	}
 
 	/**
@@ -165,6 +479,23 @@ public class UAWFxD {
 			Angles.randLenVectors(e.id, 8, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) ->
 				Fill.circle(e.x + x, e.y + y, 0.45f + e.fout() * 2f));
 		}).layer(layer);
+	}
+
+	/**
+	 * Caernarvon shell trail
+	 *
+	 * @param length
+	 * 	Size and Thickness is the side trail || Default  is 45
+	 * @param color
+	 * 	The color of the trail
+	 */
+	public static Effect sideTrail(float length, Color color) {
+		return new Effect(length * 0.5f, e -> {
+			Draw.color(color);
+			for (int s : Mathf.signs) {
+				Drawf.tri(e.x, e.y, length * 0.1f, length * e.fslope(), e.rotation + 135f * s);
+			}
+		});
 	}
 
 	/**
@@ -544,5 +875,6 @@ public class UAWFxD {
 		}).layer(Layer.flyingUnitLow);
 	}
 
-
+	// endregion Dynamic
 }
+
