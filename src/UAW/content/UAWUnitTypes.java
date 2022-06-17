@@ -355,6 +355,26 @@ public class UAWUnitTypes {
 			constructor = CopterUnitEntity::new;
 			aiController = DynamicFlyingAI::new;
 
+			float rotX = 17;
+			float rotY = 5;
+			float rotSpeed = 13f;
+			rotors.add(
+				new Rotor(modName + "short-blade") {{
+					x = -rotX;
+					y = rotY;
+					rotorSpeed = rotSpeed;
+					bladeCount = 3;
+					doubleRotor = true;
+				}},
+				new Rotor(modName + "short-blade") {{
+					x = rotX;
+					y = rotY;
+					rotorSpeed = rotSpeed;
+					bladeCount = 3;
+					doubleRotor = true;
+				}}
+			);
+
 			weapons.add(new PointDefenseWeapon(pointDefenseRed) {{
 				mirror = true;
 				x = 23.5f;
@@ -448,26 +468,6 @@ public class UAWUnitTypes {
 					statusDuration = 4 * 60;
 				}};
 			}});
-
-			float rotX = 17;
-			float rotY = 5;
-			float rotSpeed = 13f;
-			rotors.add(
-				new Rotor(modName + "short-blade") {{
-					x = -rotX;
-					y = rotY;
-					rotorSpeed = rotSpeed;
-					bladeCount = 3;
-					doubleRotor = true;
-				}},
-				new Rotor(modName + "short-blade") {{
-					x = rotX;
-					y = rotY;
-					rotorSpeed = rotSpeed;
-					bladeCount = 3;
-					doubleRotor = true;
-				}}
-			);
 		}};
 
 //		corsair = new UAWUnitType("corsair") {{
@@ -557,7 +557,7 @@ public class UAWUnitTypes {
 //			);
 //		}};
 
-		arquebus = new UnitType("arquebus") {{
+		arquebus = new UAWUnitType("arquebus") {{
 			health = 750;
 			speed = 0.75f;
 			accel = 0.2f;
@@ -651,7 +651,7 @@ public class UAWUnitTypes {
 				}};
 			}});
 		}};
-		carronade = new UnitType("carronade") {{
+		carronade = new UAWUnitType("carronade") {{
 			health = 7000;
 			hitSize = 22;
 			speed = 0.8f;
@@ -763,7 +763,7 @@ public class UAWUnitTypes {
 				}}
 			);
 		}};
-		falconet = new UnitType("falconet") {{
+		falconet = new UAWUnitType("falconet") {{
 			health = 16000;
 			hitSize = 44;
 			speed = 0.65f;
