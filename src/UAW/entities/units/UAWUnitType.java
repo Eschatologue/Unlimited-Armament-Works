@@ -1,7 +1,7 @@
 package UAW.entities.units;
 
-import UAW.entities.units.entity.*;
 import UAW.audiovisual.Outliner;
+import UAW.entities.units.entity.*;
 import UAW.type.Rotor;
 import UAW.type.Rotor.RotorMount;
 import arc.Core;
@@ -90,7 +90,11 @@ public class UAWUnitType extends UnitType {
 
 				for (int i = 0; i < rotor.bladeCount; i++) {
 					float angle = (i * 360f / rotor.bladeCount + mount.rotorRotation) % 360;
-					Draw.z(z + 0.5f);
+					float blurAngle = (i * 360f / rotor.bladeCount + (mount.rotorRotation * rotor.rotorBlurSpeedMultiplier)) % 360;
+
+					// Normal Rotor
+					Draw.z(z + rotor.layer);
+					Draw.alpha(rotor.bladeBlurRegion.found() ? 1 - (copter.rotorSpeedScl / 0.8f) : 1);
 					Draw.rect(
 						rotor.bladeOutlineRegion, rx, ry,
 						rotor.bladeOutlineRegion.width * Draw.scl,
@@ -101,8 +105,10 @@ public class UAWUnitType extends UnitType {
 					Draw.rect(rotor.bladeRegion, rx, ry,
 						rotor.bladeRegion.width * Draw.scl,
 						rotor.bladeRegion.height * Draw.scl,
-						angle)
-					;
+						angle
+					);
+
+					// Double Rotor
 					if (rotor.doubleRotor) {
 						Draw.rect(
 							rotor.bladeOutlineRegion, rx, ry,
@@ -117,8 +123,36 @@ public class UAWUnitType extends UnitType {
 							-angle
 						);
 					}
+					Draw.reset();
+
+					// Blur Rotor
+					if (rotor.bladeBlurRegion.found()) {
+						Draw.z(z + rotor.layer + 0.1f);
+						Draw.alpha(copter.rotorSpeedScl * rotor.rotorBlurAlphaMultiplier * (copter.dead() ? copter.rotorSpeedScl * 0.5f : 1));
+						Draw.rect(
+							rotor.bladeBlurRegion, rx, ry,
+							rotor.bladeBlurRegion.width * Draw.scl,
+							rotor.bladeBlurRegion.height * Draw.scl,
+							-blurAngle
+						);
+
+						// Double Rotor Blur
+						if (rotor.doubleRotor) {
+							Draw.rect(
+								rotor.bladeBlurRegion, rx, ry,
+								rotor.bladeBlurRegion.width * Draw.scl * -Mathf.sign(false),
+								rotor.bladeBlurRegion.height * Draw.scl,
+								blurAngle
+							);
+						}
+						Draw.reset();
+					}
+
+					Draw.reset();
+
+					// Rotor Top
 					if (rotor.drawRotorTop) {
-						Draw.z(z + 0.55f);
+						Draw.z(z + rotor.layer + 0.2f);
 						Draw.rect(
 							rotor.topRegionOutline, rx, ry,
 							rotor.topRegionOutline.width * Draw.scl,
@@ -132,6 +166,7 @@ public class UAWUnitType extends UnitType {
 							unit.rotation - 90
 						);
 					}
+					Draw.reset();
 				}
 			}
 		}

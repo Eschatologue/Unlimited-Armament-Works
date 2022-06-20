@@ -15,6 +15,7 @@ import arc.math.Mathf;
 import arc.struct.ObjectIntMap;
 import arc.struct.ObjectMap.Entry;
 import com.sun.istack.NotNull;
+import mindustry.ai.types.FlyingAI;
 import mindustry.content.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
@@ -55,7 +56,7 @@ public class UAWUnitTypes {
 	// Tanks - SPG
 	abbot, archer, arbalester, arbiter;
 
-	//Steal from Progressed Material which stole from Endless Rusting which stole from Progressed Materials in the past which stole from BetaMindy
+	// Steal from Progressed Material which stole from Endless Rusting which stole from Progressed Materials in the past which stole from BetaMindy
 	private static final Entry<Class<? extends Entityc>, Prov<? extends Entityc>>[] types = new Entry[]{
 		prov(CopterUnitEntity.class, CopterUnitEntity::new),
 		prov(TankUnitEntity.class, TankUnitEntity::new),
@@ -134,20 +135,25 @@ public class UAWUnitTypes {
 			float unitRange = 28 * tilesize;
 			health = 500;
 			hitSize = 18;
+
 			speed = 2.5f;
 			accel = 0.04f;
 			drag = 0.016f;
 			rotateSpeed = 5.5f;
+
 			ammoType = new ItemAmmoType(Items.graphite);
+
 			circleTarget = true;
 			lowAltitude = true;
-
 			faceTarget = flying = true;
 			range = unitRange;
-			fallSpeed = 0.003f;
+
+			fallSpeed = 0.0015f;
 			spinningFallSpeed = 4;
 			fallSmokeY = -10f;
 			engineSize = 0;
+
+			targetFlags = new BlockFlag[]{BlockFlag.turret, BlockFlag.extinguisher, BlockFlag.repair, null};
 
 			constructor = CopterUnitEntity::new;
 			aiController = DynamicFlyingAI::new;
@@ -155,7 +161,7 @@ public class UAWUnitTypes {
 			rotors.add(
 				new Rotor(name + "-blade") {{
 					x = y = 0;
-					rotorSpeed = -15f;
+					rotorSpeed = -30f;
 					bladeCount = 3;
 				}}
 			);
@@ -217,22 +223,28 @@ public class UAWUnitTypes {
 			}});
 		}};
 		bedivere = new UAWUnitType("bedivere") {{
+			float unitRange = 32 * tilesize;
 			health = 3500;
 			hitSize = 30;
+
 			speed = 2.5f;
-			rotateSpeed = 4.5f;
 			accel = 0.08f;
 			drag = 0.03f;
+			rotateSpeed = 4.5f;
+
 			ammoType = new ItemAmmoType(Items.graphite);
-			faceTarget = flying = circleTarget = true;
+
+			circleTarget = true;
+			lowAltitude = true;
+			faceTarget = flying = true;
+			range = unitRange;
+
 			fallSpeed = 0.006f;
 			spinningFallSpeed = 5f;
 			fallSmokeY = -15f;
-			lowAltitude = true;
 			engineSize = 0;
 
-			range = 32 * tilesize;
-			maxRange = range;
+			targetFlags = new BlockFlag[]{BlockFlag.turret, BlockFlag.extinguisher, BlockFlag.repair, null};
 
 			constructor = CopterUnitEntity::new;
 			aiController = DynamicFlyingAI::new;
@@ -241,14 +253,13 @@ public class UAWUnitTypes {
 				new Rotor(name + "-blade") {{
 					x = 0;
 					y = 4;
-					rotorSpeed = -12f;
+					rotorSpeed = -35f;
 					bladeCount = 4;
 				}}
 			);
 
 			weapons.add(new Weapon(machineGunSmallRed) {{
 				layerOffset = -0.005f;
-				minShootVelocity = 0.75f;
 				rotate = top = false;
 				shootCone = 30;
 				inaccuracy = 5f;
@@ -268,14 +279,13 @@ public class UAWUnitTypes {
 					buildingDamageMultiplier = 0.4f;
 					maxRange = range - 8;
 					homingPower = 0.02f;
-					lifetime = (range / speed) * 0.8f;
+					lifetime = (unitRange / speed) * 0.8f;
 					trailColor = backColor;
 					hitEffect = new MultiEffect(Fx.hitBulletSmall, Fx.shootSmallSmoke);
 					ammoMultiplier = 8f;
 				}};
 			}});
 			weapons.add(new Weapon(artilleryMediumRed) {{
-				minShootVelocity = 0.75f;
 				rotate = false;
 				alternate = mirror = true;
 				top = true;
@@ -295,7 +305,7 @@ public class UAWUnitTypes {
 					width = 15f;
 					trailSize = 5;
 					despawnHit = true;
-					lifetime = (range / speed) * 1.5f;
+					lifetime = (unitRange / speed) * 1.5f;
 					shootEffect = Fx.shootBig;
 					hitEffect = new MultiEffect(Fx.blastExplosion, Fx.flakExplosionBig);
 					hitSound = Sounds.boom;
@@ -309,7 +319,6 @@ public class UAWUnitTypes {
 			weapons.add(new MissileLauncherWeapon() {{
 				layerOffset = -0.01f;
 				missileSizeScl = 1f;
-				rotate = false;
 				mirror = true;
 				alternate = false;
 				shootCone = 30;
@@ -320,12 +329,13 @@ public class UAWUnitTypes {
 				shootSound = Sfx.missileShootBig1;
 				bullet = new CruiseMissileBulletType(3f, 450) {{
 					layer = Layer.flyingUnitLow - 1;
+					trailOffsetY = -2f;
 					sizeScl = 1.3f;
 					homingRange = range * 2;
 					homingPower = 0.05f;
 					keepVelocity = false;
 					splashDamageRadius = 8 * tilesize;
-					lifetime = (range - 5) / speed;
+					lifetime = (unitRange - 5) / speed;
 					shootEffect = Fx.shootPyraFlame;
 					hitEffect = UAWFx.dynamicExplosion(splashDamageRadius);
 					trailColor = Pal.lightPyraFlame;
@@ -340,29 +350,36 @@ public class UAWUnitTypes {
 			});
 		}};
 		calogrenant = new UAWUnitType("calogrenant") {{
+			float unitRange = 43 * tilesize;
 			health = 7500;
 			armor = 10f;
+			hitSize = 45;
+
 			speed = 3f;
-			drag = 0.07f;
 			accel = 0.03f;
-			flying = true;
-			hitSize = 35f;
-			range = 40 * tilesize;
-			lowAltitude = true;
+			drag = 0.07f;
 			rotateSpeed = 2.7f;
+
+			lowAltitude = true;
+			faceTarget = flying = true;
+			range = unitRange;
+
 			engineSize = 0;
 
+			targetFlags = new BlockFlag[]{BlockFlag.turret, BlockFlag.extinguisher, BlockFlag.battery, null};
+
 			constructor = CopterUnitEntity::new;
-			aiController = DynamicFlyingAI::new;
+			aiController = FlyingAI::new;
 
 			float rotX = 17;
 			float rotY = 5;
-			float rotSpeed = 13f;
+			float rotSpeed = 32f;
 			rotors.add(
 				new Rotor(modName + "short-blade") {{
 					x = -rotX;
 					y = rotY;
 					rotorSpeed = rotSpeed;
+					rotorBlurSpeedMultiplier = 0.1f;
 					bladeCount = 3;
 					doubleRotor = true;
 				}},
@@ -370,28 +387,12 @@ public class UAWUnitTypes {
 					x = rotX;
 					y = rotY;
 					rotorSpeed = rotSpeed;
+					rotorBlurSpeedMultiplier = 0.1f;
 					bladeCount = 3;
 					doubleRotor = true;
 				}}
 			);
 
-			weapons.add(new PointDefenseWeapon(pointDefenseRed) {{
-				mirror = true;
-				x = 23.5f;
-				y = 4f;
-				reload = 3f;
-				recoil = 0f;
-				targetInterval = 4f;
-				targetSwitchInterval = 4f;
-				ejectEffect = Fx.casing1;
-				bullet = new BulletType() {{
-					shootEffect = Fx.sparkShoot;
-					smokeEffect = Fx.shootSmallSmoke;
-					hitEffect = Fx.pointHit;
-					maxRange = 15 * tilesize;
-					damage = 15f;
-				}};
-			}});
 			weapons.add(new Weapon(machineGunSmallRed) {{
 				layerOffset = -0.01f;
 				rotate = false;
@@ -411,7 +412,7 @@ public class UAWUnitTypes {
 					buildingDamageMultiplier = 0.4f;
 					maxRange = range;
 					homingRange = 60f;
-					lifetime = (range / speed);
+					lifetime = (unitRange / speed);
 					ammoMultiplier = 8f;
 				}};
 			}});
@@ -435,7 +436,7 @@ public class UAWUnitTypes {
 					frontColor = Pal.missileYellow;
 					backColor = Pal.missileYellowBack;
 					buildingDamageMultiplier = 0.3f;
-					lifetime = (range * 0.75f) / speed;
+					lifetime = (unitRange * 0.75f) / speed;
 					status = StatusEffects.burning;
 					hitEffect = new MultiEffect(Fx.blastExplosion, Fx.fireHit, Fx.blastsmoke);
 					ammoMultiplier = 8f;
@@ -444,8 +445,10 @@ public class UAWUnitTypes {
 				}};
 			}});
 			weapons.add(new MissileLauncherWeapon(cruiseMissileMount1) {{
+				rotate = true;
+				rotationLimit = 20;
+				rotateSpeed = 4f;
 				missileName = cruiseMissileCryo;
-				rotate = false;
 				mirror = true;
 				layerOffset = 0.1f;
 				x = 10.25f;
@@ -458,7 +461,7 @@ public class UAWUnitTypes {
 					homingPower = 0.05f;
 					keepVelocity = false;
 					splashDamageRadius = 12 * tilesize;
-					lifetime = range / speed;
+					lifetime = unitRange / speed;
 					shootEffect = UAWFx.shootHugeColor;
 					trailColor = UAWPal.cryoFront;
 					despawnHit = true;
@@ -557,7 +560,7 @@ public class UAWUnitTypes {
 //			);
 //		}};
 
-		arquebus = new UAWUnitType("arquebus") {{
+		arquebus = new UnitType("arquebus") {{
 			health = 750;
 			speed = 0.75f;
 			accel = 0.2f;
@@ -574,6 +577,8 @@ public class UAWUnitTypes {
 			waveTrailX = 7f;
 			waveTrailY = -9f;
 			trailScl = 1.4f;
+
+			targetFlags = new BlockFlag[]{BlockFlag.turret, BlockFlag.extinguisher, BlockFlag.repair, BlockFlag.core};
 
 			constructor = UnitWaterMove::create;
 
@@ -621,7 +626,7 @@ public class UAWUnitTypes {
 				mirror = rotate = alternate = true;
 				x = 5.5f;
 				y = -8f;
-				targetFlags = new BlockFlag[]{BlockFlag.turret, BlockFlag.extinguisher, BlockFlag.repair, BlockFlag.core};
+
 				inaccuracy = 8f;
 				shootCone = 30;
 				rotateSpeed = 2.2f;
@@ -651,7 +656,7 @@ public class UAWUnitTypes {
 				}};
 			}});
 		}};
-		carronade = new UAWUnitType("carronade") {{
+		carronade = new UnitType("carronade") {{
 			health = 7000;
 			hitSize = 22;
 			speed = 0.8f;
@@ -763,7 +768,7 @@ public class UAWUnitTypes {
 				}}
 			);
 		}};
-		falconet = new UAWUnitType("falconet") {{
+		falconet = new UnitType("falconet") {{
 			health = 16000;
 			hitSize = 44;
 			speed = 0.65f;
