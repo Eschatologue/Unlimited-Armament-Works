@@ -103,7 +103,7 @@ public class UAWBlocksDefense {
 					shootEffect = Fx.shootSmallColor;
 					smokeEffect = Fx.shootBigSmoke;
 					ammoMultiplier = 3;
-					trailLenghtScl = 0.6f;
+					trailLengthScale = 0.6f;
 				}},
 				Items.pyratite, new BasicBulletType(5f, 15) {{
 					height = 12f;

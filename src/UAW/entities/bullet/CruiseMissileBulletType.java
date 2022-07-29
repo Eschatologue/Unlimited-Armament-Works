@@ -8,12 +8,12 @@ import arc.math.Mathf;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 
-import static UAW.Vars.cruiseMissileBasic;
+import static UAW.Vars.cruiseMissile_Basic;
 import static mindustry.Vars.tilesize;
 
 public class CruiseMissileBulletType extends TrailBulletType {
 	public float sizeScl = 1.4f;
-	public float trailOffsetY = 0f;
+	public float trailLifetime = 33f;
 
 	public CruiseMissileBulletType(float speed, float damage, String sprite) {
 		super(speed, damage, sprite);
@@ -40,7 +40,7 @@ public class CruiseMissileBulletType extends TrailBulletType {
 	}
 
 	public CruiseMissileBulletType(float speed, float damage) {
-		this(speed, damage, cruiseMissileBasic);
+		this(speed, damage, cruiseMissile_Basic);
 	}
 
 	public CruiseMissileBulletType() {
@@ -56,7 +56,7 @@ public class CruiseMissileBulletType extends TrailBulletType {
 	@Override
 	public void init() {
 		super.init();
-		trailEffect = UAWFx.cruiseMissileTrail(trailColor, layer > Layer.effect ? Layer.effect : layer - 0.01f);
+		trailEffect = UAWFx.cruiseMissileTrail(trailLifetime, layer > Layer.effect ? Layer.effect : layer - 0.01f, trailColor);
 		shrinkX = shrinkY = 0;
 	}
 
@@ -64,13 +64,13 @@ public class CruiseMissileBulletType extends TrailBulletType {
 	public void updateTrailEffects(Bullet b) {
 		if (trailChance > 0) {
 			if (Mathf.chanceDelta(trailChance)) {
-				trailEffect.at(b.x, b.y + trailOffsetY, trailRotation ? b.rotation() : trailParam, trailColor);
+				trailEffect.at(b.x, b.y, trailRotation ? b.rotation() : trailParam, trailColor);
 			}
 		}
 
 		if (trailInterval > 0f) {
 			if (b.timer(0, trailInterval)) {
-				trailEffect.at(b.x, b.y + trailOffsetY, trailRotation ? b.rotation() : trailParam, trailColor);
+				trailEffect.at(b.x, b.y, trailRotation ? b.rotation() : trailParam, trailColor);
 			}
 		}
 	}

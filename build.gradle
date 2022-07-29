@@ -29,13 +29,14 @@ allprojects {
 
 dependencies {
     // Base Mindustry
-    compileOnly "com.github.Anuken.MindustryJitpack:core:c68e206e8a"
+    compileOnly "com.github.anuken.mindustryjitpack:core:51110c8e99"
     compileOnly "com.github.Anuken.Arc:arc-core:dfcb21ce56"
 
     annotationProcessor "com.github.Anuken:jabel:$jabelVersion"
 
     // Other Libs
     compileOnly 'com.sun.istack:istack-commons-runtime:4.1.1'
+
 }
 
 task jarAndroid{

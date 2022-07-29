@@ -37,12 +37,12 @@ public class JetUnitEntity extends UnitEntity {
 		}
 		for (int i = 0; i < 2; i++) {
 			Trail trail = i == 0 ? tleft : tright;
-			trail.length = type.trailLength;
+			trail.length = type.jetTrailLength;
 
 			int sign = i == 0 ? -1 : 1;
-			float cx = Angles.trnsx(rotation - 90, type.waveTrailX * sign, type.waveTrailY) + x;
-			float cy = Angles.trnsy(rotation - 90, type.waveTrailX * sign, type.waveTrailY) + y;
-			trail.update(cx, cy, type.trailScl);
+			float cx = Angles.trnsx(rotation - 90, type.jetTrailX * sign, type.jetTrailY) + x;
+			float cy = Angles.trnsy(rotation - 90, type.jetTrailX * sign, type.jetTrailY) + y;
+			trail.update(cx, cy, type.jetTrailScl);
 		}
 		if (type.jetMovement) {
 			type.omniMovement = !isPlayer() && isShooting && isAI();

@@ -11,41 +11,41 @@ public class Vars implements Loadable {
 	public static final String modTurretBase = "armored-";
 
 	// Weapon - Point Defense - PD
-	public static final String pointDefenseRed = modName + "point-defense-red";
-	public static final String pointDefensePurple = modName + "point-defense-purple";
+	public static final String pointDefense_Red = modName + "point-defense-red";
+	public static final String pointDefense_Purple = modName + "point-defense-purple";
 
 	// Weapon - Artillery - ART / LNCH
-	public static final String artillerySmallRed = modName + "artillery-small-red";
-	public static final String artillerySmallPurple = modName + "artillery-small-purple";
+	public static final String artillery_small_red = modName + "artillery-small-red";
+	public static final String artillery_small_purple = modName + "artillery-small-purple";
 
-	public static final String artilleryMediumRed = modName + "artillery-medium-red";
+	public static final String artillery_medium_red = modName + "artillery-medium-red";
 
-	public static final String artilleryLargePurple = modName + "artillery-large-purple";
+	public static final String artillery_large_purple = modName + "artillery-large-purple";
 
 	// Weapon - Machine Gun - MG
-	public static final String machineGunSmallRed = modName + "machine-gun-small-red";
-	public static final String machineGunSmallPurple = modName + "machine-gun-small-purple";
+	public static final String machineGun_small_red = modName + "machine-gun-small-red";
+	public static final String machineGun_small_purple = modName + "machine-gun-small-purple";
 
-	public static final String machineGunMediumRed = modName + "machine-gun-medium-red";
-	public static final String machineGunMediumRedMirrored = modName + "machine-gun-medium-red-r";
-	public static final String machineGunMediumPurple = modName + "machine-gun-medium-purple";
+	public static final String machineGun_medium_red = modName + "machine-gun-medium-red";
+	public static final String machineGun_medium_red_mirrored = modName + "machine-gun-medium-red-r";
+	public static final String machineGun_medium_purple = modName + "machine-gun-medium-purple";
 
-	public static final String machineGunMediumSingleRed = modName + "machine-gun-medium-single-red";
+	public static final String machineGun_medium_red_single = modName + "machine-gun-medium-single-red";
 
 	// Weapon - Missile - MSL
-	public static final String missileSmallRed1 = modName + "missile-small-red-1";
-	public static final String missileSmallRed2 = modName + "missile-small-red-2";
+	public static final String missile_small_red_1 = modName + "missile-small-red-1";
+	public static final String missile_small_red_2 = modName + "missile-small-red-2";
 
-	public static final String missileMediumRed1 = modName + "missile-medium-red-1";
-	public static final String missileMediumRed2 = modName + "missile-medium-red-2";
+	public static final String missile_medium_red_1 = modName + "missile-medium-red-1";
+	public static final String missile_medium_red_2 = modName + "missile-medium-red-2";
 
-	public static final String missileLargePurple1 = modName + "missile-large-purple-1";
+	public static final String missile_large_purple_1 = modName + "missile-large-purple-1";
 
-	public static final String cruiseMissileMount1 = modName + "cruise-missile-mount-1";
-	public static final String cruiseMissileMount2 = modName + "cruise-missile-mount-2";
+	public static final String cruiseMissileMount_1 = modName + "cruise-missile-mount-1";
+	public static final String cruiseMissileMount_2 = modName + "cruise-missile-mount-2";
 
 	// Cruise Missile Type
-	public static final String cruiseMissileBasic = modName + "cruise-missile-basic";
-	public static final String cruiseMissileCryo = modName + "cruise-missile-cryo";
-	public static final String cruiseMissileSurge = modName + "cruise-missile-surge";
+	public static final String cruiseMissile_Basic = modName + "cruise-missile-basic";
+	public static final String cruiseMissile_Cryo = modName + "cruise-missile-cryo";
+	public static final String cruiseMissile_Surge = modName + "cruise-missile-surge";
 }

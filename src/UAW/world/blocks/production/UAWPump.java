@@ -9,7 +9,7 @@ import mindustry.entities.Effect;
 import mindustry.world.blocks.production.Pump;
 
 /**
- * Liquid Pump but with rotating rotor and liquid at different layer
+ * Liquid Pump but with rotating rotor and liquid at different rotorLayer
  */
 public class UAWPump extends Pump {
 	public TextureRegion rotatorRegion, heatRegion, topRegion;

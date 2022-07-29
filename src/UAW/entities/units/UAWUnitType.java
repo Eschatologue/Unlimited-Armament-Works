@@ -39,6 +39,9 @@ public class UAWUnitType extends UnitType {
 
 	// Jets
 	public float engineSizeShrink = 0.1f;
+	public float jetTrailX = 0, jetTrailY = 0;
+	public int jetTrailLength = 0;
+	public float jetTrailScl = 0f;
 	public boolean jetMovement = true;
 
 	protected float timer;
@@ -87,39 +90,42 @@ public class UAWUnitType extends UnitType {
 				Rotor rotor = mount.rotor;
 				float rx = unit.x + Angles.trnsx(unit.rotation - 90, rotor.x, rotor.y);
 				float ry = unit.y + Angles.trnsy(unit.rotation - 90, rotor.x, rotor.y);
+				float rotorScl = Draw.scl * rotor.rotorSizeScl;
+				float rotorTopScl = Draw.scl * rotor.rotorTopSizeScl;
 
 				for (int i = 0; i < rotor.bladeCount; i++) {
 					float angle = (i * 360f / rotor.bladeCount + mount.rotorRotation) % 360;
 					float blurAngle = (i * 360f / rotor.bladeCount + (mount.rotorRotation * rotor.rotorBlurSpeedMultiplier)) % 360;
 
-					// Normal Rotor
-					Draw.z(z + rotor.layer);
+					// region Normal Rotor
+					Draw.z(z + rotor.rotorLayer);
 					Draw.alpha(rotor.bladeBlurRegion.found() ? 1 - (copter.rotorSpeedScl / 0.8f) : 1);
 					Draw.rect(
 						rotor.bladeOutlineRegion, rx, ry,
-						rotor.bladeOutlineRegion.width * Draw.scl,
-						rotor.bladeOutlineRegion.height * Draw.scl,
+						rotor.bladeOutlineRegion.width * rotorScl,
+						rotor.bladeOutlineRegion.height * rotorScl,
 						angle
 					);
 					Draw.mixcol(Color.white, unit.hitTime);
 					Draw.rect(rotor.bladeRegion, rx, ry,
-						rotor.bladeRegion.width * Draw.scl,
-						rotor.bladeRegion.height * Draw.scl,
+						rotor.bladeRegion.width * rotorScl,
+						rotor.bladeRegion.height * rotorScl,
 						angle
 					);
+					// endregion Normal Rotor
 
 					// Double Rotor
 					if (rotor.doubleRotor) {
 						Draw.rect(
 							rotor.bladeOutlineRegion, rx, ry,
-							rotor.bladeOutlineRegion.width * Draw.scl * -Mathf.sign(false),
-							rotor.bladeOutlineRegion.height * Draw.scl,
+							rotor.bladeOutlineRegion.width * rotorScl * -Mathf.sign(false),
+							rotor.bladeOutlineRegion.height * rotorScl,
 							-angle
 						);
 						Draw.mixcol(Color.white, unit.hitTime);
 						Draw.rect(rotor.bladeRegion, rx, ry,
-							rotor.bladeRegion.width * Draw.scl * -Mathf.sign(false),
-							rotor.bladeRegion.height * Draw.scl,
+							rotor.bladeRegion.width * rotorScl * -Mathf.sign(false),
+							rotor.bladeRegion.height * rotorScl,
 							-angle
 						);
 					}
@@ -127,12 +133,12 @@ public class UAWUnitType extends UnitType {
 
 					// Blur Rotor
 					if (rotor.bladeBlurRegion.found()) {
-						Draw.z(z + rotor.layer + 0.1f);
+						Draw.z(z + rotor.rotorLayer);
 						Draw.alpha(copter.rotorSpeedScl * rotor.rotorBlurAlphaMultiplier * (copter.dead() ? copter.rotorSpeedScl * 0.5f : 1));
 						Draw.rect(
 							rotor.bladeBlurRegion, rx, ry,
-							rotor.bladeBlurRegion.width * Draw.scl,
-							rotor.bladeBlurRegion.height * Draw.scl,
+							rotor.bladeBlurRegion.width * rotorScl,
+							rotor.bladeBlurRegion.height * rotorScl,
 							-blurAngle
 						);
 
@@ -140,8 +146,8 @@ public class UAWUnitType extends UnitType {
 						if (rotor.doubleRotor) {
 							Draw.rect(
 								rotor.bladeBlurRegion, rx, ry,
-								rotor.bladeBlurRegion.width * Draw.scl * -Mathf.sign(false),
-								rotor.bladeBlurRegion.height * Draw.scl,
+								rotor.bladeBlurRegion.width * rotorScl * -Mathf.sign(false),
+								rotor.bladeBlurRegion.height * rotorScl,
 								blurAngle
 							);
 						}
@@ -152,17 +158,17 @@ public class UAWUnitType extends UnitType {
 
 					// Rotor Top
 					if (rotor.drawRotorTop) {
-						Draw.z(z + rotor.layer + 0.2f);
+						Draw.z(z + rotor.rotorLayer + 0.001f);
 						Draw.rect(
 							rotor.topRegionOutline, rx, ry,
-							rotor.topRegionOutline.width * Draw.scl,
-							rotor.topRegionOutline.height * Draw.scl,
+							rotor.topRegionOutline.width * rotorTopScl,
+							rotor.topRegionOutline.height * rotorTopScl,
 							unit.rotation - 90);
 						Draw.mixcol(Color.white, unit.hitTime);
 						Draw.rect(
 							rotor.topRegion, rx, ry,
-							rotor.topRegion.width * Draw.scl,
-							rotor.topRegion.height * Draw.scl,
+							rotor.topRegion.width * rotorTopScl,
+							rotor.topRegion.height * rotorTopScl,
 							unit.rotation - 90
 						);
 					}
@@ -252,6 +258,22 @@ public class UAWUnitType extends UnitType {
 				shadowElevation = 0.12f;
 			}
 		}
+
+//		// Mirrors heli rotors
+//		Seq<Rotor> rotorMapped = new Seq<>();
+//		for (Rotor rotor : rotors) {
+//			rotorMapped.add(rotor);
+//			if (rotor.mirror) {
+//				Rotor copy = rotor.copy();
+//
+//				copy.x *= -1;
+//				copy.rotorSpeed *= -1;
+//				copy.rotorBlurSpeedMultiplier *= -1;
+//
+//				rotorMapped.add(copy);
+//			}
+//		}
+
 	}
 
 	@Override

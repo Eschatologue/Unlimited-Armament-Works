@@ -32,6 +32,7 @@ public class SplashArtilleryBulletType extends ArtilleryBulletType {
 	public void init() {
 		super.init();
 		this.damage = 0;
+		trailSize = width / 3.4f;
 	}
 
 	@Override

@@ -15,10 +15,11 @@ import arc.math.Mathf;
 import arc.struct.ObjectIntMap;
 import arc.struct.ObjectMap.Entry;
 import com.sun.istack.NotNull;
-import mindustry.ai.types.FlyingAI;
+import mindustry.ai.types.*;
 import mindustry.content.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
+import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.ShootAlternate;
 import mindustry.gen.*;
 import mindustry.graphics.*;
@@ -35,17 +36,21 @@ import static mindustry.Vars.tilesize;
 @SuppressWarnings("unchecked")
 public class UAWUnitTypes {
 	public static UnitType placeholder,
+
+	// Air - Low Tier
+	crotchety, cantankerous,
+
 	// Air - Helicopters
 	aglovale, bedivere, calogrenant,
 
-	// Air - Bombers / Jet
+	// Air - Carriers
+	illustrious, indefatigable, indomitable,
+
+	// Air - Jet Bomber
 	corsair, vindicator, superfortress, stratofortress,
 
 	// Naval - Monitor
 	arquebus, carronade, falconet,
-
-	// Naval - Aircraft Carriers
-	illustrious, indefatigable, arkRoyal,
 
 	// Naval - Torpedo Boats
 	megaera, alecto, tisiphone,
@@ -131,6 +136,74 @@ public class UAWUnitTypes {
 		setupID();
 		setupPayloadSource();
 
+		crotchety = new UAWUnitType("crotchety") {{
+			float unitRange = 15 * tilesize;
+			health = 250;
+			hitSize = 12;
+
+			speed = 1.6f;
+			accel = 0.05f;
+			drag = 0.016f;
+			rotateSpeed = 5.5f;
+
+			ammoType = new ItemAmmoType(Items.graphite);
+
+			faceTarget = flying = true;
+			range = unitRange;
+
+			targetAir = false;
+
+			fallSpeed = 0.0015f;
+			spinningFallSpeed = 4;
+			fallSmokeY = -10f;
+			engineSize = 0;
+
+			targetFlags = new BlockFlag[]{BlockFlag.generator, BlockFlag.turret, BlockFlag.repair, null};
+
+			constructor = CopterUnitEntity::new;
+			aiController = DefenderAI::new;
+
+			rotors.add(
+				new Rotor(modName + "short-blade") {{
+					x = y = 0;
+					rotorSpeed = -35;
+					bladeCount = 2;
+					rotorBlurAlphaMultiplier = 1.2f;
+					rotorBlurSpeedMultiplier = 0.125f;
+				}}
+			);
+			weapons.add(new Weapon() {{
+				rotate = false;
+				mirror = true;
+				inaccuracy = 3f;
+				x = 26 * px;
+				y = 16 * px;
+				reload = 60f;
+				shootSound = Sfx.gunShoot5;
+				ejectEffect = Fx.casing3;
+				shootStatusDuration = reload * 5f;
+				shootStatus = StatusEffects.slow;
+				bullet = new TrailBulletType(6f, 55) {{
+					hitSize = 6;
+					height = 14f;
+					width = 7f;
+					frontColor = UAWPal.graphiteFront;
+					backColor = UAWPal.graphiteMiddle;
+					trailEffect = Fx.disperseTrail;
+					trailChance = 0.5f;
+					shootEffect = Fx.shootBigColor;
+					hitEffect = Fx.hitBulletColor;
+					trailColor = hitColor = backColor;
+					despawnHit = true;
+					smokeEffect = Fx.shootBigSmoke;
+					reloadMultiplier = 0.5f;
+					ammoMultiplier = 2;
+					knockback = 1.2f;
+					shake = 2.2f;
+				}};
+			}});
+		}};
+
 		aglovale = new UAWUnitType("aglovale") {{
 			float unitRange = 28 * tilesize;
 			health = 500;
@@ -165,18 +238,18 @@ public class UAWUnitTypes {
 					bladeCount = 3;
 				}}
 			);
-			weapons.add(new Weapon(missileSmallRed2) {{
+			weapons.add(new Weapon(missile_small_red_2) {{
 				rotate = false;
 				mirror = true;
 				shootCone = 90;
 				x = 5f;
 				y = -3f;
 				inaccuracy = 4;
-				reload = 15;
+				reload = 25;
 				shoot.shots = 2;
 				shoot.shotDelay = 5f;
 				shootSound = Sounds.missile;
-				bullet = new MissileBulletType(6f, 45) {{
+				bullet = new MissileBulletType(6f, 55) {{
 					width = 6f;
 					height = 12f;
 					shrinkY = 0f;
@@ -191,32 +264,29 @@ public class UAWUnitTypes {
 					frontColor = Pal.bulletYellow;
 					shootEffect = Fx.shootSmallSmoke;
 					hitEffect = Fx.blastExplosion;
-					trailChance = 0.9f;
-					shootCone = 90;
-					weaveMag = 5;
-					weaveScale = 5;
+					trailInterval = 0.4f;
+					shootCone = 80;
 					ammoMultiplier = 4f;
 				}};
 			}});
-			weapons.add(new Weapon(machineGunSmallRed) {{
+			weapons.add(new Weapon(machineGun_small_red) {{
 				layerOffset = -0.01f;
 				rotate = false;
 				mirror = true;
 				shootCone = 90;
 				inaccuracy = 3f;
 				x = 8f;
-				y = 3.5f;
-				reload = 5f;
-				shootSound = Sounds.shoot;
+				y = 4.5f;
+				reload = 4f;
+				shootSound = Sfx.gunShoot3;
 				ejectEffect = Fx.casing1;
-				bullet = new TrailBulletType(6f, 23) {{
-					trailLenghtScl = 1;
-					height = 12f;
-					width = 6f;
+				bullet = new TrailBulletType(6f, 20) {{
+					height = 8f;
+					width = 5f;
 					pierce = true;
 					pierceCap = 2;
 					buildingDamageMultiplier = 0.4f;
-					maxRange = range / 0.8f;
+					maxRange = unitRange / 0.8f;
 					homingRange = 60f;
 					ammoMultiplier = 8f;
 				}};
@@ -254,11 +324,12 @@ public class UAWUnitTypes {
 					x = 0;
 					y = 4;
 					rotorSpeed = -35f;
+					rotorBlurSpeedMultiplier = 0.15f;
 					bladeCount = 4;
 				}}
 			);
 
-			weapons.add(new Weapon(machineGunSmallRed) {{
+			weapons.add(new Weapon(machineGun_small_red) {{
 				layerOffset = -0.005f;
 				rotate = top = false;
 				shootCone = 30;
@@ -268,12 +339,12 @@ public class UAWUnitTypes {
 				y = 11f;
 				reload = 4;
 				recoil = 0f;
-				shootSound = Sounds.shoot;
+				shootSound = Sfx.gunShoot3;
 				ejectEffect = Fx.casing1;
-				bullet = new TrailBulletType(10f, 20) {{
-					trailLenghtScl = 1;
+				bullet = new TrailBulletType(10f, 24) {{
+					trailLengthScale = 1;
 					height = 10f;
-					width = 6f;
+					width = 5f;
 					pierce = true;
 					pierceCap = 2;
 					buildingDamageMultiplier = 0.4f;
@@ -285,7 +356,7 @@ public class UAWUnitTypes {
 					ammoMultiplier = 8f;
 				}};
 			}});
-			weapons.add(new Weapon(artilleryMediumRed) {{
+			weapons.add(new Weapon(artillery_medium_red) {{
 				rotate = false;
 				alternate = mirror = true;
 				top = true;
@@ -324,25 +395,24 @@ public class UAWUnitTypes {
 				shootCone = 30;
 				x = 8.5f;
 				y = 3.5f;
-				maxRange = range;
+				maxRange = unitRange;
 				reload = 2f * 60;
 				shootSound = Sfx.missileShootBig1;
 				bullet = new CruiseMissileBulletType(3f, 450) {{
 					layer = Layer.flyingUnitLow - 1;
-					trailOffsetY = -2f;
-					sizeScl = 1.3f;
-					homingRange = range * 2;
+					sizeScl = 1.2f;
+					homingRange = unitRange / 4;
+					trailLifetime = 20f;
 					homingPower = 0.05f;
 					keepVelocity = false;
 					splashDamageRadius = 8 * tilesize;
-					lifetime = (unitRange - 5) / speed;
+					lifetime = unitRange / speed;
 					shootEffect = Fx.shootPyraFlame;
 					hitEffect = UAWFx.dynamicExplosion(splashDamageRadius);
 					trailColor = Pal.lightPyraFlame;
 					status = StatusEffects.burning;
 					statusDuration = 4 * 60;
 					ammoMultiplier = 2f;
-					collidesGround = false;
 				}};
 			}});
 
@@ -393,7 +463,7 @@ public class UAWUnitTypes {
 				}}
 			);
 
-			weapons.add(new Weapon(machineGunSmallRed) {{
+			weapons.add(new Weapon(machineGun_small_red) {{
 				layerOffset = -0.01f;
 				rotate = false;
 				mirror = true;
@@ -401,10 +471,10 @@ public class UAWUnitTypes {
 				inaccuracy = 12f;
 				x = 4.75f;
 				y = 20.75f;
-				reload = 2f;
-				shootSound = Sounds.shoot;
+				reload = 2.5f;
+				shootSound = Sfx.gunShoot3;
 				ejectEffect = Fx.casing1;
-				bullet = new BasicBulletType(7f, 15) {{
+				bullet = new BasicBulletType(7f, 20) {{
 					height = 12f;
 					width = 6f;
 					pierce = true;
@@ -416,7 +486,7 @@ public class UAWUnitTypes {
 					ammoMultiplier = 8f;
 				}};
 			}});
-			weapons.add(new Weapon(machineGunMediumRed) {{
+			weapons.add(new Weapon(machineGun_medium_red) {{
 				layerOffset = -0.01f;
 				rotate = false;
 				inaccuracy = 4f;
@@ -427,8 +497,8 @@ public class UAWUnitTypes {
 				reload = 8;
 				shootSound = Sounds.shootBig;
 				ejectEffect = Fx.casing2;
-				bullet = new TrailBulletType(6f, 45) {{
-					trailLenghtScl = 1;
+				bullet = new TrailBulletType(5f, 45) {{
+					trailLengthScale = 0.8f;
 					height = 16f;
 					width = 8f;
 					splashDamage = damage;
@@ -438,17 +508,21 @@ public class UAWUnitTypes {
 					buildingDamageMultiplier = 0.3f;
 					lifetime = (unitRange * 0.75f) / speed;
 					status = StatusEffects.burning;
-					hitEffect = new MultiEffect(Fx.blastExplosion, Fx.fireHit, Fx.blastsmoke);
 					ammoMultiplier = 8f;
+					hitEffect = new MultiEffect(Fx.blastExplosion, Fx.fireHit, Fx.blastsmoke);
+					shootEffect = Fx.shootBigColor;
+					smokeEffect = Fx.shootBigSmoke;
 					fragBullets = 3;
 					fragBullet = fragGlassFrag;
+
+
 				}};
 			}});
-			weapons.add(new MissileLauncherWeapon(cruiseMissileMount1) {{
+			weapons.add(new MissileLauncherWeapon(cruiseMissileMount_1) {{
 				rotate = true;
 				rotationLimit = 20;
-				rotateSpeed = 4f;
-				missileName = cruiseMissileCryo;
+				rotateSpeed = 0.8f;
+				missileName = cruiseMissile_Cryo;
 				mirror = true;
 				layerOffset = 0.1f;
 				x = 10.25f;
@@ -456,20 +530,124 @@ public class UAWUnitTypes {
 				reload = 5 * tick;
 				shootSound = Sfx.missileShootBig1;
 				bullet = new CruiseMissileBulletType(3f, 700) {{
-					sprite = cruiseMissileCryo;
-					homingRange = range;
+					sprite = cruiseMissile_Cryo;
+					homingRange = unitRange / 3;
 					homingPower = 0.05f;
 					keepVelocity = false;
 					splashDamageRadius = 12 * tilesize;
-					lifetime = unitRange / speed;
+					lifetime = (unitRange / speed) * 0.8f;
 					shootEffect = UAWFx.shootHugeColor;
 					trailColor = UAWPal.cryoFront;
-					despawnHit = true;
 					hitEffect = UAWFx.dynamicExplosion(splashDamageRadius, UAWPal.cryoMiddle, UAWPal.cryoBack);
 					trailColor = UAWPal.cryoMiddle;
+					trailLifetime = 28f;
 					status = StatusEffects.freezing;
 					statusDuration = 4 * 60;
 				}};
+			}});
+		}};
+
+		cantankerous = new UAWUnitType("cantankerous") {{
+			float unitRange = 30 * tilesize;
+			health = 3500;
+			armor = 12f;
+			hitSize = 25;
+
+			speed = 1.2f;
+			accel = 0.03f;
+			drag = 0.07f;
+			rotateSpeed = 1f;
+
+			lowAltitude = true;
+			flying = true;
+			faceTarget = false;
+			range = unitRange;
+
+			targetGround = false;
+
+			engineSize = 4;
+			engineOffset = 58 * px;
+			trailLength = 28;
+			waveTrailY = -35f * px;
+			trailScl = 1.2f;
+
+			constructor = CopterUnitEntity::new;
+			aiController = FlyingAI::new;
+
+			float rotX = 41 * px;
+			float rotY = -4 * px;
+			float rotSpeed = 32f;
+			float layerOffset = -0.00009f;
+			float rotorScaling = 0.55f;
+			rotors.add(
+				new Rotor(modName + "short-blade") {{
+					x = -rotX;
+					y = rotY;
+					rotorSpeed = rotSpeed;
+					rotorBlurSpeedMultiplier = 0.08f;
+					bladeCount = 4;
+					rotorLayer = layerOffset;
+					rotorSizeScl = rotorTopSizeScl = rotorScaling;
+				}},
+				new Rotor(modName + "short-blade") {{
+					x = rotX;
+					y = rotY;
+					rotorSpeed = rotSpeed;
+					rotorBlurSpeedMultiplier = 0.08f;
+					bladeCount = 4;
+					rotorLayer = layerOffset;
+					rotorSizeScl = rotorTopSizeScl = rotorScaling;
+				}}
+			);
+
+			weapons.add(new Weapon(name + "-turret") {{
+				layerOffset = 0.02f;
+				rotate = true;
+				rotateSpeed = 1.5f;
+				mirror = false;
+				shootCone = 90;
+				inaccuracy = 12f;
+				x = y = 0;
+				reload = 180f;
+				recoil = 0;
+				shootSound = Sfx.cannonShoot1;
+				ejectEffect = Fx.casing3;
+				shootY = 82 * px;
+				bullet = new TrailBulletType(8f, 225) {{
+					pierceArmor = true;
+					hitSize = 8;
+					height = 16f;
+					width = 8f;
+					frontColor = UAWPal.graphiteFront;
+					backColor = UAWPal.graphiteMiddle;
+					trailEffect = Fx.disperseTrail;
+					trailChance = 0.5f;
+					shootEffect = Fx.shootBigColor;
+					hitEffect = new MultiEffect(
+						Fx.hitBulletColor,
+						Fx.hitBeam,
+						UAWFx.hitBulletBigColor
+					);
+					lifetime = unitRange / speed;
+					trailColor = hitColor = backColor;
+					despawnHit = true;
+					smokeEffect = Fx.shootBigSmoke;
+					reloadMultiplier = 0.5f;
+					ammoMultiplier = 2;
+					knockback = 1.2f;
+					shake = 2.5f;
+					pierceCap = 3;
+					collidesGround = false;
+				}};
+				parts.addAll(
+					new RegionPart("-gun") {{
+						progress = PartProgress.recoil;
+						moveY = -10 * px;
+						mirror = false;
+						layerOffset = 0.01f;
+						outlineLayerOffset = -0.025f;
+					}}
+				);
 			}});
 		}};
 
@@ -495,10 +673,8 @@ public class UAWUnitTypes {
 //			trailLength = 10;
 //			trailScl = 1.75f;
 //
-//			engineSize = 3f;
-//			engineOffset = 3f;
 //			setEnginesMirror(
-//				new UnitEngine(38 / 4f, -46 / 4f, 3f, 315f)
+//				new UnitEngine(6, -1, 2f, 315f)
 //			);
 //
 //			constructor = JetUnitEntity::new;
@@ -554,21 +730,24 @@ public class UAWUnitTypes {
 //						lifetime = (range / speed);
 //						ammoMultiplier = 8f;
 //						collidesGround = false;
-//						trailLenghtScl = 1;
+//						trailLengthScale = 1;
 //					}};
 //				}}
 //			);
 //		}};
 
 		arquebus = new UnitType("arquebus") {{
+			float unitRange = 30 * tilesize;
 			health = 750;
+			armor = 5;
+			hitSize = 20;
+
 			speed = 0.75f;
 			accel = 0.2f;
-			rotateSpeed = 1.8f;
 			drag = 0.05f;
-			hitSize = 20;
-			armor = 5;
-			range = 30 * tilesize;
+			rotateSpeed = 1.8f;
+
+			range = unitRange;
 			maxRange = range;
 			faceTarget = false;
 			ammoType = new ItemAmmoType(Items.graphite, 2);
@@ -582,7 +761,7 @@ public class UAWUnitTypes {
 
 			constructor = UnitWaterMove::create;
 
-			weapons.add(new PointDefenseWeapon(pointDefensePurple) {{
+			weapons.add(new PointDefenseWeapon(pointDefense_Purple) {{
 				rotate = autoTarget = true;
 				mirror = controllable = false;
 				x = 0;
@@ -600,7 +779,7 @@ public class UAWUnitTypes {
 					damage = 10f;
 				}};
 			}});
-			weapons.add(new Weapon(machineGunSmallPurple) {{
+			weapons.add(new Weapon(machineGun_small_purple) {{
 				rotate = mirror = autoTarget = true;
 				controllable = false;
 				x = 5f;
@@ -615,14 +794,14 @@ public class UAWUnitTypes {
 					width = 5f;
 					height = 12f;
 					shrinkY = 1f;
-					lifetime = 20f;
+					lifetime = (unitRange * 0.7f) / speed;
 					backColor = Pal.gray;
 					frontColor = Color.white;
 					despawnEffect = Fx.none;
 					collidesGround = false;
 				}};
 			}});
-			weapons.add(new Weapon(artillerySmallPurple) {{
+			weapons.add(new Weapon(artillery_small_purple) {{
 				mirror = rotate = alternate = true;
 				x = 5.5f;
 				y = -8f;
@@ -635,21 +814,25 @@ public class UAWUnitTypes {
 				shootSound = Sounds.artillery;
 				shake = 2.5f;
 				shootStatusDuration = reload * 1.2f;
-				shootStatus = StatusEffects.unmoving;
+				shootStatus = StatusEffects.slow;
 				ejectEffect = Fx.casing3;
-				bullet = new SplashArtilleryBulletType(2f, 35) {{
-					splashDamageRadius = 4 * tilesize;
+				bullet = new SplashArtilleryBulletType(2f, 35, 4 * tilesize) {{
 					buildingDamageMultiplier = 2f;
 					height = 15;
 					width = height / 1.8f;
-					lifetime = range / speed;
+					lifetime = unitRange / speed;
 					trailMult = 0.9f;
 					hitShake = 4.5f;
-
 					frontColor = Pal.sapBullet;
 					backColor = Pal.sapBulletBack;
-					shootEffect = new MultiEffect(Fx.shootBig2, UAWFx.shootSmoke(15, backColor, false));
-					smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
+					shootEffect = new MultiEffect(
+						Fx.shootBig2,
+						UAWFx.shootSmoke(15, backColor, false)
+					);
+					smokeEffect = new MultiEffect(
+						Fx.shootBigSmoke2,
+						Fx.shootLiquid
+					);
 					despawnEffect = hitEffect = new MultiEffect(
 						UAWFx.dynamicExplosion(splashDamageRadius)
 					);
@@ -657,14 +840,19 @@ public class UAWUnitTypes {
 			}});
 		}};
 		carronade = new UnitType("carronade") {{
+			float unitRange = 40 * tilesize;
 			health = 7000;
+			armor = 8;
 			hitSize = 22;
+
 			speed = 0.8f;
 			accel = 0.20f;
 			rotateSpeed = 1.5f;
-			faceTarget = false;
-			range = 40 * tilesize;
+
+			range = unitRange;
 			maxRange = range;
+			faceTarget = false;
+
 			ammoType = new ItemAmmoType(Items.graphite, 2);
 
 			trailLength = 35;
@@ -675,7 +863,7 @@ public class UAWUnitTypes {
 			constructor = UnitWaterMove::create;
 
 			weapons.add(
-				new PointDefenseWeapon(pointDefensePurple) {{
+				new PointDefenseWeapon(pointDefense_Purple) {{
 					rotate = autoTarget = true;
 					mirror = controllable = false;
 					x = 0f;
@@ -693,7 +881,7 @@ public class UAWUnitTypes {
 						damage = 10f;
 					}};
 				}},
-				new Weapon(machineGunSmallPurple) {{
+				new Weapon(machineGun_small_purple) {{
 					rotate = mirror = autoTarget = alternate = true;
 					controllable = false;
 					x = 7f;
@@ -713,7 +901,7 @@ public class UAWUnitTypes {
 						collidesGround = false;
 					}};
 				}},
-				new Weapon(missileLargePurple1) {{
+				new Weapon(missile_large_purple_1) {{
 					rotate = true;
 					mirror = false;
 					rotateSpeed = 1f;
@@ -734,13 +922,12 @@ public class UAWUnitTypes {
 						barrels = 3;
 					}};
 					velocityRnd = 0.4f;
-					ejectEffect = new MultiEffect(Fx.casing3Double, Fx.casing3Double, Fx.casing3Double);
-					bullet = new SplashArtilleryBulletType(1.8f, 90) {{
-						splashDamageRadius = 5 * tilesize;
+					ejectEffect = Fx.casing3;
+					bullet = new SplashArtilleryBulletType(1.8f, 90, 5 * tilesize) {{
 						buildingDamageMultiplier = 2f;
 						height = 24;
 						width = height / 2;
-						lifetime = range / speed;
+						lifetime = unitRange / speed;
 						status = StatusEffects.burning;
 						incendChance = 0.8f;
 						incendSpread = 16f;
@@ -749,8 +936,14 @@ public class UAWUnitTypes {
 						frontColor = Pal.sapBullet;
 						backColor = Pal.sapBulletBack;
 						trailMult = 1.5f;
-						shootEffect = new MultiEffect(Fx.shootBig2, UAWFx.shootSmoke(15, backColor, false));
-						smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
+						shootEffect = new MultiEffect(
+							Fx.shootBig2,
+							UAWFx.shootSmoke(15, backColor, false)
+						);
+						smokeEffect = new MultiEffect(
+							Fx.shootBigSmoke2,
+							Fx.shootLiquid
+						);
 						despawnEffect = hitEffect = new MultiEffect(
 							UAWFx.dynamicExplosion(splashDamageRadius)
 						);
@@ -769,6 +962,7 @@ public class UAWUnitTypes {
 			);
 		}};
 		falconet = new UnitType("falconet") {{
+			float unitRange = 55 * tilesize;
 			health = 16000;
 			hitSize = 44;
 			speed = 0.65f;
@@ -776,7 +970,7 @@ public class UAWUnitTypes {
 			accel = 0.2f;
 			rotateSpeed = 1f;
 			faceTarget = false;
-			range = 55 * tilesize;
+			range = unitRange;
 			maxRange = range;
 			ammoType = new ItemAmmoType(Items.thorium, 2);
 
@@ -788,7 +982,7 @@ public class UAWUnitTypes {
 			constructor = UnitWaterMove::create;
 			forceMultiTarget = true;
 
-			weapons.add(new PointDefenseWeapon(pointDefensePurple) {{
+			weapons.add(new PointDefenseWeapon(pointDefense_Purple) {{
 				mirror = true;
 				x = 9f;
 				y = 12f;
@@ -805,7 +999,7 @@ public class UAWUnitTypes {
 					damage = 15f;
 				}};
 			}});
-			weapons.add(new PointDefenseWeapon(pointDefensePurple) {{
+			weapons.add(new PointDefenseWeapon(pointDefense_Purple) {{
 				mirror = true;
 				x = 18f;
 				y = -11f;
@@ -822,7 +1016,7 @@ public class UAWUnitTypes {
 					damage = 15f;
 				}};
 			}});
-			weapons.add(new Weapon(machineGunMediumPurple) {{
+			weapons.add(new Weapon(machineGun_medium_purple) {{
 				rotate = mirror = autoTarget = alternate = true;
 				controllable = false;
 				x = 12f;
@@ -840,8 +1034,8 @@ public class UAWUnitTypes {
 					explodeRange = splashDamageRadius = 3f * tilesize;
 					explodeDelay = 10f;
 					buildingDamageMultiplier = 0.5f;
-					maxRange = range - 16;
-					lifetime = (range / speed) / 2;
+					maxRange = unitRange - 16;
+					lifetime = (unitRange / speed) / 2;
 					trailWidth = width / 3.4f;
 					trailLength = Mathf.round(height);
 					trailColor = backColor;
@@ -881,7 +1075,8 @@ public class UAWUnitTypes {
 
 				}};
 			}});
-			weapons.add(new UAWWeapon(artilleryLargePurple) {{
+			weapons.add(new UAWWeapon(artillery_large_purple) {{
+				layerOffset = 0.2f;
 				rotate = true;
 				mirror = false;
 				rotateSpeed = 1f;
@@ -896,20 +1091,18 @@ public class UAWUnitTypes {
 				};
 				inaccuracy = 10f;
 				reload = 5f * 60;
-				recoil = 5f;
+				recoil = 2f;
 				shootSound = Sfx.cannonShootBig1;
 				shake = 16;
-				shootStatusDuration = reload * 1.2f;
-				shootStatus = StatusEffects.unmoving;
+				shootStatusDuration = reload * 1.5f;
+				shootStatus = StatusEffects.slow;
 				ejectEffect = UAWFx.casing5;
 
-				customIcon = true;
-				bullet = new SplashArtilleryBulletType(1.7f, 550) {{
+				bullet = new SplashArtilleryBulletType(1.7f, 550, 11 * tilesize) {{
 					height = 42;
 					width = height / 2f;
-					splashDamageRadius = 12 * tilesize;
 					buildingDamageMultiplier = 3.5f;
-					lifetime = range / speed;
+					lifetime = unitRange / speed;
 					status = StatusEffects.burning;
 					incendChance = 0.8f;
 					incendSpread = 16f;
@@ -920,8 +1113,8 @@ public class UAWUnitTypes {
 					frontColor = Pal.sapBullet;
 					backColor = Pal.sapBulletBack;
 					shootEffect = new MultiEffect(
-						UAWFx.shootSmoke(15, backColor, false),
-						UAWFx.instShoot(65, Pal.sapBullet)
+						UAWFx.shootSmoke(30, backColor, true),
+						UAWFx.shootHugeColor
 					);
 					smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
 					despawnHit = true;
@@ -941,6 +1134,11 @@ public class UAWUnitTypes {
 						applySound = Sounds.flame2;
 					}};
 				}};
+
+				parts.add(new RegionPart("-barrel") {{
+					progress = PartProgress.recoil;
+					moveY = -10 * px;
+				}});
 			}});
 		}};
 
@@ -1065,7 +1263,7 @@ public class UAWUnitTypes {
 //					damage = 15f;
 //				}};
 //			}});
-//			weapons.add(new Weapon(machineGunMediumRed) {{
+//			weapons.add(new Weapon(machineGun_medium_red) {{
 //				rotate = true;
 //				inaccuracy = 3f;
 //				mirror = true;
@@ -1089,7 +1287,7 @@ public class UAWUnitTypes {
 //					hitEffect = new MultiEffect(Fx.hitBulletSmall, Fx.shootSmallSmoke);
 //				}};
 //			}});
-//			weapons.add(new Weapon(missileMediumRed2) {{
+//			weapons.add(new Weapon(missile_medium_red_2) {{
 //				reload = 45f;
 //				x = 0f;
 //				y = -8f;
@@ -1175,7 +1373,7 @@ public class UAWUnitTypes {
 //								soundPitchMin = 1.2f;
 //								soundPitchMax = 1.4f;
 //								bullet = new TrailBulletType(5f, 125) {{
-//									trailLenghtScl = 1;
+//									trailLengthScale = 1;
 //									splashDamage = damage;
 //									splashDamageRadius = 3 * tilesize;
 //									frontColor = Pal.missileYellow;
@@ -1220,7 +1418,7 @@ public class UAWUnitTypes {
 //			immunities = ObjectSet.with(StatusEffects.disarmed, UAWStatusEffects.EMP, StatusEffects.freezing);
 //			constructor = TankUnitEntity::new;
 //
-//			weapons.add(new Weapon(machineGunMediumRedMirrored) {{
+//			weapons.add(new Weapon(machineGun_medium_red_mirrored) {{
 //				ignoreRotation = true;
 //				layerOffset = 1.5f;
 //				rotate = true;
@@ -1242,7 +1440,7 @@ public class UAWUnitTypes {
 //					shootEffect = Fx.shootBigSmoke;
 //				}};
 //			}});
-//			weapons.add(new MissileLauncherWeapon(cruiseMissileMount1) {{
+//			weapons.add(new MissileLauncherWeapon(cruiseMissileMount_1) {{
 //				rotate = top = mirror = false;
 //				layerOffset = 1;
 //				x = 11.5f;
@@ -1278,7 +1476,7 @@ public class UAWUnitTypes {
 //				soundPitchMin = 1.4f;
 //				soundPitchMax = 1.8f;
 //				bullet = new TrailBulletType(10f, 350) {{
-//					trailLenghtScl = 1;
+//					trailLengthScale = 1;
 //					height = 35f;
 //					width = 10f;
 //					homingPower = 0.0015f;
@@ -1337,7 +1535,7 @@ public class UAWUnitTypes {
 //			immunities = ObjectSet.with(StatusEffects.disarmed, UAWStatusEffects.EMP, StatusEffects.freezing);
 //			constructor = TankUnitEntity::new;
 //
-//			weapons.add(new Weapon(machineGunMediumRed) {{
+//			weapons.add(new Weapon(machineGun_medium_red) {{
 //				ignoreRotation = true;
 //				layerOffset = 1.5f;
 //				rotate = true;
@@ -1378,7 +1576,7 @@ public class UAWUnitTypes {
 //					damage = 35f;
 //				}};
 //			}});
-//			weapons.add(new MissileLauncherWeapon(cruiseMissileMount2) {{
+//			weapons.add(new MissileLauncherWeapon(cruiseMissileMount_2) {{
 //				mirror = false;
 //				rotate = true;
 //				layerOffset = 0.1f;

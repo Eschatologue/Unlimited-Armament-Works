@@ -14,7 +14,7 @@ public class TrailBulletType extends BasicBulletType {
 	 * How long is the generated trail based on height multiplied by this
 	 * <p> 0 to disable | Disabled by default </p>
 	 */
-	public float trailLenghtScl = 1f;
+	public float trailLengthScale = 1f;
 
 	public TrailBulletType(float speed, float damage, String bulletSprite) {
 		super(speed, damage);
@@ -43,10 +43,10 @@ public class TrailBulletType extends BasicBulletType {
 	public void init(Bullet b) {
 		super.init(b);
 		drawSize = Math.max(drawSize, trailLength * speed * 4.5f);
-		if (trailLenghtScl > 0) {
+		if (trailLengthScale > 0) {
 			trailRotation = true;
 			trailWidth = width / 3.45f;
-			trailLength = Mathf.round(height * trailLenghtScl);
+			trailLength = Mathf.round(height * trailLengthScale);
 			trailColor = backColor;
 		}
 	}

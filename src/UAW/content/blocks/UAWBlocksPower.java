@@ -6,6 +6,7 @@ import UAW.world.drawer.DrawBoilerSmoke;
 import mindustry.content.*;
 import mindustry.type.*;
 import mindustry.world.Block;
+import mindustry.world.blocks.heat.HeatProducer;
 import mindustry.world.blocks.power.ConsumeGenerator;
 import mindustry.world.blocks.production.AttributeCrafter;
 import mindustry.world.consumers.*;
@@ -19,9 +20,14 @@ import static mindustry.type.ItemStack.with;
 public class UAWBlocksPower {
 	public static Block placeholder,
 
+	// Turbines
 	steamTurbine, advancedSteamTurbine,
 
-	steamKettle, industrialBoiler, pressureBoiler, geothermalBoiler, solarBoiler;
+	// Steam Production
+	steamKettle, industrialBoiler, pressureBoiler, geothermalBoiler, solarBoiler,
+
+	// Heat Generation
+	vapourHeater, LPGHeater, geothermalHeater;
 
 	public static void load() {
 
@@ -33,7 +39,7 @@ public class UAWBlocksPower {
 				Items.lead, 55,
 				Items.silicon, 15
 			));
-			size = 3;
+			size = 2;
 			squareSprite = false;
 			powerProduction = 6f;
 			liquidCapacity = 120f;
@@ -68,6 +74,9 @@ public class UAWBlocksPower {
 //			consumeLiquid(UAWLiquids.steam, 0.5f);
 //		}};
 
+		//
+
+		// Steam Generation
 		steamKettle = new LiquidBoiler("steam-kettle") {{
 			requirements(Category.power, with(
 				Items.copper, 12,
@@ -88,7 +97,7 @@ public class UAWBlocksPower {
 			consume(new ConsumeItemFlammable());
 			consume(new ConsumeItemExplode());
 			consumeLiquid(Liquids.water, 0.25f);
-			liquidOutput = new LiquidStack(UAWLiquids.steam, 0.25f * 3);
+			outputLiquid = new LiquidStack(UAWLiquids.steam, 0.25f * 3);
 
 		}};
 		industrialBoiler = new LiquidBoiler("industrial-boiler") {{
@@ -112,7 +121,7 @@ public class UAWBlocksPower {
 			consume(new ConsumeItemFlammable());
 			consume(new ConsumeItemExplode());
 			consumeLiquid(Liquids.water, 0.5f);
-			liquidOutput = new LiquidStack(UAWLiquids.steam, 0.5f * 3);
+			outputLiquid = new LiquidStack(UAWLiquids.steam, 0.5f * 3);
 		}};
 		pressureBoiler = new LiquidBoiler("pressure-boiler") {{
 			requirements(Category.power, with(
@@ -132,9 +141,8 @@ public class UAWBlocksPower {
 			);
 			consume(new ConsumeItemFlammable());
 			consumeLiquid(Liquids.water, 2f);
-			liquidOutput = new LiquidStack(UAWLiquids.steam, 2f * 3);
+			outputLiquid = new LiquidStack(UAWLiquids.steam, 2f * 3);
 		}};
-
 		geothermalBoiler = new AttributeCrafter("geothermal-boiler") {{
 			requirements(Category.power, with(
 				Items.copper, 65,
@@ -161,5 +169,27 @@ public class UAWBlocksPower {
 			consumeLiquid(Liquids.water, 0.25f);
 			outputLiquid = new LiquidStack(UAWLiquids.steam, 0.25f);
 		}};
+
+		// Heat Generation
+		vapourHeater = new HeatProducer("steam-heater") {{
+			requirements(Category.crafting, with(
+				Items.copper, 30,
+				Items.lead, 15
+			));
+			researchCostMultiplier = 4f;
+
+			size = 2;
+			rotateDraw = false;
+			regionRotated1 = 1;
+
+			consumeLiquid(UAWLiquids.steam, 0.45f * 3);
+			liquidCapacity = 40f;
+
+			heatOutput = 3f;
+			outputLiquid = new LiquidStack(Liquids.water, 0.45f);
+
+			drawer = new DrawMulti(new DrawDefault(), new DrawHeatOutput());
+		}};
+
 	}
 }

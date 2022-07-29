@@ -424,7 +424,7 @@ public class UAWFx {
 	 * @param muzzleBreak
 	 * 	[False] Whenever to cause 2 instances of the effect and make it spread horizontally
 	 * @param layer
-	 * 	On what layer the effect occurs
+	 * 	On what rotorLayer the effect occurs
 	 */
 	public static Effect shootSmoke(float lifetime, Color color, boolean muzzleBreak, float layer) {
 		float amountMod = 0.44f;
@@ -466,18 +466,19 @@ public class UAWFx {
 
 	/**
 	 * Trails for Cruise Missiles
-	 *
-	 * @param trailColor
-	 * 	The color of the trail, will be lerped into darker color
+	 * @param lifetime
+	 * 	[33] How long does the trail appears, also adjust its size and intensity
 	 * @param layer
 	 * 	Where does the effect occurs
+	 * @param trailColor
+	 * 	The color of the trail, will be lerped into darker color
 	 */
-	public static Effect cruiseMissileTrail(Color trailColor, float layer) {
-		return new Effect(33f, 80f, e -> {
+	public static Effect cruiseMissileTrail(float lifetime, float layer, Color trailColor) {
+		return new Effect(lifetime, 80f, e -> {
 			Draw.color(trailColor, Color.lightGray, Color.valueOf("ddcece"), e.fin() * e.fin());
 
-			Angles.randLenVectors(e.id, 8, 2f + e.finpow() * 36f, e.rotation + 180, 17f, (x, y) ->
-				Fill.circle(e.x + x, e.y + y, 0.45f + e.fout() * 2f));
+			Angles.randLenVectors(e.id, (int) (lifetime * 0.24), lifetime * 0.06f + e.finpow() * (lifetime * 1.09f), e.rotation + 180, 18f, (x, y) ->
+				Fill.circle(e.x + x, e.y + y, lifetime * 0.015f + e.fout() * 2f));
 		}).layer(layer);
 	}
 
@@ -805,7 +806,7 @@ public class UAWFx {
 	 * @param lifetime
 	 * 	How long the effect last, also adjusts the amount of smoke balls and its burst length
 	 * @param layer
-	 * 	In what layer that this effect occurs
+	 * 	In what rotorLayer that this effect occurs
 	 * @param color
 	 * 	What Color is the smoke
 	 */
@@ -824,7 +825,7 @@ public class UAWFx {
 	 * @param smokeSize
 	 * 	How big is the smoke 'puff', based on tilesize, also adjusts the amount of 'puff'
 	 * @param layer
-	 * 	The layer on where does the effect occurs
+	 * 	The rotorLayer on where does the effect occurs
 	 * @param color
 	 * 	The color of the smoke puff
 	 */
@@ -845,7 +846,7 @@ public class UAWFx {
 	 * @param smokeSize
 	 * 	How big is the smoke 'puff', based on tilesize, also adjusts the amount of 'puff'
 	 * @param layer
-	 * 	The layer on where does the effect occurs
+	 * 	The rotorLayer on where does the effect occurs
 	 */
 	public static Effect steamCloud(float smokeSize, float layer) {
 		return new Effect(smokeSize * smokeSizeLfMult, smokeSize * smokeSizeLfMult * 2.85f, e -> {
