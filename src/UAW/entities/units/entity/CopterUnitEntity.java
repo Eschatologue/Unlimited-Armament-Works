@@ -12,7 +12,7 @@ import mindustry.type.UnitType;
 
 public class CopterUnitEntity extends UnitEntity {
 	public RotorMount[] rotors;
-	transient float rotorSpeedScl = 1f;
+	public float rotorSpeedScl = 1f;
 
 	@Override
 	public String toString() {
@@ -44,6 +44,7 @@ public class CopterUnitEntity extends UnitEntity {
 		float rX = x + Angles.trnsx(rotation - 90, type.fallSmokeX, type.fallSmokeY);
 		float rY = y + Angles.trnsy(rotation - 90, type.fallSmokeX, type.fallSmokeY);
 
+		// Slows down rotor when dying
 		if (dead || health() <= 0) {
 			rotation += Time.delta * (type.spinningFallSpeed * vel().len()) * Mathf.signs[id % 2];
 			if (Mathf.chanceDelta(type.fallSmokeChance)) {
@@ -59,6 +60,5 @@ public class CopterUnitEntity extends UnitEntity {
 			rotor.rotorRotation += ((rotor.rotor.rotorSpeed * rotorSpeedScl) + rotor.rotor.minimumRotorSpeed) * Time.delta;
 		}
 		type.fallSpeed = 0.006f;
-		type.onTitleScreen = false;
 	}
 }

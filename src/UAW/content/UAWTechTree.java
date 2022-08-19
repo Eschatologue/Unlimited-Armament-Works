@@ -3,24 +3,23 @@ package UAW.content;
 import arc.struct.Seq;
 import mindustry.content.*;
 import mindustry.content.TechTree.TechNode;
-import mindustry.ctype.*;
+import mindustry.ctype.UnlockableContent;
 import mindustry.game.Objectives.*;
 import mindustry.type.ItemStack;
 
 import static UAW.content.UAWItems.*;
-import static UAW.content.UAWLiquids.surgeSolvent;
-import static UAW.content.UAWUnitTypes.*;
 import static UAW.content.blocks.UAWBlocksDefense.*;
 import static UAW.content.blocks.UAWBlocksLogistic.*;
-import static UAW.content.blocks.UAWBlocksPower.*;
+import static UAW.content.blocks.UAWBlocksPower.steamKettle;
 import static UAW.content.blocks.UAWBlocksProduction.*;
-import static UAW.content.blocks.UAWBlocksUnits.*;
 import static mindustry.content.Blocks.*;
 import static mindustry.content.Items.*;
+import static mindustry.content.TechTree.nodeRoot;
 
-public class UAWTechTree implements ContentList {
+public class UAWTechTree {
 	static TechTree.TechNode context = null;
 
+	//"TODO: replace this with the standard TechTree API, it's public now -Anuke" -Betamindy -ProgMats
 	private static void vanillaNode(UnlockableContent parent, Runnable children) {
 		context = TechTree.all.find(t -> t.content == parent);
 		children.run();
@@ -68,8 +67,16 @@ public class UAWTechTree implements ContentList {
 		});
 	}
 
+	private static void nodeFree(UnlockableContent content, UnlockableContent source, Runnable children) {
+		node(content, ItemStack.empty, Seq.with(new Research(source)), children);
+	}
+
+	private static void nodeFree(UnlockableContent content, UnlockableContent source) {
+		node(content, ItemStack.empty, Seq.with(new Research(source)));
+	}
+
 	private static void nodeProduce(UnlockableContent content, Seq<Objective> objectives, Runnable children) {
-		node(content, content.researchRequirements(), objectives.and(new Produce(content)), children);
+		node(content, content.researchRequirements(), objectives.add(new Produce(content)), children);
 	}
 
 	private static void nodeProduce(UnlockableContent content, Seq<Objective> objectives) {
@@ -86,200 +93,162 @@ public class UAWTechTree implements ContentList {
 		});
 	}
 
-	@Override
-	public void load() {
-		// region Consumeables
-		vanillaNode(pyratite, () ->
-			// Cryogel
-			nodeProduce(cryogel)
-		);
-		vanillaNode(titanium, () ->
-			// Titanium Carbide
-			nodeProduce(titaniumCarbide)
-		);
 
-		vanillaNode(surgeAlloy, () ->
-			// Surge Solvent
-			node(surgeSolvent)
-		);
+	public static void load() {
+			// region Consumeables
+			vanillaNode(pyratite, () ->
+				// Cryogel
+				nodeProduce(cryogel)
+			);
+			vanillaNode(titanium, () ->
+				// Titanium Carbide
+				nodeProduce(compositeAlloy)
+			);
 
-		vanillaNode(plastanium, () ->
-			// Anthracite
-			nodeProduce(anthracite)
-		);
+			vanillaNode(plastanium, () ->
+				// Anthracite
+				nodeProduce(anthracite)
+			);
 
-		vanillaNode(water, () ->
-			nodeProduce(UAWGas.steam)
-		);
-		// endregion consumeables
-		// region Turrets
-		vanillaNode(duo, () -> {
-				// Gatling Tree
-				node(quadra, () ->
-					node(spitfire,
-						Seq.with(
-							new Research(cyclone)
-						)
-					)
-				);
-				// Sniper Tree
-				node(solo, () ->
-					node(longsword,
-						Seq.with(
-							new Research(fuse)
-						), () ->
-							node(deadeye,
-								Seq.with(
-									new Research(foreshadow)
-								)
+			vanillaNode(water, () ->
+				nodeProduce(UAWLiquids.steam)
+			);
+			// endregion consumeables
+			// region Turrets
+			vanillaNode(duo, () -> {
+					// Gatling Tree
+					node(quadra, () ->
+						node(spitfire,
+							Seq.with(
+								new Research(cyclone)
 							)
-					)
-				);
-			}
-		);
-
-		vanillaNode(hail, () ->
-			// Shotcannon Tree
-			node(buckshot, () -> {
-					node(tempest,
-						Seq.with(
-							new Research(cyclone)
 						)
 					);
-					node(strikeforce,
-						Seq.with(
-							new Research(ripple)
+					// Sniper Tree
+					node(ashlock, () ->
+						node(longbow,
+							Seq.with(
+								new Research(fuse)
+							), () ->
+								node(deadeye,
+									Seq.with(
+										new Research(foreshadow)
+									)
+								)
 						)
 					);
 				}
-			)
-		);
+			);
 
-		vanillaNode(ripple, () -> {
-				// Artillery tree
-				node(zounderkite,
-					Seq.with(
-						new Produce(Items.blastCompound),
-						new Produce(Items.pyratite),
-						new Produce(UAWItems.cryogel),
-						new Produce(Items.plastanium),
-						new Produce(Items.sporePod),
-						new Produce(Items.surgeAlloy)
-					), () ->
-						node(skyhammer,
+			vanillaNode(hail, () ->
+				// Shotcannon Tree
+				node(buckshot, () -> {
+						node(tempest,
 							Seq.with(
-								new Research(spectre),
-								new SectorComplete(SectorPresets.impact0078),
-								new SectorComplete(SectorPresets.nuclearComplex)
+								new Research(cyclone)
 							)
-						)
-				);
-			}
-		);
-		// endregion Turrets
-		// region Walls
-		vanillaNode(phaseWall, () -> {
-			// Special Walls
-			node(shieldWall,
-				Seq.with(
-					new Research(forceProjector),
-					new Research(mendProjector)
+						);
+						node(strikeforce,
+							Seq.with(
+								new Research(ripple)
+							)
+						);
+					}
 				)
 			);
-		});
-		// endregion walls
-		// region Projectors
-		vanillaNode(mendProjector, () -> {
-				// Status Field Projector
-				node(statusFieldProjector,
+
+			vanillaNode(ripple, () -> {
+					// Artillery tree
+					node(zounderkite,
+						Seq.with(
+							new Produce(Items.blastCompound),
+							new Produce(Items.pyratite),
+							new Produce(UAWItems.cryogel),
+							new Produce(Items.plastanium),
+							new Produce(Items.sporePod),
+							new Produce(Items.surgeAlloy)
+						), () ->
+							node(skyhammer,
+								Seq.with(
+									new Research(spectre),
+									new SectorComplete(SectorPresets.impact0078),
+									new SectorComplete(SectorPresets.nuclearComplex)
+								)
+							)
+					);
+				}
+			);
+			// endregion Turrets
+			// region Walls
+			vanillaNode(phaseWall, () -> {
+				// Special Walls
+				node(shieldWall,
 					Seq.with(
-						new Produce(Liquids.cryofluid),
-						new Produce(Liquids.oil),
-						new Produce(Liquids.slag)
+						new Research(forceProjector),
+						new Research(mendProjector)
 					)
 				);
-				// Rejuvination Projector
-				node(rejuvinationProjector,
-					Seq.with(
-						new Research(overdriveProjector)
-					), () ->
-						node(rejuvinationDome,
-							Seq.with(
-								new Research(overdriveDome)
-							)
+			});
+			// endregion walls
+			// region Projectors
+			vanillaNode(mendProjector, () -> {
+					// Status Field Projector
+					node(statusFieldProjector,
+						Seq.with(
+							new Research(Liquids.cryofluid),
+							new Produce(Liquids.oil),
+							new Produce(Liquids.slag)
 						)
-				);
-			}
-		);
-		// endregion Projectors
-		// region Crafters
-		vanillaNode(blastMixer, () ->
-			// Gelatinizer
-			node(gelatinizer,
-				Seq.with(
-					new SectorComplete(SectorPresets.frozenForest),
-					new Research(cryofluidMixer)
-				), () ->
-					node(cryofluidDistillery)
-			)
-		);
-
-		vanillaNode(siliconCrucible, () ->
-			// Petroleum Smelter
-			node(petroleumSmelter,
-				Seq.with(
-					new Research(surgeSmelter)
-				)
-			)
-		);
-
-		vanillaNode(disassembler, () -> {
-			// Surge Mixer
-			node(surgeMixer,
-				Seq.with(
-					new Research(cryofluidMixer)
+					);
+					// Rejuvination Projector
+					node(rejuvinationProjector,
+						Seq.with(
+							new Research(overdriveProjector)
+						), () ->
+							node(rejuvinationDome,
+								Seq.with(
+									new Research(overdriveDome)
+								)
+							)
+					);
+				}
+			);
+			// endregion Projectors
+			// region Crafters
+			vanillaNode(blastMixer, () ->
+				// Gelatinizer
+				node(gelatinizer,
+					Seq.with(
+						new SectorComplete(SectorPresets.frozenForest),
+						new Research(cryofluidMixer)
+					), () ->
+						node(cryofluidDistillery)
 				)
 			);
-		});
 
-		//endregion Crafters
+			vanillaNode(siliconCrucible, () ->
+				// Petroleum Smelter
+				node(petroleumSmelter,
+					Seq.with(
+						new Research(surgeSmelter)
+					)
+				)
+			);
 
-		vanillaNode(mechanicalPump, () ->
-			// Steam Kettle | the start of steam system
-			node(steamKettle, () -> {
-				node(gasPipe, () -> {
-					node(gasJunction, () -> {
-						node(gasRouter, () -> {
-							node(gasBridge);
-							node(reinforcedGasPipe, () ->
-								node(platedGasPipe)
-							);
-						});
-						node(coalBoiler, () -> {
-							node(pressureBoiler,
-								Seq.with(
-									new Research(platedGasPipe),
-									new Research(steamThumper)
-								)
-							);
-							node(geothermalBoiler);
-							node(steamPump, () ->
-								node(pulsometerPump, () ->
-									node(oilDerrick,
-										Seq.with(
-											new Research(pressureBoiler),
-											new Research(carburizingFurnace)
-										)
-									)
-								)
-							);
-						});
-						// Steam Turbine
-						node(steamTurbine, () -> {
-								node(advancedSteamTurbine);
-							}
-						);
-					});
+			vanillaNode(disassembler, () -> {
+				// Surge Mixer
+				node(surgeMixer,
+					Seq.with(
+						new Research(cryofluidMixer)
+					)
+				);
+			});
+
+			//endregion Crafters
+
+			vanillaNode(mechanicalPump, () ->
+				// Steam Kettle | the start of steam system
+				node(steamKettle, () -> {
 					// Steam Drills
 					node(steamDrill, () -> {
 						node(steamPress, () ->
@@ -295,76 +264,70 @@ public class UAWTechTree implements ContentList {
 							)
 						);
 					});
-				});
-			})
-		);
-		vanillaNode(thermalPump, () ->
-			// Conduits
-			node(pressurizedConduit, () -> {
-					node(pressurizedLiquidRouter);
-					node(pressurizedLiquidJunction, () ->
-						node(pressurizedLiquidBridge, () ->
-							node(platedPressurizedConduit)
-						)
-					);
-				}
-			)
-		);
 
-		vanillaNode(liquidTank, () ->
-			// Cistern
-			node(liquidCistern)
-		);
-
-		// Unit Factory & Units
-		vanillaNode(additiveReconstructor, () ->
-			node(UAWGroundFactory,
-				Seq.with(
-					new Research(oilDerrick),
-					new Research(pressureBoiler),
-					new Research(plastanium)
-				), () -> {
-					node(cavalier, () ->
-						node(centurion, () ->
-							node(caernarvon)
-						)
-					);
-					node(UAWNavalFactory, () -> {
-						node(arquebus, () ->
-							node(carronade, () ->
-								node(falconet)
+				})
+			);
+			vanillaNode(rotaryPump, () ->
+				// Conduits
+				node(pressurizedConduit, () -> {
+						node(pressurizedLiquidRouter);
+						node(pressurizedLiquidJunction, () ->
+							node(pressurizedLiquidBridge, () ->
+								node(platedPressurizedConduit)
 							)
 						);
-						node(seabass, () ->
-							node(sharpnose)
-						);
-						node(UAWAirFactory, () -> {
-								node(aglovale, () ->
-									node(bedivere, () ->
-										node(calogrenant)
-									)
-								);
-								node(corsair);
-							}
-						);
-					});
-				})
-		);
+					}
+				)
+			);
 
-		// Unit Reconstructor
-		vanillaNode(multiplicativeReconstructor, () ->
-			node(exponentialPetroleumReconstructor,
-				Seq.with(
-					new Research(exponentialReconstructor
-					)
-				), () ->
-					node(tetrativePetroleumReconstructor,
-						Seq.with(
-							new Research(tetrativeReconstructor)
-						)
-					)
-			)
-		);
+			// Unit Factory & Units
+//		vanillaNode(additiveReconstructor, () ->
+//			node(UAWGroundFactory,
+//				Seq.with(
+//					new Research(oilDerrick),
+//					new Research(pressureBoiler),
+//					new Research(plastanium)
+//				), () -> {
+//					node(cavalier, () ->
+//						node(centurion, () ->
+//							node(caernarvon)
+//						)
+//					);
+//					node(UAWNavalFactory, () -> {
+//						node(arquebus, () ->
+//							node(carronade, () ->
+//								node(falconet)
+//							)
+//						);
+//						node(megaera, () ->
+//							node(alecto)
+//						);
+//						node(UAWAirFactory, () -> {
+//								node(aglovale, () ->
+//									node(bedivere, () ->
+//										node(calogrenant)
+//									)
+//								);
+//								node(corsair);
+//							}
+//						);
+//					});
+//				})
+//		);
 
+			// Unit Reconstructor
+//			vanillaNode(multiplicativeReconstructor, () ->
+//				node(exponentialPetroleumReconstructor,
+//					Seq.with(
+//						new Research(exponentialReconstructor
+//						)
+//					), () ->
+//						node(tetrativePetroleumReconstructor,
+//							Seq.with(
+//								new Research(tetrativeReconstructor)
+//							)
+//						)
+//				)
+//			);
 	}
 }

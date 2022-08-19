@@ -1,12 +1,13 @@
 package UAW.entities.bullet;
 
-import UAW.entities.bullet.ModdedVanillaBullet.UAWBulletType;
-import UAW.graphics.*;
+import UAW.audiovisual.*;
+import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.util.Time;
 import mindustry.Vars;
 import mindustry.content.*;
 import mindustry.entities.Effect;
+import mindustry.entities.bullet.BulletType;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.gen.*;
 import mindustry.graphics.Layer;
@@ -17,7 +18,7 @@ import static mindustry.Vars.tilesize;
 /**
  * Water based bullet that deals extra damage based one enemy hitSize
  */
-public class TorpedoBulletType extends UAWBulletType {
+public class TorpedoBulletType extends BulletType {
 	/**
 	 * Scaling damage based on enemy hitSize
 	 */
@@ -31,7 +32,8 @@ public class TorpedoBulletType extends UAWBulletType {
 	 */
 	public float deepDrag = -0.005f;
 	public float rippleInterval = 7f;
-	public Effect rippleEffect = UAWFxS.torpedoRippleTrail;
+	public Effect rippleEffect = UAWFx.torpedoRippleTrail;
+	public Color shootColor = UAWPal.waterBack;
 
 	public TorpedoBulletType(float speed, float damage) {
 		super(speed, damage);
@@ -44,15 +46,16 @@ public class TorpedoBulletType extends UAWBulletType {
 		collideTerrain = collideFloor = true;
 		keepVelocity = collidesAir = absorbable = hittable = reflectable = false;
 		lightColor = hitColor;
-		trailColor = Blocks.water.mapColor.cpy().mul(1.5f);
 		trailLength = 36;
 		trailWidth = trailLength / 13f;
 		trailInterval = 0.2f;
-		shootEffect = UAWFxS.shootWaterFlame;
-		trailEffect = UAWFxS.torpedoCruiseTrail;
 		trailRotation = true;
-		hitEffect = new MultiEffect(Fx.smokeCloud, Fx.blastExplosion, UAWFxS.torpedoRippleHit, UAWFxD.smokeCloud(80, Layer.effect, trailColor));
-		despawnEffect = UAWFxS.torpedoRippleHit;
+		hitEffect = new MultiEffect(
+			Fx.smokeCloud,
+			Fx.blastExplosion,
+			UAWFx.torpedoRippleHit
+		);
+		despawnEffect = UAWFx.torpedoRippleHit;
 		status = StatusEffects.slow;
 		statusDuration = 3 * 60;
 		hitSoundVolume = 4f;
@@ -60,10 +63,17 @@ public class TorpedoBulletType extends UAWBulletType {
 	}
 
 	@Override
+	public void init(Bullet b) {
+		super.init(b);
+		Floor floor = Vars.world.floorWorld(b.x, b.y);
+		shootColor = trailColor = floor.mapColor.cpy().mul(1.5f);
+	}
+
+	@Override
 	public void drawTrail(Bullet b) {
 		if (trailLength > 0 && b.trail != null) {
 			float z = Draw.z();
-			Draw.z(Layer.debris + 0.001f);
+			Draw.z(layer + 0.001f);
 			b.trail.draw(trailColor, trailWidth);
 			Draw.z(z);
 		}
@@ -78,7 +88,7 @@ public class TorpedoBulletType extends UAWBulletType {
 		 */
 		if (Time.time - b.fdata > rippleInterval) {
 			b.fdata = Time.time;
-			rippleEffect.at(b.x, b.y, hitSize / 3f, trailColor);
+			rippleEffect.at(b.x, b.y, hitSize / 3f, trailColor, layer - 10);
 		}
 		if (floor.isDeep()) {
 			b.vel.scl(Math.max(1f - deepDrag * Time.delta, 0.01f));
@@ -103,7 +113,7 @@ public class TorpedoBulletType extends UAWBulletType {
 	@Override
 	public void removed(Bullet b) {
 		if (trailLength > 0 && b.trail != null && b.trail.size() > 0) {
-			UAWFxS.torpedoTrailFade.at(b.x, b.y, trailWidth, trailColor, b.trail.copy());
+			UAWFx.torpedoTrailFade.at(b.x, b.y, trailWidth, trailColor, b.trail.copy());
 		}
 	}
 }

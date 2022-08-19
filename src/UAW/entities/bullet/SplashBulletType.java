@@ -1,7 +1,7 @@
 package UAW.entities.bullet;
 
+import UAW.audiovisual.UAWFx;
 import UAW.entities.bullet.ModdedVanillaBullet.UAWBulletType;
-import UAW.graphics.*;
 import arc.audio.Sound;
 import arc.graphics.Color;
 import arc.math.*;
@@ -35,7 +35,7 @@ public class SplashBulletType extends UAWBulletType {
 	/** Adjust bottom color of the circle splash, will use backColor if its null */
 	@Nullable
 	public Color bottomColor;
-	public Effect particleEffect = UAWFxS.bulletImpactHit;
+	public Effect particleEffect = Fx.hitBulletColor;
 
 	float splashDuration = (splashDelay * splashAmount);
 
@@ -55,25 +55,17 @@ public class SplashBulletType extends UAWBulletType {
 	public void update(Bullet b) {
 		if (b.timer(1, splashDelay) && splashAmount > 1) {
 			Damage.damage(b.team, b.x, b.y, splashDamageRadius, splashDamage, collidesAir, collidesGround);
-			UAWFxD.circleSplash(
+			UAWFx.circleSplash(
 				splashDamageRadius,
 				splashDelay,
 				frontColor, backColor, bottomColor == null ? backColor : bottomColor, pointCount
 			).at(b.x, b.y);
 			applySound.at(b.x, b.y);
 			for (int j = 0; j < ((splashAmount) * 15); j++) {
-				if (particleEffect == UAWFxS.bulletImpactHit) {
-					particleEffect.at(
-						b.x + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius)),
-						b.y + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius)),
-						frontColor
-					);
-				} else {
-					particleEffect.at(
-						b.x + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius)),
-						b.y + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius))
-					);
-				}
+				particleEffect.at(
+					b.x + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius)),
+					b.y + Angles.trnsx(Mathf.random(360), Mathf.random(splashDamageRadius))
+				);
 			}
 			if (status != StatusEffects.none) {
 				Damage.status(b.team, b.x, b.y, splashDamageRadius, status, statusDuration, collidesAir, collidesGround);

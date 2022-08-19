@@ -7,13 +7,14 @@ import mindustry.entities.Units;
 import mindustry.gen.*;
 
 public class UAWPointBulletType extends UAWBulletType {
+
 	private static float cdist = 0f;
 	private static Unit result;
 
 	public float trailSpacing = 10f;
 
-	public UAWPointBulletType() {
-		scaleVelocity = true;
+	public UAWPointBulletType(){
+		scaleLife = true;
 		lifetime = 100f;
 		collides = false;
 		keepVelocity = false;
@@ -21,7 +22,7 @@ public class UAWPointBulletType extends UAWBulletType {
 	}
 
 	@Override
-	public void init(Bullet b) {
+	public void init(Bullet b){
 		super.init(b);
 
 		float px = b.x + b.lifetime * b.vel.x,
@@ -41,24 +42,24 @@ public class UAWPointBulletType extends UAWBulletType {
 		result = null;
 		float range = 1f;
 
-		Units.nearbyEnemies(b.team, px - range, py - range, range * 2f, range * 2f, e -> {
-			if (e.dead()) return;
+		Units.nearbyEnemies(b.team, px - range, py - range, range*2f, range*2f, e -> {
+			if(e.dead()) return;
 
 			e.hitbox(Tmp.r1);
-			if (!Tmp.r1.contains(px, py)) return;
+			if(!Tmp.r1.contains(px, py)) return;
 
 			float dst = e.dst(px, py) - e.hitSize;
-			if ((result == null || dst < cdist)) {
+			if((result == null || dst < cdist)){
 				result = e;
 				cdist = dst;
 			}
 		});
 
-		if (result != null) {
+		if(result != null){
 			b.collision(result, px, py);
-		} else {
+		}else{
 			Building build = Vars.world.buildWorld(px, py);
-			if (build != null && build.team != b.team) {
+			if(build != null && build.team != b.team){
 				build.collision(b);
 			}
 		}

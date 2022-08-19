@@ -1,10 +1,9 @@
 package UAW.entities.units;
 
+import UAW.audiovisual.Outliner;
 import UAW.entities.units.entity.*;
-import UAW.graphics.Outliner;
 import UAW.type.Rotor;
 import UAW.type.Rotor.RotorMount;
-import UAW.type.weapon.TankWeapon;
 import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
@@ -22,7 +21,7 @@ import static mindustry.Vars.world;
 
 public class UAWUnitType extends UnitType {
 	public final Seq<Rotor> rotors = new Seq<>();
-	public final Seq<TankWeapon> tWeapons = new Seq<>();
+//	public final Seq<TankWeapon> tWeapons = new Seq<>();
 
 	// Helicopters
 	public float spinningFallSpeed = 0;
@@ -40,7 +39,9 @@ public class UAWUnitType extends UnitType {
 
 	// Jets
 	public float engineSizeShrink = 0.1f;
-	public float engineSpacing = 5f;
+	public float jetTrailX = 0, jetTrailY = 0;
+	public int jetTrailLength = 0;
+	public float jetTrailScl = 0f;
 	public boolean jetMovement = true;
 
 	protected float timer;
@@ -89,51 +90,89 @@ public class UAWUnitType extends UnitType {
 				Rotor rotor = mount.rotor;
 				float rx = unit.x + Angles.trnsx(unit.rotation - 90, rotor.x, rotor.y);
 				float ry = unit.y + Angles.trnsy(unit.rotation - 90, rotor.x, rotor.y);
+				float rotorScl = Draw.scl * rotor.rotorSizeScl;
+				float rotorTopScl = Draw.scl * rotor.rotorTopSizeScl;
 
 				for (int i = 0; i < rotor.bladeCount; i++) {
 					float angle = (i * 360f / rotor.bladeCount + mount.rotorRotation) % 360;
-					Draw.z(z + 0.5f);
+					float blurAngle = (i * 360f / rotor.bladeCount + (mount.rotorRotation * rotor.rotorBlurSpeedMultiplier)) % 360;
+
+					// region Normal Rotor
+					Draw.z(z + rotor.rotorLayer);
+					Draw.alpha(rotor.bladeBlurRegion.found() ? 1 - (copter.rotorSpeedScl / 0.8f) : 1);
 					Draw.rect(
 						rotor.bladeOutlineRegion, rx, ry,
-						rotor.bladeOutlineRegion.width * Draw.scl,
-						rotor.bladeOutlineRegion.height * Draw.scl,
+						rotor.bladeOutlineRegion.width * rotorScl,
+						rotor.bladeOutlineRegion.height * rotorScl,
 						angle
 					);
 					Draw.mixcol(Color.white, unit.hitTime);
 					Draw.rect(rotor.bladeRegion, rx, ry,
-						rotor.bladeRegion.width * Draw.scl,
-						rotor.bladeRegion.height * Draw.scl,
-						angle)
-					;
+						rotor.bladeRegion.width * rotorScl,
+						rotor.bladeRegion.height * rotorScl,
+						angle
+					);
+					// endregion Normal Rotor
+
+					// Double Rotor
 					if (rotor.doubleRotor) {
 						Draw.rect(
 							rotor.bladeOutlineRegion, rx, ry,
-							rotor.bladeOutlineRegion.width * Draw.scl * -Mathf.sign(false),
-							rotor.bladeOutlineRegion.height * Draw.scl,
+							rotor.bladeOutlineRegion.width * rotorScl * -Mathf.sign(false),
+							rotor.bladeOutlineRegion.height * rotorScl,
 							-angle
 						);
 						Draw.mixcol(Color.white, unit.hitTime);
 						Draw.rect(rotor.bladeRegion, rx, ry,
-							rotor.bladeRegion.width * Draw.scl * -Mathf.sign(false),
-							rotor.bladeRegion.height * Draw.scl,
+							rotor.bladeRegion.width * rotorScl * -Mathf.sign(false),
+							rotor.bladeRegion.height * rotorScl,
 							-angle
 						);
 					}
+					Draw.reset();
+
+					// Blur Rotor
+					if (rotor.bladeBlurRegion.found()) {
+						Draw.z(z + rotor.rotorLayer);
+						Draw.alpha(copter.rotorSpeedScl * rotor.rotorBlurAlphaMultiplier * (copter.dead() ? copter.rotorSpeedScl * 0.5f : 1));
+						Draw.rect(
+							rotor.bladeBlurRegion, rx, ry,
+							rotor.bladeBlurRegion.width * rotorScl,
+							rotor.bladeBlurRegion.height * rotorScl,
+							-blurAngle
+						);
+
+						// Double Rotor Blur
+						if (rotor.doubleRotor) {
+							Draw.rect(
+								rotor.bladeBlurRegion, rx, ry,
+								rotor.bladeBlurRegion.width * rotorScl * -Mathf.sign(false),
+								rotor.bladeBlurRegion.height * rotorScl,
+								blurAngle
+							);
+						}
+						Draw.reset();
+					}
+
+					Draw.reset();
+
+					// Rotor Top
 					if (rotor.drawRotorTop) {
-						Draw.z(z + 0.55f);
+						Draw.z(z + rotor.rotorLayer + 0.001f);
 						Draw.rect(
 							rotor.topRegionOutline, rx, ry,
-							rotor.topRegionOutline.width * Draw.scl,
-							rotor.topRegionOutline.height * Draw.scl,
+							rotor.topRegionOutline.width * rotorTopScl,
+							rotor.topRegionOutline.height * rotorTopScl,
 							unit.rotation - 90);
 						Draw.mixcol(Color.white, unit.hitTime);
 						Draw.rect(
 							rotor.topRegion, rx, ry,
-							rotor.topRegion.width * Draw.scl,
-							rotor.topRegion.height * Draw.scl,
+							rotor.topRegion.width * rotorTopScl,
+							rotor.topRegion.height * rotorTopScl,
 							unit.rotation - 90
 						);
 					}
+					Draw.reset();
 				}
 			}
 		}
@@ -194,38 +233,11 @@ public class UAWUnitType extends UnitType {
 		}
 	}
 
-	// Jet Engine
-	@Override
-	public void drawEngine(Unit unit) {
-		if (unit instanceof JetUnitEntity jetUnit) {
-			if (!unit.isFlying()) return;
-			float scale = unit.elevation;
-			float offset = engineOffset / 2f + engineOffset / 2f * scale;
-			for (int i : Mathf.zeroOne) {
-				int side = Mathf.signs[i];
-				float sideOffset = engineSpacing * side;
-				Draw.color(unit.team.color);
-				Fill.circle(
-					unit.x + Angles.trnsx(unit.rotation + 90, sideOffset, offset),
-					unit.y + Angles.trnsy(unit.rotation + 90, sideOffset, offset),
-					((engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) * scale) * jetUnit.engineSizeScl()
-				);
-				Draw.color(Color.white);
-				Fill.circle(
-					unit.x + Angles.trnsx(unit.rotation + 90, sideOffset, offset - 1f),
-					unit.y + Angles.trnsy(unit.rotation + 90, sideOffset, offset - 1f),
-					((engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) / 2f * scale) * jetUnit.engineSizeScl()
-				);
-			}
-		} else {
-			super.drawEngine(unit);
-		}
-	}
 
 	@Override
 	public void drawShadow(Unit unit) {
 		if (unit instanceof TankUnitEntity tank) {
-			float e = Math.max(unit.elevation, visualElevation) * (1f - unit.drownTime);
+			float e = Math.max(unit.elevation, shadowElevation) * (1f - unit.drownTime);
 			float x = unit.x + shadowTX * e, y = unit.y + shadowTY * e;
 			Floor floor = world.floorWorld(x, y);
 			float dest = floor.canShadow ? 1f : 0f;
@@ -242,10 +254,26 @@ public class UAWUnitType extends UnitType {
 		super.init();
 		if (example instanceof TankUnitEntity) {
 			groundLayer = Layer.groundUnit - 2;
-			if (visualElevation < 0f) {
-				visualElevation = 0.12f;
+			if (shadowElevation < 0f) {
+				shadowElevation = 0.12f;
 			}
 		}
+
+//		// Mirrors heli rotors
+//		Seq<Rotor> rotorMapped = new Seq<>();
+//		for (Rotor rotor : rotors) {
+//			rotorMapped.add(rotor);
+//			if (rotor.mirror) {
+//				Rotor copy = rotor.copy();
+//
+//				copy.x *= -1;
+//				copy.rotorSpeed *= -1;
+//				copy.rotorBlurSpeedMultiplier *= -1;
+//
+//				rotorMapped.add(copy);
+//			}
+//		}
+
 	}
 
 	@Override
@@ -263,10 +291,10 @@ public class UAWUnitType extends UnitType {
 			Outliner.outlineRegion(packer, rotor.topRegion, outlineColor, rotor.name + "-top-outline", outlineRadius);
 		}
 		// Tanks
-		Outliner.outlineRegion(packer, hullRegion, outlineColor, name + "-hull-outline", outlineRadius);
-		for (TankWeapon tankWeapon : tWeapons) {
-			Outliner.outlineRegion(packer, tankWeapon.gunOutline, outlineColor, tankWeapon.name + "-outline", outlineRadius);
-		}
+//		Outliner.outlineRegion(packer, hullRegion, outlineColor, name + "-hull-outline", outlineRadius);
+//		for (TankWeapon tankWeapon : tWeapons) {
+//			Outliner.outlineRegion(packer, tankWeapon.gunOutline, outlineColor, tankWeapon.name + "-outline", outlineRadius);
+//		}
 	}
 
 	@Override

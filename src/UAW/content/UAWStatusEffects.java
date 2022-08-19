@@ -1,18 +1,16 @@
 package UAW.content;
 
-import UAW.graphics.UAWPal;
+import UAW.audiovisual.UAWPal;
 import mindustry.content.Fx;
-import mindustry.ctype.ContentList;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.graphics.Pal;
 import mindustry.type.StatusEffect;
 
-public class UAWStatusEffects implements ContentList {
+public class UAWStatusEffects {
 	public static StatusEffect
 		concussion, EMP, steamBurn;
 
-	@Override
-	public void load() {
+	public static void load() {
 		concussion = new StatusEffect("concussion") {{
 			color = Pal.lightishGray;
 			reloadMultiplier = speedMultiplier = 0.6f;
@@ -23,7 +21,7 @@ public class UAWStatusEffects implements ContentList {
 				Fx.hitLancer,
 				Fx.smoke
 			);
-			color = UAWPal.titaniumBlueFront;
+			color = UAWPal.titaniumFront;
 			buildSpeedMultiplier = speedMultiplier = 0.2f;
 			reloadMultiplier = 0f;
 		}};

@@ -1,6 +1,6 @@
 package UAW.entities.bullet;
 
-import UAW.content.UAWSfx;
+import UAW.audiovisual.Sfx;
 import arc.Core;
 import arc.audio.Sound;
 import arc.graphics.Color;
@@ -19,10 +19,12 @@ import static UAW.Vars.modName;
 public class MineBulletType extends BulletType {
 	public TextureRegion mineBase, mineFront, mineBack, mineIndicator, mineOutline;
 	public String sprite;
-	public Sound detonationSound = UAWSfx.mineDetonate1;
+	public Sound detonationSound = Sfx.mineDetonate1;
 	public Effect triggerEffect = Fx.smeltsmoke;
 	/** Light that will appear when mine is triggered */
 	public Color detonationColor = Color.red;
+	/** Mine front and back glow color */
+	public Color glowColor = Color.valueOf("feb380");
 	/** Lighter Color */
 	public Color frontColor = Pal.bulletYellow;
 	/** Darker Color */
@@ -33,10 +35,6 @@ public class MineBulletType extends BulletType {
 	public float explodeDelay = 36f;
 	/** How big is the mine */
 	public float size = 24;
-	/**
-	 * [TODO] How long does it takes for the mine to drown, set to < 0 to disable
-	 */
-	public float mineDrownTime = 30f;
 
 	public MineBulletType(float splashDamage, float splashRadius, float lifetime, String sprite) {
 		this.splashDamage = splashDamage;
@@ -44,7 +42,7 @@ public class MineBulletType extends BulletType {
 		this.lifetime = lifetime;
 		this.sprite = sprite;
 		damage = 0;
-		layer = Layer.debris - 1;
+		layer = Layer.block - 1;
 		absorbable = hittable = false;
 		despawnHit = true;
 		collidesAir = false;
@@ -55,6 +53,7 @@ public class MineBulletType extends BulletType {
 		hitShake = 8f;
 		hitSound = Sounds.plasmaboom;
 		fragAngle = 360;
+		pierceArmor = true;
 	}
 
 	public MineBulletType(float damage, float splashRadius, float lifetime) {
@@ -94,6 +93,9 @@ public class MineBulletType extends BulletType {
 		if (b.fdata() < 0) {
 			Draw.color(detonationColor);
 			Draw.rect(mineIndicator, b.x, b.y, size, size, b.rotation());
+			Draw.reset();
+//			Drawf.additive(mineBack, glowColor, b.x, b.y, b.rotation());
+//			Drawf.additive(mineFront, glowColor, b.x, b.y, b.rotation());
 		}
 	}
 

@@ -1,5 +1,6 @@
 package UAW;
 
+import UAW.audiovisual.Sfx;
 import UAW.content.*;
 import UAW.content.blocks.*;
 import arc.Events;
@@ -8,26 +9,25 @@ import mindustry.mod.Mod;
 
 public class UAWModLoader extends Mod {
 	public UAWModLoader() {
-		Events.on(FileTreeInitEvent.class, e -> UAWSfx.load());
+		Events.on(FileTreeInitEvent.class, e -> Sfx.load());
 	}
 
 	public void UAWBlockContent() {
-		new UAWBlocksPower().load();
-		new UAWBlocksDefense().load();
-		new UAWBlocksLogistic().load();
-		new UAWBlocksProduction().load();
-		new UAWBlocksUnits().load();
+		UAWBlocksPower.load();
+		UAWBlocksDefense.load();
+		UAWBlocksLogistic.load();
+		UAWBlocksProduction.load();
+		UAWBlocksUnits.load();
 	}
 
 	@Override
 	public void loadContent() {
-		new UAWStatusEffects().load();
-		new UAWBullets().load();
-		new UAWUnitTypes().load();
-		new UAWItems().load();
-		new UAWLiquids().load();
-		new UAWGas().load();
+		UAWStatusEffects.load();
+		UAWBullets.load();
+		UAWUnitTypes.load();
+		UAWItems.load();
+		UAWLiquids.load();
 		UAWBlockContent();
-		new UAWTechTree().load();
+
 	}
 }

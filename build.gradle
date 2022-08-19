@@ -2,7 +2,7 @@ apply plugin: "java"
 
 version '1.0'
 
-//compile java 17 code, targeting java 8
+//compile java 16 code, targeting java 8
 targetCompatibility = 8
 sourceCompatibility = JavaVersion.VERSION_17
 
@@ -15,8 +15,9 @@ repositories {
 
 ext {
     //the build number that this mod is made for
-    mindustryVersion = 'v135'
-    jabelVersion = "0.4.0"
+    mindustryVersion = 'v136'
+    mindustryJitpackBuild = '28844d5cb5'
+    jabelVersion = "0.7.0"
     sdkRoot = System.getenv("ANDROID_HOME") ?: System.getenv("ANDROID_SDK_ROOT")
 }
 
@@ -29,13 +30,14 @@ allprojects {
 
 dependencies {
     // Base Mindustry
-    compileOnly "com.github.Anuken.Arc:arc-core:$mindustryVersion"
-    compileOnly "com.github.Anuken.Mindustry:core:$mindustryVersion"
+    compileOnly "com.github.anuken.mindustryjitpack:core:$mindustryJitpackBuild"
+    compileOnly "com.github.Anuken.Arc:arc-core:89f5cbe7ab"
+
     annotationProcessor "com.github.Anuken:jabel:$jabelVersion"
 
     // Other Libs
-    implementation 'com.github.Zelaux.GasLibrary:core:a55948ec113566f3a3a4a1f1508d6f9f07161157'
     compileOnly 'com.sun.istack:istack-commons-runtime:4.1.1'
+
 }
 
 task jarAndroid{
