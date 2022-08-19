@@ -35,10 +35,6 @@ public class MineBulletType extends BulletType {
 	public float explodeDelay = 36f;
 	/** How big is the mine */
 	public float size = 24;
-	/**
-	 * [TODO] How long does it takes for the mine to drown, set to < 0 to disable
-	 */
-	public float mineDrownTime = 30f;
 
 	public MineBulletType(float splashDamage, float splashRadius, float lifetime, String sprite) {
 		this.splashDamage = splashDamage;

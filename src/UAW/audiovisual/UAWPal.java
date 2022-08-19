@@ -44,8 +44,10 @@ public class UAWPal {
 		waterMiddle = Color.valueOf("6974c4"),
 		waterBack = Color.valueOf("5757c1"),
 
-	steamFront = Color.valueOf("ececec")
+	steamFront = Color.valueOf("ececec"),
+		steamMid = Color.valueOf("DCDDE4"),
+		steamBack = Color.valueOf("CCCEDB")
 
-		// end
-		;
+			// end
+			;
 }

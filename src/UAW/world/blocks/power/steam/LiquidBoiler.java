@@ -1,4 +1,4 @@
-package UAW.world.blocks.power;
+package UAW.world.blocks.power.steam;
 
 import mindustry.world.blocks.power.ConsumeGenerator;
 import mindustry.world.meta.Stat;

@@ -1,13 +1,16 @@
-package UAW.world.blocks.power;
+package UAW.world.blocks.power.heat;
 
 import UAW.world.drawer.DrawHeatOutputTop;
 import mindustry.entities.TargetPriority;
-import mindustry.world.blocks.heat.HeatConductor;
+import mindustry.world.*;
+import mindustry.world.blocks.Autotiler;
+import mindustry.world.blocks.heat.*;
+import mindustry.world.blocks.production.HeatCrafter;
 import mindustry.world.draw.*;
-import mindustry.world.meta.BlockGroup;
+import mindustry.world.meta.*;
 
-/** TODO */
 public class HeatConduit extends HeatConductor {
+	public boolean hidePowerStat = false;
 
 	public HeatConduit(String name) {
 		super(name);
@@ -21,6 +24,7 @@ public class HeatConduit extends HeatConductor {
 		noUpdateDisabled = true;
 		canOverdrive = false;
 
+		visualMaxHeat = 2f;
 		regionRotated1 = 1;
 		priority = TargetPriority.transport;
 		group = BlockGroup.transportation;
@@ -37,6 +41,12 @@ public class HeatConduit extends HeatConductor {
 	@Override
 	public void load() {
 		super.load();
+	}
+
+	@Override
+	public void setStats() {
+		super.setStats();
+		if (hidePowerStat) stats.remove(Stat.powerCapacity);
 	}
 
 }

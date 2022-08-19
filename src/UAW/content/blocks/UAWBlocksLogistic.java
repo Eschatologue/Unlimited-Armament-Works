@@ -2,13 +2,11 @@ package UAW.content.blocks;
 
 import UAW.content.UAWItems;
 import UAW.world.blocks.liquid.*;
-import UAW.world.blocks.power.HeatConduit;
+import UAW.world.blocks.power.heat.HeatConduit;
 import mindustry.content.Items;
 import mindustry.type.Category;
 import mindustry.world.Block;
-import mindustry.world.blocks.heat.HeatConductor;
 import mindustry.world.blocks.liquid.*;
-import mindustry.world.draw.*;
 
 import static mindustry.type.ItemStack.with;
 
@@ -28,30 +26,31 @@ public class UAWBlocksLogistic {
 	public static void load() {
 
 		// Heat Nodes
-		copperHeatNode = new HeatConduit("copper-heat-node") {{
-			requirements(Category.power, with(
-				Items.copper, 18,
-				Items.lead, 4
-			));
-			size = 1;
-			health = 50;
-			researchCostMultiplier = 5f;
-		}};
-
-		compositeHeatNode = new HeatConduit("composite-heat-node") {{
-			requirements(Category.power, with(
-				Items.copper, 10,
-				UAWItems.compositeAlloy, 2,
-				Items.graphite, 1
-			));
-			size = 1;
-			health = 160;
-			researchCostMultiplier = 12f;
-			placeableLiquid = true;
-
-			outputsPower = true;
-			consumePowerBuffered(100f);
-		}};
+//		copperHeatNode = new HeatConduit("copper-heat-node") {{
+//			requirements(Category.power, with(
+//				Items.copper, 18,
+//				Items.lead, 4
+//			));
+//			size = 1;
+//			health = 50;
+//			researchCostMultiplier = 5f;
+//		}};
+//		compositeHeatNode = new HeatConduit("composite-heat-node") {{
+//			requirements(Category.power, with(
+//				Items.copper, 10,
+//				UAWItems.compositeAlloy, 2,
+//				Items.graphite, 1
+//			));
+//			size = 1;
+//			health = 160;
+//			researchCostMultiplier = 12f;
+//			placeableLiquid = true;
+//
+//			hidePowerStat = true;
+//
+//			outputsPower = true;
+//			consumePowerBuffered(100f);
+//		}};
 
 		// Liquid
 		pressurizedConduit = new PressurizedConduit("pressurized-conduit") {{

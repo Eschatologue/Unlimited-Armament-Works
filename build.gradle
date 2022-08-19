@@ -16,6 +16,7 @@ repositories {
 ext {
     //the build number that this mod is made for
     mindustryVersion = 'v136'
+    mindustryJitpackBuild = '28844d5cb5'
     jabelVersion = "0.7.0"
     sdkRoot = System.getenv("ANDROID_HOME") ?: System.getenv("ANDROID_SDK_ROOT")
 }
@@ -29,8 +30,8 @@ allprojects {
 
 dependencies {
     // Base Mindustry
-    compileOnly "com.github.anuken.mindustryjitpack:core:51110c8e99"
-    compileOnly "com.github.Anuken.Arc:arc-core:dfcb21ce56"
+    compileOnly "com.github.anuken.mindustryjitpack:core:$mindustryJitpackBuild"
+    compileOnly "com.github.Anuken.Arc:arc-core:89f5cbe7ab"
 
     annotationProcessor "com.github.Anuken:jabel:$jabelVersion"
 
