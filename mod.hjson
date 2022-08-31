@@ -12,5 +12,5 @@ description:
     A lot of work and improvements goes into UAW, if you want to show some support or like the content, please give the mod a star on GitHub, Thank you!
 '''
 version: V7 TESTING (0.7.8.1)
-minGameVersion: 136
+minGameVersion: 136.1
 java: true

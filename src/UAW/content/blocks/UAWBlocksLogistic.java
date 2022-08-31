@@ -2,12 +2,13 @@ package UAW.content.blocks;
 
 import UAW.content.UAWItems;
 import UAW.world.blocks.liquid.*;
-import UAW.world.blocks.power.heat.HeatConduit;
 import mindustry.content.Items;
 import mindustry.type.Category;
 import mindustry.world.Block;
+import mindustry.world.blocks.distribution.DirectionLiquidBridge;
 import mindustry.world.blocks.liquid.*;
 
+import static UAW.Vars.px;
 import static mindustry.type.ItemStack.with;
 
 /** Contains anything relating to resource transportation and storage */
@@ -53,6 +54,7 @@ public class UAWBlocksLogistic {
 //		}};
 
 		// Liquid
+
 		pressurizedConduit = new PressurizedConduit("pressurized-conduit") {{
 			requirements(Category.liquid, with(
 				Items.titanium, 3,
@@ -83,6 +85,10 @@ public class UAWBlocksLogistic {
 			liquidCapacity = 60f;
 			liquidPressure = 2f;
 			placeableLiquid = true;
+
+			squareSprite = false;
+
+			liquidPadding = 4 * px;
 		}};
 		pressurizedLiquidJunction = new LiquidJunction("pressurized-liquid-junction") {{
 			requirements(Category.liquid, with(
@@ -95,8 +101,10 @@ public class UAWBlocksLogistic {
 			liquidPressure = 1.5f;
 			placeableLiquid = true;
 			baseExplosiveness = 8f;
+
+			squareSprite = false;
 		}};
-		pressurizedLiquidBridge = new LiquidBridge("pressurized-liquid-bridge") {{
+		pressurizedLiquidBridge = new DirectionLiquidBridge("pressurized-liquid-bridge") {{
 			requirements(Category.liquid, with(
 				UAWItems.compositeAlloy, 3,
 				Items.plastanium, 2,
@@ -106,9 +114,11 @@ public class UAWBlocksLogistic {
 			liquidCapacity = 60f;
 			liquidPressure = 1.5f;
 			range = 6;
-			arrowPeriod = 0.9f;
-			arrowTimeScl = 2.75f;
 			baseExplosiveness = 8f;
+
+			squareSprite = false;
+
+			((PressurizedConduit)pressurizedConduit).rotBridgeReplacement = this;
 		}};
 
 

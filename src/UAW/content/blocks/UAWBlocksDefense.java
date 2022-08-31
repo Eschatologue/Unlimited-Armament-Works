@@ -1038,6 +1038,7 @@ public class UAWBlocksDefense {
 			}};
 		}};
 
+		// Walls
 		shieldWall = new ShieldWall("force-wall") {{
 			requirements(Category.defense, with(
 				Items.phaseFabric, 6,
@@ -1052,6 +1053,7 @@ public class UAWBlocksDefense {
 
 			consumePower(0.5f);
 		}};
+
 		//endregion Serpulo
 //		statusFieldProjector = new EffectFieldProjector("status-field-projector") {{
 //			requirements(Category.effect, with(

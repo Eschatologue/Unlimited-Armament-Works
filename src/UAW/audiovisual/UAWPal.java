@@ -46,8 +46,10 @@ public class UAWPal {
 
 	steamFront = Color.valueOf("ececec"),
 		steamMid = Color.valueOf("DCDDE4"),
-		steamBack = Color.valueOf("CCCEDB")
+		steamBack = Color.valueOf("CCCEDB"),
 
-			// end
-			;
+	drawGlowGold = Color.valueOf("fcba03")
+
+		// end
+		;
 }

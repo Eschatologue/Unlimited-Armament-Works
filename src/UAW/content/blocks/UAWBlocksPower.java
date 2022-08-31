@@ -1,5 +1,6 @@
 package UAW.content.blocks;
 
+import UAW.audiovisual.UAWPal;
 import UAW.content.UAWLiquids;
 import UAW.world.blocks.power.steam.LiquidBoiler;
 import UAW.world.drawer.DrawBoilerSmoke;
@@ -43,21 +44,17 @@ public class UAWBlocksPower {
 			powerProduction = 7.5f;
 			liquidCapacity = 120f;
 
+			generateEffect = Fx.steam;
+			effectChance = 0.1f;
+
 			drawer = new DrawMulti(
 				new DrawRegion("-bottom"),
-				new DrawLiquidTile(UAWLiquids.steam, 2f),
+				new DrawLiquidTile(UAWLiquids.steam, 7f * px),
 				new DrawGlowRegion() {{
-					suffix = "-heat-bottom";
+					glowScale = 4f;
 				}},
-				new DrawDefault(),
-				new DrawBlurSpin("-rotator", 8),
-				new DrawRegion("-top"),
-				new DrawGlowRegion() {{
-					suffix = "-heat-top";
-				}},
-				new DrawBoilerSmoke() {{
-					particles = 35;
-				}}
+				new DrawBlurSpin("-rotator", 4),
+				new DrawDefault()
 			);
 			consumeLiquid(UAWLiquids.steam, 0.65f);
 		}};
@@ -79,25 +76,24 @@ public class UAWBlocksPower {
 				new DrawLiquidTile(UAWLiquids.steam, 3f),
 				new DrawDefault(),
 				new DrawBlurSpin("-rotator", 7),
-				new DrawPistons() {{
-					sinMag = 3f;
-					sinScl = 4f;
-				}},
 				new DrawRegion("-base-mid"),
+				new DrawPistons() {{
+					sinMag = 4f;
+					sinScl = 6f;
+				}},
 				new DrawRegion("-top-mid"),
 				new DrawLiquidTile(UAWLiquids.steam, 52 * px),
 				new DrawRegion("-top"),
 				new DrawGlowRegion() {{
 					suffix = "-heat-top";
-				}},
-				new DrawBoilerSmoke() {{
-					particles = 45;
-					spreadRadius = 8;
+					glowScale = 4f;
 				}}
 			);
 
 			consumeLiquid(UAWLiquids.steam, 0.65f);
 		}};
+
+		// Steam Production
 		steamKettle = new LiquidBoiler("steam-kettle") {{
 			requirements(Category.power, with(
 				Items.copper, 12,
@@ -158,6 +154,9 @@ public class UAWBlocksPower {
 				new DrawRegion("-bottom"),
 				new DrawLiquidTile(UAWLiquids.steam, 5f),
 				new DrawDefault(),
+				new DrawGlowRegion() {{
+					glowScale = 4f;
+				}},
 				new DrawRegion("-top")
 			);
 			consume(new ConsumeItemFlammable());
