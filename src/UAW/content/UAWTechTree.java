@@ -257,7 +257,7 @@ public class UAWTechTree {
 						node(advancedSteamDrill);
 						// Steam Thumper
 						node(steamThumper, () ->
-							node(carburizingFurnace,
+							node(alloyCrucible,
 								Seq.with(
 									new Produce(anthracite)
 								)

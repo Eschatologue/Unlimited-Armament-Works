@@ -14,7 +14,7 @@ import mindustry.world.blocks.production.*;
 import mindustry.world.draw.*;
 import mindustry.world.meta.Attribute;
 
-import static UAW.Vars.tick;
+import static UAW.Vars.*;
 import static mindustry.Vars.tilesize;
 import static mindustry.type.ItemStack.with;
 
@@ -28,7 +28,7 @@ public class UAWBlocksProduction {
 	oilDerrick, steamPump, pulsometerPump,
 
 	// General Crafter
-	gelatinizer, carburizingFurnace,
+	gelatinizer, alloyCrucible,
 
 	// Steam Crafters
 	steamPress, plastaniumSteamPress,
@@ -43,6 +43,7 @@ public class UAWBlocksProduction {
 	cryofluidDistillery, surgeMixer;
 
 	public static void load() {
+		// Drills
 		steamDrill = new UAWDrill("steam-drill") {{
 			requirements(Category.production, with(
 				Items.copper, 24,
@@ -110,6 +111,7 @@ public class UAWBlocksProduction {
 			consumeLiquid(UAWLiquids.steam, 0.5f);
 		}};
 
+		// Frackers
 		oilDerrick = new Fracker("oil-derrick") {{
 			requirements(Category.production, with(
 				Items.copper, 200,
@@ -132,6 +134,8 @@ public class UAWBlocksProduction {
 
 			consumeLiquid(UAWLiquids.steam, pumpAmount / 2.5f);
 		}};
+
+		// Pumps
 		steamPump = new UAWPump("steam-pump") {{
 			requirements(Category.liquid, with(
 				Items.copper, 80,
@@ -164,30 +168,45 @@ public class UAWBlocksProduction {
 			consumeLiquid(UAWLiquids.steam, 1f);
 		}};
 
+		// Liquid Mixer
 		gelatinizer = new GenericCrafter("gelatinizer") {{
 			requirements(Category.crafting, with(
 				Items.lead, 45,
 				Items.graphite, 30,
 				Items.thorium, 20
 			));
+			size = 2;
+
+			hasItems = true;
+			hasLiquids = true;
+
+			craftEffect = UAWFx.effectHit(0.3f, UAWPal.cryoFront, UAWPal.cryoBack);
+			updateEffect = UAWFx.effectHit(0.2f, Color.valueOf("f7cba4"), Color.valueOf("d3ae8d"));
+			updateEffectChance = 0.02f;
+
+			craftTime = 45f;
+			consumePower(0.45f);
 			consumeItems(
 				new ItemStack(
 					Items.sand, 2
 				));
 			consumeLiquid(Liquids.cryofluid, 0.25f);
-			consumePower(0.5f);
 			outputItem = new ItemStack(
 				UAWItems.cryogel, 1
 			);
-			craftTime = 45f;
-			hasItems = true;
-			hasLiquids = true;
-			size = 2;
-			drawer = new DrawLiquidRegion();
-			craftEffect = Fx.freezing;
-			updateEffect = Fx.wet;
+
+			drawer = new DrawMulti(
+				new DrawRegion("-bottom"),
+				new DrawLiquidTile() {{
+					padding = 8 * px;
+				}},
+				new DrawBubbles() {{
+					color = UAWPal.cryoFront;
+				}},
+				new DrawDefault()
+			);
 		}};
-		carburizingFurnace = new GenericCrafter("carburizing-furnace") {{
+		alloyCrucible = new GenericCrafter("alloy-crucible") {{
 			requirements(Category.crafting, with(
 				Items.titanium, 150,
 				Items.thorium, 125,
@@ -195,25 +214,33 @@ public class UAWBlocksProduction {
 				Items.silicon, 95,
 				Items.graphite, 95
 			));
+			size = 3;
+
 			hasItems = true;
 			hasLiquids = false;
-			size = 3;
 			itemCapacity = 30;
-			craftTime = 4f * tick;
-			drawer = new DrawMulti(
-				new DrawRegion("-bottom"),
-				new DrawCrucibleFlame(),
-				new DrawDefault()
-			);
+
 			craftEffect = UAWFx.steamCloud(10f);
 			updateEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
+
+			craftTime = 4.5f * tick;
 			consumePower(3.5f);
 			consumeItems(
-				new ItemStack(Items.titanium, 6),
-				new ItemStack(UAWItems.anthracite, 4)
+				new ItemStack(Items.titanium, 3),
+				new ItemStack(Items.silicon, 2),
+				new ItemStack(UAWItems.anthracite, 3)
 			);
 			outputItem = new ItemStack(
-				UAWItems.compositeAlloy, 2
+				UAWItems.compositeAlloy, 3
+			);
+
+			squareSprite = false;
+			drawer = new DrawMulti(
+				new DrawRegion("-bottom"),
+				new DrawArcSmelt(){{
+					particles = 35;
+				}},
+				new DrawDefault()
 			);
 		}};
 
