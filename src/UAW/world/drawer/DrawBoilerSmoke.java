@@ -6,6 +6,7 @@ import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.util.Time;
 import mindustry.gen.Building;
+import mindustry.graphics.Layer;
 import mindustry.world.draw.DrawBlock;
 
 /** Modified version of the Draw Arc Smelter, replaced Lines with Circles */
@@ -18,7 +19,7 @@ public class DrawBoilerSmoke extends DrawBlock {
 	public float size = 3f;
 	/** The alpha or the opacity of the particles */
 	public float alpha = 0.45f;
-	/** How long does the particle lives, calculated in ticks */
+	/** How long does the particle lives, measured in ticks */
 	public float lifetime = 140f;
 	/** How wide does the particle spreads */
 	public float spreadRadius = 7f;
@@ -27,6 +28,7 @@ public class DrawBoilerSmoke extends DrawBlock {
 	public void draw(Building build) {
 		if (build.warmup() > 0f && particleColor.a > 0.001f) {
 			float progress = build.warmup();
+			Draw.z(Layer.blockOver);
 			Draw.blend(Blending.normal);
 			Draw.color(particleColor, alpha);
 			float base = (Time.time / lifetime);

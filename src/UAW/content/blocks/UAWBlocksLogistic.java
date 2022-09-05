@@ -39,7 +39,7 @@ public class UAWBlocksLogistic {
 //		compositeHeatNode = new HeatConduit("composite-heat-node") {{
 //			requirements(Category.power, with(
 //				Items.copper, 10,
-//				UAWItems.compositeAlloy, 2,
+//				UAWItems.stoutsteel, 2,
 //				Items.graphite, 1
 //			));
 //			size = 1;
@@ -61,7 +61,7 @@ public class UAWBlocksLogistic {
 				Items.metaglass, 2,
 				Items.plastanium, 3
 			));
-			health = 500;
+			health = 550;
 			baseExplosiveness = 8f;
 		}};
 		platedPressurizedConduit = new PlatedPressurizedConduit("plated-pressurized-conduit") {{
@@ -69,18 +69,18 @@ public class UAWBlocksLogistic {
 				Items.titanium, 3,
 				Items.metaglass, 2,
 				Items.plastanium, 3,
-				Items.thorium, 2
+				UAWItems.stoutsteel, 2
 			));
-			health = 750;
+			health = 850;
 			baseExplosiveness = 8f;
 		}};
 		pressurizedLiquidRouter = new LiquidRouter("pressurized-liquid-router") {{
 			requirements(Category.liquid, with(
-				UAWItems.compositeAlloy, 3,
-				Items.plastanium, 2,
-				Items.metaglass, 2
+				UAWItems.stoutsteel, 3,
+				Items.plastanium, 4,
+				Items.metaglass, 4
 			));
-			health = 500;
+			health = 625;
 			baseExplosiveness = 8f;
 			liquidCapacity = 60f;
 			liquidPressure = 2f;
@@ -92,11 +92,11 @@ public class UAWBlocksLogistic {
 		}};
 		pressurizedLiquidJunction = new LiquidJunction("pressurized-liquid-junction") {{
 			requirements(Category.liquid, with(
-				UAWItems.compositeAlloy, 3,
-				Items.plastanium, 2,
-				Items.metaglass, 2
+				UAWItems.stoutsteel, 3,
+				Items.plastanium, 4,
+				Items.metaglass, 4
 			));
-			health = 500;
+			health = 620;
 			liquidCapacity = 60f;
 			liquidPressure = 1.5f;
 			placeableLiquid = true;
@@ -106,11 +106,11 @@ public class UAWBlocksLogistic {
 		}};
 		pressurizedLiquidBridge = new DirectionLiquidBridge("pressurized-liquid-bridge") {{
 			requirements(Category.liquid, with(
-				UAWItems.compositeAlloy, 3,
-				Items.plastanium, 2,
-				Items.metaglass, 2
+				UAWItems.stoutsteel, 3,
+				Items.plastanium, 4,
+				Items.metaglass, 4
 			));
-			health = 500;
+			health = 625;
 			liquidCapacity = 60f;
 			liquidPressure = 1.5f;
 			range = 6;

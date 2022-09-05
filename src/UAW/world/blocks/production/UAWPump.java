@@ -2,10 +2,11 @@ package UAW.world.blocks.production;
 
 import arc.Core;
 import arc.graphics.Color;
-import arc.graphics.g2d.TextureRegion;
+import arc.graphics.g2d.*;
 import arc.math.Mathf;
 import arc.util.Nullable;
 import mindustry.entities.Effect;
+import mindustry.graphics.Drawf;
 import mindustry.world.blocks.production.Pump;
 
 /**
@@ -18,7 +19,6 @@ public class UAWPump extends Pump {
 	public Color heatColor = Color.valueOf("ff5512");
 
 	public float updateEffectChance = 1f;
-	public float rotateSpeed = -1.5f;
 
 	public UAWPump(String name) {
 		super(name);
@@ -43,6 +43,15 @@ public class UAWPump extends Pump {
 	public class UAWPumpBuild extends PumpBuild {
 		public float warmup;
 		public float pumpTime;
+
+//		@Override
+//		public void draw() {
+//			super.draw();
+//			if (rotatorRegion.found()) {
+//				Drawf.spinSprite(rotatorRegion, x, y, pumpTime * rotateSpeed);
+//			}
+//			Draw.rect(topRegion, x, y);
+//		}
 
 		@Override
 		public void updateTile() {

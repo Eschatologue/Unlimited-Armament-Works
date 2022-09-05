@@ -3,10 +3,10 @@ package UAW.content.blocks;
 import UAW.audiovisual.*;
 import UAW.content.*;
 import UAW.world.blocks.production.*;
-import UAW.world.drawer.DrawBoilerSmoke;
+import UAW.world.drawer.*;
 import arc.graphics.Color;
 import mindustry.content.*;
-import mindustry.entities.effect.MultiEffect;
+import mindustry.entities.effect.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.Block;
@@ -15,7 +15,6 @@ import mindustry.world.draw.*;
 import mindustry.world.meta.Attribute;
 
 import static UAW.Vars.*;
-import static mindustry.Vars.tilesize;
 import static mindustry.type.ItemStack.with;
 
 /** Contains Production structures, such as factories, drills, pumps, etc */
@@ -25,16 +24,16 @@ public class UAWBlocksProduction {
 	steamDrill, advancedSteamDrill, steamThumper,
 
 	// Pumps
-	oilDerrick, steamPump, pulsometerPump,
+	oilDerrick, pulsometerPump, advancedPulsometerPump,
 
 	// General Crafter
 	gelatinizer, alloyCrucible,
 
 	// Steam Crafters
-	steamPress, plastaniumSteamPress,
+	steamPress, plastFabricator,
 
 	// Petroleum Crafter
-	petroleumSmelter,
+	petroleumCrucible,
 
 	// Petroleum
 	petrochemicalRefinery, petroleumDistillery,
@@ -85,6 +84,7 @@ public class UAWBlocksProduction {
 
 			consumeLiquid(UAWLiquids.steam, 1.8f);
 		}};
+
 		steamThumper = new ThumperDrill("steam-thumper") {{
 			requirements(Category.production, with(
 				Items.copper, 55,
@@ -136,36 +136,59 @@ public class UAWBlocksProduction {
 		}};
 
 		// Pumps
-		steamPump = new UAWPump("steam-pump") {{
+		pulsometerPump = new Pump("pulsometer-pump") {{
 			requirements(Category.liquid, with(
-				Items.copper, 80,
-				Items.metaglass, 40,
-				Items.silicon, 15,
+				Items.copper, 60,
+				Items.metaglass, 50,
+				Items.silicon, 25,
 				Items.titanium, 25
 			));
+			consumeLiquid(UAWLiquids.steam, 0.25f);
+
 			size = 2;
 			pumpAmount = 0.2f;
 			liquidCapacity = 60f;
-			updateEffectChance = 0.02f;
-			updateEffect = UAWFx.steamCloud(4, Layer.flyingUnitLow);
 
-			consumeLiquid(UAWLiquids.steam, 0.25f);
+			squareSprite = false;
+			drawer = new DrawMulti(
+				new DrawRegion("-bottom"),
+				new DrawPumpLiquidTile() {{
+					padding = 7 * px;
+				}},
+				new DrawRegion("-middle"),
+				new DrawLiquidTile() {{
+					drawLiquid = UAWLiquids.steam;
+					padding = 24 * px;
+				}},
+				new DrawDefault()
+			);
 		}};
-		pulsometerPump = new UAWPump("pulsometer-pump") {{
+		advancedPulsometerPump = new Pump("advanced-pulsometer-pump") {{
 			requirements(Category.liquid, with(
-				Items.copper, 80,
-				Items.metaglass, 90,
-				Items.silicon, 30,
-				Items.titanium, 40,
-				Items.thorium, 35
+				Items.copper, 70,
+				Items.metaglass, 80,
+				Items.silicon, 35,
+				Items.titanium, 35,
+				Items.plastanium, 35
 			));
+			consumeLiquid(UAWLiquids.steam, 0.5f);
 			size = 3;
 			pumpAmount = 0.25f;
-			liquidCapacity = 80f;
-			updateEffectChance = 0.02f;
-			updateEffect = UAWFx.steamCloud(6f, Layer.flyingUnitLow);
+			liquidCapacity = 180f;
 
-			consumeLiquid(UAWLiquids.steam, 1f);
+			squareSprite = false;
+			drawer = new DrawMulti(
+				new DrawRegion("-bottom"),
+				new DrawPumpLiquidTile() {{
+					padding = 7 * px;
+				}},
+				new DrawRegion("-middle"),
+				new DrawLiquidTile() {{
+					drawLiquid = UAWLiquids.steam;
+					padding = 40 * px;
+				}},
+				new DrawDefault()
+			);
 		}};
 
 		// Liquid Mixer
@@ -231,128 +254,202 @@ public class UAWBlocksProduction {
 				new ItemStack(UAWItems.anthracite, 3)
 			);
 			outputItem = new ItemStack(
-				UAWItems.compositeAlloy, 3
+				UAWItems.stoutsteel, 3
 			);
 
 			squareSprite = false;
 			drawer = new DrawMulti(
 				new DrawRegion("-bottom"),
-				new DrawArcSmelt(){{
-					particles = 35;
+				new DrawArcSmelt() {{
+					particles = 45;
 				}},
 				new DrawDefault()
 			);
 		}};
 
-		petroleumSmelter = new AdvancedGenericCrafter("petroleum-smelter") {{
+		petroleumCrucible = new GenericCrafter("petroleum-crucible") {{
 			requirements(Category.crafting, with(
-				Items.titanium, 125,
-				Items.plastanium, 100,
-				Items.thorium, 110,
+				Items.titanium, 100,
+				Items.plastanium, 75,
+				Items.thorium, 100,
 				Items.metaglass, 85,
 				Items.silicon, 85,
-				Items.graphite, 95
+				Items.graphite, 85
 			));
 			size = 4;
 			hasItems = true;
 			hasLiquids = true;
-			itemCapacity = 60;
+			itemCapacity = 70;
 			liquidCapacity = 360f;
-			craftTime = 2.5f * tick;
-			squareSprite = false;
-			drawer = new DrawFlame();
-			craftEffect = new MultiEffect(
-				UAWFx.burstSmelt(4 * tilesize, Pal.plastaniumFront, Pal.plastaniumBack),
-				Fx.flakExplosionBig
-			);
+			craftTime = 1.25f * tick;
+
+			craftEffect = new RadialEffect() {{
+				effect = Fx.surgeCruciSmoke;
+				amount = 4;
+				rotationSpacing = 90;
+				lengthOffset = 60 * px;
+				rotationOffset = 45;
+			}}
+			;
 			updateEffect = new MultiEffect(
 				UAWFx.plastHit,
 				Fx.burning,
 				Fx.fireSmoke
 			);
-			craftSoundVolume = 1.2f;
-			craftShake = 15f;
 			consumeItems(
-				new ItemStack(Items.sand, 12),
-				new ItemStack(Items.lead, 4),
-				new ItemStack(UAWItems.anthracite, 3)
+				new ItemStack(Items.sand, 6),
+				new ItemStack(Items.lead, 2),
+				new ItemStack(UAWItems.anthracite, 1)
 			);
-			consumeLiquid(Liquids.oil, 3);
+			consumeLiquid(Liquids.oil, 1.5f);
 			outputItems = with(
-				Items.silicon, 13,
-				Items.metaglass, 13
+				Items.silicon, 7,
+				Items.metaglass, 7
+			);
+
+			squareSprite = false;
+			drawer = new DrawMulti(
+				new DrawRegion("-bottom"),
+				new DrawLiquidTile() {{
+					padding = 16 * px;
+				}},
+				new DrawCircles() {{
+					color = Color.valueOf("61615b").a(0.24f);
+					strokeMax = 2.5f;
+					radius = 54f * px;
+					amount = 4;
+				}},
+				new DrawDefault(),
+				new DrawGlowRegion() {{
+					glowScale = 12;
+					glowIntensity = 0.8f;
+					color = UAWPal.drawGlowPink;
+				}},
+				new DrawBoilerSmoke() {{
+					particleColor = Pal.gray.lerp(UAWPal.steamMid, 0.15f);
+					particles = 65;
+					size = 2f;
+				}}
 			);
 		}};
 
-		steamPress = new AdvancedGenericCrafter("steam-press") {{
+		steamPress = new GenericCrafter("steam-press") {{
 			requirements(Category.crafting, with(
-				Items.titanium, 90,
-				Items.silicon, 25,
-				Items.lead, 80,
-				Items.copper, 100,
-				Items.graphite, 50
+				Items.titanium, 120,
+				Items.silicon, 55,
+				Items.copper, 150,
+				Items.graphite, 80
 			));
 			size = 3;
 			hasItems = true;
-			squareSprite = false;
-			craftEffect = Fx.pulverizeMedium;
-			outputItem = new ItemStack(Items.graphite, 12);
-			craftTime = 90f;
+			hasLiquids = true;
 			itemCapacity = 40;
-			drawer = new DrawMulti(
-				new DrawDefault(),
-				new DrawBoilerSmoke()
-			);
+			liquidCapacity = 320;
+
+			craftTime = 90f;
+			craftEffect = new RadialEffect() {{
+				effect = UAWFx.crucibleSmoke(220, 3, UAWPal.steamMid);
+				amount = 4;
+				rotationSpacing = 90;
+				lengthOffset = 35 * px;
+				rotationOffset = 45;
+			}};
 
 			consumeLiquid(UAWLiquids.steam, 1.8f);
 			consumeItem(Items.coal, 5);
+
+			outputItem = new ItemStack(Items.graphite, 12);
+
+			ignoreLiquidFullness = false;
+			outputLiquid = new LiquidStack(Liquids.water, 0.6f);
+
+			squareSprite = false;
+			drawer = new DrawMulti(
+				new DrawRegion("-bottom"),
+				new DrawLiquidTile() {{
+					drawLiquid = Liquids.water;
+					padding = 19 * px;
+				}},
+				new DrawCircles() {{
+					color = Color.valueOf("7090ea").a(0.24f);
+					strokeMax = 2.5f;
+					radius = 30f * px;
+					amount = 4;
+				}},
+				new DrawLiquidTile() {{
+					drawLiquid = UAWLiquids.steam;
+					padding = 34 * px;
+				}},
+				new DrawDefault()
+			);
+
+
 		}};
-		plastaniumSteamPress = new GenericCrafter("plastanium-steam-press") {{
+		plastFabricator = new GenericCrafter("plastanium-fabricator") {{
 			requirements(Category.crafting, with(
-				Items.silicon, 140,
-				Items.coal, 120,
+				Items.silicon, 180,
 				Items.lead, 220,
 				Items.graphite, 120,
 				Items.titanium, 160
 			));
 			size = 3;
-			squareSprite = false;
 			hasItems = true;
 			liquidCapacity = 180f;
 			craftTime = 90f;
 			itemCapacity = 40;
 			hasLiquids = true;
 			craftEffect = Fx.formsmoke;
-			updateEffect = UAWFx.steamCloud(7.5f, Layer.flyingUnitLow);
+			updateEffect = new MultiEffect(
+				Fx.plasticburn,
+				Fx.plasticExplosion
+			);
 			updateEffectChance = 0.01f;
-			outputItem = new ItemStack(Items.plastanium, 6);
 
 			consumeLiquids(
-				new LiquidStack(Liquids.oil, 0.75f),
-				new LiquidStack(UAWLiquids.steam, 1)
+				new LiquidStack(Liquids.oil, 0.75f)
 			);
 			consumeItem(Items.titanium, 10);
+			consumePower(5f);
+			outputItem = new ItemStack(Items.plastanium, 6);
+
+			squareSprite = false;
+			drawer = new DrawMulti(
+				new DrawRegion("-bottom"),
+				new DrawLiquidTile() {{
+					padding = 10 * px;
+				}},
+				new DrawCircles() {{
+					color = Color.valueOf("61615b").a(0.24f);
+					strokeMax = 2.5f;
+					radius = 40f * px;
+					amount = 4;
+				}},
+				new DrawDefault(),
+				new DrawGlowRegion() {{
+					color = UAWPal.drawGlowPink;
+				}}
+			);
 		}};
 
-		cryofluidDistillery = new AdvancedGenericCrafter("cryofluid-distillery") {{
+		cryofluidDistillery = new GenericCrafter("cryofluid-distillery") {{
 			requirements(Category.crafting, with(
 				Items.lead, 150,
 				Items.silicon, 90,
 				Items.titanium, 120
 			));
 			size = 3;
-			squareSprite = false;
-			liquidCapacity = 240f;
+			liquidCapacity = 90f;
 			outputsLiquid = true;
 			hasItems = true;
 			hasLiquids = true;
-			drawer = new DrawFlame(UAWPal.cryoFront);
-			craftTime = 2f * tick;
+
 			updateEffect = new MultiEffect(
 				Fx.wet,
 				UAWFx.smokeCloud(45, Layer.effect, Color.white)
 			);
 			updateEffectChance = 0.01f;
+
+			craftTime = 2f * tick;
 			consumeItems(with(
 				Items.titanium, 4,
 				Items.thorium, 1
@@ -360,6 +457,25 @@ public class UAWBlocksProduction {
 			consumeLiquid(Liquids.water, 1.2f);
 			outputLiquid = new LiquidStack(Liquids.cryofluid, 60f);
 			consumePower(3f);
+
+			squareSprite = false;
+			drawer = new DrawMulti(
+				new DrawRegion("-bottom"),
+				new DrawPistons() {{
+					sinMag = 5f * px;
+					sinScl = 6f;
+				}},
+				new DrawRegion("-mid"),
+				new DrawLiquidTile() {{
+					drawLiquid = Liquids.cryofluid;
+					padding = 40 * px;
+				}},
+				new DrawDefault(),
+				new DrawGlowRegion() {{
+					alpha = 0.6f;
+					color = UAWPal.cryoMiddle;
+				}}
+			);
 		}};
 	}
 }

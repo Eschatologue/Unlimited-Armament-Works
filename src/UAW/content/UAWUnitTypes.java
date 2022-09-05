@@ -1519,7 +1519,7 @@ public class UAWUnitTypes {
 //			drag = 0.04f;
 //			rotateSpeed = 1.5f;
 //			baseRotateSpeed = rotateSpeed * 2.2f;
-//			ammoType = new ItemAmmoType(UAWItems.compositeAlloy);
+//			ammoType = new ItemAmmoType(UAWItems.stoutsteel);
 //
 //			range = 50 * tilesize;
 //			maxRange = range;

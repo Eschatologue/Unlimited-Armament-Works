@@ -397,11 +397,13 @@ public class UAWFx {
 	 * 	[False] Whenever to cause 2 instances of the effect and make it spread horizontally
 	 */
 	public static Effect shootSmoke(float lifetime, Color color, boolean muzzleBreak) {
+		float alpha = 1f;
 		float amountMod = 0.44f;
 		float lengthMod = 1.4f;
 		float rangeMod = 1f;
 		float sizeMod = 0.13f;
 		return new Effect(lifetime, e -> {
+			Draw.alpha(alpha);
 			Draw.color(color, Color.lightGray, Color.gray, e.fin());
 
 			randLenVectors(e.id, (int) (lifetime * amountMod), e.finpow() * lifetime * lengthMod, e.rotation + (muzzleBreak ? 90 : 0), lifetime * rangeMod, (x, y) ->
@@ -427,11 +429,13 @@ public class UAWFx {
 	 * 	On what rotorLayer the effect occurs
 	 */
 	public static Effect shootSmoke(float lifetime, Color color, boolean muzzleBreak, float layer) {
+		float alpha = 1f;
 		float amountMod = 0.44f;
 		float lengthMod = 1.27f;
 		float rangeMod = 0.83f;
 		float sizeMod = 0.13f;
 		return new Effect(lifetime, e -> {
+			Draw.alpha(alpha);
 			Draw.color(color, Color.lightGray, Color.gray, e.fin());
 
 			randLenVectors(e.id, (int) (lifetime * amountMod), e.finpow() * lifetime * lengthMod, e.rotation + (muzzleBreak ? 90 : 0), lifetime * rangeMod, (x, y) ->
@@ -466,6 +470,7 @@ public class UAWFx {
 
 	/**
 	 * Trails for Cruise Missiles
+	 *
 	 * @param lifetime
 	 * 	[33] How long does the trail appears, also adjust its size and intensity
 	 * @param layer
@@ -817,6 +822,34 @@ public class UAWFx {
 				Draw.alpha((0.5f - Math.abs(fin - 0.5f)) * 2f);
 				Fill.circle(e.x + x, e.y + y, 0.5f + fout * 4f);
 			})).layer(layer);
+	}
+
+	/**
+	 * Fx.SurgeCruciSmoke
+	 *
+	 * @param lifetime
+	 * 	How long does the effect lasts | 160
+	 * @param particleRad
+	 * 	Particle Size |2
+	 * @param color
+	 * 	particle color
+	 */
+	public static Effect crucibleSmoke(float lifetime, float particleRad, Color color) {
+		return new Effect(lifetime, e -> {
+			color(color);
+			alpha(0.45f);
+
+			rand.setSeed(e.id);
+			for (int i = 0; i < 3; i++) {
+				float len = rand.random(6f);
+				float rot = rand.range(40f) + e.rotation;
+
+				e.scaled(e.lifetime * rand.random(0.3f, 1f), b -> {
+					v.trns(rot, len * b.finpow());
+					Fill.circle(e.x + v.x, e.y + v.y, particleRad * b.fslope() + (particleRad / 10));
+				});
+			}
+		});
 	}
 
 	/**

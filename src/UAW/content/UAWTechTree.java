@@ -102,7 +102,7 @@ public class UAWTechTree {
 			);
 			vanillaNode(titanium, () ->
 				// Titanium Carbide
-				nodeProduce(compositeAlloy)
+				nodeProduce(stoutsteel)
 			);
 
 			vanillaNode(plastanium, () ->
@@ -228,7 +228,7 @@ public class UAWTechTree {
 
 			vanillaNode(siliconCrucible, () ->
 				// Petroleum Smelter
-				node(petroleumSmelter,
+				node(petroleumCrucible,
 					Seq.with(
 						new Research(surgeSmelter)
 					)
@@ -252,7 +252,7 @@ public class UAWTechTree {
 					// Steam Drills
 					node(steamDrill, () -> {
 						node(steamPress, () ->
-							node(plastaniumSteamPress)
+							node(plastFabricator)
 						);
 						node(advancedSteamDrill);
 						// Steam Thumper

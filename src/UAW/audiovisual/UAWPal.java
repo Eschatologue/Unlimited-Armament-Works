@@ -33,9 +33,9 @@ public class UAWPal {
 		surgeMiddle = Color.valueOf("e8d174"),
 		surgeBack = Color.valueOf("d99f6b"),
 
-	compAlloyFront = Color.valueOf("828b98"),
-		compAlloyMid = Color.valueOf("828b98"),
-		compAlloyBack = Color.valueOf("444858"),
+	stoutsteelFront = Color.valueOf("828b98"),
+		stoutSteelMiddle = Color.valueOf("636a78"),
+		stoutsteelBack = Color.valueOf("444858"),
 
 	coalFront = Color.valueOf("404040"),
 		coalBack = Color.valueOf("2a2a2a"),
@@ -48,8 +48,9 @@ public class UAWPal {
 		steamMid = Color.valueOf("DCDDE4"),
 		steamBack = Color.valueOf("CCCEDB"),
 
-	drawGlowGold = Color.valueOf("fcba03")
+	drawGlowGold = Color.valueOf("fcba03"),
+		drawGlowPink = Color.valueOf("ff6060ff")
 
-		// end
-		;
+			// end
+			;
 }

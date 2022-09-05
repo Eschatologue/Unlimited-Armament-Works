@@ -198,7 +198,7 @@ public class UAWBlocksDefense {
 
 					status = StatusEffects.slow;
 				}},
-				UAWItems.compositeAlloy, new TrailBulletType(12, 22) {{
+				UAWItems.stoutsteel, new TrailBulletType(12, 22) {{
 					height = 20;
 					width = 5;
 					pierce = true;
@@ -460,14 +460,14 @@ public class UAWBlocksDefense {
 					smokeEffect = Fx.shootBigSmoke;
 					pierceCap = 3;
 				}},
-				UAWItems.compositeAlloy, new TrailBulletType(18f, 365) {{
+				UAWItems.stoutsteel, new TrailBulletType(18f, 365) {{
 					hitSize = 8f;
 					height = 28f;
 					width = 12f;
 					despawnHit = true;
 					pierceArmor = true;
-					frontColor = UAWPal.compAlloyFront;
-					backColor = UAWPal.compAlloyMid;
+					frontColor = UAWPal.stoutsteelFront;
+					backColor = UAWPal.stoutSteelMiddle;
 					trailEffect = new MultiEffect(
 						Fx.disperseTrail,
 						Fx.disperseTrail,
@@ -509,7 +509,7 @@ public class UAWBlocksDefense {
 				Items.thorium, 600,
 				Items.metaglass, 900,
 				Items.surgeAlloy, 900,
-				UAWItems.compositeAlloy, 800,
+				UAWItems.stoutsteel, 800,
 				Items.silicon, 1200
 			));
 			size = 4;
@@ -533,7 +533,7 @@ public class UAWBlocksDefense {
 
 			unitSort = UAWUnitSorts.mostHitPoints;
 			ammo(
-				UAWItems.compositeAlloy, new TrailBulletType(25f, 12000) {{
+				UAWItems.stoutsteel, new TrailBulletType(25f, 12000) {{
 					hitSize = 16f;
 					height = 30f;
 					width = 14f;
@@ -652,7 +652,7 @@ public class UAWBlocksDefense {
 				Items.graphite, 500,
 				Items.plastanium, 325,
 				Items.silicon, 325,
-				UAWItems.compositeAlloy, 250
+				UAWItems.stoutsteel, 250
 			));
 			size = 4;
 			scaledHealth = 250;
@@ -845,13 +845,13 @@ public class UAWBlocksDefense {
 					hitEffect = new MultiEffect(Fx.hitBulletColor, Fx.fireSmoke);
 					despawnEffect = new MultiEffect(Fx.flakExplosion, Fx.fireSmoke);
 				}},
-				UAWItems.compositeAlloy, new TrailBulletType(12, 10) {{
+				UAWItems.stoutsteel, new TrailBulletType(12, 10) {{
 					height = 14f;
 					width = 6f;
 					despawnHit = true;
 					pierceArmor = true;
-					frontColor = UAWPal.compAlloyFront;
-					backColor = UAWPal.compAlloyMid;
+					frontColor = UAWPal.stoutsteelFront;
+					backColor = UAWPal.stoutSteelMiddle;
 					trailEffect = Fx.disperseTrail;
 					trailInterval = 0.05f;
 					trailChance = 0.4f;
