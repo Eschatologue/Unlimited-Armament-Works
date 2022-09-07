@@ -7,6 +7,7 @@ import UAW.world.drawer.DrawBoilerSmoke;
 import mindustry.content.*;
 import mindustry.type.*;
 import mindustry.world.Block;
+import mindustry.world.blocks.heat.HeatProducer;
 import mindustry.world.blocks.power.ConsumeGenerator;
 import mindustry.world.blocks.production.AttributeCrafter;
 import mindustry.world.consumers.*;
@@ -207,8 +208,11 @@ public class UAWBlocksPower {
 //			updateEffect = Fx.burning;
 //
 //			squareSprite = false;
-//			drawer = new DrawMulti(new DrawDefault(), new DrawHeatOutput(), new DrawFlame());
-//
+//			drawer = new DrawMulti(
+//				new DrawDefault(),
+//				new DrawHeatOutput(),
+//				new DrawFlame()
+//			);
 //		}};
 //		vapourHeater = new HeatProducer("vapour-heater") {{
 //			requirements(Category.power, with(

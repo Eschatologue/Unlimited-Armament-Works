@@ -14,7 +14,7 @@ import static mindustry.type.ItemStack.with;
 public class UAWBlocksUnits {
 	public static Block placeholder,
 	// Units Factory
-	UAWGroundFactory, UAWNavalFactory, UAWAirFactory,
+	UAWGroundFactory, UAWNavalFactory, UAWAirFactory, UAWAirshipFactory,
 	// Units Reconstructor
 	exponentialPetroleumReconstructor, tetrativePetroleumReconstructor;
 

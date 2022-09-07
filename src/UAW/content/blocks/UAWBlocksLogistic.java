@@ -2,6 +2,7 @@ package UAW.content.blocks;
 
 import UAW.content.UAWItems;
 import UAW.world.blocks.liquid.*;
+import UAW.world.blocks.power.heat.HeatConduit;
 import mindustry.content.Items;
 import mindustry.type.Category;
 import mindustry.world.Block;

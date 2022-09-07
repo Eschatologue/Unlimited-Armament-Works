@@ -33,8 +33,7 @@ public class HeatConduit extends HeatConductor {
 			new DrawRegion("-bottom"),
 			new DrawHeatOutputTop(),
 			new DrawHeatInput("-heat"),
-			new DrawDefault(),
-			new DrawRegion("-glass")
+			new DrawDefault()
 		);
 	}
 

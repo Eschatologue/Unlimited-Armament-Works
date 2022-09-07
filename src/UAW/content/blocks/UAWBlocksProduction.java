@@ -435,16 +435,17 @@ public class UAWBlocksProduction {
 			requirements(Category.crafting, with(
 				Items.lead, 150,
 				Items.silicon, 90,
+				Items.metaglass, 50,
 				Items.titanium, 120
 			));
 			size = 3;
-			liquidCapacity = 90f;
+			liquidCapacity = 96f;
 			outputsLiquid = true;
 			hasItems = true;
 			hasLiquids = true;
 
 			updateEffect = new MultiEffect(
-				Fx.wet,
+				Fx.freezing,
 				UAWFx.smokeCloud(45, Layer.effect, Color.white)
 			);
 			updateEffectChance = 0.01f;
@@ -454,9 +455,10 @@ public class UAWBlocksProduction {
 				Items.titanium, 4,
 				Items.thorium, 1
 			));
-			consumeLiquid(Liquids.water, 1.2f);
-			outputLiquid = new LiquidStack(Liquids.cryofluid, 60f);
-			consumePower(3f);
+			consumeLiquid(Liquids.water, 50 / tick);
+			consumePower(3.5f);
+
+			outputLiquid = new LiquidStack(Liquids.cryofluid, 48 / tick);
 
 			squareSprite = false;
 			drawer = new DrawMulti(
