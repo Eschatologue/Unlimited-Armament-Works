@@ -12,6 +12,7 @@ public class Vars implements Loadable {
 
 	// Weapon - Point Defense - PD
 	public static final String pointDefense_Red = modName + "point-defense-red";
+	public static final String pointDefense_Red_2 = modName + "point-defense-red-2";
 	public static final String pointDefense_Purple = modName + "point-defense-purple";
 
 	// Weapon - Artillery - ART / LNCH
@@ -38,6 +39,7 @@ public class Vars implements Loadable {
 
 	public static final String missile_medium_red_1 = modName + "missile-medium-red-1";
 	public static final String missile_medium_red_2 = modName + "missile-medium-red-2";
+	public static final String missile_medium_red_3 = modName + "missile-medium-red-3";
 
 	public static final String missile_large_purple_1 = modName + "missile-large-purple-1";
 

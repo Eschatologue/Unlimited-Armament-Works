@@ -13,7 +13,7 @@ public class UAWRailBulletType extends UAWBulletType {
 
 	public Effect pierceEffect = Fx.hitBulletSmall, pointEffect = Fx.none, lineEffect = Fx.none;
 	public Effect endEffect = Fx.none;
-	/** Multiplier of damage decreased per health pierced. */
+	/** Multiplier of splashDamage decreased per health pierced. */
 	public float pierceDamageFactor = 1f;
 
 	public float length = 100f;

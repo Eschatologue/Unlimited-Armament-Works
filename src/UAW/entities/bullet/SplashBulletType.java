@@ -22,7 +22,7 @@ public class SplashBulletType extends UAWBulletType {
 	 */
 	public float splashDelay = 25f;
 	/**
-	 * How many times splash damage occurs
+	 * How many times splash splashDamage occurs
 	 */
 	public int splashAmount = 3;
 	/** How much rotating triangles does the splash effect has */

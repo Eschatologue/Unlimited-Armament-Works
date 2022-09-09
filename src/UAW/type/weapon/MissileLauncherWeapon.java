@@ -5,6 +5,7 @@ import arc.graphics.g2d.*;
 import arc.math.*;
 import mindustry.entities.units.WeaponMount;
 import mindustry.gen.Unit;
+import mindustry.type.Weapon;
 
 import static UAW.Vars.cruiseMissile_Basic;
 
@@ -13,7 +14,7 @@ import static UAW.Vars.cruiseMissile_Basic;
  *
  * @Author SMOLKEYS
  */
-public class MissileLauncherWeapon extends UAWWeapon {
+public class MissileLauncherWeapon extends Weapon {
 	public TextureRegion missileRegion, missileOutlineRegion;
 	public String missileName = cruiseMissile_Basic;
 	public float missileLayerOffset = 0;

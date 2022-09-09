@@ -1,7 +1,7 @@
 package UAW.entities.units.entity;
 
 import UAW.content.UAWUnitTypes;
-import UAW.entities.units.UAWUnitType;
+import UAW.entities.units.*;
 import UAW.type.Rotor;
 import UAW.type.Rotor.RotorMount;
 import arc.math.*;
@@ -28,7 +28,7 @@ public class CopterUnitEntity extends UnitEntity {
 	@Override
 	public void setType(UnitType type) {
 		super.setType(type);
-		if (type instanceof UAWUnitType copter) {
+		if (type instanceof HelicopterUnitType copter) {
 			rotors = new RotorMount[copter.rotors.size];
 			for (int i = 0; i < rotors.length; i++) {
 				Rotor rotorType = copter.rotors.get(i);
@@ -40,7 +40,7 @@ public class CopterUnitEntity extends UnitEntity {
 	@Override
 	public void update() {
 		super.update();
-		UAWUnitType type = (UAWUnitType) this.type;
+		HelicopterUnitType type = (HelicopterUnitType) this.type;
 		float rX = x + Angles.trnsx(rotation - 90, type.fallSmokeX, type.fallSmokeY);
 		float rY = y + Angles.trnsy(rotation - 90, type.fallSmokeX, type.fallSmokeY);
 

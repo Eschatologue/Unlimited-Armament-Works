@@ -16,11 +16,11 @@ import mindustry.world.blocks.environment.Floor;
 import static mindustry.Vars.tilesize;
 
 /**
- * Water based bullet that deals extra damage based one enemy hitSize
+ * Water based bullet that deals extra splashDamage based one enemy hitSize
  */
 public class TorpedoBulletType extends BulletType {
 	/**
-	 * Scaling damage based on enemy hitSize
+	 * Scaling splashDamage based on enemy hitSize
 	 */
 	public float hitSizeDamageScl = 1.5f;
 	/**

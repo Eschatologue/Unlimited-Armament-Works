@@ -19,6 +19,7 @@ import mindustry.world.blocks.environment.Floor;
 
 import static mindustry.Vars.world;
 
+@Deprecated
 public class UAWUnitType extends UnitType {
 	public final Seq<Rotor> rotors = new Seq<>();
 //	public final Seq<TankWeapon> tWeapons = new Seq<>();

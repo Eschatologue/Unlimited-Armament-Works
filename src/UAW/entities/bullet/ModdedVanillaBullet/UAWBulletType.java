@@ -6,7 +6,7 @@ import mindustry.entities.bullet.BulletType;
 import mindustry.gen.*;
 
 public class UAWBulletType extends BulletType {
-	/** Percentage of bullet damage that damages shield */
+	/** Percentage of bullet splashDamage that damages shield */
 	public float shieldDamageMultiplier = 1f;
 	/** FlakBullets explode range, 0 to disable */
 	public float explodeRange = 0f;

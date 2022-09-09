@@ -11,6 +11,7 @@ import mindustry.graphics.*;
 import static UAW.Vars.cruiseMissile_Basic;
 import static mindustry.Vars.tilesize;
 
+@Deprecated
 public class CruiseMissileBulletType extends TrailBulletType {
 	public float sizeScl = 1.4f;
 	public float trailLifetime = 33f;

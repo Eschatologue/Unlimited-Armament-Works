@@ -22,8 +22,8 @@ public class TrailBulletType extends BasicBulletType {
 	}
 
 	/**
-	 * BasicBulletType that extends of UAWBulletType, adding damage multiplier such as armor penetration and shield
-	 * damage multiplier
+	 * BasicBulletType that extends of UAWBulletType, adding splashDamage multiplier such as armor penetration and shield
+	 * splashDamage multiplier
 	 */
 	public TrailBulletType(float speed, float damage) {
 		this(speed, damage, "bullet");
