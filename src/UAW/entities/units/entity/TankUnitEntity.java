@@ -8,10 +8,6 @@ import mindustry.gen.TankUnit;
 import mindustry.world.blocks.environment.Floor;
 
 public class TankUnitEntity extends TankUnit {
-	//	private final transient Trail tleft = new Trail(1);
-//	private final transient Trail tright = new Trail(1);
-	public float hullRotation;
-
 	// Tank Unit Entity ID
 	@Override
 	public String toString() {
@@ -23,22 +19,16 @@ public class TankUnitEntity extends TankUnit {
 		return UAWUnitTypes.classID(getClass());
 	}
 
-	// Make tank collides with solid blocks
-	@Override
-	public EntityCollisions.SolidPred solidity() {
-		return isFlying() ? null : EntityCollisions::solid;
-	}
-
 	@Override
 	public void update() {
 		super.update();
 		TankUnitType type = (TankUnitType) this.type;
 		Floor floor = Vars.world.floorWorld(x, y);
 		// Tank speed multiplier in liquid terrain
-		if (floor.isLiquid || floor.speedMultiplier < 1) {
+		if (floor.isLiquid || floor.speedMultiplier != 1) {
 			speedMultiplier = type.terrainSpeedMultiplier;
 		}
-		if (floor.dragMultiplier < 1) {
+		if (floor.dragMultiplier < 0.8 || floor.dragMultiplier > 1.3f) {
 			dragMultiplier = type.terrainDragMultiplier;
 		}
 	}

@@ -1,11 +1,12 @@
 package UAW.content.blocks;
 
-import UAW.content.*;
+import UAW.content.UAWUnitTypes;
+import UAW.world.units.UnitConstructor;
 import arc.struct.Seq;
 import mindustry.content.*;
-import mindustry.type.*;
+import mindustry.type.Category;
 import mindustry.world.Block;
-import mindustry.world.blocks.units.*;
+import mindustry.world.blocks.units.UnitFactory;
 
 import static UAW.Vars.tick;
 import static mindustry.type.ItemStack.with;
@@ -14,90 +15,68 @@ import static mindustry.type.ItemStack.with;
 public class UAWBlocksUnits {
 	public static Block placeholder,
 	// Units Factory
-	UAWGroundFactory, UAWNavalFactory, UAWAirFactory, UAWAirshipFactory,
+	airGroundFactory, navalFactory, UAWAirFactory, UAWAirshipFactory,
 	// Units Reconstructor
 	exponentialPetroleumReconstructor, tetrativePetroleumReconstructor;
 
 	public static void load() {
-//		UAWGroundFactory = new UnitFactory("uaw-ground-factory") {{
-//			requirements(Category.units, with(
-//				Items.lead, 550,
-//				Items.silicon, 90,
-//				Items.metaglass, 90,
-//				Items.titanium, 250,
-//				Items.plastanium, 100
-//			));
-//			size = 5;
-//			consumePower(3.5f);
-//			consumeLiquid(Liquids.oil, 1f);
-//			liquidCapacity = 120f;
-//			plans = Seq.with(
-//				new UnitPlan(UAWUnitTypes.cavalier, 35f * tick, with(
-//					Items.silicon, 85,
-//					Items.titanium, 90,
-//					Items.lead, 150,
-//					Items.copper, 165
-//				))
-//			);
-//		}};
-//		UAWNavalFactory = new UnitFactory("uaw-naval-factory") {{
-//			requirements(Category.units, with(
-//				Items.lead, 550,
-//				Items.silicon, 60,
-//				Items.metaglass, 100,
-//				Items.titanium, 250,
-//				Items.plastanium, 100
-//			));
-//			floating = true;
-//			size = 5;
-//			consumePower(3.5f);
-//			consumeLiquid(Liquids.oil, 1f);
-//			liquidCapacity = 120f;
-//			plans = Seq.with(
-//				new UnitPlan(UAWUnitTypes.arquebus, 45f * tick, with(
-//					Items.silicon, 65,
-//					Items.metaglass, 60,
-//					Items.titanium, 100,
-//					Items.lead, 120
-//				)),
-//				new UnitPlan(UAWUnitTypes.megaera, 55f * tick, with(
-//					Items.silicon, 55,
-//					Items.metaglass, 50,
-//					Items.titanium, 100,
-//					Items.blastCompound, 30,
-//					Items.lead, 120
-//				))
-//			);
-//		}};
-//		UAWAirFactory = new UnitFactory("uaw-air-factory") {{
-//			requirements(Category.units, with(
-//				Items.lead, 550,
-//				Items.silicon, 80,
-//				Items.metaglass, 80,
-//				Items.titanium, 250,
-//				Items.plastanium, 100
-//			));
-//			size = 5;
-//			consumePower(3.5f);
-//			consumeLiquid(Liquids.oil, 1f);
-//			liquidCapacity = 120f;
-//			plans = Seq.with(
-//				new UnitPlan(UAWUnitTypes.aglovale, 35f * tick, with(
-//					Items.silicon, 100,
-//					Items.titanium, 125,
-//					Items.plastanium, 75,
-//					Items.lead, 150
-//				)),
-//				new UnitPlan(UAWUnitTypes.corsair, 30f * tick, with(
-//					Items.silicon, 85,
-//					Items.titanium, 90,
-//					Items.lead, 150,
-//					Items.plastanium, 75,
-//					Items.blastCompound, 35
-//				))
-//			);
-//		}};
-//
+		airGroundFactory = new UnitConstructor("air-ground-factory") {{
+			requirements(Category.units, with(
+				Items.lead, 450,
+				Items.silicon, 90,
+				Items.metaglass, 90,
+				Items.titanium, 250,
+				Items.plastanium, 100
+			));
+			size = 5;
+			liquidCapacity = 240f;
+			plans = Seq.with(
+				new UnitPlan(UAWUnitTypes.crotchety, 25f * tick, with(
+					Items.silicon, 45,
+					Items.graphite, 65,
+					Items.copper, 80
+				)),
+				new UnitPlan(UAWUnitTypes.cavalier, 45f * tick, with(
+					Items.silicon, 85,
+					Items.titanium, 90,
+					Items.graphite, 180,
+					Items.copper, 165
+				))
+			);
+			consumePower(3.5f);
+			consumeLiquid(Liquids.oil, 1.2f);
+		}};
+
+		navalFactory = new UnitConstructor("naval-factory") {{
+			requirements(Category.units, with(
+				Items.lead, 450,
+				Items.silicon, 90,
+				Items.metaglass, 90,
+				Items.titanium, 250,
+				Items.plastanium, 100
+			));
+			size = 5;
+			floating = true;
+			liquidCapacity = 240f;
+			plans = Seq.with(
+				new UnitPlan(UAWUnitTypes.arquebus, 45f * tick, with(
+					Items.silicon, 65,
+					Items.metaglass, 60,
+					Items.titanium, 100,
+					Items.lead, 120
+				)),
+				new UnitPlan(UAWUnitTypes.megaera, 55f * tick, with(
+					Items.silicon, 55,
+					Items.metaglass, 50,
+					Items.titanium, 100,
+					Items.blastCompound, 30,
+					Items.lead, 120
+				))
+			);
+			consumePower(3.5f);
+			consumeLiquid(Liquids.oil, 1.2f);
+		}};
+
 //		exponentialPetroleumReconstructor = new Reconstructor("exponential-petroleum-reconstructor") {{
 //			requirements(Category.units, with(
 //				Items.lead, 1000,

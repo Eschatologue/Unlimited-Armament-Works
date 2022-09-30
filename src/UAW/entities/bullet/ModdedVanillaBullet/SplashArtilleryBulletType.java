@@ -12,7 +12,7 @@ public class SplashArtilleryBulletType extends ArtilleryBulletType {
 	public SplashArtilleryBulletType(float speed, float splashDamage, float splashDamageRadius, String bulletSprite) {
 		super(speed, splashDamage, bulletSprite);
 		this.splashDamage = splashDamage;
-		this.damage = 0;
+		this.damage = splashDamage;
 		this.splashDamageRadius = splashDamageRadius;
 	}
 

@@ -27,8 +27,9 @@ public class Vars implements Loadable {
 	public static final String machineGun_small_red = modName + "machine-gun-small-red";
 	public static final String machineGun_small_purple = modName + "machine-gun-small-purple";
 
-	public static final String machineGun_medium_red = modName + "machine-gun-medium-red";
-	public static final String machineGun_medium_red_mirrored = modName + "machine-gun-medium-red-r";
+	public static final String machineGun_medium_1_red = modName + "machine-gun-medium-1-red";
+	public static final String machineGun_medium_1_red_mirrored = modName + "machine-gun-medium-1-red-r";
+	public static final String machineGun_medium_2_red = modName + "machine-gun-medium-2-red";
 	public static final String machineGun_medium_purple = modName + "machine-gun-medium-purple";
 
 	public static final String machineGun_medium_red_single = modName + "machine-gun-medium-single-red";
@@ -42,12 +43,14 @@ public class Vars implements Loadable {
 	public static final String missile_medium_red_3 = modName + "missile-medium-red-3";
 
 	public static final String missile_large_purple_1 = modName + "missile-large-purple-1";
+	public static final String missile_large_red_2 = modName + "missile-large-red-2";
 
 	public static final String cruiseMissileMount_1 = modName + "cruise-missile-mount-1";
 	public static final String cruiseMissileMount_2 = modName + "cruise-missile-mount-2";
 
 	// Cruise Missile Type
-	public static final String cruiseMissile_Basic = modName + "cruise-missile-basic";
-	public static final String cruiseMissile_Cryo = modName + "cruise-missile-cryo";
-	public static final String cruiseMissile_Surge = modName + "cruise-missile-surge";
+	public static final String cruisemissile_small_red = modName + "cruisemissile-small-red";
+	public static final String cruisemissile_medium_basic = modName + "cruisemissile-medium-basic";
+	public static final String cruisemissile_medium_cryo = modName + "cruisemissile-medium-cryo";
+	public static final String cruisemissile_medium_surge = modName + "cruisemissile-medium-surge";
 }

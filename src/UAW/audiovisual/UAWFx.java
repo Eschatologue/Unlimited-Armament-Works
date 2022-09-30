@@ -40,31 +40,29 @@ public class UAWFx {
 
 	// region Torpedoes
 	torpedoRippleHit = new Effect(40f, 100f, e -> {
-		Draw.color(e.color);
-		Draw.z((Float) e.data);
+		color(e.color);
 		Lines.stroke(e.fout() * 1.4f);
 		float circleRad = 4f + e.finpow() * 55f;
 		Lines.circle(e.x, e.y, circleRad);
-		Draw.reset();
-	}),
+		reset();
+	}).layer(Layer.debris),
 
-	torpedoRippleTrail = new Effect(180, e -> {
+	torpedoRippleTrail = new Effect(30, e -> {
 		e.lifetime = 30f * e.rotation;
-		Draw.z((Float) e.data - 0.01f);
 		Draw.color(Tmp.c1.set(e.color));
 		Lines.stroke(e.fout() * 1.2f);
 		Lines.circle(e.x, e.y, 3 + e.finpow() * 12f);
-		Draw.reset();
-	}),
+	}).layer(Layer.debris),
 
-	torpedoCruiseTrail = new Effect(25f, e -> {
-		Draw.z((Float) e.data);
-		Draw.color(Color.valueOf("d0d0d0"), Color.valueOf("e8e8e8"), Color.valueOf("f5f5f5"), e.fout());
-		Angles.randLenVectors(e.id, 16, 2f + e.fin() * 7f, (x, y) ->
-			Fill.circle(e.x + x, e.y + y, 0.5f + e.fslope() * 1.5f)
-		);
+	torpedoCruiseTrail = new Effect(17f, e -> {
+		Draw.color(e.color, Color.valueOf("f5f5f5"), e.fin());
+		Angles.randLenVectors(e.id, 16, 2f + e.fin() * 6f, (x, y) -> {
+			Draw.alpha(0.15f);
+			Fill.circle(e.x + x, e.y + y, 0.5f + e.fslope() * 1.5f);
+			Draw.reset();
+		});
 		Draw.reset();
-	}),
+	}).layer(Layer.debris),
 
 	torpedoTrailFade = new Effect(400f, 400, e -> {
 		if (!(e.data instanceof Trail trail)) return;
@@ -404,7 +402,7 @@ public class UAWFx {
 		float sizeMod = 0.13f;
 		return new Effect(lifetime, e -> {
 			Draw.alpha(alpha);
-			Draw.color(color, Color.lightGray, Color.gray, e.fin());
+			Draw.color(color, Color.gray, Color.lightGray, e.fin());
 
 			randLenVectors(e.id, (int) (lifetime * amountMod), e.finpow() * lifetime * lengthMod, e.rotation + (muzzleBreak ? 90 : 0), lifetime * rangeMod, (x, y) ->
 				Fill.circle(e.x + x, e.y + y, e.fout() * lifetime * sizeMod));
@@ -449,6 +447,23 @@ public class UAWFx {
 	}
 
 	/**
+	 * Based on Fx.missileShootSmoke
+	 */
+	public static Effect missileShootSmoke(Color color) {
+		return new Effect(130, 300, e -> {
+			color(color);
+			alpha(0.5f);
+			rand.setSeed(e.id);
+			for (int i = 0; i < 35; i++) {
+				v.trns(e.rotation + 180f + rand.range(21f), rand.random(e.finpow() * 90f)).add(rand.range(3f), rand.range(3f));
+				e.scaled(e.lifetime * rand.random(0.2f, 1f), b -> {
+					Fill.circle(e.x + v.x, e.y + v.y, b.fout() * 9f + 0.3f);
+				});
+			}
+		});
+	}
+
+	/**
 	 * Based on Fx.fireHit, that will scale based on particle radius, don't make it too big, or it will lag
 	 *
 	 * @param particleRadius
@@ -475,12 +490,10 @@ public class UAWFx {
 	 * 	[33] How long does the trail appears, also adjust its size and intensity
 	 * @param layer
 	 * 	Where does the effect occurs
-	 * @param trailColor
-	 * 	The color of the trail, will be lerped into darker color
 	 */
-	public static Effect cruiseMissileTrail(float lifetime, float layer, Color trailColor) {
+	public static Effect cruiseMissileTrail(float lifetime, float layer) {
 		return new Effect(lifetime, 80f, e -> {
-			Draw.color(trailColor, Color.lightGray, Color.valueOf("ddcece"), e.fin() * e.fin());
+			Draw.color(e.color, Color.lightGray, Color.valueOf("ddcece"), e.fin() * e.fin());
 
 			Angles.randLenVectors(e.id, (int) (lifetime * 0.24), lifetime * 0.06f + e.finpow() * (lifetime * 1.09f), e.rotation + 180, 18f, (x, y) ->
 				Fill.circle(e.x + x, e.y + y, lifetime * 0.015f + e.fout() * 2f));
@@ -491,7 +504,7 @@ public class UAWFx {
 		return new Effect(lifetime, lifetime * 3, b -> {
 			float intensity = 2f;
 
-			color(b.color, 0.7f);
+			color(b.color, 0.5f);
 			for (int i = 0; i < 4; i++) {
 				rand.setSeed(b.id * 2 + i);
 				float lenScl = rand.random(0.5f, 1f);
@@ -514,12 +527,10 @@ public class UAWFx {
 	 *
 	 * @param length
 	 * 	Size and Thickness is the side trail || Default  is 45
-	 * @param color
-	 * 	The color of the trail
 	 */
-	public static Effect sideTrail(float length, Color color) {
+	public static Effect sideTrail(float length) {
 		return new Effect(length * 0.5f, e -> {
-			Draw.color(color);
+			Draw.color(e.color);
 			for (int s : Mathf.signs) {
 				Drawf.tri(e.x, e.y, length * 0.1f, length * e.fslope(), e.rotation + 135f * s);
 			}
@@ -930,6 +941,7 @@ public class UAWFx {
 			});
 		}).layer(Layer.flyingUnitLow);
 	}
+
 
 	// endregion Dynamic
 }

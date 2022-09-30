@@ -20,7 +20,7 @@ public class BuckshotBulletType extends BasicBulletType {
 		pierceCap = 2;
 		knockback = 2;
 		trailInterval = 4.5f;
-		trailChance = 0.35f;
+		trailChance = 0.5f;
 		trailColor = Color.lightGray;
 
 		collidesTiles = true;

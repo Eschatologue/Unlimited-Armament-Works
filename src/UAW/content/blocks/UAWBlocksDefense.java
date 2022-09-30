@@ -3,8 +3,7 @@ package UAW.content.blocks;
 import UAW.audiovisual.*;
 import UAW.content.*;
 import UAW.entities.UAWUnitSorts;
-import UAW.entities.bullet.BuckshotBulletType;
-import UAW.entities.bullet.ModdedVanillaBullet.TrailBulletType;
+import UAW.entities.bullet.*;
 import UAW.world.blocks.defense.turrets.UAWItemTurret;
 import UAW.world.blocks.defense.walls.ShieldWall;
 import arc.graphics.Color;
@@ -19,6 +18,7 @@ import mindustry.gen.Sounds;
 import mindustry.graphics.Pal;
 import mindustry.type.Category;
 import mindustry.world.Block;
+import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.draw.DrawTurret;
 
@@ -30,23 +30,28 @@ import static mindustry.type.ItemStack.with;
 /** Contains defense & support structures, such as Walls, Turrets, and booster */
 public class UAWBlocksDefense {
 	public static Block placeholder,
-	// Gatling
-	quadra, spitfire, equalizer,
-	// Sniper/Railgun
-	ashlock, longbow, deadeye,
-	// Shotcannon
-	buckshot, tempest, strikeforce,
-	// Artillery
-	zounderkite, skyhammer,
+
+	// Tier 2
+	quadra, ashlock, buckshot,
+	// Tier 3
+	spitfire, longbow, tempest, strikeforce, zounderkite,
+	// Tier 4
+	deadeye, skyhammer,
+	// Tier 5
+
 	// Energy
 	heavylight, reticence, trailblazer, sundouser,
 
-	// Defense
-	shieldWall, statusFieldProjector, rejuvinationProjector, rejuvinationDome;
+	// Wall
+	shieldWall, stoutSteelWall, stoutSteelWallLarge,
+
+	// Projectors
+	statusFieldProjector, rejuvinationProjector, rejuvinationDome;
 
 	public static void load() {
 
 		//region Serpulo
+		//region MG
 		quadra = new ItemTurret("quadra") {{
 			requirements(Category.turret, with(
 				Items.copper, 115,
@@ -103,6 +108,8 @@ public class UAWBlocksDefense {
 					shootEffect = Fx.shootSmallColor;
 					smokeEffect = Fx.shootBigSmoke;
 					ammoMultiplier = 3;
+					trailInterval = 0.4f;
+					trailEffect = Fx.disperseTrail;
 					trailLengthScale = 0.6f;
 				}},
 				Items.pyratite, new BasicBulletType(5f, 15) {{
@@ -139,7 +146,6 @@ public class UAWBlocksDefense {
 					new RegionPart("-barrel") {{
 						progress = PartProgress.recoil;
 						moveY = -5f * px;
-						heatProgress = PartProgress.reload;
 
 					}},
 					new RegionPart("-body"),
@@ -290,7 +296,9 @@ public class UAWBlocksDefense {
 				);
 			}};
 		}};
+		//endregion MG
 
+		//region Sniper
 		ashlock = new ItemTurret("ashlock") {{
 			requirements(Category.turret, with(
 				Items.copper, 150,
@@ -391,14 +399,13 @@ public class UAWBlocksDefense {
 			drawer = new DrawTurret(modTurretBase) {{
 				parts.addAll(
 					new RegionPart("-barrel") {{
-						progress = PartProgress.reload;
+						progress = PartProgress.recoil;
 						moveY = -9 * px;
-						heatProgress = PartProgress.reload;
 					}},
 					new RegionPart("-breach") {{
 						progress = PartProgress.reload;
 						moveY = -12 * px;
-						heatProgress = PartProgress.reload.add(0.5f);
+						heatProgress = PartProgress.reload.add(1.5f);
 					}},
 					new RegionPart("-body")
 				);
@@ -460,14 +467,14 @@ public class UAWBlocksDefense {
 					smokeEffect = Fx.shootBigSmoke;
 					pierceCap = 3;
 				}},
-				UAWItems.stoutsteel, new TrailBulletType(18f, 365) {{
+				UAWItems.stoutsteel, new TrailBulletType(18f, 350) {{
 					hitSize = 8f;
 					height = 28f;
 					width = 12f;
 					despawnHit = true;
 					pierceArmor = true;
-					frontColor = UAWPal.stoutsteelFront;
-					backColor = UAWPal.stoutSteelMiddle;
+					frontColor = UAWPal.graphiteFront;
+					backColor = UAWPal.graphiteMiddle;
 					trailEffect = new MultiEffect(
 						Fx.disperseTrail,
 						Fx.disperseTrail,
@@ -521,7 +528,7 @@ public class UAWBlocksDefense {
 			ammoPerShot = 50;
 			maxAmmo = 150;
 
-			range = 100 * tilesize;
+			range = 125 * tilesize;
 			shake = 28f;
 			rotateSpeed = 0.625f;
 			minWarmup = 0.95f;
@@ -533,31 +540,35 @@ public class UAWBlocksDefense {
 
 			unitSort = UAWUnitSorts.mostHitPoints;
 			ammo(
-				UAWItems.stoutsteel, new TrailBulletType(25f, 12000) {{
-					hitSize = 16f;
+				UAWItems.stoutsteel, new HighVelocityShellBulletType(25f, 12500) {{
 					height = 30f;
-					width = 14f;
-					despawnHit = true;
-					pierceArmor = true;
-					trailInterval = 0.05f;
-					trailChance = 0.99f;
+					trailChance = 0.8f;
+					sideTrailInterval = 0.05f;
+					frontColor = Pal.bulletYellow;
+					backColor = Pal.bulletYellowBack;
 					shootEffect = new MultiEffect(
 						UAWFx.instShoot(35, backColor),
 						Fx.shootBigColor
 					);
 					smokeEffect = new MultiEffect(
 						Fx.shootBigSmoke,
-						Fx.smokeCloud
+						Fx.smokeCloud,
+						UAWFx.missileShootSmoke(backColor)
 					);
 					hitEffect = new MultiEffect(
 						UAWFx.instHit(25, frontColor, backColor),
 						Fx.blastsmoke,
-						Fx.hitBulletColor
+						Fx.colorSparkBig,
+						Fx.hitMeltdown,
+						UAWFx.hitBulletBigColor
 					);
+					trailEffect = new MultiEffect(
+						Fx.disperseTrail,
+						Fx.hitMeltdown
+					);
+					sideTrail = UAWFx.sideTrail(43);
 					hitShake = 28f;
 					knockback = 24f;
-					trailColor = hitColor = backColor;
-					trailEffect = UAWFx.sideTrail(45, trailColor);
 					pierce = true;
 
 					status = StatusEffects.slow;
@@ -569,7 +580,6 @@ public class UAWBlocksDefense {
 			drawer = new DrawTurret(modTurretBase) {{
 				parts.addAll(
 					new RegionPart("-barrel") {{
-//						heatProgress = PartProgress.reload;
 						progress = PartProgress.reload.add(-0.5f);
 						mirror = true;
 						moveX = 5 * px;
@@ -586,7 +596,9 @@ public class UAWBlocksDefense {
 				);
 			}};
 		}};
+		//endregion Sniper
 
+		//region Artillery
 		zounderkite = new UAWItemTurret("zounderkite") {{
 			requirements(Category.turret, with(
 				Items.lead, 300,
@@ -712,7 +724,9 @@ public class UAWBlocksDefense {
 				);
 			}};
 		}};
+		//endregion Artillery
 
+		//region Shotcannon
 		buckshot = new ItemTurret("buckshot") {{
 			requirements(Category.turret, with(
 				Items.copper, 120,
@@ -934,7 +948,7 @@ public class UAWBlocksDefense {
 			targetAir = false;
 
 			shoot = new ShootSpread() {{
-				shootY = 10;
+				shootY = 67 * px;
 				spread = 3.2f;
 				shots = 20;
 				velocityRnd = 0.4f;
@@ -1032,13 +1046,17 @@ public class UAWBlocksDefense {
 					new RegionPart("-body"),
 					new RegionPart("-barrel") {{
 						progress = PartProgress.recoil.curve(Interp.pow2In).add(PartProgress.reload);
+						heatProgress = PartProgress.heat.add(PartProgress.heat.add(PartProgress.recoil));
 						moveY = -11 * px;
 					}}
 				);
 			}};
 		}};
+		//endregion Shotcannon
 
 		// Walls
+		int wallHealthMultiplier = 4;
+
 		shieldWall = new ShieldWall("force-wall") {{
 			requirements(Category.defense, with(
 				Items.phaseFabric, 6,
@@ -1052,6 +1070,26 @@ public class UAWBlocksDefense {
 			researchCostMultiplier = 2f;
 
 			consumePower(0.5f);
+		}};
+		stoutSteelWall = new Wall("stoutsteel-wall") {{
+			requirements(Category.defense, with(
+				UAWItems.stoutsteel, 8
+			));
+			size = 2;
+			health = 300 * wallHealthMultiplier;
+			chanceDeflect = 5f;
+			crushDamageMultiplier = 1f;
+			armor = Math.round(health / 80f);
+		}};
+		stoutSteelWallLarge = new Wall("stoutsteel-wall-large") {{
+			size = 3;
+			requirements(Category.defense, with(
+				UAWItems.stoutsteel, 12
+			));
+			health = 300 * wallHealthMultiplier * 3;
+			chanceDeflect = 6f;
+			crushDamageMultiplier = 0.8f;
+			armor = Math.round(health / 80f);
 		}};
 
 		//endregion Serpulo
@@ -1067,7 +1105,7 @@ public class UAWBlocksDefense {
 //			range = 24 * tilesize;
 //			ammoUseEffect = Fx.doorcloselarge;
 //			ammo(
-//				Liquids.cryofluid, new SplashBulletType(0, range) {{
+//				Liquids.cryofluid, new AftershockBulletType(0, range) {{
 //					smokeEffect = FxS.cryoHit;
 //					status = StatusEffects.freezing;
 //					frontColor = UAWPal.cryoFront;
@@ -1076,7 +1114,7 @@ public class UAWBlocksDefense {
 //					splashAmount = 1;
 //					shootEffect = UAWFx.circleSplash(range, reload / 2, frontColor, backColor, backColor, 6);
 //				}},
-//				Liquids.slag, new SplashBulletType(0, range) {{
+//				Liquids.slag, new AftershockBulletType(0, range) {{
 //					smokeEffect = Fx.fireHit;
 //					status = StatusEffects.melting;
 //					frontColor = Pal.lighterOrange;
@@ -1085,7 +1123,7 @@ public class UAWBlocksDefense {
 //					splashAmount = 1;
 //					shootEffect = UAWFx.circleSplash(range, reload / 2, frontColor, backColor, backColor, 6);
 //				}},
-//				Liquids.oil, new SplashBulletType(0, range) {{
+//				Liquids.oil, new AftershockBulletType(0, range) {{
 //					frontColor = Pal.plastaniumFront;
 //					backColor = Pal.plastaniumBack;
 //					smokeEffect = FxS.plastHit;
@@ -1094,7 +1132,7 @@ public class UAWBlocksDefense {
 //					splashAmount = 1;
 //					shootEffect = UAWFx.circleSplash(range, reload / 2, frontColor, backColor, backColor, 6);
 //				}},
-//				UAWLiquids.surgeSolvent, new SplashBulletType(0, range) {{
+//				UAWLiquids.surgeSolvent, new AftershockBulletType(0, range) {{
 //					smokeEffect = FxS.surgeHit;
 //					status = StatusEffects.electrified;
 //					frontColor = Pal.missileYellow;

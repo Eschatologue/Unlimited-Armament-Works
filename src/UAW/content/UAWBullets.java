@@ -127,7 +127,7 @@ public class UAWBullets {
 			smokeEffect = Fx.smokeCloud;
 			status = StatusEffects.burning;
 			fragBullets = 1;
-			fragBullet = new SplashBulletType(1250, splashDamageRadius / 1.2f) {{
+			fragBullet = new AftershockBulletType(1250, splashDamageRadius / 1.2f) {{
 				splashAmount = 4;
 				splashDelay = 45;
 				lifetime = (splashDelay * splashAmount);
@@ -160,7 +160,7 @@ public class UAWBullets {
 			smokeEffect = Fx.smokeCloud;
 			status = StatusEffects.freezing;
 			fragBullets = 1;
-			fragBullet = new SplashBulletType(450, splashDamageRadius / 1.2f) {{
+			fragBullet = new AftershockBulletType(450, splashDamageRadius / 1.2f) {{
 				splashAmount = 4;
 				splashDelay = 45;
 				lifetime = (splashDelay * splashAmount);
@@ -193,7 +193,7 @@ public class UAWBullets {
 			smokeEffect = Fx.smokeCloud;
 			status = StatusEffects.burning;
 			fragBullets = 1;
-			fragBullet = new SplashBulletType(450, splashDamageRadius / 1.2f) {{
+			fragBullet = new AftershockBulletType(450, splashDamageRadius / 1.2f) {{
 				splashAmount = 4;
 				splashDelay = 45;
 				lifetime = (splashDelay * splashAmount);
@@ -224,6 +224,7 @@ public class UAWBullets {
 			hitSoundVolume = 3f;
 			hitShake = 34f;
 			fragAngle = 60;
+			fragRandomSpread = 90;
 			burstRange = 20 * tilesize;
 			fragVelocityMin = 0.4f;
 			fragVelocityMax = 1.2f;

@@ -22,6 +22,7 @@ public class Sfx {
 		mineDetonate1 = new Sound(),
 		missileShootBig1 = new Sound(),
 		missileShootBig2 = new Sound(),
+		shellWhistle = new Sound(),
 		shotgunShoot1 = new Sound(),
 		suppressedShoot1 = new Sound(),
 		torpedoShoot1 = new Sound();
@@ -54,6 +55,7 @@ public class Sfx {
 		mineDetonate1 = loadSound("mine_detonate_1");
 		missileShootBig1 = loadSound("missile_shoot_big_1");
 		missileShootBig2 = loadSound("missile_shoot_big_2");
+		shellWhistle = loadSound("shell-whistle");
 		shotgunShoot1 = loadSound("shotgun_shoot_1");
 		suppressedShoot1 = loadSound("suppressed_shoot_1");
 		torpedoShoot1 = loadSound("torpedo_shoot_1");
