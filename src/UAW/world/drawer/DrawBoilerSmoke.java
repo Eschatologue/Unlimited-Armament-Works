@@ -18,7 +18,7 @@ public class DrawBoilerSmoke extends DrawBlock {
 	/** How big is the particle, calculated in tilesize */
 	public float size = 3f;
 	/** The alpha or the opacity of the particles */
-	public float alpha = 0.45f;
+	public float alpha = 0.55f;
 	/** How long does the particle lives, measured in ticks */
 	public float lifetime = 140f;
 	/** How wide does the particle spreads */
@@ -28,16 +28,24 @@ public class DrawBoilerSmoke extends DrawBlock {
 	public void draw(Building build) {
 		if (build.warmup() > 0f && particleColor.a > 0.001f) {
 			float progress = build.warmup();
+			float base = (Time.time / lifetime);
+
 			Draw.z(Layer.blockOver);
 			Draw.blend(Blending.normal);
-			Draw.color(particleColor, alpha);
-			float base = (Time.time / lifetime);
+			Draw.color(particleColor);
+
 			rand.setSeed(build.id);
 			for (int i = 0; i < particles; i++) {
 				float fin = (rand.random(1f) + base) % 1f, fout = 1f - fin;
 				float angle = rand.random(360f);
 				float len = spreadRadius * Interp.pow2Out.apply(fin);
-				Fill.circle(build.x + Angles.trnsx(angle, len), build.y + Angles.trnsy(angle, len), size * fout * progress);
+
+				Draw.alpha(alpha * fout * progress);
+				Fill.circle(
+					build.x + Angles.trnsx(angle, len),
+					build.y + Angles.trnsy(angle, len),
+					size * fout * progress
+				);
 			}
 			Draw.blend();
 			Draw.reset();

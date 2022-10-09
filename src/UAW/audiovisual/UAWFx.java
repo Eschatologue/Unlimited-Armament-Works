@@ -570,7 +570,7 @@ public class UAWFx {
 	 * 	How big is the explosion
 	 */
 	public static Effect dynamicExplosion(float size) {
-		return new Effect(size * 10, size * 5, b -> {
+		return new Effect(size * 12, size * 5, b -> {
 			float intensity = size / 19;
 			float baseLifetime = 26f + intensity * 15f;
 			b.lifetime = 43f + intensity * 35f;
@@ -614,7 +614,7 @@ public class UAWFx {
 	 * 	How big is the explosion, can be based on splashDamageRadius, also adjusts lifetime and clip size
 	 */
 	public static Effect dynamicExplosion(float size, Color frontColor, Color backColor) {
-		return new Effect(size * 10, size * 5, b -> {
+		return new Effect(size * 12, size * 5, b -> {
 			float intensity = size / 19;
 			float baseLifetime = 26f + intensity * 15f;
 			b.lifetime = 43f + intensity * 35f;

@@ -15,6 +15,7 @@ import mindustry.world.draw.*;
 import mindustry.world.meta.Attribute;
 
 import static UAW.Vars.*;
+import static mindustry.Vars.tilesize;
 import static mindustry.type.ItemStack.with;
 
 /** Contains Production structures, such as factories, drills, pumps, etc */
@@ -24,7 +25,7 @@ public class UAWBlocksProduction {
 	steamDrill, advancedSteamDrill, steamThumper,
 
 	// Pumps
-	oilDerrick, pulsometerPump, advancedPulsometerPump,
+	oilDerrick, steamPump, pulsometerPump,
 
 	// General Crafter
 	gelatinizer, alloyCrucible,
@@ -85,7 +86,7 @@ public class UAWBlocksProduction {
 			consumeLiquid(UAWLiquids.steam, 1.8f);
 		}};
 
-		steamThumper = new ThumperDrill("steam-thumper") {{
+		steamThumper = new SpecificItemDrill("steam-thumper") {{
 			requirements(Category.production, with(
 				Items.copper, 55,
 				Items.lead, 45,
@@ -97,18 +98,19 @@ public class UAWBlocksProduction {
 			tileRequirement = Blocks.oreCoal;
 			drilledItem = UAWItems.anthracite;
 			tier = 3;
-			itemCapacity = 25;
-			drillTime = 550;
-			warmupSpeed = 0.001f;
+			arrows = 1;
+			baseArrowColor = Color.valueOf("989aa4");
+			itemCapacity = 35;
+			drillTime = 12 * tick;
 			hasLiquids = true;
-			drawRim = true;
 			liquidCapacity = 90f;
 			drillEffect = new MultiEffect(
-				Fx.mineBig,
-				Fx.oily
+				Fx.mineImpact,
+				Fx.drillSteam,
+				UAWFx.steamCloud(4),
+				UAWFx.dynamicExplosion(3.5f * tilesize, UAWPal.graphiteFront, UAWPal.graphiteBack)
 			);
-			updateEffect = UAWFx.steamCloud(4);
-			consumeLiquid(UAWLiquids.steam, 0.5f);
+			consumeLiquid(UAWLiquids.steam, 0.8f);
 		}};
 
 		// Frackers
@@ -136,7 +138,7 @@ public class UAWBlocksProduction {
 		}};
 
 		// Pumps
-		pulsometerPump = new Pump("pulsometer-pump") {{
+		steamPump = new UAWPump("steam-pump") {{
 			requirements(Category.liquid, with(
 				Items.copper, 60,
 				Items.metaglass, 50,
@@ -153,17 +155,12 @@ public class UAWBlocksProduction {
 			drawer = new DrawMulti(
 				new DrawRegion("-bottom"),
 				new DrawPumpLiquidTile() {{
-					padding = 7 * px;
-				}},
-				new DrawRegion("-middle"),
-				new DrawLiquidTile() {{
-					drawLiquid = UAWLiquids.steam;
-					padding = 24 * px;
+					padding = 22 * px;
 				}},
 				new DrawDefault()
 			);
 		}};
-		advancedPulsometerPump = new Pump("advanced-pulsometer-pump") {{
+		pulsometerPump = new UAWPump("pulsometer-pump") {{
 			requirements(Category.liquid, with(
 				Items.copper, 70,
 				Items.metaglass, 80,
@@ -180,12 +177,7 @@ public class UAWBlocksProduction {
 			drawer = new DrawMulti(
 				new DrawRegion("-bottom"),
 				new DrawPumpLiquidTile() {{
-					padding = 7 * px;
-				}},
-				new DrawRegion("-middle"),
-				new DrawLiquidTile() {{
-					drawLiquid = UAWLiquids.steam;
-					padding = 40 * px;
+					padding = 35 * px;
 				}},
 				new DrawDefault()
 			);

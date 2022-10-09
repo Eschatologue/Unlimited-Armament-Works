@@ -585,7 +585,7 @@ public class UAWUnitTypes {
 
 						engineSize = 9 * px;
 						engineOffset = 28f * px;
-						rotateSpeed = 2f;
+						rotateSpeed = 2.2f;
 						trailLength = 12;
 						missileAccelTime = 35f;
 						deathSound = Sounds.largeExplosion;

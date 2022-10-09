@@ -3,18 +3,19 @@ package UAW.world.blocks.production;
 import UAW.content.UAWItems;
 import arc.Core;
 import arc.graphics.Color;
-import arc.graphics.g2d.*;
-import arc.math.*;
-import arc.util.Time;
+import arc.graphics.g2d.Draw;
+import arc.math.Mathf;
 import mindustry.content.Blocks;
+import mindustry.entities.Effect;
 import mindustry.game.Team;
 import mindustry.type.Item;
 import mindustry.world.*;
+import mindustry.world.blocks.production.BurstDrill;
 import mindustry.world.meta.Stat;
 
 import static mindustry.Vars.*;
 
-public class ThumperDrill extends UAWDrill {
+public class SpecificItemDrill extends BurstDrill {
 	/** This drill placing requirement */
 	public Block tileRequirement = Blocks.oreCoal;
 	/** The drilling result */
@@ -22,7 +23,7 @@ public class ThumperDrill extends UAWDrill {
 	/** Whenever if the placing requirement is an overlay or a floor */
 	public boolean isFloor = false;
 
-	public ThumperDrill(String name) {
+	public SpecificItemDrill(String name) {
 		super(name);
 		drawMineItem = false;
 	}
@@ -31,11 +32,6 @@ public class ThumperDrill extends UAWDrill {
 	public void setStats() {
 		super.setStats();
 		stats.remove(Stat.drillTier);
-	}
-
-	@Override
-	public void init() {
-		super.init();
 	}
 
 	@Override
@@ -85,10 +81,13 @@ public class ThumperDrill extends UAWDrill {
 	@Override
 	public void drawPlace(int x, int y, int rotation, boolean valid) {
 		drawPotentialLinks(x, y);
+
 		Tile tile = world.tile(x, y);
 		if (tile == null)
 			return;
+
 		countOre(tile);
+
 		if (returnItem != null && !isFloor ? tile.overlay() == tileRequirement : tile.floor() == tileRequirement) {
 			float width = drawPlaceText(Core.bundle.formatFloat("bar.drillspeed", 60f / (drillTime + hardnessDrillMultiplier * returnItem.hardness) * returnCount, 2), x, y, valid);
 			float dx = x * tilesize + offset - width / 2f - 4f, dy = y * tilesize + offset + size * tilesize / 2f + 5, s = iconSmall / 4f;
@@ -96,37 +95,24 @@ public class ThumperDrill extends UAWDrill {
 			Draw.rect(drilledItem.fullIcon, dx, dy - 1, s, s);
 			Draw.reset();
 			Draw.rect(drilledItem.fullIcon, dx, dy, s, s);
+
 			if (drawMineItem) {
 				Draw.color(drilledItem.color);
 				Draw.rect(itemRegion, tile.worldx() + offset, tile.worldy() + offset);
 				Draw.color();
 			}
+
 		} else {
 			Tile to = tile.getLinkedTilesAs(this, tempTiles).find(t -> !isFloor ? tile.overlay() != tileRequirement : tile.floor() != tileRequirement);
 			Item item = to == null ? null : to.drop();
 			if (item != null) {
 				drawPlaceText(Core.bundle.get("bar.inoperative"), x, y, valid);
 			}
+
 		}
 	}
 
-	public class ThumperDrillBuild extends UAWDrillBuild {
-
-		@Override
-		public void drawDrillParticles() {
-			float base = (Time.time / particleLife);
-			rand.setSeed(this.id);
-			for (int i = 0; i < particles; i++) {
-				float fin = (rand.random(1f) + base) % 1f, fout = 1f - fin;
-				float angle = rand.random(360f);
-				float len = particleSpreadRadius * Interp.pow2Out.apply(fin);
-				Draw.color(drilledItem.color);
-				Fill.circle(x + Angles.trnsx(angle, len), y + Angles.trnsy(angle, len), particleSize * fout * warmup);
-			}
-			Draw.blend();
-			Draw.reset();
-		}
-
+	public class ThumpDrillBuild extends BurstDrillBuild {
 		@Override
 		public void drawSelect() {
 			if (dominantItem != null) {
@@ -139,34 +125,51 @@ public class ThumperDrill extends UAWDrill {
 		}
 
 		@Override
-		public void updateTile() {
-			if (dominantItem == null) {
+		public void updateTile(){
+			if(dominantItem == null){
 				return;
 			}
-			if (timer(timerDump, dumpTime)) {
+
+			if(invertTime > 0f) invertTime -= delta() / invertedTime;
+
+			if(timer(timerDump, dumpTime)){
 				dump(items.has(drilledItem) ? drilledItem : null);
 			}
-			timeDrilled += warmup * delta();
-			if (items.total() < itemCapacity && dominantItems > 0 && efficiency > 0) {
-				float speed = Mathf.lerp(1f, liquidBoostIntensity, optionalEfficiency) * efficiency;
 
-				lastDrillSpeed = (speed * dominantItems * warmup) / (drillTime + hardnessDrillMultiplier * dominantItem.hardness);
-				warmup = Mathf.approachDelta(warmup, speed, warmupSpeed);
-				progress += delta() * dominantItems * speed * warmup;
+			float drillTime = getDrillTime(drilledItem);
 
-				if (Mathf.chanceDelta(updateEffectChance * warmup))
-					updateEffect.at(x + Mathf.range(size * 2f), y + Mathf.range(size * 2f));
-			} else {
+			smoothProgress = Mathf.lerpDelta(smoothProgress, progress / (drillTime - 20f), 0.1f);
+
+			if(items.total() <= itemCapacity - dominantItems && dominantItems > 0 && efficiency > 0){
+				warmup = Mathf.approachDelta(warmup, progress / drillTime, 0.01f);
+
+				float speed = efficiency;
+
+				timeDrilled += speedCurve.apply(progress / drillTime) * speed;
+
+				lastDrillSpeed = 1f / drillTime * speed * dominantItems;
+				progress += delta() * speed;
+			}else{
+				warmup = Mathf.approachDelta(warmup, 0f, 0.01f);
 				lastDrillSpeed = 0f;
-				warmup = Mathf.approachDelta(warmup, 0f, warmupSpeed);
 				return;
 			}
-			float delay = drillTime + hardnessDrillMultiplier * dominantItem.hardness;
-			if (dominantItems > 0 && progress >= delay && items.total() < itemCapacity) {
-				offload(drilledItem);
-				progress %= delay;
-				drillEffect.at(x + Mathf.range(drillEffectRnd), y + Mathf.range(drillEffectRnd), drilledItem.color);
+
+			if(dominantItems > 0 && progress >= drillTime && items.total() < itemCapacity){
+				for(int i = 0; i < dominantItems; i++){
+					offload(drilledItem);
+				}
+
+				invertTime = 1f;
+				progress %= drillTime;
+
+				if(wasVisible){
+					Effect.shake(shake, shake, this);
+					drillSound.at(x, y, 1f + Mathf.range(drillSoundPitchRand), drillSoundVolume);
+					drillEffect.at(x + Mathf.range(drillEffectRnd), y + Mathf.range(drillEffectRnd), drilledItem.color);
+				}
 			}
 		}
+
 	}
 }

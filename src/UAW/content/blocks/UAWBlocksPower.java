@@ -2,19 +2,16 @@ package UAW.content.blocks;
 
 import UAW.audiovisual.UAWPal;
 import UAW.content.UAWLiquids;
-import UAW.world.blocks.power.steam.LiquidBoiler;
+import UAW.world.blocks.power.steam.*;
 import UAW.world.drawer.DrawBoilerSmoke;
 import mindustry.content.*;
+import mindustry.gen.Sounds;
 import mindustry.type.*;
 import mindustry.world.Block;
-import mindustry.world.blocks.heat.HeatProducer;
 import mindustry.world.blocks.power.ConsumeGenerator;
-import mindustry.world.blocks.production.AttributeCrafter;
-import mindustry.world.consumers.*;
 import mindustry.world.draw.*;
 import mindustry.world.meta.Attribute;
 
-import static UAW.Vars.*;
 import static mindustry.type.ItemStack.with;
 
 /** Contains Power Blocks or Blocks that produces Power */
@@ -25,82 +22,78 @@ public class UAWBlocksPower {
 	steamTurbine, advancedSteamTurbine,
 
 	// Steam Production
-	steamKettle, industrialBoiler, pressureBoiler, geothermalBoiler,
+	steamKettle, industrialBoiler, pressureBoiler, blastBoiler, geothermalBoiler,
 
 	// Heat Generation
 	coalBurner, vapourHeater, LPGHeater, geothermalHeater;
 
 	public static void load() {
+		float steamConversionScl = 3f;
 
 		// Steam to Power
 		steamTurbine = new ConsumeGenerator("steam-turbine") {{
 			requirements(Category.power, with(
-				Items.copper, 75,
-				Items.graphite, 60,
-				Items.lead, 95,
-				Items.silicon, 35
+				Items.copper, 50,
+				Items.graphite, 40,
+				Items.lead, 60,
+				Items.silicon, 45
 			));
 			size = 3;
 			squareSprite = false;
-			powerProduction = 7.5f;
+			powerProduction = 8.5f;
 			liquidCapacity = 120f;
 
 			generateEffect = Fx.steam;
 			effectChance = 0.1f;
 
+			ambientSound = Sounds.smelter;
+			ambientSoundVolume = 0.06f;
+
 			drawer = new DrawMulti(
-				new DrawRegion("-bottom"),
-				new DrawLiquidTile(UAWLiquids.steam, 7f * px),
-				new DrawGlowRegion() {{
-					glowScale = 4f;
-				}},
-				new DrawBlurSpin("-rotator", 4),
-				new DrawDefault()
+				new DrawDefault(),
+				new DrawBlurSpin("-rotator", 6)
 			);
-			consumeLiquid(UAWLiquids.steam, 0.65f);
+			consumeLiquid(UAWLiquids.steam, 0.625f);
 		}};
 		advancedSteamTurbine = new ConsumeGenerator("advanced-steam-turbine") {{
 			requirements(Category.power, with(
-				Items.copper, 90,
-				Items.titanium, 60,
-				Items.lead, 150,
-				Items.silicon, 90,
-				Items.metaglass, 45
+				Items.copper, 250,
+				Items.lead, 200,
+				Items.silicon, 125,
+				Items.graphite, 100,
+				Items.plastanium, 95,
+				Items.metaglass, 50
 			));
 			size = 4;
 			squareSprite = false;
-			powerProduction = 19.5f;
+			powerProduction = 13.5f;
 			liquidCapacity = 320f;
 
-			drawer = new DrawMulti(
-				new DrawRegion("-bottom"),
-				new DrawLiquidTile(UAWLiquids.steam, 3f),
-				new DrawDefault(),
-				new DrawBlurSpin("-rotator", 7),
-				new DrawRegion("-base-mid"),
-				new DrawPistons() {{
-					sinMag = 4f;
-					sinScl = 6f;
-				}},
-				new DrawRegion("-top-mid"),
-				new DrawLiquidTile(UAWLiquids.steam, 52 * px),
-				new DrawRegion("-top"),
-				new DrawGlowRegion() {{
-					suffix = "-heat-top";
-					glowScale = 4f;
-				}}
-			);
+			generateEffect = Fx.steam;
+			effectChance = 0.1f;
 
-			consumeLiquid(UAWLiquids.steam, 0.65f);
+			ambientSound = Sounds.smelter;
+			ambientSoundVolume = 0.06f;
+
+			drawer = new DrawMulti(
+				new DrawDefault(),
+				new DrawBlurSpin("-rotator", 7)
+			);
+			consumeLiquid(UAWLiquids.steam, 1.2f);
 		}};
 
 		// Steam Production
-		steamKettle = new LiquidBoiler("steam-kettle") {{
+		steamKettle = new SteamBoiler("steam-kettle") {{
 			requirements(Category.power, with(
 				Items.copper, 12,
 				Items.lead, 12
 			));
 			size = 1;
+
+			consumeLiquid(Liquids.water, 0.25f);
+			outputLiquid = new LiquidStack(UAWLiquids.steam, 0.25f * steamConversionScl);
+			liquidCapacity = 180f;
+
 			squareSprite = false;
 			drawer = new DrawMulti(
 				new DrawDefault(),
@@ -112,83 +105,86 @@ public class UAWBlocksPower {
 					spreadRadius = 3f;
 				}}
 			);
-			consume(new ConsumeItemFlammable());
-			consume(new ConsumeItemExplode());
-			consumeLiquid(Liquids.water, 0.25f);
-			outputLiquid = new LiquidStack(UAWLiquids.steam, 0.25f * 3);
 
 		}};
-		industrialBoiler = new LiquidBoiler("industrial-boiler") {{
+		industrialBoiler = new SteamBoiler("industrial-boiler") {{
 			requirements(Category.power, with(
-				Items.copper, 35,
-				Items.graphite, 25,
-				Items.lead, 30
+				Items.copper, 55,
+				Items.graphite, 35,
+				Items.silicon, 35,
+				Items.lead, 35
 			));
 			size = 2;
+
+			consumeLiquids(new LiquidStack(Liquids.water, 0.5f));
+			outputLiquid = new LiquidStack(UAWLiquids.steam, 0.5f * steamConversionScl);
+			liquidCapacity = steamKettle.liquidCapacity * 2;
+
 			squareSprite = false;
 			drawer = new DrawMulti(
 				new DrawDefault(),
-				new DrawWarmupRegion(),
+				new DrawWarmupRegion() {{
+					sinMag = 0.4f;
+					sinScl = sinMag * 15f;
+				}},
 				new DrawBoilerSmoke() {{
-					particles = 35;
+					particles = 28;
 					lifetime = 160f;
-					size = 3f;
+					size = 2.5f;
 					spreadRadius = 5f;
 				}}
 			);
-			consume(new ConsumeItemFlammable());
-			consume(new ConsumeItemExplode());
-			consumeLiquid(Liquids.water, 0.5f);
-			outputLiquid = new LiquidStack(UAWLiquids.steam, 0.5f * 3);
 		}};
-		pressureBoiler = new LiquidBoiler("pressure-boiler") {{
+		pressureBoiler = new SteamBoiler("pressure-boiler") {{
 			requirements(Category.power, with(
-				Items.copper, 150,
-				Items.lead, 125,
-				Items.titanium, 65,
-				Items.graphite, 50
+				Items.copper, 125,
+				Items.lead, 100,
+				Items.titanium, 85,
+				Items.metaglass, 65,
+				Items.silicon, 65,
+				Items.graphite, 60
 			));
 			size = 4;
+
+			consumeLiquid(Liquids.water, 2f);
+			outputLiquid = new LiquidStack(UAWLiquids.steam, 2f * steamConversionScl);
+			liquidCapacity = steamKettle.liquidCapacity * 4;
+
 			squareSprite = false;
-			itemCapacity = 30;
 			drawer = new DrawMulti(
-				new DrawRegion("-bottom"),
-				new DrawLiquidTile(UAWLiquids.steam, 5f),
 				new DrawDefault(),
 				new DrawGlowRegion() {{
-					glowScale = 4f;
+					glowScale = 3f;
+					color = UAWPal.drawGlowOrange;
 				}},
-				new DrawRegion("-top")
+				new DrawBoilerSmoke() {{
+					particles = 40;
+					lifetime = 210f;
+					size = 5f;
+					spreadRadius = 14f;
+				}}
 			);
-			consume(new ConsumeItemFlammable());
-			consumeLiquid(Liquids.water, 2f);
-			outputLiquid = new LiquidStack(UAWLiquids.steam, 2f * 3);
 		}};
-		geothermalBoiler = new AttributeCrafter("geothermal-boiler") {{
+		geothermalBoiler = new AttributeSteamBoiler("geothermal-boiler") {{
 			requirements(Category.power, with(
-				Items.copper, 65,
-				Items.graphite, 55,
-				Items.lead, 30,
+				Items.copper, 70,
+				Items.graphite, 45,
+				Items.silicon, 40,
+				Items.lead, 50,
 				Items.metaglass, 30
 			));
 			size = 3;
-			squareSprite = false;
-			hasItems = false;
-			acceptsItems = false;
-			minEfficiency = 0.1f;
-			baseEfficiency = 0f;
-			boostScale = 0.25f;
-			maxBoost = 3f;
-			craftTime = 2 * tick;
+			updateEffect = Fx.steam;
 			drawer = new DrawMulti(
-				new DrawRegion("-bottom"),
-				new DrawLiquidTile(UAWLiquids.steam, 4f),
 				new DrawDefault(),
-				new DrawRegion("-top")
+				new DrawGlowRegion() {{
+					glowScale = 3f;
+					color = UAWPal.drawGlowOrange;
+				}}
 			);
 			attribute = Attribute.heat;
-			consumeLiquid(Liquids.water, 0.25f);
-			outputLiquid = new LiquidStack(UAWLiquids.steam, 0.25f);
+			consumeLiquid(Liquids.water, 0.5f);
+			outputLiquid = new LiquidStack(UAWLiquids.steam, 0.5f * steamConversionScl);
 		}};
 
 		// Heat Generation

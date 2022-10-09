@@ -49,7 +49,8 @@ public class UAWPal {
 		steamBack = Color.valueOf("CCCEDB"),
 
 	drawGlowGold = Color.valueOf("fcba03"),
-		drawGlowPink = Color.valueOf("ff6060ff")
+		drawGlowPink = Color.valueOf("ff6060ff"),
+		drawGlowOrange = Color.valueOf("ff9b59")
 
 			// end
 			;
