@@ -281,8 +281,7 @@ public class UAWBlocksProduction {
 				rotationSpacing = 90;
 				lengthOffset = 60 * px;
 				rotationOffset = 45;
-			}}
-			;
+			}};
 			updateEffect = new MultiEffect(
 				UAWFx.plastHit,
 				Fx.burning,
@@ -305,22 +304,11 @@ public class UAWBlocksProduction {
 				new DrawLiquidTile() {{
 					padding = 16 * px;
 				}},
-				new DrawCircles() {{
-					color = Color.valueOf("61615b").a(0.24f);
-					strokeMax = 2.5f;
-					radius = 54f * px;
-					amount = 4;
-				}},
 				new DrawDefault(),
 				new DrawGlowRegion() {{
 					glowScale = 12;
 					glowIntensity = 0.8f;
 					color = UAWPal.drawGlowPink;
-				}},
-				new DrawBoilerSmoke() {{
-					particleColor = Pal.gray.lerp(UAWPal.steamMid, 0.15f);
-					particles = 65;
-					size = 2f;
 				}}
 			);
 		}};
@@ -411,10 +399,23 @@ public class UAWBlocksProduction {
 					padding = 10 * px;
 				}},
 				new DrawCircles() {{
-					color = Color.valueOf("61615b").a(0.24f);
+					color = Liquids.oil.color.a(0.24f);
 					strokeMax = 2.5f;
-					radius = 40f * px;
-					amount = 4;
+					radius = 10f;
+					amount = 3;
+				}},
+				new DrawSpikes() {{
+					color = Pal.plastanium;
+					stroke = 1.5f;
+					length = 3.5f;
+					layers = 2;
+					amount = 12;
+					rotateSpeed = 0.5f;
+					layerSpeed = -0.9f;
+				}},
+				new DrawConstruct() {{
+					color = Pal.plastanium;
+					lineX = lineY = lineXrev = lineYrev = true;
 				}},
 				new DrawDefault(),
 				new DrawGlowRegion() {{

@@ -1,6 +1,6 @@
 package UAW.world.units;
 
-import UAW.audiovisual.DrawConstruct;
+import UAW.audiovisual.UAWDrawf;
 import arc.graphics.g2d.Draw;
 import mindustry.graphics.*;
 import mindustry.world.blocks.units.UnitFactory;
@@ -14,12 +14,13 @@ public class UnitConstructor extends UnitFactory {
 
 		@Override
 		public void draw(){
+			super.draw();
 			Draw.rect(region, x, y);
 			Draw.rect(outRegion, x, y, rotdeg());
 
 			if(currentPlan != -1){
 				UnitPlan plan = plans.get(currentPlan);
-				Draw.draw(Layer.blockOver, () -> DrawConstruct.construct(this, plan.unit, rotdeg() - 90f, progress / plan.time, speedScl, time));
+				Draw.draw(Layer.blockOver, () -> UAWDrawf.unitConstruct(this, plan.unit, rotdeg() - 90f, progress / plan.time, speedScl, time));
 			}
 
 			Draw.z(Layer.blockOver);
