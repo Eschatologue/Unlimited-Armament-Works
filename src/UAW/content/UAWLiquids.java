@@ -6,6 +6,8 @@ import mindustry.type.Liquid;
 
 public class UAWLiquids {
 	public static Liquid placeholder,
+	// Liquid
+	glycerine, nitroglycerine,
 	// Gas
 	steam;
 

@@ -7,7 +7,7 @@ import UAW.world.drawer.*;
 import arc.graphics.Color;
 import mindustry.content.*;
 import mindustry.entities.effect.*;
-import mindustry.graphics.*;
+import mindustry.graphics.Pal;
 import mindustry.type.*;
 import mindustry.world.Block;
 import mindustry.world.blocks.production.*;
@@ -58,7 +58,7 @@ public class UAWBlocksProduction {
 			hasLiquids = false;
 			drawRim = true;
 			updateEffectChance = 0.03f;
-			updateEffect = UAWFx.steamCloud(3.5f);
+			updateEffect = UAWFx.cloudPuff(3.5f, UAWPal.steamMid);
 			drillEffect = Fx.mineBig;
 
 			consumeLiquid(UAWLiquids.steam, 0.25f);
@@ -79,7 +79,7 @@ public class UAWBlocksProduction {
 			hasLiquids = true;
 			drawRim = true;
 			updateEffectChance = 0.03f;
-			updateEffect = UAWFx.steamCloud(5f);
+			updateEffect = UAWFx.cloudPuff(5f, UAWPal.steamMid);
 			drillEffect = Fx.mineBig;
 			rotateSpeed = 6f;
 
@@ -107,7 +107,7 @@ public class UAWBlocksProduction {
 			drillEffect = new MultiEffect(
 				Fx.mineImpact,
 				Fx.drillSteam,
-				UAWFx.steamCloud(4),
+				UAWFx.cloudPuff(4, UAWPal.steamMid),
 				UAWFx.dynamicExplosion(3.5f * tilesize, UAWPal.graphiteFront, UAWPal.graphiteBack)
 			);
 			consumeLiquid(UAWLiquids.steam, 0.8f);
@@ -124,7 +124,7 @@ public class UAWBlocksProduction {
 			));
 			size = 4;
 			result = Liquids.oil;
-			updateEffect = UAWFx.steamCloud(5, Layer.flyingUnitLow - 1);
+			updateEffect = UAWFx.cloudPuff(5, UAWPal.steamMid);
 			updateEffectChance = 0.05f;
 			pumpAmount = 0.5f;
 			liquidCapacity = 360f;
@@ -235,7 +235,7 @@ public class UAWBlocksProduction {
 			hasLiquids = false;
 			itemCapacity = 30;
 
-			craftEffect = UAWFx.steamCloud(10f);
+			craftEffect = UAWFx.cloudPuff(10f, UAWPal.steamMid);
 			updateEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
 
 			craftTime = 4.5f * tick;
@@ -367,10 +367,12 @@ public class UAWBlocksProduction {
 		}};
 		plastFabricator = new GenericCrafter("plastanium-fabricator") {{
 			requirements(Category.crafting, with(
-				Items.silicon, 180,
-				Items.lead, 220,
-				Items.graphite, 120,
-				Items.titanium, 160
+				Items.silicon, 120,
+				Items.lead, 315,
+				Items.copper, 315,
+				Items.thorium, 155,
+				Items.graphite, 150,
+				Items.titanium, 380
 			));
 			size = 3;
 			hasItems = true;
@@ -390,19 +392,13 @@ public class UAWBlocksProduction {
 			);
 			consumeItem(Items.titanium, 10);
 			consumePower(5f);
-			outputItem = new ItemStack(Items.plastanium, 6);
+			outputItem = new ItemStack(Items.plastanium, 8);
 
 			squareSprite = false;
 			drawer = new DrawMulti(
 				new DrawRegion("-bottom"),
 				new DrawLiquidTile() {{
 					padding = 10 * px;
-				}},
-				new DrawCircles() {{
-					color = Liquids.oil.color.a(0.24f);
-					strokeMax = 2.5f;
-					radius = 10f;
-					amount = 3;
 				}},
 				new DrawSpikes() {{
 					color = Pal.plastanium;
@@ -439,7 +435,7 @@ public class UAWBlocksProduction {
 
 			updateEffect = new MultiEffect(
 				Fx.freezing,
-				UAWFx.smokeCloud(45, Layer.effect, Color.white)
+				UAWFx.cloudPuff(45, Color.white)
 			);
 			updateEffectChance = 0.01f;
 

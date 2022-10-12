@@ -1396,7 +1396,7 @@ public class UAWUnitTypes {
 						knockback = 4f;
 						despawnHit = true;
 						shootEffect = new MultiEffect(
-							UAWFx.railShoot(22f, backColor),
+							UAWFx.railShoot(80f, backColor),
 							Fx.shootPyraFlame,
 							Fx.shootSmallSmoke
 						);
@@ -1518,7 +1518,7 @@ public class UAWUnitTypes {
 					ejectEffect = UAWFx.casing3Long;
 					bullet = new HighVelocityShellBulletType(15f, 355) {{
 						shootEffect = new MultiEffect(
-							UAWFx.railShoot(30, UAWPal.graphiteFront),
+							UAWFx.railShoot(90f, UAWPal.graphiteFront),
 							Fx.shootTitan,
 							UAWFx.shootHugeColor
 						);
@@ -1711,7 +1711,7 @@ public class UAWUnitTypes {
 						frontColor = Pal.bulletYellow;
 						backColor = Pal.bulletYellowBack;
 						shootEffect = new MultiEffect(
-							UAWFx.railShoot(35, frontColor),
+							UAWFx.railShoot(98f, backColor),
 							Fx.shootTitan,
 							UAWFx.shootHugeColor
 						);

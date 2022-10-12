@@ -2,6 +2,7 @@ package UAW.world.blocks.power.steam;
 
 import UAW.world.blocks.production.FilterGenericCrafter;
 import UAW.world.consumers.ConsumeItemFuelFlammable;
+import mindustry.content.Fx;
 import mindustry.world.consumers.ConsumeItemExplode;
 import mindustry.world.meta.Stat;
 
@@ -15,6 +16,7 @@ public class SteamBoiler extends FilterGenericCrafter {
 		craftTime = 2f * tick;
 		hasItems = true;
 		hasLiquids = true;
+		updateEffect = Fx.steam;
 		consume(new ConsumeItemFuelFlammable());
 		consume(new ConsumeItemExplode());
 	}

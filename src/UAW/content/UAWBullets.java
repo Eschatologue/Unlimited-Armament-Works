@@ -115,7 +115,7 @@ public class UAWBullets {
 			width = height / 2f;
 			splashDamageRadius = 15 * tilesize;
 			shootEffect = new MultiEffect(
-				UAWFx.railShoot(width, backColor),
+				UAWFx.railShoot(height * 1.8f, backColor),
 				UAWFx.impactCloud(frontColor),
 				UAWFx.shootSmoke(width, frontColor, false)
 			);
@@ -148,7 +148,7 @@ public class UAWBullets {
 			frontColor = UAWPal.cryoFront;
 			backColor = UAWPal.cryoBack;
 			shootEffect = new MultiEffect(
-				UAWFx.railShoot(height, backColor),
+				UAWFx.railShoot(height * 1.8f, backColor),
 				UAWFx.impactCloud(frontColor),
 				UAWFx.shootSmoke(width, frontColor, false)
 			);
@@ -181,7 +181,7 @@ public class UAWBullets {
 			frontColor = Pal.lightishOrange;
 			backColor = Pal.lightOrange;
 			shootEffect = new MultiEffect(
-				UAWFx.railShoot(width, backColor),
+				UAWFx.railShoot(height * 1.8f, backColor),
 				UAWFx.impactCloud(frontColor),
 				UAWFx.shootSmoke(width, frontColor, false)
 			);
@@ -213,13 +213,13 @@ public class UAWBullets {
 			backColor = Pal.plastaniumBack;
 			frontColor = Pal.plastaniumFront;
 			shootEffect = new MultiEffect(
-				UAWFx.railShoot(height, backColor),
+				UAWFx.railShoot(height * 1.8f, backColor),
 				UAWFx.impactCloud(frontColor),
 				UAWFx.shootSmoke(height, frontColor, false)
 			);
 			hitEffect = new MultiEffect(
 				Fx.hitBulletColor,
-				UAWFx.crossBlast(width, frontColor)
+				UAWFx.crossBomb(width, 45, frontColor)
 			);
 			hitSoundVolume = 3f;
 			hitShake = 34f;

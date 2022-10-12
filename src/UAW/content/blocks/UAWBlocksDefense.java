@@ -456,11 +456,11 @@ public class UAWBlocksDefense {
 					trailInterval = 0.05f;
 					trailChance = 0.8f;
 					shootEffect = new MultiEffect(
-						UAWFx.railShoot(width * 3f, backColor),
+						UAWFx.railShoot(35, UAWPal.surgeBack),
 						Fx.shootBigColor
 					);
 					hitEffect = new MultiEffect(
-						UAWFx.railHit(width * 0.8f),
+						UAWFx.railHit(35, UAWPal.surgeBack),
 						Fx.hitBulletColor
 					);
 					trailColor = hitColor = backColor;
@@ -483,11 +483,11 @@ public class UAWBlocksDefense {
 					trailInterval = 0.05f;
 					trailChance = 0.8f;
 					shootEffect = new MultiEffect(
-						UAWFx.railShoot(width * 3, backColor),
+						UAWFx.railShoot(85, backColor),
 						Fx.shootBigColor
 					);
 					hitEffect = new MultiEffect(
-						UAWFx.railHit(width * 0.5f),
+						UAWFx.railHit(40, hitColor),
 						UAWFx.hitBulletBigColor
 					);
 					trailColor = hitColor = backColor;
@@ -547,13 +547,13 @@ public class UAWBlocksDefense {
 					frontColor = Pal.bulletYellow;
 					backColor = Pal.bulletYellowBack;
 					shootEffect = new MultiEffect(
-						UAWFx.instShoot(35, backColor),
+						UAWFx.instShoot(95, backColor),
 						Fx.shootBigColor
 					);
 					smokeEffect = new MultiEffect(
 						Fx.shootBigSmoke,
 						Fx.smokeCloud,
-						UAWFx.missileShootSmoke(backColor)
+						UAWFx.shootSmokeMissile(backColor)
 					);
 					hitEffect = new MultiEffect(
 						UAWFx.instHit(25, frontColor, backColor),
