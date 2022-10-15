@@ -23,24 +23,6 @@ public class UAWBullets {
 	// Vanilla
 	fragGlassFrag, heavySlagShot, heavyCryoShot, heavyOilShot,
 
-	// Standard - Basic
-	smallBasic, smallDense, smallPiercing, smallIncendiary, smallCryo,
-
-	// Standard - Medium
-	mediumBasic, mediumDense, mediumPiercing, mediumIncendiary, mediumCryo, mediumSurge,
-
-	// Standard - Large
-	largeBasic, largeDense, largePiercing, largeIncendiary, largeCryo, largeSurge,
-
-	// Buckshot - Small
-	buckshotSmallBasic, buckshotSmallDense, buckshotSmallIncendiary, buckshotSmallCryo,
-
-	// Buckshot - Medium
-	buckshotMediumBasic, buckshotMediumDense, buckshotMediumPiercing, buckshotMediumFrag, buckshotMediumIncendiary, buckshotMediumCryo,
-
-	// Buckshot - Large
-	buckshotLargeBasic, buckshotLargeDense, buckshotLargeFrag, buckshotLargeOil, buckshotLargeIncendiary, buckshotLargeCryo, buckshotLargeSurge,
-
 	// Artillery
 	artilleryMediumPlast,
 		artilleryLargeAftershockBasic, artilleryLargeAftershockIncendiary, artilleryLargeAftershockCryo,
@@ -116,8 +98,8 @@ public class UAWBullets {
 			splashDamageRadius = 15 * tilesize;
 			shootEffect = new MultiEffect(
 				UAWFx.railShoot(height * 1.8f, backColor),
-				UAWFx.impactCloud(frontColor),
-				UAWFx.shootSmoke(width, frontColor, false)
+				UAWFx.burstCloud(frontColor),
+				UAWFx.shootSmoke(width, frontColor)
 			);
 			hitEffect = UAWFx.dynamicExplosion(splashDamageRadius, frontColor, backColor);
 			hitSound = Sfx.explosionHuge1;
@@ -149,8 +131,8 @@ public class UAWBullets {
 			backColor = UAWPal.cryoBack;
 			shootEffect = new MultiEffect(
 				UAWFx.railShoot(height * 1.8f, backColor),
-				UAWFx.impactCloud(frontColor),
-				UAWFx.shootSmoke(width, frontColor, false)
+				UAWFx.burstCloud(frontColor),
+				UAWFx.shootSmoke(width, frontColor)
 			);
 			hitEffect = UAWFx.dynamicExplosion(splashDamageRadius, frontColor, backColor);
 			hitSound = Sfx.explosionHuge1;
@@ -182,8 +164,8 @@ public class UAWBullets {
 			backColor = Pal.lightOrange;
 			shootEffect = new MultiEffect(
 				UAWFx.railShoot(height * 1.8f, backColor),
-				UAWFx.impactCloud(frontColor),
-				UAWFx.shootSmoke(width, frontColor, false)
+				UAWFx.burstCloud(frontColor),
+				UAWFx.shootSmoke(width, frontColor)
 			);
 			hitEffect = UAWFx.dynamicExplosion(splashDamageRadius, frontColor, backColor);
 			hitSound = Sfx.explosionHuge1;
@@ -214,8 +196,8 @@ public class UAWBullets {
 			frontColor = Pal.plastaniumFront;
 			shootEffect = new MultiEffect(
 				UAWFx.railShoot(height * 1.8f, backColor),
-				UAWFx.impactCloud(frontColor),
-				UAWFx.shootSmoke(height, frontColor, false)
+				UAWFx.burstCloud(frontColor),
+				UAWFx.shootSmoke(height, frontColor)
 			);
 			hitEffect = new MultiEffect(
 				Fx.hitBulletColor,
@@ -223,7 +205,6 @@ public class UAWBullets {
 			);
 			hitSoundVolume = 3f;
 			hitShake = 34f;
-			fragAngle = 60;
 			fragRandomSpread = 90;
 			burstRange = 20 * tilesize;
 			fragVelocityMin = 0.4f;

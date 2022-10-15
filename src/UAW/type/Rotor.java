@@ -2,11 +2,19 @@ package UAW.type;
 
 import arc.Core;
 import arc.graphics.g2d.TextureRegion;
+import arc.util.Nullable;
 import mindustry.io.JsonIO;
+
+import static UAW.Vars.modName;
 
 public class Rotor {
 	public final String name;
 	public TextureRegion bladeRegion, bladeBlurRegion, bladeOutlineRegion, topRegion, topRegionOutline;
+
+	public String topSuffix = "-top";
+
+	@Nullable
+	public String topBladeName;
 
 	/** Rotor offsets from the unit */
 	public float x = 0f, y = 0f;
@@ -49,12 +57,12 @@ public class Rotor {
 		bladeRegion = Core.atlas.find(name);
 		bladeBlurRegion = Core.atlas.find(name + "-blur");
 		bladeOutlineRegion = Core.atlas.find(name + "-outline");
-		topRegion = Core.atlas.find(name + "-top");
-		topRegionOutline = Core.atlas.find(name + "-top-outline");
+		topRegion = Core.atlas.find(topBladeName == null ? name + "-top" : modName + topBladeName + "-top");
+		topRegionOutline = Core.atlas.find(topBladeName == null ? name + "-top-outline" : modName + topBladeName + "-top-outline");
 	}
 
 	// For mirroring
-	public Rotor copy(){
+	public Rotor copy() {
 		return JsonIO.copy(this, new Rotor(name));
 	}
 }

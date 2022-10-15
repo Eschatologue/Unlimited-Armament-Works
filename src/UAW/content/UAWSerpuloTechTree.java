@@ -69,7 +69,7 @@ public class UAWSerpuloTechTree {
 					});
 
 					node(gelatinizer, Seq.with(new Research(cryofluidMixer)), () -> {
-						node(cryofluidDistillery);
+						node(cryofluidBlender);
 					});
 
 				});
@@ -94,7 +94,6 @@ public class UAWSerpuloTechTree {
 					node(skyhammer, Seq.with(new Research(ripple)), () -> {
 					});
 				});
-
 				node(tempest);
 				node(strikeforce);
 			});
@@ -102,15 +101,14 @@ public class UAWSerpuloTechTree {
 			// Units
 			node(airGroundFactory, () -> {
 				node(crotchety, () -> {
-					node(aglovale, () -> {
-						node(bedivere, () -> {
-							node(calogrenant, () -> {
-
-							});
+					node(cantankerous, Seq.with(new Research(gelatinizer)), () -> {
+					});
+				});
+				node(aglovale, () -> {
+					node(bedivere, () -> {
+						node(calogrenant, () -> {
 						});
 					});
-
-					node(cantankerous);
 				});
 
 				node(cavalier, Seq.with(new Research(crotchety)), () -> {

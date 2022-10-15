@@ -15,7 +15,7 @@ import static UAW.Vars.*;
  * @Author SMOLKEYS
  */
 public class MissileLauncherWeapon extends UAWWeapon {
-	public TextureRegion missileRegion, missileOutlineRegion;
+	public TextureRegion missileRegion;
 	public String missileName = cruisemissile_medium_basic;
 	public float missileLayerOffset = 0;
 	public float missileSizeScl = 1f;

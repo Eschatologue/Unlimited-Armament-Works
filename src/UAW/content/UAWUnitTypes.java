@@ -16,11 +16,11 @@ import arc.math.geom.Rect;
 import arc.struct.*;
 import arc.struct.ObjectMap.Entry;
 import com.sun.istack.NotNull;
-import mindustry.ai.types.*;
+import mindustry.ai.types.FlyingAI;
 import mindustry.content.*;
 import mindustry.entities.abilities.MoveEffectAbility;
 import mindustry.entities.bullet.*;
-import mindustry.entities.effect.MultiEffect;
+import mindustry.entities.effect.*;
 import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.ShootAlternate;
 import mindustry.gen.*;
@@ -65,14 +65,12 @@ public class UAWUnitTypes {
 	private static final Entry<Class<? extends Entityc>, Prov<? extends Entityc>>[] types = new Entry[]{
 		prov(CopterUnitEntity.class, CopterUnitEntity::new),
 		prov(TankUnitEntity.class, TankUnitEntity::new),
-//		prov(JetUnitEntity.class, JetUnitEntity::new)
 	};
 
 	private static final ObjectIntMap<Class<? extends Entityc>> idMap = new ObjectIntMap<>();
 
 	/**
 	 * Internal function to flatmap {@code Class -> Prov} into an {@link Entry}.
-	 *
 	 * @author GlennFolker
 	 */
 	private static <T extends Entityc> Entry<Class<T>, Prov<T>> prov(Class<T> type, Prov<T> prov) {
@@ -87,7 +85,6 @@ public class UAWUnitTypes {
 	 * <p>
 	 * Put this inside load()
 	 * </p>
-	 *
 	 * @author GlennFolker
 	 */
 	private static void setupID() {
@@ -113,7 +110,6 @@ public class UAWUnitTypes {
 
 	/**
 	 * Retrieves the class ID for a certain entity type.
-	 *
 	 * @author GlennFolker
 	 */
 	public static <T extends Entityc> int classID(Class<T> type) {
@@ -140,80 +136,6 @@ public class UAWUnitTypes {
 		// Serpulo
 
 		// region Air - Helicopters
-		crotchety = new HelicopterUnitType("crotchety") {{
-			float unitRange = 15 * tilesize;
-			health = 350;
-			hitSize = 12;
-
-			speed = 1.6f;
-			accel = 0.05f;
-			drag = 0.016f;
-			rotateSpeed = 5.5f;
-
-			ammoType = new ItemAmmoType(Items.graphite);
-
-			faceTarget = flying = true;
-			range = unitRange;
-
-			targetAir = false;
-
-			fallSpeed = 0.0015f;
-			spinningFallSpeed = 4;
-			fallSmokeY = -10f;
-
-			targetFlags = new BlockFlag[]{BlockFlag.generator, BlockFlag.turret, BlockFlag.repair, null};
-
-			constructor = CopterUnitEntity::new;
-			aiController = DefenderAI::new;
-
-			rotors.add(
-				new Rotor(modName + "short-blade") {{
-					x = 0;
-					y = 4 * px;
-					rotorSpeed = -35;
-					bladeCount = 2;
-					rotorBlurAlphaMultiplier = 1.2f;
-					rotorBlurSpeedMultiplier = 0.125f;
-				}}
-			);
-			weapons.add(new Weapon(machineGun_medium_2_red) {{
-				layerOffset = -0.01f;
-				rotate = true;
-				mirror = true;
-				rotateSpeed = 0.2f;
-				rotationLimit = 20;
-				inaccuracy = 3f;
-				x = 30 * px;
-				y = 17 * px;
-				reload = 75f;
-				recoil = 6 * px;
-				shootSound = Sfx.gunShoot5;
-				ejectEffect = Fx.casing3;
-				shootStatusDuration = reload * 5f;
-				shootStatus = StatusEffects.slow;
-				bullet = new TrailBulletType(6f, 75) {{
-					hitSize = 6;
-					height = 14f;
-					width = 7f;
-					frontColor = UAWPal.graphiteFront;
-					backColor = UAWPal.graphiteMiddle;
-					trailEffect = Fx.disperseTrail;
-					trailChance = 0.5f;
-					shootEffect = new MultiEffect(
-						Fx.shootBigColor,
-						Fx.fireSmoke
-					);
-					hitEffect = UAWFx.hitBulletBigColor;
-					trailColor = hitColor = backColor;
-					despawnHit = true;
-					smokeEffect = Fx.shootBigSmoke;
-					reloadMultiplier = 0.5f;
-					ammoMultiplier = 2;
-					knockback = 1.2f;
-					shake = 2.2f;
-				}};
-			}});
-		}};
 
 		aglovale = new HelicopterUnitType("aglovale") {{
 			float unitRange = 28 * tilesize;
@@ -386,14 +308,18 @@ public class UAWUnitTypes {
 					width = 15f;
 					trailSize = 5;
 					despawnHit = true;
+					hitColor = UAWPal.surgeMiddle;
 					lifetime = (unitRange / speed) * 1.5f;
-					shootEffect = Fx.shootBig;
+					status = UAWStatusEffects.EMP;
+					statusDuration = 0.5f * tick;
+					shootEffect = Fx.shootBigColor;
+					smokeEffect = Fx.shootBigSmoke;
 					hitEffect = new MultiEffect(Fx.blastExplosion, Fx.flakExplosionBig);
 					hitSound = Sounds.boom;
-					frontColor = Pal.plastaniumFront;
-					backColor = Pal.plastaniumBack;
+					frontColor = UAWPal.surgeFront;
+					backColor = UAWPal.surgeBack;
 					splashDamage = 16f;
-					splashDamageRadius = 2 * tilesize;
+					splashDamageRadius = 2.5f * tilesize;
 					ammoMultiplier = 6f;
 				}};
 			}});
@@ -613,9 +539,87 @@ public class UAWUnitTypes {
 
 		// endregion Air - Helicopters
 
-		// region Air - Carriers
+		// region Air - Carriers - Cryocopters
+		crotchety = new HelicopterUnitType("crotchety") {{
+			float unitRange = 25 * tilesize;
+			health = 550;
+			hitSize = 12;
+
+			speed = 1.7f;
+			accel = 0.05f;
+			drag = 0.016f;
+			rotateSpeed = 5.5f;
+
+			ammoType = new ItemAmmoType(Items.graphite);
+
+			faceTarget = flying = true;
+			range = unitRange;
+
+			targetAir = false;
+
+			fallSpeed = 0.0015f;
+			spinningFallSpeed = 4;
+			fallSmokeY = -10f;
+
+			targetFlags = new BlockFlag[]{BlockFlag.generator, BlockFlag.turret, BlockFlag.repair, null};
+
+			constructor = CopterUnitEntity::new;
+			aiController = FlyingAI::new;
+
+			rotors.add(
+				new Rotor(modName + "short-blade-cryo") {{
+					topBladeName = "short-blade";
+					x = 0;
+					y = 4 * px;
+					rotorSpeed = -35;
+					bladeCount = 3;
+					rotorBlurAlphaMultiplier = 1.2f;
+					rotorBlurSpeedMultiplier = 0.125f;
+				}}
+			);
+			weapons.add(new Weapon(machineGun_medium_2_cryo) {{
+				layerOffset = -0.01f;
+				rotate = false;
+				mirror = true;
+				inaccuracy = 3f;
+				x = 27 * px;
+				y = 15 * px;
+				reload = 80f;
+				recoil = 6 * px;
+				shootSound = Sfx.gunShoot5;
+				ejectEffect = Fx.casing3;
+				bullet = new StatusEffectBulletType(UAWStatusEffects.cryoBurn, 3 * tick) {{
+					lifetime = unitRange / speed;
+					splashDamage = 50;
+					splashDamageRadius = 4 * tilesize;
+					frontColor = UAWPal.cryoFront;
+					backColor = UAWPal.cryoBack;
+					trailEffect = new MultiEffect(
+						Fx.disperseTrail,
+						UAWFx.statusEffectCircle.wrap(frontColor)
+					);
+					trailChance = 0.5f;
+					shootEffect = Fx.shootBigColor;
+					trailColor = hitColor = backColor;
+					hitEffect = new MultiEffect(
+						new ExplosionEffect() {{
+							lifetime = 20f;
+							waveLife = 15f;
+							smokes = 36;
+							sparks = 18;
+							waveColor = UAWPal.cryoFront;
+							sparkColor = UAWPal.cryoMiddle;
+							waveRad = splashDamageRadius;
+							smokeRad = splashDamageRadius * 1.2f;
+						}}
+					);
+					smokeEffect = Fx.shootBigSmoke;
+					shake = 2.2f;
+				}};
+			}});
+		}};
 		cantankerous = new HelicopterUnitType("cantankerous") {{
-			float unitRange = 30 * tilesize;
+			float unitRange = 32 * tilesize;
 			health = 3500;
 			armor = 12f;
 			hitSize = 25;
@@ -647,7 +651,8 @@ public class UAWUnitTypes {
 			float layerOffset = -0.00009f;
 			float rotorScaling = 0.55f;
 			rotors.add(
-				new Rotor(modName + "short-blade") {{
+				new Rotor(modName + "short-blade-cryo") {{
+					topBladeName = "short-blade";
 					x = -rotX;
 					y = rotY;
 					rotorSpeed = rotSpeed;
@@ -656,7 +661,8 @@ public class UAWUnitTypes {
 					rotorLayer = layerOffset;
 					rotorSizeScl = rotorTopSizeScl = rotorScaling;
 				}},
-				new Rotor(modName + "short-blade") {{
+				new Rotor(modName + "short-blade-cryo") {{
+					topBladeName = "short-blade";
 					x = rotX;
 					y = rotY;
 					rotorSpeed = rotSpeed;
@@ -673,48 +679,125 @@ public class UAWUnitTypes {
 				rotateSpeed = 1.5f;
 				mirror = false;
 				shootCone = 90;
-				inaccuracy = 12f;
+				inaccuracy = 6f;
 				x = y = 0;
 				reload = 180f;
 				recoil = 0;
 				shootSound = Sfx.cannonShoot1;
 				ejectEffect = Fx.casing3;
 				shootY = 82 * px;
-				bullet = new TrailBulletType(8f, 225) {{
-					pierceArmor = true;
-					hitSize = 8;
-					height = 16f;
-					width = 8f;
-					frontColor = UAWPal.graphiteFront;
-					backColor = UAWPal.graphiteMiddle;
-					trailEffect = Fx.disperseTrail;
-					trailChance = 0.8f;
-					shootEffect = Fx.shootBigColor;
-					hitEffect = new MultiEffect(
-						Fx.hitBulletColor,
-						Fx.hitBeam,
-						UAWFx.hitBulletBigColor
-					);
+				shoot = new ShootAlternate() {{
+					shots = 2;
+					shotDelay = 7.5f;
+					spread = 1f;
+					barrels = 1;
+				}};
+				bullet = new StatusEffectBulletType(UAWStatusEffects.cryoBurn, 8 * tick) {{
 					lifetime = unitRange / speed;
+					splashDamage = 90;
+					splashDamageRadius = 6 * tilesize;
+					frontColor = UAWPal.cryoFront;
+					backColor = UAWPal.cryoBack;
+					trailEffect = new MultiEffect(
+						Fx.disperseTrail,
+						UAWFx.statusEffectCircle.wrap(frontColor)
+					);
+					trailChance = 0.5f;
+					shootEffect = Fx.shootBigColor;
 					trailColor = hitColor = backColor;
-					despawnHit = true;
+					hitEffect = new MultiEffect(
+						new ExplosionEffect() {{
+							lifetime = 20f;
+							waveLife = 15f;
+							smokes = 39;
+							sparks = 21;
+							waveColor = UAWPal.cryoFront;
+							sparkColor = UAWPal.cryoMiddle;
+							waveRad = splashDamageRadius;
+							smokeRad = splashDamageRadius * 1.2f;
+						}}
+					);
 					smokeEffect = Fx.shootBigSmoke;
-					reloadMultiplier = 0.5f;
-					ammoMultiplier = 2;
-					knockback = 1.2f;
-					shake = 2.5f;
-					pierceCap = 3;
-					collidesGround = false;
+					shake = 2.2f;
 				}};
 				parts.addAll(
 					new RegionPart("-gun") {{
 						progress = PartProgress.recoil;
-						moveY = -10 * px;
+						moveY = -13 * px;
 						mirror = false;
 						layerOffset = 0.01f;
 						outlineLayerOffset = -0.025f;
 					}}
 				);
+			}});
+			weapons.add(new Weapon(missile_medium_cryo_3) {{
+				layerOffset = -0.05f;
+				mirror = true;
+
+				x = 24 * px;
+				y = -2 * px;
+
+				rotate = false;
+				alternate = false;
+				rotationLimit = 20;
+				baseRotation = -90;
+				reload = 4 * tick;
+				recoil = 0f;
+				inaccuracy = 12f;
+				shootCone = 180f;
+
+				shootSound = Sounds.missileLaunch;
+
+				maxRange = unitRange;
+
+				shoot = new ShootAlternate() {{
+					shots = 2;
+					shotDelay = 16f;
+					barrels = 1;
+				}};
+
+				bullet = new BulletType() {{
+					hitColor = UAWPal.cryoFront;
+					shootEffect = Fx.shootBigColor;
+					smokeEffect = Fx.shootBigSmoke2;
+					shake = 1f;
+					speed = 0f;
+					keepVelocity = false;
+
+					spawnUnit = new CruiseMissileUnitType("cantankerous-missile") {{
+						sprite = cruisemissile_small_cryo;
+						health = 200;
+						speed = 4.5f;
+						maxRange = 4 * tilesize;
+						lifetime = unitRange * 1.5f / this.speed;
+
+						trailColor = exhaustColor = UAWPal.cryoBack;
+						engineSize = 4 * px;
+						engineOffset = 12f * px;
+						rotateSpeed = 3f;
+						trailLength = 9;
+						missileAccelTime = 35f;
+						deathSound = Sounds.largeExplosion;
+
+						weapons.add(new SuicideWeapon() {{
+							float splashRad = 4 * tilesize;
+							bullet = new ExplosionBulletType(health * 0.6f, splashRad) {{
+								status = UAWStatusEffects.cryoBurn;
+								statusDuration = 5 * tick;
+								makeFire = true;
+								hitColor = UAWPal.cryoMiddle;
+								shootEffect = UAWFx.dynamicExplosion(splashRad, hitColor, exhaustColor);
+							}};
+						}});
+						abilities.add(new MoveEffectAbility() {{
+							color = Color.grays(0.3f).lerp(UAWPal.cryoMiddle, 0.5f).a(0.4f);
+							effect = UAWFx.missileTrailSmoke(45, 3, 14);
+							rotation = 180f;
+							y = -9f;
+							interval = 4f;
+						}});
+					}};
+				}};
 			}});
 		}};
 		// endregion Air - Carriers
@@ -1396,7 +1479,7 @@ public class UAWUnitTypes {
 						knockback = 4f;
 						despawnHit = true;
 						shootEffect = new MultiEffect(
-							UAWFx.railShoot(80f, backColor),
+							UAWFx.railShoot(35f, backColor),
 							Fx.shootPyraFlame,
 							Fx.shootSmallSmoke
 						);
@@ -1518,7 +1601,7 @@ public class UAWUnitTypes {
 					ejectEffect = UAWFx.casing3Long;
 					bullet = new HighVelocityShellBulletType(15f, 355) {{
 						shootEffect = new MultiEffect(
-							UAWFx.railShoot(90f, UAWPal.graphiteFront),
+							UAWFx.railShoot(45f, UAWPal.graphiteFront),
 							Fx.shootTitan,
 							UAWFx.shootHugeColor
 						);
@@ -1711,7 +1794,7 @@ public class UAWUnitTypes {
 						frontColor = Pal.bulletYellow;
 						backColor = Pal.bulletYellowBack;
 						shootEffect = new MultiEffect(
-							UAWFx.railShoot(98f, backColor),
+							UAWFx.railShoot(50f, backColor),
 							Fx.shootTitan,
 							UAWFx.shootHugeColor
 						);
@@ -1785,7 +1868,7 @@ public class UAWUnitTypes {
 					ejectEffect = Fx.casing1;
 
 					shoot = new ShootAlternate() {{
-						shots = 6;
+						shots = 5;
 						shotDelay = 12f;
 						barrels = 2;
 					}};

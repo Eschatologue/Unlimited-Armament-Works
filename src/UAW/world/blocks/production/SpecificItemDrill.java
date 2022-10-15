@@ -10,6 +10,7 @@ import mindustry.entities.Effect;
 import mindustry.game.Team;
 import mindustry.type.Item;
 import mindustry.world.*;
+import mindustry.world.blocks.environment.*;
 import mindustry.world.blocks.production.BurstDrill;
 import mindustry.world.meta.Stat;
 
@@ -20,8 +21,9 @@ public class SpecificItemDrill extends BurstDrill {
 	public Block tileRequirement = Blocks.oreCoal;
 	/** The drilling result */
 	public Item drilledItem = UAWItems.anthracite;
-	/** Whenever if the placing requirement is an overlay or a floor */
-	public boolean isFloor = false;
+
+	/** Dont tamper with this */
+	public boolean placeable;
 
 	public SpecificItemDrill(String name) {
 		super(name);
@@ -38,13 +40,15 @@ public class SpecificItemDrill extends BurstDrill {
 	public boolean canPlaceOn(Tile tile, Team team, int rotation) {
 		if (isMultiblock()) {
 			for (var other : tile.getLinkedTilesAs(this, tempTiles)) {
-				if (canMine(other) && !isFloor ? tile.overlay() == tileRequirement : tile.floor() == tileRequirement) {
+				if (canMine(other) && tileRequirement instanceof OverlayFloor ? tile.overlay() == tileRequirement : tile.floor() == tileRequirement) {
+					placeable = true;
 					return true;
 				}
 			}
+			placeable = false;
 			return false;
 		} else {
-			return canMine(tile) && !isFloor ? tile.overlay() == tileRequirement : tile.floor() == tileRequirement;
+			return canMine(tile) && tileRequirement instanceof OverlayFloor ? tile.overlay() == tileRequirement : tile.floor() == tileRequirement;
 		}
 	}
 
@@ -88,7 +92,7 @@ public class SpecificItemDrill extends BurstDrill {
 
 		countOre(tile);
 
-		if (returnItem != null && !isFloor ? tile.overlay() == tileRequirement : tile.floor() == tileRequirement) {
+		if (returnItem != null && tileRequirement instanceof OverlayFloor ? tile.overlay() == tileRequirement : tile.floor() == tileRequirement) {
 			float width = drawPlaceText(Core.bundle.formatFloat("bar.drillspeed", 60f / (drillTime + hardnessDrillMultiplier * returnItem.hardness) * returnCount, 2), x, y, valid);
 			float dx = x * tilesize + offset - width / 2f - 4f, dy = y * tilesize + offset + size * tilesize / 2f + 5, s = iconSmall / 4f;
 			Draw.mixcol(Color.darkGray, 1f);
@@ -103,12 +107,12 @@ public class SpecificItemDrill extends BurstDrill {
 			}
 
 		} else {
-			Tile to = tile.getLinkedTilesAs(this, tempTiles).find(t -> !isFloor ? tile.overlay() != tileRequirement : tile.floor() != tileRequirement);
+			Tile to = tile.getLinkedTilesAs(this, tempTiles).find(t -> tileRequirement instanceof OverlayFloor ? tile.overlay() != tileRequirement : tile.floor() != tileRequirement);
 			Item item = to == null ? null : to.drop();
-			if (item != null) {
+			if (item != null || !placeable) {
 				drawPlaceText(Core.bundle.get("bar.inoperative"), x, y, valid);
-			}
 
+			}
 		}
 	}
 
@@ -125,14 +129,14 @@ public class SpecificItemDrill extends BurstDrill {
 		}
 
 		@Override
-		public void updateTile(){
-			if(dominantItem == null){
+		public void updateTile() {
+			if (dominantItem == null) {
 				return;
 			}
 
-			if(invertTime > 0f) invertTime -= delta() / invertedTime;
+			if (invertTime > 0f) invertTime -= delta() / invertedTime;
 
-			if(timer(timerDump, dumpTime)){
+			if (timer(timerDump, dumpTime)) {
 				dump(items.has(drilledItem) ? drilledItem : null);
 			}
 
@@ -140,7 +144,7 @@ public class SpecificItemDrill extends BurstDrill {
 
 			smoothProgress = Mathf.lerpDelta(smoothProgress, progress / (drillTime - 20f), 0.1f);
 
-			if(items.total() <= itemCapacity - dominantItems && dominantItems > 0 && efficiency > 0){
+			if (items.total() <= itemCapacity - dominantItems && dominantItems > 0 && efficiency > 0) {
 				warmup = Mathf.approachDelta(warmup, progress / drillTime, 0.01f);
 
 				float speed = efficiency;
@@ -149,21 +153,21 @@ public class SpecificItemDrill extends BurstDrill {
 
 				lastDrillSpeed = 1f / drillTime * speed * dominantItems;
 				progress += delta() * speed;
-			}else{
+			} else {
 				warmup = Mathf.approachDelta(warmup, 0f, 0.01f);
 				lastDrillSpeed = 0f;
 				return;
 			}
 
-			if(dominantItems > 0 && progress >= drillTime && items.total() < itemCapacity){
-				for(int i = 0; i < dominantItems; i++){
+			if (dominantItems > 0 && progress >= drillTime && items.total() < itemCapacity) {
+				for (int i = 0; i < dominantItems; i++) {
 					offload(drilledItem);
 				}
 
 				invertTime = 1f;
 				progress %= drillTime;
 
-				if(wasVisible){
+				if (wasVisible) {
 					Effect.shake(shake, shake, this);
 					drillSound.at(x, y, 1f + Mathf.range(drillSoundPitchRand), drillSoundVolume);
 					drillEffect.at(x + Mathf.range(drillEffectRnd), y + Mathf.range(drillEffectRnd), drilledItem.color);

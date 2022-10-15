@@ -1,7 +1,6 @@
 package UAW.entities.bullet;
 
 import UAW.audiovisual.*;
-import arc.Core;
 import arc.math.Mathf;
 import mindustry.content.Fx;
 import mindustry.entities.bullet.BasicBulletType;
@@ -16,6 +15,7 @@ public class TrailBulletType extends BasicBulletType {
 	 * <p> 0 to disable </p>
 	 */
 	public float trailLengthScale = 1f;
+	public float trailWidthScale = 0.289f;
 
 	public TrailBulletType(float speed, float damage, String bulletSprite) {
 		super(speed, damage);
@@ -37,7 +37,7 @@ public class TrailBulletType extends BasicBulletType {
 		drawSize = Math.max(drawSize, trailLength * speed * 4.5f);
 		if (trailLengthScale > 0) {
 			trailRotation = true;
-			trailWidth = width / 3.46f;
+			trailWidth = width * trailWidthScale;
 			trailLength = Mathf.round(height * trailLengthScale);
 			trailColor = backColor;
 		}

@@ -113,6 +113,24 @@ public class UAWFx {
 
 	// endregion Hit
 
+	// region Status
+	statusEffectCircle = new Effect(35f, e -> {
+		color(e.color);
+
+		randLenVectors(e.id, 3, 2f + e.fin() * 7f, (x, y) -> {
+			Fill.circle(e.x + x, e.y + y, 0.2f + e.fslope() * 1.5f);
+		});
+	}),
+
+	statusEffectSquare = new Effect(35f, e -> {
+		color(e.color);
+
+		randLenVectors(e.id, 3, 2f + e.fin() * 7f, (x, y) -> {
+			Fill.square(e.x + x, e.y + y, 0.2f + e.fslope() * 1.5f, 45f);
+		});
+	}),
+	// endregion Status
+
 	// region Casings
 	casing1Double = new Effect(32f, e -> {
 		color(Pal.lightOrange, Color.lightGray, Pal.lightishGray, e.fin());
@@ -278,7 +296,6 @@ public class UAWFx {
 
 	/**
 	 * Based on {@link Fx#instShoot}
-	 *
 	 * @param burstLength
 	 * 	[85] The length of the side burst
 	 * @param lifetime
@@ -316,7 +333,6 @@ public class UAWFx {
 
 	/**
 	 * Based on {@link Fx#railShoot}
-	 *
 	 * @param burstLength
 	 * 	[85] Side Burst Length
 	 * @param lifetime
@@ -345,7 +361,6 @@ public class UAWFx {
 
 	/**
 	 * Based on Fx.railTrail
-	 *
 	 * @param width
 	 * 	How wide is the trail, also adjusts its height, spacing have to be adjusted manually
 	 * @param color
@@ -368,7 +383,6 @@ public class UAWFx {
 
 	/**
 	 * Based on {@link Fx#railHit}
-	 *
 	 * @param hitLength
 	 * 	[60] Hit length of the effect
 	 * @param lifetime
@@ -393,7 +407,6 @@ public class UAWFx {
 
 	/**
 	 * Based on {@link Fx#instHit}
-	 *
 	 * @param burstLength
 	 * 	[80]
 	 * @param lifetime
@@ -450,7 +463,6 @@ public class UAWFx {
 
 	/**
 	 * Modified version of {@link Fx#shootBigSmoke2}
-	 *
 	 * @param lifetime
 	 * 	[18] How long does the smoke lasts, also adjusts amount, spreads, and radius.
 	 * @param color
@@ -485,7 +497,7 @@ public class UAWFx {
 
 	/** Refer to {@link UAWFx#shootSmokeMissile(float, float, int, Color, float)} */
 	public static Effect shootSmokeMissile(float size, Color color) {
-		return shootSmokeMissile(size, 35, color);
+		return shootSmokeMissile(size, color, 180);
 	}
 
 	/** Refer to {@link UAWFx#shootSmokeMissile(float, float, int, Color, float)} */
@@ -505,7 +517,6 @@ public class UAWFx {
 
 	/**
 	 * Based on {@link Fx#shootSmokeMissile}
-	 *
 	 * @param lifetime
 	 * 	[130]
 	 * @param size
@@ -532,7 +543,6 @@ public class UAWFx {
 
 	/**
 	 * Based on Fx.fireHit, that will scale based on particle radius, don't make it too big, or it will lag
-	 *
 	 * @param particleRadius
 	 * 	How big is the particle | Default is 0.2
 	 * @param lightColor
@@ -575,7 +585,6 @@ public class UAWFx {
 
 	/**
 	 * Caernarvon shell trail
-	 *
 	 * @param length
 	 * 	Size and Thickness is the side trail || Default  is 45
 	 */
@@ -590,7 +599,6 @@ public class UAWFx {
 
 	/**
 	 * Fx.dynamicExplosion
-	 *
 	 * @param size
 	 * 	How big is the explosion
 	 */
@@ -634,7 +642,6 @@ public class UAWFx {
 
 	/**
 	 * Based on Fx.dymamicExplosion, Lines is replaced with circleSparks
-	 *
 	 * @param size
 	 * 	How big is the explosion, can be based on splashDamageRadius, also adjusts lifetime and clip size
 	 */
@@ -724,9 +731,13 @@ public class UAWFx {
 		});
 	}
 
+	/** Refer to {@link UAWFx#circleSplash(float, float, Color, Color, Color, int)} */
+	public static Effect circleSplash(float size, float lifetime, Color frontColor, Color backColor, Color splashColor) {
+		return circleSplash(size, lifetime, frontColor, backColor, splashColor, 0);
+	}
+
 	/**
 	 * Used with repeating aftershocks and statusfieldprojectors
-	 *
 	 * @param size
 	 * 	How big is the affected area
 	 * @param lifetime
@@ -736,9 +747,9 @@ public class UAWFx {
 	 * @param pointCount
 	 * 	How many circling point does the effect has
 	 */
-	public static Effect circleSplash(float size, float lifetime, Color lightColor, Color darkColor, Color splashColor, int pointCount) {
+	public static Effect circleSplash(float size, float lifetime, Color frontColor, Color backColor, Color splashColor, int pointCount) {
 		return new Effect(lifetime, size * 2f, e -> {
-			Draw.color(lightColor, darkColor, e.fin());
+			Draw.color(frontColor, backColor, e.fin());
 			Lines.stroke(e.fout() * 4f);
 			Lines.circle(e.x, e.y, size + e.fout() * 3f - 2f);
 			Draw.reset();
@@ -747,7 +758,7 @@ public class UAWFx {
 				for (int i = 0; i < pointCount; i++) {
 					float angle = (i * 360f / pointCount + (Time.time * 3)) + (offset + 4);
 					float rx = Angles.trnsx(angle, size - 2f), ry = Angles.trnsy(angle, size);
-					Draw.color(lightColor, darkColor, e.fin());
+					Draw.color(frontColor, backColor, e.fin());
 					Drawf.tri(
 						e.x + rx, e.y + ry, 48f, 28f * e.fout(), angle);
 				}
@@ -755,13 +766,12 @@ public class UAWFx {
 			Draw.z(Layer.debris);
 			Fill.light(e.x, e.y, Lines.circleVertices(size / 2), size, Color.white.cpy().a(0f), Tmp.c4.set(splashColor).a(e.fout()));
 			Draw.reset();
-			Drawf.light(e.x, e.y, size * 1.6f, darkColor, e.fout());
+			Drawf.light(e.x, e.y, size * 1.6f, backColor, e.fout());
 		});
 	}
 
 	/**
 	 * Based on Fx.blastExplosion
-	 *
 	 * @param frontColor
 	 * 	The lighter color | Default : Pal.MissileYellow
 	 * @param backColor
@@ -788,7 +798,6 @@ public class UAWFx {
 
 	/**
 	 * Based on Fx.massiveExplosion
-	 *
 	 * @param frontColor
 	 * 	The lighter color | Default : Pal.MissileYellow
 	 * @param backColor
@@ -821,7 +830,6 @@ public class UAWFx {
 
 	/**
 	 * Based on {@link Fx#greenBomb}
-	 *
 	 * @param size
 	 * 	[ 68 (17 * tilesize)] How big is the radius, also adjusts lifetime
 	 * @param rotation
@@ -853,24 +861,44 @@ public class UAWFx {
 		});
 	}
 
+	/** Refer to {@link UAWFx#burstCloud(float, float, int, float, Color)} */
+	public static Effect burstCloud(Color color) {
+		return burstCloud(15, color);
+	}
+
+	/** Refer to {@link UAWFx#burstCloud(float, float, int, float, Color)} */
+	public static Effect burstCloud(float size, Color color) {
+		return burstCloud(size, 22, 160, color);
+	}
+
+	/** Refer to {@link UAWFx#burstCloud(float, float, int, float, Color)} */
+	public static Effect burstCloud(float size, int amount, float spreadRad, Color color) {
+		return burstCloud(size, size * 6, amount, spreadRad, color);
+	}
+
 	/**
-	 * Based on {@link Fx#smokeCloud}
-	 *
-	 * @param color
-	 * 	The color of the cloud, use darker color
+	 * Based on old Fx.impactCloud
+	 * @param size
+	 * 	[15]
+	 * @param lifetime
+	 * 	[120]
+	 * @param amount
+	 * 	[22]
+	 * @param spreadRad
+	 * 	[160]
 	 */
-	public static Effect impactCloud(Color color) {
-		return new Effect(120, 400f, e ->
-			randLenVectors(e.id, 22, e.finpow() * 160f, (x, y) -> {
-				float size = e.fout() * 15f;
+	public static Effect burstCloud(float size, float lifetime, int amount, float spreadRad, Color color) {
+		return new Effect(lifetime, 400f, e ->
+			randLenVectors(e.id, amount, e.finpow() * spreadRad, (x, y) -> {
+				float rad = e.fout() * size;
+				alpha(0.8f * e.fout());
 				color(color, Color.lightGray, e.fin());
-				circle(e.x + x, e.y + y, size / 2f);
+				Fill.circle(e.x + x, e.y + y, rad);
 			}));
 	}
 
 	/**
 	 * {@link Fx#surgeCruciSmoke}
-	 *
 	 * @param lifetime
 	 * 	How long does the effect lasts | 160
 	 * @param particleRad
@@ -899,24 +927,90 @@ public class UAWFx {
 
 	/**
 	 * Steam Cloud used for steam effects on various buildings
-	 *
 	 * @param smokeSize
-	 * 	How big is the smoke 'puff', based on tilesize, also adjusts the amount of 'puff'
+	 * 	How big is the smoke 'puff' also adjusts the amount of 'puff'
 	 * @param color
 	 * 	The color of the smoke/puff
 	 */
 	public static Effect cloudPuff(float smokeSize, Color color) {
 		float smokeSizeLfMult = 12f;
 		return new Effect(smokeSize * smokeSizeLfMult, smokeSize * smokeSizeLfMult * 2.85f, e -> {
-			Draw.color(Tmp.c1.set(color).mul(1.1f));
-			Angles.randLenVectors(e.id, (int) (6 * smokeSize), 12f * e.finpow() * smokeSize / 8, (x, y) -> {
-				Draw.alpha(0.45f * e.fout());
+			color(Tmp.c1.set(color).mul(1.1f));
+			randLenVectors(e.id, (int) (6 * smokeSize), 12f * e.finpow() * smokeSize / 8, (x, y) -> {
+				alpha(0.45f * e.fout());
 				Fill.circle(e.x + x, e.y + y, e.fout() * 3f + 0.1f);
-				Draw.reset();
+				reset();
 			});
 		}).layer(Layer.blockOver);
 	}
 
+	public static Effect mineImpact(float size, Color color) {
+		return mineImpact(size, 12, color);
+	}
+
+	public static Effect mineImpact(float size, int amount, Color color) {
+		return mineImpact(size, size * 30, amount, color);
+	}
+
+	/**
+	 * {@link Fx#mineImpact}
+	 * @param size
+	 * 	[3]
+	 * @param lifetime
+	 * 	[90]
+	 * @param amount
+	 * 	[12]
+	 */
+	public static Effect mineImpact(float size, float lifetime, int amount, Color color) {
+		return new Effect(lifetime, e -> {
+			color(color, Color.lightGray, e.fin());
+			randLenVectors(e.id, amount, 5f + e.finpow() * 22f, (x, y) -> {
+				Fill.square(e.x + x, e.y + y, e.fout() * size, 45);
+			});
+		});
+	}
+
+
+	public static Effect mineImpactWave(float waveRad, Color color) {
+		return mineImpactWave(waveRad, waveRad * 1.517f, color);
+	}
+
+	public static Effect mineImpactWave(float waveRad, float sparkSpreadRad, Color color) {
+		return mineImpactWave(waveRad, 17, sparkSpreadRad, color);
+	}
+
+	public static Effect mineImpactWave(float waveRad, int spark, float sparkSpreadRad, Color color) {
+		return mineImpactWave(waveRad, spark, sparkSpreadRad, waveRad * 1.7f, color);
+	}
+
+	/**
+	 * {@link Fx#mineImpactWave}
+	 * @param waveRad
+	 * 	[28]
+	 * @param spark
+	 * 	[12]
+	 * @param sparkSpreadRad
+	 * 	[40]
+	 * @param lifetime
+	 * 	[50]
+	 */
+	public static Effect mineImpactWave(float waveRad, int spark, float sparkSpreadRad, float lifetime, Color color) {
+		float waveRadThickness = waveRad * 0.178f;
+		return new Effect(lifetime, e -> {
+			color(color);
+
+			stroke(e.fout() * 1.5f);
+
+			randLenVectors(e.id, spark, 4f + e.finpow() * sparkSpreadRad, (x, y) -> {
+				lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), e.fout() * 5 + 1f);
+			});
+
+			e.scaled(lifetime * 0.6f, b -> {
+				Lines.stroke(waveRadThickness * b.fout());
+				Lines.circle(e.x, e.y, b.finpow() * waveRad);
+			});
+		});
+	}
 
 	// endregion Dynamic
 }

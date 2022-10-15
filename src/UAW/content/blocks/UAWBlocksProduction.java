@@ -40,7 +40,7 @@ public class UAWBlocksProduction {
 	petrochemicalRefinery, petroleumDistillery,
 
 	// Liquid Mixer
-	cryofluidDistillery, surgeMixer;
+	cryofluidBlender, surgeMixer;
 
 	public static void load() {
 		// Drills
@@ -94,23 +94,23 @@ public class UAWBlocksProduction {
 				Items.silicon, 30
 			));
 			size = 3;
+			baseArrowColor = Color.valueOf("989aa4");
 			squareSprite = false;
 			tileRequirement = Blocks.oreCoal;
 			drilledItem = UAWItems.anthracite;
 			tier = 3;
 			arrows = 1;
-			baseArrowColor = Color.valueOf("989aa4");
 			itemCapacity = 35;
 			drillTime = 12 * tick;
 			hasLiquids = true;
 			liquidCapacity = 90f;
 			drillEffect = new MultiEffect(
-				Fx.mineImpact,
+				UAWFx.mineImpact(4, 15, UAWPal.graphiteFront),
+				Fx.mineImpactWave.wrap(UAWPal.graphiteFront, 8 * tilesize),
 				Fx.drillSteam,
-				UAWFx.cloudPuff(4, UAWPal.steamMid),
-				UAWFx.dynamicExplosion(3.5f * tilesize, UAWPal.graphiteFront, UAWPal.graphiteBack)
+				UAWFx.dynamicExplosion(4 * tilesize, UAWPal.graphiteFront, UAWPal.graphiteBack)
 			);
-			consumeLiquid(UAWLiquids.steam, 0.8f);
+			consumeLiquid(UAWLiquids.steam, 1f);
 		}};
 
 		// Frackers
@@ -237,6 +237,7 @@ public class UAWBlocksProduction {
 
 			craftEffect = UAWFx.cloudPuff(10f, UAWPal.steamMid);
 			updateEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
+			updateEffectChance = 0.06f;
 
 			craftTime = 4.5f * tick;
 			consumePower(3.5f);
@@ -368,11 +369,11 @@ public class UAWBlocksProduction {
 		plastFabricator = new GenericCrafter("plastanium-fabricator") {{
 			requirements(Category.crafting, with(
 				Items.silicon, 120,
-				Items.lead, 315,
-				Items.copper, 315,
-				Items.thorium, 155,
+				Items.lead, 215,
+				Items.copper, 215,
+				Items.thorium, 150,
 				Items.graphite, 150,
-				Items.titanium, 380
+				Items.titanium, 250
 			));
 			size = 3;
 			hasItems = true;
@@ -420,11 +421,12 @@ public class UAWBlocksProduction {
 			);
 		}};
 
-		cryofluidDistillery = new GenericCrafter("cryofluid-distillery") {{
+		cryofluidBlender = new GenericCrafter("cryofluid-blender") {{
 			requirements(Category.crafting, with(
 				Items.lead, 150,
 				Items.silicon, 90,
 				Items.metaglass, 50,
+				Items.thorium, 100,
 				Items.titanium, 120
 			));
 			size = 3;
@@ -437,7 +439,6 @@ public class UAWBlocksProduction {
 				Fx.freezing,
 				UAWFx.cloudPuff(45, Color.white)
 			);
-			updateEffectChance = 0.01f;
 
 			craftTime = 2f * tick;
 			consumeItems(with(

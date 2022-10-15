@@ -7,9 +7,9 @@ import mindustry.type.Liquid;
 public class UAWLiquids {
 	public static Liquid placeholder,
 	// Liquid
-	glycerine, nitroglycerine,
+	liqOxygen, glycerine, nitroglycerine,
 	// Gas
-	steam;
+	steam, lpg;
 
 	public static void load() {
 
