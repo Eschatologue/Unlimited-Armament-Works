@@ -2,6 +2,7 @@ displayName: "Unlimited Armament Works"
 name: "uaw"
 author: "Eschatologue"
 main: "UAW.UAWModLoader",
+subtitle: "Helicopters, Tanks, Steam Engines"
 description:
 '''
 UAW is a port and sequel to Heavy Armaments Industries, implementing new unique content to vanilla Mindustry, from more turrets, units, and crafters/factories.
@@ -10,5 +11,5 @@ A lot of work and improvements goes into UAW, if you want to show some support o
 '''
 minGameVersion: 138
 version: v0.8
-minGameVersion: 138
+repo: Eschatologue/Unlimited-Armament-Works
 java: true
