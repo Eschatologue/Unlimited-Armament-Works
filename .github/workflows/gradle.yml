@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v2.5.0
       - name: Set up PATH
         run: |
-          echo "${ANDROID_HOME}/build-tools/30.0.1" >> $GITHUB_PATH
+          echo "${ANDROID_HOME}/build-tools/30.0.1" >> $GITHUB_ENV
       - name: Set up JDK 17
         uses: actions/setup-java@v2
         with:
