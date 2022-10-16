@@ -118,39 +118,39 @@ public class UAWBlocksUnits {
 			);
 		}};
 
-//		tetrativePetroleumReconstructor = new Reconstructor("tetrative-petroleum-reconstructor") {{
-//			requirements(Category.units, with(
-//				Items.lead, 3500,
-//				Items.titanium, 2500,
-//				Items.silicon, 1250,
-//				Items.metaglass, 500,
-//				Items.plastanium, 600,
-//				UAWItems.stoutsteel, 600,
-//				Items.surgeAlloy, 700
-//			));
-//
-//			size = 9;
-//			consumePower(20f);
-//			consumeItems(with(
-//				Items.silicon, 550,
-//				Items.metaglass, 450,
-//				Items.plastanium, 300,
-//				Items.surgeAlloy, 350,
-//				UAWItems.stoutsteel, 350
-//			));
-//			consumeLiquid(Liquids.oil, 3.5f);
-//
-//			constructTime = 225 * tick;
-//			liquidCapacity = 480f;
-//			placeableLiquid = true;
-//
-//			upgrades.addAll(
-//				new UnitType[]{UAWUnitTypes.bedivere, UAWUnitTypes.calogrenant},
-//				new UnitType[]{UAWUnitTypes.carronade, UAWUnitTypes.falconet},
-//				new UnitType[]{UAWUnitTypes.centurion, UAWUnitTypes.caernarvon}
-////			new UnitType[]{UAWUnitTypes.alecto, UAWUnitTypes.megaera}
-////			new UnitType[]{UAWUnitTypes.vindicator, UAWUnitTypes.superfortress}
-//			);
-//		}};
+		tetrativePetroleumReconstructor = new Reconstructor("tetrative-petroleum-reconstructor") {{
+			requirements(Category.units, with(
+				Items.lead, 3000,
+				Items.copper, 3500,
+				Items.titanium, 2250,
+				Items.silicon, 1125,
+				Items.metaglass, 500,
+				Items.plastanium, 600,
+				UAWItems.stoutsteel, 600,
+				Items.surgeAlloy, 600
+			));
+
+			size = 9;
+			consumePower(20f);
+			consumeItems(with(
+				Items.silicon, 450,
+				Items.metaglass, 450,
+				Items.plastanium, 300,
+				Items.surgeAlloy, 350,
+				UAWItems.stoutsteel, 350
+			));
+			consumeLiquid(Liquids.oil, 3.5f);
+
+			constructTime = 225 * tick;
+			liquidCapacity = 480f;
+			placeableLiquid = true;
+
+			upgrades.addAll(
+				new UnitType[]{UAWUnitTypes.bedivere, UAWUnitTypes.calogrenant},
+				new UnitType[]{UAWUnitTypes.carronade, UAWUnitTypes.falconet},
+				new UnitType[]{UAWUnitTypes.centurion, UAWUnitTypes.caernarvon},
+				new UnitType[]{UAWUnitTypes.alecto, UAWUnitTypes.megaera}
+			);
+		}};
 	}
 }

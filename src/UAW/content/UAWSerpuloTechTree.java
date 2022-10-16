@@ -12,7 +12,7 @@ import static UAW.content.blocks.UAWBlocksDefense.*;
 import static UAW.content.blocks.UAWBlocksLogistic.*;
 import static UAW.content.blocks.UAWBlocksPower.*;
 import static UAW.content.blocks.UAWBlocksProduction.*;
-import static UAW.content.blocks.UAWBlocksUnits.airGroundFactory;
+import static UAW.content.blocks.UAWBlocksUnits.*;
 import static mindustry.content.Blocks.*;
 import static mindustry.content.TechTree.*;
 import static mindustry.game.Objectives.*;
@@ -126,6 +126,10 @@ public class UAWSerpuloTechTree {
 							node(falconet);
 						});
 					});
+				});
+
+				node(exponentialPetroleumReconstructor, () -> {
+					node(tetrativePetroleumReconstructor);
 				});
 			});
 
