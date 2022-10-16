@@ -2,18 +2,17 @@ apply plugin: "java"
 
 version '1.0'
 
-//compile java 16 code, targeting java 8
 targetCompatibility = 8
 sourceCompatibility = JavaVersion.VERSION_17
 
 sourceSets.main.java.srcDirs = ["src"]
 
-repositories {
+repositories{
     mavenCentral()
-    maven { url 'https://www.jitpack.io' }
+    maven{ url 'https://www.jitpack.io' }
 }
 
-ext {
+ext{
     //the build number that this mod is made for
     jabelVersion = "0.7.0"
     sdkRoot = System.getenv("ANDROID_HOME") ?: System.getenv("ANDROID_SDK_ROOT")
@@ -28,9 +27,11 @@ allprojects {
 
 dependencies {
     // Base Mindustry
-    compileOnly "com.github.Anuken.Arc:flabel:v138"
-    compileOnly "com.github.Anuken.Arc:arc-core:v138"
-    compileOnly "com.github.anuken.mindustryjitpack:core:155b381"
+
+    compileOnly "com.github.Anuken.Arc:flabel:v139"
+    compileOnly "com.github.Anuken.Arc:arc-core:v139"
+    compileOnly "com.github.anuken.mindustryjitpack:core:v139"
+//    compileOnly "com.github.anuken.mindustryjitpack:core:dad1530172"
 
     annotationProcessor "com.github.Anuken:jabel:$jabelVersion"
 
@@ -39,18 +40,18 @@ dependencies {
 
 }
 
-task jarAndroid{
+task jarAndroid {
     dependsOn "jar"
 
-    doLast{
-        if(!sdkRoot || !new File(sdkRoot).exists()) throw new GradleException("No valid Android SDK found. Ensure that ANDROID_HOME is set to your Android SDK directory.");
+    doLast {
+        if (!sdkRoot || !new File(sdkRoot).exists()) throw new GradleException("No valid Android SDK found. Ensure that ANDROID_HOME is set to your Android SDK directory.");
 
-        def platformRoot = new File("$sdkRoot/platforms/").listFiles().sort().reverse().find{ f -> new File(f, "android.jar").exists()}
+        def platformRoot = new File("$sdkRoot/platforms/").listFiles().sort().reverse().find { f -> new File(f, "android.jar").exists() }
 
-        if(!platformRoot) throw new GradleException("No android.jar found. Ensure that you have an Android platform installed.")
+        if (!platformRoot) throw new GradleException("No android.jar found. Ensure that you have an Android platform installed.")
 
         //collect dependencies needed for desugaring
-        def dependencies = (configurations.compileClasspath.asList() + configurations.runtimeClasspath.asList() + [new File(platformRoot, "android.jar")]).collect{ "--classpath $it.path" }.join(" ")
+        def dependencies = (configurations.compileClasspath.asList() + configurations.runtimeClasspath.asList() + [new File(platformRoot, "android.jar")]).collect { "--classpath $it.path" }.join(" ")
 
         //dex and desugar files - this requires d8 in your PATH
         "d8 $dependencies --min-api 14 --output ${project.archivesBaseName}Android.jar ${project.archivesBaseName}Desktop.jar"
