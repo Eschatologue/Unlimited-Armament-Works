@@ -14,7 +14,8 @@ jobs:
         run: |
           echo "${ANDROID_HOME}/build-tools/30.0.1" >> $GITHUB_PATH
       - name: Set up JDK 17
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3.5.1
+        distribution: temurin
         with:
           java-version: 17
       - name: Build mod jar
