@@ -15,9 +15,9 @@ jobs:
           echo "${ANDROID_HOME}/build-tools/30.0.1" >> $GITHUB_PATH
       - name: Set up JDK 17
         uses: actions/setup-java@v3.5.1
-        distribution: temurin
         with:
           java-version: 17
+          distribution: temurin
       - name: Build mod jar
         run: ./gradlew deploy
       - name: Upload built jar file
