@@ -4,14 +4,11 @@ author: "Eschatologue"
 main: "UAW.UAWModLoader",
 description:
 '''
-    A port and sequel to Heavy Armament Industries, written in java.
-    All development will be implemented here as Heavy Armament Industries has been discontinued and removed from the Mod browser.
+UAW is a port and sequel to Heavy Armaments Industries, implementing new unique content to vanilla Mindustry, from more turrets, units, and crafters/factories.
 
-    Unlimited Armament Works adds loads of new content, that expands upon vanilla Mindustry, adding more turrets, units, factories, and its own power system, steam Engines! and much more.
-
-    A lot of work and improvements goes into UAW, if you want to show some support or like the content, please give the mod a star on GitHub, Thank you!
+A lot of work and improvements goes into UAW, if you want to show some support or like the content, please give the mod a star on GitHub, Thank you!
 '''
-minGameVersion: 136.1
-version: V7 TESTING (0.7.8.1)
-minGameVersion: 136.1
+minGameVersion: 138
+version: v0.8
+minGameVersion: 138
 java: true
