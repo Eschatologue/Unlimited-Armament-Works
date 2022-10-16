@@ -17,7 +17,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: 17
-#          distribution: temurin
+          distribution: temurin
       - name: Build mod jar
         run: ./gradlew deploy
       - name: Upload built jar file
