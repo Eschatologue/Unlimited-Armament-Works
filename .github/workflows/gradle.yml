@@ -13,7 +13,7 @@ jobs:
       - name: Set up PATH
         run: |
           echo "${ANDROID_HOME}/build-tools/30.0.1" >> $GITHUB_PATH
-          echo "${JAVA_HOME}" >> $GITHUB_ENV
+          echo "${JAVA_HOME}/Eclipse Foundation/jdk-17.0.3+7/" >> $GITHUB_ENV
       - name: Set up JDK 17
         uses: actions/setup-java@v3.5.1
         with:
