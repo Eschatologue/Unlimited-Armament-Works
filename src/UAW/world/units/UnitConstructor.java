@@ -14,7 +14,6 @@ public class UnitConstructor extends UnitFactory {
 
 		@Override
 		public void draw(){
-			super.draw();
 			Draw.rect(region, x, y);
 			Draw.rect(outRegion, x, y, rotdeg());
 

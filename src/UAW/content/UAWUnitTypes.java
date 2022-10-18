@@ -139,7 +139,7 @@ public class UAWUnitTypes {
 
 		aglovale = new HelicopterUnitType("aglovale") {{
 			float unitRange = 28 * tilesize;
-			health = 400;
+			health = 450;
 			hitSize = 18;
 
 			speed = 2.5f;
@@ -182,7 +182,7 @@ public class UAWUnitTypes {
 				shoot.shots = 2;
 				shoot.shotDelay = 5f;
 				shootSound = Sounds.missile;
-				bullet = new MissileBulletType(6f, 55) {{
+				bullet = new MissileBulletType(6f, 50) {{
 					width = 6f;
 					height = 12f;
 					shrinkY = 0f;
@@ -213,7 +213,7 @@ public class UAWUnitTypes {
 				reload = 4f;
 				shootSound = Sfx.gunShoot3;
 				ejectEffect = Fx.casing1;
-				bullet = new TrailBulletType(6f, 20) {{
+				bullet = new TrailBulletType(6f, 15) {{
 					height = 8f;
 					width = 5f;
 					pierce = true;
@@ -542,7 +542,7 @@ public class UAWUnitTypes {
 		// region Air - Carriers - Cryocopters
 		crotchety = new HelicopterUnitType("crotchety") {{
 			float unitRange = 25 * tilesize;
-			health = 550;
+			health = 650;
 			hitSize = 12;
 
 			speed = 1.7f;
@@ -590,8 +590,8 @@ public class UAWUnitTypes {
 				ejectEffect = Fx.casing3;
 				bullet = new StatusEffectBulletType(UAWStatusEffects.cryoBurn, 3 * tick) {{
 					lifetime = unitRange / speed;
-					splashDamage = 50;
-					splashDamageRadius = 4 * tilesize;
+					splashDamage = 25;
+					splashDamageRadius = 4.5f * tilesize;
 					frontColor = UAWPal.cryoFront;
 					backColor = UAWPal.cryoBack;
 					trailEffect = new MultiEffect(
@@ -620,8 +620,8 @@ public class UAWUnitTypes {
 		}};
 		cantankerous = new HelicopterUnitType("cantankerous") {{
 			float unitRange = 32 * tilesize;
-			health = 3500;
-			armor = 12f;
+			health = 5500;
+			armor = 15f;
 			hitSize = 25;
 
 			speed = 1.2f;
@@ -681,7 +681,7 @@ public class UAWUnitTypes {
 				shootCone = 90;
 				inaccuracy = 6f;
 				x = y = 0;
-				reload = 180f;
+				reload = 3f * tick;
 				recoil = 0;
 				shootSound = Sfx.cannonShoot1;
 				ejectEffect = Fx.casing3;
@@ -694,7 +694,7 @@ public class UAWUnitTypes {
 				}};
 				bullet = new StatusEffectBulletType(UAWStatusEffects.cryoBurn, 8 * tick) {{
 					lifetime = unitRange / speed;
-					splashDamage = 90;
+					splashDamage = 95;
 					splashDamageRadius = 6 * tilesize;
 					frontColor = UAWPal.cryoFront;
 					backColor = UAWPal.cryoBack;
@@ -741,7 +741,7 @@ public class UAWUnitTypes {
 				alternate = false;
 				rotationLimit = 20;
 				baseRotation = -90;
-				reload = 4 * tick;
+				reload = 4.5f * tick;
 				recoil = 0f;
 				inaccuracy = 12f;
 				shootCone = 180f;
@@ -766,7 +766,7 @@ public class UAWUnitTypes {
 
 					spawnUnit = new CruiseMissileUnitType("cantankerous-missile") {{
 						sprite = cruisemissile_small_cryo;
-						health = 200;
+						health = 250;
 						speed = 4.5f;
 						maxRange = 4 * tilesize;
 						lifetime = unitRange * 1.5f / this.speed;
@@ -1468,7 +1468,7 @@ public class UAWUnitTypes {
 
 					ejectEffect = UAWFx.casing2Long;
 
-					bullet = new TrailBulletType(5f, 155) {{
+					bullet = new TrailBulletType(5f, 140) {{
 						splashDamage = damage;
 						splashDamageRadius = 3 * tilesize;
 						frontColor = Pal.missileYellow;
@@ -1498,6 +1498,7 @@ public class UAWUnitTypes {
 						fragBullets = 8;
 						collidesAir = false;
 						fragBullet = fragGlassFrag;
+						status = StatusEffects.burning;
 					}};
 
 					parts.add(
@@ -1526,7 +1527,7 @@ public class UAWUnitTypes {
 					shootSound = Sfx.gunShoot3;
 					ejectEffect = Fx.casing1;
 
-					bullet = new BasicBulletType(6f, 15) {{
+					bullet = new BasicBulletType(6f, 10) {{
 						height = 8f;
 						width = 5f;
 						buildingDamageMultiplier = 0.4f;
@@ -1755,7 +1756,7 @@ public class UAWUnitTypes {
 			float unitRange = 55 * tilesize;
 			health = 10500;
 			armor = 45;
-			hitSize = 28;
+			hitSize = 22;
 			terrainSpeedMultiplier = 1.2f;
 			terrainDragMultiplier = 1.8f;
 			speed = 4.5f;

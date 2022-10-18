@@ -177,6 +177,7 @@ public class UAWBlocksDefense {
 			range = 35 * tilesize;
 			inaccuracy = 7.5f;
 			rotateSpeed = 7f;
+			targetAir = false;
 
 			shootSound = Sounds.shootBig;
 
@@ -203,6 +204,7 @@ public class UAWBlocksDefense {
 					trailColor = Color.lightGray;
 
 					status = StatusEffects.slow;
+					collidesAir = false;
 				}},
 				UAWItems.stoutsteel, new TrailBulletType(12, 22) {{
 					height = 20;
@@ -217,6 +219,7 @@ public class UAWBlocksDefense {
 					shootEffect = Fx.shootBigColor;
 					trailEffect = Fx.disperseTrail;
 					trailChance = 0.7f;
+					collidesAir = false;
 				}},
 				Items.pyratite, new BasicBulletType(7, 15) {{
 					height = 25;
@@ -233,6 +236,7 @@ public class UAWBlocksDefense {
 					makeFire = true;
 					trailChance = 0.4f;
 					trailColor = Color.lightGray;
+					collidesAir = false;
 				}},
 				UAWItems.cryogel, new BasicBulletType(7, 15) {{
 					height = 25;
@@ -249,6 +253,7 @@ public class UAWBlocksDefense {
 					status = StatusEffects.freezing;
 					trailChance = 0.4f;
 					trailColor = Color.lightGray;
+					collidesAir = false;
 				}},
 				Items.surgeAlloy, new BasicBulletType(8, 15) {{
 					height = 25;
@@ -264,6 +269,7 @@ public class UAWBlocksDefense {
 					lightningAngle = 360;
 					lightningDamage = 1.5f;
 					lightningLength = 12;
+					collidesAir = false;
 				}}
 			);
 			limitRange(2 * tilesize);
