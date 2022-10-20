@@ -29,9 +29,9 @@ allprojects {
 dependencies {
 
     // Base Mindustry
-    compileOnly "com.github.Anuken.Arc:flabel:v139"
-    compileOnly "com.github.Anuken.Arc:arc-core:v139"
-    compileOnly "com.github.anuken.mindustryjitpack:core:v139"
+    compileOnly "com.github.Anuken.Arc:flabel:$mindustryVersion"
+    compileOnly "com.github.Anuken.Arc:arc-core:$mindustryVersion"
+    compileOnly "com.github.anuken.mindustryjitpack:core:$mindustryVersion"
 
 //    compileOnly "com.github.anuken.mindustryjitpack:core:$mindustryVersion"
 //    compileOnly "com.github.anuken.mindustryjitpack:core:dad1530172"

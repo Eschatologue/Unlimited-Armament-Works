@@ -134,6 +134,7 @@ public class UAWBlocksProduction {
 			baseEfficiency = 0.5f;
 			rotateSpeed = -2.5f;
 
+			hasPower = false;
 			squareSprite = false;
 
 			consumeLiquid(UAWLiquids.steam, pumpAmount / 2.5f);
