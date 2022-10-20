@@ -27,7 +27,7 @@ to be played side by side with vanilla Mindustry.
 
 ### Check upcoming content, progress and more here :
 
-[![](https://img.shields.io/badge/Clickup-7B68EE?style=for-the-badge&logo=clickup&logoColor=white)](https://sharing.clickup.com/42609626/l/h/4-60888210-1/36d7169bc5eb9ed)
+[![](https://img.shields.io/badge/trello-7B68EE?style=for-the-badge&logo=trello&logoColor=white)](https://trello.com/b/afzKTO6C/unlimited-armament-works)
 
 
 </div> 
