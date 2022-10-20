@@ -27,6 +27,10 @@ allprojects {
 }
 
 dependencies {
+    compileOnly "com.github.Anuken.Arc:freetype:e319dd0056"
+    compileOnly "com.github.Anuken.Arc:g3d:e319dd0056"
+    compileOnly "com.github.Anuken:rhino:73a812444ac388ac2d94013b5cadc8f70b7ea027"
+
     // Base Mindustry
     compileOnly "com.github.Anuken.Arc:arc-core:$mindustryVersion"
     compileOnly "com.github.Anuken.Mindustry:core:$mindustryVersion"
