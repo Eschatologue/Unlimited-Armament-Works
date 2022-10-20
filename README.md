@@ -33,7 +33,7 @@ DOWNLOAD
 
 <div align="center">
 
-[![](https://img.shields.io/badge/Trello-0b5394?style=for-the-badge&logo=trello&logoColor=white)](https://trello.com/b/afzKTO6C/unlimited-armament-works)
+[![](https://img.shields.io/badge/Clickup-7B68EE?style=for-the-badge&logo=clickup&logoColor=white)](https://sharing.clickup.com/42609626/l/h/4-60888210-1/36d7169bc5eb9ed)
 [![Download](https://img.shields.io/github/v/release/Eschatologue/Unlimited-Armament-Works?color=6aa84f&include_prereleases&label=Latest%20version&logo=github&logoColor=white&style=for-the-badge)](https://github.com/Eschatologue/Unlimited-Armament-Works/releases)
 [![Total Downloads](https://img.shields.io/github/downloads/Eschatologue/Unlimited-Armament-Works/total?color=674ea7&label&logo=docusign&logoColor=white&style=for-the-badge)](https://github.com/Eschatologue/Unlimited-Armament-Works/releases)
 
