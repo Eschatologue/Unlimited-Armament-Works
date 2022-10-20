@@ -27,13 +27,11 @@ allprojects {
 }
 
 dependencies {
-    compileOnly "com.github.Anuken.Arc:freetype:e319dd0056"
-    compileOnly "com.github.Anuken.Arc:g3d:e319dd0056"
-    compileOnly "com.github.Anuken:rhino:73a812444ac388ac2d94013b5cadc8f70b7ea027"
 
     // Base Mindustry
-    compileOnly "com.github.Anuken.Arc:arc-core:$mindustryVersion"
-    compileOnly "com.github.Anuken.Mindustry:core:$mindustryVersion"
+    compileOnly "com.github.Anuken.Arc:flabel:v139"
+    compileOnly "com.github.Anuken.Arc:arc-core:v139"
+    compileOnly "com.github.anuken.mindustryjitpack:core:v139"
 
 //    compileOnly "com.github.anuken.mindustryjitpack:core:$mindustryVersion"
 //    compileOnly "com.github.anuken.mindustryjitpack:core:dad1530172"
