@@ -12,6 +12,7 @@ public class TankUnitType extends mindustry.type.unit.TankUnitType {
 	public TankUnitType(String name) {
 		super(name);
 		outlineColor = Pal.darkerMetal;
+		squareShape = false;
 		envDisabled = Env.space;
 		envRequired = Env.terrestrial;
 

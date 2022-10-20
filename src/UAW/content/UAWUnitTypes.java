@@ -41,16 +41,14 @@ public class UAWUnitTypes {
 
 
 	// Air - Helicopters
-	crotchety, aglovale, bedivere, calogrenant,
+	crotchety,
+		aglovale, bedivere, calogrenant, dagonet, esclabor,
 
 	// Air - Carriers
 	cantankerous, illustrious, indefatigable, indomitable,
 
-	// Air - Jet Bomber
-	corsair, vindicator, superfortress, stratofortress,
-
 	// Naval - Monitor
-	arquebus, carronade, falconet,
+	arquebus, carronade, falconet, dardanelles,
 
 	// Naval - Torpedo Boats
 	megaera, alecto, tisiphone,
@@ -136,7 +134,6 @@ public class UAWUnitTypes {
 		// Serpulo
 
 		// region Air - Helicopters
-
 		aglovale = new HelicopterUnitType("aglovale") {{
 			float unitRange = 28 * tilesize;
 			health = 450;
@@ -536,13 +533,12 @@ public class UAWUnitTypes {
 				}};
 			}});
 		}};
-
 		// endregion Air - Helicopters
 
 		// region Air - Carriers - Cryocopters
-		crotchety = new HelicopterUnitType("crotchety") {{
-			float unitRange = 25 * tilesize;
-			health = 650;
+		crotchety = new AirshipUnitType("crotchety") {{
+			float unitRange = 30 * tilesize;
+			health = 625;
 			hitSize = 12;
 
 			speed = 1.7f;
@@ -550,9 +546,9 @@ public class UAWUnitTypes {
 			drag = 0.016f;
 			rotateSpeed = 5.5f;
 
-			ammoType = new ItemAmmoType(Items.graphite);
+			ammoType = new ItemAmmoType(UAWItems.cryogel);
 
-			faceTarget = flying = true;
+			faceTarget = true;
 			range = unitRange;
 
 			targetAir = false;
@@ -562,9 +558,6 @@ public class UAWUnitTypes {
 			fallSmokeY = -10f;
 
 			targetFlags = new BlockFlag[]{BlockFlag.generator, BlockFlag.turret, BlockFlag.repair, null};
-
-			constructor = CopterUnitEntity::new;
-			aiController = FlyingAI::new;
 
 			rotors.add(
 				new Rotor(modName + "short-blade-cryo") {{
@@ -584,13 +577,13 @@ public class UAWUnitTypes {
 				inaccuracy = 3f;
 				x = 27 * px;
 				y = 15 * px;
-				reload = 80f;
+				reload = 60f;
 				recoil = 6 * px;
 				shootSound = Sfx.gunShoot5;
 				ejectEffect = Fx.casing3;
 				bullet = new StatusEffectBulletType(UAWStatusEffects.cryoBurn, 3 * tick) {{
 					lifetime = unitRange / speed;
-					splashDamage = 25;
+					splashDamage = 40;
 					splashDamageRadius = 4.5f * tilesize;
 					frontColor = UAWPal.cryoFront;
 					backColor = UAWPal.cryoBack;
@@ -618,32 +611,26 @@ public class UAWUnitTypes {
 				}};
 			}});
 		}};
-		cantankerous = new HelicopterUnitType("cantankerous") {{
-			float unitRange = 32 * tilesize;
-			health = 5500;
+		cantankerous = new AirshipUnitType("cantankerous") {{
+			float unitRange = 35 * tilesize;
+			health = 5250;
 			armor = 15f;
-			hitSize = 25;
+			hitSize = 20;
 
 			speed = 1.2f;
 			accel = 0.03f;
 			drag = 0.07f;
 			rotateSpeed = 1f;
 
-			lowAltitude = true;
-			flying = true;
-			faceTarget = false;
 			range = unitRange;
 
 			targetGround = false;
 
 			engineSize = 4;
 			engineOffset = 58 * px;
-			trailLength = 28;
+			trailLength = 32;
 			waveTrailY = -35f * px;
 			trailScl = 1.2f;
-
-			constructor = CopterUnitEntity::new;
-			aiController = FlyingAI::new;
 
 			float rotX = 41 * px;
 			float rotY = -4 * px;
@@ -694,8 +681,8 @@ public class UAWUnitTypes {
 				}};
 				bullet = new StatusEffectBulletType(UAWStatusEffects.cryoBurn, 8 * tick) {{
 					lifetime = unitRange / speed;
-					splashDamage = 95;
-					splashDamageRadius = 6 * tilesize;
+					splashDamage = 90;
+					splashDamageRadius = 6.5f * tilesize;
 					frontColor = UAWPal.cryoFront;
 					backColor = UAWPal.cryoBack;
 					trailEffect = new MultiEffect(
@@ -710,7 +697,7 @@ public class UAWUnitTypes {
 							lifetime = 20f;
 							waveLife = 15f;
 							smokes = 39;
-							sparks = 21;
+							sparks = 25;
 							waveColor = UAWPal.cryoFront;
 							sparkColor = UAWPal.cryoMiddle;
 							waveRad = splashDamageRadius;
@@ -769,7 +756,7 @@ public class UAWUnitTypes {
 						health = 250;
 						speed = 4.5f;
 						maxRange = 4 * tilesize;
-						lifetime = unitRange * 1.5f / this.speed;
+						lifetime = unitRange * 1.8f / this.speed;
 
 						trailColor = exhaustColor = UAWPal.cryoBack;
 						engineSize = 4 * px;
@@ -1565,7 +1552,7 @@ public class UAWUnitTypes {
 			float unitRange = 42 * tilesize;
 			health = 7200;
 			armor = 25;
-			hitSize = 20;
+			hitSize = 15;
 			terrainSpeedMultiplier = 1f;
 			terrainDragMultiplier = 1.5f;
 			speed = 4f;
@@ -1756,7 +1743,7 @@ public class UAWUnitTypes {
 			float unitRange = 55 * tilesize;
 			health = 10500;
 			armor = 45;
-			hitSize = 22;
+			hitSize = 18;
 			terrainSpeedMultiplier = 1.2f;
 			terrainDragMultiplier = 1.8f;
 			speed = 4.5f;
@@ -1932,7 +1919,7 @@ public class UAWUnitTypes {
 					y = -44 * px;
 
 					velocityRnd = 0.45f;
-					baseRotation = -35;
+					baseRotation = -32;
 					reload = 3.5f * tick;
 					recoil = 1f;
 					inaccuracy = 12f;
@@ -2007,93 +1994,6 @@ public class UAWUnitTypes {
 			);
 		}};
 		// endregion Ground - MBT
-
-		// Erekir
-		//		corsair = new UAWUnitType("corsair") {{
-//			health = 650;
-//			hitSize = 20;
-//			speed = 3.2f;
-//			accel = 0.1f;
-//			drag = 0.015f;
-//			rotateSpeed = 7f;
-//			ammoType = new ItemAmmoType(Items.blastCompound);
-//			circleTarget = true;
-//
-//			flying = true;
-//			lowAltitude = false;
-//			faceTarget = false;
-//			range = 45 * tilesize;
-//
-//			targetFlags = new BlockFlag[]{BlockFlag.repair, BlockFlag.turret, BlockFlag.generator, BlockFlag.extinguisher, null};
-//
-//			waveTrailX = 6f;
-//			waveTrailY = -1;
-//			trailLength = 10;
-//			trailScl = 1.75f;
-//
-//			setEnginesMirror(
-//				new UnitEngine(6, -1, 2f, 315f)
-//			);
-//
-//			constructor = JetUnitEntity::new;
-//			aiController = DynamicFlyingAI::new;
-//
-//			weapons.add(
-//				new Weapon() {{
-//					minShootVelocity = 0.55f;
-//					x = 3f;
-//					reload = 3f * 60;
-//					shootCone = 45f;
-//					ejectEffect = Fx.none;
-//					inaccuracy = 24f;
-//					shootSound = Sounds.shotgun;
-//					shoot.shots = 2;
-//					shoot.shotDelay = 15f;
-//					bullet = new SplashArtilleryBulletType(5f, 125) {{
-//						buildingDamageMultiplier = 2.5f;
-//						lifetime = range / speed;
-//						trailMult = 0.5f;
-//						height = 25f;
-//						width = 25f;
-//						shootEffect = Fx.none;
-//						smokeEffect = Fx.none;
-//						hitShake = 5f;
-//						splashDamageRadius = 6 * tilesize;
-//						hitEffect = UAWFx.dynamicExplosion(splashDamageRadius);
-//						hitSound = Sounds.explosion;
-//						status = StatusEffects.blasted;
-//						statusDuration = 60f;
-//						homingPower = 0.1f;
-//						homingRange = 8f * tilesize;
-//						fragBullet = fragGlassFrag;
-//						drag = 0.001f;
-//
-//						keepVelocity = false;
-//					}};
-//				}},
-//				new Weapon() {{
-//					rotate = false;
-//					mirror = false;
-//					shootCone = 90;
-//					inaccuracy = 3f;
-//					x = 0f;
-//					y = 0f;
-//					reload = 6f;
-//					shootSound = Sounds.shoot;
-//					ejectEffect = Fx.casing1;
-//					bullet = new TrailBulletType(6f, 15) {{
-//						height = 10f;
-//						width = 5f;
-//						buildingDamageMultiplier = 0.4f;
-//						lifetime = (range / speed);
-//						ammoMultiplier = 8f;
-//						collidesGround = false;
-//						trailLengthScale = 1;
-//					}};
-//				}}
-//			);
-//		}};
-
 
 	}
 }

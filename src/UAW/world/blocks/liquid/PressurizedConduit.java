@@ -1,6 +1,6 @@
 package UAW.world.blocks.liquid;
 
-import UAW.content.blocks.*;
+import UAW.content.blocks.UAWBlocksLogistic;
 import arc.graphics.Color;
 import arc.math.Mathf;
 import arc.util.Time;
@@ -45,17 +45,6 @@ public class PressurizedConduit extends Conduit {
 			Fx.plasticExplosion.at(x, y);
 		}
 
-//		@Override
-//		public boolean acceptLiquid(Building source, Liquid liquid) {
-//			noSleep();
-//			return (liquids.current() == liquid || liquids.currentAmount() < 0.2f)
-//				&& (tile == null
-//				|| (source.relativeTo(tile.x, tile.y) + 2) % 4 != rotation
-//				&& !(source.block instanceof Conduit)
-//				|| source.block instanceof PressurizedConduit
-//			);
-//		}
-
 		@Override
 		public float moveLiquid(Building next, Liquid liquid) {
 			if (next != null) {
@@ -71,20 +60,24 @@ public class PressurizedConduit extends Conduit {
 						return flow;
 					}
 
-					if (next.liquids.currentAmount() / next.block.liquidCapacity > 0.1F && fract > 0.1F) {
+					if (!next.block.consumesLiquid(liquid) && next.liquids.currentAmount() / next.block.liquidCapacity > 0.1F && fract > 0.1F) {
 						float fx = (this.x + next.x) / 2.0F;
 						float fy = (this.y + next.y) / 2.0F;
 						Liquid other = next.liquids.current();
-						if (other.flammability > maxFlammability && liquid.temperature > maxTemperature || liquid.flammability > maxFlammability && other.temperature > maxTemperature) {
-							this.damage(1.0F * Time.delta);
-							next.damage(1.0F * Time.delta);
-							if (Mathf.chance(0.1D * (double) Time.delta)) {
-								Fx.fire.at(fx, fy);
-							}
-						} else if (liquid.temperature > 0.7F && other.temperature < 0.55F || other.temperature > 0.7F && liquid.temperature < 0.55F) {
-							this.liquids.remove(liquid, Math.min(this.liquids.get(liquid), 0.7F * Time.delta));
-							if (Mathf.chance((double) (0.2F * Time.delta))) {
-								Fx.steam.at(fx, fy);
+						if (other.blockReactive && liquid.blockReactive) {
+							if ((!(other.flammability > maxFlammability) || !(liquid.temperature > maxTemperature)) && (!(liquid.flammability > maxFlammability) || !(other.temperature > maxTemperature))) {
+								if (liquid.temperature > maxTemperature && other.temperature < 0.55F || other.temperature > maxTemperature && liquid.temperature < 0.55F) {
+									this.liquids.remove(liquid, Math.min(this.liquids.get(liquid), 0.7F * Time.delta));
+									if (Mathf.chanceDelta(0.20000000298023224D)) {
+										Fx.steam.at(fx, fy);
+									}
+								}
+							} else {
+								this.damageContinuous(1.0F);
+								next.damageContinuous(1.0F);
+								if (Mathf.chanceDelta(0.1D)) {
+									Fx.fire.at(fx, fy);
+								}
 							}
 						}
 					}
@@ -96,4 +89,5 @@ public class PressurizedConduit extends Conduit {
 
 	}
 }
+
 

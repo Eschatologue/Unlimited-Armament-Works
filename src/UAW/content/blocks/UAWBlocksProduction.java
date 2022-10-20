@@ -62,6 +62,7 @@ public class UAWBlocksProduction {
 			drillEffect = Fx.mineBig;
 
 			consumeLiquid(UAWLiquids.steam, 0.25f);
+			consumeLiquid(Liquids.oil, 0.05f).boost();
 		}};
 		advancedSteamDrill = new UAWDrill("advanced-steam-drill") {{
 			requirements(Category.production, with(
@@ -84,6 +85,7 @@ public class UAWBlocksProduction {
 			rotateSpeed = 6f;
 
 			consumeLiquid(UAWLiquids.steam, 1.8f);
+			consumeLiquid(Liquids.oil, 0.1f).boost();
 		}};
 
 		steamThumper = new SpecificItemDrill("steam-thumper") {{

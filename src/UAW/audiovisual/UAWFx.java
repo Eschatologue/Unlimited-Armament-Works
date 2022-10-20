@@ -328,7 +328,7 @@ public class UAWFx {
 
 	/** Refer to {@link UAWFx#railShoot(float, float, Color)} */
 	public static Effect railShoot(float burstLength, Color color) {
-		return railShoot(burstLength, burstLength * 0.28f, color);
+		return railShoot(burstLength, burstLength * 0.5f, color);
 	}
 
 	/**
@@ -598,7 +598,7 @@ public class UAWFx {
 	}
 
 	/**
-	 * Fx.dynamicExplosion
+	 * {@link mindustry.entities.effect.ExplosionEffect}
 	 * @param size
 	 * 	How big is the explosion
 	 */
