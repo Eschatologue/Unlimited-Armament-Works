@@ -32,11 +32,11 @@ public class UAWBlocksDefense {
 	public static Block placeholder,
 
 	// Tier 2
-	quadra, ashlock, buckshot,
+	quadra, ashlock, buckshot, skeeter,
 	// Tier 3
-	spitfire, longbow, tempest, strikeforce, zounderkite,
+	spitfire, longbow, tempest, strikeforce, zounderkite, redeemer,
 	// Tier 4
-	deadeye, skyhammer,
+	deadeye, skyhammer, hellseeker,
 	// Tier 5
 
 	// Energy
@@ -275,18 +275,20 @@ public class UAWBlocksDefense {
 			limitRange(2 * tilesize);
 
 			squareSprite = false;
+			cooldownTime = 2 * tick;
 			drawer = new DrawTurret(modTurretBase) {{
 				parts.addAll(
 					new RegionPart("-barrel") {{
+						heatProgress = PartProgress.heat.add(PartProgress.heat);
 						progress = PartProgress.warmup.add(PartProgress.reload.add(-2.5f));
 						moveY = 4 * px;
-						heatProgress = PartProgress.reload;
 					}},
 					new RegionPart("-side") {{
 						progress = PartProgress.warmup;
 						mirror = true;
 						moveX = 2f * px;
-						moveY = -16 * px;
+						moveY = -4 * px;
+						moveRot = -22f;
 					}},
 					new RegionPart("-blade") {{
 						progress = PartProgress.warmup;
@@ -583,6 +585,7 @@ public class UAWBlocksDefense {
 			consumePowerCond(15f, TurretBuild::isActive);
 
 			squareSprite = false;
+			cooldownTime = reload * 0.8f;
 			drawer = new DrawTurret(modTurretBase) {{
 				parts.addAll(
 					new RegionPart("-barrel") {{

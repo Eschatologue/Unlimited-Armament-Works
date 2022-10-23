@@ -12,6 +12,7 @@ import mindustry.world.blocks.power.ConsumeGenerator;
 import mindustry.world.draw.*;
 import mindustry.world.meta.Attribute;
 
+import static UAW.Vars.*;
 import static mindustry.type.ItemStack.with;
 
 /** Contains Power Blocks or Blocks that produces Power */
@@ -28,7 +29,6 @@ public class UAWBlocksPower {
 	coalBurner, vapourHeater, LPGHeater, geothermalHeater;
 
 	public static void load() {
-		float steamConversionScl = 3f;
 
 		// Steam to Power
 		steamTurbine = new ConsumeGenerator("steam-turbine") {{
@@ -41,7 +41,7 @@ public class UAWBlocksPower {
 			size = 3;
 			squareSprite = false;
 			powerProduction = 8.5f;
-			liquidCapacity = 120f;
+			liquidCapacity = 90f;
 
 			generateEffect = Fx.steam;
 			effectChance = 0.1f;
@@ -53,7 +53,9 @@ public class UAWBlocksPower {
 				new DrawDefault(),
 				new DrawBlurSpin("-rotator", 6)
 			);
-			consumeLiquid(UAWLiquids.steam, 0.625f);
+			float steamInput = 45 / tick;
+			consumeLiquid(UAWLiquids.steam, steamInput);
+			outputLiquid = new LiquidStack(Liquids.water, (steamInput / steamConversionScl) * 0.8f);
 		}};
 		advancedSteamTurbine = new ConsumeGenerator("advanced-steam-turbine") {{
 			requirements(Category.power, with(
@@ -67,7 +69,7 @@ public class UAWBlocksPower {
 			size = 4;
 			squareSprite = false;
 			powerProduction = 13.5f;
-			liquidCapacity = 320f;
+			liquidCapacity = 270f;
 
 			generateEffect = Fx.steam;
 			effectChance = 0.1f;
@@ -79,7 +81,9 @@ public class UAWBlocksPower {
 				new DrawDefault(),
 				new DrawBlurSpin("-rotator", 7)
 			);
-			consumeLiquid(UAWLiquids.steam, 1.2f);
+			float steamInput = 135 / tick;
+			consumeLiquid(UAWLiquids.steam, steamInput);
+			outputLiquid = new LiquidStack(Liquids.water, (steamInput / steamConversionScl) * 0.8f);
 		}};
 
 		// Steam Production
@@ -90,8 +94,9 @@ public class UAWBlocksPower {
 			));
 			size = 1;
 
-			consumeLiquid(Liquids.water, 0.25f);
-			outputLiquid = new LiquidStack(UAWLiquids.steam, 0.25f * steamConversionScl);
+			float steamOutput = 15 / tick;
+			consumeLiquid(Liquids.water, steamOutput);
+			outputLiquid = new LiquidStack(UAWLiquids.steam, steamOutput * steamConversionScl);
 			liquidCapacity = 180f;
 
 			squareSprite = false;
@@ -116,8 +121,9 @@ public class UAWBlocksPower {
 			));
 			size = 2;
 
-			consumeLiquids(new LiquidStack(Liquids.water, 0.5f));
-			outputLiquid = new LiquidStack(UAWLiquids.steam, 0.5f * steamConversionScl);
+			float steamOutput = 30 / tick;
+			consumeLiquid(Liquids.water, steamOutput);
+			outputLiquid = new LiquidStack(UAWLiquids.steam, steamOutput * steamConversionScl);
 			liquidCapacity = steamKettle.liquidCapacity * 2;
 
 			squareSprite = false;
@@ -146,8 +152,9 @@ public class UAWBlocksPower {
 			));
 			size = 4;
 
-			consumeLiquid(Liquids.water, 2f);
-			outputLiquid = new LiquidStack(UAWLiquids.steam, 2f * steamConversionScl);
+			float steamOutput = 120 / tick;
+			consumeLiquid(Liquids.water, steamOutput);
+			outputLiquid = new LiquidStack(UAWLiquids.steam, steamOutput * steamConversionScl);
 			liquidCapacity = steamKettle.liquidCapacity * 4;
 
 			squareSprite = false;
@@ -183,8 +190,9 @@ public class UAWBlocksPower {
 				}}
 			);
 			attribute = Attribute.heat;
-			consumeLiquid(Liquids.water, 0.5f);
-			outputLiquid = new LiquidStack(UAWLiquids.steam, 0.5f * steamConversionScl);
+			float steamOutput = 90 / tick;
+			consumeLiquid(Liquids.water, steamOutput);
+			outputLiquid = new LiquidStack(UAWLiquids.steam, steamOutput * steamConversionScl);
 		}};
 
 		// Heat Generation

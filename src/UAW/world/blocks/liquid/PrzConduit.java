@@ -12,12 +12,12 @@ import mindustry.world.blocks.liquid.Conduit;
 
 import static mindustry.Vars.tilesize;
 
-public class PressurizedConduit extends Conduit {
+public class PrzConduit extends Conduit {
 	public float explosionDamage = 45f;
 	public float maxTemperature = 6f;
 	public float maxFlammability = 3f;
 
-	public PressurizedConduit(String name) {
+	public PrzConduit(String name) {
 		super(name);
 		botColor = Color.valueOf("4a4b53");
 		health = 350;
@@ -34,7 +34,7 @@ public class PressurizedConduit extends Conduit {
 		bridgeReplacement = UAWBlocksLogistic.pressurizedLiquidBridge;
 	}
 
-	public class PressurizedConduitBuild extends ConduitBuild {
+	public class PrzConduitBuild extends ConduitBuild {
 
 		@Override
 		public void onDestroyed() {

@@ -2,7 +2,6 @@ package UAW.content.blocks;
 
 import UAW.content.UAWItems;
 import UAW.world.blocks.liquid.*;
-import UAW.world.blocks.power.heat.HeatConduit;
 import mindustry.content.Items;
 import mindustry.type.Category;
 import mindustry.world.Block;
@@ -20,7 +19,7 @@ public class UAWBlocksLogistic {
 	copperHeatNode, compositeHeatNode,
 
 	// Liquid
-	pressurizedConduit, platedPressurizedConduit, pressurizedLiquidRouter, pressurizedLiquidJunction, pressurizedLiquidBridge,
+	pressurizedLiquidRouter, pressurizedLiquidJunction, pressurizedLiquidBridge, pressurizedConduit, platedPressurizedConduit,
 
 	// Payload
 	heavyDutyPayloadConveyor;
@@ -56,7 +55,7 @@ public class UAWBlocksLogistic {
 
 		// Liquid
 
-		pressurizedConduit = new PressurizedConduit("pressurized-conduit") {{
+		pressurizedConduit = new PrzConduit("pressurized-conduit") {{
 			requirements(Category.liquid, with(
 				Items.titanium, 3,
 				Items.metaglass, 2,
@@ -64,8 +63,10 @@ public class UAWBlocksLogistic {
 			));
 			health = 550;
 			baseExplosiveness = 8f;
+			junctionReplacement = pressurizedLiquidJunction;
+			rotBridgeReplacement = pressurizedLiquidBridge;
 		}};
-		platedPressurizedConduit = new PlatedPressurizedConduit("plated-pressurized-conduit") {{
+		platedPressurizedConduit = new PrzPlatedConduit("plated-pressurized-conduit") {{
 			requirements(Category.liquid, with(
 				Items.titanium, 3,
 				Items.metaglass, 2,
@@ -74,6 +75,8 @@ public class UAWBlocksLogistic {
 			));
 			health = 850;
 			baseExplosiveness = 8f;
+			junctionReplacement = pressurizedLiquidJunction;
+			rotBridgeReplacement = pressurizedLiquidBridge;
 		}};
 		pressurizedLiquidRouter = new LiquidRouter("pressurized-liquid-router") {{
 			requirements(Category.liquid, with(
@@ -118,10 +121,7 @@ public class UAWBlocksLogistic {
 			baseExplosiveness = 8f;
 
 			squareSprite = false;
-
-			((PressurizedConduit)pressurizedConduit).rotBridgeReplacement = this;
 		}};
-
 
 	}
 }

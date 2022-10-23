@@ -5,6 +5,7 @@ import UAW.audiovisual.*;
 import UAW.entities.abilities.RazorRotorAbility;
 import UAW.entities.bullet.*;
 import UAW.entities.bullet.ModdedVanillaBullet.SplashArtilleryBulletType;
+import UAW.entities.effects.*;
 import UAW.entities.units.*;
 import UAW.entities.units.entity.*;
 import UAW.type.Rotor;
@@ -55,6 +56,9 @@ public class UAWUnitTypes {
 
 	// Tanks - MBT
 	cavalier, centurion, caernarvon, challenger,
+
+	// Tanks- Flamer
+	cavalierF, centurionF, caernarvonF,
 
 	// Tanks - SPG
 	abbot, archer, arbalester, arbiter;
@@ -589,7 +593,12 @@ public class UAWUnitTypes {
 					backColor = UAWPal.cryoBack;
 					trailEffect = new MultiEffect(
 						Fx.disperseTrail,
-						UAWFx.statusEffectCircle.wrap(frontColor)
+						new StatusHitEffect() {{
+							color = frontColor;
+							sizeMax = 1.25f;
+							square = true;
+							circle = false;
+						}}
 					);
 					trailChance = 0.5f;
 					shootEffect = Fx.shootBigColor;
@@ -604,6 +613,13 @@ public class UAWUnitTypes {
 							sparkColor = UAWPal.cryoMiddle;
 							waveRad = splashDamageRadius;
 							smokeRad = splashDamageRadius * 1.2f;
+						}},
+						new SparkEffect() {{
+							size = 4;
+							lifetime = 60;
+							amount = 20;
+							spreadRad = splashDamageRadius * 0.8f;
+							sparkColor = frontColor;
 						}}
 					);
 					smokeEffect = Fx.shootBigSmoke;
@@ -613,7 +629,7 @@ public class UAWUnitTypes {
 		}};
 		cantankerous = new AirshipUnitType("cantankerous") {{
 			float unitRange = 35 * tilesize;
-			health = 5250;
+			health = 5000;
 			armor = 15f;
 			hitSize = 20;
 
@@ -681,13 +697,19 @@ public class UAWUnitTypes {
 				}};
 				bullet = new StatusEffectBulletType(UAWStatusEffects.cryoBurn, 8 * tick) {{
 					lifetime = unitRange / speed;
-					splashDamage = 90;
+					// Fires twice, damage is doubled
+					splashDamage = 80;
 					splashDamageRadius = 6.5f * tilesize;
 					frontColor = UAWPal.cryoFront;
 					backColor = UAWPal.cryoBack;
 					trailEffect = new MultiEffect(
 						Fx.disperseTrail,
-						UAWFx.statusEffectCircle.wrap(frontColor)
+						new StatusHitEffect() {{
+							color = frontColor;
+							sizeMax = 2;
+							square = true;
+							circle = false;
+						}}
 					);
 					trailChance = 0.5f;
 					shootEffect = Fx.shootBigColor;
@@ -702,6 +724,14 @@ public class UAWUnitTypes {
 							sparkColor = UAWPal.cryoMiddle;
 							waveRad = splashDamageRadius;
 							smokeRad = splashDamageRadius * 1.2f;
+							smokeSize = 6f;
+						}},
+						new SparkEffect() {{
+							size = 4;
+							lifetime = 60;
+							amount = 20;
+							spreadRad = splashDamageRadius * 0.8f;
+							sparkColor = frontColor;
 						}}
 					);
 					smokeEffect = Fx.shootBigSmoke;
@@ -768,7 +798,7 @@ public class UAWUnitTypes {
 
 						weapons.add(new SuicideWeapon() {{
 							float splashRad = 4 * tilesize;
-							bullet = new ExplosionBulletType(health * 0.6f, splashRad) {{
+							bullet = new ExplosionBulletType(95, splashRad) {{
 								status = UAWStatusEffects.cryoBurn;
 								statusDuration = 5 * tick;
 								makeFire = true;

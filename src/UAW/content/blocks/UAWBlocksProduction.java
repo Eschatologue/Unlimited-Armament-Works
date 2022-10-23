@@ -28,13 +28,13 @@ public class UAWBlocksProduction {
 	oilDerrick, steamPump, pulsometerPump,
 
 	// General Crafter
-	gelatinizer, alloyCrucible,
+	gelatinizer, alloyCrucible, alloyBlastCrucible,
 
 	// Steam Crafters
 	steamPress, plastFabricator,
 
 	// Petroleum Crafter
-	petroleumCrucible,
+	petroleumCrucible, petroleumPress,
 
 	// Petroleum
 	petrochemicalRefinery, petroleumDistillery,
@@ -118,26 +118,27 @@ public class UAWBlocksProduction {
 		// Frackers
 		oilDerrick = new Fracker("oil-derrick") {{
 			requirements(Category.production, with(
-				Items.copper, 200,
-				Items.graphite, 150,
-				Items.lead, 100,
-				Items.silicon, 75,
-				Items.metaglass, 75
+				Items.copper, 225,
+				Items.graphite, 300,
+				Items.titanium, 230,
+				UAWItems.stoutsteel, 100,
+				Items.silicon, 120
 			));
 			size = 4;
-			result = Liquids.oil;
+
 			updateEffect = UAWFx.cloudPuff(5, UAWPal.steamMid);
 			updateEffectChance = 0.05f;
-			pumpAmount = 0.5f;
 			liquidCapacity = 360f;
 			attribute = Attribute.oil;
-			baseEfficiency = 0.5f;
+			baseEfficiency = 0.25f;
 			rotateSpeed = -2.5f;
 
 			hasPower = false;
 			squareSprite = false;
 
-			consumeLiquid(UAWLiquids.steam, pumpAmount / 2.5f);
+			result = Liquids.oil;
+			pumpAmount = 135 / tick;
+			consumeLiquid(UAWLiquids.steam, 144 / tick);
 		}};
 
 		// Pumps
@@ -319,18 +320,19 @@ public class UAWBlocksProduction {
 
 		steamPress = new GenericCrafter("steam-press") {{
 			requirements(Category.crafting, with(
-				Items.titanium, 120,
-				Items.silicon, 55,
-				Items.copper, 150,
-				Items.graphite, 80
+				Items.titanium, 180,
+				Items.copper, 350,
+				Items.silicon, 144,
+				Items.lead, 150,
+				Items.graphite, 100
 			));
 			size = 3;
 			hasItems = true;
 			hasLiquids = true;
-			itemCapacity = 40;
+			itemCapacity = 72;
 			liquidCapacity = 320;
 
-			craftTime = 90f;
+			craftTime = 120f;
 			craftEffect = new RadialEffect() {{
 				effect = UAWFx.crucibleSmoke(220, 3, UAWPal.steamMid);
 				amount = 4;
@@ -339,13 +341,14 @@ public class UAWBlocksProduction {
 				rotationOffset = 45;
 			}};
 
-			consumeLiquid(UAWLiquids.steam, 1.8f);
-			consumeItem(Items.coal, 5);
+			float steamInput = 180f / tick;
+			consumeLiquid(UAWLiquids.steam, steamInput);
+			consumeItem(Items.coal, 18);
 
 			outputItem = new ItemStack(Items.graphite, 12);
 
 			ignoreLiquidFullness = false;
-			outputLiquid = new LiquidStack(Liquids.water, 0.6f);
+			outputLiquid = new LiquidStack(Liquids.water, (steamInput / steamConversionScl) * steamLoseScl);
 
 			squareSprite = false;
 			drawer = new DrawMulti(
