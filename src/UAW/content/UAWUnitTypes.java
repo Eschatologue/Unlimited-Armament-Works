@@ -629,7 +629,7 @@ public class UAWUnitTypes {
 		}};
 		cantankerous = new AirshipUnitType("cantankerous") {{
 			float unitRange = 35 * tilesize;
-			health = 5000;
+			health = 5250;
 			armor = 15f;
 			hitSize = 20;
 
@@ -652,7 +652,7 @@ public class UAWUnitTypes {
 			float rotY = -4 * px;
 			float rotSpeed = 32f;
 			float layerOffset = -0.00009f;
-			float rotorScaling = 0.55f;
+			float rotorScaling = 0.6f;
 			rotors.add(
 				new Rotor(modName + "short-blade-cryo") {{
 					topBladeName = "short-blade";

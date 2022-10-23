@@ -10,6 +10,6 @@ UAW is a port and sequel to Heavy Armaments Industries, implementing new unique 
 A lot of work and improvements goes into UAW, if you want to show some support or like the content, please give the mod a star on GitHub, Thank you!
 '''
 minGameVersion: 138
-version: v0.8
+version: v0.8.3
 repo: Eschatologue/Unlimited-Armament-Works
 java: true
