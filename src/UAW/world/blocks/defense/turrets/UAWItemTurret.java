@@ -1,6 +1,7 @@
 package UAW.world.blocks.defense.turrets;
 
-import UAW.world.meta.*;
+import UAW.world.meta.UAWStatValues;
+import arc.graphics.Color;
 import mindustry.graphics.*;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.meta.Stat;
@@ -14,9 +15,21 @@ import static mindustry.Vars.tilesize;
  * </p>
  */
 public class UAWItemTurret extends ItemTurret {
+	public Color minRangeColor = Pal.lightishOrange;
+
+	public boolean showMinRange = true;
 
 	public UAWItemTurret(String name) {
 		super(name);
+		squareSprite = false;
+	}
+
+	public void minRangeDraw(float x, float y, int type) {
+		if (minRange > 0 && showMinRange) {
+			if (type == 1) Drawf.dashCircle(x * tilesize + offset, y * tilesize + offset, minRange, minRangeColor);
+			if (type == 2) Drawf.dashCircle(x, y, minRange, minRangeColor);
+		}
+
 	}
 
 	@Override
@@ -29,8 +42,14 @@ public class UAWItemTurret extends ItemTurret {
 	@Override
 	public void drawPlace(int x, int y, int rotation, boolean valid) {
 		super.drawPlace(x, y, rotation, valid);
-		if (minRange > 0) {
-			Drawf.dashCircle(x * tilesize + offset, y * tilesize + offset, minRange, Pal.lightishOrange);
+		minRangeDraw(x, y, 1);
+	}
+
+	public class UAWItemTurretBuild extends ItemTurretBuild {
+		@Override
+		public void drawSelect() {
+			super.drawSelect();
+			minRangeDraw(x, y, 2);
 		}
 	}
 }

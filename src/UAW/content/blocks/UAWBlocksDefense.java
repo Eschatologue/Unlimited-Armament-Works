@@ -141,6 +141,7 @@ public class UAWBlocksDefense {
 			limitRange();
 
 			squareSprite = false;
+			cooldownTime = reload * 0.6f;
 			drawer = new DrawTurret(modTurretBase) {{
 				parts.addAll(
 					new RegionPart("-barrel") {{
@@ -404,6 +405,7 @@ public class UAWBlocksDefense {
 			limitRange();
 
 			squareSprite = false;
+			cooldownTime = reload * 0.5f;
 			drawer = new DrawTurret(modTurretBase) {{
 				parts.addAll(
 					new RegionPart("-barrel") {{
@@ -641,7 +643,7 @@ public class UAWBlocksDefense {
 
 			ammoUseEffect = UAWFx.casingCanister;
 
-			squareSprite = false;
+			cooldownTime = reload * 0.8f;
 			drawer = new DrawTurret(modTurretBase) {{
 				parts.addAll(
 					new RegionPart("-barrel") {{
@@ -707,6 +709,7 @@ public class UAWBlocksDefense {
 			);
 			limitRange();
 
+			cooldownTime = reload * 0.8f;
 			drawer = new DrawTurret(modTurretBase) {{
 				parts.addAll(
 					new RegionPart("-side-front") {{

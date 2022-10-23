@@ -55,29 +55,6 @@ public class UAWBlocksLogistic {
 
 		// Liquid
 
-		pressurizedConduit = new PrzConduit("pressurized-conduit") {{
-			requirements(Category.liquid, with(
-				Items.titanium, 3,
-				Items.metaglass, 2,
-				Items.plastanium, 3
-			));
-			health = 550;
-			baseExplosiveness = 8f;
-			junctionReplacement = pressurizedLiquidJunction;
-			rotBridgeReplacement = pressurizedLiquidBridge;
-		}};
-		platedPressurizedConduit = new PrzPlatedConduit("plated-pressurized-conduit") {{
-			requirements(Category.liquid, with(
-				Items.titanium, 3,
-				Items.metaglass, 2,
-				Items.plastanium, 3,
-				UAWItems.stoutsteel, 2
-			));
-			health = 850;
-			baseExplosiveness = 8f;
-			junctionReplacement = pressurizedLiquidJunction;
-			rotBridgeReplacement = pressurizedLiquidBridge;
-		}};
 		pressurizedLiquidRouter = new LiquidRouter("pressurized-liquid-router") {{
 			requirements(Category.liquid, with(
 				UAWItems.stoutsteel, 3,
@@ -121,6 +98,25 @@ public class UAWBlocksLogistic {
 			baseExplosiveness = 8f;
 
 			squareSprite = false;
+		}};
+		pressurizedConduit = new PrzConduit("pressurized-conduit") {{
+			requirements(Category.liquid, with(
+				Items.titanium, 3,
+				Items.metaglass, 2,
+				Items.plastanium, 3
+			));
+			health = 550;
+			baseExplosiveness = 8f;
+		}};
+		platedPressurizedConduit = new PrzPlatedConduit("plated-pressurized-conduit") {{
+			requirements(Category.liquid, with(
+				Items.titanium, 3,
+				Items.metaglass, 2,
+				Items.plastanium, 3,
+				UAWItems.stoutsteel, 2
+			));
+			health = 850;
+			baseExplosiveness = 8f;
 		}};
 
 	}

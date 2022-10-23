@@ -31,7 +31,7 @@ public class PrzConduit extends Conduit {
 	public void init() {
 		super.init();
 		junctionReplacement = UAWBlocksLogistic.pressurizedLiquidJunction;
-		bridgeReplacement = UAWBlocksLogistic.pressurizedLiquidBridge;
+		rotBridgeReplacement = UAWBlocksLogistic.pressurizedLiquidBridge;
 	}
 
 	public class PrzConduitBuild extends ConduitBuild {
