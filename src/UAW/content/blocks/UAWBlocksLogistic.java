@@ -101,7 +101,7 @@ public class UAWBlocksLogistic {
 		}};
 		pressurizedConduit = new PrzConduit("pressurized-conduit") {{
 			requirements(Category.liquid, with(
-				Items.titanium, 3,
+				UAWItems.stoutsteel, 2,
 				Items.metaglass, 2,
 				Items.plastanium, 3
 			));
@@ -110,10 +110,10 @@ public class UAWBlocksLogistic {
 		}};
 		platedPressurizedConduit = new PrzPlatedConduit("plated-pressurized-conduit") {{
 			requirements(Category.liquid, with(
-				Items.titanium, 3,
+				UAWItems.stoutsteel, 2,
 				Items.metaglass, 2,
 				Items.plastanium, 3,
-				UAWItems.stoutsteel, 2
+				Items.thorium, 2
 			));
 			health = 850;
 			baseExplosiveness = 8f;

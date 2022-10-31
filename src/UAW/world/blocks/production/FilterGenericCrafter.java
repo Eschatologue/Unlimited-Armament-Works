@@ -10,7 +10,7 @@ import mindustry.world.blocks.production.GenericCrafter;
 
 /** Generic Crafter with its efficiency tied to filtered item or liquid used */
 public class FilterGenericCrafter extends GenericCrafter {
-	/** Whenever the efficiency bar color will follow the item */
+	/** Whenever the efficiency bar color1 will follow the item */
 	public boolean adaptiveBarColor = true;
 
 	public FilterGenericCrafter(String name) {

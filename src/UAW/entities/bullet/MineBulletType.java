@@ -23,7 +23,7 @@ public class MineBulletType extends BulletType {
 	public Effect triggerEffect = Fx.smeltsmoke;
 	/** Light that will appear when mine is triggered */
 	public Color detonationColor = Color.red;
-	/** Mine front and back glow color */
+	/** Mine front and back glow color1 */
 	public Color glowColor = Color.valueOf("feb380");
 	/** Lighter Color */
 	public Color frontColor = Pal.bulletYellow;

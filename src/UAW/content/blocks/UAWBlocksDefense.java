@@ -4,6 +4,7 @@ import UAW.audiovisual.*;
 import UAW.content.*;
 import UAW.entities.UAWUnitSorts;
 import UAW.entities.bullet.*;
+import UAW.entities.effects.*;
 import UAW.world.blocks.defense.turrets.UAWItemTurret;
 import UAW.world.blocks.defense.walls.ShieldWall;
 import arc.graphics.Color;
@@ -285,11 +286,11 @@ public class UAWBlocksDefense {
 						moveY = 4 * px;
 					}},
 					new RegionPart("-side") {{
-						progress = PartProgress.warmup;
+						progress = PartProgress.warmup.blend(PartProgress.heat, 0.45f);
 						mirror = true;
 						moveX = 2f * px;
 						moveY = -4 * px;
-						moveRot = -22f;
+						moveRot = -25f;
 					}},
 					new RegionPart("-blade") {{
 						progress = PartProgress.warmup;
@@ -681,8 +682,7 @@ public class UAWBlocksDefense {
 			scaledHealth = 250;
 
 			reload = 10 * tick;
-			recoil = 6f;
-			recoilTime = recoil * 6;
+			recoil = 15 * px;
 			ammoPerShot = 20;
 			maxAmmo = ammoPerShot * 3;
 
@@ -702,10 +702,151 @@ public class UAWBlocksDefense {
 			ammoUseEffect = UAWFx.casing7;
 
 			ammo(
-				Items.pyratite, artilleryLargeAftershockIncendiary,
-				UAWItems.cryogel, artilleryLargeAftershockCryo,
+				Items.pyratite, new SplashArtilleryBulletType(2f, 2500) {{
+					height = 40;
+					width = 18;
+					splashDamageRadius = 14 * tilesize;
+					frontColor = UAWPal.incendFront;
+					backColor = UAWPal.incendBack;
+					shootEffect = new MultiEffect(
+						UAWFx.railShoot(height * 1.8f, backColor),
+						UAWFx.burstCloud(backColor),
+						UAWFx.shootSmoke(width, frontColor)
+					);
+					hitEffect = UAWFx.dynamicExplosion(splashDamageRadius, frontColor, backColor);
+					hitSound = Sfx.explosionHuge1;
+					hitSoundVolume = 3f;
+					hitShake = 34f;
+					trailEffect = new MultiEffect(
+						Fx.artilleryTrail,
+						new StatusHitEffect() {{
+							amount = 6;
+							spreadRad = 9f;
+							sizeStart = 0.4f;
+							sizeEnd = 2;
+							color1 = backColor.lerp(frontColor, 0.5f);
+							color2 = Pal.lightishGray;
+						}}
+					);
+					smokeEffect = Fx.smokeCloud;
+					status = StatusEffects.burning;
+					aftershock = new AftershockBulletType(450, splashDamageRadius * 0.75f) {{
+						splashAmount = 4;
+						splashDelay = 45;
+						lifetime = (splashDelay * splashAmount);
+						frontColor = UAWPal.incendFront;
+						backColor = UAWPal.incendBack;
+						status = StatusEffects.burning;
+						statusDuration = 30f;
+						particleEffect = new StatusHitEffect() {{
+							circle = true;
+							color1 = frontColor;
+							life = 40;
+							amount = 4;
+							sizeEnd = 2f;
+
+						}};
+						makeFire = true;
+						applySound = Sounds.fire;
+					}};
+				}},
+				UAWItems.cryogel, new SplashArtilleryBulletType(2f, 2500) {{
+					height = 40;
+					width = 18;
+					splashDamageRadius = 14 * tilesize;
+					frontColor = UAWPal.cryoFront;
+					backColor = UAWPal.cryoBack;
+					shootEffect = new MultiEffect(
+						UAWFx.railShoot(height * 1.8f, backColor),
+						UAWFx.burstCloud(backColor),
+						UAWFx.shootSmoke(width, frontColor)
+					);
+					hitEffect = UAWFx.dynamicExplosion(splashDamageRadius, frontColor, backColor);
+					hitSound = Sfx.explosionHuge1;
+					hitSoundVolume = 3f;
+					hitShake = 34f;
+					trailEffect = new MultiEffect(
+						Fx.artilleryTrail,
+						new StatusHitEffect() {{
+							amount = 6;
+							spreadRad = 9f;
+							sizeStart = 0.4f;
+							sizeEnd = 2;
+							color1 = backColor.lerp(frontColor, 0.5f);
+							color2 = Pal.lightishGray;
+						}}
+					);
+					smokeEffect = Fx.smokeCloud;
+					status = StatusEffects.freezing;
+					aftershock = new AftershockBulletType(450, splashDamageRadius * 0.75f) {{
+						splashAmount = 4;
+						splashDelay = 45;
+						lifetime = (splashDelay * splashAmount);
+						frontColor = UAWPal.cryoFront;
+						backColor = UAWPal.cryoBack;
+						status = StatusEffects.freezing;
+						statusDuration = 30f;
+						particleEffect = new StatusHitEffect() {{
+							circle = true;
+							color1 = frontColor;
+							life = 40;
+							amount = 4;
+							sizeEnd = 2f;
+
+						}};
+						makeFire = true;
+						applySound = Sounds.plasmaboom;
+					}};
+				}},
 				Items.plastanium, artilleryLargeFrag,
-				Items.thorium, artilleryLargeAftershockBasic
+				Items.thorium, new SplashArtilleryBulletType(2f, 4500) {{
+					height = 40;
+					width = 18;
+					splashDamageRadius = 14 * tilesize;
+					frontColor = Pal.missileYellow;
+					backColor = Pal.missileYellowBack;
+					shootEffect = new MultiEffect(
+						UAWFx.railShoot(height * 1.8f, backColor),
+						UAWFx.burstCloud(backColor),
+						UAWFx.shootSmoke(width, frontColor)
+					);
+					hitEffect = UAWFx.dynamicExplosion(splashDamageRadius, frontColor, backColor);
+					hitSound = Sfx.explosionHuge1;
+					hitSoundVolume = 3f;
+					hitShake = 34f;
+					trailEffect = new MultiEffect(
+						Fx.artilleryTrail,
+						new StatusHitEffect() {{
+							amount = 6;
+							spreadRad = 9f;
+							sizeStart = 0.4f;
+							sizeEnd = 2;
+							color1 = backColor.lerp(frontColor, 0.5f);
+							color2 = Pal.lightishGray;
+						}}
+					);
+					smokeEffect = Fx.smokeCloud;
+					status = UAWStatusEffects.concussion;
+					aftershock = new AftershockBulletType(450, splashDamageRadius * 0.75f) {{
+						splashAmount = 4;
+						splashDelay = 45;
+						lifetime = (splashDelay * splashAmount);
+						frontColor = Pal.missileYellow;
+						backColor = Pal.missileYellowBack;
+						status = UAWStatusEffects.concussion;
+						statusDuration = 30f;
+						particleEffect = new StatusHitEffect() {{
+							circle = true;
+							color1 = frontColor;
+							life = 40;
+							amount = 4;
+							sizeEnd = 2f;
+
+						}};
+						makeFire = true;
+						applySound = Sounds.fire;
+					}};
+				}}
 			);
 			limitRange();
 
@@ -713,20 +854,20 @@ public class UAWBlocksDefense {
 			drawer = new DrawTurret(modTurretBase) {{
 				parts.addAll(
 					new RegionPart("-side-front") {{
-						progress = PartProgress.warmup;
+						progress = PartProgress.warmup.delay(0.25f).blend(PartProgress.reload, 0.45f);
 						mirror = true;
-						moveRot = -45;
-						moveX = 22 * px;
+						moveRot = -50;
+						moveX = 25 * px;
 						moveY = 22 * px;
 					}},
 					new RegionPart("-side-bottom") {{
-						progress = PartProgress.warmup;
+						progress = PartProgress.warmup.blend(PartProgress.reload, 0.5f);
 						mirror = true;
-						moveX = 5 * px;
-						moveY = -5 * px;
+						moveX = 7 * px;
+						moveY = -7 * px;
 					}},
 					new RegionPart("-barrel-front") {{
-						progress = PartProgress.recoil;
+						progress = PartProgress.recoil.curve(Interp.sine);
 						moveY = -5 * px;
 					}},
 					new RegionPart("-barrel-back") {{
@@ -836,10 +977,13 @@ public class UAWBlocksDefense {
 			size = 3;
 			scaledHealth = 120;
 
-			reload = 8f;
+			reload = 45f;
 			recoil = 8 * px;
-			recoilTime = recoil * 2;
+			recoilTime = reload * 4;
 			maxAmmo = 120;
+
+			shoot.shots = 4;
+			shoot.shotDelay = 15 * 0.25f;
 
 			range = 28 * tilesize;
 			shake = 0.8f;
@@ -848,42 +992,91 @@ public class UAWBlocksDefense {
 
 			ammoUseEffect = Fx.casing3;
 			shootSound = Sfx.gunShoot4;
+			soundPitchMin = 0.7f;
+			soundPitchMax = soundPitchMin + 0.2f;
 
 			unitSort = UAWUnitSorts.highest;
 
-			shoot = new ShootMulti(
-				new ShootSpread() {{
-					spread = 2.8f;
-					shots = 5;
-					velocityRnd = 0.2f;
-				}},
-				new ShootBarrel() {{
-					barrels = new float[]{
-						0f, 4f, 0f,
-						3f, 3f, 0f,
-						-3f, 3f, 0f,
-					};
-				}}
-			);
 			ammo(
-				Items.graphite, new BuckshotBulletType(7f, 12f) {{
-					knockback = 8f;
-					hitEffect = new MultiEffect(Fx.hitBulletColor, Fx.fireSmoke);
-					despawnEffect = new MultiEffect(Fx.flakExplosion, Fx.fireSmoke);
+				Items.graphite, new FlakTrailBulletType(8f, 35) {{
+					Color front = Pal.missileYellow, back = Pal.missileYellowBack;
+					height = 18f;
+					width = 9f;
+					splashDamageRadius = 2f * tilesize;
+					splashDamage = 10f;
+					shootEffect = Fx.shootBigColor;
+					smokeEffect = new MultiEffect(
+						new ShootSmokeEffect() {{
+							lifetime = 30;
+							color = Pal.lightOrange;
+							split = true;
+							splitAngle = 100f;
+							spreadRange = 30;
+							spreadCone = 35;
+						}}
+					);
+					frontColor = front;
+					hitColor = backColor = trailColor = back;
+					hitEffect = despawnEffect = Fx.blastExplosion;
+
+					trailChance = 0.5f;
+					trailEffect = new StatusHitEffect() {{
+						lifetime = 30;
+						color1 = back;
+						circle = false;
+						square = true;
+					}};
+
+					fragRandomSpread = 9f;
+					fragSpread = 12.5f;
+					fragBullets = 4;
+					fragVelocityMin = 0.4f;
+					fragVelocityMax = 1.2f;
+
+					explodeRange = 8 * tilesize;
+					explodeDelay = 1f;
+
+					despawnSound = Sounds.dullExplosion;
+
+					fragBullet = new BuckshotBulletType(7.5f, 5f, 25) {{
+						lifetime = 20f;
+						trailChance = 0.25f;
+						frontColor = front;
+						hitColor = backColor = back;
+						hitEffect = despawnEffect = Fx.blastExplosion;
+						splashDamageRadius = 1.5f * tilesize;
+						splashDamage = 8f;
+					}};
 				}},
-				UAWItems.stoutsteel, new TrailBulletType(12, 10) {{
-					height = 14f;
-					width = 6f;
-					despawnHit = true;
+				UAWItems.stoutsteel, new TrailBulletType(12, 50) {{
+					height = 18f;
+					width = 9f;
 					pierceArmor = true;
-					frontColor = UAWPal.stoutsteelFront;
-					backColor = UAWPal.stoutSteelMiddle;
-					trailEffect = Fx.disperseTrail;
+					frontColor = UAWPal.graphiteFront;
+					backColor = UAWPal.graphiteMiddle;
+					trailEffect = new MultiEffect(
+						Fx.disperseTrail,
+						new StatusHitEffect() {{
+							lifetime = 30;
+							color1 = backColor;
+							circle = false;
+							square = true;
+						}});
 					trailInterval = 0.05f;
 					trailChance = 0.4f;
 					trailColor = hitColor = backColor;
 					shootEffect = Fx.shootBigColor;
-					smokeEffect = UAWFx.shootSmoke(12, backColor, false);
+					smokeEffect = new MultiEffect(
+						new ShootSmokeEffect() {{
+							lifetime = 25;
+							color = Pal.lightOrange;
+							split = true;
+							splitAngle = 120f;
+							smokeSize = 2;
+							spreadRange = 30;
+							spreadCone = 25;
+						}}
+					);
 					hitEffect = UAWFx.hitBulletBigColor;
 					pierce = true;
 					rangeChange = 8 * tilesize;
@@ -913,20 +1106,20 @@ public class UAWBlocksDefense {
 			drawer = new DrawTurret(modTurretBase) {{
 				parts.addAll(
 					new RegionPart("-barrel") {{
-						progress = PartProgress.recoil;
-						moveY = -6 * px;
-					}},
-					new RegionPart("-front") {{
-						progress = PartProgress.warmup.min(PartProgress.reload);
-						mirror = true;
-						moveX = 6 * px;
-						moveY = 3 * px;
+						progress = PartProgress.smoothReload;
+						moveY = -7 * px;
 					}},
 					new RegionPart("-back") {{
-						progress = PartProgress.smoothReload;
+						progress = PartProgress.smoothReload.blend(PartProgress.heat, 0.25f);
 						mirror = true;
-						moveX = -6 * px;
-						moveY = -6 * px;
+						moveX = 4 * px;
+						moveY = -4 * px;
+					}},
+					new RegionPart("-front") {{
+						progress = PartProgress.warmup.blend(PartProgress.heat, 0.25f);
+						mirror = true;
+						moveX = 11 * px;
+						moveY = 4 * px;
 					}},
 					new RegionPart("-body")
 				);

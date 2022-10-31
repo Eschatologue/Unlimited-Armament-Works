@@ -1,7 +1,8 @@
 package UAW.entities.effects;
 
 import arc.graphics.Color;
-import arc.graphics.g2d.Fill;
+import arc.graphics.g2d.*;
+import arc.math.Mathf;
 import mindustry.entities.Effect;
 import mindustry.graphics.Pal;
 
@@ -14,7 +15,7 @@ public class SparkEffect extends Effect {
 	public float size = 3, life = 90, spreadBase = 5, spreadRad = 22;
 	public int amount = 5;
 
-	public boolean circle = false, square = true;
+	public int shape = 2;
 
 	public SparkEffect() {
 		clip = spreadRad * 5;
@@ -24,8 +25,11 @@ public class SparkEffect extends Effect {
 			alpha(alpha);
 			color(sparkColor, lerpColor, e.fin());
 			randLenVectors(e.id, amount > 0 ? amount : (int) (size * 1.6f), spreadBase + e.finpow() * spreadRad, (x, y) -> {
-				if (circle) Fill.circle(e.x + x, e.y + y, e.fout() * size);
-				if (square) Fill.square(e.x + x, e.y + y, e.fout() * size, 45);
+				switch (shape) {
+					case 1 -> Fill.circle(e.x + x, e.y + y, e.fout() * size);
+					case 2 -> Fill.square(e.x + x, e.y + y, e.fout() * size, 45);
+					case 3 -> Lines.lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), 1f + e.fout() * size);
+				}
 			});
 		};
 

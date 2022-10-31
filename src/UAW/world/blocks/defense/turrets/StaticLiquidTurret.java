@@ -13,7 +13,7 @@
 //public class StaticLiquidTurret extends LiquidTurret {
 //
 //	public TextureRegion base, liquid, top;
-//	public Color color;
+//	public Color color1;
 //
 //	public StaticLiquidTurret(String name) {
 //		super(name);
@@ -36,7 +36,7 @@
 //
 //		@Override
 //		public void draw() {
-//			Color liquidColor = liquids.current().color;
+//			Color liquidColor = liquids.current().color1;
 //			Draw.z(Layer.turret - 0.001f);
 //			Draw.rect(base, x, y);
 //			Drawf.liquid(liquid, x, y, liquids.total() / liquidCapacity, liquidColor);

@@ -39,7 +39,7 @@ public class Outliner {
 	 * @param textureRegion
 	 * 	The texture you want to generate outline with
 	 * @param outlineColor
-	 * 	The color of the outline, default is Pal.darkerMetal
+	 * 	The color1 of the outline, default is Pal.darkerMetal
 	 * @param outputName
 	 * 	The outline name
 	 * @param outlineRadius

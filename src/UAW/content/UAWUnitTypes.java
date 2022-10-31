@@ -4,7 +4,6 @@ import UAW.ai.types.DynamicFlyingAI;
 import UAW.audiovisual.*;
 import UAW.entities.abilities.RazorRotorAbility;
 import UAW.entities.bullet.*;
-import UAW.entities.bullet.ModdedVanillaBullet.SplashArtilleryBulletType;
 import UAW.entities.effects.*;
 import UAW.entities.units.*;
 import UAW.entities.units.entity.*;
@@ -45,7 +44,7 @@ public class UAWUnitTypes {
 	crotchety,
 		aglovale, bedivere, calogrenant, dagonet, esclabor,
 
-	// Air - Carriers
+	// Air - Carriers | Cryocopters
 	cantankerous, illustrious, indefatigable, indomitable,
 
 	// Naval - Monitor
@@ -594,8 +593,9 @@ public class UAWUnitTypes {
 					trailEffect = new MultiEffect(
 						Fx.disperseTrail,
 						new StatusHitEffect() {{
-							color = frontColor;
-							sizeMax = 1.25f;
+							lifetime = 185f;
+							color1 = frontColor;
+							sizeEnd = 1.25f;
 							square = true;
 							circle = false;
 						}}
@@ -705,8 +705,8 @@ public class UAWUnitTypes {
 					trailEffect = new MultiEffect(
 						Fx.disperseTrail,
 						new StatusHitEffect() {{
-							color = frontColor;
-							sizeMax = 2;
+							color1 = frontColor;
+							sizeEnd = 2;
 							square = true;
 							circle = false;
 						}}
@@ -905,7 +905,6 @@ public class UAWUnitTypes {
 					height = 15;
 					width = height / 1.8f;
 					lifetime = unitRange / speed;
-					trailMult = 0.9f;
 					hitShake = 4.5f;
 					frontColor = Pal.sapBullet;
 					backColor = Pal.sapBulletBack;
@@ -1182,7 +1181,8 @@ public class UAWUnitTypes {
 				shootStatus = StatusEffects.slow;
 				ejectEffect = UAWFx.casing5;
 
-				bullet = new SplashArtilleryBulletType(1.7f, 550, 11 * tilesize) {{
+				bullet = new SplashArtilleryBulletType(5.5f, 550, 11 * tilesize) {{
+					autoAdjustTrail = false;
 					height = 42;
 					width = height / 2f;
 					buildingDamageMultiplier = 3.5f;
@@ -1192,7 +1192,10 @@ public class UAWUnitTypes {
 					incendSpread = 16f;
 					makeFire = true;
 					hitSound = Sfx.explosionHuge1;
-					trailMult = 1f;
+					trailInterval = 60f;
+					trailChance = -1;
+					trailMult = 1.5f;
+					trailEffect = new MultiEffect(Fx.artilleryTrail, Fx.artilleryTrailSmoke);
 					hitShake = 15f;
 					frontColor = Pal.sapBullet;
 					backColor = Pal.sapBulletBack;
@@ -1203,8 +1206,7 @@ public class UAWUnitTypes {
 					smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.shootLiquid);
 					despawnHit = true;
 					hitEffect = UAWFx.dynamicExplosion(splashDamageRadius, frontColor, backColor);
-					fragBullets = 1;
-					fragBullet = new AftershockBulletType(splashDamage / 2, splashDamageRadius / 1.2f) {{
+					aftershock = new AftershockBulletType(splashDamage / 2, splashDamageRadius / 1.2f) {{
 						splashAmount = 5;
 						splashDelay = 60;
 						buildingDamageMultiplier = 3.5f;
@@ -1554,26 +1556,34 @@ public class UAWUnitTypes {
 					}};
 				}},
 				// Point Defense
-				new PointDefenseWeapon(pointDefense_Red_2) {{
+				new TankPointDefenseWeapon(pointDefense_Red_2) {{
 					mirror = false;
-					ignoreRotation = true;
 
 					x = -27 * px;
 					y = -22 * px;
 
-					reload = 15f;
-					recoil = 0f;
-					targetInterval = 10f;
-					targetSwitchInterval = 15f;
+					reload = 2 * tick;
 
-					color = Pal.bulletYellowBack;
+					minDamageTarget = 90;
+
+					ejectEffect = Fx.casing2;
 
 					bullet = new BulletType() {{
-						hitColor = Pal.bulletYellowBack;
-						shootEffect = Fx.shootSmallColor;
-						hitEffect = Fx.hitBulletColor;
-						maxRange = unitRange;
-						damage = 100f;
+						hitShake = 2f;
+						hitColor = Pal.missileYellow;
+						shootEffect = Fx.shootBigColor;
+						hitEffect = new MultiEffect(
+							UAWFx.hitBulletBigColor,
+							new StatusHitEffect() {{
+								life = 15f;
+								amount = 4;
+								color1 = hitColor;
+								square = true;
+								circle = false;
+							}}
+						);
+						maxRange = unitRange / 3f;
+						damage = 150f;
 					}};
 				}}
 			);
@@ -1668,13 +1678,16 @@ public class UAWUnitTypes {
 					soundPitchMax = 0.7f;
 					ejectEffect = Fx.casing2;
 
-					bullet = new BasicBulletType(4.5f, 55) {{
+					bullet = new BasicBulletType(4.5f, 45) {{
+						lifetime = ((unitRange * 0.8f) / speed);
 						height = 15f;
 						width = 7f;
 						buildingDamageMultiplier = 0.4f;
-						maxRange = unitRange / 0.8f;
 						homingRange = 60f;
 						ammoMultiplier = 8f;
+						shootEffect = Fx.shootBigColor;
+						smokeEffect = Fx.shootBigSmoke;
+						hitEffect = UAWFx.hitBulletBigColor;
 					}};
 				}},
 				// ATGM
@@ -1744,27 +1757,34 @@ public class UAWUnitTypes {
 
 				}},
 				// Point Defense
-				new PointDefenseWeapon(pointDefense_Red) {{
+				new TankPointDefenseWeapon(pointDefense_Red) {{
 					mirror = false;
-					ignoreRotation = true;
 
 					x = 40 * px;
 					y = -32 * px;
 
-					reload = 30f;
-					recoil = 0f;
-					targetInterval = 20f;
-					targetSwitchInterval = 10f;
+					reload = 5 * tilesize;
 
-					color = Pal.bulletYellowBack;
+					color = Pal.missileYellow;
+
+					minDamageTarget = 275;
 
 					bullet = new BulletType() {{
-						hitColor = Pal.bulletYellowBack;
+						hitShake = 2f;
+						hitColor = Pal.missileYellow;
 						shootEffect = Fx.shootBigColor;
-						hitEffect = UAWFx.hitBulletBigColor;
-						shootSound = Sounds.artillery;
-						maxRange = unitRange;
-						damage = 225f;
+						hitEffect = new MultiEffect(
+							UAWFx.hitBulletBigColor,
+							new StatusHitEffect() {{
+								life = 15f;
+								amount = 6;
+								color1 = hitColor;
+								square = true;
+								circle = false;
+							}}
+						);
+						maxRange = unitRange / 3f;
+						damage = 360;
 					}};
 				}}
 			);
@@ -1787,10 +1807,10 @@ public class UAWUnitTypes {
 			immunities = ObjectSet.with(StatusEffects.disarmed, UAWStatusEffects.EMP, StatusEffects.freezing);
 
 			treadFrames = 9;
-			treadPullOffset = 4;
+			treadPullOffset = 8;
 			treadRects = new Rect[]{
 				// 0
-				new Rect(11 - 144 / 2f, 97 - 355 / 2f, 34, 166)
+				new Rect(11 - 144 / 2f, 97 - 355 / 2f, 35, 166)
 			};
 			weapons.addAll(
 				// Main Gun
@@ -1998,27 +2018,32 @@ public class UAWUnitTypes {
 
 				}},
 				// Point Defense 1
-				new PointDefenseWeapon(pointDefense_Red) {{
+				new TankPointDefenseWeapon(pointDefense_Red) {{
 					mirror = false;
-					ignoreRotation = true;
 
 					x = 50 * px;
 					y = 40 * px;
 
-					reload = 30f;
-					recoil = 0f;
-					targetInterval = 20f;
-					targetSwitchInterval = 10f;
+					reload = 8 * tilesize;
 
-					color = Pal.bulletYellowBack;
+					minDamageTarget = 350;
 
 					bullet = new BulletType() {{
-						hitColor = Pal.bulletYellowBack;
+						hitShake = 3f;
+						hitColor = Pal.missileYellow;
 						shootEffect = Fx.shootBigColor;
-						hitEffect = UAWFx.hitBulletBigColor;
-						shootSound = Sounds.artillery;
-						maxRange = unitRange;
-						damage = 225f;
+						hitEffect = new MultiEffect(
+							UAWFx.hitBulletBigColor,
+							new StatusHitEffect() {{
+								life = 15f;
+								amount = 12;
+								color1 = hitColor;
+								square = true;
+								circle = false;
+							}}
+						);
+						maxRange = unitRange / 2f;
+						damage = 650f;
 					}};
 				}}
 			);

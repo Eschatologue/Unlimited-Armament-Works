@@ -2,7 +2,7 @@ package UAW.entities.bullet;
 
 import UAW.audiovisual.UAWFx;
 import arc.util.*;
-import mindustry.content.Fx;
+import mindustry.content.*;
 import mindustry.entities.Units;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
@@ -18,6 +18,7 @@ public class CanisterBulletType extends ArtilleryBulletType {
 		this.fragBullet = bulletType;
 		this.fragBullets = projectileCount;
 		this.speed = speed;
+		collides = false;
 		trailMult = 0.3f;
 		trailSize = 5f;
 		height = 32;
@@ -32,19 +33,17 @@ public class CanisterBulletType extends ArtilleryBulletType {
 		displayAmmoMultiplier = false;
 	}
 
+	public CanisterBulletType(int projectileCount, float speed) {
+		this(Bullets.placeholder, projectileCount, speed);
+	}
+
 	public CanisterBulletType(BulletType bulletType, int projectileCount) {
 		this(bulletType, projectileCount, 3f);
 	}
 
+
 	public CanisterBulletType(BulletType bulletType) {
 		this(bulletType, 4, 3f);
-	}
-
-	@Override
-	public void init(Bullet b) {
-		super.init(b);
-		this.damage = 0f;
-		this.splashDamage = 0f;
 	}
 
 	@Override

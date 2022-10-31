@@ -2,7 +2,7 @@ package UAW.content;
 
 import UAW.audiovisual.*;
 import UAW.entities.bullet.*;
-import UAW.entities.bullet.ModdedVanillaBullet.SplashArtilleryBulletType;
+import UAW.entities.bullet.SplashArtilleryBulletType;
 import arc.graphics.Color;
 import mindustry.content.*;
 import mindustry.entities.bullet.*;
