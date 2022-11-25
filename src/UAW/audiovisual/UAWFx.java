@@ -5,7 +5,7 @@ import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.math.geom.Vec2;
-import arc.util.*;
+import arc.util.Tmp;
 import mindustry.content.Fx;
 import mindustry.entities.Effect;
 import mindustry.graphics.*;
@@ -265,7 +265,7 @@ public class UAWFx {
 	 */
 	trailFade = new Effect(400f, 400, e -> {
 		if (!(e.data instanceof Trail trail)) return;
-		//lifetime is how many frames it takes to fade out the trail
+		//life is how many frames it takes to fade out the trail
 		e.lifetime = trail.length * 1.4f;
 
 		if (!state.isPaused()) {
@@ -285,12 +285,14 @@ public class UAWFx {
 
 	// region Dynamic
 
-	/** Refer to {@link UAWFx#instShoot(float burstLength, float lifetime, Color color1)} */
+	// region inst & rail
+
+	/** Refer to {@link UAWFx#instShoot(float burstLength, float life, Color color1)} */
 	public static Effect instShoot(float burstLength) {
 		return instShoot(burstLength, Pal.bulletYellowBack);
 	}
 
-	/** Refer to {@link UAWFx#instShoot(float burstLength, float lifetime, Color color1)} */
+	/** Refer to {@link UAWFx#instShoot(float burstLength, float life, Color color1)} */
 	public static Effect instShoot(float burstLength, Color color) {
 		return instShoot(burstLength, burstLength * 0.28f, color);
 	}
@@ -300,7 +302,7 @@ public class UAWFx {
 	 * @param burstLength
 	 * 	[85] The length of the side burst
 	 * @param lifetime
-	 * 	[24] Adjusts the effect lifetime along with its size etc.
+	 * 	[24] Adjusts the effect life along with its size etc.
 	 * @param color
 	 * 	Flame burst color1
 	 */
@@ -451,6 +453,9 @@ public class UAWFx {
 			});
 		});
 	}
+	// endregion inst & rail
+
+	// region shootSmokes
 
 	/** Refer to {@link UAWFx#shootSmoke(float, Color, boolean, float, float)} */
 	public static Effect shootSmoke(float lifetime, Color color) {
@@ -542,6 +547,9 @@ public class UAWFx {
 		});
 	}
 
+	// endregion shootSmokes
+
+
 	/**
 	 * Based on Fx.fireHit, that will scale based on particle radius, don't make it too big, or it will lag
 	 * @param particleRadius
@@ -598,19 +606,21 @@ public class UAWFx {
 		});
 	}
 
+	// region Explosions
+
 	/**
 	 * {@link mindustry.entities.effect.ExplosionEffect}
 	 * @param size
 	 * 	How big is the explosion
 	 */
 	public static Effect dynamicExplosion(float size) {
-		return dynamicExplosion(size, Pal.lightOrange, Pal.lighterOrange);
+		return dynamicExplosion(size, Pal.missileYellow, Pal.missileYellowBack);
 	}
 
 	/**
 	 * Based on Fx.dymamicExplosion, Lines is replaced with circleSparks
 	 * @param size
-	 * 	How big is the explosion, can be based on splashDamageRadius, also adjusts lifetime and clip size
+	 * 	How big is the explosion, can be based on splashDamageRadius, also adjusts life and clip size
 	 */
 	public static Effect dynamicExplosion(float size, Color frontColor, Color backColor) {
 		return new Effect(size * 12, size * 5, b -> {
@@ -631,10 +641,10 @@ public class UAWFx {
 					}));
 			}
 
-			b.scaled((baseLifetime / 1.5f), e -> {
+			b.scaled((baseLifetime / 1.25f), e -> {
 				e.scaled(5 + intensity * 2.5f, i -> {
 					color(frontColor);
-					stroke((3f + intensity / 4f) * i.fout());
+					stroke((3f + intensity / 3.8f) * i.fout());
 					Lines.circle(e.x, e.y, (3f + i.fin() * 14f) * intensity);
 					light(e.x, e.y, i.fin() * 14f * 2f * intensity, Color.white, 0.9f * e.fout());
 				});
@@ -759,7 +769,7 @@ public class UAWFx {
 	/**
 	 * Based on {@link Fx#greenBomb}
 	 * @param size
-	 * 	[ 68 (17 * tilesize)] How big is the radius, also adjusts lifetime
+	 * 	[ 68 (17 * tilesize)] How big is the radius, also adjusts life
 	 * @param rotation
 	 * 	[90]
 	 * @param color
@@ -788,6 +798,7 @@ public class UAWFx {
 			light(e.x, e.y, circleRad * 1.6f, color, e.fout());
 		});
 	}
+	// endregion Explosions
 
 	/** Refer to {@link UAWFx#burstCloud(float, float, int, float, Color)} */
 	public static Effect burstCloud(Color color) {

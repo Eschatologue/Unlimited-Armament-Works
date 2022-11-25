@@ -41,14 +41,11 @@ public class AftershockBulletType extends BulletType {
 	public Color particleColor;
 	public Effect particleEffect = Fx.hitBulletColor;
 
-	float splashDuration = (splashDelay * splashAmount);
-
 	public AftershockBulletType(float splashDamage, float radius) {
 		super(splashDamage, radius);
 		this.damage = 0f;
 		this.splashDamage = splashDamage;
 		this.splashDamageRadius = radius;
-		this.lifetime = splashDuration;
 		scaledSplashDamage = true;
 		hitSize = speed = 0;
 		smokeEffect = despawnEffect = hitEffect = Fx.none;
@@ -57,6 +54,12 @@ public class AftershockBulletType extends BulletType {
 		absorbable = false;
 		hittable = false;
 		collides = false;
+	}
+
+	@Override
+	public void init(){
+		super.init();
+		lifetime = splashDelay * splashAmount;
 	}
 
 	protected static Effect aftershockCircle(float size, float lifetime, Color frontColor, Color backColor, Color splashColor, int pointCount) {

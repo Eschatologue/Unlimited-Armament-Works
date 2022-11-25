@@ -1,18 +1,23 @@
 package UAW.entities.bullet;
 
-import arc.graphics.Color;
+import arc.math.*;
 import arc.util.Nullable;
+import mindustry.content.Fx;
 import mindustry.entities.bullet.*;
-import mindustry.gen.Bullet;
+import mindustry.gen.*;
 
 import static mindustry.Vars.tilesize;
 
-public class SplashArtilleryBulletType extends ArtilleryBulletType {
+public class SplashArtilleryBulletType extends BasicBulletType {
+	public float trailMult = 0f, trailSize = 4f;
+
+	public float trailLengthScale = 1f;
+	public float trailWidthScale = 0.368f;
 
 	public @Nullable
 	BulletType aftershock = null;
 
-	public boolean autoAdjustTrail = true;
+	public boolean generateTrail = true;
 
 	public SplashArtilleryBulletType() {
 		this(1f, 1f);
@@ -31,6 +36,22 @@ public class SplashArtilleryBulletType extends ArtilleryBulletType {
 		this.damage = splashDamage;
 		this.splashDamageRadius = splashDamageRadius;
 		this.sprite = bulletSprite;
+		this.speed = speed;
+
+		collidesTiles = false;
+		collides = false;
+		collidesAir = false;
+		scaleLife = true;
+		hitShake = 1f;
+		hitSound = Sounds.explosion;
+		hitEffect = Fx.flakExplosion;
+		shootEffect = Fx.shootBig;
+		trailEffect = Fx.artilleryTrail;
+
+		//default settings:
+		shrinkX = 0.15f;
+		shrinkY = 0.63f;
+		shrinkInterp = Interp.slope;
 	}
 
 	public void createAftershock(Bullet b, float x, float y) {
@@ -39,17 +60,26 @@ public class SplashArtilleryBulletType extends ArtilleryBulletType {
 		}
 	}
 
+	public void generateTrail() {
+		trailInterp = Interp.slope;
+		trailWidth = width * trailWidthScale;
+		trailLength = Mathf.round(height * trailLengthScale);
+		trailColor = backColor;
+	}
+
 	@Override
 	public void init() {
-		if (autoAdjustTrail) trailSize = width / 3.4f;
-		super.init();
-
+	super.init();
+	if (generateTrail) generateTrail();
 	}
+
 
 	@Override
 	public void update(Bullet b) {
 		super.update(b);
-		trailColor = new Color(backColor).lerp(Color.gray, 0.5f);
+		if (b.timer(2, (3 + b.fslope() * 2f) * trailMult) && trailMult > 0) {
+			trailEffect.at(b.x, b.y, b.fslope() * trailSize, backColor);
+		}
 	}
 
 	@Override
@@ -57,6 +87,5 @@ public class SplashArtilleryBulletType extends ArtilleryBulletType {
 		super.hit(b);
 		createAftershock(b, b.x, b.y);
 	}
-
 
 }

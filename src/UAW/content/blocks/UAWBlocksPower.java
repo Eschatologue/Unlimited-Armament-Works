@@ -33,14 +33,14 @@ public class UAWBlocksPower {
 		// Steam to Power
 		steamTurbine = new ConsumeGenerator("steam-turbine") {{
 			requirements(Category.power, with(
-				Items.copper, 50,
-				Items.graphite, 40,
+				Items.copper, 90,
+				Items.graphite, 45,
 				Items.lead, 60,
 				Items.silicon, 45
 			));
 			size = 3;
 			squareSprite = false;
-			powerProduction = 8.5f;
+			powerProduction = 420 / tick;
 			liquidCapacity = 90f;
 
 			generateEffect = Fx.steam;
@@ -53,22 +53,22 @@ public class UAWBlocksPower {
 				new DrawDefault(),
 				new DrawBlurSpin("-rotator", 6)
 			);
-			float steamInput = 45 / tick;
+			float steamInput = 90 / tick;
 			consumeLiquid(UAWLiquids.steam, steamInput);
-			outputLiquid = new LiquidStack(Liquids.water, (steamInput / steamConversionScl) * 0.8f);
+			outputLiquid = new LiquidStack(Liquids.water, (steamInput / steamConversionScl) * 0.45f);
 		}};
 		advancedSteamTurbine = new ConsumeGenerator("advanced-steam-turbine") {{
 			requirements(Category.power, with(
-				Items.copper, 250,
-				Items.lead, 200,
-				Items.silicon, 125,
-				Items.graphite, 100,
-				Items.plastanium, 95,
-				Items.metaglass, 50
+				Items.copper, 280,
+				Items.graphite, 90,
+				Items.lead, 180,
+				Items.silicon, 90,
+				Items.metaglass, 90,
+				Items.plastanium, 90
 			));
 			size = 4;
 			squareSprite = false;
-			powerProduction = 13.5f;
+			powerProduction = 1060 / tick;
 			liquidCapacity = 270f;
 
 			generateEffect = Fx.steam;
@@ -81,22 +81,22 @@ public class UAWBlocksPower {
 				new DrawDefault(),
 				new DrawBlurSpin("-rotator", 7)
 			);
-			float steamInput = 135 / tick;
+			float steamInput = 225 / tick;
 			consumeLiquid(UAWLiquids.steam, steamInput);
-			outputLiquid = new LiquidStack(Liquids.water, (steamInput / steamConversionScl) * 0.8f);
+			outputLiquid = new LiquidStack(Liquids.water, (steamInput / steamConversionScl) * (0.45f / 2));
 		}};
 
 		// Steam Production
 		steamKettle = new SteamBoiler("steam-kettle") {{
 			requirements(Category.power, with(
-				Items.copper, 12,
+				Items.copper, 25,
 				Items.lead, 12
 			));
 			size = 1;
 
-			float steamOutput = 15 / tick;
-			consumeLiquid(Liquids.water, steamOutput);
-			outputLiquid = new LiquidStack(UAWLiquids.steam, steamOutput * steamConversionScl);
+			float waterInput = 15 / tick;
+			consumeLiquid(Liquids.water, waterInput);
+			outputLiquid = new LiquidStack(UAWLiquids.steam, waterInput * steamConversionScl);
 			liquidCapacity = 180f;
 
 			squareSprite = false;
@@ -114,16 +114,16 @@ public class UAWBlocksPower {
 		}};
 		industrialBoiler = new SteamBoiler("industrial-boiler") {{
 			requirements(Category.power, with(
-				Items.copper, 55,
+				Items.copper, 70,
 				Items.graphite, 35,
 				Items.silicon, 35,
 				Items.lead, 35
 			));
 			size = 2;
 
-			float steamOutput = 30 / tick;
-			consumeLiquid(Liquids.water, steamOutput);
-			outputLiquid = new LiquidStack(UAWLiquids.steam, steamOutput * steamConversionScl);
+			float waterInput = 30 / tick;
+			consumeLiquid(Liquids.water, waterInput);
+			outputLiquid = new LiquidStack(UAWLiquids.steam, waterInput * steamConversionScl);
 			liquidCapacity = steamKettle.liquidCapacity * 2;
 
 			squareSprite = false;
@@ -143,7 +143,7 @@ public class UAWBlocksPower {
 		}};
 		pressureBoiler = new SteamBoiler("pressure-boiler") {{
 			requirements(Category.power, with(
-				Items.copper, 125,
+				Items.copper, 150,
 				Items.lead, 100,
 				Items.titanium, 85,
 				Items.metaglass, 65,
@@ -152,9 +152,9 @@ public class UAWBlocksPower {
 			));
 			size = 4;
 
-			float steamOutput = 120 / tick;
-			consumeLiquid(Liquids.water, steamOutput);
-			outputLiquid = new LiquidStack(UAWLiquids.steam, steamOutput * steamConversionScl);
+			float waterInput = 120 / tick;
+			consumeLiquid(Liquids.water, waterInput);
+			outputLiquid = new LiquidStack(UAWLiquids.steam, waterInput * steamConversionScl);
 			liquidCapacity = steamKettle.liquidCapacity * 4;
 
 			squareSprite = false;
@@ -174,7 +174,7 @@ public class UAWBlocksPower {
 		}};
 		geothermalBoiler = new AttributeSteamBoiler("geothermal-boiler") {{
 			requirements(Category.power, with(
-				Items.copper, 70,
+				Items.copper, 90,
 				Items.graphite, 45,
 				Items.silicon, 40,
 				Items.lead, 50,

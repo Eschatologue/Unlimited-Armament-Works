@@ -17,23 +17,25 @@ public class StatusHitEffect extends Effect {
 	public float sizeStart = 0.2f, sizeEnd = 1.5f, life = 35, spreadBase = 2f, spreadRad = 7f;
 	public int amount = 3;
 
-	public boolean circle = true, square = false;
 	public float particleRotSpeed = 0;
 
-	/** Based on {@link mindustry.content.Fx#freezing} */
-	public StatusHitEffect() {
-		clip = spreadRad * 5;
-		lifetime = life;
-		renderer = e -> {
-			Draw.alpha(sizeStart > sizeEnd ? alpha * e.fout() : alpha);
-			color(color1, color2 == null ? color1 : color2, e.fout());
+	public int shapeVariant = 1;
 
-			randLenVectors(e.id, amount, spreadBase + e.fin() * spreadRad, (x, y) -> {
-				if (circle)
-					Fill.circle(e.x + x, e.y + y, sizeStart + e.fslope() * sizeEnd);
-				if (square)
-					Fill.square(e.x + x, e.y + y, sizeStart + e.fslope() * sizeEnd, particleRotSpeed != 0 ? particleRotSpeed * Time.time : 45);
-			});
-		};
+	@Override
+	public void init(){
+		lifetime = life;
+	}
+
+	@Override
+	public void render(EffectContainer e) {
+		Draw.alpha(sizeStart > sizeEnd ? alpha * e.fout() : alpha);
+		color(color1, color2 == null ? color1 : color2, e.fout());
+
+		randLenVectors(e.id, amount, spreadBase + e.fin() * spreadRad, (x, y) -> {
+			switch (shapeVariant) {
+				case 1 -> Fill.circle(e.x + x, e.y + y, sizeStart + e.fslope() * sizeEnd);
+				case 2 -> Fill.square(e.x + x, e.y + y, sizeStart + e.fslope() * sizeEnd, particleRotSpeed != 0 ? particleRotSpeed * Time.time : 45);
+			}
+		});
 	}
 }
