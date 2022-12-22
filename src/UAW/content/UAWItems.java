@@ -10,16 +10,21 @@ public class UAWItems {
 	cryogel, dieselCore,
 	// Metal
 	stoutsteel,
-	// Crystal
-	anthracite;
+	// Natural
+	sulphur, anthracite;
 
 	public static void load() {
+
 		cryogel = new Item("item-cryogel", Color.valueOf("87ceeb")) {{
 			flammability = -10f;
 			explosiveness = 0f;
 		}};
 		stoutsteel = new Item("item-stoutsteel", UAWPal.stoutSteelMiddle) {{
 			cost = 2.5f;
+		}};
+
+		sulphur = new Item("item-sulphur", Color.valueOf("e28654")) {{
+
 		}};
 		anthracite = new Item("item-anthracite", Color.valueOf("272727")) {{
 			flammability = 1.8f;

@@ -35,6 +35,9 @@ public class UAWSerpuloTechTree {
 					});
 				});
 
+				nodeProduce(UAWLiquids.lpg, () -> {
+				});
+
 			});
 
 			// Power etc

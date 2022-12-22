@@ -7,7 +7,7 @@ import mindustry.type.Liquid;
 public class UAWLiquids {
 	public static Liquid placeholder,
 	// Liquid
-	liqOxygen, glycerine, nitroglycerine,
+	liqOxygen, glycerine,
 	// Gas
 	steam, lpg;
 
@@ -17,8 +17,14 @@ public class UAWLiquids {
 			gas = true;
 			alwaysUnlocked = true;
 			explosiveness = 0f;
-			temperature = 0.6f;
+			temperature = 0.75f;
 			effect = StatusEffects.wet;
+		}};
+
+		lpg = new Liquid("gas-lpg", UAWPal.cryoFront) {{
+			gas = true;
+			explosiveness = 2.4f;
+			temperature = 0f;
 		}};
 	}
 }

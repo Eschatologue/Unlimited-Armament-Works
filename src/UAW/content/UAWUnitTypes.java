@@ -11,7 +11,7 @@ import UAW.type.Rotor;
 import UAW.type.weapon.*;
 import arc.func.Prov;
 import arc.graphics.Color;
-import arc.math.*;
+import arc.math.Mathf;
 import arc.math.geom.Rect;
 import arc.struct.*;
 import arc.struct.ObjectMap.Entry;
@@ -27,7 +27,6 @@ import mindustry.graphics.Pal;
 import mindustry.type.*;
 import mindustry.type.ammo.ItemAmmoType;
 import mindustry.type.weapons.PointDefenseWeapon;
-import mindustry.world.blocks.payloads.PayloadSource;
 import mindustry.world.meta.BlockFlag;
 
 import static UAW.Vars.*;
@@ -943,7 +942,6 @@ public class UAWUnitTypes {
 					}};
 				}},
 				new Weapon(machineGun_small_purple) {{
-					lifetime = (unitRange * 0.8f) / speed;
 					rotate = mirror = autoTarget = alternate = true;
 					controllable = false;
 					x = 7f;
@@ -1003,7 +1001,7 @@ public class UAWUnitTypes {
 							Fx.shootLiquid
 						);
 						despawnEffect = hitEffect = new MultiEffect(
-							UAWFx.dynamicExplosion(splashDamageRadius)
+							UAWFx.dynamicExplosion(splashDamageRadius, frontColor, backColor)
 						);
 						fragBullets = 4;
 						fragBullet = new BasicBulletType(2.5f, 10) {{
@@ -1157,7 +1155,7 @@ public class UAWUnitTypes {
 				shootStatus = StatusEffects.slow;
 				ejectEffect = UAWFx.casing5;
 
-				bullet = new SplashArtilleryBulletType(2f, 500, 11 * tilesize) {{
+				bullet = new SplashArtilleryBulletType(2.25f, 500, 12 * tilesize) {{
 					height = 38;
 					width = height / 2f;
 					buildingDamageMultiplier = 3.5f;
@@ -1188,7 +1186,7 @@ public class UAWUnitTypes {
 					hitEffect = UAWFx.dynamicExplosion(splashDamageRadius, frontColor, backColor);
 					trailLength = 21 * 2;
 					trailWidth = 7;
-					trailInterp = Interp.slope;
+					trailInterp = v -> Math.max(Mathf.slope(v), 0.8f);
 					trailColor = backColor;
 					aftershock = new AftershockBulletType(splashDamage / 2, splashDamageRadius / 1.2f) {{
 						splashAmount = 5;

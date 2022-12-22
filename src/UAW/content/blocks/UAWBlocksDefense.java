@@ -7,6 +7,7 @@ import UAW.entities.bullet.*;
 import UAW.entities.effects.*;
 import UAW.world.blocks.defense.turrets.UAWItemTurret;
 import UAW.world.blocks.defense.walls.ShieldWall;
+import UAW.world.drawer.*;
 import arc.graphics.Color;
 import arc.math.Interp;
 import mindustry.content.*;
@@ -16,12 +17,12 @@ import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.*;
 import mindustry.gen.Sounds;
-import mindustry.graphics.Pal;
+import mindustry.graphics.*;
 import mindustry.type.Category;
 import mindustry.world.Block;
-import mindustry.world.blocks.defense.Wall;
+import mindustry.world.blocks.defense.*;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
-import mindustry.world.draw.DrawTurret;
+import mindustry.world.draw.*;
 
 import static UAW.Vars.*;
 import static UAW.content.UAWBullets.*;
@@ -1357,74 +1358,40 @@ public class UAWBlocksDefense {
 		}};
 
 		//endregion Serpulo
-//		statusFieldProjector = new EffectFieldProjector("status-field-projector") {{
-//			requirements(Category.effect, with(
-//				Items.lead, 100,
-//				Items.titanium, 75,
-//				Items.metaglass, 75,
-//				Items.silicon, 75
-//			));
-//			size = 2;
-//			reload = 1.2f * 60;
-//			range = 24 * tilesize;
-//			ammoUseEffect = Fx.doorcloselarge;
-//			ammo(
-//				Liquids.cryofluid, new AftershockBulletType(0, range) {{
-//					smokeEffect = FxS.cryoHit;
-//					status = StatusEffects.freezing;
-//					frontColor = UAWPal.cryoFront;
-//					backColor = UAWPal.cryoBack;
-//					statusDuration = reload * 1.5f;
-//					splashAmount = 1;
-//					shootEffect = UAWFx.circleSplash(range, reload / 2, frontColor, backColor, backColor, 6);
-//				}},
-//				Liquids.slag, new AftershockBulletType(0, range) {{
-//					smokeEffect = Fx.fireHit;
-//					status = StatusEffects.melting;
-//					frontColor = Pal.lighterOrange;
-//					backColor = Pal.lightOrange;
-//					statusDuration = reload * 1.5f;
-//					splashAmount = 1;
-//					shootEffect = UAWFx.circleSplash(range, reload / 2, frontColor, backColor, backColor, 6);
-//				}},
-//				Liquids.oil, new AftershockBulletType(0, range) {{
-//					frontColor = Pal.plastaniumFront;
-//					backColor = Pal.plastaniumBack;
-//					smokeEffect = FxS.plastHit;
-//					status = StatusEffects.tarred;
-//					statusDuration = reload * 1.5f;
-//					splashAmount = 1;
-//					shootEffect = UAWFx.circleSplash(range, reload / 2, frontColor, backColor, backColor, 6);
-//				}},
-//				UAWLiquids.surgeSolvent, new AftershockBulletType(0, range) {{
-//					smokeEffect = FxS.surgeHit;
-//					status = StatusEffects.electrified;
-//					frontColor = Pal.missileYellow;
-//					backColor = Pal.missileYellowBack;
-//					statusDuration = reload * 1.5f;
-//					splashAmount = 1;
-//					shootEffect = UAWFx.circleSplash(range, reload / 2, frontColor, backColor, backColor, 6);
-//				}}
-//			);
-//			consumePower(2.4f);
-//		}};
-//		rejuvinationProjector = new RejuvenationProjector("rejuvination-projector") {{
-//			requirements(Category.effect, with(
-//				Items.lead, 150,
-//				Items.titanium, 55,
-//				Items.silicon, 35,
-//				Items.metaglass, 35
-//			));
-//			size = 2;
-//			reload = 15f;
-//			range = 10 * tilesize;
-//			healPercent = 0.8f;
-//			health = 60 * size * size;
-//			boostMultiplier = 3f;
-//			boostDuration = 5 * tick;
-//			consumePower(1.6f);
-//			consumeLiquid(Liquids.oil, 0.5f);
-//		}};
+
+		// TODO
+		rejuvinationProjector = new RegenProjector("rejuvination-projector") {{
+			requirements(Category.effect, with(
+				Items.lead, 150,
+				Items.titanium, 55,
+				Items.silicon, 35,
+				Items.metaglass, 35
+			));
+			size = 2;
+			range = 13;
+			healPercent = 2.5f / tick;
+			health = 60 * size * size;
+			effect = new StatusHitEffect() {{
+				color1 = Pal.plastaniumFront;
+				amount = 4;
+			}};
+			consumePower(1.6f);
+			consumeLiquid(Liquids.oil, 0.5f);
+
+			drawer = new DrawMulti(
+				new DrawDefault(),
+				new DrawBoilerSmoke() {{
+					particles = 35;
+				}},
+				new DrawPulses(false) {{
+					pulseRad = range * tilesize;
+					layer = Layer.blockUnder;
+					color = Pal.plastaniumFront;
+					stroke = 5f;
+					timeScl = 200f;
+				}}
+			);
+		}};
 //		rejuvinationDome = new RejuvenationProjector("rejuvination-dome") {{
 //			requirements(Category.effect, with(
 //				Items.lead, 250,
