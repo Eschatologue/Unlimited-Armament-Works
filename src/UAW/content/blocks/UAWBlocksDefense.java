@@ -5,9 +5,10 @@ import UAW.content.*;
 import UAW.entities.UAWUnitSorts;
 import UAW.entities.bullet.*;
 import UAW.entities.effects.*;
+import UAW.world.blocks.defense.SpecificRegenProjector;
 import UAW.world.blocks.defense.turrets.UAWItemTurret;
 import UAW.world.blocks.defense.walls.ShieldWall;
-import UAW.world.drawer.*;
+import UAW.world.drawer.DrawPulses;
 import arc.graphics.Color;
 import arc.math.Interp;
 import mindustry.content.*;
@@ -20,7 +21,7 @@ import mindustry.gen.Sounds;
 import mindustry.graphics.*;
 import mindustry.type.Category;
 import mindustry.world.Block;
-import mindustry.world.blocks.defense.*;
+import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.draw.*;
 
@@ -48,7 +49,7 @@ public class UAWBlocksDefense {
 	shieldWall, stoutSteelWall, stoutSteelWallLarge,
 
 	// Projectors
-	statusFieldProjector, rejuvinationProjector, rejuvinationDome;
+	statusFieldProjector, reviltalizationProjector, reviltalizationDome;
 
 	public static void load() {
 
@@ -1336,6 +1337,7 @@ public class UAWBlocksDefense {
 
 			consumePower(0.5f);
 		}};
+
 		stoutSteelWall = new Wall("stoutsteel-wall") {{
 			requirements(Category.defense, with(
 				UAWItems.stoutsteel, 8
@@ -1357,10 +1359,8 @@ public class UAWBlocksDefense {
 			armor = Math.round(health / 80f);
 		}};
 
-		//endregion Serpulo
-
-		// TODO
-		rejuvinationProjector = new RegenProjector("rejuvination-projector") {{
+		// Projectors
+		reviltalizationProjector = new SpecificRegenProjector("wall-healer-projector") {{
 			requirements(Category.effect, with(
 				Items.lead, 150,
 				Items.titanium, 55,
@@ -1368,31 +1368,54 @@ public class UAWBlocksDefense {
 				Items.metaglass, 35
 			));
 			size = 2;
-			range = 13;
-			healPercent = 2.5f / tick;
-			health = 60 * size * size;
+			range = 11;
+			healPercent = 3f / tick;
+			health = 50 * (int) (Math.pow(size, 3));
 			effect = new StatusHitEffect() {{
 				color1 = Pal.plastaniumFront;
 				amount = 4;
 			}};
+
+			consumeItem(UAWItems.sulphur, 1).boost();
 			consumePower(1.6f);
-			consumeLiquid(Liquids.oil, 0.5f);
+			consumeLiquid(UAWLiquids.petroleumGas, 0.5f);
+
+			baseColor = UAWLiquids.petroleumGas.color;
 
 			drawer = new DrawMulti(
-				new DrawDefault(),
-				new DrawBoilerSmoke() {{
-					particles = 35;
+				new DrawRegion("-bottom"),
+				new DrawLiquidTile(UAWLiquids.petroleumGas) {{
+					padding = 12 * px;
 				}},
+				new DrawDefault(),
 				new DrawPulses(false) {{
-					pulseRad = range * tilesize;
-					layer = Layer.blockUnder;
-					color = Pal.plastaniumFront;
-					stroke = 5f;
-					timeScl = 200f;
+					square = true;
+					pulseRad = (range / 2) * tilesize;
+					layer = Layer.effect;
+					color = UAWPal.lpgFront;
+					stroke = 3f;
+					timeScl = 400;
+				}},
+				new DrawGlowRegion("-glow") {{
+					color = UAWPal.lpgMid;
+				}},
+				new DrawSoftParticles() {{
+					color = UAWPal.lpgFront;
+					color2 = UAWPal.lpgMid;
+					alpha = 0.55f;
+					particleRad = 9f;
+					particleSize = 8f;
+					particleLife = 130f;
+					particles = 20;
 				}}
 			);
+
+
 		}};
-//		rejuvinationDome = new RejuvenationProjector("rejuvination-dome") {{
+
+		//endregion Serpulo
+
+//		rejuvinationDome = new SpecificRegenProjector("rejuvination-dome") {{
 //			requirements(Category.effect, with(
 //				Items.lead, 250,
 //				Items.titanium, 100,

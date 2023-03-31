@@ -9,7 +9,7 @@ public class UAWLiquids {
 	// Liquid
 	liqOxygen, glycerine,
 	// Gas
-	steam, lpg;
+	steam, petroleumGas;
 
 	public static void load() {
 
@@ -21,7 +21,7 @@ public class UAWLiquids {
 			effect = StatusEffects.wet;
 		}};
 
-		lpg = new Liquid("gas-lpg", UAWPal.cryoFront) {{
+		petroleumGas = new Liquid("gas-petroleum-gas", UAWPal.lpgMid) {{
 			gas = true;
 			explosiveness = 2.4f;
 			temperature = 0f;

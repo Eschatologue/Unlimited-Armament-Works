@@ -35,7 +35,7 @@ public class UAWSerpuloTechTree {
 					});
 				});
 
-				nodeProduce(UAWLiquids.lpg, () -> {
+				nodeProduce(UAWLiquids.petroleumGas, () -> {
 				});
 
 			});
