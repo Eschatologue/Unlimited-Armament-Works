@@ -1,6 +1,7 @@
 package UAW.content.blocks;
 
 import UAW.content.*;
+import UAW.content.UAWItems;
 import UAW.world.units.UnitConstructor;
 import arc.struct.Seq;
 import mindustry.content.*;

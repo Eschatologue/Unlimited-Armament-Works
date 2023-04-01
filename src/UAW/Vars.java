@@ -8,7 +8,7 @@ public class Vars implements Loadable {
 	public static final float px = 0.25f;
 
 	public static final float steamConversionScl = 3;
-	public static final float steamLoseScl= 0.5f;
+	public static final float steamLoseScl = 0.5f;
 
 	public static final String modName = "uaw-";
 	public static final String modTurretBase = "armored-";
@@ -61,4 +61,11 @@ public class Vars implements Loadable {
 	public static final String cruisemissile_medium_basic = modName + "cruisemissile-medium-basic";
 	public static final String cruisemissile_medium_cryo = modName + "cruisemissile-medium-cryo";
 	public static final String cruisemissile_medium_surge = modName + "cruisemissile-medium-surge";
+
+	// Multicrafter mode
+	public static final String transform = "transform";
+	public static final String simple = "simple";
+	public static final String number = "number";
+	public static final String detailed = "detailed";
+
 }

@@ -11,6 +11,7 @@ import UAW.world.blocks.defense.walls.ShieldWall;
 import UAW.world.drawer.DrawPulses;
 import arc.graphics.Color;
 import arc.math.Interp;
+import arc.struct.Seq;
 import mindustry.content.*;
 import mindustry.entities.UnitSorts;
 import mindustry.entities.bullet.BasicBulletType;
@@ -24,6 +25,7 @@ import mindustry.world.Block;
 import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.draw.*;
+import multicraft.*;
 
 import static UAW.Vars.*;
 import static UAW.content.UAWBullets.*;
@@ -31,13 +33,13 @@ import static mindustry.Vars.tilesize;
 import static mindustry.type.ItemStack.with;
 
 /** Contains defense & support structures, such as Walls, Turrets, and booster */
-public class UAWBlocksDefense {
+public class UAWBlocksDefence {
 	public static Block placeholder,
 
 	// Tier 2
 	quadra, ashlock, buckshot, skeeter,
 	// Tier 3
-	spitfire, longbow, tempest, strikeforce, zounderkite, redeemer,
+	spitfire, longsword, tempest, strikeforce, zounderkite, redeemer,
 	// Tier 4
 	deadeye, skyhammer, hellseeker,
 	// Tier 5
@@ -49,7 +51,10 @@ public class UAWBlocksDefense {
 	shieldWall, stoutSteelWall, stoutSteelWallLarge,
 
 	// Projectors
-	statusFieldProjector, reviltalizationProjector, reviltalizationDome;
+	statusFieldProjector, wallHealerProjector, wallHealerDome,
+
+	// Ammunition Crafter
+	casingRoller, bulletAssembler, minesAssembler;
 
 	public static void load() {
 
@@ -424,7 +429,7 @@ public class UAWBlocksDefense {
 				);
 			}};
 		}};
-		longbow = new ItemTurret("longbow") {{
+		longsword = new ItemTurret("longsword") {{
 			requirements(Category.turret, with(
 				Items.thorium, 400,
 				Items.titanium, 275,
@@ -1360,7 +1365,7 @@ public class UAWBlocksDefense {
 		}};
 
 		// Projectors
-		reviltalizationProjector = new SpecificRegenProjector("wall-healer-projector") {{
+		wallHealerProjector = new SpecificRegenProjector("wall-healer-projector") {{
 			requirements(Category.effect, with(
 				Items.lead, 150,
 				Items.titanium, 55,
@@ -1369,7 +1374,7 @@ public class UAWBlocksDefense {
 			));
 			size = 2;
 			range = 11;
-			healPercent = 3f / tick;
+			healPercent = 3.5f / tick;
 			health = 50 * (int) (Math.pow(size, 3));
 			effect = new StatusHitEffect() {{
 				color1 = Pal.plastaniumFront;
@@ -1383,10 +1388,6 @@ public class UAWBlocksDefense {
 			baseColor = UAWLiquids.petroleumGas.color;
 
 			drawer = new DrawMulti(
-				new DrawRegion("-bottom"),
-				new DrawLiquidTile(UAWLiquids.petroleumGas) {{
-					padding = 12 * px;
-				}},
 				new DrawDefault(),
 				new DrawPulses(false) {{
 					square = true;
@@ -1409,27 +1410,95 @@ public class UAWBlocksDefense {
 					particles = 20;
 				}}
 			);
+		}};
+		wallHealerDome = new SpecificRegenProjector("wall-healer-dome") {{
+			requirements(Category.effect, with(
+				Items.lead, 150,
+				Items.titanium, 55,
+				Items.silicon, 35,
+				Items.metaglass, 35
+			));
+			size = 3;
+			range = 21;
+			healPercent = 5.5f / tick;
+			otherBlockHealMult = 0.4f;
+			health = 50 * (int) (Math.pow(size, 3));
+			effect = new StatusHitEffect() {{
+				color1 = Pal.plastaniumFront;
+				amount = 4;
+			}};
 
+			consumeItem(UAWItems.sulphur, 2).boost();
+			consumePower(2.4f);
+			consumeLiquid(UAWLiquids.petroleumGas, 1f);
 
+			baseColor = UAWLiquids.petroleumGas.color;
+
+			drawer = new DrawMulti(
+				new DrawDefault(),
+				new DrawPulses(false) {{
+					square = true;
+					pulseRad = (range / 2) * tilesize;
+					layer = Layer.effect;
+					color = UAWPal.lpgFront;
+					stroke = 3f;
+					timeScl = 400;
+				}},
+				new DrawGlowRegion("-glow-top") {{
+					color = UAWPal.lpgMid;
+				}},
+				new DrawGlowRegion("-glow-bottom") {{
+					color = Pal.turretHeat;
+				}},
+				new DrawSoftParticles() {{
+					color = UAWPal.lpgFront;
+					color2 = UAWPal.lpgMid;
+					alpha = 0.55f;
+					particleRad = 12f;
+					particleSize = 10f;
+					particleLife = 160f;
+					particles = 30;
+				}}
+			);
 		}};
 
-		//endregion Serpulo
+		minesAssembler = new MultiCrafter("blast-furnace") {{
+			requirements(Category.crafting, with(
+				Items.lead, 45,
+				Items.graphite, 30,
+				Items.thorium, 20
+			));
+			size = 3;
 
-//		rejuvinationDome = new SpecificRegenProjector("rejuvination-dome") {{
-//			requirements(Category.effect, with(
-//				Items.lead, 250,
-//				Items.titanium, 100,
-//				Items.silicon, 55,
-//				Items.metaglass, 55
-//			));
-//			size = 3;
-//			reload = 15f;
-//			range = 25 * tilesize;
-//			healPercent = 1.2f;
-//			health = 75 * size * size;
-//			boostMultiplier = 6f;
-//			consumePower(3f);
-//			consumeLiquid(Liquids.oil, 1f);
-//		}};
+			hasItems = true;
+			hasLiquids = true;
+			menu = simple;
+			resolvedRecipes = Seq.with(
+				new Recipe() {{
+					input = new IOEntry(
+						Seq.with(with(Items.silicon, 4)),
+						Seq.with()
+					);
+					output = new IOEntry(
+						Seq.with(with(Items.metaglass, 4)),
+						Seq.with()
+					);
+					craftTime = 2 * tick;
+				}},
+				new Recipe() {{
+					input = new IOEntry(
+						Seq.with(with(Items.metaglass, 4)),
+						Seq.with(),
+						85f / tick
+					);
+					output = new IOEntry(
+						Seq.with(with(Items.surgeAlloy, 4)),
+						Seq.with()
+					);
+					craftTime = 4 * tick;
+				}}
+			);
+		}};
+		//endregion Serpulo
 	}
 }

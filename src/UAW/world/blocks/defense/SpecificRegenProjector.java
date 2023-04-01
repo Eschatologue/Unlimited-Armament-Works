@@ -3,6 +3,7 @@ package UAW.world.blocks.defense;
 import arc.math.Mathf;
 import arc.struct.IntFloatMap;
 import arc.util.Time;
+import mindustry.gen.Building;
 import mindustry.world.blocks.defense.*;
 
 import static mindustry.Vars.*;
@@ -11,9 +12,10 @@ public class SpecificRegenProjector extends RegenProjector {
 	private static final IntFloatMap mendMap = new IntFloatMap();
 	private static long lastUpdateFrame = -1;
 
+	public float otherBlockHealMult = 0.5f;
+
 	public SpecificRegenProjector(String name) {
 		super(name);
-
 	}
 
 	public class RevitalizationProjectorBuild extends RegenProjectorBuild {
@@ -36,7 +38,7 @@ public class SpecificRegenProjector extends RegenProjector {
 				return;
 			}
 
-			anyTargets = targets.contains(b -> b.damaged());
+			anyTargets = targets.contains(Building::damaged);
 
 			if (efficiency > 0) {
 				if ((optionalTimer += Time.delta * optionalEfficiency) >= optionalUseTime) {
@@ -68,11 +70,12 @@ public class SpecificRegenProjector extends RegenProjector {
 
 				for (var entry : mendMap.entries()) {
 					var build = world.build(entry.key);
+					// Healing is reduced on other building
 					if (build != null) {
 						if (build instanceof Wall.WallBuild) {
 							build.heal(entry.value);
 						} else {
-							build.heal(entry.value * (0.5f));
+							build.heal(entry.value * otherBlockHealMult);
 						}
 						build.recentlyHealed();
 					}

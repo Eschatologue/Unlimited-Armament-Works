@@ -12,7 +12,7 @@ import mindustry.type.*;
 import mindustry.world.Block;
 import mindustry.world.blocks.production.*;
 import mindustry.world.draw.*;
-import mindustry.world.meta.Attribute;
+import mindustry.world.meta.*;
 
 import static UAW.Vars.*;
 import static mindustry.Vars.tilesize;
@@ -34,7 +34,7 @@ public class UAWBlocksProduction {
 	steamPress, plastFabricator,
 
 	// Petroleum Crafter
-	petroleumCrucible, petroleumPress,
+	petroleumCrucible,
 
 	// Petroleum
 	petrochemicalRefinery, petroleumDistillery,
@@ -187,7 +187,7 @@ public class UAWBlocksProduction {
 			);
 		}};
 
-		// Liquid Mixer
+		// General Crafters
 		gelatinizer = new GenericCrafter("gelatinizer") {{
 			requirements(Category.crafting, with(
 				Items.lead, 45,
@@ -263,7 +263,6 @@ public class UAWBlocksProduction {
 				new DrawDefault()
 			);
 		}};
-
 		petroleumCrucible = new GenericCrafter("petroleum-crucible") {{
 			requirements(Category.crafting, with(
 				Items.titanium, 100,
@@ -318,6 +317,7 @@ public class UAWBlocksProduction {
 			);
 		}};
 
+		// Steam Crafters
 		steamPress = new GenericCrafter("steam-press") {{
 			requirements(Category.crafting, with(
 				Items.titanium, 180,
@@ -427,6 +427,7 @@ public class UAWBlocksProduction {
 			);
 		}};
 
+		// Mixers
 		cryofluidBlender = new GenericCrafter("cryofluid-blender") {{
 			requirements(Category.crafting, with(
 				Items.lead, 150,

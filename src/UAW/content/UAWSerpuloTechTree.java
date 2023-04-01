@@ -8,7 +8,7 @@ import mindustry.content.*;
 import static UAW.Vars.modName;
 import static UAW.content.UAWItems.*;
 import static UAW.content.UAWUnitTypes.*;
-import static UAW.content.blocks.UAWBlocksDefense.*;
+import static UAW.content.blocks.UAWBlocksDefence.*;
 import static UAW.content.blocks.UAWBlocksLogistic.*;
 import static UAW.content.blocks.UAWBlocksPower.*;
 import static UAW.content.blocks.UAWBlocksProduction.*;
@@ -85,7 +85,7 @@ public class UAWSerpuloTechTree {
 				});
 
 				node(ashlock, () -> {
-					node(longbow, () -> {
+					node(longsword, () -> {
 						node(deadeye);
 					});
 				});
