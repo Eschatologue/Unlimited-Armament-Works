@@ -2,6 +2,7 @@ package UAW.content;
 
 import UAW.audiovisual.UAWPal;
 import arc.graphics.Color;
+import mindustry.graphics.Pal;
 import mindustry.type.Item;
 
 public class UAWItems {
@@ -14,7 +15,7 @@ public class UAWItems {
 	sulphur, anthracite;
 
 	public static void load() {
-		cryogel = new Item("item-cryogel", Color.valueOf("87ceeb")) {{
+		cryogel = new Item("item-cryogel", UAWPal.cryoMiddle) {{
 			flammability = -10f;
 			explosiveness = 0f;
 		}};
@@ -39,16 +40,26 @@ public class UAWItems {
 		emptyBulletCasing, emptyMineCanister,
 
 		// Bullets
-		standardBullet, incendiaryBullet, cryoBullet, armourPiercingBullet, spreadShotBullet, explosiveBullet, phaseBullet, arcBullet,
+		standardBullet, incendiaryBullet, cryoBullet, armourPiercingBullet, spreadShotBullet, explosiveBullet, arcBullet,
 
 		// Mine Canister
 		standardMineCanister, incendiaryMineCanister, cryoMineCanister, antiAirMineCanister, sporeMineCanister, empMineCanister, nukeMineCanister;
 
 		public static void load() {
+			emptyBulletCasing = new Item("item-bullet-empty", Color.valueOf("989aa4"));
 			emptyMineCanister = new Item("item-mine-empty", Color.valueOf("989aa4"));
+
+			standardBullet = new Item("item-bullet-basic", Color.valueOf("eab678"));
+			incendiaryBullet = new Item("item-bullet-incendiary", Color.valueOf("e48c57"));
+			cryoMineCanister = new Item("item-bullet-cryo", UAWPal.cryoMiddle);
+			armourPiercingBullet = new Item("item-bullet-ap", Color.valueOf("ebeef5"));
+			spreadShotBullet = new Item("item-bullet-spreadshot", Color.valueOf("646469"));
+			explosiveBullet = new Item("item-bullet-explosive", Color.valueOf("e46b58"));
+			arcBullet = new Item("item-bullet-arc", Pal.lancerLaser);
+
 			standardMineCanister = new Item("item-mine-basic", Color.valueOf("eab678"));
 			incendiaryMineCanister = new Item("item-mine-incendiary", Color.valueOf("e48c57"));
-			cryoMineCanister = new Item("item-mine-cryo", Color.valueOf("87ceeb"));
+			cryoMineCanister = new Item("item-mine-cryo", UAWPal.cryoMiddle);
 			antiAirMineCanister = new Item("item-mine-aa", Color.valueOf("cbd97f"));
 			sporeMineCanister = new Item("item-mine-spore", Color.valueOf("7457ce"));
 			empMineCanister = new Item("item-mine-emp", Color.valueOf("6974c4"));

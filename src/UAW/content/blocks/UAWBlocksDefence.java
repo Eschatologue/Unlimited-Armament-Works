@@ -1462,43 +1462,43 @@ public class UAWBlocksDefence {
 			);
 		}};
 
-		minesAssembler = new MultiCrafter("blast-furnace") {{
-			requirements(Category.crafting, with(
-				Items.lead, 45,
-				Items.graphite, 30,
-				Items.thorium, 20
-			));
-			size = 3;
-
-			hasItems = true;
-			hasLiquids = true;
-			menu = simple;
-			resolvedRecipes = Seq.with(
-				new Recipe() {{
-					input = new IOEntry(
-						Seq.with(with(Items.silicon, 4)),
-						Seq.with()
-					);
-					output = new IOEntry(
-						Seq.with(with(Items.metaglass, 4)),
-						Seq.with()
-					);
-					craftTime = 2 * tick;
-				}},
-				new Recipe() {{
-					input = new IOEntry(
-						Seq.with(with(Items.metaglass, 4)),
-						Seq.with(),
-						85f / tick
-					);
-					output = new IOEntry(
-						Seq.with(with(Items.surgeAlloy, 4)),
-						Seq.with()
-					);
-					craftTime = 4 * tick;
-				}}
-			);
-		}};
+//		minesAssembler = new MultiCrafter("blast-furnace") {{
+//			requirements(Category.crafting, with(
+//				Items.lead, 45,
+//				Items.graphite, 30,
+//				Items.thorium, 20
+//			));
+//			size = 3;
+//
+//			hasItems = true;
+//			hasLiquids = true;
+//			menu = simple;
+//			resolvedRecipes = Seq.with(
+//				new Recipe() {{
+//					input = new IOEntry(
+//						Seq.with(with(Items.silicon, 4)),
+//						Seq.with()
+//					);
+//					output = new IOEntry(
+//						Seq.with(with(Items.metaglass, 4)),
+//						Seq.with()
+//					);
+//					craftTime = 2 * tick;
+//				}},
+//				new Recipe() {{
+//					input = new IOEntry(
+//						Seq.with(with(Items.metaglass, 4)),
+//						Seq.with(),
+//						85f / tick
+//					);
+//					output = new IOEntry(
+//						Seq.with(with(Items.surgeAlloy, 4)),
+//						Seq.with()
+//					);
+//					craftTime = 4 * tick;
+//				}}
+//			);
+//		}};
 		//endregion Serpulo
 	}
 }

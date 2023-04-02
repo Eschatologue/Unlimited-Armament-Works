@@ -52,7 +52,7 @@ public class UAWSerpuloTechTree {
 
 				node(steamDrill, () -> {
 					node(advancedSteamDrill);
-					node(steamPress, Seq.with(new Research(multiPress)), () -> {
+					node(ironcladCompressor, Seq.with(new Research(multiPress)), () -> {
 					});
 					node(steamThumper, () -> {
 						node(alloyCrucible, () -> {
