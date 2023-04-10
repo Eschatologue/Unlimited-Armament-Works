@@ -1,6 +1,6 @@
 package UAW.world.consumers;
 
-import UAW.world.blocks.production.FilterGenericCrafter;
+import UAW.world.blocks.production.filters.FilterGenericCrafter;
 import mindustry.gen.Building;
 import mindustry.graphics.Pal;
 import mindustry.world.consumers.ConsumeItemFlammable;

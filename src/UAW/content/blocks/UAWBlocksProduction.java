@@ -3,12 +3,12 @@ package UAW.content.blocks;
 import UAW.audiovisual.*;
 import UAW.content.*;
 import UAW.world.blocks.production.*;
-import UAW.world.drawer.*;
+import UAW.world.drawer.DrawPumpLiquidTile;
 import arc.graphics.Color;
 import arc.struct.Seq;
 import mindustry.content.*;
 import mindustry.entities.effect.*;
-import mindustry.graphics.Pal;
+import mindustry.gen.Sounds;
 import mindustry.type.*;
 import mindustry.world.Block;
 import mindustry.world.blocks.production.*;
@@ -27,7 +27,7 @@ public class UAWBlocksProduction {
 	steamDrill, advancedSteamDrill, steamThumper,
 
 	// Pumps
-	oilDerrick, steamPump, pulsometerPump,
+	petroleumDerrick, steamPump, pulsometerPump,
 
 	// General Crafter
 	gelatinizer, alloyCrucible, advancedAlloyCrucible,
@@ -39,7 +39,7 @@ public class UAWBlocksProduction {
 	petroleumCrucible,
 
 	// Petroleum
-	petrochemicalRefinery, petroleumDistillery,
+	petrochemicalDistillery,
 
 	// Liquid Mixer
 	cryofluidBlender, surgeMixer;
@@ -62,6 +62,8 @@ public class UAWBlocksProduction {
 			updateEffectChance = 0.03f;
 			updateEffect = UAWFx.cloudPuff(3.5f, UAWPal.steamMid);
 			drillEffect = Fx.mineBig;
+			ambientSound = Sounds.grinding;
+			ambientSoundVolume = 0.07f;
 
 			consumeLiquid(UAWLiquids.steam, 0.25f);
 			consumeLiquid(Liquids.oil, 0.05f).boost();
@@ -85,6 +87,8 @@ public class UAWBlocksProduction {
 			updateEffect = UAWFx.cloudPuff(5f, UAWPal.steamMid);
 			drillEffect = Fx.mineBig;
 			rotateSpeed = 6f;
+			ambientSound = Sounds.grinding;
+			ambientSoundVolume = 0.07f;
 
 			consumeLiquid(UAWLiquids.steam, 1.8f);
 			consumeLiquid(Liquids.oil, 0.1f).boost();
@@ -118,19 +122,19 @@ public class UAWBlocksProduction {
 		}};
 
 		// Frackers
-		oilDerrick = new Fracker("oil-derrick") {{
+		petroleumDerrick = new Fracker("petroleum-derrick") {{
 			requirements(Category.production, with(
-				Items.copper, 225,
-				Items.graphite, 300,
-				Items.titanium, 230,
-				UAWItems.stoutsteel, 100,
-				Items.silicon, 120
+				Items.copper, 180,
+				Items.graphite, 210,
+				Items.lead, 130,
+				Items.titanium, 115,
+				Items.silicon, 85,
+				UAWItems.stoutsteel, 90
 			));
 			size = 4;
 
-			updateEffect = UAWFx.cloudPuff(5, UAWPal.steamMid);
 			updateEffectChance = 0.05f;
-			liquidCapacity = 360f;
+			liquidCapacity = 180;
 			attribute = Attribute.oil;
 			baseEfficiency = 0.25f;
 			rotateSpeed = -2.5f;
@@ -138,9 +142,9 @@ public class UAWBlocksProduction {
 			hasPower = false;
 			squareSprite = false;
 
-			result = Liquids.oil;
-			pumpAmount = 135 / tick;
-			consumeLiquid(UAWLiquids.steam, 144 / tick);
+			result = UAWLiquids.petroleum;
+			pumpAmount = 30 / tick; // Normal Extractor production is 0.25 or (15 / tick)
+			consumeLiquid(UAWLiquids.steam, 120 / tick);
 		}};
 
 		// Pumps
@@ -197,7 +201,6 @@ public class UAWBlocksProduction {
 				Items.thorium, 20
 			));
 			size = 2;
-
 
 			hasItems = true;
 			hasLiquids = true;
@@ -266,6 +269,7 @@ public class UAWBlocksProduction {
 			craftEffect = UAWFx.cloudPuff(10f, UAWPal.steamMid);
 			updateEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
 			updateEffectChance = 0.06f;
+			ambientSound = Sounds.smelter;
 
 			craftTime = 4.5f * tick;
 			consumePower(3.5f);
@@ -287,69 +291,14 @@ public class UAWBlocksProduction {
 				new DrawDefault()
 			);
 		}};
-		petroleumCrucible = new GenericCrafter("petroleum-crucible") {{
-			requirements(Category.crafting, with(
-				Items.titanium, 100,
-				Items.plastanium, 75,
-				Items.thorium, 100,
-				Items.metaglass, 85,
-				Items.silicon, 85,
-				Items.graphite, 85
-			));
-			size = 4;
-			hasItems = true;
-			hasLiquids = true;
-			itemCapacity = 70;
-			liquidCapacity = 360f;
-			craftTime = 1.25f * tick;
-
-			craftEffect = new RadialEffect() {{
-				effect = Fx.surgeCruciSmoke;
-				amount = 4;
-				rotationSpacing = 90;
-				lengthOffset = 60 * px;
-				rotationOffset = 45;
-			}};
-			updateEffect = new MultiEffect(
-				UAWFx.plastHit,
-				Fx.burning,
-				Fx.fireSmoke
-			);
-			consumeItems(
-				new ItemStack(Items.sand, 6),
-				new ItemStack(Items.lead, 2),
-				new ItemStack(UAWItems.anthracite, 1)
-			);
-			consumeLiquid(Liquids.oil, 1.5f);
-			outputItems = with(
-				Items.silicon, 7,
-				Items.metaglass, 7
-			);
-
-			squareSprite = false;
-			drawer = new DrawMulti(
-				new DrawRegion("-bottom"),
-				new DrawLiquidTile() {{
-					padding = 16 * px;
-				}},
-				new DrawDefault(),
-				new DrawGlowRegion() {{
-					glowScale = 12;
-					glowIntensity = 0.8f;
-					color = UAWPal.drawGlowPink;
-				}}
-			);
-		}};
-
-		// Steam Crafters
 		ironcladCompressor = new MultiCrafter("ironclad-compressor") {{
 			requirements(Category.crafting, with(
 				Items.titanium, 150,
-				Items.copper, 325,
-				Items.silicon, 145,
-				Items.lead, 150,
-				Items.graphite, 100,
-				Items.plastanium, 100
+				Items.copper, 225,
+				Items.silicon, 125,
+				Items.lead, 225,
+				Items.graphite, 120,
+				Items.plastanium, 120
 			));
 			size = 3;
 			hasItems = true;
@@ -364,8 +313,14 @@ public class UAWBlocksProduction {
 				lengthOffset = 35 * px;
 				rotationOffset = 45;
 			}};
+			changeRecipeEffect = new MultiEffect(
+				Fx.massiveExplosion,
+				Fx.steam
+			);
+			ambientSound = Sounds.smelter;
 
-			ignoreLiquidFullness = false;
+			menu = detailed;
+			ignoreLiquidFullness = true;
 
 			resolvedRecipes = Seq.with(
 				// Graphite
@@ -390,7 +345,7 @@ public class UAWBlocksProduction {
 							Liquids.oil, 0.75f,
 							UAWLiquids.steam, steamInput
 						)),
-						4.8f
+						2.4f
 					);
 					output = new IOEntry(
 						Seq.with(ItemStack.with(Items.plastanium, 8)),
@@ -403,14 +358,14 @@ public class UAWBlocksProduction {
 					float steamInput = 120 / tick;
 					input = new IOEntry(
 						Seq.with(ItemStack.with(Items.sporePod, 4)),
-						Seq.with()
+						Seq.with(LiquidStack.with(UAWLiquids.steam, steamInput))
 					);
 					output = new IOEntry(
 						Seq.with(),
 						Seq.with(LiquidStack.with(
-							Liquids.oil, (18 * 4) / tick,
-							Liquids.water, (steamInput / steamConversionScl) * steamLoseScl
-							))
+							Liquids.oil, (17.5 * 4) / tick
+						))
+
 					);
 					craftTime = 90f;
 				}}
@@ -429,17 +384,15 @@ public class UAWBlocksProduction {
 					new DrawMulti(
 						new DrawRegion("-bottom"),
 						new DrawDefault(),
-						new DrawRegion("-top-plast")
+						new DrawRegion("-top-plast"),
+						new DrawFade() {{
+							suffix = "-top-plast-top";
+						}}
 					),
 					// Spores
 					new DrawMulti(
-						new DrawRegion("-bottom"),
-						new DrawLiquidTile() {{
-							drawLiquid = Liquids.water;
-							padding = 19 * px;
-						}},
 						new DrawCircles() {{
-							color = Color.valueOf("7090ea").a(0.24f);
+							color = Color.valueOf("1d201f").a(0.24f);
 							strokeMax = 2.5f;
 							radius = 30f * px;
 							amount = 4;
@@ -453,6 +406,46 @@ public class UAWBlocksProduction {
 					)
 				};
 			}};
+		}};
+
+		// Petroleum
+		petrochemicalDistillery = new GenericCrafter("petrochemical-distillery") {{
+			requirements(Category.crafting, with(
+				Items.copper, 250,
+				Items.titanium, 150,
+				Items.metaglass, 85,
+				Items.silicon, 125,
+				Items.graphite, 85,
+				UAWItems.stoutsteel, 50
+			));
+			size = 3;
+
+			hasItems = true;
+			hasLiquids = true;
+			rotate = false;
+			solid = true;
+			outputsLiquid = true;
+
+			liquidCapacity = 24f;
+			craftTime = 120;
+
+			consumeLiquids(LiquidStack.with(
+				UAWLiquids.steam, 320 / tick,
+				Liquids.oil, 60f / tick
+			));
+			outputLiquid = new LiquidStack(UAWLiquids.petroleum, 30f / tick);
+			outputItems = with(
+				UAWItems.sulphur, 1
+			);
+
+			drawer = new DrawMulti(
+				new DrawRegion("-bottom"),
+				new DrawLiquidTile(UAWLiquids.petroleum) {{
+					padding = 10 * px;
+					drawLiquidLight = true;
+				}},
+				new DrawDefault()
+			);
 		}};
 
 		// Mixers
@@ -472,7 +465,8 @@ public class UAWBlocksProduction {
 
 			updateEffect = new MultiEffect(
 				Fx.freezing,
-				UAWFx.cloudPuff(45, Color.white)
+				Fx.freezing,
+				Fx.wet
 			);
 
 			craftTime = 2f * tick;

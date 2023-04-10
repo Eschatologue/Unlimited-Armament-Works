@@ -17,7 +17,7 @@ import static mindustry.content.Blocks.*;
 import static mindustry.content.TechTree.*;
 import static mindustry.game.Objectives.*;
 
-public class UAWSerpuloTechTree {
+public class UAWTechTree {
 	static TechTree.TechNode context = null;
 
 	public static void load() {
@@ -35,7 +35,7 @@ public class UAWSerpuloTechTree {
 					});
 				});
 
-				nodeProduce(UAWLiquids.petroleumGas, () -> {
+				nodeProduce(UAWLiquids.petroleum, () -> {
 				});
 
 			});

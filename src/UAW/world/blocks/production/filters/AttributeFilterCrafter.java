@@ -1,4 +1,4 @@
-package UAW.world.blocks.production;
+package UAW.world.blocks.production.filters;
 
 import arc.Core;
 import mindustry.game.Team;

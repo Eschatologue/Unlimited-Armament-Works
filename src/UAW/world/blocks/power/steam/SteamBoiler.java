@@ -1,6 +1,6 @@
 package UAW.world.blocks.power.steam;
 
-import UAW.world.blocks.production.FilterGenericCrafter;
+import UAW.world.blocks.production.filters.FilterGenericCrafter;
 import UAW.world.consumers.ConsumeItemFuelFlammable;
 import mindustry.content.Fx;
 import mindustry.world.consumers.ConsumeItemExplode;

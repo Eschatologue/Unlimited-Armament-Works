@@ -1383,9 +1383,9 @@ public class UAWBlocksDefence {
 
 			consumeItem(UAWItems.sulphur, 1).boost();
 			consumePower(1.6f);
-			consumeLiquid(UAWLiquids.petroleumGas, 0.5f);
+			consumeLiquid(UAWLiquids.petroleum, 0.5f);
 
-			baseColor = UAWLiquids.petroleumGas.color;
+			baseColor = UAWLiquids.petroleum.color;
 
 			drawer = new DrawMulti(
 				new DrawDefault(),
@@ -1430,9 +1430,9 @@ public class UAWBlocksDefence {
 
 			consumeItem(UAWItems.sulphur, 2).boost();
 			consumePower(2.4f);
-			consumeLiquid(UAWLiquids.petroleumGas, 1f);
+			consumeLiquid(UAWLiquids.petroleum, 1f);
 
-			baseColor = UAWLiquids.petroleumGas.color;
+			baseColor = UAWLiquids.petroleum.color;
 
 			drawer = new DrawMulti(
 				new DrawDefault(),

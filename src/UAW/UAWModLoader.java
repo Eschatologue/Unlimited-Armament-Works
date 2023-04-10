@@ -19,7 +19,7 @@ public class UAWModLoader extends Mod {
 		UAWItems.load();
 		UAWLiquids.load();
 		UAWBlocks.load();
-		UAWSerpuloTechTree.load();
+		UAWTechTree.load();
 
 	}
 }

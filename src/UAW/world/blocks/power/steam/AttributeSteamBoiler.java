@@ -1,6 +1,6 @@
 package UAW.world.blocks.power.steam;
 
-import UAW.world.blocks.production.AttributeFilterCrafter;
+import UAW.world.blocks.production.filters.AttributeFilterCrafter;
 import mindustry.world.meta.Stat;
 
 import static UAW.Vars.tick;
