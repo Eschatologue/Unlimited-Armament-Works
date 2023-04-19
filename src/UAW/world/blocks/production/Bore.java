@@ -1,18 +1,36 @@
 package UAW.world.blocks.production;
 
+import arc.Core;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
-import arc.util.Time;
+import arc.struct.ObjectFloatMap;
+import arc.util.*;
 import mindustry.graphics.*;
+import mindustry.type.Item;
+import mindustry.ui.Bar;
 import mindustry.world.blocks.production.Drill;
 
-public class UAWDrill extends Drill {
+import static UAW.Vars.tick;
+
+/** Like drill, but can make use of drillMultipliers, has particle effects, and bar colour stuff */
+public class Bore extends Drill {
 	public int particles = -1;
 	public float particleLife = -1f, particleSpreadRadius = -1, particleSize = -1;
 
-	public UAWDrill(String name) {
+	public boolean dominantItemBarColor = true;
+
+	public ObjectFloatMap<Item> drillMultipliers = new ObjectFloatMap<>();
+
+	public Bore(String name) {
 		super(name);
+		itemCapacity = (int) (size * 15f);
+		warmupSpeed = 0.002f;
+		hasLiquids = false;
+		drawRim = true;
+		updateEffectChance = 0.03f;
+		ambientSoundVolume = 0.05f;
+		squareSprite = false;
 	}
 
 	@Override
@@ -24,8 +42,26 @@ public class UAWDrill extends Drill {
 		if (particleSize < 0) particleSize = size * 1.4f;
 	}
 
-	public class UAWDrillBuild extends DrillBuild {
-		/** Without this, it would fuck up other drills */
+	@Override
+	public float getDrillTime(Item item) {
+		return (drillTime / drillMultipliers.get(item, 1f)) + hardnessDrillMultiplier * item.hardness;
+	}
+
+	@Override
+	public void setBars() {
+		super.setBars();
+		removeBar("drillspeed");
+		addBar("drillspeed", (BoreBuild e) ->
+			new Bar(
+				() -> Core.bundle.format("bar.drillspeed", Strings.fixed(e.lastDrillSpeed * tick * e.timeScale(), 2)),
+				() -> dominantItemBarColor ? e.dominantItem.color : Pal.ammo,
+				() -> e.warmup
+			));
+	}
+
+	public class BoreBuild extends DrillBuild {
+
+		/** Particle drill effects rand */
 		protected static final Rand rand = new Rand();
 
 		public void drawDrillParticles() {
@@ -57,7 +93,7 @@ public class UAWDrill extends Drill {
 				Draw.blend();
 				Draw.color();
 			}
-			if (warmup > 0) drawDrillParticles();
+			if (warmup > 0.2f) drawDrillParticles();
 			if (drawSpinSprite) {
 				Drawf.spinSprite(rotatorRegion, x, y, timeDrilled * rotateSpeed);
 			} else {

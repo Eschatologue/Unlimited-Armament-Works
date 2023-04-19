@@ -50,12 +50,16 @@ public class UAWTechTree {
 					});
 				});
 
-				node(steamDrill, () -> {
+				node(steamBore, () -> {
 					node(advancedSteamDrill);
 					node(ironcladCompressor, Seq.with(new Research(multiPress)), () -> {
 					});
 					node(steamThumper, () -> {
 						node(alloyCrucible, () -> {
+						});
+						node(petrochemicalRefinery, () -> {
+							node(petrochemicalDistillery, Seq.with(new Produce(stoutsteel)), () -> {
+							});
 						});
 					});
 				});
@@ -102,7 +106,7 @@ public class UAWTechTree {
 			});
 
 			// Units
-			node(airGroundFactory, () -> {
+			node(airGroundFactory, Seq.with(new Produce(stoutsteel), new Produce(UAWLiquids.petroleum)), () -> {
 				node(crotchety, () -> {
 					node(cantankerous, Seq.with(new Research(gelatinizer)), () -> {
 					});

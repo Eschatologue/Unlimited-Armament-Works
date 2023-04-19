@@ -1,10 +1,9 @@
 package UAW.content.blocks;
 
 import UAW.content.*;
-import UAW.content.UAWItems;
 import UAW.world.units.UnitConstructor;
 import arc.struct.Seq;
-import mindustry.content.*;
+import mindustry.content.Items;
 import mindustry.type.*;
 import mindustry.world.Block;
 import mindustry.world.blocks.units.Reconstructor;
@@ -16,18 +15,18 @@ import static mindustry.type.ItemStack.with;
 public class UAWBlocksUnits {
 	public static Block placeholder,
 	// Units Factory
-	airGroundFactory, navalFactory, UAWAirFactory, UAWAirshipFactory,
+	airGroundFactory, navalFactory,
 	// Units Reconstructor
 	exponentialPetroleumReconstructor, tetrativePetroleumReconstructor;
 
 	public static void load() {
 		airGroundFactory = new UnitConstructor("air-ground-factory") {{
 			requirements(Category.units, with(
-				Items.lead, 450,
-				Items.silicon, 90,
-				Items.metaglass, 90,
-				Items.titanium, 250,
-				Items.plastanium, 100
+				Items.lead, 350,
+				Items.silicon, 120,
+				Items.metaglass, 120,
+				Items.titanium, 450,
+				UAWItems.stoutsteel, 50
 			));
 			size = 5;
 			liquidCapacity = 240f;
@@ -53,20 +52,19 @@ public class UAWBlocksUnits {
 					Items.copper, 165
 				))
 			);
-			consumePower(3.5f);
-			consumeLiquid(Liquids.oil, 1.2f);
+			consumeLiquid(UAWLiquids.petroleum, 80 / tick);
 		}};
-
 		navalFactory = new UnitConstructor("naval-factory") {{
 			requirements(Category.units, with(
-				Items.lead, 450,
-				Items.silicon, 90,
-				Items.metaglass, 90,
-				Items.titanium, 250,
-				Items.plastanium, 100
+				Items.lead, 350,
+				Items.silicon, 150,
+				Items.metaglass, 150,
+				Items.titanium, 425,
+				UAWItems.stoutsteel, 100
 			));
 			size = 5;
 			floating = true;
+			requiresWater = true;
 			liquidCapacity = 240f;
 			plans = Seq.with(
 				new UnitPlan(UAWUnitTypes.arquebus, 45f * tick, with(
@@ -76,15 +74,14 @@ public class UAWBlocksUnits {
 					Items.lead, 120
 				)),
 				new UnitPlan(UAWUnitTypes.megaera, 55f * tick, with(
-					Items.silicon, 55,
+					Items.silicon, 65,
 					Items.metaglass, 50,
 					Items.titanium, 100,
 					Items.blastCompound, 30,
 					Items.lead, 120
 				))
 			);
-			consumePower(3.5f);
-			consumeLiquid(Liquids.oil, 1.2f);
+			consumeLiquid(UAWLiquids.petroleum, 80 / tick);
 		}};
 
 		exponentialPetroleumReconstructor = new Reconstructor("exponential-petroleum-reconstructor") {{
@@ -104,7 +101,7 @@ public class UAWBlocksUnits {
 				UAWItems.stoutsteel, 250,
 				Items.plastanium, 225
 			));
-			consumeLiquid(Liquids.oil, 1.5f);
+			consumeLiquid(UAWLiquids.petroleum, 1.5f);
 
 			constructTime = 80 * tick;
 			liquidCapacity = 240f;
@@ -116,18 +113,18 @@ public class UAWBlocksUnits {
 				new UnitType[]{UAWUnitTypes.arquebus, UAWUnitTypes.carronade},
 				new UnitType[]{UAWUnitTypes.cavalier, UAWUnitTypes.centurion},
 				new UnitType[]{UAWUnitTypes.megaera, UAWUnitTypes.alecto}
+
 			);
 		}};
-
 		tetrativePetroleumReconstructor = new Reconstructor("tetrative-petroleum-reconstructor") {{
 			requirements(Category.units, with(
-				Items.lead, 3000,
-				Items.copper, 3500,
+				Items.lead, 2500,
+				Items.copper, 3250,
 				Items.titanium, 2250,
-				Items.silicon, 1125,
+				Items.silicon, 1325,
 				Items.metaglass, 500,
 				Items.plastanium, 600,
-				UAWItems.stoutsteel, 600,
+				UAWItems.stoutsteel, 650,
 				Items.surgeAlloy, 600
 			));
 
@@ -140,7 +137,7 @@ public class UAWBlocksUnits {
 				Items.surgeAlloy, 350,
 				UAWItems.stoutsteel, 350
 			));
-			consumeLiquid(Liquids.oil, 3.5f);
+			consumeLiquid(UAWLiquids.petroleum, 3.5f);
 
 			constructTime = 225 * tick;
 			liquidCapacity = 480f;

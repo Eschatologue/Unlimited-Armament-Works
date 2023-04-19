@@ -35,11 +35,11 @@ public class UAWDrawf {
 	}
 
 	public static void unitConstruct(Building t, TextureRegion region, float rotation, float progress, float alpha, float time) {
-		unitConstruct(t, region, UAWPal.graphiteFront, rotation, progress, alpha, time);
+		unitConstruct(t, region, UAWPal.lpgMid, rotation, progress, alpha, time);
 	}
 
 	public static void unitConstruct(Building t, TextureRegion region, Color color, float rotation, float progress, float alpha, float time) {
-		unitConstruct(t, region, color, rotation, progress, alpha, time, t.block.size * tilesize - 4f);
+		unitConstruct(t, region, color, rotation, progress, alpha, time, t.block.size * tilesize - 8f);
 	}
 
 	public static void unitConstruct(Building t, TextureRegion region, Color color, float rotation, float progress, float alpha, float time, float size) {
@@ -54,7 +54,7 @@ public class UAWDrawf {
 		Draw.rect(region, t.x, t.y, rotation);
 		Draw.shader();
 
-		Draw.color(UAWPal.graphiteFront);
+		Draw.color(UAWPal.lpgMid);
 		Draw.alpha(alpha);
 
 		Lines.lineAngleCenter(t.x, t.y + Mathf.sin(time, timeScl, size / 2f), 0, size);

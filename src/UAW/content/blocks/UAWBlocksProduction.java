@@ -24,7 +24,10 @@ import static mindustry.type.ItemStack.with;
 public class UAWBlocksProduction {
 	public static Block placeholder,
 	// Drills
-	steamDrill, advancedSteamDrill, steamThumper,
+	steamBore, advancedSteamDrill,
+
+	// Thympers
+	steamThumper, blastThumper,
 
 	// Pumps
 	petroleumDerrick, steamPump, pulsometerPump,
@@ -33,42 +36,41 @@ public class UAWBlocksProduction {
 	gelatinizer, alloyCrucible, advancedAlloyCrucible,
 
 	// Steam Crafters
-	ironcladCompressor, steamPress, plastFabricator,
+	ironcladCompressor,
 
 	// Petroleum Crafter
-	petroleumCrucible,
+	blastCruicible,
 
 	// Petroleum
-	petrochemicalDistillery,
+	petrochemicalRefinery, petrochemicalDistillery,
 
 	// Liquid Mixer
-	cryofluidBlender, surgeMixer;
+	cryofluidBlender;
 
 	public static void load() {
 		// Drills
-		steamDrill = new UAWDrill("steam-drill") {{
+		steamBore = new Bore("steam-bore") {{
 			requirements(Category.production, with(
 				Items.copper, 24,
 				Items.graphite, 12
 			));
 			size = 2;
-			squareSprite = false;
+
 			tier = 3;
-			itemCapacity = 25;
-			drillTime = 300;
-			warmupSpeed = 0.001f;
-			hasLiquids = false;
-			drawRim = true;
-			updateEffectChance = 0.03f;
+			drillTime = 350;
+
 			updateEffect = UAWFx.cloudPuff(3.5f, UAWPal.steamMid);
 			drillEffect = Fx.mineBig;
 			ambientSound = Sounds.grinding;
-			ambientSoundVolume = 0.07f;
+
+			drillMultipliers.put(Items.sand, 1.5f);
+			drillMultipliers.put(Items.scrap, 1.25f);
+			drillMultipliers.put(Items.coal, 1.25f);
+			drillMultipliers.put(Items.titanium, 0.75f);
 
 			consumeLiquid(UAWLiquids.steam, 0.25f);
-			consumeLiquid(Liquids.oil, 0.05f).boost();
 		}};
-		advancedSteamDrill = new UAWDrill("advanced-steam-drill") {{
+		advancedSteamDrill = new Bore("advanced-steam-drill") {{
 			requirements(Category.production, with(
 				Items.copper, 85,
 				Items.silicon, 50,
@@ -76,24 +78,20 @@ public class UAWBlocksProduction {
 				Items.graphite, 75
 			));
 			size = 3;
-			squareSprite = false;
 			tier = 4;
-			itemCapacity = 45;
+
 			drillTime = 180;
 			warmupSpeed = 0.0005f;
-			hasLiquids = true;
-			drawRim = true;
-			updateEffectChance = 0.03f;
+
 			updateEffect = UAWFx.cloudPuff(5f, UAWPal.steamMid);
 			drillEffect = Fx.mineBig;
 			rotateSpeed = 6f;
 			ambientSound = Sounds.grinding;
-			ambientSoundVolume = 0.07f;
 
 			consumeLiquid(UAWLiquids.steam, 1.8f);
-			consumeLiquid(Liquids.oil, 0.1f).boost();
 		}};
 
+		// Thumpers
 		steamThumper = new SpecificItemDrill("steam-thumper") {{
 			requirements(Category.production, with(
 				Items.copper, 55,
@@ -155,7 +153,7 @@ public class UAWBlocksProduction {
 				Items.silicon, 25,
 				Items.titanium, 25
 			));
-			consumeLiquid(UAWLiquids.steam, 0.25f);
+			consumeLiquid(UAWLiquids.steam, 15 / tick);
 
 			size = 2;
 			pumpAmount = 0.2f;
@@ -255,7 +253,7 @@ public class UAWBlocksProduction {
 		alloyCrucible = new GenericCrafter("alloy-crucible") {{
 			requirements(Category.crafting, with(
 				Items.titanium, 150,
-				Items.thorium, 125,
+				Items.copper, 250,
 				Items.metaglass, 95,
 				Items.silicon, 95,
 				Items.graphite, 95
@@ -409,7 +407,45 @@ public class UAWBlocksProduction {
 		}};
 
 		// Petroleum
-		petrochemicalDistillery = new GenericCrafter("petrochemical-distillery") {{
+		petrochemicalRefinery = new GenericCrafter("petrochemical-refinery") {{
+			requirements(Category.crafting, ItemStack.mult(Blocks.rotaryPump.requirements, 1.5f));
+			size = 2;
+
+			hasItems = true;
+			hasLiquids = true;
+			rotate = false;
+			solid = true;
+			ignoreLiquidFullness = false;
+			outputsLiquid = true;
+
+			liquidCapacity = 180;
+			craftTime = 120;
+
+			consumeLiquids(LiquidStack.with(
+				UAWLiquids.steam, 120 / tick,
+				Liquids.oil, 90 / tick
+			));
+			outputLiquid = new LiquidStack(UAWLiquids.petroleum, 45 / tick);
+			outputItems = with(
+				UAWItems.sulphur, 2
+			);
+
+			squareSprite = false;
+			drawer = new DrawMulti(
+				new DrawRegion("-bottom"),
+				new DrawLiquidTile(UAWLiquids.petroleum) {{
+					padding = 5 * px;
+					drawLiquidLight = true;
+				}},
+				new DrawBlurSpin() {{
+					suffix = "-rotator";
+					rotateSpeed = 2.5f;
+					blurThresh = 10; //no Blur
+				}},
+				new DrawDefault()
+			);
+		}};
+		petrochemicalDistillery = new AttributeCrafter("petrochemical-distillery") {{
 			requirements(Category.crafting, with(
 				Items.copper, 250,
 				Items.titanium, 150,
@@ -424,20 +460,23 @@ public class UAWBlocksProduction {
 			hasLiquids = true;
 			rotate = false;
 			solid = true;
+			ignoreLiquidFullness = true;
 			outputsLiquid = true;
 
-			liquidCapacity = 24f;
+			liquidCapacity = 360f;
 			craftTime = 120;
+			boostScale = 0.15f;
 
 			consumeLiquids(LiquidStack.with(
 				UAWLiquids.steam, 320 / tick,
-				Liquids.oil, 60f / tick
+				Liquids.oil, 180 / tick
 			));
-			outputLiquid = new LiquidStack(UAWLiquids.petroleum, 30f / tick);
+			outputLiquid = new LiquidStack(UAWLiquids.petroleum, 120f / tick);
 			outputItems = with(
 				UAWItems.sulphur, 1
 			);
 
+			squareSprite = false;
 			drawer = new DrawMulti(
 				new DrawRegion("-bottom"),
 				new DrawLiquidTile(UAWLiquids.petroleum) {{
