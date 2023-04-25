@@ -51,7 +51,7 @@ public class UAWTechTree {
 				});
 
 				node(steamBore, () -> {
-					node(advancedSteamDrill);
+					node(advancedSteamBore);
 					node(ironcladCompressor, Seq.with(new Research(multiPress)), () -> {
 					});
 					node(steamThumper, () -> {

@@ -30,12 +30,14 @@ public class SpecificItemDrill extends BurstDrill {
 		drawMineItem = false;
 	}
 
+	// Removes Drill Tier Stas
 	@Override
 	public void setStats() {
 		super.setStats();
 		stats.remove(Stat.drillTier);
 	}
 
+	// Make sures drill can only be placed on specific tile
 	@Override
 	public boolean canPlaceOn(Tile tile, Team team, int rotation) {
 		if (isMultiblock()) {
@@ -52,6 +54,7 @@ public class SpecificItemDrill extends BurstDrill {
 		}
 	}
 
+	// Count Ore - Required for drawPlace
 	@Override
 	protected void countOre(Tile tile) {
 		returnItem = null;
@@ -82,6 +85,7 @@ public class SpecificItemDrill extends BurstDrill {
 		returnCount = oreCount.get(itemArray.peek(), 0);
 	}
 
+	// Draws required item as drawPlace
 	@Override
 	public void drawPlace(int x, int y, int rotation, boolean valid) {
 		drawPotentialLinks(x, y);

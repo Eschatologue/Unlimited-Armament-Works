@@ -24,7 +24,7 @@ import static mindustry.type.ItemStack.with;
 public class UAWBlocksProduction {
 	public static Block placeholder,
 	// Drills
-	steamBore, advancedSteamDrill,
+	steamBore, advancedSteamBore,
 
 	// Thympers
 	steamThumper, blastThumper,
@@ -51,42 +51,48 @@ public class UAWBlocksProduction {
 		// Drills
 		steamBore = new Bore("steam-bore") {{
 			requirements(Category.production, with(
-				Items.copper, 24,
-				Items.graphite, 12
+				Items.copper, 12,
+				Items.graphite, 20
 			));
 			size = 2;
 
 			tier = 3;
-			drillTime = 350;
+			hardnessLimit = 1f;
+			drillTime = 100;
+			liquidCapacity = 30f;
 
 			updateEffect = UAWFx.cloudPuff(3.5f, UAWPal.steamMid);
 			drillEffect = Fx.mineBig;
-			ambientSound = Sounds.grinding;
 
-			drillMultipliers.put(Items.sand, 1.5f);
-			drillMultipliers.put(Items.scrap, 1.25f);
-			drillMultipliers.put(Items.coal, 1.25f);
-			drillMultipliers.put(Items.titanium, 0.75f);
+			hardnessUpperMult = 0.6f;
+			drillMultipliers.put(Items.coal, 4.5f);
+			drillMultipliers.put(Items.scrap, 0.75f);
 
 			consumeLiquid(UAWLiquids.steam, 0.25f);
 		}};
-		advancedSteamDrill = new Bore("advanced-steam-drill") {{
+		advancedSteamBore = new Bore("advanced-steam-bore") {{
 			requirements(Category.production, with(
-				Items.copper, 85,
+				Items.copper, 75,
+				Items.graphite, 90,
 				Items.silicon, 50,
-				Items.titanium, 40,
-				Items.graphite, 75
+				Items.titanium, 80
 			));
 			size = 3;
-			tier = 4;
 
-			drillTime = 180;
+			tier = 4;
+			drillTime = 200;
 			warmupSpeed = 0.0005f;
+			liquidCapacity = 80;
 
 			updateEffect = UAWFx.cloudPuff(5f, UAWPal.steamMid);
 			drillEffect = Fx.mineBig;
-			rotateSpeed = 6f;
-			ambientSound = Sounds.grinding;
+			rotateSpeed = 3f;
+
+			hardnessLimit = 3;
+			hardnessUpperMult = 0.8f;
+			hardnessBelowMult = 0.2f;
+			drillMultipliers.put(Items.coal, 4f);
+			drillMultipliers.put(Items.titanium, 2.25f);
 
 			consumeLiquid(UAWLiquids.steam, 1.8f);
 		}};

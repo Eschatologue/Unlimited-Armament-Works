@@ -15,7 +15,7 @@ public class TrailBulletType extends BasicBulletType {
 	 * <p> 0 to disable </p>
 	 */
 	public float trailLengthScale = 1f;
-	public float trailWidthScale = 0.289f;
+	public float trailWidthScale = 0.28f;
 
 	public TrailBulletType(float speed, float damage, String bulletSprite) {
 		super(speed, damage);

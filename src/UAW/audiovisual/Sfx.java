@@ -7,25 +7,51 @@ import arc.audio.Sound;
 import mindustry.Vars;
 
 public class Sfx {
-	public static Sound
-		cannonShoot1 = new Sound(),
-		cannonShoot2 = new Sound(),
-		cannonShootBig1 = new Sound(),
-		cannonShootBig2 = new Sound(),
-		explosionHuge1 = new Sound(),
-		gunShoot1 = new Sound(),
-		gunShoot2 = new Sound(),
-		gunShoot3 = new Sound(),
-		gunShoot4 = new Sound(),
-		gunShoot5 = new Sound(),
-		launcherShoot1 = new Sound(),
-		mineDetonate1 = new Sound(),
-		missileShootBig1 = new Sound(),
-		missileShootBig2 = new Sound(),
-		shellWhistle = new Sound(),
-		shotgunShoot1 = new Sound(),
-		suppressedShoot1 = new Sound(),
-		torpedoShoot1 = new Sound();
+	public static Sound placeholder,
+
+	// Explosion
+	exp_n_impactHuge_1 = new Sound(),
+
+	// Cannons
+	wp_k_cannonShoot_1 = new Sound(),
+		wp_k_cannonShoot_2 = new Sound(),
+
+	// Gun
+	wp_k_gunShootSmall_1 = new Sound(),
+		wp_k_gunShootSmall_2 = new Sound(),
+
+	wp_k_gunShoot_1 = new Sound(),
+		wp_k_gunShoot_2 = new Sound(),
+		wp_k_gunShoot_3 = new Sound(),
+		wp_k_gunShoot_4 = new Sound(),
+		wp_k_gunShoot_5 = new Sound(),
+		wp_k_gunShoot_6 = new Sound(),
+		wp_k_gunShoot_7 = new Sound(),
+
+	wp_k_gunShootBig_1 = new Sound(),
+		wp_k_gunShootBig_2 = new Sound(),
+
+	// Shotgun
+	wp_k_shotgunShoot_1 = new Sound(),
+		wp_k_shotgunShoot_2 = new Sound(),
+
+	// Launchers
+	wp_lnch_springShoot_1 = new Sound(),
+		wp_lnch_springShoot_2 = new Sound(),
+		wp_lnch_springShoot_3 = new Sound(),
+
+	wp_lnch_energyShoot_1 = new Sound(),
+
+	// Mines
+	wp_mine_detonateSound_1 = new Sound(),
+
+	// Missiles
+	wp_msl_missileLaunch_1_big = new Sound(),
+		wp_msl_missileLaunch_2_big = new Sound(),
+
+	// Torpedoes
+	wp_torp_torpedoLaunch_1 = new Sound();
+
 
 	protected static Sound loadSound(String fileName) {
 		String name = "sounds/" + fileName;
@@ -41,23 +67,42 @@ public class Sfx {
 
 	public static void load() {
 		if (Vars.headless) return;
-		cannonShoot1 = loadSound("cannon_shoot_1");
-		cannonShoot2 = loadSound("cannon_shoot_2");
-		cannonShootBig1 = loadSound("cannon_shoot_big_1");
-		cannonShootBig2 = loadSound("cannon_shoot_big_2");
-		explosionHuge1 = loadSound("explosion_huge_1");
-		gunShoot1 = loadSound("gun_shoot_1");
-		gunShoot2 = loadSound("gun_shoot_2");
-		gunShoot3 = loadSound("gun_shoot_3");
-		gunShoot4 = loadSound("gun_shoot_4");
-		gunShoot5 = loadSound("gun_shoot_5");
-		launcherShoot1 = loadSound("launcher_shoot_1");
-		mineDetonate1 = loadSound("mine_detonate_1");
-		missileShootBig1 = loadSound("missile_shoot_big_1");
-		missileShootBig2 = loadSound("missile_shoot_big_2");
-		shellWhistle = loadSound("shell-whistle");
-		shotgunShoot1 = loadSound("shotgun_shoot_1");
-		suppressedShoot1 = loadSound("suppressed_shoot_1");
-		torpedoShoot1 = loadSound("torpedo_shoot_1");
+
+		exp_n_impactHuge_1 = loadSound("exp_n_impactHuge_1");
+
+		wp_k_cannonShoot_1 = loadSound("wp_k_cannonShoot_1");
+		wp_k_cannonShoot_2 = loadSound("wp_k_cannonShoot_2");
+
+		wp_k_gunShootSmall_1 = loadSound("wp_k_gunShootSmall_1");
+		wp_k_gunShootSmall_2 = loadSound("wp_k_gunShootSmall_2");
+
+		wp_k_gunShoot_1 = loadSound("wp_k_gunShoot_1");
+		wp_k_gunShoot_2 = loadSound("wp_k_gunShoot_2");
+		wp_k_gunShoot_3 = loadSound("wp_k_gunShoot_3");
+		wp_k_gunShoot_4 = loadSound("wp_k_gunShoot_4");
+		wp_k_gunShoot_5 = loadSound("wp_k_gunShoot_5");
+		wp_k_gunShoot_6 = loadSound("wp_k_gunShoot_6");
+		wp_k_gunShoot_7 = loadSound("wp_k_gunShoot_7");
+
+		wp_k_gunShootBig_1 = loadSound("wp_k_gunShootBig_1");
+		wp_k_gunShootBig_2 = loadSound("wp_k_gunShootBig_2");
+
+		wp_k_shotgunShoot_1 = loadSound("wp_k_shotgunShoot_1");
+		wp_k_shotgunShoot_2 = loadSound("wp_k_shotgunShoot_2");
+
+		wp_lnch_springShoot_1 = loadSound("wp_lnch_springShoot_1");
+		wp_lnch_springShoot_2 = loadSound("wp_lnch_springShoot_2");
+		wp_lnch_springShoot_3 = loadSound("wp_lnch_springShoot_3");
+
+		wp_lnch_energyShoot_1 = loadSound("wp_lnch_energyShoot_1");
+
+		wp_mine_detonateSound_1 = loadSound("wp_mine_detonateSound_1");
+
+		wp_msl_missileLaunch_1_big = loadSound("wp_msl_missileLaunch_1_big");
+		wp_msl_missileLaunch_2_big = loadSound("wp_msl_missileLaunch_2_big");
+
+		wp_torp_torpedoLaunch_1 = loadSound("wp_torp_torpedoLaunch_1");
 	}
+
+
 }

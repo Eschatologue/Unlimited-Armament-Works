@@ -11,7 +11,6 @@ import UAW.world.blocks.defense.walls.ShieldWall;
 import UAW.world.drawer.DrawPulses;
 import arc.graphics.Color;
 import arc.math.Interp;
-import arc.struct.Seq;
 import mindustry.content.*;
 import mindustry.entities.UnitSorts;
 import mindustry.entities.bullet.BasicBulletType;
@@ -25,7 +24,6 @@ import mindustry.world.Block;
 import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.draw.*;
-import multicraft.*;
 
 import static UAW.Vars.*;
 import static UAW.content.UAWBullets.*;
@@ -80,6 +78,7 @@ public class UAWBlocksDefence {
 			rotateSpeed = 10f;
 
 			ammoUseEffect = Fx.casing2Double;
+			shootSound = Sfx.wp_k_gunShootSmall_2;
 
 			shoot = new ShootAlternate() {{
 				barrels = 2;
@@ -159,8 +158,8 @@ public class UAWBlocksDefence {
 					}},
 					new RegionPart("-body"),
 					new RegionPart("-back") {{
-						progress = PartProgress.reload;
-						moveY = -6f * px;
+						progress = PartProgress.warmup;
+						moveY = -5f * px;
 					}}
 				);
 			}};
@@ -335,7 +334,7 @@ public class UAWBlocksDefence {
 			rotateSpeed = 5f;
 			shake = 3.5f;
 
-			shootSound = Sfx.cannonShoot1;
+			shootSound = Sfx.wp_k_gunShootBig_1;
 			soundPitchMin = 1.5f;
 			soundPitchMax = 2f;
 
@@ -355,8 +354,8 @@ public class UAWBlocksDefence {
 					backColor = UAWPal.graphiteMiddle;
 					trailEffect = Fx.disperseTrail;
 					trailChance = 0.8f;
-					shootEffect = Fx.shootBigColor;
-					hitEffect = Fx.hitBulletColor;
+					shootEffect = Fx.shootBigColor.wrap(frontColor);
+					hitEffect = Fx.hitBulletColor.wrap(frontColor);
 					trailColor = hitColor = backColor;
 					despawnHit = true;
 					smokeEffect = Fx.shootBigSmoke;
@@ -450,10 +449,7 @@ public class UAWBlocksDefence {
 			shake = 3f;
 			rotateSpeed = 2.5f;
 
-			shootSound = Sfx.cannonShoot2;
-			soundPitchMin = 2.2f;
-			soundPitchMax = 2.8f;
-
+			shootSound = Sfx.wp_k_gunShootBig_2;
 			ammoUseEffect = Fx.casing4;
 
 			unitSort = UAWUnitSorts.mostHitPoints;
@@ -552,7 +548,7 @@ public class UAWBlocksDefence {
 			minWarmup = 0.95f;
 			shootWarmupSpeed = 0.015f;
 
-			shootSound = Sfx.cannonShootBig2;
+			shootSound = Sfx.wp_k_cannonShoot_2;
 
 			ammoUseEffect = UAWFx.casing6;
 
@@ -647,7 +643,7 @@ public class UAWBlocksDefence {
 			minWarmup = 0.95f;
 			shootWarmupSpeed = 0.02f;
 
-			shootSound = Sfx.launcherShoot1;
+			shootSound = Sfx.wp_lnch_springShoot_2;
 
 			ammoUseEffect = UAWFx.casingCanister;
 
@@ -705,7 +701,7 @@ public class UAWBlocksDefence {
 			targetAir = false;
 			unitSort = UAWUnitSorts.biggest;
 
-			shootSound = Sfx.cannonShootBig2;
+			shootSound = Sfx.wp_k_cannonShoot_1;
 			ammoUseEffect = UAWFx.casing7;
 
 			ammo(
@@ -721,7 +717,7 @@ public class UAWBlocksDefence {
 						UAWFx.shootSmoke(width, frontColor)
 					);
 					hitEffect = UAWFx.dynamicExplosion(splashDamageRadius, frontColor, backColor);
-					hitSound = Sfx.explosionHuge1;
+					hitSound = Sfx.exp_n_impactHuge_1;
 					hitSoundVolume = 3f;
 					hitShake = 34f;
 					generateTrail = true;
@@ -770,7 +766,7 @@ public class UAWBlocksDefence {
 						UAWFx.shootSmoke(width, frontColor)
 					);
 					hitEffect = UAWFx.dynamicExplosion(splashDamageRadius, frontColor, backColor);
-					hitSound = Sfx.explosionHuge1;
+					hitSound = Sfx.exp_n_impactHuge_1;
 					hitSoundVolume = 3f;
 					hitShake = 34f;
 					generateTrail = true;
@@ -820,7 +816,7 @@ public class UAWBlocksDefence {
 						UAWFx.shootSmoke(width, frontColor)
 					);
 					hitEffect = UAWFx.dynamicExplosion(splashDamageRadius, frontColor, backColor);
-					hitSound = Sfx.explosionHuge1;
+					hitSound = Sfx.exp_n_impactHuge_1;
 					hitSoundVolume = 3f;
 					hitShake = 34f;
 					generateTrail = true;
@@ -1003,7 +999,7 @@ public class UAWBlocksDefence {
 			rotateSpeed = 4f;
 
 			ammoUseEffect = Fx.casing3;
-			shootSound = Sfx.gunShoot4;
+			shootSound = Sfx.wp_k_gunShoot_4;
 			soundPitchMin = 0.7f;
 			soundPitchMax = soundPitchMin + 0.2f;
 
@@ -1214,7 +1210,7 @@ public class UAWBlocksDefence {
 			rotateSpeed = 3f;
 
 			ammoUseEffect = Fx.casing4;
-			shootSound = Sounds.artillery;
+			shootSound = Sfx.wp_k_shotgunShoot_2;
 
 			targetAir = false;
 

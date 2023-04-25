@@ -19,7 +19,7 @@ import static UAW.Vars.modName;
 public class MineBulletType extends BulletType {
 	public TextureRegion mineBase, mineFront, mineBack, mineIndicator, mineOutline;
 	public String sprite;
-	public Sound detonationSound = Sfx.mineDetonate1;
+	public Sound detonationSound = Sfx.wp_mine_detonateSound_1;
 	public Effect triggerEffect = Fx.smeltsmoke;
 	/** Light that will appear when mine is triggered */
 	public Color detonationColor = Color.red;
