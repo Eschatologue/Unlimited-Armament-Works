@@ -1090,7 +1090,7 @@ public class UAWBlocksDefence {
 					Color front = Pal.missileYellow, back = Pal.missileYellowBack;
 					height = 18f;
 					width = 9f;
-					splashDamageRadius = 3f * tilesize;
+					splashDamageRadius = 5f * tilesize;
 					splashDamage = 10f;
 					shootEffect = Fx.shootBigColor;
 					smokeEffect = new MultiEffect(
@@ -1118,7 +1118,7 @@ public class UAWBlocksDefence {
 					fragBullets = 12;
 					fragVelocityMin = 0.2f;
 					fragVelocityMax = 1.4f;
-					explodeRange = 8 * tilesize;
+					explodeRange = 6 * tilesize;
 					explodeDelay = 1f;
 
 					despawnSound = Sounds.dullExplosion;
