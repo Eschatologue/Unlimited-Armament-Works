@@ -1114,7 +1114,7 @@ public class UAWBlocksDefence {
 						shapeVariant = 2;
 					}};
 
-					fragRandomSpread = 90;
+					fragRandomSpread = 160;
 					fragBullets = 16;
 					fragVelocityMin = 0.2f;
 					fragVelocityMax = 1.4f;
