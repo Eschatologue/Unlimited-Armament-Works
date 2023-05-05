@@ -993,7 +993,7 @@ public class UAWBlocksDefence {
 			shoot.shots = 4;
 			shoot.shotDelay = 15 * 0.25f;
 
-			range = 28 * tilesize;
+			range = 38 * tilesize;
 			shake = 0.8f;
 			inaccuracy = 6f;
 			rotateSpeed = 4f;
