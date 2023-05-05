@@ -1115,12 +1115,11 @@ public class UAWBlocksDefence {
 					}};
 
 					fragRandomSpread = 9f;
-					fragSpread = 40;
+					fragSpread = 20;
 					fragBullets = 16;
 					fragVelocityMin = 0.2f;
 					fragVelocityMax = 1.4f;
-
-					explodeRange = 3 * tilesize;
+					explodeRange = 6 * tilesize;
 					explodeDelay = 1f;
 
 					despawnSound = Sounds.dullExplosion;
