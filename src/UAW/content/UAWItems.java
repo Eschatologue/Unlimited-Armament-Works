@@ -8,7 +8,7 @@ import mindustry.type.Item;
 public class UAWItems {
 	public static Item placeholder,
 	// Processed
-	cryogel, dieselCore,
+	cryogel,
 	// Metal
 	stoutsteel,
 	// Natural

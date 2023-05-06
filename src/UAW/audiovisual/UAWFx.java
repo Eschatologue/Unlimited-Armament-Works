@@ -549,6 +549,73 @@ public class UAWFx {
 
 	// endregion shootSmokes
 
+	// region hitEffects
+
+	// region sparkHit
+
+	public static Effect sparkHit(float lifetime, int amount, Color color) {
+		return sparkHit(lifetime, amount * 1.25f, amount * 5.125f, amount, 1.3f, 6f, color);
+	}
+
+	public static Effect sparkHit(float lifetime, float spreadCone, int amount, Color color) {
+		return sparkHit(lifetime, spreadCone, spreadCone * 4, amount, 1.3f, 6f, color);
+	}
+
+	/**
+	 * Based on {@link Fx#colorSparkBig}
+	 * @param lifetime
+	 * 	25f
+	 * @param spreadCone
+	 * 	10f
+	 * @param spreadRange
+	 * 	41f
+	 * @param amount
+	 * 	8
+	 * @param strokeThick
+	 * 	1.3f
+	 * @param strokeLength
+	 * 	6f
+	 */
+	public static Effect sparkHit(float lifetime, float spreadCone, float spreadRange, int amount, float strokeThick, float strokeLength, Color color) {
+		return new Effect(lifetime, e -> {
+			color(Color.white, color, e.fin());
+			stroke(e.fout() * strokeThick + 0.7f);
+
+			randLenVectors(e.id, amount, spreadRange * e.fin(), e.rotation, spreadCone, (x, y) -> {
+				lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), e.fslope() * strokeLength + 0.5f);
+			});
+		});
+	}
+
+	// endregion sparkHit
+
+	// region hitBulletSmall
+	public static Effect hitBulletSmall(Color color) {
+		return hitBulletSmall(Color.white, color);
+	}
+
+	public static Effect hitBulletSmall(Color color1, Color color2) {
+		return new Effect(14, e -> {
+			color(color1, color2, e.fin());
+
+			e.scaled(7f, s -> {
+				stroke(0.5f + s.fout());
+				Lines.circle(e.x, e.y, s.fin() * 5f);
+			});
+
+			stroke(0.5f + e.fout());
+
+			randLenVectors(e.id, 4, e.fin() * 15f, (x, y) -> {
+				float ang = Mathf.angle(x, y);
+				lineAngle(e.x + x, e.y + y, ang, e.fout() * 3 + 1f);
+			});
+
+			Drawf.light(e.x, e.y, 20f, color2, 0.6f * e.fout());
+		});
+	}
+	// endregion hitBulletSmall
+
+// endregion hitEffects
 
 	/**
 	 * Based on Fx.fireHit, that will scale based on particle radius, don't make it too big, or it will lag

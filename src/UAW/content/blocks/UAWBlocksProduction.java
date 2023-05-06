@@ -1,6 +1,7 @@
 package UAW.content.blocks;
 
 import UAW.audiovisual.*;
+import UAW.audiovisual.UAWFx;
 import UAW.content.*;
 import UAW.world.blocks.production.*;
 import UAW.world.drawer.DrawPumpLiquidTile;

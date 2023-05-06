@@ -1,6 +1,7 @@
 package UAW.content;
 
 import UAW.audiovisual.*;
+import UAW.audiovisual.UAWFx;
 import UAW.type.UAWStatusEffect;
 import mindustry.content.Fx;
 import mindustry.entities.effect.MultiEffect;

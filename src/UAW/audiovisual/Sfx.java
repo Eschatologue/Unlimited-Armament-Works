@@ -32,6 +32,7 @@ public class Sfx {
 		wp_k_gunShootBig_2 = new Sound(),
 
 	// Shotgun
+	/** Sounds like a muffled slug */
 	wp_k_shotgunShoot_1 = new Sound(),
 		wp_k_shotgunShoot_2 = new Sound(),
 

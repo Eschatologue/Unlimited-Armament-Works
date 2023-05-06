@@ -1,4 +1,4 @@
-package UAW.entities.effects;
+package UAW.audiovisual.effects;
 
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
@@ -18,6 +18,8 @@ public class SparkEffect extends Effect {
 
 	public int shapeVariant;
 
+	public int impactVariant;
+
 	@Override
 	public void init() {
 		clip = spreadRad * 5;
@@ -28,6 +30,7 @@ public class SparkEffect extends Effect {
 	public void render(EffectContainer e) {
 		alpha(alpha);
 		color(sparkColor, lerpColor, e.fin());
+
 		randLenVectors(e.id, amount > 0 ? amount : (int) (size * 1.6f), spreadBase + e.finpow() * spreadRad, (x, y) -> {
 			switch (shapeVariant) {
 				default -> Fill.square(e.x + x, e.y + y, e.fout() * size, 45);
@@ -36,4 +39,5 @@ public class SparkEffect extends Effect {
 			}
 		});
 	}
+
 }
