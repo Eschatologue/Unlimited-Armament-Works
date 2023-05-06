@@ -1195,7 +1195,7 @@ public class UAWBlocksDefence {
 			shoot.shots = 4;
 			shoot.shotDelay = 15 * 0.25f;
 
-			range = 32 * tilesize;
+			range = 38 * tilesize;
 			shake = 0.8f;
 			inaccuracy = 6f;
 			rotateSpeed = 4f;
@@ -1290,9 +1290,11 @@ public class UAWBlocksDefence {
 				}},
 				Items.metaglass, new FlakTrailBulletType(10f, 22f) {{
 					Color front = Pal.missileYellow, back = Pal.missileYellowBack;
-					width = 5f;
-					height = width * 1.75f;
-					splashDamageRadius = 2f * tilesize;
+
+					height = 18f;
+					width = 9f;
+					splashDamageRadius = 5f * tilesize;
+
 					splashDamage = 10f;
 					shootEffect = Fx.shootBigColor;
 					smokeEffect = new MultiEffect(
@@ -1316,13 +1318,11 @@ public class UAWBlocksDefence {
 						shapeVariant = 2;
 					}};
 
-					fragRandomSpread = 9f;
-					fragSpread = 20;
-					fragBullets = 8;
+					fragRandomSpread = 125;
+					fragBullets = 12;
 					fragVelocityMin = 0.2f;
 					fragVelocityMax = 1.4f;
-
-					explodeRange = 8 * tilesize;
+					explodeRange = 6 * tilesize;
 					explodeDelay = 1f;
 
 					despawnSound = Sounds.dullExplosion;
