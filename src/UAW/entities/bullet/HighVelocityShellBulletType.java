@@ -1,11 +1,13 @@
 package UAW.entities.bullet;
 
 import UAW.audiovisual.*;
+import UAW.audiovisual.UAWFx;
 import mindustry.content.Fx;
 import mindustry.entities.Effect;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.gen.*;
 
+/** Used by the Deadeye */
 public class HighVelocityShellBulletType extends TrailBulletType {
 	public Effect sideTrail = UAWFx.sideTrail(45f);
 	public float sideTrailInterval = 0;
@@ -14,7 +16,7 @@ public class HighVelocityShellBulletType extends TrailBulletType {
 		this.speed = speed;
 		this.damage = damage;
 		this.sprite = bulletSprite;
-		hitSound = Sounds.bigshot;
+		hitSound = Sounds.artillery;
 		pierceArmor = true;
 		height = 16f;
 		width = hitSize = height / 2;

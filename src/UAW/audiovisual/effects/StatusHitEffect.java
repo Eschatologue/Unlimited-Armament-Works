@@ -1,4 +1,4 @@
-package UAW.entities.effects;
+package UAW.audiovisual.effects;
 
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
@@ -19,10 +19,15 @@ public class StatusHitEffect extends Effect {
 
 	public float particleRotSpeed = 0;
 
+	/**
+	 * 1 = circle
+	 * <p>
+	 * 2 = square
+	 */
 	public int shapeVariant = 1;
 
 	@Override
-	public void init(){
+	public void init() {
 		lifetime = life;
 	}
 

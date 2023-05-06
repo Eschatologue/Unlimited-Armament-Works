@@ -1,4 +1,4 @@
-package UAW.entities.effects;
+package UAW.audiovisual.effects;
 
 import arc.graphics.Color;
 import arc.graphics.g2d.*;

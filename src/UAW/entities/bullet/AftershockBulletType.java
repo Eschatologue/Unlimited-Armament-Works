@@ -1,6 +1,5 @@
 package UAW.entities.bullet;
 
-import UAW.audiovisual.UAWFx;
 import arc.audio.Sound;
 import arc.graphics.Color;
 import arc.graphics.g2d.*;

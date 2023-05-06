@@ -4,7 +4,7 @@ import UAW.ai.types.DynamicFlyingAI;
 import UAW.audiovisual.*;
 import UAW.entities.abilities.RazorRotorAbility;
 import UAW.entities.bullet.*;
-import UAW.entities.effects.*;
+import UAW.audiovisual.effects.*;
 import UAW.entities.units.*;
 import UAW.entities.units.entity.*;
 import UAW.type.Rotor;
