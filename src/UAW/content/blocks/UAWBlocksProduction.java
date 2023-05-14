@@ -127,7 +127,7 @@ public class UAWBlocksProduction {
 		}};
 
 		// Frackers
-		petroleumDerrick = new Fracker("petroleum-derrick") {{
+		petroleumDerrick = new Fracker("phlogiston-derrick") {{
 			requirements(Category.production, with(
 				Items.copper, 180,
 				Items.graphite, 210,
@@ -147,7 +147,7 @@ public class UAWBlocksProduction {
 			hasPower = false;
 			squareSprite = false;
 
-			result = UAWLiquids.petroleum;
+			result = UAWLiquids.phlogiston;
 			pumpAmount = 30 / tick; // Normal Extractor production is 0.25 or (15 / tick)
 			consumeLiquid(UAWLiquids.steam, 120 / tick);
 		}};
@@ -432,7 +432,7 @@ public class UAWBlocksProduction {
 				UAWLiquids.steam, 120 / tick,
 				Liquids.oil, 90 / tick
 			));
-			outputLiquid = new LiquidStack(UAWLiquids.petroleum, 45 / tick);
+			outputLiquid = new LiquidStack(UAWLiquids.phlogiston, 45 / tick);
 			outputItems = with(
 				UAWItems.sulphur, 2
 			);
@@ -440,7 +440,7 @@ public class UAWBlocksProduction {
 			squareSprite = false;
 			drawer = new DrawMulti(
 				new DrawRegion("-bottom"),
-				new DrawLiquidTile(UAWLiquids.petroleum) {{
+				new DrawLiquidTile(UAWLiquids.phlogiston) {{
 					padding = 5 * px;
 					drawLiquidLight = true;
 				}},
@@ -478,7 +478,7 @@ public class UAWBlocksProduction {
 				UAWLiquids.steam, 320 / tick,
 				Liquids.oil, 180 / tick
 			));
-			outputLiquid = new LiquidStack(UAWLiquids.petroleum, 120f / tick);
+			outputLiquid = new LiquidStack(UAWLiquids.phlogiston, 120f / tick);
 			outputItems = with(
 				UAWItems.sulphur, 1
 			);
@@ -486,7 +486,7 @@ public class UAWBlocksProduction {
 			squareSprite = false;
 			drawer = new DrawMulti(
 				new DrawRegion("-bottom"),
-				new DrawLiquidTile(UAWLiquids.petroleum) {{
+				new DrawLiquidTile(UAWLiquids.phlogiston) {{
 					padding = 10 * px;
 					drawLiquidLight = true;
 				}},

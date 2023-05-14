@@ -35,7 +35,7 @@ public class UAWTechTree {
 					});
 				});
 
-				nodeProduce(UAWLiquids.petroleum, () -> {
+				nodeProduce(UAWLiquids.phlogiston, () -> {
 				});
 
 			});
@@ -66,11 +66,11 @@ public class UAWTechTree {
 
 				node(steamPump, Seq.with(new Research(rotaryPump)), () -> {
 					node(pulsometerPump, () -> {
-						node(pressurizedConduit, Seq.with(new Research(platedConduit), new Produce(stoutsteel)), () -> {
-							node(platedPressurizedConduit);
-							node(pressurizedLiquidRouter, () ->
-								node(pressurizedLiquidJunction, () ->
-									node(pressurizedLiquidBridge)
+						node(stoutsteelConduit, Seq.with(new Research(platedConduit), new Produce(stoutsteel)), () -> {
+							node(stoutsteelConduitPlated);
+							node(stoutsteelLiquidRouter, () ->
+								node(stoutsteelLiquidJunction, () ->
+									node(stoutsteelLiquidBridge)
 								));
 						});
 					});
@@ -106,7 +106,7 @@ public class UAWTechTree {
 			});
 
 			// Units
-			node(airGroundFactory, Seq.with(new Produce(stoutsteel), new Produce(UAWLiquids.petroleum)), () -> {
+			node(airGroundFactory, Seq.with(new Produce(stoutsteel), new Produce(UAWLiquids.phlogiston)), () -> {
 				node(crotchety, () -> {
 					node(cantankerous, Seq.with(new Research(gelatinizer)), () -> {
 					});

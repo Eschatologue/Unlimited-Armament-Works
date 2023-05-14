@@ -52,7 +52,7 @@ public class UAWBlocksUnits {
 					Items.copper, 165
 				))
 			);
-			consumeLiquid(UAWLiquids.petroleum, 80 / tick);
+			consumeLiquid(UAWLiquids.phlogiston, 80 / tick);
 		}};
 		navalFactory = new UnitConstructor("naval-factory") {{
 			requirements(Category.units, with(
@@ -81,10 +81,10 @@ public class UAWBlocksUnits {
 					Items.lead, 120
 				))
 			);
-			consumeLiquid(UAWLiquids.petroleum, 80 / tick);
+			consumeLiquid(UAWLiquids.phlogiston, 80 / tick);
 		}};
 
-		exponentialPetroleumReconstructor = new Reconstructor("exponential-petroleum-reconstructor") {{
+		exponentialPetroleumReconstructor = new Reconstructor("exponential-phlogiston-reconstructor") {{
 			requirements(Category.units, with(
 				Items.lead, 1000,
 				Items.titanium, 2000,
@@ -101,7 +101,7 @@ public class UAWBlocksUnits {
 				UAWItems.stoutsteel, 250,
 				Items.plastanium, 225
 			));
-			consumeLiquid(UAWLiquids.petroleum, 1.5f);
+			consumeLiquid(UAWLiquids.phlogiston, 1.5f);
 
 			constructTime = 80 * tick;
 			liquidCapacity = 240f;
@@ -116,7 +116,7 @@ public class UAWBlocksUnits {
 
 			);
 		}};
-		tetrativePetroleumReconstructor = new Reconstructor("tetrative-petroleum-reconstructor") {{
+		tetrativePetroleumReconstructor = new Reconstructor("tetrative-phlogiston-reconstructor") {{
 			requirements(Category.units, with(
 				Items.lead, 2500,
 				Items.copper, 3250,
@@ -137,7 +137,7 @@ public class UAWBlocksUnits {
 				Items.surgeAlloy, 350,
 				UAWItems.stoutsteel, 350
 			));
-			consumeLiquid(UAWLiquids.petroleum, 3.5f);
+			consumeLiquid(UAWLiquids.phlogiston, 3.5f);
 
 			constructTime = 225 * tick;
 			liquidCapacity = 480f;

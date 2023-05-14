@@ -7,29 +7,30 @@ import mindustry.type.Liquid;
 public class UAWLiquids {
 	public static Liquid placeholder,
 	// Liquid
-	petroleum,
+	phlogiston,
 	// Gas
 	steam;
 
 	public static void load() {
 
-		petroleum = new Liquid("liquid-petroleum", UAWPal.lpgMid) {{
-			viscosity = 0.6f;
+		phlogiston = new Liquid("liquid-phlogiston", UAWPal.phlogistonMid) {{
+			viscosity = 0.75f;
 			flammability = 1.4f;
 			explosiveness = 2.4f;
 			heatCapacity = 0.85f;
-			temperature = 0;
-			barColor = UAWPal.lpgMid;
+			temperature = 4;
+			barColor = UAWPal.phlogistonMid;
 			boilPoint = -1;
-			gasColor = UAWPal.lpgFront.a(0.4f);
+			gasColor = UAWPal.phlogistonFront.a(0.4f);
 			canStayOn.add(Liquids.oil);
 
 			color = color.cpy();
 			color.a = 0.6f;
 			gasColor = color;
-			if(barColor == null){
+			if (barColor == null) {
 				barColor = color.cpy().a(1f);
 			}
+			coolant = false;
 		}};
 
 		steam = new Liquid("gas-steam", UAWPal.steamFront) {{

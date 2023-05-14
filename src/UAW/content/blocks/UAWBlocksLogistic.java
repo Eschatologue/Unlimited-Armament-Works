@@ -1,5 +1,6 @@
 package UAW.content.blocks;
 
+import UAW.audiovisual.*;
 import UAW.content.UAWItems;
 import UAW.world.blocks.liquid.*;
 import mindustry.content.Items;
@@ -19,7 +20,7 @@ public class UAWBlocksLogistic {
 	copperHeatNode, compositeHeatNode,
 
 	// Liquid
-	pressurizedLiquidRouter, pressurizedLiquidJunction, pressurizedLiquidBridge, pressurizedConduit, platedPressurizedConduit,
+	stoutsteelLiquidRouter, stoutsteelLiquidJunction, stoutsteelLiquidBridge, stoutsteelConduit, stoutsteelConduitPlated,
 
 	// Payload
 	heavyDutyPayloadConveyor;
@@ -55,7 +56,7 @@ public class UAWBlocksLogistic {
 
 		// Liquid
 
-		pressurizedLiquidRouter = new LiquidRouter("pressurized-liquid-router") {{
+		stoutsteelLiquidRouter = new LiquidRouter("stoutsteel-liquid-router") {{
 			requirements(Category.liquid, with(
 				UAWItems.stoutsteel, 3,
 				Items.plastanium, 4,
@@ -63,29 +64,41 @@ public class UAWBlocksLogistic {
 			));
 			health = 625;
 			baseExplosiveness = 8f;
-			liquidCapacity = 60f;
-			liquidPressure = 2f;
+			liquidPressure = 1.5f;
 			placeableLiquid = true;
+
+			liquidCapacity = 45f;
+			researchCostMultiplier = 3;
+			underBullets = true;
+			solid = false;
 
 			squareSprite = false;
 
 			liquidPadding = 4 * px;
+
+			breakEffect = UAWFx.breakBlockPhlog;
 		}};
-		pressurizedLiquidJunction = new LiquidJunction("pressurized-liquid-junction") {{
+		stoutsteelLiquidJunction = new LiquidJunction("stoutsteel-liquid-junction") {{
 			requirements(Category.liquid, with(
 				UAWItems.stoutsteel, 3,
 				Items.plastanium, 4,
 				Items.metaglass, 4
 			));
 			health = 620;
-			liquidCapacity = 60f;
+			liquidCapacity = 45f;
 			liquidPressure = 1.5f;
 			placeableLiquid = true;
 			baseExplosiveness = 8f;
 
+			underBullets = true;
+			solid = false;
+
 			squareSprite = false;
+
+			breakEffect = UAWFx.breakBlockPhlog;
+
 		}};
-		pressurizedLiquidBridge = new DirectionLiquidBridge("pressurized-liquid-bridge") {{
+		stoutsteelLiquidBridge = new DirectionLiquidBridge("stoutsteel-liquid-bridge") {{
 			requirements(Category.liquid, with(
 				UAWItems.stoutsteel, 3,
 				Items.plastanium, 4,
@@ -98,8 +111,10 @@ public class UAWBlocksLogistic {
 			baseExplosiveness = 8f;
 
 			squareSprite = false;
+
+			breakEffect = UAWFx.breakBlockPhlog;
 		}};
-		pressurizedConduit = new PrzConduit("pressurized-conduit") {{
+		stoutsteelConduit = new PrzConduit("stoutsteel-conduit") {{
 			requirements(Category.liquid, with(
 				UAWItems.stoutsteel, 2,
 				Items.metaglass, 2,
@@ -108,7 +123,7 @@ public class UAWBlocksLogistic {
 			health = 550;
 			baseExplosiveness = 8f;
 		}};
-		platedPressurizedConduit = new PrzPlatedConduit("plated-pressurized-conduit") {{
+		stoutsteelConduitPlated = new PrzPlatedConduit("stoutsteel-conduit-plated") {{
 			requirements(Category.liquid, with(
 				UAWItems.stoutsteel, 2,
 				Items.metaglass, 2,
