@@ -6,6 +6,8 @@ public class UAWPal {
 	// front = light, back = dark
 	public static Color placeHolder,
 
+	heat = new Color(1f, 0.22f, 0.22f, 0.8f),
+
 	cryoFront = Color.valueOf("c0ecff"),
 		cryoMiddle = Color.valueOf("87ceeb"),
 		cryoBack = Color.valueOf("6586b0"),

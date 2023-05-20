@@ -1,7 +1,7 @@
 package UAW.content.blocks;
 
 import UAW.audiovisual.*;
-import UAW.audiovisual.UAWFx;
+import UAW.audiovisual.effects.StatusHitEffect;
 import UAW.content.*;
 import UAW.world.blocks.production.*;
 import UAW.world.drawer.DrawPumpLiquidTile;
@@ -12,7 +12,7 @@ import mindustry.entities.effect.*;
 import mindustry.gen.Sounds;
 import mindustry.type.*;
 import mindustry.world.Block;
-import mindustry.world.blocks.production.*;
+import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.draw.*;
 import mindustry.world.meta.Attribute;
 import multicraft.*;
@@ -31,7 +31,7 @@ public class UAWBlocksProduction {
 	steamThumper, blastThumper,
 
 	// Pumps
-	petroleumDerrick, steamPump, pulsometerPump,
+	phlogistonBore, steamPump, pulsometerPump,
 
 	// General Crafter
 	gelatinizer, alloyCrucible, advancedAlloyCrucible,
@@ -43,7 +43,7 @@ public class UAWBlocksProduction {
 	blastCruicible,
 
 	// Petroleum
-	petrochemicalRefinery, petrochemicalDistillery,
+	phlogistonCondenser, phlogistochemicalDistillery,
 
 	// Liquid Mixer
 	cryofluidBlender;
@@ -127,29 +127,44 @@ public class UAWBlocksProduction {
 		}};
 
 		// Frackers
-		petroleumDerrick = new Fracker("phlogiston-derrick") {{
+		phlogistonBore = new UAWFracker("phlogiston-bore") {{
 			requirements(Category.production, with(
-				Items.copper, 180,
-				Items.graphite, 210,
-				Items.lead, 130,
+				Items.copper, 150,
+				Items.graphite, 250,
 				Items.titanium, 115,
 				Items.silicon, 85,
-				UAWItems.stoutsteel, 90
+				UAWItems.stoutsteel, 75
 			));
-			size = 4;
+			size = 3;
 
 			updateEffectChance = 0.05f;
+			updateEffect = new MultiEffect(
+				new StatusHitEffect() {{
+					color1 = UAWLiquids.phlogiston.color;
+					amount = 6;
+					spreadBase = 3;
+					spreadRad = 6;
+					life = 45f;
+				}},
+				Fx.flakExplosion
+			);
+
 			liquidCapacity = 180;
 			attribute = Attribute.oil;
-			baseEfficiency = 0.25f;
+			baseEfficiency = 0.5f;
 			rotateSpeed = -2.5f;
 
-			hasPower = false;
+			hasPower = true;
 			squareSprite = false;
 
 			result = UAWLiquids.phlogiston;
-			pumpAmount = 30 / tick; // Normal Extractor production is 0.25 or (15 / tick)
+			pumpAmount = 30 / tick;
+
+			breakEffect = UAWFx.breakBlockPhlog;
+
+			consumeItem(Items.blastCompound);
 			consumeLiquid(UAWLiquids.steam, 120 / tick);
+			consumePower(1.5f);
 		}};
 
 		// Pumps
@@ -413,84 +428,65 @@ public class UAWBlocksProduction {
 			}};
 		}};
 
-		// Petroleum
-		petrochemicalRefinery = new GenericCrafter("petrochemical-refinery") {{
-			requirements(Category.crafting, ItemStack.mult(Blocks.rotaryPump.requirements, 1.5f));
-			size = 2;
-
-			hasItems = true;
-			hasLiquids = true;
-			rotate = false;
-			solid = true;
-			ignoreLiquidFullness = false;
-			outputsLiquid = true;
-
-			liquidCapacity = 180;
-			craftTime = 120;
-
-			consumeLiquids(LiquidStack.with(
-				UAWLiquids.steam, 120 / tick,
-				Liquids.oil, 90 / tick
-			));
-			outputLiquid = new LiquidStack(UAWLiquids.phlogiston, 45 / tick);
-			outputItems = with(
-				UAWItems.sulphur, 2
-			);
-
-			squareSprite = false;
-			drawer = new DrawMulti(
-				new DrawRegion("-bottom"),
-				new DrawLiquidTile(UAWLiquids.phlogiston) {{
-					padding = 5 * px;
-					drawLiquidLight = true;
-				}},
-				new DrawBlurSpin() {{
-					suffix = "-rotator";
-					rotateSpeed = 2.5f;
-					blurThresh = 10; //no Blur
-				}},
-				new DrawDefault()
-			);
-		}};
-		petrochemicalDistillery = new AttributeCrafter("petrochemical-distillery") {{
+		// Phlogiston
+		phlogistonCondenser = new ExplodingCrafter("phlogiston-condenser") {{
 			requirements(Category.crafting, with(
-				Items.copper, 250,
-				Items.titanium, 150,
+				Items.copper, 150,
+				Items.titanium, 200,
 				Items.metaglass, 85,
 				Items.silicon, 125,
-				Items.graphite, 85,
-				UAWItems.stoutsteel, 50
+				Items.graphite, 100
 			));
 			size = 3;
 
 			hasItems = true;
 			hasLiquids = true;
-			rotate = false;
-			solid = true;
-			ignoreLiquidFullness = true;
+			ignoreLiquidFullness = false;
 			outputsLiquid = true;
 
-			liquidCapacity = 360f;
-			craftTime = 120;
-			boostScale = 0.15f;
+			liquidCapacity = 180;
+			craftTime = 2 * tick;
 
 			consumeLiquids(LiquidStack.with(
-				UAWLiquids.steam, 320 / tick,
-				Liquids.oil, 180 / tick
+				Liquids.oil, 30 / tick
 			));
-			outputLiquid = new LiquidStack(UAWLiquids.phlogiston, 120f / tick);
-			outputItems = with(
-				UAWItems.sulphur, 1
+			consumeItems(ItemStack.with(
+				UAWItems.anthracite, 2,
+				Items.blastCompound, 2
+			));
+			outputLiquid = new LiquidStack(UAWLiquids.phlogiston, 30 / tick);
+			updateEffect = new MultiEffect(
+				new StatusHitEffect() {{
+					color1 = UAWLiquids.phlogiston.color;
+					amount = 6;
+					spreadBase = 3;
+					spreadRad = 6;
+					life = 45f;
+				}},
+				Fx.flakExplosion
 			);
 
+			breakEffect = UAWFx.breakBlockPhlog;
 			squareSprite = false;
 			drawer = new DrawMulti(
 				new DrawRegion("-bottom"),
-				new DrawLiquidTile(UAWLiquids.phlogiston) {{
-					padding = 10 * px;
+				new DrawLiquidTile(Liquids.oil) {{
+					padding = 5 * px;
 					drawLiquidLight = true;
 				}},
-				new DrawDefault()
+				new DrawSoftParticles() {{
+					color = UAWPal.phlogistonBack;
+					color2 = UAWPal.phlogistonFront;
+					alpha = 0.5f;
+					particleRad = 14f;
+					particleSize = 10f;
+					particleLife = 120f;
+					particles = 27;
+				}},
+				new DrawDefault(),
+				new DrawGlowRegion("-glassglow") {{
+					color = UAWPal.phlogistonMid;
+				}}
 			);
 		}};
 

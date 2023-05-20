@@ -17,7 +17,7 @@ public class UAWBlocksUnits {
 	// Units Factory
 	airGroundFactory, navalFactory,
 	// Units Reconstructor
-	exponentialPetroleumReconstructor, tetrativePetroleumReconstructor;
+	unitReassemblyFacility1, unitReassemblyFacility2;
 
 	public static void load() {
 		airGroundFactory = new UnitConstructor("air-ground-factory") {{
@@ -84,7 +84,7 @@ public class UAWBlocksUnits {
 			consumeLiquid(UAWLiquids.phlogiston, 80 / tick);
 		}};
 
-		exponentialPetroleumReconstructor = new Reconstructor("exponential-phlogiston-reconstructor") {{
+		unitReassemblyFacility1 = new Reconstructor("unit-reassembly-mk1") {{
 			requirements(Category.units, with(
 				Items.lead, 1000,
 				Items.titanium, 2000,
@@ -116,7 +116,7 @@ public class UAWBlocksUnits {
 
 			);
 		}};
-		tetrativePetroleumReconstructor = new Reconstructor("tetrative-phlogiston-reconstructor") {{
+		unitReassemblyFacility2 = new Reconstructor("unit-reassembly-mk2") {{
 			requirements(Category.units, with(
 				Items.lead, 2500,
 				Items.copper, 3250,

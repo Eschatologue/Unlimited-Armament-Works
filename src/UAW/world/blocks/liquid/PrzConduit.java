@@ -14,19 +14,24 @@ import mindustry.world.blocks.liquid.Conduit;
 import static mindustry.Vars.tilesize;
 
 public class PrzConduit extends Conduit {
-	public float explosionDamage = 45f;
+	public float explosionDamage = 25f;
 	public float maxTemperature = 6f;
 	public float maxFlammability = 3f;
+
+	public boolean stoutsteel = true;
 
 	public PrzConduit(String name) {
 		super(name);
 		botColor = Color.valueOf("4a4b53");
 		health = 350;
 		liquidCapacity = 30f;
-		liquidPressure = 1.5f;
+		liquidPressure = 1.2f;
 		leaks = false;
 		placeableLiquid = true;
 		underBullets = true;
+
+		hasPower = true;
+		conductivePower = true;
 
 		breakEffect = UAWFx.breakBlockPhlog;
 	}
@@ -34,8 +39,10 @@ public class PrzConduit extends Conduit {
 	@Override
 	public void init() {
 		super.init();
-		junctionReplacement = UAWBlocksLogistic.stoutsteelLiquidJunction;
-		rotBridgeReplacement = UAWBlocksLogistic.stoutsteelLiquidBridge;
+		if (stoutsteel) {
+			junctionReplacement = UAWBlocksLogistic.stoutsteelLiquidJunction;
+			rotBridgeReplacement = UAWBlocksLogistic.stoutsteelLiquidBridge;
+		}
 	}
 
 	public class PrzConduitBuild extends ConduitBuild {

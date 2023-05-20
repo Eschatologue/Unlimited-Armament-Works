@@ -57,9 +57,7 @@ public class UAWTechTree {
 					node(steamThumper, () -> {
 						node(alloyCrucible, () -> {
 						});
-						node(petrochemicalRefinery, () -> {
-							node(petrochemicalDistillery, Seq.with(new Produce(stoutsteel)), () -> {
-							});
+						node(phlogistonCondenser, () -> {
 						});
 					});
 				});
@@ -135,8 +133,8 @@ public class UAWTechTree {
 					});
 				});
 
-				node(exponentialPetroleumReconstructor, () -> {
-					node(tetrativePetroleumReconstructor);
+				node(unitReassemblyFacility1, () -> {
+					node(unitReassemblyFacility2);
 				});
 			});
 
