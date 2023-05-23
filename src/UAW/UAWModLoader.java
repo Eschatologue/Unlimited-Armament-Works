@@ -2,6 +2,7 @@ package UAW;
 
 import UAW.audiovisual.Sfx;
 import UAW.content.*;
+import UAW.content.techTree.*;
 import arc.Events;
 import mindustry.game.EventType.FileTreeInitEvent;
 import mindustry.mod.Mod;
@@ -14,6 +15,7 @@ public class UAWModLoader extends Mod {
 	@Override
 	public void loadContent() {
 		UAWStatusEffects.load();
+		TechTreeContent.load();
 		UAWBullets.load();
 		UAWUnitTypes.load();
 		UAWItems.load();

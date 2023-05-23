@@ -24,8 +24,6 @@ public class UAWLiquids {
 			gasColor = UAWPal.phlogistonFront.a(0.4f);
 			canStayOn.add(Liquids.oil);
 
-
-
 			color = color.cpy();
 			color.a = 0.6f;
 			gasColor = color;

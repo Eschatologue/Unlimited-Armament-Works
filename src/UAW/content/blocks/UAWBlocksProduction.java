@@ -127,7 +127,7 @@ public class UAWBlocksProduction {
 		}};
 
 		// Frackers
-		phlogistonBore = new UAWFracker("phlogiston-bore") {{
+		phlogistonBore = new ExplodingFracker("phlogiston-bore") {{
 			requirements(Category.production, with(
 				Items.copper, 150,
 				Items.graphite, 250,
