@@ -257,9 +257,8 @@ public class UAWBlocksDefence {
 			recoilTime = 60f;
 			maxAmmo = 200;
 			minWarmup = 0.85f;
-			shootWarmupSpeed = 0.015f;
-			warmupMaintainTime = 5000f;
-			linearWarmup = true;
+			shootWarmupSpeed = 0.01f;
+			linearWarmup = false;
 
 			range = 35 * tilesize;
 			inaccuracy = 7.5f;
