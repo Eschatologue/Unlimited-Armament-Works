@@ -1,20 +1,20 @@
 package UAW.world.meta;
 
 import UAW.entities.bullet.*;
-import UAW.entities.bullet.SplashArtilleryBulletType;
 import arc.Core;
 import arc.func.Boolf;
+import arc.graphics.Color;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
 import arc.scene.ui.Image;
-import arc.scene.ui.layout.Table;
+import arc.scene.ui.layout.*;
 import arc.struct.*;
 import arc.util.*;
 import mindustry.Vars;
 import mindustry.content.StatusEffects;
 import mindustry.ctype.UnlockableContent;
 import mindustry.entities.bullet.BulletType;
-import mindustry.gen.Tex;
+import mindustry.gen.Icon;
 import mindustry.maps.Map;
 import mindustry.type.*;
 import mindustry.ui.*;
@@ -27,14 +27,18 @@ import static mindustry.Vars.*;
 
 public class UAWStatValues {
 
-	// region Not Edited
+	// region unedited
+	public static StatValue string(String value, Object... args) {
+		String result = Strings.format(value, args);
+		return table -> table.add(result);
+	}
+
 	public static StatValue bool(boolean value) {
 		return table -> table.add(!value ? "@no" : "@yes");
 	}
 
 	public static String fixValue(float value) {
-		int precision = Math.abs((int) value - value) <= 0.001f ? 0 : Math.abs((int) (value * 10) - value * 10) <= 0.001f ? 1 : 2;
-		return Strings.fixed(value, precision);
+		return Strings.autoFixed(value, 2);
 	}
 
 	public static StatValue squared(float value, StatUnit unit) {
@@ -47,13 +51,13 @@ public class UAWStatValues {
 
 	public static StatValue number(float value, StatUnit unit, boolean merge) {
 		return table -> {
-			String l1 = fixValue(value), l2 = (unit.space ? " " : "") + unit.localized();
+			String l1 = (unit.icon == null ? "" : unit.icon + " ") + fixValue(value), l2 = (unit.space ? " " : "") + unit.localized();
 
 			if (merge) {
-				table.add(l1 + l2);
+				table.add(l1 + l2).left();
 			} else {
-				table.add(l1);
-				table.add(l2);
+				table.add(l1).left();
+				table.add(l2).left();
 			}
 		};
 	}
@@ -210,7 +214,8 @@ public class UAWStatValues {
 				if (!check.get(item)) continue;
 				any = true;
 
-				if (item.uiIcon.found()) l.image(item.uiIcon).size(iconSmall).padRight(2).padLeft(2).padTop(3).padBottom(3);
+				if (item.uiIcon.found())
+					l.image(item.uiIcon).size(iconSmall).padRight(2).padLeft(2).padTop(3).padBottom(3);
 				l.add(item.localizedName).left().padLeft(1).padRight(4).colspan(item.uiIcon.found() ? 1 : 2);
 				if (i % 5 == 4) {
 					l.row();
@@ -235,6 +240,32 @@ public class UAWStatValues {
 		return content(list.as());
 	}
 
+	public static StatValue drillables(float drillTime, float drillMultiplier, float size, ObjectFloatMap<Item> multipliers, Boolf<Block> filter) {
+		return table -> {
+			table.row();
+			table.table(c -> {
+				int i = 0;
+				for (Block block : content.blocks()) {
+					if (!filter.get(block)) continue;
+
+					c.table(Styles.grayPanel, b -> {
+						b.image(block.uiIcon).size(40).pad(10f).left().scaling(Scaling.fit);
+						b.table(info -> {
+							info.left();
+							info.add(block.localizedName).left().row();
+							info.add(block.itemDrop.emoji()).left();
+						}).grow();
+						if (multipliers != null) {
+							b.add(Strings.autoFixed(60f / (Math.max(drillTime + drillMultiplier * block.itemDrop.hardness, drillTime) / multipliers.get(block.itemDrop, 1f)) * size, 2) + StatUnit.perSecond.localized())
+								.right().pad(10f).padRight(15f).color(Color.lightGray);
+						}
+					}).growX().pad(5);
+					if (++i % 2 == 0) c.row();
+				}
+			}).growX().colspan(table.getColumns());
+		};
+	}
+
 	public static StatValue boosters(float reload, float maxUsed, float multiplier, boolean baseReload, Boolf<Liquid> filter) {
 		return table -> {
 			table.row();
@@ -242,41 +273,81 @@ public class UAWStatValues {
 				for (Liquid liquid : content.liquids()) {
 					if (!filter.get(liquid)) continue;
 
-					c.image(liquid.uiIcon).size(3 * 8).scaling(Scaling.fit).padRight(4).right().top();
-					c.add(liquid.localizedName).padRight(10).left().top();
-					c.table(Tex.underline, bt -> {
-						bt.left().defaults().padRight(3).left();
+					c.table(Styles.grayPanel, b -> {
+						b.image(liquid.uiIcon).size(40).pad(10f).left().scaling(Scaling.fit);
+						b.table(info -> {
+							info.add(liquid.localizedName).left().row();
+							info.add(Strings.autoFixed(maxUsed * 60f, 1) + StatUnit.perSecond.localized()).left().color(Color.lightGray);
+						});
 
-						float reloadRate = (baseReload ? 1f : 0f) + maxUsed * multiplier * liquid.heatCapacity;
-						float standardReload = baseReload ? reload : reload / (maxUsed * multiplier * 0.4f);
-						float result = standardReload / (reload / reloadRate);
-						bt.add(Core.bundle.format("bullet.reload", Strings.autoFixed(result, 2)));
-					}).left().padTop(-9);
-					c.row();
+						b.table(bt -> {
+							bt.right().defaults().padRight(3).left();
+
+							float reloadRate = (baseReload ? 1f : 0f) + maxUsed * multiplier * liquid.heatCapacity;
+							float standardReload = baseReload ? reload : reload / (maxUsed * multiplier * 0.4f);
+							float result = standardReload / (reload / reloadRate);
+							bt.add(Core.bundle.format("bullet.reload", Strings.autoFixed(result * 100, 1))).pad(5);
+						}).right().grow().pad(10f).padRight(15f);
+					}).growX().pad(5).row();
 				}
-			}).colspan(table.getColumns());
+			}).growX().colspan(table.getColumns());
 			table.row();
 		};
 	}
 
-	public static StatValue strengthBoosters(float multiplier, Boolf<Liquid> filter) {
+	public static StatValue speedBoosters(String unit, float amount, float speed, boolean strength, Boolf<Liquid> filter) {
 		return table -> {
 			table.row();
 			table.table(c -> {
 				for (Liquid liquid : content.liquids()) {
 					if (!filter.get(liquid)) continue;
 
-					c.image(liquid.uiIcon).size(3 * 8).scaling(Scaling.fit).padRight(4).right().top();
-					c.add(liquid.localizedName).padRight(10).left().top();
-					c.table(Tex.underline, bt -> {
-						bt.left().defaults().padRight(3).left();
+					c.table(Styles.grayPanel, b -> {
+						b.image(liquid.uiIcon).size(40).pad(10f).left().scaling(Scaling.fit);
+						b.table(info -> {
+							info.add(liquid.localizedName).left().row();
+							info.add(Strings.autoFixed(amount * 60f, 1) + StatUnit.perSecond.localized()).left().color(Color.lightGray);
+						});
 
-						float newRate = (1f + multiplier * liquid.heatCapacity);
-						bt.add(Core.bundle.format("bar.strength", Strings.autoFixed(newRate, 2)));
-					}).left().padTop(-9);
-					c.row();
+						b.table(bt -> {
+							bt.right().defaults().padRight(3).left();
+							if (speed != Float.MAX_VALUE)
+								bt.add(unit.replace("{0}", "[stat]" + Strings.autoFixed(speed * (strength ? liquid.heatCapacity : 1f) + (strength ? 1f : 0f), 2) + "[lightgray]")).pad(5);
+						}).right().grow().pad(10f).padRight(15f);
+					}).growX().pad(5).row();
 				}
-			}).colspan(table.getColumns());
+			}).growX().colspan(table.getColumns());
+			table.row();
+		};
+	}
+
+	public static StatValue itemBoosters(String unit, float timePeriod, float speedBoost, float rangeBoost, ItemStack[] items, Boolf<Item> filter) {
+		return table -> {
+			table.row();
+			table.table(c -> {
+				for (Item item : content.items()) {
+					if (!filter.get(item)) continue;
+
+					c.table(Styles.grayPanel, b -> {
+						for (ItemStack stack : items) {
+							if (timePeriod < 0) {
+								b.add(new ItemDisplay(stack.item, stack.amount, true)).pad(20f).left();
+							} else {
+								b.add(new ItemDisplay(stack.item, stack.amount, timePeriod, true)).pad(20f).left();
+							}
+							if (items.length > 1) b.row();
+						}
+
+						b.table(bt -> {
+							bt.right().defaults().padRight(3).left();
+							if (rangeBoost != 0)
+								bt.add("[lightgray]+[stat]" + Strings.autoFixed(rangeBoost / tilesize, 2) + "[lightgray] " + StatUnit.blocks.localized()).row();
+							if (speedBoost != 0)
+								bt.add("[lightgray]" + unit.replace("{0}", "[stat]" + Strings.autoFixed(speedBoost, 2) + "[lightgray]"));
+						}).right().grow().pad(10f).padRight(15f);
+					}).growX().pad(5).padBottom(-5).row();
+				}
+			}).growX().colspan(table.getColumns());
 			table.row();
 		};
 	}
@@ -292,19 +363,23 @@ public class UAWStatValues {
 					continue;
 				}
 
-				TextureRegion region = !weapon.name.equals("") && weapon.region.found() ? weapon.region : Core.atlas.find("clear");
+				TextureRegion region = !weapon.name.isEmpty() ? Core.atlas.find(weapon.name + "-preview", weapon.region) : null;
 
-				table.image(region).size(60).scaling(Scaling.bounded).right().top();
-
-				table.table(Tex.underline, w -> {
-					w.left().defaults().padRight(3).left();
+				table.table(Styles.grayPanel, w -> {
+					w.left().top().defaults().padRight(3).left();
+					if (region != null && region.found())
+						w.image(region).size(60).scaling(Scaling.bounded).left().top();
+					w.row();
 
 					weapon.addStats(unit, w);
-				}).padTop(-9).left();
+				}).growX().pad(5).margin(10);
 				table.row();
 			}
 		};
 	}
+	// endregion unedited
+
+	// region Edited
 
 	public static <T extends UnlockableContent> StatValue ammo(ObjectMap<T, BulletType> map) {
 		return ammo(map, 0, false);
@@ -313,7 +388,6 @@ public class UAWStatValues {
 	public static <T extends UnlockableContent> StatValue ammo(ObjectMap<T, BulletType> map, boolean showUnit) {
 		return ammo(map, 0, showUnit);
 	}
-	// endregion Not Edited
 
 	public static <T extends UnlockableContent> StatValue ammo(ObjectMap<T, BulletType> map, int indent, boolean showUnit) {
 		return table -> {
@@ -330,19 +404,22 @@ public class UAWStatValues {
 
 				if (type.spawnUnit != null && type.spawnUnit.weapons.size > 0) {
 					ammo(ObjectMap.of(t, type.spawnUnit.weapons.first().bullet), indent, false).display(table);
-					return;
+					continue;
 				}
 
-				//no point in displaying unit icon twice
-				if (!compact && !(t instanceof Turret)) {
-					table.image(icon(t)).size(3 * 8).padRight(4).right().top();
-					table.add(t.localizedName).padRight(10).left().top();
-				}
+				table.table(Styles.grayPanel, bt -> {
+					bt.left().top().defaults().padRight(3).left();
+					//no point in displaying unit icon twice
+					if (!compact && !(t instanceof Turret)) {
+						bt.table(title -> {
+							title.image(icon(t)).size(3 * 8).padRight(4).right().scaling(Scaling.fit).top();
+							title.add(t.localizedName).padRight(10).left().top();
+						});
+						bt.row();
+					}
 
-				table.table(bt -> {
-					bt.left().defaults().padRight(3).left();
-
-					if (type.damage > 0 && (type.collides || type.splashDamage <= 0)) {
+					// Dont display damage for canisters
+					if (type.damage > 0 && (type.collides || type.splashDamage <= 0) && !(type instanceof CanisterBulletType)) {
 						if (type.continuousDamage() > 0) {
 							bt.add(Core.bundle.format("bullet.damage", type.continuousDamage()) + StatUnit.perSecond.localized());
 						} else {
@@ -351,11 +428,12 @@ public class UAWStatValues {
 					}
 
 					if (type.buildingDamageMultiplier != 1) {
-						sep(bt, Core.bundle.format("bullet.buildingdamage", (int) (type.buildingDamageMultiplier * 100)));
+						int val = (int) (type.buildingDamageMultiplier * 100 - 100);
+						sep(bt, Core.bundle.format("bullet.buildingdamage", ammoStat(val)));
 					}
 
 					if (type.rangeChange != 0 && !compact) {
-						sep(bt, Core.bundle.format("bullet.range", (type.rangeChange > 0 ? "+" : "-") + Strings.autoFixed(type.rangeChange / tilesize, 1)));
+						sep(bt, Core.bundle.format("bullet.range", ammoStat(type.rangeChange / tilesize)));
 					}
 
 					if (type.splashDamage > 0) {
@@ -367,7 +445,8 @@ public class UAWStatValues {
 					}
 
 					if (!compact && !Mathf.equal(type.reloadMultiplier, 1f)) {
-						sep(bt, Core.bundle.format("bullet.reload", Strings.autoFixed(type.reloadMultiplier, 2)));
+						int val = (int) (type.reloadMultiplier * 100 - 100);
+						sep(bt, Core.bundle.format("bullet.reload", ammoStat(val)));
 					}
 
 					if (type.knockback > 0) {
@@ -402,58 +481,120 @@ public class UAWStatValues {
 						sep(bt, "@bullet.armorpierce");
 					}
 
-					if (type.status != StatusEffects.none) {
-						sep(bt, (type.status.minfo.mod == null ? type.status.emoji() : "") + "[stat]" + type.status.localizedName + "[lightgray] ~ [stat]" + ((int) (type.statusDuration / 60f)) + "[lightgray] " + Core.bundle.get("unit.seconds"));
+					if (type.suppressionRange > 0) {
+						sep(bt, Core.bundle.format("bullet.suppression", Strings.autoFixed(type.suppressionDuration / 60f, 2), Strings.fixed(type.suppressionRange / tilesize, 1)));
 					}
 
+					if (type.status != StatusEffects.none) {
+						sep(bt, (type.status.minfo.mod == null ? type.status.emoji() : "") + "[stat]" + type.status.localizedName + (type.status.reactive ? "" : "[lightgray] ~ [stat]" + ((int) (type.statusDuration / 60f)) + "[lightgray] " + Core.bundle.get("unit.seconds")));
+					}
+
+					if (type.intervalBullet != null) {
+						bt.row();
+
+						Table ic = new Table();
+						ammo(ObjectMap.of(t, type.intervalBullet), indent + 1, false).display(ic);
+						Collapser coll = new Collapser(ic, true);
+						coll.setDuration(0.1f);
+
+						bt.table(it -> {
+							it.left().defaults().left();
+
+							it.add(Core.bundle.format("bullet.interval", Strings.autoFixed(type.intervalBullets / type.bulletInterval * 60, 2)));
+							it.button(Icon.downOpen, Styles.emptyi, () -> coll.toggle(false)).update(i -> i.getStyle().imageUp = (!coll.isCollapsed() ? Icon.upOpen : Icon.downOpen)).size(8).padLeft(16f).expandX();
+						});
+						bt.row();
+						bt.add(coll);
+					}
+
+					// Canister bullets uses custom stuff
+					if (type.fragBullet != null && !(type instanceof CanisterBulletType)) {
+						bt.row();
+
+						Table fc = new Table();
+						ammo(ObjectMap.of(t, type.fragBullet), indent + 1, false).display(fc);
+						Collapser coll = new Collapser(fc, true);
+						coll.setDuration(0.1f);
+
+						bt.table(ft -> {
+							ft.left().defaults().left();
+
+							ft.add(Core.bundle.format("bullet.frags", type.fragBullets));
+							ft.button(Icon.downOpen, Styles.emptyi, () -> coll.toggle(false)).update(i -> i.getStyle().imageUp = (!coll.isCollapsed() ? Icon.upOpen : Icon.downOpen)).size(8).padLeft(16f).expandX();
+						});
+						bt.row();
+						bt.add(coll);
+					}
+
+					if (type instanceof ArmorPiercingBulletType types) {
+						if (types.armorPierceScl > 0) {
+							int val = (int) (types.armorPierceScl * 100);
+							sep(bt, Core.bundle.format("bullet.uaw-armorPenetration", ammoStat(val)));
+						}
+					}
 
 					// Mine Canister
 					if (type instanceof CanisterBulletType types) {
 						if (types.fragBullet != null) {
-							if ((types.fragBullet instanceof MineBulletType)) {
-								sep(bt, Core.bundle.format("bullet.uaw-mineCount", types.fragBullets));
-							} else {
-								sep(bt, Core.bundle.format("bullet.uaw-burstCount", types.fragBullets));
-							}
 							bt.row();
-							ammo(ObjectMap.of(t, type.fragBullet), indent + 1, false).display(bt);
+
+							Table fc = new Table();
+							ammo(ObjectMap.of(t, type.fragBullet), indent + 1, false).display(fc);
+							Collapser coll = new Collapser(fc, true);
+							coll.setDuration(0.1f);
+
+							bt.table(ft -> {
+								ft.left().defaults().left();
+
+								if ((types.fragBullet instanceof MineBulletType)) {
+									ft.add(Core.bundle.format("bullet.uaw-mineCount", types.fragBullets));
+								} else {
+									ft.add(Core.bundle.format("bullet.uaw-burstCount", types.fragBullets));
+								}
+
+								ft.button(Icon.downOpen, Styles.emptyi, () -> coll.toggle(false)).update(i -> i.getStyle().imageUp = (!coll.isCollapsed() ? Icon.upOpen : Icon.downOpen)).size(8).padLeft(16f).expandX();
+							});
+							bt.row();
+							bt.add(coll);
 						}
 					}
 
+					// Aftershocks artillery
 					if (type instanceof SplashArtilleryBulletType types) {
 						if (types.aftershock != null) {
 							if (types.aftershock instanceof AftershockBulletType splashBulletType) {
 								sep(bt, Core.bundle.format("bullet.uaw-aftershock", splashBulletType.splashAmount));
 								bt.row();
-
 								ammo(ObjectMap.of(t, types.aftershock), indent + 1, false).display(bt);
 							}
 						}
 					}
 
-					if (type.fragBullet != null) {
-						sep(bt, Core.bundle.format("bullet.frags", type.fragBullets));
-						bt.row();
-
-						ammo(ObjectMap.of(t, type.fragBullet), indent + 1, false).display(bt);
-					}
-
-				}).padTop(compact ? 0 : -9).padLeft(indent * 8).left().get().background(compact ? null : Tex.underline);
-
+				}).padLeft(indent * 5).padTop(5).padBottom(compact ? 0 : 5).growX().margin(compact ? 0 : 10);
 				table.row();
 			}
 		};
 	}
 
-	// region not Edited
+	// endregion
+
+	// region no touchy
+
+	//for AmmoListValue
 	private static void sep(Table table, String text) {
 		table.row();
 		table.add(text);
+	}
+
+	//for AmmoListValue
+	private static String ammoStat(float val) {
+		return (val > 0 ? "[stat]+" : "[negstat]") + Strings.autoFixed(val, 1);
 	}
 
 	private static TextureRegion icon(UnlockableContent t) {
 		return t.uiIcon;
 	}
 
-	// endregion
+	// endregion no touchy
 }
+

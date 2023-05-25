@@ -33,14 +33,9 @@ public class CanisterBulletType extends ArtilleryBulletType {
 		displayAmmoMultiplier = false;
 	}
 
-	public CanisterBulletType(int projectileCount, float speed) {
-		this(Bullets.placeholder, projectileCount, speed);
-	}
-
 	public CanisterBulletType(BulletType bulletType, int projectileCount) {
 		this(bulletType, projectileCount, 3f);
 	}
-
 
 	public CanisterBulletType(BulletType bulletType) {
 		this(bulletType, 4, 3f);

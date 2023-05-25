@@ -14,13 +14,24 @@ import static arc.graphics.g2d.Draw.rect;
 import static arc.graphics.g2d.Draw.*;
 import static arc.graphics.g2d.Lines.*;
 import static arc.math.Angles.*;
-import static mindustry.Vars.state;
+import static mindustry.Vars.*;
 import static mindustry.graphics.Drawf.light;
 
 public class UAWFx {
 	// region Static
 	public static final Effect none = new Effect(0, 0f, e -> {
 	}),
+
+	breakBlockPhlog = new Effect(12, e -> {
+		color(UAWPal.phlogistonMid);
+		stroke(3f - e.fin() * 2f);
+		Lines.square(e.x, e.y, tilesize / 2f * e.rotation + e.fin() * 3f);
+
+		randLenVectors(e.id, 3 + (int)(e.rotation * 3), e.rotation * 2f + (tilesize * e.rotation) * e.finpow(), (x, y) -> {
+			Fill.square(e.x + x, e.y + y, 1f + e.fout() * (3f + e.rotation));
+		});
+	}),
+
 
 	// region Shooting
 	shootSmoke = new Effect(30f, e -> {
@@ -277,7 +288,6 @@ public class UAWFx {
 
 	private static final Rand rand = new Rand();
 	private static final Vec2 v = new Vec2();
-
 
 	// endregion Trails
 
@@ -594,28 +604,44 @@ public class UAWFx {
 		return hitBulletSmall(Color.white, color);
 	}
 
+	public static Effect hitBulletSmall(float scaling, Color color) {
+		return hitBulletSmall(14 * (scaling / 2), 5 * scaling, (int) (4 * scaling), Color.white, color);
+	}
+
 	public static Effect hitBulletSmall(Color color1, Color color2) {
-		return new Effect(14, e -> {
+		return hitBulletSmall(14, 5, 4, color1, color2);
+	}
+
+	/**
+	 * {@link Fx#hitBulletSmall}
+	 * @param lifetime
+	 * 	14
+	 * @param circleSize
+	 * 	5
+	 * @param sparkAmount
+	 * 	4
+	 */
+
+	public static Effect hitBulletSmall(float lifetime, float circleSize, int sparkAmount, Color color1, Color color2) {
+		return new Effect(lifetime, e -> {
 			color(color1, color2, e.fin());
 
-			e.scaled(7f, s -> {
+			e.scaled(lifetime / 2, s -> {
 				stroke(0.5f + s.fout());
-				Lines.circle(e.x, e.y, s.fin() * 5f);
+				Lines.circle(e.x, e.y, s.fin() * circleSize);
 			});
 
 			stroke(0.5f + e.fout());
 
-			randLenVectors(e.id, 4, e.fin() * 15f, (x, y) -> {
+			randLenVectors(e.id, sparkAmount, e.fin() * 15f, (x, y) -> {
 				float ang = Mathf.angle(x, y);
 				lineAngle(e.x + x, e.y + y, ang, e.fout() * 3 + 1f);
 			});
 
-			Drawf.light(e.x, e.y, 20f, color2, 0.6f * e.fout());
+			Drawf.light(e.x, e.y, circleSize * 4, color2, 0.6f * e.fout());
 		});
 	}
 	// endregion hitBulletSmall
-
-// endregion hitEffects
 
 	/**
 	 * Based on Fx.fireHit, that will scale based on particle radius, don't make it too big, or it will lag
@@ -635,6 +661,8 @@ public class UAWFx {
 			Draw.color();
 		});
 	}
+
+// endregion hitEffects
 
 	/** Based on {@link Fx#missileTrailSmoke} */
 	public static Effect missileTrailSmoke(float lifetime, float size, float spread) {
@@ -867,6 +895,8 @@ public class UAWFx {
 	}
 	// endregion Explosions
 
+	// region burstCloud
+
 	/** Refer to {@link UAWFx#burstCloud(float, float, int, float, Color)} */
 	public static Effect burstCloud(Color color) {
 		return burstCloud(15, color);
@@ -902,6 +932,8 @@ public class UAWFx {
 				Fill.circle(e.x + x, e.y + y, rad);
 			}));
 	}
+
+	// endregion burstCloud
 
 	/**
 	 * {@link Fx#surgeCruciSmoke}
@@ -1014,6 +1046,21 @@ public class UAWFx {
 			e.scaled(lifetime * 0.6f, b -> {
 				Lines.stroke(waveRadThickness * b.fout());
 				Lines.circle(e.x, e.y, b.finpow() * waveRad);
+			});
+		});
+	}
+
+	/**
+	 * {@link Fx#breakBlock}
+	 */
+	public static Effect blockBreak(Color color) {
+		return new Effect(12, e -> {
+			color(color);
+			stroke(3f - e.fin() * 2f);
+			Lines.square(e.x, e.y, tilesize / 2f * e.rotation + e.fin() * 3f);
+
+			randLenVectors(e.id, 3 + (int) (e.rotation * 3), e.rotation * 2f + (tilesize * e.rotation) * e.finpow(), (x, y) -> {
+				Fill.square(e.x + x, e.y + y, 1f + e.fout() * (3f + e.rotation));
 			});
 		});
 	}

@@ -35,7 +35,7 @@ public class UAWDrawf {
 	}
 
 	public static void unitConstruct(Building t, TextureRegion region, float rotation, float progress, float alpha, float time) {
-		unitConstruct(t, region, UAWPal.lpgMid, rotation, progress, alpha, time);
+		unitConstruct(t, region, UAWPal.phlogistonMid, rotation, progress, alpha, time);
 	}
 
 	public static void unitConstruct(Building t, TextureRegion region, Color color, float rotation, float progress, float alpha, float time) {
@@ -54,7 +54,7 @@ public class UAWDrawf {
 		Draw.rect(region, t.x, t.y, rotation);
 		Draw.shader();
 
-		Draw.color(UAWPal.lpgMid);
+		Draw.color(UAWPal.phlogistonMid);
 		Draw.alpha(alpha);
 
 		Lines.lineAngleCenter(t.x, t.y + Mathf.sin(time, timeScl, size / 2f), 0, size);

@@ -1,7 +1,6 @@
 package UAW.content;
 
 import UAW.audiovisual.*;
-import UAW.audiovisual.UAWFx;
 import UAW.type.UAWStatusEffect;
 import mindustry.content.Fx;
 import mindustry.entities.effect.MultiEffect;
@@ -15,7 +14,7 @@ public class UAWStatusEffects {
 	public static StatusEffect placeholder,
 
 	// Basic
-	concussion,
+	concussion, breached,
 	// Thermal / Elemental
 	cryoBurn, EMP, thermalShock,
 	// Reactions
@@ -24,7 +23,12 @@ public class UAWStatusEffects {
 	public static void load() {
 		concussion = new UAWStatusEffect("concussion") {{
 			color = Pal.lightishGray;
-			reloadMultiplier = speedMultiplier = 0.6f;
+			reloadMultiplier = 0.7f;
+			speedMultiplier = 0.5f;
+		}};
+		breached = new UAWStatusEffect("breached") {{
+			color = UAWPal.titaniumMiddle;
+			healthMultiplier = 0.75f;
 		}};
 
 		cryoBurn = new UAWStatusEffect("cryoburn") {{
@@ -32,7 +36,7 @@ public class UAWStatusEffects {
 			effect = UAWFx.statusEffectSquare.wrap(color);
 			reloadMultiplier = 0.6f;
 			speedMultiplier = 0.45f;
-			healthMultiplier = 0.8f;
+			healthMultiplier = 0.85f;
 			damage = 0.55f;
 			transitionDamage = 25;
 

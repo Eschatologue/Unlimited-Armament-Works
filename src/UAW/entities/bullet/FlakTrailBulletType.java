@@ -1,21 +1,18 @@
 package UAW.entities.bullet;
 
 import arc.util.*;
-import mindustry.content.Fx;
 import mindustry.entities.Units;
 import mindustry.gen.Bullet;
 
 public class FlakTrailBulletType extends TrailBulletType {
 	public float explodeRange = 30f, explodeDelay = 5f, flakDelay = 0f, flakInterval = 6f;
 
+	public FlakTrailBulletType(float speed, float damage, String bulletSprite) {
+		super(speed, damage, bulletSprite);
+	}
+
 	public FlakTrailBulletType(float speed, float damage) {
 		super(speed, damage, "shell");
-		splashDamage = 15f;
-		splashDamageRadius = 34f;
-		hitEffect = Fx.flakExplosionBig;
-		width = 8f;
-		height = 10f;
-		collidesGround = false;
 	}
 
 	public FlakTrailBulletType() {

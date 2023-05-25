@@ -7,7 +7,7 @@ import mindustry.entities.bullet.BasicBulletType;
 import mindustry.gen.Bullet;
 
 /**
- * BasicBulletType with automatic adjusting trails
+ * BasicBulletType with automatic adjusting trails, Used in most UAW turrets and units
  */
 public class TrailBulletType extends BasicBulletType {
 	/**
