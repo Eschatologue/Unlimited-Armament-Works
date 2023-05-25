@@ -259,6 +259,7 @@ public class UAWBlocksDefence {
 			minWarmup = 0.75f;
 			shootWarmupSpeed = 0.0085f;
 			linearWarmup = true;
+			targetInterval = 0.1f;
 
 			range = 35 * tilesize;
 			inaccuracy = 7.5f;
