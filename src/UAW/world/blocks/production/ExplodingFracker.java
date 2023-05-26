@@ -51,7 +51,7 @@ public class ExplodingFracker extends Fracker {
 
 		/** Checks whenever this block is full of liquid (Don't take out of context) */
 		public boolean isLiquidFull() {
-			return (liquids.get(liquidDrop) >= liquidCapacity - 0.0001f);
+			return (liquids.get(result) >= liquidCapacity - 0.0001f);
 		}
 
 		/** Generates effects whenever this block became unstable */

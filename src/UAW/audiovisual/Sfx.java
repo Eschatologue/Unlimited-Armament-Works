@@ -51,7 +51,8 @@ public class Sfx {
 		wp_msl_missileLaunch_2_big = new Sound(),
 
 	// Torpedoes
-	wp_torp_torpedoLaunch_1 = new Sound();
+	wp_torp_torpedoLaunch_1 = new Sound(),
+		wp_torp_torpedoLaunchSpring_1 = new Sound();
 
 
 	protected static Sound loadSound(String fileName) {
@@ -103,6 +104,7 @@ public class Sfx {
 		wp_msl_missileLaunch_2_big = loadSound("wp_msl_missileLaunch_2_big");
 
 		wp_torp_torpedoLaunch_1 = loadSound("wp_torp_torpedoLaunch_1");
+		wp_torp_torpedoLaunchSpring_1 = loadSound("wp_torp_torpedoLaunchSpring_1");
 	}
 
 

@@ -2,16 +2,16 @@ package UAW.content;
 
 import UAW.ai.types.DynamicFlyingAI;
 import UAW.audiovisual.*;
+import UAW.audiovisual.effects.*;
 import UAW.entities.abilities.RazorRotorAbility;
 import UAW.entities.bullet.*;
-import UAW.audiovisual.effects.*;
 import UAW.entities.units.*;
 import UAW.entities.units.entity.*;
 import UAW.type.Rotor;
 import UAW.type.weapon.*;
 import arc.func.Prov;
 import arc.graphics.Color;
-import arc.math.Mathf;
+import arc.math.*;
 import arc.math.geom.Rect;
 import arc.struct.*;
 import arc.struct.ObjectMap.Entry;
@@ -49,7 +49,7 @@ public class UAWUnitTypes {
 	arquebus, carronade, falconet, dardanelles,
 
 	// Naval - Torpedo Boats
-	megaera, alecto, tisiphone,
+	mtb72, mtb96,
 
 	// Tanks - MBT
 	cavalier, centurion, caernarvon, challenger,
@@ -1220,17 +1220,16 @@ public class UAWUnitTypes {
 		// endregion Naval - Monitor
 
 		// region Naval - Torpedo
-		megaera = new UnitType("megaera") {{
+		mtb72 = new UnitType("mtb72") {{
 			float unitRange = 35 * tilesize;
 			health = 650;
-			speed = 1.2f;
+			speed = 1f;
 			accel = 0.2f;
-			rotateSpeed = 1.9f;
+			rotateSpeed = 4.25f;
 			drag = 0.05f;
 			hitSize = 18;
 			maxRange = range = unitRange;
 			faceTarget = false;
-			ammoType = new ItemAmmoType(Items.graphite, 2);
 
 			trailLength = 20;
 			waveTrailX = 6f;
@@ -1239,17 +1238,17 @@ public class UAWUnitTypes {
 
 			constructor = UnitWaterMove::create;
 
-			weapons.add(new Weapon(machineGun_small_red) {{
+			weapons.add(new Weapon(machineGun_medium_1_red) {{
 				rotate = true;
-				mirror = true;
-				shootCone = 90;
+				rotateSpeed = 12;
+				rotationLimit = 270;
 				inaccuracy = 3f;
-				x = 28f * px;
+				x = 22f * px;
 				y = -12f * px;
 				reload = 5f;
 				shootSound = Sfx.wp_k_gunShootSmall_2;
 				ejectEffect = Fx.casing1;
-				bullet = new TrailBulletType(6f, 2) {{
+				bullet = new TrailBulletType(6f, 5) {{
 					height = 8f;
 					width = 5f;
 					buildingDamageMultiplier = 0.4f;
@@ -1258,38 +1257,11 @@ public class UAWUnitTypes {
 					ammoMultiplier = 8f;
 				}};
 			}});
-			weapons.add(new Weapon() {{
-				rotate = false;
-				alternate = mirror = false;
-				shootCone = 180;
-				x = 0f;
-				y = 6f;
-				reload = 4f * 60;
-				inaccuracy = 1f;
-				ammoType = new ItemAmmoType(Items.thorium);
-				targetAir = false;
-
-				shootSound = Sfx.wp_torp_torpedoLaunch_1;
-
-				bullet = new TorpedoBulletType(1.8f, 550) {{
-					shootEffect = new MultiEffect(
-						UAWFx.shootSmoke,
-						Fx.smeltsmoke
-					);
-					trailLengthScale = 1.5f;
-					height = 13;
-					width = height / 2;
-					lifetime = unitRange / speed;
-					homingRange = unitRange / 2;
-					hitSizeDamageScl = 3.5f;
-					maxEnemyHitSize = 35;
-				}};
-			}});
 			weapons.add(new PointDefenseWeapon(pointDefense_Red) {{
 				rotate = autoTarget = true;
 				mirror = controllable = false;
 				x = 0f;
-				y = -7f;
+				y = -44f * px;
 				reload = 4f;
 				recoil = 0f;
 				targetInterval = 4f;
@@ -1299,17 +1271,63 @@ public class UAWUnitTypes {
 					shootEffect = Fx.sparkShoot;
 					smokeEffect = Fx.shootSmallSmoke;
 					hitEffect = Fx.pointHit;
-					maxRange = unitRange / 3.5f;
+					maxRange = unitRange / 2f;
 					splashDamage = 15f;
 				}};
 			}});
+			weapons.add(new Weapon(artillery_medium_red) {{
+				layerOffset = -0.01f;
+				rotate = false;
+				shootCone = 180;
+				x = 31 * px;
+				y = -21f * px;
+				reload = 3.5f * tick;
+				inaccuracy = 1f;
+				targetAir = false;
+				recoil = 0;
+
+				shootSound = Sfx.wp_torp_torpedoLaunchSpring_1;
+
+				shootWarmupSpeed = 0.05f;
+				minWarmup = 0.8f;
+				bullet = new TorpedoBulletType(1.8f, 650) {{
+					shootEffect = new MultiEffect(
+						UAWFx.shootSmoke,
+						Fx.smeltsmoke
+					);
+					trailLengthScale = 1.5f;
+					height = 13;
+					width = height / 2;
+					lifetime = unitRange / speed;
+					homingPower = 0.05f;
+					homingDelay = 15f;
+					homingRange = unitRange * 0.8f;
+					hitSizeDamageScl = 3.5f;
+					maxEnemyHitSize = 35;
+				}};
+
+				shootStatus = StatusEffects.slow;
+				shootStatusDuration = reload;
+
+				shoot.firstShotDelay = 15f;
+
+				shootX = 12 * px;
+				parts.add(
+					new RegionPart() {{
+						progress = PartProgress.warmup.curve(Interp.bounceOut);
+						moveX = 10 * px;
+						shadow = 0;
+					}}
+				);
+			}});
 		}};
-		alecto = new UnitType("alecto") {{
+
+		mtb96 = new UnitType("mtb96") {{
 			float unitRange = 45 * tilesize;
-			health = 4500;
+			health = 3250;
 			speed = 1f;
 			accel = 0.2f;
-			rotateSpeed = 1.8f;
+			rotateSpeed = 3f;
 			drag = 0.17f;
 			hitSize = 22f;
 			armor = 5f;
@@ -1324,17 +1342,24 @@ public class UAWUnitTypes {
 
 			constructor = UnitWaterMove::create;
 
-			weapons.add(new Weapon() {{
+			weapons.add(new Weapon(missile_medium_red_1) {{
+				layerOffset = -0.01f;
 				rotate = false;
 				alternate = mirror = true;
 				shootCone = 180;
-				x = 8f;
-				y = 6f;
+				baseRotation = -45f;
+				x = 35f * px;
+				y = -10f * px;
 				reload = 3f * 60;
 				inaccuracy = 1f;
 				targetAir = false;
 
-				shootSound = Sfx.wp_torp_torpedoLaunch_1;
+				shootWarmupSpeed = 0.05f;
+				minWarmup = 0.8f;
+
+				shootSound = Sfx.wp_torp_torpedoLaunchSpring_1;
+
+				shoot.firstShotDelay = 15f;
 
 				bullet = new TorpedoBulletType(1.8f, 650) {{
 					shootEffect = new MultiEffect(
@@ -1347,13 +1372,22 @@ public class UAWUnitTypes {
 					maxEnemyHitSize = 45;
 					hitSizeDamageScl = 4;
 				}};
+
+				parts.add(
+					new RegionPart() {{
+						progress = PartProgress.warmup.curve(Interp.bounceOut);
+						rotation = 360f;
+						moveX = 25 * px;
+						shadow = 0;
+					}}
+				);
 			}});
 
 			weapons.add(new PointDefenseWeapon(pointDefense_Red) {{
 				rotate = autoTarget = true;
 				mirror = controllable = false;
 				x = 0f;
-				y = 9f;
+				y = 53f * px;
 				reload = 3f;
 				recoil = 0f;
 				targetInterval = 3f;
@@ -1369,15 +1403,17 @@ public class UAWUnitTypes {
 			}});
 			weapons.add(new Weapon(machineGun_medium_1_red) {{
 				rotate = true;
+				rotateSpeed = 12;
+				rotationLimit = 270;
 				inaccuracy = 3f;
 				mirror = true;
-				x = 8f;
-				y = -5f;
+				x = 37f * px;
+				y = -15f * px;
 				reload = 7;
 				recoil = 1f;
 				shootSound = Sfx.wp_k_gunShootSmall_2;
 				ejectEffect = Fx.casing2;
-				bullet = new BasicBulletType(7f, 25) {{
+				bullet = new BasicBulletType(7f, 20) {{
 					height = 10f;
 					width = 6f;
 					pierce = true;
@@ -1393,7 +1429,7 @@ public class UAWUnitTypes {
 			weapons.add(new Weapon(missile_medium_red_2) {{
 				reload = 45f;
 				x = 0f;
-				y = -8f;
+				y = -38f * px;
 				rotateSpeed = 2f;
 				rotationLimit = 220;
 				rotate = true;
