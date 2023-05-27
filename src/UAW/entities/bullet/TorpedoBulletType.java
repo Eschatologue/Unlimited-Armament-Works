@@ -8,6 +8,7 @@ import mindustry.Vars;
 import mindustry.content.*;
 import mindustry.entities.Effect;
 import mindustry.entities.effect.MultiEffect;
+import mindustry.game.EventType;
 import mindustry.gen.*;
 import mindustry.graphics.Layer;
 import mindustry.world.blocks.environment.Floor;
@@ -18,15 +19,9 @@ import static mindustry.Vars.tilesize;
  * Water based bullet that deals extra splashDamage based one enemy hitSize
  */
 public class TorpedoBulletType extends TrailBulletType {
+	static final EventType.UnitDamageEvent bulletDamageEvent = new EventType.UnitDamageEvent();
+
 	public Color floorColor;
-	/**
-	 * Scaling splashDamage based on enemy hitSize
-	 */
-	public float hitSizeDamageScl = 1.5f;
-	/**
-	 * Maximum enemy hitSize threshold
-	 */
-	public float maxEnemyHitSize = 60f;
 	/**
 	 * Drag in non Deep liquid terrain
 	 */
@@ -41,12 +36,14 @@ public class TorpedoBulletType extends TrailBulletType {
 		height = 7f;
 		width = 5f;
 		layer = Layer.scorch;
+		homingDelay = 30f;
 		homingPower = 0.035f;
 		homingRange = 20 * tilesize;
 		hitShake = 24;
 		knockback = 8f;
 		hitSize = 16f;
 		collideTerrain = collideFloor = true;
+		pierceArmor = true;
 		keepVelocity = collidesAir = absorbable = hittable = reflectable = false;
 		trailEffect = UAWFx.torpedoCruiseTrail;
 		trailInterval = 0.4f;
@@ -99,20 +96,6 @@ public class TorpedoBulletType extends TrailBulletType {
 			}
 		}
 
-	}
-
-	@Override
-	public void hitEntity(Bullet b, Hitboxc entity, float health) {
-		float damageReduction = 1;
-		if (entity.hitSize() > maxEnemyHitSize) {
-			damageReduction = ((entity.hitSize() * 10f) / 100);
-		} else if (entity.hitSize() < maxEnemyHitSize / 3) {
-			damageReduction = ((entity.hitSize() * 20f) / 100);
-		}
-		if (entity instanceof Healthc h) {
-			h.damage((b.damage * ((entity.hitSize() * hitSizeDamageScl) / 100)) / damageReduction);
-		}
-		super.hitEntity(b, entity, health);
 	}
 
 	@Override
