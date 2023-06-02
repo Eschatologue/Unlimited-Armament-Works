@@ -39,9 +39,10 @@ public class UAWPal {
 		stoutSteelMiddle = Color.valueOf("636a78"),
 		stoutsteelBack = Color.valueOf("444858"),
 
-	phlogistonFront = Color.valueOf("82e9de"),
-		phlogistonMid = Color.valueOf("4db6ac"),
-		phlogistonBack = Color.valueOf("00867d"),
+	phlogiston = Color.valueOf("00aea2").cpy(),
+		phlogistonFront = Color.valueOf("82e9de").cpy(),
+		phlogistonMid = Color.valueOf("4db6ac").cpy(),
+		phlogistonBack = Color.valueOf("00867d").cpy(),
 
 	coalFront = Color.valueOf("404040"),
 		coalBack = Color.valueOf("2a2a2a"),

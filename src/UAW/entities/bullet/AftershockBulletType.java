@@ -29,11 +29,11 @@ public class AftershockBulletType extends BulletType {
 	/** How much rotating triangles does the splash effect has */
 	public int pointCount = 0;
 	public Sound applySound = Sounds.shotgun;
-	/** Adjust circle light color1 */
+	/** Adjust circle light color */
 	public Color frontColor = Pal.lightishOrange;
-	/** Adjust circle dark color1 */
+	/** Adjust circle dark color */
 	public Color backColor = Pal.lightOrange;
-	/** Adjust bottom color1 of the circle splash, will use backColor if its null */
+	/** Adjust bottom color of the circle splash, will use backColor if its null */
 	@Nullable
 	public Color bottomColor;
 	@Nullable

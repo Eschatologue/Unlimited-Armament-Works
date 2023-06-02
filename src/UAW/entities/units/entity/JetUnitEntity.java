@@ -52,7 +52,7 @@
 //	@Override
 //	public void draw() {
 //		super.draw();
-//		Color trailColor = team.color1;
+//		Color trailColor = team.color;
 //		float z = Draw.z();
 //		Draw.z(Layer.effect);
 //		tleft.draw(trailColor, type.trailScl);

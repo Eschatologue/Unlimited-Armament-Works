@@ -11,7 +11,7 @@ import static mindustry.Vars.tilesize;
 
 public class DrawConstruct extends DrawBlock {
 
-	/** The color1 of the drawn line */
+	/** The color of the drawn line */
 	public Color color = Pal.accent;
 	/** How fast does the line go back and forth */
 	public float timeScl = 55f;

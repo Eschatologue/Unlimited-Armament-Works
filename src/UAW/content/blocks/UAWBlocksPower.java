@@ -245,7 +245,7 @@ public class UAWBlocksPower {
 //				new DrawLiquidTile(UAWLiquids.steam, 2),
 //				new DrawDefault(),
 //				new DrawCells(){{
-//					color1 = UAWPal.steamFront;
+//					color = UAWPal.steamFront;
 //					particleColorFrom = UAWPal.steamBack;
 //					particleColorTo = UAWPal.steamMid;
 //					particles = 35;

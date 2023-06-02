@@ -11,7 +11,7 @@
 //
 //public class EffectFieldProjector extends StaticLiquidTurret {
 //
-//	public Color color1;
+//	public Color color;
 //	public int effectIntensity = 64;
 //
 //	public EffectFieldProjector(String name) {

@@ -106,7 +106,7 @@ public class UAWBlocksDefence {
 					trailChance = 0.4f;
 					trailEffect = new StatusHitEffect() {{
 						life = 13;
-						color1 = front;
+						color = front;
 						sizeEnd = 0.5f;
 						shapeVariant = 2;
 					}};
@@ -130,7 +130,7 @@ public class UAWBlocksDefence {
 					trailChance = 0.4f;
 					trailEffect = new StatusHitEffect() {{
 						life = 13;
-						color1 = front;
+						color = front;
 						sizeEnd = 0.5f;
 						shapeVariant = 2;
 					}};
@@ -158,7 +158,7 @@ public class UAWBlocksDefence {
 					trailChance = 0.4f;
 					trailEffect = new StatusHitEffect() {{
 						life = 13;
-						color1 = front;
+						color = front;
 						sizeEnd = 0.5f;
 						shapeVariant = 2;
 					}};
@@ -184,7 +184,7 @@ public class UAWBlocksDefence {
 					trailChance = 0.4f;
 					trailEffect = new StatusHitEffect() {{
 						life = 13;
-						color1 = front;
+						color = front;
 						sizeEnd = 0.5f;
 						shapeVariant = 1;
 					}};
@@ -210,7 +210,7 @@ public class UAWBlocksDefence {
 					trailChance = 0.4f;
 					trailEffect = new StatusHitEffect() {{
 						life = 13;
-						color1 = front;
+						color = front;
 						sizeEnd = 0.5f;
 						shapeVariant = 1;
 					}};
@@ -294,7 +294,7 @@ public class UAWBlocksDefence {
 					trailChance = 0.4f;
 					trailEffect = new StatusHitEffect() {{
 						life = 15;
-						color1 = back;
+						color = back;
 						sizeEnd = 0.8f;
 						shapeVariant = 2;
 					}};
@@ -320,7 +320,7 @@ public class UAWBlocksDefence {
 					trailChance = 0.4f;
 					trailEffect = new StatusHitEffect() {{
 						life = 15;
-						color1 = back;
+						color = back;
 						sizeEnd = 0.8f;
 						shapeVariant = 2;
 					}};
@@ -343,7 +343,7 @@ public class UAWBlocksDefence {
 					trailChance = 0.4f;
 					trailEffect = new StatusHitEffect() {{
 						life = 15;
-						color1 = back;
+						color = back;
 						sizeEnd = 0.8f;
 						shapeVariant = 1;
 					}};
@@ -369,7 +369,7 @@ public class UAWBlocksDefence {
 					trailChance = 0.4f;
 					trailEffect = new StatusHitEffect() {{
 						life = 15;
-						color1 = back;
+						color = back;
 						sizeEnd = 0.8f;
 						shapeVariant = 1;
 					}};
@@ -489,7 +489,7 @@ public class UAWBlocksDefence {
 						Fx.disperseTrail,
 						new StatusHitEffect() {{
 							life = 13;
-							color1 = front;
+							color = front;
 							sizeEnd = 0.8f;
 							shapeVariant = 2;
 						}});
@@ -530,7 +530,7 @@ public class UAWBlocksDefence {
 						Fx.disperseTrail,
 						new StatusHitEffect() {{
 							life = 13;
-							color1 = front;
+							color = front;
 							sizeEnd = 0.8f;
 							shapeVariant = 2;
 						}});
@@ -567,7 +567,7 @@ public class UAWBlocksDefence {
 						Fx.disperseTrail,
 						new StatusHitEffect() {{
 							life = 13;
-							color1 = front;
+							color = front;
 							sizeEnd = 0.8f;
 							shapeVariant = 2;
 						}});
@@ -603,7 +603,7 @@ public class UAWBlocksDefence {
 						Fx.disperseTrail,
 						new StatusHitEffect() {{
 							life = 13;
-							color1 = front;
+							color = front;
 							sizeEnd = 0.8f;
 							shapeVariant = 2;
 						}});
@@ -963,8 +963,8 @@ public class UAWBlocksDefence {
 							spreadRad = 9f;
 							sizeStart = 0.4f;
 							sizeEnd = 2;
-							color1 = backColor.lerp(frontColor, 0.5f);
-							color2 = Pal.lightishGray;
+							color = backColor.lerp(frontColor, 0.5f);
+							color1 = Pal.lightishGray;
 						}}
 					);
 					smokeEffect = Fx.smokeCloud;
@@ -977,7 +977,7 @@ public class UAWBlocksDefence {
 						status = StatusEffects.burning;
 						statusDuration = 60f;
 						particleEffect = new StatusHitEffect() {{
-							color1 = frontColor;
+							color = frontColor;
 							life = 40;
 							amount = 4;
 							sizeEnd = 2f;
@@ -1012,8 +1012,8 @@ public class UAWBlocksDefence {
 							spreadRad = 9f;
 							sizeStart = 0.4f;
 							sizeEnd = 2;
-							color1 = backColor.lerp(frontColor, 0.5f);
-							color2 = Pal.lightishGray;
+							color = backColor.lerp(frontColor, 0.5f);
+							color1 = Pal.lightishGray;
 						}}
 					);
 					smokeEffect = Fx.smokeCloud;
@@ -1026,7 +1026,7 @@ public class UAWBlocksDefence {
 						status = UAWStatusEffects.cryoBurn;
 						statusDuration = 60f;
 						particleEffect = new StatusHitEffect() {{
-							color1 = frontColor;
+							color = frontColor;
 							life = 40;
 							amount = 4;
 							sizeEnd = 2f;
@@ -1062,8 +1062,8 @@ public class UAWBlocksDefence {
 							spreadRad = 9f;
 							sizeStart = 0.4f;
 							sizeEnd = 2;
-							color1 = backColor.lerp(frontColor, 0.5f);
-							color2 = Pal.lightishGray;
+							color = backColor.lerp(frontColor, 0.5f);
+							color1 = Pal.lightishGray;
 						}}
 					);
 					smokeEffect = Fx.smokeCloud;
@@ -1078,7 +1078,7 @@ public class UAWBlocksDefence {
 						statusDuration = 30f;
 						particleEffect = new StatusHitEffect() {{
 							shapeVariant = 1;
-							color1 = frontColor;
+							color = frontColor;
 							life = 40;
 							amount = 4;
 							sizeEnd = 2f;
@@ -1282,7 +1282,7 @@ public class UAWBlocksDefence {
 					trailChance = 0.4f;
 					trailEffect = new StatusHitEffect() {{
 						life = 13;
-						color1 = front;
+						color = front;
 						sizeEnd = 0.5f;
 						shapeVariant = 2;
 					}};
@@ -1303,7 +1303,7 @@ public class UAWBlocksDefence {
 						width = 4f;
 						trailEffect = new StatusHitEffect() {{
 							life = 13;
-							color1 = front;
+							color = front;
 							sizeEnd = 0.5f;
 							shapeVariant = 2;
 						}};
@@ -1346,7 +1346,7 @@ public class UAWBlocksDefence {
 					trailChance = 0.4f;
 					trailEffect = new StatusHitEffect() {{
 						life = 13;
-						color1 = front;
+						color = front;
 						sizeEnd = 0.5f;
 						shapeVariant = 2;
 					}};
@@ -1367,7 +1367,7 @@ public class UAWBlocksDefence {
 						width = 4f;
 						trailEffect = new StatusHitEffect() {{
 							life = 13;
-							color1 = front;
+							color = front;
 							sizeEnd = 0.5f;
 							shapeVariant = 2;
 						}};
@@ -1595,7 +1595,7 @@ public class UAWBlocksDefence {
 			healPercent = 3.5f / tick;
 			health = 50 * (int) (Math.pow(size, 3));
 			effect = new StatusHitEffect() {{
-				color1 = Pal.plastaniumFront;
+				color = Pal.plastaniumFront;
 				amount = 4;
 			}};
 
@@ -1642,7 +1642,7 @@ public class UAWBlocksDefence {
 			otherBlockHealMult = 0.4f;
 			health = 50 * (int) (Math.pow(size, 3));
 			effect = new StatusHitEffect() {{
-				color1 = Pal.plastaniumFront;
+				color = Pal.plastaniumFront;
 				amount = 4;
 			}};
 

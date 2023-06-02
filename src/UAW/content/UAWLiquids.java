@@ -13,7 +13,7 @@ public class UAWLiquids {
 
 	public static void load() {
 
-		phlogiston = new Liquid("liquid-phlogiston", UAWPal.phlogistonMid) {{
+		phlogiston = new Liquid("liquid-phlogiston", UAWPal.phlogiston.cpy()) {{
 			viscosity = 0.75f;
 			flammability = 1.4f;
 			explosiveness = 2.4f;

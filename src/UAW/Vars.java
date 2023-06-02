@@ -5,6 +5,7 @@ import arc.assets.Loadable;
 public class Vars implements Loadable {
 	// Stuff
 	public static final float tick = 60f;
+	/** Used for precise pixel based placements*/
 	public static final float px = 0.25f;
 
 	public static final float steamConversionScl = 3;
@@ -62,6 +63,7 @@ public class Vars implements Loadable {
 	public static final String cruisemissile_medium_basic = modName + "cruisemissile-medium-basic";
 	public static final String cruisemissile_medium_cryo = modName + "cruisemissile-medium-cryo";
 	public static final String cruisemissile_medium_surge = modName + "cruisemissile-medium-surge";
+	public static final String cruisemissile_medium_phlog = modName + "cruisemissile-medium-phlog";
 
 	// Multicrafter mode
 	public static final String transform = "transform";

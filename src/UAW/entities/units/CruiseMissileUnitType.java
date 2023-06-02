@@ -9,6 +9,7 @@ import mindustry.gen.Sounds;
 import mindustry.graphics.*;
 import mindustry.type.unit.MissileUnitType;
 
+import static UAW.Vars.*;
 import static mindustry.Vars.tilesize;
 
 public class CruiseMissileUnitType extends MissileUnitType {
@@ -19,8 +20,11 @@ public class CruiseMissileUnitType extends MissileUnitType {
 	public Color exhaustColor;
 	public Effect hitEffect = Fx.none;
 
-	public CruiseMissileUnitType(String name) {
-		super(name);
+	public int presets = 0;
+
+	public CruiseMissileUnitType(String name, String spriteName) {
+		super(name + "msl");
+		this.sprite = spriteName;
 		health = 100f;
 		drawCell = false;
 		outlineColor = Pal.darkerMetal;
@@ -31,12 +35,34 @@ public class CruiseMissileUnitType extends MissileUnitType {
 		loopSoundVolume = 0.4f;
 		fogRadius = 3f;
 		deathExplosionEffect = Fx.none;
+		physics = true;
+	}
+
+	public CruiseMissileUnitType(String name) {
+		this(name + "msl", cruisemissile_medium_basic);
 	}
 
 	@Override
 	public void init() {
 		super.init();
 		if (exhaustColor != null) engineColor = trailColor = exhaustColor;
+
+		switch (presets) {
+			case 0 -> {
+			}
+			case 1 -> {
+				engineSize = 4 * px;
+				engineOffset = 12f * px;
+				trailLength = 9;
+				deathSound = Sounds.largeExplosion;
+			}
+			case 2 -> {
+				engineSize = 9 * px;
+				engineOffset = 28f * px;
+				trailLength = 12;
+				deathSound = Sounds.largeExplosion;
+			}
+		}
 	}
 
 	@Override

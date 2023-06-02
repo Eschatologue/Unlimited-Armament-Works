@@ -18,7 +18,7 @@ public class StandardSmallBullets extends TrailBulletType {
 		trailChance = 0.4f;
 		trailEffect = new StatusHitEffect() {{
 			life = 13;
-			color1 = backColor;
+			color = backColor;
 			sizeEnd = 0.5f;
 			shapeVariant = 2;
 		}};
