@@ -713,7 +713,7 @@ public class UAWFx {
 	}
 
 	/**
-	 * Based on Fx.dymamicExplosion, Lines is replaced with circleSparks
+	 * Based on Fx.dynamicExplosion
 	 * @param size
 	 * 	How big is the explosion, can be based on splashDamageRadius, also adjusts life and clip size
 	 */
@@ -743,7 +743,7 @@ public class UAWFx {
 					Drawf.light(e.x, e.y, i.fin() * 14f * 2f * intensity, Color.white, 0.9f * e.fout());
 				});
 
-				color(frontColor, backColor, Color.gray, e.fin());
+				color(backColor, frontColor, Color.gray, e.fin());
 				stroke((1.7f * e.fout()) * (1f + (intensity - 1f) / 2f));
 
 				Draw.z(Layer.effect + 0.001f);

@@ -584,7 +584,7 @@ public class UAWUnitTypes {
 							waveLife = 15f;
 							smokes = 32;
 							sparks = 15;
-							waveColor = Pal.missileYellow.lerp(UAWPal.cryoFront, 15);
+							waveColor = UAWPal.cryoFront;
 							sparkColor = UAWPal.cryoMiddle;
 							waveRad = splashDamageRadius;
 							smokeRad = splashDamageRadius * 0.8f;
@@ -979,7 +979,7 @@ public class UAWUnitTypes {
 						keepVelocity = false;
 
 						spawnUnit = new CruiseMissileUnitType(name, cruisemissile_medium_phlog) {{
-							Color baseColor = Pal.missileYellow;
+							Color baseColor = UAWPal.phlogistonFront;
 							float missileDamage = 350;
 							health = missileDamage * 1.5f;
 							speed = 4f;
@@ -1000,8 +1000,7 @@ public class UAWUnitTypes {
 									hitColor = baseColor;
 									shootEffect = new MultiEffect(
 										new ExplosionEffect() {{
-											lifetime = 30f;
-											waveLife = 30f;
+											waveLife = 15f;
 											smokes = 36;
 											sparks = 18;
 											waveRad = splashDamageRadius;
@@ -1225,7 +1224,7 @@ public class UAWUnitTypes {
 					new RegionPart("-body"),
 					new RegionPart("-barrel-front") {{
 						progress = PartProgress.recoil;
-						moveY = (barrelMoveY-7) * px;
+						moveY = (barrelMoveY - 7) * px;
 					}},
 					new RegionPart("-barrel-back") {{
 						progress = PartProgress.recoil;
