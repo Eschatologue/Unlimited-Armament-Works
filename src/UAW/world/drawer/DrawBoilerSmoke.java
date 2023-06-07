@@ -26,7 +26,7 @@ public class DrawBoilerSmoke extends DrawBlock {
 
 	@Override
 	public void draw(Building build) {
-		if (build.warmup() > 0f && particleColor.a > 0.001f) {
+		if (build.warmup() > 0f && particleColor.cpy().a > 0.001f) {
 			float progress = build.warmup();
 			float base = (Time.time / lifetime);
 

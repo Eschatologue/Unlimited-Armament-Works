@@ -20,7 +20,7 @@ public class DrawHeatOutputTop extends DrawHeatOutput {
 		if (build instanceof HeatBlock heater && heater.heat() > 0) {
 			Draw.z(Layer.blockAdditive);
 			Draw.blend(Blending.additive);
-			Draw.color(heatColor, heater.heatFrac() * (heatColor.a * (1f - heatPulse + Mathf.absin(heatPulseScl, heatPulse))));
+			Draw.color(heatColor, heater.heatFrac() * (heatColor.cpy().a * (1f - heatPulse + Mathf.absin(heatPulseScl, heatPulse))));
 			if (heat.found()) Draw.rect(heat, build.x, build.y, build.rotdeg());
 			Draw.z(Layer.blockAdditive + 0.2f);
 			Draw.color(Draw.getColor().mul(glowMult));

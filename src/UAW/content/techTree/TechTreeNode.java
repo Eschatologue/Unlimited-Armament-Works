@@ -9,7 +9,7 @@ import mindustry.graphics.*;
 import mindustry.type.ItemStack;
 
 public class TechTreeNode extends UnlockableContent {
-	public Color outlineColor = Pal.darkerMetal;
+	public Color outlineColor = Pal.darkerMetal.cpy();
 	public int outlineThickness = 3;
 
 	public @Nullable

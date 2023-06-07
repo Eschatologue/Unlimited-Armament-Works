@@ -963,7 +963,7 @@ public class UAWBlocksDefence {
 							spreadRad = 9f;
 							sizeStart = 0.4f;
 							sizeEnd = 2;
-							color = backColor.lerp(frontColor, 0.5f);
+							color = backColor.cpy().lerp(frontColor, 0.5f);
 							color1 = Pal.lightishGray;
 						}}
 					);
@@ -1012,7 +1012,7 @@ public class UAWBlocksDefence {
 							spreadRad = 9f;
 							sizeStart = 0.4f;
 							sizeEnd = 2;
-							color = backColor.lerp(frontColor, 0.5f);
+							color = backColor.cpy().lerp(frontColor, 0.5f);
 							color1 = Pal.lightishGray;
 						}}
 					);
@@ -1062,7 +1062,7 @@ public class UAWBlocksDefence {
 							spreadRad = 9f;
 							sizeStart = 0.4f;
 							sizeEnd = 2;
-							color = backColor.lerp(frontColor, 0.5f);
+							color = backColor.cpy().lerp(frontColor, 0.5f);
 							color1 = Pal.lightishGray;
 						}}
 					);

@@ -81,6 +81,7 @@ public class ExplodingFracker extends Fracker {
 		public void draw() {
 			Draw.rect(bottomRegion, x, y);
 			LiquidBlock.drawTiledFrames(size, x, y, liquidPadding, drawnLiquid, liquids.get(result) / block.liquidCapacity * 1);
+			Draw.reset();
 			Draw.rect(region, x, y);
 			Draw.z(Layer.blockCracks);
 			super.drawCracks();

@@ -21,7 +21,7 @@ public class UAWLiquids {
 			temperature = 4;
 			barColor = UAWPal.phlogistonMid;
 			boilPoint = -1;
-			gasColor = UAWPal.phlogistonFront.a(0.4f);
+			gasColor = UAWPal.phlogistonFront.cpy().a(0.4f);
 			canStayOn.add(Liquids.oil);
 
 			color = color.cpy();

@@ -42,5 +42,6 @@ public class StatusHitEffect extends Effect {
 				case 2 -> Fill.square(e.x + x, e.y + y, sizeStart + e.fslope() * sizeEnd, particleRotSpeed != 0 ? particleRotSpeed * Time.time : 45);
 			}
 		});
+		Draw.reset();
 	}
 }

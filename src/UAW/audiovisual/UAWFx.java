@@ -671,7 +671,7 @@ public class UAWFx {
 
 			color(b.color, 0.5f);
 			for (int i = 0; i < 4; i++) {
-				rand.setSeed(b.id * 2 + i);
+				rand.setSeed(b.id * 2L + i);
 				float lenScl = rand.random(0.5f, 1f);
 				int fi = i;
 				b.scaled(b.lifetime * lenScl, e -> {
@@ -738,7 +738,7 @@ public class UAWFx {
 
 			b.scaled(baseLifetime, e -> {
 				e.scaled(5 + intensity * 2.5f, i -> {
-					stroke((3.1f + intensity/5f) * i.fout());
+					stroke((3.1f + intensity / 5f) * i.fout());
 					Lines.circle(e.x, e.y, (3f + i.fin() * 14f) * intensity);
 					Drawf.light(e.x, e.y, i.fin() * 14f * 2f * intensity, Color.white, 0.9f * e.fout());
 				});
@@ -747,7 +747,7 @@ public class UAWFx {
 				stroke((1.7f * e.fout()) * (1f + (intensity - 1f) / 2f));
 
 				Draw.z(Layer.effect + 0.001f);
-				randLenVectors(e.id + 1, e.finpow() + 0.001f, (int)(9 * intensity), 40f * intensity, (x, y, in, out) -> {
+				randLenVectors(e.id + 1, e.finpow() + 0.001f, (int) (9 * intensity), 40f * intensity, (x, y, in, out) -> {
 					lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), 1f + out * 4 * (3f + intensity));
 					Drawf.light(e.x + x, e.y + y, (out * 4 * (3f + intensity)) * 3.5f, Draw.getColor(), 0.8f);
 				});
@@ -849,9 +849,14 @@ public class UAWFx {
 		});
 	}
 
-	/** Refer to {@link UAWFx#crossBomb(float size, float rotation, Color color)} */
+	/** Refer to {@link UAWFx#crossBomb(float size, Color color)} */
 	public static Effect crossBomb(float size, Color color) {
 		return crossBomb(size, 90, color);
+	}
+
+	/** Refer to {@link UAWFx#crossBomb(float lifetime, float size, float rotation, Color color)} */
+	public static Effect crossBomb(float size, float rotation, Color color) {
+		return crossBomb(size * 0.58f, size, rotation, color);
 	}
 
 	/**
@@ -863,9 +868,9 @@ public class UAWFx {
 	 * @param color
 	 * 	color of the explosion
 	 */
-	public static Effect crossBomb(float size, float rotation, Color color) {
-		float lifetime = size * 0.58f;
-		float w1 = size * 0.08f, w2 = w1 / 2;
+	public static Effect crossBomb(float lifetime, float size, float rotation, Color color) {
+		float w1 = size * 0.08f, w2 = w1 * 0.5f;
+		float l1 = size * 1.47f, l2 = size * 0.514f;
 		float circ = size * 0.95f;
 		return new Effect(lifetime, lifetime * 1.45f, e -> {
 			color(color);
@@ -875,12 +880,12 @@ public class UAWFx {
 
 			color(color);
 			for (int i = 0; i < 4; i++) {
-				Drawf.tri(e.x, e.y, w1, 100f * e.fout(), i * rotation);
+				Drawf.tri(e.x, e.y, w1, l1 * e.fout(), i * rotation);
 			}
 
 			color();
 			for (int i = 0; i < 4; i++) {
-				Drawf.tri(e.x, e.y, w2, 35f * e.fout(), i * rotation);
+				Drawf.tri(e.x, e.y, w2, l2 * e.fout(), i * rotation);
 			}
 
 			light(e.x, e.y, circleRad * 1.6f, color, e.fout());

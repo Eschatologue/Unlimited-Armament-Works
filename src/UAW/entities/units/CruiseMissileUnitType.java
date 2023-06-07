@@ -10,6 +10,7 @@ import mindustry.graphics.*;
 import mindustry.type.unit.MissileUnitType;
 
 import static UAW.Vars.*;
+import static UAW.audiovisual.Assets.U_MSL_crsmissile_M_01_red;
 import static mindustry.Vars.tilesize;
 
 public class CruiseMissileUnitType extends MissileUnitType {
@@ -20,26 +21,44 @@ public class CruiseMissileUnitType extends MissileUnitType {
 	public Color exhaustColor;
 	public Effect hitEffect = Fx.none;
 
-	public int presets = 0;
-
-	public CruiseMissileUnitType(String name, String spriteName) {
+	public CruiseMissileUnitType(String name, String spriteName, int presets) {
 		super(name + "msl");
 		this.sprite = spriteName;
 		health = 100f;
 		drawCell = false;
 		outlineColor = Pal.darkerMetal;
-		maxRange = 2 * tilesize;
+		maxRange = 3 * tilesize;
 		engineLayer = Layer.effect;
 		lowAltitude = true;
 		loopSound = Sounds.missileTrail;
 		loopSoundVolume = 0.4f;
 		fogRadius = 3f;
 		deathExplosionEffect = Fx.none;
-		physics = true;
+
+		switch (presets) {
+			default -> {
+			}
+			case 1 -> {
+				engineSize = 6.5f * px;
+				engineOffset = 12f * px;
+				trailLength = 9;
+				deathSound = Sounds.largeExplosion;
+			}
+			case 2 -> {
+				engineSize = 12 * px;
+				engineOffset = 35f * px;
+				trailLength = 12;
+				deathSound = Sounds.largeExplosion;
+			}
+		}
+	}
+
+	public CruiseMissileUnitType(String name, String spriteName) {
+		this(name, spriteName, 0);
 	}
 
 	public CruiseMissileUnitType(String name) {
-		this(name + "msl", cruisemissile_medium_basic);
+		this(name + "msl", U_MSL_crsmissile_M_01_red);
 	}
 
 	@Override
@@ -47,22 +66,6 @@ public class CruiseMissileUnitType extends MissileUnitType {
 		super.init();
 		if (exhaustColor != null) engineColor = trailColor = exhaustColor;
 
-		switch (presets) {
-			case 0 -> {
-			}
-			case 1 -> {
-				engineSize = 4 * px;
-				engineOffset = 12f * px;
-				trailLength = 9;
-				deathSound = Sounds.largeExplosion;
-			}
-			case 2 -> {
-				engineSize = 9 * px;
-				engineOffset = 28f * px;
-				trailLength = 12;
-				deathSound = Sounds.largeExplosion;
-			}
-		}
 	}
 
 	@Override

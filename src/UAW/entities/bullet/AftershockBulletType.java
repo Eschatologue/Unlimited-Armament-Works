@@ -18,6 +18,8 @@ import static mindustry.graphics.Drawf.light;
  * Damages all enemies caught within its area of effect
  */
 public class AftershockBulletType extends BulletType {
+	public static final Rand rand = new Rand();
+
 	/**
 	 * Delays in tick between splashes
 	 */
@@ -68,13 +70,14 @@ public class AftershockBulletType extends BulletType {
 			Lines.circle(e.x, e.y, size + e.fout() * 3f - 2f);
 			Draw.reset();
 			if (pointCount > 0) {
-				float offset = Mathf.randomSeed(e.id, 360f);
-				for (int i = 0; i < pointCount; i++) {
-					float angle = (i * 360f / pointCount + (Time.time * 3)) + (offset + 4);
-					float rx = Angles.trnsx(angle, size - 2f), ry = Angles.trnsy(angle, size);
-					Draw.color(frontColor, backColor, e.fin());
-					Drawf.tri(
-						e.x + rx, e.y + ry, 48f, 28f * e.fout(), angle);
+				for (int i = 0; i < 16; i++) {
+					float angle = rand.random(360f);
+					float lenRand = rand.random(0.5f, 1f);
+					Tmp.v1.trns(angle, size);
+
+					for (int s : Mathf.signs) {
+						Drawf.tri(e.x + Tmp.v1.x, e.y + Tmp.v1.y, e.foutpow() * 40f, e.fout() * 30f * lenRand + 6f, angle + 90f + s * 90f);
+					}
 				}
 			}
 			Draw.z(Layer.debris);

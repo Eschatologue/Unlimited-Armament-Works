@@ -1,22 +1,22 @@
 package UAW.type.weapon;
 
+import UAW.audiovisual.Assets;
 import arc.Core;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import mindustry.entities.units.WeaponMount;
 import mindustry.gen.Unit;
-import mindustry.type.Weapon;
 
-import static UAW.Vars.*;
 
 /**
  * Inspired from NewestGitHubber / Commandustry missile weapon, modified slightly
  *
  * @Author SMOLKEYS
  */
+@Deprecated
 public class MissileLauncherWeapon extends UAWWeapon {
 	public TextureRegion missileRegion;
-	public String missileName = cruisemissile_medium_basic;
+	public String missileName = Assets.U_MSL_crsmissile_M_01_red;
 	public float missileLayerOffset = 0;
 	public float missileSizeScl = 1f;
 
