@@ -42,12 +42,18 @@ public class CruiseMissileUnitType extends MissileUnitType {
 				engineSize = 6.5f * px;
 				engineOffset = 12f * px;
 				trailLength = 9;
-				deathSound = Sounds.largeExplosion;
+				deathSound = Sounds.explosionbig;
 			}
 			case 2 -> {
 				engineSize = 12 * px;
 				engineOffset = 35f * px;
 				trailLength = 12;
+				deathSound = Sounds.largeExplosion;
+			}
+			case 3 -> {
+				engineSize = 18 * px;
+				engineOffset = 57f * px;
+				trailLength = 18;
 				deathSound = Sounds.largeExplosion;
 			}
 		}

@@ -18,6 +18,7 @@ public class CrossbombEffect extends Effect {
 	public int crossCount = 4;
 	public float crossWidth = 6f, crossLength = 100f;
 	public float crossRotOffset = 0;
+	public boolean drawBottom = true;
 
 	@Override
 	public void render(EffectContainer e) {
@@ -40,10 +41,12 @@ public class CrossbombEffect extends Effect {
 
 		Drawf.light(e.x, e.y, circleRad * 1.6f, color, e.fout());
 
-		float lightcirc = waveSizeBase + e.finpow() * waveSize;
-		Draw.z(Layer.debris);
-		Fill.light(e.x, e.y, Lines.circleVertices(lightcirc / 2), lightcirc, Color.white.cpy().a(0f), Tmp.c4.set(bottomColor).cpy().a(e.fout()));
-		Draw.reset();
-		Drawf.light(e.x, e.y, lightcirc * 1.6f, bottomColor.cpy(), e.fout());
+		if (drawBottom) {
+			float lightcirc = waveSizeBase + e.finpow() * waveSize;
+			Draw.z(Layer.debris);
+			Fill.light(e.x, e.y, Lines.circleVertices(lightcirc / 2), lightcirc, Color.white.cpy().a(0f), Tmp.c4.set(bottomColor).cpy().a(e.fout()));
+			Draw.reset();
+			Drawf.light(e.x, e.y, lightcirc * 1.6f, bottomColor.cpy(), e.fout());
+		}
 	}
 }

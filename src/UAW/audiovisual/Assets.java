@@ -30,6 +30,7 @@ public class Assets implements Loadable {
 
 	// Weapon - Missile - MSL
 	public static final String U_WP_missile_S_01_red = modName + "U_WP_missile_S_01_red";
+	public static final String U_WP_missile_S_01_phlog = modName + "U_WP_missile_S_01_phlog";
 	public static final String U_WP_missile_S_02_red = modName + "U_WP_missile_S_02_red";
 
 	public static final String U_WP_missile_M_01_red = modName + "U_WP_missile_M_01_red";

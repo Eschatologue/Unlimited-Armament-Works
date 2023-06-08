@@ -77,7 +77,8 @@ public class UAWBlocksDefence {
 			rotateSpeed = 10f;
 
 			ammoUseEffect = Fx.casing2Double;
-			shootSound = Sfx.wp_k_gunShootSmall_2;
+			//shootSound = Sfx.wp_k_gunShootSmall_2;
+			shootSound = Sfx.exp_k_metalpipe;
 
 			coolant = consumeCoolant(0.25f);
 
@@ -91,7 +92,7 @@ public class UAWBlocksDefence {
 
 			// Just copy paste from other bullet
 			ammo(
-				Items.copper, new TrailBulletType(8f, 10) {{
+				Items.copper, new TrailBulletType(8f, 12) {{
 					Color front = Pal.bulletYellow, back = Pal.bulletYellowBack;
 					height = 12f;
 					width = 5f;
@@ -116,7 +117,7 @@ public class UAWBlocksDefence {
 
 					ammoMultiplier = 3;
 				}},
-				Items.graphite, new TrailBulletType(7f, 15) {{
+				Items.graphite, new TrailBulletType(7f, 18) {{
 					Color front = UAWPal.graphiteFront, back = UAWPal.graphiteMiddle;
 					height = 12f;
 					width = 7f;
@@ -144,7 +145,7 @@ public class UAWBlocksDefence {
 
 					ammoMultiplier = 4;
 				}},
-				Items.titanium, new ArmorPiercingBulletType(12f, 8) {{
+				Items.titanium, new ArmorPiercingBulletType(14f, 8) {{
 					Color front = UAWPal.titaniumFront, back = UAWPal.titaniumBack;
 					height = 12f;
 					width = 5f;
@@ -169,7 +170,7 @@ public class UAWBlocksDefence {
 					rangeChange = 2 * tilesize;
 					ammoMultiplier = 4;
 				}},
-				Items.pyratite, new TrailBulletType(6f, 10) {{
+				Items.pyratite, new TrailBulletType(6f, 12) {{
 					Color front = UAWPal.incendFront, back = UAWPal.incendBack;
 					height = 12f;
 					width = 5f;
@@ -195,7 +196,7 @@ public class UAWBlocksDefence {
 
 					ammoMultiplier = 5;
 				}},
-				UAWItems.cryogel, new TrailBulletType(6f, 10) {{
+				UAWItems.cryogel, new TrailBulletType(6f, 12) {{
 					Color front = UAWPal.cryoFront, back = UAWPal.cryoBack;
 					height = 12f;
 					width = 5f;

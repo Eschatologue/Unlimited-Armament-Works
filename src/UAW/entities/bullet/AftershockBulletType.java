@@ -28,8 +28,7 @@ public class AftershockBulletType extends BulletType {
 	 * How many times splash splashDamage occurs
 	 */
 	public int splashAmount = 3;
-	/** How much rotating triangles does the splash effect has */
-	public int pointCount = 0;
+
 	public Sound applySound = Sounds.shotgun;
 	/** Adjust circle light color */
 	public Color frontColor = Pal.lightishOrange;
@@ -63,23 +62,12 @@ public class AftershockBulletType extends BulletType {
 		lifetime = splashDelay * splashAmount;
 	}
 
-	protected static Effect aftershockCircle(float size, float lifetime, Color frontColor, Color backColor, Color splashColor, int pointCount) {
+	protected static Effect aftershockCircle(float size, float lifetime, Color frontColor, Color backColor, Color splashColor) {
 		return new Effect(lifetime, size * 2f, e -> {
 			Draw.color(frontColor, backColor, e.fin());
 			Lines.stroke(e.fout() * 4f);
 			Lines.circle(e.x, e.y, size + e.fout() * 3f - 2f);
 			Draw.reset();
-			if (pointCount > 0) {
-				for (int i = 0; i < 16; i++) {
-					float angle = rand.random(360f);
-					float lenRand = rand.random(0.5f, 1f);
-					Tmp.v1.trns(angle, size);
-
-					for (int s : Mathf.signs) {
-						Drawf.tri(e.x + Tmp.v1.x, e.y + Tmp.v1.y, e.foutpow() * 40f, e.fout() * 30f * lenRand + 6f, angle + 90f + s * 90f);
-					}
-				}
-			}
 			Draw.z(Layer.debris);
 			Fill.light(e.x, e.y, Lines.circleVertices(size / 2), size, Color.white.cpy().a(0f), Tmp.c4.set(splashColor).a(e.fout()));
 			Draw.reset();
@@ -90,7 +78,7 @@ public class AftershockBulletType extends BulletType {
 	public void generateAftershock(Bullet b) {
 		if (b.timer(5, splashDelay) && splashAmount > 1) {
 			Damage.damage(b.team, b.x, b.y, splashDamageRadius, splashDamage * b.damageMultiplier(), collidesAir, collidesGround, scaledSplashDamage);
-			aftershockCircle(splashDamageRadius, splashDelay, frontColor, backColor, bottomColor == null ? backColor : bottomColor, pointCount).at(b.x, b.y);
+			aftershockCircle(splashDamageRadius, splashDelay, frontColor, backColor, bottomColor == null ? backColor : bottomColor).at(b.x, b.y);
 			applySound.at(b.x, b.y);
 			for (int j = 0; j < ((splashAmount) * 15); j++) {
 				particleEffect.at(

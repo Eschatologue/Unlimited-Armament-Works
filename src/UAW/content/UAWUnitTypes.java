@@ -23,7 +23,7 @@ import mindustry.entities.abilities.MoveEffectAbility;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.*;
 import mindustry.entities.part.*;
-import mindustry.entities.pattern.ShootAlternate;
+import mindustry.entities.pattern.*;
 import mindustry.gen.*;
 import mindustry.graphics.Pal;
 import mindustry.type.*;
@@ -945,187 +945,272 @@ public class UAWUnitTypes {
 
 			constructor = UnitWaterMove::create;
 			targetFlags = new BlockFlag[]{BlockFlag.turret, BlockFlag.extinguisher, BlockFlag.repair, BlockFlag.core};
-			weapons.add(
-				new Weapon(name + "-weapon") {{
-					layerOffset = 0.1f;
-					rotate = true;
-					rotateSpeed = 1.2f;
-					rotationLimit = 280;
-					shootCone = 90f;
-					mirror = false;
-					x = 0;
-					y = -30 * px;
-					inaccuracy = 0f;
-					reload = 5 * tick;
-					shootSound = Sfx.wp_msl_missileLaunch_2_big;
 
-					minWarmup = 0.9f;
-					shootWarmupSpeed = 0.05f;
+			Color front = Color.white.cpy(), back = UAWPal.phlogistonMid.cpy();
+			weapons.add(new Weapon(U_WP_crsmissile_L_01_phlog) {{
+				layerOffset = 0.1f;
+				rotate = true;
+				rotateSpeed = 1.2f;
+				rotationLimit = 280;
+				shootCone = 12f;
+				mirror = false;
+				recoil = 0;
+				x = 0;
+				y = -30 * px;
+				shootY = -10 * px;
+				inaccuracy = 0f;
+				reload = 8 * tick;
+				shootSound = Sfx.wp_msl_missileLaunch_2_big;
 
-					targetAir = false;
+				minWarmup = 0.9f;
+				shootWarmupSpeed = 0.025f;
 
-					shoot = new ShootAlternate() {{
-						barrels = 2;
-						shots = 2;
-						barrelOffset = 5;
-						spread = 35 * px;
-					}};
+				targetAir = false;
 
-					bullet = new BulletType() {{
-						shootEffect = Fx.shootBigColor;
-						smokeEffect = Fx.shootBigSmoke2;
-						shake = 1f;
-						speed = 0f;
-						keepVelocity = false;
+				bullet = new BulletType() {{
+					shootEffect = Fx.shootBigColor;
+					smokeEffect = Fx.shootBigSmoke2;
+					shake = 1f;
+					speed = 0f;
+					keepVelocity = false;
+					collidesAir = false;
 
-						spawnUnit = new CruiseMissileUnitType(name, U_MSL_crsmissile_M_01_phlog, 2) {{
-							Color baseColor = UAWPal.phlogistonFront;
-							float missileDamage = 120;
-							health = missileDamage * 1.5f;
-							speed = 7f;
-							rotateSpeed = 0f;
+					spawnUnit = new CruiseMissileUnitType(name, U_MSL_crsmissile_L_01_phlog, 3) {{
+						Color baseColor = UAWPal.phlogistonFront;
+						float missileDamage = 400;
+						health = missileDamage * 0.5f;
+						speed = 7f;
+						rotateSpeed = 0f;
 
-							maxRange = 4;
+						maxRange = 2 * tilesize;
 
-							exhaustColor = baseColor;
-							lowAltitude = true;
-							targetAir = false;
+						exhaustColor = baseColor;
 
-							missileAccelTime = 3 * tick;
-							deathSound = Sounds.largeExplosion;
+						lowAltitude = true;
+						targetAir = false;
 
-							lifetime = missileLifetime(unitRange, this.speed, missileAccelTime);
+						missileAccelTime = 2 * tick;
+						deathSound = Sounds.largeExplosion;
 
-							parts.add(new FlarePart() {{
-								progress = PartProgress.life.slope().curve(Interp.pow2In);
-								color1 = baseColor;
-								radius = 0f;
-								radiusTo = 45f;
-								stroke = 3f;
-								rotation = 45f;
-								y = -35 * px;
-								followRotation = true;
-							}});
+						lifetime = missileLifetime(unitRange, this.speed, missileAccelTime) * 0.8f;
 
-							weapons.add(new SuicideWeapon() {{
-								float splashRad = 3.5f * tilesize;
-								shake = 7f;
-								bullet = new ExplosionBulletType(missileDamage, splashRad) {{
-									buildingDamageMultiplier = 4f;
-									splashDamagePierce = true;
-									hitColor = baseColor;
-									makeFire = true;
-									shootEffect = new MultiEffect(
-										Fx.massiveExplosion,
-										new ShootSmokeEffect() {{
-											life = 30;
-											splitAngle = 90f;
-											smokeSize = 4.8f;
-											baseSize = 1.2f;
-											spreadRange = splashRad * 1.5f;
-											spreadCone = 32;
-										}},
-										new ScatheExplosionEffect() {{
-											size = splashRad * 0.8f;
-											slashAmount = 8;
-											color = UAWPal.phlogistonFront;
-											color1 = UAWPal.phlogistonBack;
-										}},
-										new WaveEffect() {{
-											lifetime = 10f;
-											strokeFrom = 4f;
-											sizeTo = splashRad * 2;
-										}}
-									);
+						parts.add(new FlarePart() {{
+							progress = PartProgress.life.slope().curve(Interp.pow2In);
+							sides = 5;
+							color1 = baseColor;
+							radius = 0f;
+							radiusTo = 65f;
+							stroke = 6f;
+							rotation = 360f / sides / 2f;
+							y = -57 * px;
+							followRotation = true;
+						}});
 
-									fragBullets = 1;
-									fragSpread = 0;
-									fragRandomSpread = 1f;
-									fragBullet = new BulletType() {{
-										shootEffect = Fx.shootBigColor;
-										smokeEffect = Fx.shootBigSmoke2;
-										shake = 1f;
-										speed = 0f;
-										keepVelocity = false;
+						weapons.add(new SuicideWeapon() {{
+							float splashRad = 7f * tilesize;
+							shake = 45f;
+							bullet = new ExplosionBulletType(missileDamage, splashRad) {{
+								buildingDamageMultiplier = 5f;
+								splashDamagePierce = true;
+								knockback = 16f;
 
-										spawnUnit = new CruiseMissileUnitType(name + "-0", U_MSL_crsmissile_M_01_phlog, 2) {{
-											Color baseColor = UAWPal.phlogistonFront;
-											float missileDamage = 120;
-											health = missileDamage * 1.5f;
-											speed = 7f;
-											rotateSpeed = 0f;
+								hitColor = baseColor;
 
-											maxRange = 4;
+								makeFire = true;
+								shootEffect = new MultiEffect(
+									Fx.massiveExplosion,
+									new ScatheExplosionEffect() {{
+										size = splashRad * 0.8f;
+										slashAmount = 24;
+										color = UAWPal.phlogistonFront;
+										color1 = UAWPal.phlogistonBack;
+									}},
+									new CrossbombEffect() {{
+										lifetime = 1.5f * tick;
+										waveSizeBase = waveSize = 0;
+										crossLength = splashRad * 2f;
+										crossRotOffset = 45;
+										crossWidth = 8;
+										color = baseColor;
+										drawBottom = false;
+									}},
+									new WaveEffect() {{
+										lifetime = 10f;
+										strokeFrom = 4f;
+										sizeTo = splashRad * 2;
+									}}
+								);
 
-											exhaustColor = baseColor;
-											lowAltitude = true;
-											targetAir = false;
+								puddles = 16;
+								puddleAmount = 35;
+								puddleRange = splashRad / 2;
+								puddleLiquid = Liquids.oil;
 
-											missileAccelTime = 3 * tick;
-											deathSound = Sounds.largeExplosion;
+								fragLifeMin = 0.2f;
+								fragLifeMax = 1.2f;
+								fragBullets = 14;
+								fragBullet = new ArtilleryBulletType(1.5f, 15) {{
+									splashDamageRadius = splashRad / 2;
+									splashDamage = 40f;
 
-											lifetime = missileLifetime(unitRange, this.speed, missileAccelTime);
+									width = height = 18f;
+									spin = 4.5f;
+									buildingDamageMultiplier = 3f;
+									drag = 0.02f;
+									hitEffect = Fx.massiveExplosion;
+									despawnEffect = Fx.scatheSlash;
+									lifetime = splashRad / this.speed;
+									collidesTiles = false;
+									lightColor = backColor = trailColor = hitColor = UAWPal.phlogistonMid;
+									frontColor = Color.white;
+									smokeEffect = Fx.shootBigSmoke2;
+									despawnShake = 7f;
+									lightRadius = 30f;
+									lightOpacity = 0.5f;
 
-											weapons.add(new SuicideWeapon() {{
-												float splashRad = 5.5f * tilesize;
-												shake = 7f;
-												bullet = new ExplosionBulletType(missileDamage, splashRad) {{
-													buildingDamageMultiplier = 4f;
-													splashDamagePierce = true;
-													hitColor = baseColor;
-													makeFire = true;
-													shootEffect = new MultiEffect(
-														Fx.massiveExplosion,
-														new ScatheExplosionEffect() {{
-															size = splashRad;
-															slashAmount = 8;
-															color = UAWPal.phlogistonFront;
-															color1 = UAWPal.phlogistonBack;
-														}},
-														new WaveEffect() {{
-															lifetime = 10f;
-															strokeFrom = 4f;
-															sizeTo = splashRad * 2;
-														}}
-													);
-
-												}};
-											}});
-											abilities.add(new MoveEffectAbility() {{
-												color = UAWPal.missileSmoke;
-												effect = UAWFx.missileTrailSmoke(65, 4, 14);
-												rotation = 180f;
-												y = -9f;
-												interval = 4f;
-											}});
-										}};
-									}};
-
-
+									puddles = 4;
+									puddleAmount = 18;
+									puddleRange = splashRad / 3;
+									puddleLiquid = Liquids.slag;
 								}};
-							}});
-							abilities.add(new MoveEffectAbility() {{
-								color = UAWPal.missileSmoke;
-								effect = UAWFx.missileTrailSmoke(65, 4, 14);
-								rotation = 180f;
-								y = -9f;
-								interval = 4f;
-							}});
-						}};
+							}};
+						}});
+						abilities.add(new MoveEffectAbility() {{
+							color = UAWPal.missileSmoke;
+							effect = UAWFx.missileTrailSmoke(80, 6, 18);
+							rotation = 180f;
+							y = -9f;
+							interval = 4f;
+						}});
+					}};
+				}};
+
+				parts.add(
+					new RegionPart() {{
+						parts.add(new MissilePart("-missile") {{
+							layerOffset = 0.01f;
+							moves.add(new PartMove(PartProgress.warmup, 0f, -10f * px, 0));
+						}});
+						parts.add(new RegionPart("-top") {{
+							progress = PartProgress.warmup.curve(Interp.smooth);
+							moveX = -8 * px;
+							moveY = -33 * px;
+							moveRot = 45;
+							mirror = true;
+						}});
+					}}
+				);
+			}});
+			weapons.add(
+				new Weapon(U_WP_missile_S_01_phlog) {{
+					x = 18 * px;
+					y = 37 * px;
+
+					rotate = true;
+					rotateSpeed = 12;
+					reload = 1 * tick;
+					alternate = true;
+
+
+					shootSound = Sfx.wp_k_shotgunShoot_3;
+					shoot = new ShootSpread() {{
+						spread = 2.8f;
+						shots = 6;
+						velocityRnd = 0.35f;
 					}};
 
-					parts.add(
-						new RegionPart() {{
-							parts.add(new MissilePart("-missile") {{
-								mirror = true;
-								layerOffset = 0.01f;
-								moves.add(new PartMove(PartProgress.warmup, 0f, -9f * px, 0));
-							}});
+					bullet = new TrailBulletType(7, 12f) {{
+						height = 15;
+						width = 8f;
 
-						}}
-					);
+						trailEffect = new StatusHitEffect() {{
+							life = 13;
+							color = front;
+							sizeEnd = 0.5f;
+							shapeVariant = 2;
+						}};
+						trailLengthScale = 0.25f;
+						trailChance = 0.4f;
+
+						shootEffect = Fx.shootSmall;
+						smokeEffect = new ShootSmokeEffect() {{
+							color = Pal.lightOrange;
+							split = true;
+							splitAngle = 90f;
+							smokeSize = 1.25f;
+							spreadRange = 15;
+							spreadCone = 12.5f;
+							amount = 2;
+						}};
+						hitEffect = UAWFx.sparkHit(7, 2, back);
+						despawnEffect = new MultiEffect(
+							UAWFx.hitBulletSmall(back)
+						);
+						lifetime = (unitRange * 0.25f) / this.speed;
+						frontColor = front;
+						backColor = back;
+
+						pierceCap = 2;
+
+						status = StatusEffects.slow;
+						statusDuration = tick * 2;
+					}};
+				}},
+				new Weapon(U_WP_missile_S_01_phlog) {{
+					x = 43 * px;
+					y = -42 * px;
+
+					rotate = true;
+					rotateSpeed = 12;
+					reload = 1.2f * tick;
+					alternate = true;
+
+					shootSound = Sfx.wp_k_shotgunShoot_3;
+					shoot = new ShootSpread() {{
+						spread = 2.8f;
+						shots = 6;
+						velocityRnd = 0.35f;
+					}};
+
+					bullet = new TrailBulletType(6, 12.5f) {{
+						height = 15;
+						width = 8f;
+
+						trailEffect = new StatusHitEffect() {{
+							life = 13;
+							color = front;
+							sizeEnd = 0.5f;
+							shapeVariant = 2;
+						}};
+						trailLengthScale = 0.25f;
+						trailChance = 0.4f;
+
+						shootEffect = Fx.shootSmall;
+						smokeEffect = new ShootSmokeEffect() {{
+							color = Pal.lightOrange;
+							split = true;
+							splitAngle = 90f;
+							smokeSize = 1.25f;
+							spreadRange = 15;
+							spreadCone = 12.5f;
+							amount = 2;
+						}};
+						hitEffect = UAWFx.sparkHit(7, 2, back);
+						despawnEffect = new MultiEffect(
+							UAWFx.hitBulletSmall(back)
+						);
+						lifetime = (unitRange * 0.25f) / this.speed;
+						frontColor = front;
+						backColor = back;
+
+						pierceCap = 2;
+
+						status = StatusEffects.slow;
+						statusDuration = tick * 2;
+					}};
 				}}
 			);
+
 		}};
 		minerva = new UnitType("minerva") {{
 			float unitRange = 55 * tilesize;
