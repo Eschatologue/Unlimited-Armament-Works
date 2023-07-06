@@ -27,7 +27,7 @@ public class CruiseMissileUnitType extends MissileUnitType {
 		health = 100f;
 		drawCell = false;
 		outlineColor = Pal.darkerMetal;
-		maxRange = 3 * tilesize;
+		range = maxRange = 3 * tilesize;
 		engineLayer = Layer.effect;
 		lowAltitude = true;
 		loopSound = Sounds.missileTrail;
@@ -39,21 +39,21 @@ public class CruiseMissileUnitType extends MissileUnitType {
 			default -> {
 			}
 			case 1 -> {
-				engineSize = 6.5f * px;
+				engineSize = 5.5f * px;
 				engineOffset = 12f * px;
-				trailLength = 9;
+				trailLength = 5;
 				deathSound = Sounds.explosionbig;
 			}
 			case 2 -> {
 				engineSize = 12 * px;
 				engineOffset = 35f * px;
-				trailLength = 12;
+				trailLength = 9;
 				deathSound = Sounds.largeExplosion;
 			}
 			case 3 -> {
 				engineSize = 18 * px;
 				engineOffset = 57f * px;
-				trailLength = 18;
+				trailLength = 15;
 				deathSound = Sounds.largeExplosion;
 			}
 		}

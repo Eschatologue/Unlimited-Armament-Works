@@ -3,7 +3,7 @@ package UAW.type.weapon;
 import UAW.audiovisual.Sfx;
 import mindustry.content.StatusEffects;
 
-public class TorpedoWeapon extends UAWWeapon{
+public class TorpedoWeapon extends UAWWeapon {
 	public TorpedoWeapon(String name) {
 		super(name);
 		rotate = false;
@@ -17,5 +17,9 @@ public class TorpedoWeapon extends UAWWeapon{
 		minWarmup = 0.8f;
 
 		shoot.firstShotDelay = 15f;
+	}
+
+	public TorpedoWeapon() {
+		this("");
 	}
 }

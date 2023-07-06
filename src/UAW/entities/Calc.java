@@ -1,5 +1,7 @@
 package UAW.entities;
 
+import static UAW.Vars.px;
+
 public class Calc {
 
 	/**
@@ -15,6 +17,24 @@ public class Calc {
 	}
 
 	public static float bulletLifetime(float range, float speed) {
-		return range / speed;
+		return bulletLifetime(range, speed, 1);
 	}
+
+	public static float bulletLifetime(float range, float speed, float scl) {
+		return (range * scl) / speed;
+	}
+
+	public static float px(float pixelPos) {
+		float offset = 0.5f;
+		float result = pixelPos * px;
+
+		if (pixelPos > 0) {
+			return result - (offset * px);
+		} else if (pixelPos < 0) {
+			return result + (offset * px);
+		} else {
+			return 0;
+		}
+	}
+
 }

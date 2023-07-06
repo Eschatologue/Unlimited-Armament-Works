@@ -145,7 +145,7 @@ public class UAWBlocksUnits {
 
 			upgrades.addAll(
 				new UnitType[]{UAWUnitTypes.bedivere, UAWUnitTypes.calogrenant},
-				new UnitType[]{UAWUnitTypes.melpomene, UAWUnitTypes.minerva},
+//				new UnitType[]{UAWUnitTypes.melpomene, UAWUnitTypes.minerva},
 				new UnitType[]{UAWUnitTypes.centurion, UAWUnitTypes.caernarvon}
 			);
 		}};

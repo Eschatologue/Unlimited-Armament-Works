@@ -77,8 +77,7 @@ public class UAWBlocksDefence {
 			rotateSpeed = 10f;
 
 			ammoUseEffect = Fx.casing2Double;
-			//shootSound = Sfx.wp_k_gunShootSmall_2;
-			shootSound = Sfx.exp_k_metalpipe;
+			shootSound = Sfx.wp_k_gunShootSmall_2;
 
 			coolant = consumeCoolant(0.25f);
 
@@ -90,7 +89,6 @@ public class UAWBlocksDefence {
 				velocityRnd = 0.2f;
 			}};
 
-			// Just copy paste from other bullet
 			ammo(
 				Items.copper, new TrailBulletType(8f, 12) {{
 					Color front = Pal.bulletYellow, back = Pal.bulletYellowBack;
@@ -412,7 +410,7 @@ public class UAWBlocksDefence {
 						moveY = 4 * px;
 					}},
 					new RegionPart("-side") {{
-						progress = PartProgress.warmup.blend(PartProgress.heat, 0.45f);
+						progress = PartProgress.warmup.blend(PartProgress.heat, 0.45f).curve(Interp.smooth);
 						mirror = true;
 						moveX = 2f * px;
 						moveY = -4 * px;
@@ -847,7 +845,6 @@ public class UAWBlocksDefence {
 		//endregion Sniper
 
 		//region Artillery
-		// TODO
 		zounderkite = new UAWItemTurret("zounderkite") {{
 			requirements(Category.turret, with(
 				Items.lead, 300,
@@ -1219,7 +1216,7 @@ public class UAWBlocksDefence {
 					new RegionPart("-body")
 				);
 			}};
-		}};// TODO
+		}};// TODO change the bullets like tempest
 		tempest = new ItemTurret("tempest") {{
 			float turretRange = 38 * tilesize;
 			requirements(Category.turret, with(

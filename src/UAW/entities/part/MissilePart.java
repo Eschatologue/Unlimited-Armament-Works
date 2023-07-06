@@ -16,4 +16,8 @@ public class MissilePart extends RegionPart {
 		outline = false;
 		under = true;
 	}
+
+	public MissilePart() {
+		this("-missile");
+	}
 }
