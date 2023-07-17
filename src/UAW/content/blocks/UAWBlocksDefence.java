@@ -25,6 +25,7 @@ import mindustry.world.draw.*;
 
 import static UAW.Vars.*;
 import static UAW.content.UAWBullets.*;
+import static UAW.entities.Calc.bulletLifetime;
 import static mindustry.Vars.tilesize;
 import static mindustry.type.ItemStack.with;
 
@@ -1128,74 +1129,262 @@ public class UAWBlocksDefence {
 			size = 2;
 			scaledHealth = 150;
 
-			reload = 1.5f * tick;
+			reload = 1 * tick;
 			recoil = 3;
-			recoilTime = recoil * 3;
 			maxAmmo = 48;
 
-			range = 100f;
+			range = 14 * tilesize;
 			shake = 2f;
 			inaccuracy = 5f;
 			rotateSpeed = 4f;
-			shootCone = 1f;
+			shootY = 18 * px;
 
 			ammoUseEffect = Fx.none;
-			shootSound = Sfx.wp_k_shotgunShoot_1;
-
-			unitSort = UAWUnitSorts.leastHitPoints;
+			shootSound = Sfx.wp_k_shotgunShoot_3;
 
 			targetAir = false;
 
 			shoot = new ShootSpread() {{
-				spread = 2.8f;
-				shots = 8;
-				velocityRnd = 0.3f;
+				spread = 3.5f;
+				shots = 12;
+				velocityRnd = 0.40f;
 			}};
 
 			ammo(
-				Items.lead, new BuckshotBulletType(7, 8f, 21f) {{
+				Items.lead, new TrailBulletType(8, 35) {{
+					Color front = Pal.bulletYellow, back = Pal.bulletYellowBack;
+					height = 15;
+					width = 8f;
+					hitSize = width;
+
+					trailEffect = new StatusHitEffect() {{
+						life = 13;
+						color = front;
+						sizeEnd = 0.5f;
+						shapeVariant = 2;
+					}};
+					trailLengthScale = 0.25f;
+					trailChance = 0.4f;
+
+					shootEffect = Fx.shootSmall;
+					smokeEffect = new ShootSmokeEffect() {{
+						color = Pal.lightOrange;
+						split = true;
+						splitAngle = 90f;
+						smokeSize = 1.25f;
+						spreadRange = 15;
+						spreadCone = 12.5f;
+						amount = 2;
+					}};
+					hitEffect = UAWFx.sparkHit(7, 2, back);
+					despawnEffect = new MultiEffect(
+						UAWFx.hitBulletSmall(back)
+					);
+					frontColor = front;
+					backColor = back;
+
 					pierceCap = 3;
-					knockback = 5f;
-					despawnHit = true;
-					hitEffect = Fx.hitBulletColor;
-					despawnEffect = Fx.flakExplosion;
-					shootEffect = Fx.shootBigColor;
-					smokeEffect = Fx.shootSmallSmoke;
-					ammoMultiplier = 3;
+
+					knockback = 2;
+					status = StatusEffects.slow;
+					statusDuration = tick * 2;
+
+					collidesAir = false;
+					collideTerrain = true;
 				}},
-				Items.graphite, new BuckshotBulletType(7, 8f, 30f) {{
+				Items.graphite, new TrailBulletType(8, 40) {{
+					Color front = UAWPal.graphiteFront, back = UAWPal.graphiteBack;
+					height = 15;
+					width = 8f;
+					hitSize = width;
+
+					trailEffect = new StatusHitEffect() {{
+						life = 13;
+						color = front;
+						sizeEnd = 0.5f;
+						shapeVariant = 2;
+					}};
+					trailLengthScale = 0.25f;
+					trailChance = 0.4f;
+
+					shootEffect = Fx.shootSmall;
+					smokeEffect = new ShootSmokeEffect() {{
+						color = Pal.lightOrange;
+						split = true;
+						splitAngle = 90f;
+						smokeSize = 1.25f;
+						spreadRange = 15;
+						spreadCone = 12.5f;
+						amount = 2;
+					}};
+					hitEffect = UAWFx.sparkHit(7, 2, back);
+					despawnEffect = new MultiEffect(
+						UAWFx.hitBulletSmall(back),
+						Fx.flakExplosion
+					);
+					frontColor = front;
+					backColor = back;
+
+					status = StatusEffects.slow;
+					statusDuration = tick * 2;
+
+					splashDamage = this.damage * 0.25f;
+					splashDamageRadius = 3.5f * tilesize;
+
+					collidesAir = false;
+					collideTerrain = true;
+
+					fragBullets = 5;
+					fragBullet = new BasicBulletType(4f, 2.5f) {{
+						width = 5f;
+						height = 12f;
+						shrinkY = 1f;
+						lifetime = bulletLifetime(4 * tilesize, this.speed);
+						backColor = Pal.gray;
+						frontColor = Color.white;
+						despawnEffect = Fx.none;
+						collidesGround = false;
+					}};
+				}},
+				Items.pyratite, new TrailBulletType(9, 55) {{
+					Color front = UAWPal.incendFront, back = UAWPal.incendBack;
+					height = 18;
+					width = height * 0.53f;
+					hitSize = width;
+
+					trailEffect = new StatusHitEffect() {{
+						life = 15;
+						color = front;
+						sizeEnd = 0.6f;
+						shapeVariant = 1;
+					}};
+					trailLengthScale = 0.25f;
+					trailChance = 0.4f;
+
+					shootEffect = Fx.shootSmall;
+					smokeEffect = new ShootSmokeEffect() {{
+						color = Pal.lightOrange;
+						split = true;
+						splitAngle = 90f;
+						smokeSize = 1.25f;
+						spreadRange = 15;
+						spreadCone = 12.5f;
+						amount = 2;
+					}};
+					hitEffect = new MultiEffect(
+						UAWFx.sparkHit(7, 2, back),
+						Fx.fireHit
+					);
+					despawnEffect = new MultiEffect(
+						UAWFx.hitBulletSmall(back),
+						Fx.fireHit
+					);
+					frontColor = front;
+					backColor = back;
+
 					pierceCap = 4;
-					knockback = 8f;
-					reloadMultiplier = 0.5f;
-					frontColor = UAWPal.graphiteFront;
-					backColor = UAWPal.graphiteBack;
-					hitEffect = Fx.hitBulletColor;
-					despawnEffect = Fx.flakExplosion;
-					shootEffect = Fx.shootBigColor;
-					smokeEffect = Fx.shootSmallSmoke;
-					ammoMultiplier = 3;
-				}},
-				Items.pyratite, new BuckshotBulletType(7, 6f, 15f) {{
-					pierceCap = 3;
-					knockback = 4f;
-					frontColor = Pal.lightishOrange;
-					backColor = Pal.lightOrange;
-					shootEffect = Fx.shootSmallColor;
-					smokeEffect = Fx.shootSmallSmoke;
-					hitEffect = new MultiEffect(Fx.hitBulletColor, Fx.fireHit, Fx.fireSmoke);
-					despawnEffect = new MultiEffect(Fx.flakExplosion, Fx.fireHit, Fx.fireSmoke);
+
+					reloadMultiplier = 0.75f;
+					rangeChange = -4 * tilesize;
 					status = StatusEffects.burning;
+					statusDuration = tick * 4;
+
+					collidesAir = false;
+					collideTerrain = true;
 				}},
-				UAWItems.cryogel, new BuckshotBulletType(7, 6f, 12f) {{
-					pierceCap = 3;
-					knockback = 4f;
-					frontColor = UAWPal.cryoFront;
-					backColor = UAWPal.cryoBack;
-					shootEffect = Fx.shootSmallColor;
-					smokeEffect = Fx.shootSmallSmoke;
-					hitEffect = new MultiEffect(Fx.hitBulletColor, UAWFx.cryoHit, Fx.fireSmoke);
-					despawnEffect = new MultiEffect(Fx.flakExplosion, UAWFx.cryoHit, Fx.fireSmoke);
-					status = StatusEffects.freezing;
+				UAWItems.cryogel, new TrailBulletType(9, 55) {{
+					Color front = Color.white, back = UAWPal.cryoFront;
+					height = 18;
+					width = height * 0.53f;
+					hitSize = width;
+
+					trailEffect = new StatusHitEffect() {{
+						life = 15;
+						color = front;
+						sizeEnd = 0.6f;
+						shapeVariant = 1;
+					}};
+					trailLengthScale = 0.25f;
+					trailChance = 0.4f;
+
+					shootEffect = Fx.shootSmall;
+					smokeEffect = new ShootSmokeEffect() {{
+						color = Pal.lightOrange;
+						split = true;
+						splitAngle = 90f;
+						smokeSize = 1.25f;
+						spreadRange = 15;
+						spreadCone = 12.5f;
+						amount = 2;
+					}};
+					hitEffect = new MultiEffect(
+						UAWFx.sparkHit(7, 2, back),
+						UAWFx.cryoHit
+					);
+					despawnEffect = new MultiEffect(
+						UAWFx.hitBulletSmall(back),
+						UAWFx.cryoHit
+					);
+					frontColor = front;
+					backColor = back;
+
+					pierceCap = 4;
+
+					reloadMultiplier = 0.75f;
+					rangeChange = -4 * tilesize;
+					status = UAWStatusEffects.cryoBurn;
+					statusDuration = tick * 4;
+
+					collidesAir = false;
+					collideTerrain = true;
+				}},
+				Items.silicon, new TrailBulletType(10, 30) {{
+					Color front = Pal.missileYellow, back = Pal.missileYellowBack;
+					sprite = "missile";
+					height = 15;
+					width = 8f;
+					hitSize = width;
+
+					trailEffect = new StatusHitEffect() {{
+						life = 15;
+						color = front;
+						sizeEnd = 0.6f;
+						shapeVariant = 1;
+					}};
+					trailLengthScale = 0.25f;
+					trailChance = 0.4f;
+
+					shootEffect = Fx.shootSmall;
+					smokeEffect = new ShootSmokeEffect() {{
+						color = Pal.lightOrange;
+						split = true;
+						splitAngle = 90f;
+						smokeSize = 1.25f;
+						spreadRange = 15;
+						spreadCone = 12.5f;
+						amount = 2;
+					}};
+					hitEffect = new MultiEffect(
+						UAWFx.dynamicExplosion(2f * tilesize),
+						UAWFx.hitBulletSmall(back),
+						UAWFx.sparkHit(7, 2, back)
+					);
+					frontColor = front;
+					backColor = back;
+
+					rangeChange = 6 * tilesize;
+
+					homingPower = 0.125f;
+					homingRange = 2.75f * tilesize;
+					homingDelay = 0.125f * tick;
+
+					splashDamage = this.damage * 0.75f;
+					splashDamageRadius = 2 * tilesize;
+
+					hitSound = Sounds.dullExplosion;
+
+					collidesAir = false;
+					collideTerrain = true;
 				}}
 			);
 			limitRange();
@@ -1203,20 +1392,14 @@ public class UAWBlocksDefence {
 			squareSprite = false;
 			drawer = new DrawTurret(modTurretBase) {{
 				parts.addAll(
-					new RegionPart("-barrel") {{
-						progress = PartProgress.recoil;
-						moveY = -9 * px;
-					}},
 					new RegionPart("-side") {{
 						progress = PartProgress.reload;
-						mirror = true;
-						moveX = 6 * px;
-						moveY = -moveX;
+						moveY = -5 * px;
 					}},
 					new RegionPart("-body")
 				);
 			}};
-		}};// TODO change the bullets like tempest
+		}};
 		tempest = new ItemTurret("tempest") {{
 			float turretRange = 38 * tilesize;
 			requirements(Category.turret, with(

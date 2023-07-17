@@ -28,6 +28,8 @@ public class UAWUnitSorts {
 	/** Target highest flying enemies */
 	highest = (u, x, y) -> -u.elevation,
 	/** Target lowest flying enemies */
-	lowest = (u, x, y) -> u.elevation;
+	lowest = (u, x, y) -> u.elevation,
+
+	test = (u, x, y) -> u.shield();
 
 }
