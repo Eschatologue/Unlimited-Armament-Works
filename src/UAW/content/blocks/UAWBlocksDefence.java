@@ -258,6 +258,8 @@ public class UAWBlocksDefence {
 			maxAmmo = 200;
 			minWarmup = 0.95f;
 			shootWarmupSpeed = 0.025f;
+			targetInterval = 0;
+			warmupMaintainTime = 20f;
 
 			range = 35 * tilesize;
 			inaccuracy = 7.5f;
@@ -302,7 +304,7 @@ public class UAWBlocksDefence {
 
 					pierceCap = 3;
 
-					ammoMultiplier = 8;
+					ammoMultiplier = 4;
 				}},
 				UAWItems.stoutsteel, new TrailBulletType(16f, 12) {{
 					Color front = UAWPal.titaniumFront, back = UAWPal.titaniumBack;
