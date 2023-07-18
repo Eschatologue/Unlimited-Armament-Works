@@ -306,7 +306,7 @@ public class UAWBlocksDefence {
 
 					ammoMultiplier = 4;
 				}},
-				UAWItems.stoutsteel, new TrailBulletType(16f, 12) {{
+				UAWItems.stoutsteel, new TrailBulletType(16f, 15) {{
 					Color front = UAWPal.titaniumFront, back = UAWPal.titaniumBack;
 					height = 16f;
 					width = 7f;
@@ -332,7 +332,7 @@ public class UAWBlocksDefence {
 
 					ammoMultiplier = 8;
 				}},
-				Items.pyratite, new TrailBulletType(10f, 15) {{
+				Items.pyratite, new TrailBulletType(10f, 20) {{
 					Color front = Pal.lightishOrange, back = Pal.lightOrange;
 					height = 16f;
 					width = 7f;
@@ -358,7 +358,7 @@ public class UAWBlocksDefence {
 
 					ammoMultiplier = 8;
 				}},
-				UAWItems.cryogel, new TrailBulletType(10f, 15) {{
+				UAWItems.cryogel, new TrailBulletType(10f, 20) {{
 					Color front = UAWPal.cryoFront, back = UAWPal.cryoBack;
 					height = 16f;
 					width = 7f;
@@ -384,7 +384,7 @@ public class UAWBlocksDefence {
 
 					ammoMultiplier = 8;
 				}},
-				Items.surgeAlloy, new BasicBulletType(8, 15) {{
+				Items.surgeAlloy, new BasicBulletType(8, 20) {{
 					height = 25;
 					width = 8;
 					hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletBig, Fx.lightning);
@@ -413,11 +413,11 @@ public class UAWBlocksDefence {
 						moveY = 4 * px;
 					}},
 					new RegionPart("-side") {{
-						progress = PartProgress.warmup.blend(PartProgress.heat, 0.45f).curve(Interp.smooth);
+						progress = PartProgress.warmup.blend(PartProgress.heat, 0.3f).curve(Interp.smooth);
 						mirror = true;
 						moveX = 2f * px;
 						moveY = -4 * px;
-						moveRot = -25f;
+						moveRot = -22.5f;
 					}},
 					new RegionPart("-blade") {{
 						progress = PartProgress.warmup;

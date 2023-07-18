@@ -8,7 +8,7 @@ public class Vars implements Loadable {
 	/** Used for precise pixel based placements*/
 	public static final float px = 0.25f;
 
-	public static final float steamConversionScl = 3;
+	public static final float phlogConversionScl = 0.5f;
 	public static final float steamLoseScl = 0.5f;
 
 	public static final String modName = "uaw-";

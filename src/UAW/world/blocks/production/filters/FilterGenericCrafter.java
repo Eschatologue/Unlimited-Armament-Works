@@ -1,15 +1,18 @@
 package UAW.world.blocks.production.filters;
 
 import UAW.world.consumers.*;
+import UAW.world.meta.UAWStat;
 import arc.Core;
 import arc.graphics.Color;
 import mindustry.gen.Sounds;
 import mindustry.graphics.Pal;
 import mindustry.ui.Bar;
 import mindustry.world.blocks.production.GenericCrafter;
+import mindustry.world.meta.StatUnit;
 
 /** Generic Crafter with its efficiency tied to filtered item or liquid used */
 public class FilterGenericCrafter extends GenericCrafter {
+	public float fuelEfficiencyMult = 1;
 	/** Whenever the efficiency bar color will follow the item */
 	public boolean adaptiveBarColor = true;
 
@@ -17,6 +20,14 @@ public class FilterGenericCrafter extends GenericCrafter {
 		super(name);
 		ambientSound = Sounds.smelter;
 		ambientSoundVolume = 0.06f;
+	}
+
+	@Override
+	public void setStats() {
+		super.setStats();
+		if (fuelEfficiencyMult != 1) {
+			stats.add(UAWStat.fuelEfficiencyMult, fuelEfficiencyMult * 100, StatUnit.percent);
+		}
 	}
 
 	@Override
@@ -73,12 +84,12 @@ public class FilterGenericCrafter extends GenericCrafter {
 
 		/** Item modifier that affects {@link #getProgressIncrease} */
 		public float itemMultProgress() {
-			return itemEfficiency() * warmupProgress();
+			return (itemEfficiency() * fuelEfficiencyMult) * warmupProgress();
 		}
 
 		/** Liquid modifier that affects {@link #getProgressIncrease} */
 		public float liquidMultProgress() {
-			return liquidEfficiency() * warmupProgress();
+			return (liquidEfficiency() * fuelEfficiencyMult) * warmupProgress();
 		}
 
 		@Override

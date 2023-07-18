@@ -933,6 +933,14 @@ public class UAWFx {
 
 	// endregion burstCloud
 
+	public static Effect crucibleSmoke(Color color) {
+		return crucibleSmoke(160, color);
+	}
+
+	public static Effect crucibleSmoke(float lifetime, Color color) {
+		return crucibleSmoke(lifetime, 2, color);
+	}
+
 	/**
 	 * {@link Fx#surgeCruciSmoke}
 	 * @param lifetime
@@ -949,7 +957,7 @@ public class UAWFx {
 
 			rand.setSeed(e.id);
 			for (int i = 0; i < 3; i++) {
-				float len = rand.random(6f);
+				float len = rand.random(8f);
 				float rot = rand.range(40f) + e.rotation;
 
 				e.scaled(e.lifetime * rand.random(0.3f, 1f), b -> {

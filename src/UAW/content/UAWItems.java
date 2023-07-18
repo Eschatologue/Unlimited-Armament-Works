@@ -27,8 +27,8 @@ public class UAWItems {
 		sulphur = new Item("item-sulphur", Color.valueOf("e28654")) {{
 		}};
 		anthracite = new Item("item-anthracite", Color.valueOf("272727")) {{
-			flammability = 1.8f;
-			explosiveness = 0.25f;
+			flammability = 1.55f;
+			explosiveness = 0.55f;
 			hardness = 4;
 		}};
 	}

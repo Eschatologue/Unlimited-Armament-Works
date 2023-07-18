@@ -23,14 +23,11 @@ public class UAWTechTree {
 			node(UAWLiquids.steam, Seq.with(new Objectives.SectorComplete(SectorPresets.groundZero)), () -> {
 
 				// Power
-				node(steamKettle, Seq.with(new Research(mechanicalPump)), () -> {
-					node(industrialBoiler, () -> {
-						node(pressureBoiler);
-						node(geothermalBoiler);
-					});
-					node(steamTurbine, Seq.with(new Research(industrialBoiler)), () -> {
-						node(advancedSteamTurbine);
-					});
+				node(industrialBlasterMk1, Seq.with(new Research(mechanicalPump)), () -> {
+
+					node(industrialBlasterMk2);
+					node(geothermalBoiler);
+
 				});
 
 				// Production
@@ -47,7 +44,7 @@ public class UAWTechTree {
 				// Crafters
 				node(gelatinizer, Seq.with(new Research(cryofluidMixer)), () -> {
 					node(ironcladCompressor, Seq.with(new Research(multiPress), new Research(steamBore)), () -> {
-						node(alloyCrucible, Seq.with(new Research(pressureBoiler)), () -> {
+						node(alloyCrucible, Seq.with(new Research(industrialBlasterMk2)), () -> {
 						});
 					});
 					node(cryofluidBlender, Seq.with(new Research(cryofluidMixer)), () -> {

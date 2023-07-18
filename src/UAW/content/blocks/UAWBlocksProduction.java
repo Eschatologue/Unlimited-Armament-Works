@@ -352,7 +352,7 @@ public class UAWBlocksProduction {
 					);
 					output = new IOEntry(
 						Seq.with(ItemStack.with(Items.graphite, 12)),
-						Seq.with(LiquidStack.with(Liquids.water, (steamInput / steamConversionScl) * steamLoseScl))
+						Seq.with(LiquidStack.with(Liquids.water, (steamInput / phlogConversionScl) * steamLoseScl))
 					);
 					craftTime = 120f;
 				}},
@@ -369,7 +369,7 @@ public class UAWBlocksProduction {
 					);
 					output = new IOEntry(
 						Seq.with(ItemStack.with(Items.plastanium, 8)),
-						Seq.with(LiquidStack.with(Liquids.water, (steamInput / steamConversionScl) * steamLoseScl))
+						Seq.with(LiquidStack.with(Liquids.water, (steamInput / phlogConversionScl) * steamLoseScl))
 					);
 					craftTime = 90f;
 				}},
