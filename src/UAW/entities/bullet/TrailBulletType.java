@@ -1,6 +1,7 @@
 package UAW.entities.bullet;
 
 import UAW.audiovisual.UAWFx;
+import arc.graphics.g2d.Draw;
 import arc.math.Mathf;
 import mindustry.content.Fx;
 import mindustry.entities.bullet.BasicBulletType;
@@ -16,6 +17,9 @@ public class TrailBulletType extends BasicBulletType {
 	 */
 	public float trailLengthScale = 1f;
 	public float trailWidthScale = 0.28f;
+	public float trailLayerOffset = 0.0001f;
+
+	public float trailLayer = -1;
 
 	public TrailBulletType(float speed, float damage, String bulletSprite) {
 		super(speed, damage);
@@ -30,6 +34,16 @@ public class TrailBulletType extends BasicBulletType {
 
 	public TrailBulletType() {
 		this(0f, 0f, "bullet");
+	}
+
+	@Override
+	public void drawTrail(Bullet b) {
+		if (trailLength > 0 && b.trail != null) {
+			float z = Draw.z();
+			Draw.z(trailLayer > 0 ? trailLayer : (z - trailLayerOffset));
+			b.trail.draw(trailColor, trailWidth);
+			Draw.z(z);
+		}
 	}
 
 	@Override

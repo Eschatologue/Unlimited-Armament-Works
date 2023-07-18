@@ -1,7 +1,7 @@
 package UAW.world.blocks.production;
 
 import UAW.audiovisual.UAWPal;
-import arc.graphics.g2d.Draw;
+import arc.graphics.g2d.*;
 import arc.math.Mathf;
 import arc.util.Nullable;
 import mindustry.content.Fx;
@@ -77,19 +77,6 @@ public class ExplodingCrafter extends GenericCrafter {
 			super.updateTile();
 			selfDestruct();
 			unstableEffect();
-		}
-
-
-		@Override
-		public void draw() {
-			super.draw();
-			if (isLiquidFull()) {
-				Draw.z(Layer.blockAdditive);
-				Draw.color(UAWPal.heat, (instability - (instability * 0.7f)));
-				Draw.rect(region, x, y);
-				Draw.reset();
-			}
-
 		}
 	}
 }

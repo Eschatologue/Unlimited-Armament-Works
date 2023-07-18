@@ -49,5 +49,6 @@ public class SmokePuffEffect extends Effect {
 				}
 			}
 		}
+		Draw.reset();
 	}
 }

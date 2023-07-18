@@ -13,7 +13,7 @@ public class UAWLiquids {
 
 	public static void load() {
 
-		phlogiston = new Liquid("liquid-phlogiston", UAWPal.phlogistonMid) {{
+		phlogiston = new Liquid("liquid-phlogiston", UAWPal.phlogiston.cpy()) {{
 			viscosity = 0.75f;
 			flammability = 1.4f;
 			explosiveness = 2.4f;
@@ -21,7 +21,7 @@ public class UAWLiquids {
 			temperature = 4;
 			barColor = UAWPal.phlogistonMid;
 			boilPoint = -1;
-			gasColor = UAWPal.phlogistonFront.a(0.4f);
+			gasColor = UAWPal.phlogistonFront.cpy().a(0.4f);
 			canStayOn.add(Liquids.oil);
 
 			color = color.cpy();

@@ -166,6 +166,8 @@ public class Bore extends Drill {
 				Draw.rect(itemRegion, x, y);
 				Draw.color();
 			}
+
+			Draw.reset();
 		}
 
 	}

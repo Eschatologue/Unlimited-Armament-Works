@@ -51,7 +51,7 @@ public class ExplodingFracker extends Fracker {
 
 		/** Checks whenever this block is full of liquid (Don't take out of context) */
 		public boolean isLiquidFull() {
-			return (liquids.get(liquidDrop) >= liquidCapacity - 0.0001f);
+			return (liquids.get(result) >= liquidCapacity - 0.0001f);
 		}
 
 		/** Generates effects whenever this block became unstable */
@@ -81,6 +81,7 @@ public class ExplodingFracker extends Fracker {
 		public void draw() {
 			Draw.rect(bottomRegion, x, y);
 			LiquidBlock.drawTiledFrames(size, x, y, liquidPadding, drawnLiquid, liquids.get(result) / block.liquidCapacity * 1);
+			Draw.reset();
 			Draw.rect(region, x, y);
 			Draw.z(Layer.blockCracks);
 			super.drawCracks();

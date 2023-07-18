@@ -1,12 +1,14 @@
 package UAW.audiovisual;
 
 import arc.graphics.Color;
+import mindustry.graphics.Pal;
 
 public class UAWPal {
 	// front = light, back = dark
 	public static Color placeHolder,
 
 	heat = new Color(1f, 0.22f, 0.22f, 0.8f),
+	missileSmoke = Color.grays(0.3f).cpy().lerp(Pal.bulletYellow, 0.5f).cpy().a(0.4f),
 
 	cryoFront = Color.valueOf("c0ecff"),
 		cryoMiddle = Color.valueOf("87ceeb"),
@@ -39,7 +41,8 @@ public class UAWPal {
 		stoutSteelMiddle = Color.valueOf("636a78"),
 		stoutsteelBack = Color.valueOf("444858"),
 
-	phlogistonFront = Color.valueOf("82e9de"),
+	phlogiston = Color.valueOf("00aea2"),
+		phlogistonFront = Color.valueOf("82e9de"),
 		phlogistonMid = Color.valueOf("4db6ac"),
 		phlogistonBack = Color.valueOf("00867d"),
 

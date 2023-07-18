@@ -7,6 +7,7 @@ import arc.util.Strings;
 import mindustry.type.*;
 import mindustry.world.meta.*;
 
+/** Regular Weapon but with custom stat */
 public class UAWWeapon extends Weapon {
 	public boolean customStat = true;
 
@@ -16,6 +17,7 @@ public class UAWWeapon extends Weapon {
 
 	@Override
 	public void addStats(UnitType u, Table t) {
+		super.addStats(u, t);
 		if (inaccuracy > 0) {
 			t.row();
 			t.add("[lightgray]" + Stat.inaccuracy.localized() + ": [white]" + (int) inaccuracy + " " + StatUnit.degrees.localized());

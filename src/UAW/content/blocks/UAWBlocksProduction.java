@@ -140,7 +140,7 @@ public class UAWBlocksProduction {
 			updateEffectChance = 0.05f;
 			updateEffect = new MultiEffect(
 				new StatusHitEffect() {{
-					color1 = UAWLiquids.phlogiston.color;
+					color = UAWLiquids.phlogiston.color;
 					amount = 6;
 					spreadBase = 3;
 					spreadRad = 6;
@@ -457,7 +457,7 @@ public class UAWBlocksProduction {
 			outputLiquid = new LiquidStack(UAWLiquids.phlogiston, 30 / tick);
 			updateEffect = new MultiEffect(
 				new StatusHitEffect() {{
-					color1 = UAWLiquids.phlogiston.color;
+					color = UAWLiquids.phlogiston.color;
 					amount = 6;
 					spreadBase = 3;
 					spreadRad = 6;

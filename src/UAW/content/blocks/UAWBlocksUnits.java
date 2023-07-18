@@ -67,13 +67,13 @@ public class UAWBlocksUnits {
 			requiresWater = true;
 			liquidCapacity = 240f;
 			plans = Seq.with(
-				new UnitPlan(UAWUnitTypes.arquebus, 45f * tick, with(
+				new UnitPlan(UAWUnitTypes.medea, 45f * tick, with(
 					Items.silicon, 65,
 					Items.metaglass, 60,
 					Items.titanium, 100,
 					Items.lead, 120
 				)),
-				new UnitPlan(UAWUnitTypes.megaera, 55f * tick, with(
+				new UnitPlan(UAWUnitTypes.mtb72, 55f * tick, with(
 					Items.silicon, 65,
 					Items.metaglass, 50,
 					Items.titanium, 100,
@@ -110,9 +110,9 @@ public class UAWBlocksUnits {
 			upgrades.addAll(
 				new UnitType[]{UAWUnitTypes.crotchety, UAWUnitTypes.cantankerous},
 				new UnitType[]{UAWUnitTypes.aglovale, UAWUnitTypes.bedivere},
-				new UnitType[]{UAWUnitTypes.arquebus, UAWUnitTypes.carronade},
+				new UnitType[]{UAWUnitTypes.medea, UAWUnitTypes.melpomene},
 				new UnitType[]{UAWUnitTypes.cavalier, UAWUnitTypes.centurion},
-				new UnitType[]{UAWUnitTypes.megaera, UAWUnitTypes.alecto}
+				new UnitType[]{UAWUnitTypes.mtb72, UAWUnitTypes.mtb96}
 
 			);
 		}};
@@ -145,9 +145,8 @@ public class UAWBlocksUnits {
 
 			upgrades.addAll(
 				new UnitType[]{UAWUnitTypes.bedivere, UAWUnitTypes.calogrenant},
-				new UnitType[]{UAWUnitTypes.carronade, UAWUnitTypes.falconet},
-				new UnitType[]{UAWUnitTypes.centurion, UAWUnitTypes.caernarvon},
-				new UnitType[]{UAWUnitTypes.alecto, UAWUnitTypes.megaera}
+//				new UnitType[]{UAWUnitTypes.melpomene, UAWUnitTypes.minerva},
+				new UnitType[]{UAWUnitTypes.centurion, UAWUnitTypes.caernarvon}
 			);
 		}};
 	}

@@ -10,7 +10,8 @@ public class Sfx {
 	public static Sound placeholder,
 
 	// Explosion
-	exp_n_impactHuge_1 = new Sound(),
+	exp_k_metalpipe = new Sound(),
+		exp_n_impactHuge_1 = new Sound(),
 
 	// Cannons
 	wp_k_cannonShoot_1 = new Sound(),
@@ -35,6 +36,7 @@ public class Sfx {
 	/** Sounds like a muffled slug */
 	wp_k_shotgunShoot_1 = new Sound(),
 		wp_k_shotgunShoot_2 = new Sound(),
+		wp_k_shotgunShoot_3 = new Sound(),
 
 	// Launchers
 	wp_lnch_springShoot_1 = new Sound(),
@@ -51,7 +53,8 @@ public class Sfx {
 		wp_msl_missileLaunch_2_big = new Sound(),
 
 	// Torpedoes
-	wp_torp_torpedoLaunch_1 = new Sound();
+	wp_torp_torpedoLaunch_1 = new Sound(),
+		wp_torp_torpedoLaunchSpring_1 = new Sound();
 
 
 	protected static Sound loadSound(String fileName) {
@@ -69,6 +72,7 @@ public class Sfx {
 	public static void load() {
 		if (Vars.headless) return;
 
+		exp_k_metalpipe = loadSound("exp_k_metalpipe");
 		exp_n_impactHuge_1 = loadSound("exp_n_impactHuge_1");
 
 		wp_k_cannonShoot_1 = loadSound("wp_k_cannonShoot_1");
@@ -90,6 +94,7 @@ public class Sfx {
 
 		wp_k_shotgunShoot_1 = loadSound("wp_k_shotgunShoot_1");
 		wp_k_shotgunShoot_2 = loadSound("wp_k_shotgunShoot_2");
+		wp_k_shotgunShoot_3 = loadSound("wp_k_shotgunShoot_3");
 
 		wp_lnch_springShoot_1 = loadSound("wp_lnch_springShoot_1");
 		wp_lnch_springShoot_2 = loadSound("wp_lnch_springShoot_2");
@@ -103,6 +108,7 @@ public class Sfx {
 		wp_msl_missileLaunch_2_big = loadSound("wp_msl_missileLaunch_2_big");
 
 		wp_torp_torpedoLaunch_1 = loadSound("wp_torp_torpedoLaunch_1");
+		wp_torp_torpedoLaunchSpring_1 = loadSound("wp_torp_torpedoLaunchSpring_1");
 	}
 
 
