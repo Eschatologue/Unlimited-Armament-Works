@@ -122,7 +122,7 @@ public class UAWUnitTypes {
 		// region Air - Helicopters
 		aglovale = new HelicopterUnitType("aglovale") {{
 			float unitRange = 28 * tilesize;
-			health = 450;
+			health = 500;
 			hitSize = 18;
 
 			speed = 2.5f;
@@ -170,9 +170,9 @@ public class UAWUnitTypes {
 					reload = 4f;
 					shootSound = Sfx.wp_k_gunShootSmall_2;
 					ejectEffect = Fx.casing1;
-					bullet = new StandardBullets(5f, 6.5f, 0) {{
+					bullet = new StandardBullets(5f, 11.5f, 0) {{
 						pierceCap = 2;
-						buildingDamageMultiplier = 0.4f;
+						buildingDamageMultiplier = 0.5f;
 						lifetime = bulletLifetime(mgRange, this.speed);
 						homingRange = 60f;
 						ammoMultiplier = 8f;
@@ -192,11 +192,11 @@ public class UAWUnitTypes {
 						shots = 4;
 						shotDelay = 15 * 0.25f;
 					}};
-					bullet = new TrailBulletType(4f, 16) {{
+					bullet = new TrailBulletType(4f, 24) {{
 						sprite = "missile";
 						splashDamageRadius = 4 * tilesize;
 						splashDamage = this.damage * 1.5f;
-						buildingDamageMultiplier = 0.5f;
+						buildingDamageMultiplier = 0.67f;
 
 						height = width = 9f;
 						frontColor = Pal.missileYellow;
@@ -227,7 +227,7 @@ public class UAWUnitTypes {
 		}};
 		bedivere = new HelicopterUnitType("bedivere") {{
 			float unitRange = 32 * tilesize;
-			health = 3000;
+			health = 3600;
 			hitSize = 30;
 
 			speed = 2.5f;
@@ -274,9 +274,9 @@ public class UAWUnitTypes {
 				shootSound = Sfx.wp_k_gunShootSmall_1;
 				ejectEffect = Fx.casing1;
 
-				bullet = new StandardBullets(10f, 22, 1) {{
+				bullet = new StandardBullets(10f, 28, 1) {{
 					pierceCap = 4;
-					buildingDamageMultiplier = 0.4f;
+					buildingDamageMultiplier = 0.5f;
 					lifetime = bulletLifetime(unitRange, this.speed, 0.8f);
 					ammoMultiplier = 8f;
 				}};
@@ -296,7 +296,7 @@ public class UAWUnitTypes {
 				shoot.shots = 4;
 				inaccuracy = 6f;
 				shoot.shotDelay = 5f;
-				bullet = new ArtilleryBulletType(5, 50) {{
+				bullet = new ArtilleryBulletType(5, 36) {{
 					height = 20f;
 					width = 15f;
 					trailSize = 5;
@@ -311,7 +311,7 @@ public class UAWUnitTypes {
 					hitSound = Sounds.boom;
 					frontColor = UAWPal.surgeFront;
 					backColor = UAWPal.surgeBack;
-					splashDamage = 16f;
+					splashDamage = 72f;
 					splashDamageRadius = 2.5f * tilesize;
 					ammoMultiplier = 6f;
 				}};
@@ -384,7 +384,7 @@ public class UAWUnitTypes {
 		}};
 		calogrenant = new HelicopterUnitType("calogrenant") {{
 			float unitRange = 45 * tilesize;
-			health = 7500;
+			health = 8400;
 			armor = 12f;
 			hitSize = 45;
 
@@ -438,7 +438,7 @@ public class UAWUnitTypes {
 				reload = 1.5f;
 				shootSound = Sfx.wp_k_gunShoot_2;
 				ejectEffect = Fx.casing1;
-				bullet = new StandardBullets(7f, 12, 0) {{
+				bullet = new StandardBullets(7f, 36, 0) {{
 					lifetime = bulletLifetime(unitRange, this.speed, 0.75f);
 					ammoMultiplier = 8f;
 				}};
@@ -456,7 +456,7 @@ public class UAWUnitTypes {
 				shootSound = Sounds.shootBig;
 				ejectEffect = Fx.casing2;
 
-				float bulletDamage = 70;
+				float bulletDamage = 84;
 				bullet = new StandardBullets(6, bulletDamage, 2) {{
 					Color front = Pal.missileYellow, back = Pal.missileYellowBack;
 					splashDamage = damage;
@@ -535,7 +535,7 @@ public class UAWUnitTypes {
 
 					spawnUnit = new CruiseMissileUnitType(name, U_MSL_crsmissile_S_01_red, 1) {{
 						Color front = Pal.missileYellow, back = Pal.missileYellowBack;
-						health = 120;
+						health = 180;
 						speed = 5.5f;
 						exhaustColor = back;
 						rotateSpeed = 2.5f;
@@ -552,7 +552,7 @@ public class UAWUnitTypes {
 								fromColor = front;
 								toColor = back;
 								length = (unitRange * 0.25f) * 0.5f;
-								damage = 85f;
+								damage = 144f;
 								width = 27f;
 
 								serrationWidth = 6f;
@@ -724,7 +724,7 @@ public class UAWUnitTypes {
 				bullet = new StatusEffectBulletType(UAWStatusEffects.cryoBurn, 8 * tick) {{
 					lifetime = unitRange / speed;
 					// Fires twice, damage is doubled
-					splashDamage = 80;
+					splashDamage = 90;
 					splashDamageRadius = 6.5f * tilesize;
 					frontColor = UAWPal.cryoFront;
 					backColor = UAWPal.cryoBack;
@@ -817,7 +817,7 @@ public class UAWUnitTypes {
 
 						weapons.add(new SuicideWeapon() {{
 							float splashRad = 4 * tilesize;
-							bullet = new ExplosionBulletType(95, splashRad) {{
+							bullet = new ExplosionBulletType(90, splashRad) {{
 								status = UAWStatusEffects.cryoBurn;
 								statusDuration = 5 * tick;
 								makeFire = true;
@@ -1868,7 +1868,7 @@ public class UAWUnitTypes {
 
 					shootSound = Sfx.wp_k_gunShoot_7;
 					ejectEffect = UAWFx.casing3Long;
-					bullet = new HighVelocityShellBulletType(15f, 355) {{
+					bullet = new HighVelocityShellBulletType(15f, 480) {{
 						shootEffect = new MultiEffect(
 							UAWFx.railShoot(45f, UAWPal.graphiteFront),
 							Fx.shootTitan,
@@ -1919,7 +1919,7 @@ public class UAWUnitTypes {
 					soundPitchMax = 0.7f;
 					ejectEffect = Fx.casing2;
 
-					bullet = new BasicBulletType(4.5f, 45) {{
+					bullet = new BasicBulletType(4.5f, 42) {{
 						lifetime = ((unitRange * 0.8f) / speed);
 						height = 15f;
 						width = 7f;
@@ -2026,7 +2026,7 @@ public class UAWUnitTypes {
 		}};
 		caernarvon = new TankUnitType("caernarvon") {{
 			float unitRange = 55 * tilesize;
-			health = 10500;
+			health = 16000;
 			armor = 45;
 			hitSize = 18;
 			terrainSpeedMultiplier = 1.2f;
@@ -2063,7 +2063,7 @@ public class UAWUnitTypes {
 
 					shootSound = Sfx.wp_k_shotgunShoot_2;
 					ejectEffect = UAWFx.casing4Long;
-					bullet = new HighVelocityShellBulletType(15f, 600) {{
+					bullet = new HighVelocityShellBulletType(15f, 1020) {{
 						frontColor = Pal.bulletYellow;
 						backColor = Pal.bulletYellowBack;
 						shootEffect = new MultiEffect(
@@ -2115,7 +2115,7 @@ public class UAWUnitTypes {
 					soundPitchMax = 0.7f;
 					ejectEffect = Fx.casing2;
 
-					bullet = new BasicBulletType(4.5f, 55) {{
+					bullet = new BasicBulletType(4.5f, 48) {{
 						height = 15f;
 						width = 7f;
 						buildingDamageMultiplier = 0.4f;
@@ -2141,7 +2141,7 @@ public class UAWUnitTypes {
 					ejectEffect = Fx.casing1;
 
 					shoot = new ShootAlternate() {{
-						shots = 5;
+						shots = 6;
 						shotDelay = 12f;
 						barrels = 2;
 					}};
@@ -2165,7 +2165,7 @@ public class UAWUnitTypes {
 							deathSound = Sounds.largeExplosion;
 
 							weapons.add(new SuicideWeapon() {{
-								bullet = new ExplosionBulletType(health * 0.8f, 6 * tilesize) {{
+								bullet = new ExplosionBulletType(health * 1.2f, 6.4 * tilesize) {{
 									hitColor = Pal.bulletYellow;
 									shootEffect = UAWFx.dynamicExplosion(4 * tilesize, hitColor, exhaustColor);
 								}};
