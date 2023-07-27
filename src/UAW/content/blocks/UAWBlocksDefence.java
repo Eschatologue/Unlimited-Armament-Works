@@ -1,4 +1,4 @@
-package UAW.content.blocks;
+apackage UAW.content.blocks;
 
 import UAW.audiovisual.*;
 import UAW.audiovisual.effects.*;
@@ -144,7 +144,7 @@ public class UAWBlocksDefence {
 
 					ammoMultiplier = 4;
 				}},
-				Items.titanium, new ArmorPiercingBulletType(14f, 8) {{
+				Items.titanium, new ArmorPiercingBulletType(14f, 16) {{
 					Color front = UAWPal.titaniumFront, back = UAWPal.titaniumBack;
 					height = 12f;
 					width = 5f;
@@ -169,7 +169,7 @@ public class UAWBlocksDefence {
 					rangeChange = 2 * tilesize;
 					ammoMultiplier = 4;
 				}},
-				Items.pyratite, new TrailBulletType(6f, 12) {{
+				Items.pyratite, new TrailBulletType(6f, 14) {{
 					Color front = UAWPal.incendFront, back = UAWPal.incendBack;
 					height = 12f;
 					width = 5f;
@@ -306,7 +306,7 @@ public class UAWBlocksDefence {
 
 					ammoMultiplier = 4;
 				}},
-				UAWItems.stoutsteel, new TrailBulletType(16f, 15) {{
+				UAWItems.stoutsteel, new TrailBulletType(16f, 28) {{
 					Color front = UAWPal.titaniumFront, back = UAWPal.titaniumBack;
 					height = 16f;
 					width = 7f;
@@ -328,11 +328,13 @@ public class UAWBlocksDefence {
 					}};
 					trailLengthScale = 0.25f;
 
+					pierceCap = 4;
+
 					pierceArmor = true;
 
 					ammoMultiplier = 8;
 				}},
-				Items.pyratite, new TrailBulletType(10f, 20) {{
+				Items.pyratite, new TrailBulletType(10f, 22) {{
 					Color front = Pal.lightishOrange, back = Pal.lightOrange;
 					height = 16f;
 					width = 7f;
@@ -384,7 +386,7 @@ public class UAWBlocksDefence {
 
 					ammoMultiplier = 8;
 				}},
-				Items.surgeAlloy, new BasicBulletType(8, 20) {{
+				Items.surgeAlloy, new BasicBulletType(8, 32) {{
 					height = 25;
 					width = 8;
 					hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletBig, Fx.lightning);
@@ -465,7 +467,7 @@ public class UAWBlocksDefence {
 			shootY = 10f;
 
 			ammo(
-				Items.graphite, new ArmorPiercingBulletType(8f, 120f) {{
+				Items.graphite, new ArmorPiercingBulletType(8f, 125f) {{
 					Color front = UAWPal.graphiteFront, back = UAWPal.graphiteMiddle;
 					height = 24f;
 					width = 10f;
@@ -506,7 +508,7 @@ public class UAWBlocksDefence {
 
 					ammoMultiplier = 2;
 				}},
-				Items.silicon, new TrailBulletType(10f, 100f) {{
+				Items.silicon, new TrailBulletType(10f, 110f) {{
 					Color front = Pal.bulletYellow, back = Pal.bulletYellowBack;
 					height = 24f;
 					width = 10f;
@@ -579,7 +581,7 @@ public class UAWBlocksDefence {
 
 					ammoMultiplier = 2;
 				}},
-				Items.titanium, new ArmorPiercingBulletType(14f, 90) {{
+				Items.titanium, new ArmorPiercingBulletType(14f, 125) {{
 					Color front = UAWPal.titaniumFront, back = UAWPal.titaniumBack;
 					height = 24f;
 					width = 10f;
@@ -1153,7 +1155,7 @@ public class UAWBlocksDefence {
 			}};
 
 			ammo(
-				Items.lead, new TrailBulletType(8, 35) {{
+				Items.lead, new TrailBulletType(8, 30) {{
 					Color front = Pal.bulletYellow, back = Pal.bulletYellowBack;
 					height = 15;
 					width = 8f;
@@ -1405,10 +1407,10 @@ public class UAWBlocksDefence {
 		tempest = new ItemTurret("tempest") {{
 			float turretRange = 38 * tilesize;
 			requirements(Category.turret, with(
-				Items.titanium, 200,
+				Items.titanium, 250,
 				Items.graphite, 150,
 				Items.metaglass, 100,
-				Items.silicon, 100
+				Items.silicon, 200
 			));
 			size = 3;
 			scaledHealth = 120;
@@ -1443,7 +1445,7 @@ public class UAWBlocksDefence {
 			unitSort = UAWUnitSorts.highest;
 
 			ammo(
-				Items.plastanium, new FlakTrailBulletType(8f, 25) {{
+				Items.plastanium, new FlakTrailBulletType(8f, 15) {{
 					Color front = Pal.plastaniumFront, back = Pal.plastaniumBack;
 					height = 15f;
 					width = 7f;
@@ -1471,8 +1473,8 @@ public class UAWBlocksDefence {
 					}};
 					trailLengthScale = 0.25f;
 
-					splashDamage = 30;
-					splashDamageRadius = 7.5f * tilesize;
+					splashDamage = 20;
+					splashDamageRadius = 4.5f * tilesize;
 					explodeRange = 6 * tilesize;
 					explodeDelay = 0f;
 					fragRandomSpread = 90;
@@ -1481,7 +1483,7 @@ public class UAWBlocksDefence {
 					fragVelocityMax = 1.4f;
 					float fragSpeed = 10;
 
-					fragBullet = new TrailBulletType(fragSpeed, 45f) {{
+					fragBullet = new TrailBulletType(fragSpeed, 30f) {{
 						height = 10;
 						width = 4f;
 						trailEffect = new StatusHitEffect() {{
@@ -1507,7 +1509,7 @@ public class UAWBlocksDefence {
 
 					ammoMultiplier = 4;
 				}},
-				Items.silicon, new FlakTrailBulletType(6f, 15, "missile") {{
+				Items.silicon, new FlakTrailBulletType(6f, 12, "missile") {{
 					Color front = Pal.missileYellow, back = Pal.missileYellowBack;
 					height = 15f;
 					width = 7f;
@@ -1535,8 +1537,8 @@ public class UAWBlocksDefence {
 					}};
 					trailLengthScale = 0.25f;
 
-					splashDamage = 30;
-					splashDamageRadius = 7.5f * tilesize;
+					splashDamage = 20;
+					splashDamageRadius = 4.5f * tilesize;
 					explodeRange = 8 * tilesize;
 					explodeDelay = 0f;
 					fragRandomSpread = 90;
@@ -1545,7 +1547,7 @@ public class UAWBlocksDefence {
 					fragVelocityMax = 1.4f;
 					float fragSpeed = 8;
 
-					fragBullet = new TrailBulletType(fragSpeed, 30f) {{
+					fragBullet = new TrailBulletType(fragSpeed, 20f) {{
 						height = 10;
 						width = 4f;
 						trailEffect = new StatusHitEffect() {{
@@ -1746,23 +1748,23 @@ public class UAWBlocksDefence {
 
 		stoutSteelWall = new Wall("stoutsteel-wall") {{
 			requirements(Category.defense, with(
-				UAWItems.stoutsteel, 8
+				UAWItems.stoutsteel, 24
 			));
 			size = 2;
-			health = 300 * wallHealthMultiplier;
+			health = 600 * wallHealthMultiplier;
 			chanceDeflect = 5f;
 			crushDamageMultiplier = 1f;
-			armor = Math.round(health / 80f);
+			armor = Math.round(health / 160f);
 		}};
 		stoutSteelWallLarge = new Wall("stoutsteel-wall-large") {{
 			size = 3;
 			requirements(Category.defense, with(
-				UAWItems.stoutsteel, 12
+				UAWItems.stoutsteel, 54
 			));
-			health = 300 * wallHealthMultiplier * 3;
+			health = 600 * wallHealthMultiplier * 3;
 			chanceDeflect = 6f;
 			crushDamageMultiplier = 0.8f;
-			armor = Math.round(health / 80f);
+			armor = Math.round(health / 160f);
 		}};
 
 		// Projectors
