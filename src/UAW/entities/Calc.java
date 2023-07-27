@@ -37,4 +37,12 @@ public class Calc {
 		}
 	}
 
+	public static float percentageDifference(float from, float to) {
+		return (Math.abs(from - to) / ((from + to) / 2) * 100);
+	}
+
+	public static float percentageChange(float from, float to) {
+		return (from - to) / Math.abs(from) * 100;
+	}
+
 }

@@ -15,8 +15,8 @@ public class UAWLiquids {
 
 		phlogiston = new Liquid("liquid-phlogiston", UAWPal.phlogiston.cpy()) {{
 			viscosity = 0.75f;
-			flammability = 1.4f;
-			explosiveness = 2.4f;
+			flammability = Liquids.oil.flammability * 2.25f;
+			explosiveness = Liquids.oil.explosiveness * 2.5f;
 			heatCapacity = 0.85f;
 			temperature = 4;
 			barColor = UAWPal.phlogistonMid;
@@ -32,6 +32,7 @@ public class UAWLiquids {
 			}
 			coolant = false;
 		}};
+
 
 		steam = new Liquid("gas-steam", UAWPal.steamFront) {{
 			gas = true;

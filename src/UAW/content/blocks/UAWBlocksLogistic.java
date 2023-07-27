@@ -60,7 +60,7 @@ public class UAWBlocksLogistic {
 
 		hardenedConduit = new PrzPlatedConduit("hardened-conduit") {{
 			requirements(Category.liquid, with(
-				Items.titanium, 3, Items.metaglass, 2, Items.silicon, 1)
+				Items.titanium, 2, Items.metaglass, 2, Items.silicon, 1)
 			);
 			health = 115;
 			armor = 15;
@@ -143,7 +143,7 @@ public class UAWBlocksLogistic {
 			requirements(Category.liquid, with(
 				UAWItems.stoutsteel, 2,
 				Items.metaglass, 2,
-				Items.silicon, 3
+				Items.silicon, 2
 			));
 			health = 550;
 			armor = 25;

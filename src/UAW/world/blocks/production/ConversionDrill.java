@@ -16,7 +16,7 @@ import mindustry.world.meta.Stat;
 
 import static mindustry.Vars.*;
 
-public class SpecificItemDrill extends BurstDrill {
+public class ConversionDrill extends BurstDrill {
 	/** This drill placing requirement */
 	public Block tileRequirement = Blocks.oreCoal;
 	/** The drilling result */
@@ -25,7 +25,7 @@ public class SpecificItemDrill extends BurstDrill {
 	/** Dont tamper with this */
 	public boolean placeable;
 
-	public SpecificItemDrill(String name) {
+	public ConversionDrill(String name) {
 		super(name);
 		drawMineItem = false;
 	}
@@ -114,13 +114,13 @@ public class SpecificItemDrill extends BurstDrill {
 			Tile to = tile.getLinkedTilesAs(this, tempTiles).find(t -> tileRequirement instanceof OverlayFloor ? tile.overlay() != tileRequirement : tile.floor() != tileRequirement);
 			Item item = to == null ? null : to.drop();
 			if (item != null || !placeable) {
-				drawPlaceText(Core.bundle.get("bar.inoperative"), x, y, valid);
+				drawPlaceText(Core.bundle.get("bar.inoperative.coal"), x, y, valid);
 
 			}
 		}
 	}
 
-	public class ThumpDrillBuild extends BurstDrillBuild {
+	public class ConversionDrillBuild extends BurstDrillBuild {
 		@Override
 		public void drawSelect() {
 			if (dominantItem != null) {

@@ -31,12 +31,12 @@ public class UAWBlocksUnits {
 			size = 5;
 			liquidCapacity = 240f;
 			plans = Seq.with(
-				new UnitPlan(UAWUnitTypes.crotchety, 40f * tick, with(
-					Items.silicon, 95,
-					Items.titanium, 120,
-					Items.graphite, 90,
-					Items.copper, 150,
-					UAWItems.cryogel, 30
+				new UnitPlan(UAWUnitTypes.crotchety, 35f * tick, with(
+					Items.silicon, 75,
+					Items.titanium, 90,
+					Items.graphite, 75,
+					Items.copper, 100,
+					UAWItems.cryogel, 35
 				)),
 				new UnitPlan(UAWUnitTypes.aglovale, 50f * tick, with(
 					Items.silicon, 90,
@@ -52,7 +52,7 @@ public class UAWBlocksUnits {
 					Items.copper, 165
 				))
 			);
-			consumeLiquid(UAWLiquids.phlogiston, 80 / tick);
+			consumeLiquid(UAWLiquids.phlogiston, 60 / tick);
 		}};
 		navalFactory = new UnitConstructor("naval-factory") {{
 			requirements(Category.units, with(
@@ -81,7 +81,7 @@ public class UAWBlocksUnits {
 					Items.lead, 120
 				))
 			);
-			consumeLiquid(UAWLiquids.phlogiston, 80 / tick);
+			consumeLiquid(UAWLiquids.phlogiston, 60 / tick);
 		}};
 
 		unitReassemblyFacility1 = new Reconstructor("unit-reassembly-mk1") {{
@@ -101,7 +101,7 @@ public class UAWBlocksUnits {
 				UAWItems.stoutsteel, 250,
 				Items.plastanium, 225
 			));
-			consumeLiquid(UAWLiquids.phlogiston, 1.5f);
+			consumeLiquid(UAWLiquids.phlogiston, 60 / tick);
 
 			constructTime = 80 * tick;
 			liquidCapacity = 240f;
@@ -137,7 +137,7 @@ public class UAWBlocksUnits {
 				Items.surgeAlloy, 350,
 				UAWItems.stoutsteel, 350
 			));
-			consumeLiquid(UAWLiquids.phlogiston, 3.5f);
+			consumeLiquid(UAWLiquids.phlogiston, 90 / tick);
 
 			constructTime = 225 * tick;
 			liquidCapacity = 480f;

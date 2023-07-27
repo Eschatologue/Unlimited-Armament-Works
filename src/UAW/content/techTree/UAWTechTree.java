@@ -6,6 +6,7 @@ import mindustry.content.*;
 import mindustry.game.Objectives;
 
 import static UAW.content.blocks.UAWBlocksDefence.*;
+import static UAW.content.blocks.UAWBlocksLogistic.*;
 import static UAW.content.blocks.UAWBlocksPower.*;
 import static UAW.content.blocks.UAWBlocksProduction.*;
 import static mindustry.content.Blocks.*;
@@ -19,31 +20,37 @@ public class UAWTechTree {
 
 		nodeRoot(TechTreeContent.uawBegin.name, TechTreeContent.uawBegin, () -> {
 
-			// Steam
-			node(UAWLiquids.steam, Seq.with(new Objectives.SectorComplete(SectorPresets.groundZero)), () -> {
+			node(UAWLiquids.phlogiston, Seq.with(new Objectives.SectorComplete(SectorPresets.groundZero)), () -> {
 
-				// Power
-				node(industrialBlasterMk1, Seq.with(new Research(mechanicalPump)), () -> {
-
-					node(industrialBlasterMk2);
-					node(geothermalBoiler);
-
+				// Phlogiston Logistics
+				node(hardenedConduit, () -> {
+					node(stoutsteelConduit, () -> {
+					});
+					node(industrialBlasterMk1, () -> {
+						node(industrialBlasterMk2, () -> {
+							node(stoutsteelLiquidJunction, () -> {
+								node(stoutsteelConduit, () -> {
+									node(stoutsteelLiquidRouter, () -> {
+										node(stoutsteelLiquidBridge);
+									});
+									node(stoutsteelConduitPlated);
+								});
+							});
+							node(industrialBlasterMk3);
+						});
+					});
 				});
 
 				// Production
-				node(steamBore, () -> {
-					node(advancedSteamBore);
-					node(steamThumper, () -> {
-					});
-					node(steamPump, Seq.with(new Research(rotaryPump)), () -> {
-						node(pulsometerPump, () -> {
-						});
+				node(blastBore, () -> {
+					node(intermediateBlastBore);
+					node(anthraciteThumperMk1, () -> {
 					});
 				});
 
 				// Crafters
 				node(gelatinizer, Seq.with(new Research(cryofluidMixer)), () -> {
-					node(ironcladCompressor, Seq.with(new Research(multiPress), new Research(steamBore)), () -> {
+					node(ironcladCompressor, Seq.with(new Research(multiPress), new Research(blastBore)), () -> {
 						node(alloyCrucible, Seq.with(new Research(industrialBlasterMk2)), () -> {
 						});
 					});
@@ -91,12 +98,6 @@ public class UAWTechTree {
 
 					});
 
-				});
-			});
-
-			// Phlogiston
-			node(UAWLiquids.phlogiston, Seq.with(new Research(UAWItems.anthracite)), () -> {
-				node(phlogistonCondenser, Seq.with(), () -> {
 				});
 			});
 

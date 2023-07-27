@@ -2,6 +2,7 @@ package UAW.content;
 
 import UAW.audiovisual.UAWPal;
 import arc.graphics.Color;
+import mindustry.content.Items;
 import mindustry.type.Item;
 
 public class UAWItems {
@@ -11,7 +12,7 @@ public class UAWItems {
 	// Metal
 	stoutsteel,
 	// Crystal
-	anthracite, cordite,
+	anthracite, phlogistonCrystal,
 	// Natural
 	sulphur;
 
@@ -27,8 +28,8 @@ public class UAWItems {
 		sulphur = new Item("item-sulphur", Color.valueOf("e28654")) {{
 		}};
 		anthracite = new Item("item-anthracite", Color.valueOf("272727")) {{
-			flammability = 1.55f;
-			explosiveness = 0.55f;
+			flammability = Items.coal.flammability * 1.8f;
+			explosiveness = Items.coal.explosiveness / 2;
 			hardness = 4;
 		}};
 	}

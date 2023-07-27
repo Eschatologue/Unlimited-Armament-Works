@@ -15,6 +15,7 @@ public class DrawFilterItemCrafterTop extends DrawBlock {
 	public void draw(Building build) {
 		if (build instanceof FilterGenericCrafter.FilterGenericCrafterBuild filterGenericCrafterBuild) {
 			if (filterGenericCrafterBuild.itemMultProgress() > 0.001f) {
+				Draw.alpha(filterGenericCrafterBuild.warmupProgress());
 				Draw.color(filterGenericCrafterBuild.itemColor);
 				Draw.rect(itemRegion, build.x, build.y);
 				Draw.reset();

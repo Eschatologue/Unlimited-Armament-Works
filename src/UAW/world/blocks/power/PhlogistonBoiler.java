@@ -19,7 +19,7 @@ public class PhlogistonBoiler extends FilterGenericCrafter {
 		hasLiquids = true;
 		updateEffect = Fx.steam;
 		breakEffect = UAWFx.breakBlockPhlog;
-		consume(new ConsumeItemFuelExplosive());
+		consume(new ConsumeItemFuelFlammable());
 	}
 
 	@Override

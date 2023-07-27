@@ -957,7 +957,7 @@ public class UAWFx {
 
 			rand.setSeed(e.id);
 			for (int i = 0; i < 3; i++) {
-				float len = rand.random(8f);
+				float len = rand.random(3f, 9f);
 				float rot = rand.range(40f) + e.rotation;
 
 				e.scaled(e.lifetime * rand.random(0.3f, 1f), b -> {
