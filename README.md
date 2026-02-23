@@ -25,11 +25,6 @@ sequel to **Heavy Armament Industries**.
 Featuring contents that expands upon vanilla Mindustry, adding more turrets, units, factories, and much more that meant
 to be played side by side with vanilla Mindustry.
 
-### Check upcoming content, progress and more here :
-
-[![](https://img.shields.io/badge/trello-7B68EE?style=for-the-badge&logo=trello&logoColor=white)](https://trello.com/b/afzKTO6C/unlimited-armament-works)
-
-
 </div> 
 
 <h1 align="center"> 
