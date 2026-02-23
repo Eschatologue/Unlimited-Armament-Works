@@ -14,8 +14,8 @@ repositories{
 
 ext{
     //the build number that this mod is made for
-    mindustryVersion = 'v145'
-    jabelVersion = "0.7.0"
+    mindustryVersion = 'v155.4'
+    jabelVersion = '93fde537c7'
 
     sdkRoot = System.getenv("ANDROID_HOME") ?: System.getenv("ANDROID_SDK_ROOT")
 }
@@ -31,7 +31,7 @@ dependencies {
 
     // Mindustry Release
     compileOnly "com.github.Anuken.Arc:arc-core:$mindustryVersion"
-    compileOnly "com.github.anuken.mindustryjitpack:core:$mindustryVersion"
+    compileOnly "com.github.Anuken.Mindustry:core:$mindustryVersion"
 
     implementation "com.github.liplum:MultiCrafterLib:v1.7"
 
