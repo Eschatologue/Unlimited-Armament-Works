@@ -28,7 +28,7 @@ public class CanisterBulletType extends ArtilleryBulletType {
 		hitEffect = new MultiEffect(Fx.generatespark, Fx.steam, Fx.flakExplosionBig);
 		smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.blastsmoke);
 		shootEffect = UAWFx.shootSmoke(width, backColor, true);
-		hitSound = Sounds.mineDeploy;
+//		hitSound = Sounds.mineDeploy;
 		trailColor = backColor;
 		displayAmmoMultiplier = false;
 	}

@@ -57,7 +57,7 @@ public class TorpedoBulletType extends TrailBulletType {
 		statusDuration = 3 * 60;
 		hitSoundVolume = 2.5f;
 		hitSoundPitch = 0.7f;
-		hitSound = Sounds.explosionbig;
+		hitSound = Sounds.explosionArtilleryShockBig;
 	}
 
 	@Override

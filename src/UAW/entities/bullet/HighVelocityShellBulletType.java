@@ -16,7 +16,7 @@ public class HighVelocityShellBulletType extends TrailBulletType {
 		this.speed = speed;
 		this.damage = damage;
 		this.sprite = bulletSprite;
-		hitSound = Sounds.artillery;
+		hitSound = Sounds.explosionArtillery;
 		pierceArmor = true;
 		height = 16f;
 		width = hitSize = height / 2;

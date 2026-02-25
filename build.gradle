@@ -40,7 +40,7 @@ dependencies {
 
     implementation "com.github.liplum:MultiCrafterLib:v1.7"
 
-//    annotationProcessor "com.github.Anuken:jabel:$jabelVersion"
+    annotationProcessor "com.github.Anuken:jabel:$jabelVersion"
 }
 
 configurations.configureEach{

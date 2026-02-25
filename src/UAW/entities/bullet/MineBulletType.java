@@ -51,7 +51,7 @@ public class MineBulletType extends BulletType {
 		speed = 3f;
 		drag = 0.055f;
 		hitShake = 8f;
-		hitSound = Sounds.plasmaboom;
+		hitSound = Sounds.explosionPlasmaSmall;
 		fragAngle = 360;
 		pierceArmor = true;
 	}

@@ -13,9 +13,7 @@ public class StandardBullets extends TrailBulletType {
 		buildingDamageMultiplier = 0.3f;
 
 		switch (presets) {
-			default -> {
-			}
-			case 0 ->{
+            case 0 ->{
 				height = 10;
 				width = 5.5f;
 
@@ -75,7 +73,9 @@ public class StandardBullets extends TrailBulletType {
 				}};
 				trailLengthScale = 0.8f;
 			}
-		}
+            default -> {
+            }
+        }
 	}
 
 	public StandardBullets(float speed, float damage, int presets) {

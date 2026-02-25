@@ -10,8 +10,8 @@ public class ArmorPiercingBulletType extends TrailBulletType {
 	static final EventType.UnitDamageEvent bulletDamageEvent = new EventType.UnitDamageEvent();
 
 	/**
-	 * Refers to how much damage will ignores armour, if the damage is 50 and the {@code armorPierceScl} is 0.5 thats
-	 * mean 25 damage will still be dealt despite of armour
+	 * Refers to how much damage will ignores armour, if the damage is 50 and the {@code armorPierceScl} is 0.5 that's
+	 * mean 25 damage will still be dealt despite armour
 	 */
 	public float armorPierceScl = -1;
 

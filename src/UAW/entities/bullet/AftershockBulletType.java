@@ -29,7 +29,7 @@ public class AftershockBulletType extends BulletType {
 	 */
 	public int splashAmount = 3;
 
-	public Sound applySound = Sounds.shotgun;
+	public Sound applySound = Sounds.shootToxopidShotgun;
 	/** Adjust circle light color */
 	public Color frontColor = Pal.lightishOrange;
 	/** Adjust circle dark color */

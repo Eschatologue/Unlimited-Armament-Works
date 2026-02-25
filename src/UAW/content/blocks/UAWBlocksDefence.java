@@ -985,7 +985,7 @@ public class UAWBlocksDefence {
 
 						}};
 						makeFire = true;
-						applySound = Sounds.fire;
+						applySound = Sounds.loopFire;
 					}};
 				}},
 				UAWItems.cryogel, new SplashArtilleryBulletType(2.5f, 3500) {{
@@ -1034,7 +1034,7 @@ public class UAWBlocksDefence {
 
 						}};
 						makeFire = true;
-						applySound = Sounds.fire;
+						applySound = Sounds.loopFire;
 					}};
 				}},
 				Items.plastanium, artilleryLargeFrag,
@@ -1086,7 +1086,7 @@ public class UAWBlocksDefence {
 
 						}};
 						makeFire = true;
-						applySound = Sounds.fire;
+						applySound = Sounds.loopFire;
 					}};
 				}}
 			);
@@ -1383,7 +1383,7 @@ public class UAWBlocksDefence {
 					splashDamage = this.damage * 0.75f;
 					splashDamageRadius = 2 * tilesize;
 
-					hitSound = Sounds.dullExplosion;
+					hitSound = Sounds.explosionDull;
 
 					collidesAir = false;
 					collideTerrain = true;
@@ -1705,7 +1705,7 @@ public class UAWBlocksDefence {
 					shootEffect = UAWFx.shootHugeColor;
 					despawnEffect = UAWFx.empExplosion(splashDamageRadius, 3, backColor);
 					status = UAWStatusEffects.EMP;
-					hitSound = Sounds.plasmaboom;
+					hitSound = Sounds.beamPlasma;
 					statusDuration = 0.3f * 60;
 					ammoMultiplier = 6f;
 					collidesAir = false;
