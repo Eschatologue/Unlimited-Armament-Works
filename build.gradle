@@ -33,7 +33,6 @@ allprojects{
 }
 
 dependencies {
-
     // Mindustry Release
     compileOnly "com.github.Anuken.Arc:arc-core:$mindustryVersion"
     compileOnly "com.github.Anuken.Mindustry:core:$mindustryVersion"
@@ -71,7 +70,6 @@ tasks.register('jarAndroid'){
                 .execute(null, new File("build/libs")).waitForProcessOutput(System.out, System.err)
     }
 }
-
 
 jar{
     archiveFileName = "${project.name}Desktop.jar"
