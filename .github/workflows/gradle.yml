@@ -1,28 +1,24 @@
+name: Build Mod
 
-name: Commit Testing
-
-on: [push]
+on: [push, pull_request]
 
 jobs:
   buildJar:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       - name: Set up PATH
         run: |
-          echo "${ANDROID_HOME}/build-tools/30.0.1" >> $GITHUB_PATH
+          echo "${ANDROID_HOME}/build-tools/34.0.0" >> $GITHUB_PATH
       - name: Set up JDK 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v1
         with:
-          distribution: 'temurin'
-          java-version: '17.0.8'
-          cache: 'gradle'
+          java-version: 17
       - name: Build mod jar
         run: |
           chmod +x ./gradlew
-          ./gradlew deploy --stacktrace --info
+          ./gradlew deploy
       - name: Upload built jar file
         uses: actions/upload-artifact@v4
         with:
