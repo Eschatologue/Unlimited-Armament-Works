@@ -30,5 +30,5 @@ jobs:
       - name: Upload built jar file
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ github.event.repository.name }}
-          path: build/libs/${{ github.event.repository.name }}.jar
+          name: mod-build
+          path: build/libs/*.jar
