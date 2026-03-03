@@ -1,24 +1,32 @@
 name: Build Mod
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   buildJar:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up PATH
-        run: |
-          echo "${ANDROID_HOME}/build-tools/34.0.0" >> $GITHUB_PATH
+      - uses: actions/checkout@v4
       - name: Set up JDK 17
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v4
         with:
+          distribution: temurin
           java-version: 17
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android components
+        run: |
+          sdkmanager "platforms;android-34"
+          sdkmanager "build-tools;34.0.0"
+
       - name: Build mod jar
         run: |
           chmod +x ./gradlew
-          ./gradlew deploy
+          ./gradlew dex --no-daemon
+
       - name: Upload built jar file
         uses: actions/upload-artifact@v4
         with:
