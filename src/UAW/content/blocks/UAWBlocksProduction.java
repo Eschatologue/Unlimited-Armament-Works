@@ -15,7 +15,7 @@ import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.draw.*;
 import multicraft.*;
 
-import static UAW.Vars.*;
+import static UAW.UAWVars.*;
 import static mindustry.Vars.tilesize;
 import static mindustry.type.ItemStack.with;
 
@@ -211,7 +211,7 @@ public class UAWBlocksProduction {
 			craftEffect = UAWFx.cloudPuff(10f, UAWPal.steamMid);
 			updateEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
 			updateEffectChance = 0.06f;
-			ambientSound = Sounds.smelter;
+			ambientSound = Sounds.loopSmelter;
 
 			craftTime = 4.5f * tick;
 			consumePower(3.5f);
@@ -259,7 +259,7 @@ public class UAWBlocksProduction {
 				Fx.massiveExplosion,
 				Fx.steam
 			);
-			ambientSound = Sounds.smelter;
+			ambientSound = Sounds.loopSmelter;
 
 			menu = detailed;
 			ignoreLiquidFullness = true;

@@ -11,7 +11,7 @@ public class DynamicFlyingAI extends FlyingAI {
 	public void updateMovement() {
 		unloadPayloads();
 		if (target != null && unit.hasWeapons()) {
-			if (unit.type.circleTarget || (target instanceof Unit unit && !(unit.isFlying()))) {
+			if (unit.type.circleTarget || (target instanceof Unit un && !(un.isFlying()))) {
 				circleAttack(120f);
 			} else {
 				unit.lookAt(unit.vel().angle());

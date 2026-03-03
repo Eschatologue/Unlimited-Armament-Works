@@ -8,7 +8,7 @@ import mindustry.type.*;
 import mindustry.world.Block;
 import mindustry.world.blocks.units.Reconstructor;
 
-import static UAW.Vars.tick;
+import static UAW.UAWVars.tick;
 import static mindustry.type.ItemStack.with;
 
 /** Contains Unit related Blocks such as factories, reconstructors, etc */

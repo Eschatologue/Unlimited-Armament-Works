@@ -13,7 +13,7 @@ import mindustry.type.*;
 import mindustry.world.Block;
 import mindustry.world.draw.*;
 
-import static UAW.Vars.*;
+import static UAW.UAWVars.*;
 import static mindustry.type.ItemStack.with;
 
 /** Contains Power Blocks or Blocks that produces Power */
@@ -194,7 +194,7 @@ public class UAWBlocksPower {
 
 			generateEffect = Fx.generatespark;
 
-			ambientSound = Sounds.smelter;
+			ambientSound = Sounds.loopSmelter;
 			ambientSoundVolume = 0.06f;
 
 			consume(new ConsumeLiquidFuelExplosive(60 / tick));

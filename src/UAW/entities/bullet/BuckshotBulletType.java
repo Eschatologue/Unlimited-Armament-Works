@@ -3,7 +3,7 @@ package UAW.entities.bullet;
 import arc.graphics.Color;
 import mindustry.entities.bullet.BasicBulletType;
 
-import static UAW.Vars.modName;
+import static UAW.UAWVars.modName;
 
 public class BuckshotBulletType extends BasicBulletType {
 

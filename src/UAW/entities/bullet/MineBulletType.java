@@ -14,7 +14,7 @@ import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.world.blocks.environment.Floor;
 
-import static UAW.Vars.modName;
+import static UAW.UAWVars.modName;
 
 public class MineBulletType extends BulletType {
 	public TextureRegion mineBase, mineFront, mineBack, mineIndicator, mineOutline;

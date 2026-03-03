@@ -4,10 +4,9 @@ import UAW.audiovisual.UAWFx;
 import UAW.world.blocks.production.filters.FilterGenericCrafter;
 import UAW.world.consumers.*;
 import mindustry.content.Fx;
-import mindustry.world.consumers.ConsumeItemExplode;
 import mindustry.world.meta.Stat;
 
-import static UAW.Vars.tick;
+import static UAW.UAWVars.tick;
 
 public class PhlogistonBoiler extends FilterGenericCrafter {
 

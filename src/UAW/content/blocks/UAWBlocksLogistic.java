@@ -10,7 +10,7 @@ import mindustry.world.Block;
 import mindustry.world.blocks.distribution.DirectionLiquidBridge;
 import mindustry.world.blocks.liquid.*;
 
-import static UAW.Vars.px;
+import static UAW.UAWVars.px;
 import static mindustry.type.ItemStack.with;
 
 /** Contains anything relating to resource transportation and storage */

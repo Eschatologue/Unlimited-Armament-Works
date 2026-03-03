@@ -3,7 +3,7 @@ package UAW.world.blocks.power.steam;
 import UAW.world.blocks.production.filters.AttributeFilterCrafter;
 import mindustry.world.meta.Stat;
 
-import static UAW.Vars.tick;
+import static UAW.UAWVars.tick;
 
 public class AttributeSteamBoiler extends AttributeFilterCrafter {
 	public AttributeSteamBoiler(String name) {

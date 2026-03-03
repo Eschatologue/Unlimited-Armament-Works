@@ -15,7 +15,7 @@ import mindustry.ui.*;
 import mindustry.world.Tile;
 import mindustry.world.blocks.production.BurstDrill;
 
-import static UAW.Vars.tick;
+import static UAW.UAWVars.tick;
 import static mindustry.Vars.*;
 
 /**

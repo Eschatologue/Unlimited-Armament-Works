@@ -66,74 +66,46 @@ public class UAWStatValues {
 		return number(value, unit, false);
 	}
 
+	@Deprecated
 	public static StatValue liquid(Liquid liquid, float amount, boolean perSecond) {
-		return table -> table.add(new LiquidDisplay(liquid, amount, perSecond));
+		return StatValues.liquid(liquid, amount, perSecond);
 	}
 
+	@Deprecated
 	public static StatValue liquids(Boolf<Liquid> filter, float amount, boolean perSecond) {
-		return table -> {
-			Seq<Liquid> list = content.liquids().select(i -> filter.get(i) && i.unlockedNow() && !i.isHidden());
-
-			for (int i = 0; i < list.size; i++) {
-				table.add(new LiquidDisplay(list.get(i), amount, perSecond)).padRight(5);
-
-				if (i != list.size - 1) {
-					table.add("/");
-				}
-			}
-		};
+		return StatValues.liquids(filter, amount, perSecond);
 	}
 
 	public static StatValue liquids(float timePeriod, LiquidStack... stacks) {
 		return liquids(timePeriod, true, stacks);
 	}
 
+	@Deprecated
 	public static StatValue liquids(float timePeriod, boolean perSecond, LiquidStack... stacks) {
-		return table -> {
-			for (var stack : stacks) {
-				table.add(new LiquidDisplay(stack.liquid, stack.amount * (60f / timePeriod), perSecond)).padRight(5);
-			}
-		};
+		return StatValues.liquids(timePeriod, perSecond, stacks);
 	}
 
 	public static StatValue items(ItemStack... stacks) {
 		return items(true, stacks);
 	}
 
+	@Deprecated
 	public static StatValue items(boolean displayName, ItemStack... stacks) {
-		return table -> {
-			for (ItemStack stack : stacks) {
-				table.add(new ItemDisplay(stack.item, stack.amount, displayName)).padRight(5);
-			}
-		};
+		return StatValues.items(displayName, stacks);
 	}
 
+	@Deprecated
 	public static StatValue items(float timePeriod, ItemStack... stacks) {
-		return table -> {
-			for (ItemStack stack : stacks) {
-				table.add(new ItemDisplay(stack.item, stack.amount, timePeriod, true)).padRight(5);
-			}
-		};
+		return StatValues.items(timePeriod, stacks);
 	}
 
 	public static StatValue items(Boolf<Item> filter) {
 		return items(-1, filter);
 	}
 
+	@Deprecated
 	public static StatValue items(float timePeriod, Boolf<Item> filter) {
-		return table -> {
-			Seq<Item> list = content.items().select(i -> filter.get(i) && i.unlockedNow() && !i.isHidden());
-
-			for (int i = 0; i < list.size; i++) {
-				Item item = list.get(i);
-
-				table.add(timePeriod <= 0 ? new ItemDisplay(item) : new ItemDisplay(item, 1, timePeriod, true)).padRight(5);
-
-				if (i != list.size - 1) {
-					table.add("/");
-				}
-			}
-		};
+		return StatValues.items(timePeriod, filter);
 	}
 
 	public static StatValue content(UnlockableContent content) {
@@ -321,8 +293,10 @@ public class UAWStatValues {
 		};
 	}
 
+	@Deprecated
 	public static StatValue itemBoosters(String unit, float timePeriod, float speedBoost, float rangeBoost, ItemStack[] items, Boolf<Item> filter) {
-		return table -> {
+		return StatValues.itemBoosters(unit, timePeriod, speedBoost, rangeBoost, items);
+		/*return table -> {
 			table.row();
 			table.table(c -> {
 				for (Item item : content.items()) {
@@ -349,7 +323,7 @@ public class UAWStatValues {
 				}
 			}).growX().colspan(table.getColumns());
 			table.row();
-		};
+		};*/
 	}
 
 	public static StatValue weapons(UnitType unit, Seq<Weapon> weapons) {

@@ -23,7 +23,7 @@ import mindustry.world.blocks.defense.*;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.draw.*;
 
-import static UAW.Vars.*;
+import static UAW.UAWVars.*;
 import static UAW.content.UAWBullets.*;
 import static UAW.entities.Calc.bulletLifetime;
 import static mindustry.Vars.tilesize;
