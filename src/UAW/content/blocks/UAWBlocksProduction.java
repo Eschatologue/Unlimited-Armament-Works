@@ -13,7 +13,7 @@ import mindustry.type.*;
 import mindustry.world.Block;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.draw.*;
-import multicraft.*;
+//import multicraft.*;
 
 import static UAW.UAWVars.*;
 import static mindustry.Vars.tilesize;
@@ -136,64 +136,64 @@ public class UAWBlocksProduction {
 		}};
 
 		// General Crafters
-		gelatinizer = new MultiCrafter("gelatinizer") {{
-			requirements(Category.crafting, with(
-				Items.lead, 45,
-				Items.graphite, 30,
-				Items.thorium, 20
-			));
-			size = 2;
-
-			hasItems = true;
-			hasLiquids = true;
-
-			craftEffect = UAWFx.effectHit(0.3f, UAWPal.cryoFront, UAWPal.cryoBack);
-			updateEffect = UAWFx.effectHit(0.2f, Color.valueOf("f7cba4"), Color.valueOf("d3ae8d"));
-			updateEffectChance = 0.02f;
-
-			menu = detailed;
-
-			resolvedRecipes = Seq.with(
-				// Fluid to Gel
-				new Recipe() {{
-					input = new IOEntry(
-						Seq.with(ItemStack.with(Items.sand, 2)),
-						Seq.with(LiquidStack.with(Liquids.cryofluid, 0.25f)),
-						0.45f
-					);
-					output = new IOEntry(
-						Seq.with(ItemStack.with(UAWItems.cryogel, 1)),
-						Seq.with()
-					);
-					craftTime = 45f;
-				}},
-				// Gel to fluid
-				new Recipe() {{
-					input = new IOEntry(
-						Seq.with(ItemStack.with(UAWItems.cryogel, 1)),
-						Seq.with(),
-						0.45f
-					);
-					output = new IOEntry(
-						Seq.with(),
-						Seq.with(LiquidStack.with(Liquids.cryofluid, 0.25f))
-					);
-					craftTime = 45f;
-				}}
-			);
-
-
-			drawer = new DrawMulti(
-				new DrawRegion("-bottom"),
-				new DrawLiquidTile() {{
-					padding = 8 * px;
-				}},
-				new DrawBubbles() {{
-					color = UAWPal.cryoFront;
-				}},
-				new DrawDefault()
-			);
-		}};
+//		gelatinizer = new MultiCrafter("gelatinizer") {{
+//			requirements(Category.crafting, with(
+//				Items.lead, 45,
+//				Items.graphite, 30,
+//				Items.thorium, 20
+//			));
+//			size = 2;
+//
+//			hasItems = true;
+//			hasLiquids = true;
+//
+//			craftEffect = UAWFx.effectHit(0.3f, UAWPal.cryoFront, UAWPal.cryoBack);
+//			updateEffect = UAWFx.effectHit(0.2f, Color.valueOf("f7cba4"), Color.valueOf("d3ae8d"));
+//			updateEffectChance = 0.02f;
+//
+//			menu = detailed;
+//
+//			resolvedRecipes = Seq.with(
+//				// Fluid to Gel
+//				new Recipe() {{
+//					input = new IOEntry(
+//						Seq.with(ItemStack.with(Items.sand, 2)),
+//						Seq.with(LiquidStack.with(Liquids.cryofluid, 0.25f)),
+//						0.45f
+//					);
+//					output = new IOEntry(
+//						Seq.with(ItemStack.with(UAWItems.cryogel, 1)),
+//						Seq.with()
+//					);
+//					craftTime = 45f;
+//				}},
+//				// Gel to fluid
+//				new Recipe() {{
+//					input = new IOEntry(
+//						Seq.with(ItemStack.with(UAWItems.cryogel, 1)),
+//						Seq.with(),
+//						0.45f
+//					);
+//					output = new IOEntry(
+//						Seq.with(),
+//						Seq.with(LiquidStack.with(Liquids.cryofluid, 0.25f))
+//					);
+//					craftTime = 45f;
+//				}}
+//			);
+//
+//
+//			drawer = new DrawMulti(
+//				new DrawRegion("-bottom"),
+//				new DrawLiquidTile() {{
+//					padding = 8 * px;
+//				}},
+//				new DrawBubbles() {{
+//					color = UAWPal.cryoFront;
+//				}},
+//				new DrawDefault()
+//			);
+//		}};
 		alloyCrucible = new GenericCrafter("alloy-crucible") {{
 			requirements(Category.crafting, with(
 				Items.titanium, 150,
@@ -233,121 +233,121 @@ public class UAWBlocksProduction {
 				new DrawDefault()
 			);
 		}};
-		ironcladCompressor = new MultiCrafter("ironclad-compressor") {{
-			requirements(Category.crafting, with(
-				Items.titanium, 150,
-				Items.copper, 225,
-				Items.silicon, 125,
-				Items.lead, 225,
-				Items.graphite, 120,
-				Items.plastanium, 120
-			));
-			size = 3;
-			hasItems = true;
-			hasLiquids = true;
-			itemCapacity = 72;
-			liquidCapacity = 320;
-
-			craftEffect = new RadialEffect() {{
-				effect = UAWFx.crucibleSmoke(220, 3, UAWPal.phlogistonFront);
-				amount = 4;
-				rotationSpacing = 90;
-				lengthOffset = 35 * px;
-				rotationOffset = 45;
-			}};
-			changeRecipeEffect = new MultiEffect(
-				Fx.massiveExplosion,
-				Fx.steam
-			);
-			ambientSound = Sounds.loopSmelter;
-
-			menu = detailed;
-			ignoreLiquidFullness = true;
-
-			resolvedRecipes = Seq.with(
-				// Graphite
-				new Recipe() {{
-					input = new IOEntry(
-						Seq.with(ItemStack.with(Items.coal, 18)),
-						Seq.with(LiquidStack.with(UAWLiquids.phlogiston, 30 / tick)),
-						0.75f
-					);
-					output = new IOEntry(
-						Seq.with(ItemStack.with(Items.graphite, 12)),
-						Seq.with()
-					);
-					craftTime = 3 * tick;
-				}},
-				// Plastanium
-				new Recipe() {{
-					input = new IOEntry(
-						Seq.with(ItemStack.with(Items.titanium, 10)),
-						Seq.with(LiquidStack.with(
-							Liquids.oil, 0.75f,
-							UAWLiquids.phlogiston, 45 / tick
-						)),
-						2f
-					);
-					output = new IOEntry(
-						Seq.with(ItemStack.with(Items.plastanium, 8)),
-						Seq.with()
-					);
-					craftTime = 3 * tick;
-				}},
-				// Spore
-				new Recipe() {{
-					input = new IOEntry(
-						Seq.with(ItemStack.with(Items.sporePod, 4)),
-						Seq.with(LiquidStack.with(UAWLiquids.phlogiston, 15f / tick)),
-						0.5f
-					);
-					output = new IOEntry(
-						Seq.with(),
-						Seq.with(LiquidStack.with(
-							Liquids.oil, (17.5 * 4) / tick
-						))
-
-					);
-					craftTime = 90f;
-				}}
-			);
-			squareSprite = false;
-			drawer = new DrawRecipe() {{
-				defaultDrawer = 3;
-				drawers = new DrawBlock[]{
-					// Graphite
-					new DrawMulti(
-						new DrawRegion("-bottom"),
-						new DrawDefault(),
-						new DrawRegion("-top-graphite")
-					),
-					// Plastanium
-					new DrawMulti(
-						new DrawRegion("-bottom"),
-						new DrawDefault(),
-						new DrawRegion("-top-plast"),
-						new DrawFade() {{
-							suffix = "-top-plast-top";
-						}}
-					),
-					// Spores
-					new DrawMulti(
-						new DrawCircles() {{
-							color = Color.valueOf("1d201f").a(0.24f);
-							strokeMax = 2.5f;
-							radius = 30f * px;
-							amount = 4;
-						}},
-						new DrawLiquidTile() {{
-							drawLiquid = Liquids.oil;
-							padding = 34 * px;
-						}},
-						new DrawDefault(),
-						new DrawRegion("-top-spore")
-					)
-				};
-			}};
-		}};
+//		ironcladCompressor = new MultiCrafter("ironclad-compressor") {{
+//			requirements(Category.crafting, with(
+//				Items.titanium, 150,
+//				Items.copper, 225,
+//				Items.silicon, 125,
+//				Items.lead, 225,
+//				Items.graphite, 120,
+//				Items.plastanium, 120
+//			));
+//			size = 3;
+//			hasItems = true;
+//			hasLiquids = true;
+//			itemCapacity = 72;
+//			liquidCapacity = 320;
+//
+//			craftEffect = new RadialEffect() {{
+//				effect = UAWFx.crucibleSmoke(220, 3, UAWPal.phlogistonFront);
+//				amount = 4;
+//				rotationSpacing = 90;
+//				lengthOffset = 35 * px;
+//				rotationOffset = 45;
+//			}};
+//			changeRecipeEffect = new MultiEffect(
+//				Fx.massiveExplosion,
+//				Fx.steam
+//			);
+//			ambientSound = Sounds.loopSmelter;
+//
+//			menu = detailed;
+//			ignoreLiquidFullness = true;
+//
+//			resolvedRecipes = Seq.with(
+//				// Graphite
+//				new Recipe() {{
+//					input = new IOEntry(
+//						Seq.with(ItemStack.with(Items.coal, 18)),
+//						Seq.with(LiquidStack.with(UAWLiquids.phlogiston, 30 / tick)),
+//						0.75f
+//					);
+//					output = new IOEntry(
+//						Seq.with(ItemStack.with(Items.graphite, 12)),
+//						Seq.with()
+//					);
+//					craftTime = 3 * tick;
+//				}},
+//				// Plastanium
+//				new Recipe() {{
+//					input = new IOEntry(
+//						Seq.with(ItemStack.with(Items.titanium, 10)),
+//						Seq.with(LiquidStack.with(
+//							Liquids.oil, 0.75f,
+//							UAWLiquids.phlogiston, 45 / tick
+//						)),
+//						2f
+//					);
+//					output = new IOEntry(
+//						Seq.with(ItemStack.with(Items.plastanium, 8)),
+//						Seq.with()
+//					);
+//					craftTime = 3 * tick;
+//				}},
+//				// Spore
+//				new Recipe() {{
+//					input = new IOEntry(
+//						Seq.with(ItemStack.with(Items.sporePod, 4)),
+//						Seq.with(LiquidStack.with(UAWLiquids.phlogiston, 15f / tick)),
+//						0.5f
+//					);
+//					output = new IOEntry(
+//						Seq.with(),
+//						Seq.with(LiquidStack.with(
+//							Liquids.oil, (17.5 * 4) / tick
+//						))
+//
+//					);
+//					craftTime = 90f;
+//				}}
+//			);
+//			squareSprite = false;
+//			drawer = new DrawRecipe() {{
+//				defaultDrawer = 3;
+//				drawers = new DrawBlock[]{
+//					// Graphite
+//					new DrawMulti(
+//						new DrawRegion("-bottom"),
+//						new DrawDefault(),
+//						new DrawRegion("-top-graphite")
+//					),
+//					// Plastanium
+//					new DrawMulti(
+//						new DrawRegion("-bottom"),
+//						new DrawDefault(),
+//						new DrawRegion("-top-plast"),
+//						new DrawFade() {{
+//							suffix = "-top-plast-top";
+//						}}
+//					),
+//					// Spores
+//					new DrawMulti(
+//						new DrawCircles() {{
+//							color = Color.valueOf("1d201f").a(0.24f);
+//							strokeMax = 2.5f;
+//							radius = 30f * px;
+//							amount = 4;
+//						}},
+//						new DrawLiquidTile() {{
+//							drawLiquid = Liquids.oil;
+//							padding = 34 * px;
+//						}},
+//						new DrawDefault(),
+//						new DrawRegion("-top-spore")
+//					)
+//				};
+//			}};
+//		}};
 
 		// Mixers
 		cryofluidBlender = new GenericCrafter("cryofluid-blender") {{
