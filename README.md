@@ -2,10 +2,13 @@
 
 ![UAW-Banner-new-v4-readme.png](./markdown-resources/UAW-MD-banner-V4.png)
 
-[![MadeWithJava](https://img.shields.io/badge/Made%20with-java-red?style=for-the-badge&logo=java)](https://en.wikipedia.org/wiki/Java_%28programming_language%29)
-![License](https://img.shields.io/github/license/Eschatologue/Unlimited-Armament-Works?logo=github&style=for-the-badge)
-![Status](https://img.shields.io/github/actions/workflow/status/Eschatologue/Unlimited-Armament-Works/gradle.yml?logo=gradle&style=for-the-badge)
-[![Discord](https://img.shields.io/discord/704355237246402721.svg?color=7289da&label=de_server&logo=discord&logoColor=ffffff&style=for-the-badge)](https://discord.gg/RCCVQFW)
+[//]: # ([![MadeWithJava]&#40;https://img.shields.io/badge/Made%20with-java-red?style=for-the-badge&logo=java&#41;]&#40;https://en.wikipedia.org/wiki/Java_%28programming_language%29&#41;)
+
+[//]: # (![License]&#40;https://img.shields.io/github/license/Eschatologue/Unlimited-Armament-Works?logo=github&style=for-the-badge&#41;)
+
+[//]: # (![Status]&#40;https://img.shields.io/github/actions/workflow/status/Eschatologue/Unlimited-Armament-Works/gradle.yml?logo=gradle&style=for-the-badge&#41;)
+
+[//]: # ([![Discord]&#40;https://img.shields.io/discord/704355237246402721.svg?color=7289da&label=de_server&logo=discord&logoColor=ffffff&style=for-the-badge&#41;]&#40;https://discord.gg/RCCVQFW&#41;)
    
 </div>
 
