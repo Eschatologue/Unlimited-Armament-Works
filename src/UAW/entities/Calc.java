@@ -1,6 +1,6 @@
 package UAW.entities;
 
-import static UAW.UAWVars.px;
+import static UAW.Vars.px;
 
 public class Calc {
 

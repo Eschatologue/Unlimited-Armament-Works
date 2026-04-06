@@ -2,7 +2,7 @@ package UAW.entities.bullet;
 
 import mindustry.type.StatusEffect;
 
-import static UAW.UAWVars.modName;
+import static UAW.Vars.modName;
 
 public class StatusEffectBulletType extends TrailBulletType {
 

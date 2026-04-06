@@ -7,7 +7,7 @@ import mindustry.entities.effect.MultiEffect;
 import mindustry.graphics.Pal;
 import mindustry.type.StatusEffect;
 
-import static UAW.UAWVars.tick;
+import static UAW.Vars.tick;
 import static mindustry.content.StatusEffects.*;
 
 public class UAWStatusEffects {

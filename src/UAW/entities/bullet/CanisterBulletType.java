@@ -8,7 +8,7 @@ import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.gen.*;
 
-import static UAW.UAWVars.modName;
+import static UAW.Vars.modName;
 
 public class CanisterBulletType extends ArtilleryBulletType {
 	public float burstRange = 80f;

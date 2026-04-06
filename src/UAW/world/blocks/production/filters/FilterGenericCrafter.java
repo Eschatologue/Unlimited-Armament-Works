@@ -18,7 +18,7 @@ public class FilterGenericCrafter extends GenericCrafter {
 
 	public FilterGenericCrafter(String name) {
 		super(name);
-		ambientSound = Sounds.loopSmelter;
+		ambientSound = Sounds.smelter;
 		ambientSoundVolume = 0.06f;
 	}
 

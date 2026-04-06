@@ -5,7 +5,7 @@ import arc.graphics.g2d.TextureRegion;
 import arc.util.Nullable;
 import mindustry.io.JsonIO;
 
-import static UAW.UAWVars.modName;
+import static UAW.Vars.modName;
 
 public class Rotor {
 	public final String name;

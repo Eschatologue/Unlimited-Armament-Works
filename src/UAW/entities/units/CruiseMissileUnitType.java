@@ -9,7 +9,7 @@ import mindustry.gen.Sounds;
 import mindustry.graphics.*;
 import mindustry.type.unit.MissileUnitType;
 
-import static UAW.UAWVars.*;
+import static UAW.Vars.*;
 import static UAW.audiovisual.Assets.U_MSL_crsmissile_M_01_red;
 import static mindustry.Vars.tilesize;
 

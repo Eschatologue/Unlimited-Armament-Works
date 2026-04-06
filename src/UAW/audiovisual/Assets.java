@@ -2,7 +2,7 @@ package UAW.audiovisual;
 
 import arc.assets.Loadable;
 
-import static UAW.UAWVars.modName;
+import static UAW.Vars.modName;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class Assets implements Loadable {

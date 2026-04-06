@@ -4,6 +4,7 @@ import UAW.content.UAWLiquids;
 import arc.Core;
 import arc.graphics.g2d.*;
 import arc.math.Mathf;
+import arc.util.Nullable;
 import mindustry.content.Fx;
 import mindustry.entities.Effect;
 import mindustry.graphics.*;
@@ -12,7 +13,7 @@ import mindustry.ui.Bar;
 import mindustry.world.blocks.liquid.LiquidBlock;
 import mindustry.world.blocks.production.Fracker;
 
-import static UAW.UAWVars.px;
+import static UAW.Vars.px;
 
 public class ExplodingFracker extends Fracker {
 	public Effect unstableEffect = Fx.hitBulletSmall;

@@ -6,7 +6,7 @@ import mindustry.content.Fx;
 import mindustry.world.consumers.ConsumeItemExplode;
 import mindustry.world.meta.Stat;
 
-import static UAW.UAWVars.tick;
+import static UAW.Vars.tick;
 
 public class SteamBoiler extends FilterGenericCrafter {
 

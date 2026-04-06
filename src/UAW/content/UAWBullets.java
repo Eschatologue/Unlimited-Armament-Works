@@ -11,7 +11,7 @@ import mindustry.entities.effect.MultiEffect;
 import mindustry.gen.Sounds;
 import mindustry.graphics.Pal;
 
-import static UAW.UAWVars.tick;
+import static UAW.Vars.tick;
 import static mindustry.Vars.tilesize;
 
 public class UAWBullets {
@@ -159,7 +159,7 @@ public class UAWBullets {
 			lightningDamage = 5;
 			lightningLength = 12;
 			lightningLengthRand = 7;
-			hitSound = Sounds.explosionPlasmaSmall;
+			hitSound = Sounds.plasmaboom;
 			hitEffect = UAWFx.empExplosion(splashDamageRadius, 6, frontColor);
 		}};
 
