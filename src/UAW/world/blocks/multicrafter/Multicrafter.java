@@ -489,7 +489,7 @@
 //            for(int i = 0; i < recLen; i++){
 //                int ii = i;
 //                OutputContents output = recs[i].output;
-//                ImageButton button = (ImageButton)table.button(Tex.whiteui, Styles.clearToggleTransi, 40, () -> {}).group(group).get();
+//                ImageButton button = (ImageButton)table.button(Tex.whiteui, Styles.clearTogglei, 40, () -> {}).group(group).get();
 //
 //                button.clicked(() -> configure(button.isChecked() ? ii : -1));
 //                TextureRegion icon = output.items.length > 0 ? output.items[0].item.icon(Cicon.small) : output.liquids.length > 0 ? output.liquids[0].liquid.icon(Cicon.small) : region;
