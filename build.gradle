@@ -6,8 +6,27 @@ sourceSets.main.java.srcDirs = ["src"]
 
 repositories{
     mavenCentral()
-    maven{ url = "https://raw.githubusercontent.com/Zelaux/MindustryRepo/master/repository" }
-    maven{ url = 'https://www.jitpack.io' }
+
+    //Downloads the server-release JAR file from Mindustry releases; does not use any real repository. Surprisingly, this is the most reliable option.
+    ivy{
+        url 'https://github.com/'
+        patternLayout{artifact '/[organisation]/[module]/releases/download/[revision]/dependencies.jar'}
+        metadataSources{ artifact() }
+    }
+
+    //"Latest" option to depend on BE builds.
+    ivy{
+        url 'https://github.com/'
+        patternLayout{artifact '/[organisation]/[module]/releases/download/master/[revision].jar'}
+        metadataSources{ artifact() }
+    }
+
+    //Do the same with jabel
+    ivy{
+        url 'https://github.com/'
+        patternLayout{artifact '/[organisation]/[module]/releases/download/[revision]/jabel.jar'}
+        metadataSources{ artifact() }
+    }
 }
 
 java{
@@ -16,8 +35,7 @@ java{
 }
 
 ext{
-    //the build number that this mod is made for
-    mindustryVersion = 'v155.4'
+    mindustryVersion = 'v156' //the build number that this mod is made for
     jabelVersion = "93fde537c7"
     isWindows = System.getProperty("os.name").toLowerCase().contains("windows")
     sdkRoot = System.getenv("ANDROID_HOME") ?: System.getenv("ANDROID_SDK_ROOT")
@@ -33,21 +51,11 @@ allprojects{
 }
 
 dependencies{
-    compileOnly "com.github.Anuken.Arc:arc-core:$mindustryVersion"
-    compileOnly "com.github.Anuken.Mindustry:core:$mindustryVersion"
+    def useLatest = false //set to "true" to always depend on the newest version of mindustry
 
-    implementation "com.github.liplum:MultiCrafterLib:v1.7"
+    compileOnly useLatest ? "Anuken:MindustryBuilds:latest" : "Anuken:Mindustry:$mindustryVersion"
 
-    annotationProcessor "com.github.Anuken:jabel:$jabelVersion"
-}
-
-//force arc version
-configurations.configureEach{
-    resolutionStrategy.eachDependency { details ->
-        if(details.requested.group == 'com.github.Anuken.Arc'){
-            details.useVersion "$mindustryVersion"
-        }
-    }
+    annotationProcessor "Anuken:jabel:v1.0.0"
 }
 
 tasks.register('jarAndroid'){

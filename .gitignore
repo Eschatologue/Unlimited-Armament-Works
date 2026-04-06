@@ -45,6 +45,7 @@ version.properties
 *.ear
 hs_err_pid*
 crash-report-*
+replay_pid*
 
 ## Robovm
 /ios/robovm-build/
@@ -154,6 +155,3 @@ gradle-app.setting
 .DS_Store
 Thumbs.db
 android/libs/
-/assets/.obsidian/
-/assets/changelog.md
-/build_project.bat
