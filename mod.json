@@ -1,0 +1,12 @@
+{
+  "displayName": "Unlimited Armament Works",
+  "name": "uaw",
+  "author": "Eschatologue",
+  "main": "UAW.UAWModLoader",
+  "subtitle": "Smokes and Thunder. Cordite and Steel",
+  "description": "UAW is a port and sequel to Heavy Armaments Industries, implementing new unique content to vanilla Mindustry, from more turrets, units, and crafters/factories.\n\nA lot of work and improvements goes into UAW, if you want to show some support or like the content, please give the mod a star on GitHub, Thank you!",
+  "minGameVersion": 156,
+  "version": "v0.1r",
+  "repo": "Eschatologue/Unlimited-Armament-Works",
+  "java": true
+}
