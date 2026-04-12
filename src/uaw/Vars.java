@@ -1,4 +1,4 @@
-package UAW;
+package uaw;
 
 import arc.assets.Loadable;
 

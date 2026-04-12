@@ -1,4 +1,4 @@
-package UAW.content.blocks;
+package uaw.content.blocks;
 
 import arc.graphics.Color;
 import mindustry.content.Fx;
@@ -13,12 +13,12 @@ import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.*;
 import mindustry.world.draw.DrawTurret;
 
-import static UAW.Vars.*;
-import static UAW.Vars.px;
+import static uaw.Vars.*;
+import static uaw.Vars.px;
 import static mindustry.Vars.tilesize;
 import static mindustry.type.ItemStack.with;
 
-public class UAWBlocksDefence {
+public class BlocksDefence {
 
     public static Block placeholder,
     // MG - Machine Guns

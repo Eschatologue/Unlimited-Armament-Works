@@ -1,4 +1,4 @@
-package UAW.audiovisual;
+package uaw.audiovisual;
 
 import arc.Core;
 import arc.graphics.*;

@@ -1,6 +1,6 @@
-package UAW;
+package uaw;
 
-import UAW.content.*;
+import uaw.content.*;
 import mindustry.mod.Mod;
 
 public class UAWModLoader extends Mod {
@@ -8,6 +8,7 @@ public class UAWModLoader extends Mod {
     @Override
     public void loadContent() {
 
+        UAWItems.load();
         UAWBlocks.load();
     }
 }
