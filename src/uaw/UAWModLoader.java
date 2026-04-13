@@ -9,6 +9,7 @@ public class UAWModLoader extends Mod {
     public void loadContent() {
 
         UAWItems.load();
+        UAWLiquids.load();
         UAWBlocks.load();
     }
 }

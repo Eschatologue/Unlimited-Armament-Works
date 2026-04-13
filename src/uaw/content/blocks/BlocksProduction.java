@@ -3,6 +3,8 @@ package uaw.content.blocks;
 import arc.graphics.Color;
 import mindustry.content.Blocks;
 import mindustry.content.Liquids;
+import mindustry.entities.effect.MultiEffect;
+import mindustry.graphics.Pal;
 import mindustry.world.blocks.production.AttributeCrafter;
 import uaw.content.UAWItems;
 import mindustry.content.Fx;
@@ -13,6 +15,8 @@ import mindustry.world.Block;
 import mindustry.world.blocks.production.GenericCrafter;
 import uaw.world.blocks.production.ConversionDrill;
 
+import static mindustry.Vars.tilesize;
+import static uaw.Vars.modName;
 import static uaw.Vars.tick;
 import static mindustry.type.ItemStack.with;
 
@@ -28,30 +32,29 @@ public class BlocksProduction {
 
         hydroThumper = new ConversionDrill("hydro-thumper") {{
             requirements(Category.production, with(
-                    Items.copper, 55,
-                    Items.lead, 45,
-                    Items.graphite, 40,
-                    Items.silicon, 30
+                    Items.copper, 150,
+                    Items.lead, 60,
+                    Items.graphite, 50
             ));
-            tier = 3;
             size = 3;
+            tier = 3;
+
+            arrows = 1;
             baseArrowColor = Color.valueOf("989aa4");
+
             squareSprite = false;
+
+            drillTime = 5 * tick;
             tileRequirement = Blocks.oreCoal;
             drilledItem = UAWItems.anthracite;
-            arrows = 1;
-            itemCapacity = 35;
-            drillTime = 5 * tick;
-            hasLiquids = true;
-            liquidCapacity = 90f;
-//            drillEffect = new MultiEffect(
-//                    UAWFx.mineImpact(4, 15, Pal.bulletYellow),
-//                    Fx.mineImpactWave.wrap(Pal.bulletYellowBack, 8 * tilesize),
-//                    Fx.drillSteam,
-//                    UAWFx.dynamicExplosion(4 * tilesize, Pal.bulletYellow, Pal.bulletYellowBack)
-//            );
+            drillEffect = new MultiEffect(
+                    Fx.mineImpact,
+                    Fx.mineImpactWave.wrap(Pal.bulletYellowBack),
+                    Fx.drillSteam
+            );
             consumeLiquid(Liquids.water, 5 / tick);
         }};
+
         calcinator = new AttributeCrafter("calcinator") {{
             requirements(Category.crafting, with(Items.copper, 125, Items.lead, 50));
 

@@ -37,7 +37,7 @@ public class ConversionDrill extends BurstDrill {
         stats.remove(Stat.drillTier);
     }
 
-    // Make sures drill can only be placed on specific tile
+    // Ensures drill can only be placed on specific tile
     @Override
     public boolean canPlaceOn(Tile tile, Team team, int rotation) {
         if (isMultiblock()) {
@@ -115,7 +115,6 @@ public class ConversionDrill extends BurstDrill {
             Item item = to == null ? null : to.drop();
             if (item != null || !placeable) {
                 drawPlaceText(Core.bundle.get("bar.inoperative.coal"), x, y, valid);
-
             }
         }
     }

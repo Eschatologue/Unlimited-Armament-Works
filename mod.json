@@ -2,7 +2,7 @@
   "displayName": "Unlimited Armament Works",
   "name": "uaw",
   "author": "Eschatologue",
-  "main": "UAW.UAWModLoader",
+  "main": "uaw.UAWModLoader",
   "subtitle": "#n/a",
   "description": "#n/a",
   "minGameVersion": 156,
