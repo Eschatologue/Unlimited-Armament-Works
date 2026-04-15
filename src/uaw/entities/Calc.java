@@ -1,6 +1,7 @@
 package uaw.entities;
 
 import static uaw.Vars.px;
+import static uaw.Vars.tick;
 
 public class Calc {
 
@@ -35,6 +36,12 @@ public class Calc {
         } else {
             return 0;
         }
+    }
+
+    // Items & Liquid measurements
+
+    public static float liquidUnit(float amount){
+        return amount / tick;
     }
 
     public static float percentageDifference(float from, float to) {

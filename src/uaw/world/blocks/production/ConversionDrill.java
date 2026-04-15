@@ -1,5 +1,7 @@
 package uaw.world.blocks.production;
 
+import mindustry.content.Items;
+import mindustry.type.ItemStack;
 import uaw.content.UAWItems;
 import arc.Core;
 import arc.graphics.Color;
@@ -88,6 +90,9 @@ public class ConversionDrill extends BurstDrill {
     // Draws required item as drawPlace
     @Override
     public void drawPlace(int x, int y, int rotation, boolean valid) {
+        // TODO Make this able to automatically find the proper ore name
+        String barName = "bar.inoperative.";
+        String oreName;
         drawPotentialLinks(x, y);
 
         Tile tile = world.tile(x, y);

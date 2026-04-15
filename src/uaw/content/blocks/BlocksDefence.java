@@ -33,7 +33,7 @@ public class BlocksDefence {
                     Items.graphite, 80
             ));
             size = 2;
-            scaledHealth = 160;
+            scaledHealth = 150;
 
             reload = 6;
             recoil = 1f;
@@ -58,12 +58,10 @@ public class BlocksDefence {
 
             ammo(
                     Items.copper, new BasicBulletType(8f, 12) {{
-                        Color front = Pal.bulletYellow;
-                        Color back = Pal.bulletYellowBack;
                         height = 12f;
                         width = 5f;
-                        frontColor = front;
-                        backColor = back;
+                        frontColor = Pal.bulletYellow;
+                        backColor = Pal.bulletYellowBack;
                         shootEffect = Fx.shootSmall;
                         smokeEffect = Fx.shootSmallSmoke;
                         pierceCap = 2;

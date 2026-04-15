@@ -1,0 +1,43 @@
+package uaw.world.blocks.production;
+
+import arc.graphics.g2d.Draw;
+import arc.math.Mathf;
+import mindustry.gen.Sounds;
+import mindustry.graphics.Layer;
+import mindustry.graphics.Pal;
+import mindustry.world.blocks.production.BurstDrill;
+
+public class ThumperDrill extends BurstDrill {
+
+    public ThumperDrill(final String name) {
+        super(name);
+        ambientSound = Sounds.none;
+        arrows = 0;
+        squareSprite = false;
+        shake = 1f;
+    }
+
+
+    public class ThumperDrillBuild extends BurstDrill.BurstDrillBuild {
+
+        @Override
+        public void draw() {
+            final float px = 0.25f;
+            Draw.rect(region, x, y);
+            drawDefaultCracks();
+
+            final float fract = Mathf.clamp(smoothProgress, px, 0.3f);
+            Draw.color(Pal.shadow, Pal.shadow.a);
+            Draw.rect(topRegion, x - (fract - px) * 40, y - (fract - px) * 40, topRegion.width * fract, topRegion.width * fract);
+            Draw.color();
+            Draw.z(Layer.blockAdditive);
+            Draw.rect(topRegion, x, y, topRegion.width * fract, topRegion.height * fract);
+//            if (dominantItem != null && drawMineItem) {
+//                Draw.color(dominantItem.color);
+//                Draw.rect(itemRegion, x, y, itemRegion.width * fract, itemRegion.height * fract);
+//                Draw.color();
+//            }
+        }
+
+    }
+}
