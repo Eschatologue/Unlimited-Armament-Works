@@ -11,6 +11,9 @@ import mindustry.type.Category;
 import mindustry.type.LiquidStack;
 import mindustry.world.Block;
 import mindustry.world.blocks.production.GenericCrafter;
+import mindustry.world.draw.DrawDefault;
+import mindustry.world.draw.DrawFlame;
+import mindustry.world.draw.DrawMulti;
 import mindustry.world.meta.BuildVisibility;
 import uaw.content.UAWItems;
 import uaw.entities.Calc;
@@ -40,38 +43,10 @@ public class BlocksProduction {
 
     public static void load() {
 
-        hydroThumper = new ConversionDrill("hydro-thumper") {{
-            requirements(Category.production, with(
-                    Items.copper, 125,
-                    Items.lead, 50,
-                    Items.graphite, 50
-            ));
-
-            size = 3;
-            tier = 4;
-
-            arrows = 1;
-            baseArrowColor = Color.valueOf("989aa4");
-
-            squareSprite = false;
-
-            drillTime = 3 * tick;
-            tileRequirement = Blocks.oreCoal;
-            drilledItem = UAWItems.anthracite;
-            drillEffect = new MultiEffect(
-                    Fx.mineImpact,
-                    Fx.hitLiquid.wrap(Pal.water),
-                    Fx.mineImpactWave,
-                    Fx.drillSteam
-            );
-            consumeLiquid(Liquids.water, Calc.liquidUnit(12));
-        }};
-
         testThumper = new ThumperDrill("test-thumper") {{
             requirements(Category.production, BuildVisibility.sandboxOnly, with());
 
             size = 3;
-            squareSprite = false;
 
             drillTime = 6 * tick;
             drillEffect = new MultiEffect(
@@ -83,13 +58,35 @@ public class BlocksProduction {
             alwaysUnlocked = true;
         }};
 
+        hydroThumper = new ConversionDrill("hydro-thumper") {{
+            requirements(Category.production, with(
+                    Items.copper, 125,
+                    Items.lead, 50,
+                    Items.graphite, 50
+            ));
+
+            size = 3;
+            tier = 5;
+
+            drillTime = 6 * tick;
+            tileRequirement = Blocks.oreCoal;
+            drilledItem = UAWItems.anthracite;
+            drillEffect = new MultiEffect(
+                    Fx.mineImpact,
+                    Fx.mineImpactWave,
+                    Fx.drillSteam
+            );
+            consumeLiquid(Liquids.water, Calc.liquidUnit(12));
+        }};
+
         calcinator = new GenericCrafter("calcinator") {{
-            requirements(Category.crafting, with(Items.copper, 125, Items.lead, 50));
+            requirements(Category.crafting, with(Items.copper, 120, Items.lead, 50));
 
             size = 2;
             squareSprite = false;
-            hasItems = true;
+
             craftEffect = new MultiEffect(Fx.coalSmeltsmoke, Fx.smeltsmoke, Fx.fireHit);
+            updateEffect = Fx.pulverizeSmall;
 
             craftTime = 2 * tick;
             consumeItems(with(Items.coal, 2));
@@ -97,17 +94,20 @@ public class BlocksProduction {
         }};
 
         oxidationKiln = new GenericCrafter("oxidation-kiln") {{
-            requirements(Category.crafting, with(Items.copper, 125, Items.lead, 50));
+            requirements(Category.crafting, with(Items.copper, 60, Items.graphite, 30));
 
             size = 2;
             squareSprite = false;
-            hasItems = true;
-            craftEffect = new MultiEffect(Fx.coalSmeltsmoke, Fx.smeltsmoke, Fx.fireHit);
+
+            craftEffect = new MultiEffect(Fx.coalSmeltsmoke, Fx.smeltsmoke, Fx.formsmoke);
+            updateEffect = Fx.pulverizeSmall;
 
             craftTime = 2 * tick;
             consumeItems(with(Items.lead, 2, Items.coal, 1));
-            outputItems = with(UAWItems.sulphur, 1);
+            outputItems = with(UAWItems.sulphur, 2);
             outputLiquids = LiquidStack.with(Liquids.slag, Calc.liquidUnit(3));
+
+            drawer = new DrawMulti(new DrawDefault(), new DrawFlame(Color.valueOf("ffc099")));
         }};
     }
 }

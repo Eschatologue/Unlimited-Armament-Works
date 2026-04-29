@@ -1,161 +1,143 @@
 package uaw.world.blocks.production;
 
-import uaw.content.UAWItems;
 import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.math.Mathf;
 import mindustry.content.Blocks;
+import mindustry.content.Items;
 import mindustry.entities.Effect;
 import mindustry.game.Team;
 import mindustry.type.Item;
-import mindustry.world.*;
-import mindustry.world.blocks.environment.*;
+import mindustry.world.Block;
+import mindustry.world.Tile;
+import mindustry.world.blocks.environment.OverlayFloor;
 import mindustry.world.meta.Stat;
+import uaw.content.UAWItems;
 
 import static mindustry.Vars.*;
 
 public class ConversionDrill extends ThumperDrill {
-    /** This drill placing requirement */
-    public Block tileRequirement = Blocks.oreCoal;
-    /** The drilling result */
-    public Item drilledItem = UAWItems.anthracite;
 
-    /** Dont tamper with this */
-    public boolean placeable;
+    /** The floor or overlay block this drill must be placed on. */
+    public Block tileRequirement = Blocks.oreCoal;
+    /** The item this drill produces, regardless of what it mines. */
+    public Item drilledItem = UAWItems.anthracite;
 
     public ConversionDrill(String name) {
         super(name);
         drawMineItem = false;
+        tier = 4;
+        liquidBoostIntensity = 1f;
     }
 
-    // Removes Drill Tier Stas
+    /**
+     * Returns true if {@code tile} satisfies {@link #tileRequirement}.
+     * Handles both {@link OverlayFloor} and regular floor requirements.
+     */
+    protected boolean tileMatchesRequirement(Tile tile) {
+        return tileRequirement instanceof OverlayFloor
+                ? tile.overlay() == tileRequirement
+                : tile.floor() == tileRequirement;
+    }
+
+    // -------------------------------------------------------------------------
+    // Block overrides
+    // -------------------------------------------------------------------------
+
+    /** Removes Drill tier Stat. */
     @Override
     public void setStats() {
         super.setStats();
         stats.remove(Stat.drillTier);
     }
 
-    // Ensures drill can only be placed on specific tile
+    /** Only allows placement when at least one linked tile mines something AND matches {@link #tileRequirement}. */
     @Override
     public boolean canPlaceOn(Tile tile, Team team, int rotation) {
         if (isMultiblock()) {
             for (var other : tile.getLinkedTilesAs(this, tempTiles)) {
-                if (canMine(other) && tileRequirement instanceof OverlayFloor ? tile.overlay() == tileRequirement : tile.floor() == tileRequirement) {
-                    placeable = true;
-                    return true;
-                }
+                if (canMine(other) && tileMatchesRequirement(other)) return true;
             }
-            placeable = false;
             return false;
-        } else {
-            return canMine(tile) && tileRequirement instanceof OverlayFloor ? tile.overlay() == tileRequirement : tile.floor() == tileRequirement;
         }
+        return canMine(tile) && tileMatchesRequirement(tile);
     }
 
-    // Count Ore - Required for drawPlace
-    @Override
-    protected void countOre(Tile tile) {
-        returnItem = null;
-        returnCount = 0;
-        oreCount.clear();
-        itemArray.clear();
-        for (var other : tile.getLinkedTilesAs(this, tempTiles)) {
-            if (canMine(other)) {
-                oreCount.increment(getDrop(other), 0, 1);
-            }
-        }
-        for (var item : oreCount.keys()) {
-            itemArray.add(item);
-        }
-        itemArray.sort((item1, item2) -> {
-            int type = Boolean.compare(!item1.lowPriority, !item2.lowPriority);
-            if (type != 0)
-                return type;
-            int amounts = Integer.compare(oreCount.get(item1, 0), oreCount.get(item2, 0));
-            if (amounts != 0)
-                return amounts;
-            return Integer.compare(item1.id, item2.id);
-        });
-        if (itemArray.size == 0) {
-            return;
-        }
-        returnItem = itemArray.peek();
-        returnCount = oreCount.get(itemArray.peek(), 0);
-    }
-
-    // Draws required item as drawPlace
     @Override
     public void drawPlace(int x, int y, int rotation, boolean valid) {
-        // TODO Make this able to automatically find the proper ore name
-        String oreName = tileRequirement.name;
-        String barName = "bar.inoperative." + oreName;
         drawPotentialLinks(x, y);
 
         Tile tile = world.tile(x, y);
-        if (tile == null)
-            return;
+        if (tile == null) return;
 
         countOre(tile);
 
-        if (returnItem != null && tileRequirement instanceof OverlayFloor ? tile.overlay() == tileRequirement : tile.floor() == tileRequirement) {
-            float width = drawPlaceText(Core.bundle.formatFloat("bar.drillspeed", 60f / (drillTime + hardnessDrillMultiplier * returnItem.hardness) * returnCount, 2), x, y, valid);
-            float dx = x * tilesize + offset - width / 2f - 4f, dy = y * tilesize + offset + size * tilesize / 2f + 5, s = iconSmall / 4f;
+        if (returnItem != null && tileMatchesRequirement(tile)) {
+            // Show drill speed for the converted output item
+            float width = drawPlaceText(
+                    Core.bundle.formatFloat(
+                            "bar.drillspeed",
+                            60f / (drillTime + hardnessDrillMultiplier * returnItem.hardness) * returnCount,
+                            2),
+                    x, y, valid);
+
+            float dx = x * tilesize + offset - width / 2f - 4f;
+            float dy = y * tilesize + offset + size * tilesize / 2f + 5;
+            float s = iconSmall / 4f;
+
             Draw.mixcol(Color.darkGray, 1f);
             Draw.rect(drilledItem.fullIcon, dx, dy - 1, s, s);
             Draw.reset();
             Draw.rect(drilledItem.fullIcon, dx, dy, s, s);
-
-            if (drawMineItem) {
-                Draw.color(drilledItem.color);
-                Draw.rect(itemRegion, tile.worldx() + offset, tile.worldy() + offset);
-                Draw.color();
-            }
-
         } else {
-            Tile to = tile.getLinkedTilesAs(this, tempTiles).find(t -> tileRequirement instanceof OverlayFloor ? tile.overlay() != tileRequirement : tile.floor() != tileRequirement);
-            Item item = to == null ? null : to.drop();
-            if (item != null || !placeable) {
+            // Check whether any linked tile actually fails the requirement
+            boolean anyMismatch = tile.getLinkedTilesAs(this, tempTiles)
+                    .contains(t -> !tileMatchesRequirement(t));
+
+            if (anyMismatch || !valid) {
+                String barName = "bar.inoperative-" + tileRequirement.name;
                 drawPlaceText(Core.bundle.get(barName), x, y, valid);
             }
         }
     }
 
-    public class ConversionDrillBuild extends BurstDrillBuild {
+    public class ConversionDrillBuild extends ThumperDrillBuild {
+
+        /** The item this build outputs. Override for specialised variants. */
+        protected Item outputItem() {
+            return drilledItem;
+        }
+
         @Override
         public void drawSelect() {
-            if (dominantItem != null) {
-                float dx = x - size * tilesize / 2f, dy = y + size * tilesize / 2f, s = iconSmall / 4f;
-                Draw.mixcol(Color.darkGray, 1f);
-                Draw.rect(drilledItem.fullIcon, dx, dy - 1, s, s);
-                Draw.reset();
-                Draw.rect(drilledItem.fullIcon, dx, dy, s, s);
-            }
+            if (dominantItem == null) return;
+            float dx = x - size * tilesize / 2f;
+            float dy = y + size * tilesize / 2f;
+            float s = iconSmall / 4f;
+            Draw.mixcol(Color.darkGray, 1f);
+            Draw.rect(outputItem().fullIcon, dx, dy - 1, s, s);
+            Draw.reset();
+            Draw.rect(outputItem().fullIcon, dx, dy, s, s);
         }
 
         @Override
         public void updateTile() {
-            if (dominantItem == null) {
-                return;
-            }
+            if (dominantItem == null) return;
 
             if (invertTime > 0f) invertTime -= delta() / invertedTime;
 
             if (timer(timerDump, dumpTime / timeScale)) {
-                dump(items.has(drilledItem) ? drilledItem : null);
+                dump(items.has(outputItem()) ? outputItem() : null);
             }
 
-            float drillTime = getDrillTime(drilledItem);
-
+            float drillTime = getDrillTime(dominantItem);
             smoothProgress = Mathf.lerpDelta(smoothProgress, progress / (drillTime - 20f), 0.1f);
 
             if (items.total() <= itemCapacity - dominantItems && dominantItems > 0 && efficiency > 0) {
                 warmup = Mathf.approachDelta(warmup, progress / drillTime, 0.01f);
-
-                float speed = efficiency;
-
+                float speed = Mathf.lerp(1f, liquidBoostIntensity, optionalEfficiency) * efficiency;
                 timeDrilled += speedCurve.apply(progress / drillTime) * speed;
-
                 lastDrillSpeed = 1f / drillTime * speed * dominantItems;
                 progress += delta() * speed;
             } else {
@@ -165,17 +147,13 @@ public class ConversionDrill extends ThumperDrill {
             }
 
             if (dominantItems > 0 && progress >= drillTime && items.total() < itemCapacity) {
-                for (int i = 0; i < dominantItems; i++) {
-                    offload(drilledItem);
-                }
-
+                for (int i = 0; i < dominantItems; i++) offload(outputItem());
                 invertTime = 1f;
                 progress %= drillTime;
-
                 if (wasVisible) {
                     Effect.shake(shake, shake, this);
                     drillSound.at(x, y, 1f + Mathf.range(drillSoundPitchRand), drillSoundVolume);
-                    drillEffect.at(x + Mathf.range(drillEffectRnd), y + Mathf.range(drillEffectRnd), drilledItem.color);
+                    drillEffect.at(x + Mathf.range(drillEffectRnd), y + Mathf.range(drillEffectRnd), outputItem().color);
                 }
             }
         }

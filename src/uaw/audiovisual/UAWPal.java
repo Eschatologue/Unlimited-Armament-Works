@@ -46,6 +46,9 @@ public class UAWPal {
             phlogistonMid = Color.valueOf("4db6ac"),
             phlogistonBack = Color.valueOf("00867d"),
 
+    sulphurFront = Color.valueOf("ffcd66"),
+            sulphurBack = Color.valueOf("e28654"),
+
     coalFront = Color.valueOf("404040"),
             coalBack = Color.valueOf("2a2a2a"),
 

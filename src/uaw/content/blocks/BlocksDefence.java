@@ -22,10 +22,10 @@ public class BlocksDefence {
 
     public static Block placeholder,
     // MG - Machine Guns
-    MG_T1;
+    quadra;
 
     public static void load() {
-        MG_T1 = new ItemTurret("quadra") {{
+        quadra = new ItemTurret("quadra") {{
             requirements(Category.turret, with(
                     Items.copper, 115,
                     Items.lead, 120,

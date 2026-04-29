@@ -7,7 +7,7 @@ import mindustry.gen.Sounds;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.world.blocks.production.BurstDrill;
-import uaw.audiovisual.Sfx;
+import uaw.audiovisual.UAWSfx;
 
 public class ThumperDrill extends BurstDrill {
 
@@ -18,13 +18,12 @@ public class ThumperDrill extends BurstDrill {
         tier = 4;
         squareSprite = false;
 
-        drillSound= Sfx.mineThumperDrill;
+        drillSound = UAWSfx.mineThumperDrill;
         ambientSound = Sounds.none;
         arrows = 0;
 
         shake = 2f;
         hardnessDrillMultiplier = 0f;
-        liquidBoostIntensity = 1f;
     }
 
     public class ThumperDrillBuild extends BurstDrill.BurstDrillBuild {

@@ -14,8 +14,8 @@ public class UAWItems {
     public static final Seq<Item> serpuloItems = new Seq<>(), erekirItems = new Seq<>(), erekirOnlyItems = new Seq<>();
 
     public static void load() {
-        sulphur = new Item("sulphur", Pal.bulletYellow) {{
-            flammability = Items.coal.flammability * 1.25f;
+        sulphur = new Item("sulphur", UAWPal.sulphurFront) {{
+            flammability = Items.coal.flammability * 0.5f;
             explosiveness = Items.coal.explosiveness / 4;
             buildable = false;
         }};
