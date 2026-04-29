@@ -22,10 +22,10 @@ public class BlocksDefence {
 
     public static Block placeholder,
     // MG - Machine Guns
-    quadra;
+    MG_T1;
 
     public static void load() {
-        quadra = new ItemTurret("quadra") {{
+        MG_T1 = new ItemTurret("quadra") {{
             requirements(Category.turret, with(
                     Items.copper, 115,
                     Items.lead, 120,
@@ -33,7 +33,7 @@ public class BlocksDefence {
                     Items.graphite, 80
             ));
             size = 2;
-            scaledHealth = 150;
+            scaledHealth = 160;
 
             reload = 6;
             recoil = 1f;
@@ -57,12 +57,13 @@ public class BlocksDefence {
             }};
 
             ammo(
-                    Items.copper, new BasicBulletType() {{
-                        damage = 12f;
+                    Items.copper, new BasicBulletType(8f, 12) {{
+                        Color front = Pal.bulletYellow;
+                        Color back = Pal.bulletYellowBack;
                         height = 12f;
                         width = 5f;
-                        frontColor = Pal.bulletYellow;
-                        backColor = Pal.bulletYellowBack;
+                        frontColor = front;
+                        backColor = back;
                         shootEffect = Fx.shootSmall;
                         smokeEffect = Fx.shootSmallSmoke;
                         pierceCap = 2;
