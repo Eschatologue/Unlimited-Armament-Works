@@ -22,10 +22,10 @@ public class BlocksDefence {
 
     public static Block placeholder,
     // MG - Machine Guns
-    MG_T1;
+    quadra;
 
     public static void load() {
-        MG_T1 = new ItemTurret("quadra") {{
+        quadra = new ItemTurret("quadra") {{
             requirements(Category.turret, with(
                     Items.copper, 115,
                     Items.lead, 120,
@@ -57,7 +57,8 @@ public class BlocksDefence {
             }};
 
             ammo(
-                    Items.copper, new BasicBulletType(8f, 12) {{
+                    Items.copper, new BasicBulletType() {{
+                        damage = 12f;
                         height = 12f;
                         width = 5f;
                         frontColor = Pal.bulletYellow;

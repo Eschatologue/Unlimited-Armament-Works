@@ -70,10 +70,9 @@ public class BlocksProduction {
         testThumper = new ThumperDrill("test-thumper") {{
             requirements(Category.production, BuildVisibility.sandboxOnly, with());
 
-            alwaysUnlocked = true;
             size = 3;
-            tier = 4;
             squareSprite = false;
+
             drillTime = 6 * tick;
             drillEffect = new MultiEffect(
                     Fx.mineImpact,
@@ -81,25 +80,10 @@ public class BlocksProduction {
                     Fx.mineImpactWave,
                     Fx.drillSteam
             );
-        }};
-
-        oxidationKiln = new GenericCrafter("oxidation-kiln") {{
-            //TODO Build Cost
-            requirements(Category.crafting, with(Items.copper, 125, Items.lead, 50));
-
-            size = 2;
-            squareSprite = false;
-            hasItems = true;
-            craftEffect = new MultiEffect(Fx.coalSmeltsmoke, Fx.smeltsmoke, Fx.fireHit);
-
-            consumeItems(with(Items.lead, 4, Items.coal, 2));
-            outputItems = with(UAWItems.sulphur, 4);
-            outputLiquids = LiquidStack.with(Liquids.slag, Calc.liquidUnit(6));
-            craftTime = 2 * tick;
+            alwaysUnlocked = true;
         }};
 
         calcinator = new GenericCrafter("calcinator") {{
-            //TODO Build Cost
             requirements(Category.crafting, with(Items.copper, 125, Items.lead, 50));
 
             size = 2;
@@ -107,9 +91,23 @@ public class BlocksProduction {
             hasItems = true;
             craftEffect = new MultiEffect(Fx.coalSmeltsmoke, Fx.smeltsmoke, Fx.fireHit);
 
+            craftTime = 2 * tick;
             consumeItems(with(Items.coal, 2));
             outputItems = with(UAWItems.anthracite, 2, UAWItems.sulphur, 1);
+        }};
+
+        oxidationKiln = new GenericCrafter("oxidation-kiln") {{
+            requirements(Category.crafting, with(Items.copper, 125, Items.lead, 50));
+
+            size = 2;
+            squareSprite = false;
+            hasItems = true;
+            craftEffect = new MultiEffect(Fx.coalSmeltsmoke, Fx.smeltsmoke, Fx.fireHit);
+
             craftTime = 2 * tick;
+            consumeItems(with(Items.lead, 2, Items.coal, 1));
+            outputItems = with(UAWItems.sulphur, 1);
+            outputLiquids = LiquidStack.with(Liquids.slag, Calc.liquidUnit(3));
         }};
     }
 }

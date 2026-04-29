@@ -1,7 +1,5 @@
 package uaw.world.blocks.production;
 
-import mindustry.content.Items;
-import mindustry.type.ItemStack;
 import uaw.content.UAWItems;
 import arc.Core;
 import arc.graphics.Color;
@@ -13,12 +11,11 @@ import mindustry.game.Team;
 import mindustry.type.Item;
 import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
-import mindustry.world.blocks.production.BurstDrill;
 import mindustry.world.meta.Stat;
 
 import static mindustry.Vars.*;
 
-public class ConversionDrill extends BurstDrill {
+public class ConversionDrill extends ThumperDrill {
     /** This drill placing requirement */
     public Block tileRequirement = Blocks.oreCoal;
     /** The drilling result */
@@ -91,8 +88,8 @@ public class ConversionDrill extends BurstDrill {
     @Override
     public void drawPlace(int x, int y, int rotation, boolean valid) {
         // TODO Make this able to automatically find the proper ore name
-        String barName = "bar.inoperative.";
-        String oreName;
+        String oreName = tileRequirement.name;
+        String barName = "bar.inoperative." + oreName;
         drawPotentialLinks(x, y);
 
         Tile tile = world.tile(x, y);
@@ -119,7 +116,7 @@ public class ConversionDrill extends BurstDrill {
             Tile to = tile.getLinkedTilesAs(this, tempTiles).find(t -> tileRequirement instanceof OverlayFloor ? tile.overlay() != tileRequirement : tile.floor() != tileRequirement);
             Item item = to == null ? null : to.drop();
             if (item != null || !placeable) {
-                drawPlaceText(Core.bundle.get("bar.inoperative.coal"), x, y, valid);
+                drawPlaceText(Core.bundle.get(barName), x, y, valid);
             }
         }
     }

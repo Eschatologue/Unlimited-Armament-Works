@@ -1,22 +1,31 @@
 package uaw.world.blocks.production;
 
 import arc.graphics.g2d.Draw;
+import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
 import mindustry.gen.Sounds;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.world.blocks.production.BurstDrill;
+import uaw.audiovisual.Sfx;
 
 public class ThumperDrill extends BurstDrill {
 
+    public TextureRegion liquidRegion;
+
     public ThumperDrill(final String name) {
         super(name);
+        tier = 4;
+        squareSprite = false;
+
+        drillSound= Sfx.mineThumperDrill;
         ambientSound = Sounds.none;
         arrows = 0;
-        squareSprite = false;
-        shake = 1f;
-    }
 
+        shake = 2f;
+        hardnessDrillMultiplier = 0f;
+        liquidBoostIntensity = 1f;
+    }
 
     public class ThumperDrillBuild extends BurstDrill.BurstDrillBuild {
 
@@ -25,18 +34,18 @@ public class ThumperDrill extends BurstDrill {
             final float px = 0.25f;
             Draw.rect(region, x, y);
             drawDefaultCracks();
-
-            final float fract = Mathf.clamp(smoothProgress, px, 0.3f);
+            float fract = Mathf.clamp(smoothProgress, px, 0.3f);
             Draw.color(Pal.shadow, Pal.shadow.a);
             Draw.rect(topRegion, x - (fract - px) * 40, y - (fract - px) * 40, topRegion.width * fract, topRegion.width * fract);
             Draw.color();
             Draw.z(Layer.blockAdditive);
             Draw.rect(topRegion, x, y, topRegion.width * fract, topRegion.height * fract);
-//            if (dominantItem != null && drawMineItem) {
-//                Draw.color(dominantItem.color);
-//                Draw.rect(itemRegion, x, y, itemRegion.width * fract, itemRegion.height * fract);
-//                Draw.color();
-//            }
+            // Draws the liquid used to power the drill
+            if (dominantItem != null && drawMineItem) {
+                Draw.color(dominantItem.color);
+                Draw.rect(itemRegion, x, y, itemRegion.width * fract, itemRegion.height * fract);
+                Draw.color();
+            }
         }
 
     }
