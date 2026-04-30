@@ -5,7 +5,6 @@ import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.math.Mathf;
 import mindustry.content.Blocks;
-import mindustry.content.Items;
 import mindustry.entities.Effect;
 import mindustry.game.Team;
 import mindustry.type.Item;
@@ -19,40 +18,39 @@ import static mindustry.Vars.*;
 
 public class ConversionDrill extends ThumperDrill {
 
-    /** The floor or overlay block this drill must be placed on. */
+    /**
+     * The floor or overlay block this drill must be placed on
+     */
     public Block tileRequirement = Blocks.oreCoal;
-    /** The item this drill produces, regardless of what it mines. */
+    /**
+     * The item this drill produces, regardless of what it mines
+     */
     public Item drilledItem = UAWItems.anthracite;
+    /**
+     * How many output items are produced per ore tile per drill cycle
+     */
+    public int outputMult = 1;
 
     public ConversionDrill(String name) {
         super(name);
         drawMineItem = false;
-        tier = 4;
-        liquidBoostIntensity = 1f;
     }
 
-    /**
-     * Returns true if {@code tile} satisfies {@link #tileRequirement}.
-     * Handles both {@link OverlayFloor} and regular floor requirements.
-     */
     protected boolean tileMatchesRequirement(Tile tile) {
         return tileRequirement instanceof OverlayFloor
                 ? tile.overlay() == tileRequirement
                 : tile.floor() == tileRequirement;
     }
 
-    // -------------------------------------------------------------------------
-    // Block overrides
-    // -------------------------------------------------------------------------
-
-    /** Removes Drill tier Stat. */
+    /**
+     * Removes Drill tier Stat
+     */
     @Override
     public void setStats() {
         super.setStats();
         stats.remove(Stat.drillTier);
     }
 
-    /** Only allows placement when at least one linked tile mines something AND matches {@link #tileRequirement}. */
     @Override
     public boolean canPlaceOn(Tile tile, Team team, int rotation) {
         if (isMultiblock()) {
@@ -78,7 +76,7 @@ public class ConversionDrill extends ThumperDrill {
             float width = drawPlaceText(
                     Core.bundle.formatFloat(
                             "bar.drillspeed",
-                            60f / (drillTime + hardnessDrillMultiplier * returnItem.hardness) * returnCount,
+                            60f / ((drillTime + hardnessDrillMultiplier * returnItem.hardness) * returnCount) * outputMult,
                             2),
                     x, y, valid);
 
@@ -104,7 +102,9 @@ public class ConversionDrill extends ThumperDrill {
 
     public class ConversionDrillBuild extends ThumperDrillBuild {
 
-        /** The item this build outputs. Override for specialised variants. */
+        /**
+         * The item this build outputs. Override for specialised variants.
+         */
         protected Item outputItem() {
             return drilledItem;
         }
@@ -134,7 +134,7 @@ public class ConversionDrill extends ThumperDrill {
             float drillTime = getDrillTime(dominantItem);
             smoothProgress = Mathf.lerpDelta(smoothProgress, progress / (drillTime - 20f), 0.1f);
 
-            if (items.total() <= itemCapacity - dominantItems && dominantItems > 0 && efficiency > 0) {
+            if (items.total() <= itemCapacity - dominantItems * outputMult && dominantItems > 0 && efficiency > 0) {
                 warmup = Mathf.approachDelta(warmup, progress / drillTime, 0.01f);
                 float speed = Mathf.lerp(1f, liquidBoostIntensity, optionalEfficiency) * efficiency;
                 timeDrilled += speedCurve.apply(progress / drillTime) * speed;
@@ -147,7 +147,7 @@ public class ConversionDrill extends ThumperDrill {
             }
 
             if (dominantItems > 0 && progress >= drillTime && items.total() < itemCapacity) {
-                for (int i = 0; i < dominantItems; i++) offload(outputItem());
+                for (int i = 0; i < dominantItems * outputMult; i++) offload(outputItem());
                 invertTime = 1f;
                 progress %= drillTime;
                 if (wasVisible) {

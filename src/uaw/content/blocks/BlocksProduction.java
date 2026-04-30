@@ -8,6 +8,7 @@ import mindustry.content.Liquids;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.graphics.Pal;
 import mindustry.type.Category;
+import mindustry.type.Item;
 import mindustry.type.LiquidStack;
 import mindustry.world.Block;
 import mindustry.world.blocks.production.GenericCrafter;
@@ -58,6 +59,8 @@ public class BlocksProduction {
             alwaysUnlocked = true;
         }};
 
+        // Resourcing
+
         hydroThumper = new ConversionDrill("hydro-thumper") {{
             requirements(Category.production, with(
                     Items.copper, 125,
@@ -66,9 +69,8 @@ public class BlocksProduction {
             ));
 
             size = 3;
-            tier = 5;
 
-            drillTime = 6 * tick;
+            drillTime = 3 * tick;
             tileRequirement = Blocks.oreCoal;
             drilledItem = UAWItems.anthracite;
             drillEffect = new MultiEffect(
@@ -79,19 +81,7 @@ public class BlocksProduction {
             consumeLiquid(Liquids.water, Calc.liquidUnit(12));
         }};
 
-        calcinator = new GenericCrafter("calcinator") {{
-            requirements(Category.crafting, with(Items.copper, 120, Items.lead, 50));
-
-            size = 2;
-            squareSprite = false;
-
-            craftEffect = new MultiEffect(Fx.coalSmeltsmoke, Fx.smeltsmoke, Fx.fireHit);
-            updateEffect = Fx.pulverizeSmall;
-
-            craftTime = 2 * tick;
-            consumeItems(with(Items.coal, 2));
-            outputItems = with(UAWItems.anthracite, 2, UAWItems.sulphur, 1);
-        }};
+        // Production - Sulphur
 
         oxidationKiln = new GenericCrafter("oxidation-kiln") {{
             requirements(Category.crafting, with(Items.copper, 60, Items.graphite, 30));
@@ -99,7 +89,7 @@ public class BlocksProduction {
             size = 2;
             squareSprite = false;
 
-            craftEffect = new MultiEffect(Fx.coalSmeltsmoke, Fx.smeltsmoke, Fx.formsmoke);
+            craftEffect = new MultiEffect(Fx.coalSmeltsmoke, Fx.smeltsmoke);
             updateEffect = Fx.pulverizeSmall;
 
             craftTime = 2 * tick;
@@ -109,5 +99,39 @@ public class BlocksProduction {
 
             drawer = new DrawMulti(new DrawDefault(), new DrawFlame(Color.valueOf("ffc099")));
         }};
+
+        // Production - Anthracite
+
+        calcinator = new GenericCrafter("calcinator") {{
+            requirements(Category.crafting, with(Items.copper, 120, Items.lead, 50));
+
+            size = 2;
+            squareSprite = false;
+
+            craftEffect = new MultiEffect(Fx.coalSmeltsmoke, Fx.smeltsmoke, Fx.formsmoke);
+            updateEffect = Fx.fireHit;
+
+            craftTime = 2 * tick;
+            consumeItems(with(Items.coal, 2));
+            outputItems = with(UAWItems.anthracite, 1, UAWItems.sulphur, 1);
+        }};
+
+        attritionMill = new GenericCrafter("attrition-mill") {{
+            requirements(Category.crafting, with(Items.graphite, 50));
+
+            size = 2;
+            squareSprite = false;
+
+            craftEffect = new MultiEffect(Fx.coalSmeltsmoke, Fx.smeltsmoke);
+            updateEffect = Fx.pulverize;
+
+            craftTime = 2 * tick;
+            consumeItems(with(Items.graphite, 1, Items.sand, 1));
+            outputItems = with(UAWItems.anthracite, 2);
+
+            drawer = new DrawMulti(new DrawDefault(), new DrawFlame(Color.valueOf("ffc099")));
+        }};
+
+
     }
 }
