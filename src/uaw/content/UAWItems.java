@@ -22,10 +22,9 @@ public class UAWItems {
         anthracite = new Item("anthracite", Color.valueOf("272727")) {{
             flammability = Items.coal.flammability * 2;
             explosiveness = Items.coal.explosiveness / 2;
-            hardness = Items.coal.hardness * 2;
             buildable = false;
         }};
-        cryogel = new Item("cryogel", Pal.bulletYellow) {{
+        cryogel = new Item("cryogel", UAWPal.cryoFront) {{
             flammability = -10f;
             explosiveness = 0f;
             buildable = false;
@@ -33,7 +32,6 @@ public class UAWItems {
 
         stoutsteel = new Item("stoutsteel", UAWPal.stoutSteelMiddle) {{
             cost = 1;
-            hardness = Items.tungsten.hardness;
         }};
 
         serpuloItems.addAll(

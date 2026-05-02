@@ -76,7 +76,7 @@ public class ConversionDrill extends ThumperDrill {
             float width = drawPlaceText(
                     Core.bundle.formatFloat(
                             "bar.drillspeed",
-                            60f / ((drillTime + hardnessDrillMultiplier * returnItem.hardness) * returnCount) * outputMult,
+                            60f / ((drillTime + hardnessDrillMultiplier) * returnCount) * outputMult,
                             2),
                     x, y, valid);
 
@@ -98,6 +98,11 @@ public class ConversionDrill extends ThumperDrill {
                 drawPlaceText(Core.bundle.get(barName), x, y, valid);
             }
         }
+    }
+
+    @Override
+    public float getDrillTime(Item item){
+        return (drillTime + hardnessDrillMultiplier) / drillMultipliers.get(item, 1f);
     }
 
     public class ConversionDrillBuild extends ThumperDrillBuild {

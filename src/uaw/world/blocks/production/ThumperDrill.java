@@ -15,7 +15,7 @@ public class ThumperDrill extends BurstDrill {
 
     public ThumperDrill(final String name) {
         super(name);
-        tier = 4;
+        tier = 3;
         squareSprite = false;
 
         drillSound = UAWSfx.mineThumperDrill;

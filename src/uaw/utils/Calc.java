@@ -1,4 +1,4 @@
-package uaw.entities;
+package uaw.utils;
 
 import static uaw.Vars.px;
 import static uaw.Vars.tick;
