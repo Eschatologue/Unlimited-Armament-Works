@@ -19,7 +19,6 @@ import uaw.content.UAWLiquids;
 import uaw.utils.Calc;
 import uaw.world.blocks.production.ConversionDrill;
 import uaw.world.blocks.production.EXP_ConversionDrill;
-import uaw.world.blocks.production.ThumperDrill;
 
 import static mindustry.type.ItemStack.with;
 import static uaw.Vars.px;
@@ -37,9 +36,9 @@ public class BlocksProduction {
     // Production - Sulphur
     oxidationKiln, chemicalSaturator,
     // Production - Phlogiston
-    pyroliticExtractor,
+    pyrolyticExtractor,
     // Production II - TiSiC
-    inductionPress,
+    sinteringFurnace,
     // Production III - Stoutsteel
     isostaticCrucible;
 
@@ -90,7 +89,7 @@ public class BlocksProduction {
         // region Production - Anthracite
 
         calcinator = new GenericCrafter("calcinator") {{
-            requirements(Category.crafting, with(Items.copper, 120, Items.lead, 50));
+            requirements(Category.crafting, with(Items.copper, 150, Items.lead, 50));
 
             size = 2;
             squareSprite = false;
@@ -128,7 +127,7 @@ public class BlocksProduction {
         // region Production - Sulphur
 
         oxidationKiln = new GenericCrafter("oxidation-kiln") {{
-            requirements(Category.crafting, with(Items.copper, 60, Items.graphite, 30));
+            requirements(Category.crafting, with(Items.copper, 60, Items.graphite, 25));
 
             size = 2;
             squareSprite = false;
@@ -145,7 +144,7 @@ public class BlocksProduction {
         }};
 
         chemicalSaturator = new GenericCrafter("chemical-saturator") {{
-            requirements(Category.crafting, BuildVisibility.sandboxOnly, with());
+            requirements(Category.crafting, with(Items.graphite, 50, Items.metaglass, 25));
 
             size = 3;
             squareSprite = false;
@@ -159,12 +158,35 @@ public class BlocksProduction {
 
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
-                    new DrawLiquidTile(Liquids.water, 8 * px),
-                    new DrawLiquidTile(UAWLiquids.sulphuricAcid, 8 * px),
+                    new DrawLiquidTile(Liquids.water, 8 * px) {{
+                        alpha = 0.8f;
+                    }},
+                    new DrawLiquidTile(UAWLiquids.sulphuricAcid, 8 * px) {{
+                        alpha = 1.2f;
+                    }},
                     new DrawRegion("-rot", 3),
                     new DrawDefault());
         }};
 
         // endregion Production - Sulphur
+
+        // region Production - TiSiC
+
+        sinteringFurnace = new GenericCrafter("sintering-furnace") {{
+            requirements(Category.crafting, with(Items.titanium, 150, Items.graphite, 100, Items.silicon, 50));
+
+            size = 3;
+            squareSprite = false;
+            buildTime = 5 * tick;
+
+            craftEffect = new MultiEffect(Fx.coalSmeltsmoke, Fx.smeltsmoke);
+            updateEffect = Fx.pulverizeSmall;
+
+            craftTime = 2 * tick;
+            consumeItems(with(Items.lead, 2, Items.coal, 1));
+            outputItems = with(UAWItems.sulphur, 2);
+
+            drawer = new DrawMulti(new DrawDefault(), new DrawFlame(Color.valueOf("ffc099")));
+        }};
     }
 }

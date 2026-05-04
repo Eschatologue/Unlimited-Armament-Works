@@ -9,7 +9,7 @@ import mindustry.type.Item;
 
 public class UAWItems {
     public static Item
-            sulphur, anthracite, cryogel, stoutsteel;
+            sulphur, anthracite, cryogel, tisic, stoutsteel;
 
     public static final Seq<Item> serpuloItems = new Seq<>(), erekirItems = new Seq<>(), erekirOnlyItems = new Seq<>();
 
@@ -24,18 +24,23 @@ public class UAWItems {
             explosiveness = Items.coal.explosiveness / 2;
             buildable = false;
         }};
+        tisic = new Item("tisic", Pal.water) {{
+            healthScaling = 1.5f;
+            cost = 1.5f;
+        }};
+        stoutsteel = new Item("stoutsteel", UAWPal.stoutSteelMiddle) {{
+            healthScaling = 2f;
+            cost = 2;
+        }};
         cryogel = new Item("cryogel", UAWPal.cryoFront) {{
             flammability = -10f;
             explosiveness = 0f;
             buildable = false;
         }};
 
-        stoutsteel = new Item("stoutsteel", UAWPal.stoutSteelMiddle) {{
-            cost = 1;
-        }};
 
         serpuloItems.addAll(
-               sulphur, anthracite, cryogel, stoutsteel
+               sulphur, anthracite, cryogel, tisic, stoutsteel
         );
 
     }

@@ -103,7 +103,7 @@ public class EXP_ConversionDrill extends ThumperDrill {
             Draw.reset();
             Draw.rect(entry.output.fullIcon, dx, dy, s, s);
         } else if (!valid) {
-            drawPlaceText(Core.bundle.get("bar.nodrill"), x, y, false);
+            drawPlaceText(Core.bundle.get("bar.convdrill-invalid"), x, y, false);
         }
     }
 
@@ -124,15 +124,12 @@ public class EXP_ConversionDrill extends ThumperDrill {
     public class EXP_ConversionDrillBuild extends ThumperDrillBuild {
 
         /**
-         * Cached entry for the tile this drill is currently sitting on.
-         * Refreshed in {@link #onProximityUpdate()}, which the game calls both
-         * on placement and whenever the surrounding tiles change.
+         * Cached entry for the tile this drill is currently sitting on. Refreshed in {@link #onProximityUpdate()}, which the game calls both on placement and whenever the surrounding tiles change.
          */
         protected ConversionEntry activeEntry;
 
         /**
-         * Scans linked tiles to find the first matching {@link ConversionEntry}
-         * and caches it in {@link #activeEntry}.
+         * Scans linked tiles to find the first matching {@link ConversionEntry} and caches it in {@link #activeEntry}.
          */
         protected void refreshActiveEntry() {
             activeEntry = null;
@@ -145,11 +142,6 @@ public class EXP_ConversionDrill extends ThumperDrill {
             }
         }
 
-        /**
-         * The game calls this both when the building is placed and whenever
-         * neighbouring blocks change, so it covers all cases where the active
-         * entry might need updating.
-         */
         @Override
         public void onProximityUpdate() {
             super.onProximityUpdate(); // sets dominantItem and dominantItems
@@ -162,10 +154,7 @@ public class EXP_ConversionDrill extends ThumperDrill {
         }
 
         /**
-         * Overridden to account for {@link #outputMult} — otherwise the parent
-         * would check capacity against {@code dominantItems} alone, and the drill
-         * would keep consuming power/liquid even when there isn't room for the
-         * full batch of output items.
+         * Overridden to account for {@link #outputMult} — otherwise the parent would check capacity against {@code dominantItems} alone, and the drill would keep consuming power/liquid even when there isn't room for the full batch of output items.
          */
         @Override
         public boolean shouldConsume() {
