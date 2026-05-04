@@ -71,12 +71,19 @@ public class ConversionDrill extends ThumperDrill {
 
         countOre(tile);
 
-        if (returnItem != null && tileMatchesRequirement(tile)) {
+        boolean anyMatch = false;
+        for (var other : tile.getLinkedTilesAs(this, tempTiles)) {
+            if (tileMatchesRequirement(other)) {
+                anyMatch = true;
+                break;
+            }
+        }
+        if (returnItem != null && anyMatch) {
             // Show drill speed for the converted output item
             float width = drawPlaceText(
                     Core.bundle.formatFloat(
                             "bar.drillspeed",
-                            60f / ((drillTime + hardnessDrillMultiplier) * returnCount) * outputMult,
+                            60f / getDrillTime(returnItem) * returnCount,
                             2),
                     x, y, valid);
 
@@ -94,15 +101,10 @@ public class ConversionDrill extends ThumperDrill {
                     .contains(t -> !tileMatchesRequirement(t));
 
             if (anyMismatch || !valid) {
-                String barName = "bar.inoperative-" + tileRequirement.name;
+                String barName = "bar.conversion-drill-inoperative-" + tileRequirement.name;
                 drawPlaceText(Core.bundle.get(barName), x, y, valid);
             }
         }
-    }
-
-    @Override
-    public float getDrillTime(Item item){
-        return (drillTime + hardnessDrillMultiplier) / drillMultipliers.get(item, 1f);
     }
 
     public class ConversionDrillBuild extends ThumperDrillBuild {

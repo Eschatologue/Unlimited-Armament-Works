@@ -18,6 +18,7 @@ import uaw.content.UAWItems;
 import uaw.content.UAWLiquids;
 import uaw.utils.Calc;
 import uaw.world.blocks.production.ConversionDrill;
+import uaw.world.blocks.production.EXP_ConversionDrill;
 import uaw.world.blocks.production.ThumperDrill;
 
 import static mindustry.type.ItemStack.with;
@@ -44,7 +45,7 @@ public class BlocksProduction {
 
     public static void load() {
 
-        testThumper = new ThumperDrill("test-thumper") {{
+        testThumper = new EXP_ConversionDrill("test-thumper") {{
             requirements(Category.production, BuildVisibility.sandboxOnly, with());
 
             size = 3;
@@ -57,6 +58,9 @@ public class BlocksProduction {
                     Fx.drillSteam
             );
             alwaysUnlocked = true;
+
+            addConversion(Blocks.oreCoal, UAWItems.anthracite);
+            addConversion(Blocks.oreCopper, Items.titanium);
         }};
 
         // region Resourcing
@@ -155,6 +159,7 @@ public class BlocksProduction {
 
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
+                    new DrawLiquidTile(Liquids.water, 8 * px),
                     new DrawLiquidTile(UAWLiquids.sulphuricAcid, 8 * px),
                     new DrawRegion("-rot", 3),
                     new DrawDefault());
