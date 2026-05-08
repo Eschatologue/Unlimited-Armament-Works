@@ -5,9 +5,11 @@ import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.graphics.g2d.Lines;
 import arc.math.Mathf;
+import mindustry.content.Fx;
 import mindustry.entities.Effect;
 import mindustry.graphics.Layer;
 
+import static arc.graphics.g2d.Draw.alpha;
 import static arc.graphics.g2d.Draw.color;
 import static arc.graphics.g2d.Lines.lineAngle;
 import static arc.graphics.g2d.Lines.stroke;
@@ -54,5 +56,40 @@ public class UAWFx {
             });
         }
     });
+
+    public static Effect crucibleSmoke(Color color) {
+        return crucibleSmoke(160, color);
+    }
+
+    public static Effect crucibleSmoke(float lifetime, Color color) {
+        return crucibleSmoke(lifetime, 2, color);
+    }
+
+    /**
+     * {@link Fx#surgeCruciSmoke}
+     * @param lifetime
+     * 	How long does the effect lasts | 160
+     * @param particleRad
+     * 	Particle Size | 2
+     * @param color
+     * 	particle color
+     */
+    public static Effect crucibleSmoke(float lifetime, float particleRad, Color color) {
+        return new Effect(lifetime, e -> {
+            color(color);
+            alpha(0.45f);
+
+            rand.setSeed(e.id);
+            for (int i = 0; i < 3; i++) {
+                float len = rand.random(3f, 9f);
+                float rot = rand.range(40f) + e.rotation;
+
+                e.scaled(e.lifetime * rand.random(0.3f, 1f), b -> {
+                    v.trns(rot, len * b.finpow());
+                    Fill.circle(e.x + v.x, e.y + v.y, particleRad * b.fslope() + (particleRad / 10));
+                });
+            }
+        });
+    }
 
 }

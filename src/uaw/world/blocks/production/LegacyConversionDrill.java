@@ -4,7 +4,7 @@ import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.math.Mathf;
-import arc.struct.Seq;
+import mindustry.content.Blocks;
 import mindustry.entities.Effect;
 import mindustry.game.Team;
 import mindustry.type.Item;
@@ -12,49 +12,40 @@ import mindustry.world.Block;
 import mindustry.world.Tile;
 import mindustry.world.blocks.environment.OverlayFloor;
 import mindustry.world.meta.Stat;
+import uaw.content.UAWItems;
 
 import static mindustry.Vars.*;
 
-public class ConversionDrill extends ThumperDrill {
+@Deprecated
+public class LegacyConversionDrill extends ThumperDrill {
 
     /**
-     * Maps a required overlay block to the item this drill outputs when placed on it.
-     * <p>Populate with {@link #addConversion(Block, Item)}</p>
+     * The floor or overlay block this drill must be placed on
      */
-    public final Seq<ConversionEntry> conversions = new Seq<>();
-
+    public Block tileRequirement = Blocks.oreCoal;
     /**
-     * How many output items are produced per ore tile per drill cycle.
+     * The item this drill produces, regardless of what it mines
+     */
+    public Item drilledItem = UAWItems.anthracite;
+    /**
+     * How many output items are produced per ore tile per drill cycle
      */
     public int outputMult = 1;
 
-    public ConversionDrill(String name) {
+    public LegacyConversionDrill(String name) {
         super(name);
         drawMineItem = false;
     }
 
-
-    /**
-     * Registers a tile requirement > output item pair
-     */
-    public ConversionDrill addConversion(Block requirement, Item output) {
-        conversions.add(new ConversionEntry(requirement, output));
-        return this;
+    protected boolean tileMatchesRequirement(Tile tile) {
+        return tileRequirement instanceof OverlayFloor
+                ? tile.overlay() == tileRequirement
+                : tile.floor() == tileRequirement;
     }
 
     /**
-     * Returns the {@link ConversionEntry} whose requirement matches {@code tile}, or {@code null} if none match.
+     * Removes Drill tier Stat
      */
-    protected ConversionEntry entryFor(Tile tile) {
-        for (var entry : conversions) {
-            boolean matches = entry.requirement instanceof OverlayFloor
-                    ? tile.overlay() == entry.requirement
-                    : tile.floor() == entry.requirement;
-            if (matches) return entry;
-        }
-        return null;
-    }
-
     @Override
     public void setStats() {
         super.setStats();
@@ -65,11 +56,11 @@ public class ConversionDrill extends ThumperDrill {
     public boolean canPlaceOn(Tile tile, Team team, int rotation) {
         if (isMultiblock()) {
             for (var other : tile.getLinkedTilesAs(this, tempTiles)) {
-                if (canMine(other) && entryFor(other) != null) return true;
+                if (canMine(other) && tileMatchesRequirement(other)) return true;
             }
             return false;
         }
-        return canMine(tile) && entryFor(tile) != null;
+        return canMine(tile) && tileMatchesRequirement(tile);
     }
 
     @Override
@@ -81,14 +72,15 @@ public class ConversionDrill extends ThumperDrill {
 
         countOre(tile);
 
-        // Scan all linked tiles for a matching entry, same logic as canPlaceOn.
-        ConversionEntry entry = null;
+        boolean anyMatch = false;
         for (var other : tile.getLinkedTilesAs(this, tempTiles)) {
-            entry = entryFor(other);
-            if (entry != null) break;
+            if (tileMatchesRequirement(other)) {
+                anyMatch = true;
+                break;
+            }
         }
-
-        if (returnItem != null && entry != null) {
+        if (returnItem != null && anyMatch) {
+            // Show drill speed for the converted output item
             float width = drawPlaceText(
                     Core.bundle.formatFloat(
                             "bar.drillspeed",
@@ -101,69 +93,33 @@ public class ConversionDrill extends ThumperDrill {
             float s = iconSmall / 4f;
 
             Draw.mixcol(Color.darkGray, 1f);
-            Draw.rect(entry.output.fullIcon, dx, dy - 1, s, s);
+            Draw.rect(drilledItem.fullIcon, dx, dy - 1, s, s);
             Draw.reset();
-            Draw.rect(entry.output.fullIcon, dx, dy, s, s);
-        } else if (!valid) {
-            drawPlaceText(Core.bundle.get("bar.convdrill-invalid"), x, y, false);
-        }
-    }
+            Draw.rect(drilledItem.fullIcon, dx, dy, s, s);
+        } else {
+            // Check whether any linked tile actually fails the requirement
+            boolean anyMismatch = tile.getLinkedTilesAs(this, tempTiles)
+                    .contains(t -> !tileMatchesRequirement(t));
 
-    public static class ConversionEntry {
-        public final Block requirement;
-        public final Item output;
-
-        public ConversionEntry(Block requirement, Item output) {
-            this.requirement = requirement;
-            this.output = output;
+            if (anyMismatch || !valid) {
+                String barName = "bar.conversion-drill-inoperative-" + tileRequirement.name;
+                drawPlaceText(Core.bundle.get(barName), x, y, valid);
+            }
         }
     }
 
     public class ConversionDrillBuild extends ThumperDrillBuild {
 
         /**
-         * Cached entry for the tile this drill is currently sitting on. Refreshed in {@link #onProximityUpdate()}, which Mindustry calls both on placement and whenever the surrounding tiles change
+         * The item this build outputs. Override for specialised variants.
          */
-        protected ConversionEntry activeEntry;
-
-        /**
-         * Scans linked tiles to find the first matching {@link ConversionEntry} and caches it in {@link #activeEntry}.
-         */
-        protected void refreshActiveEntry() {
-            activeEntry = null;
-            for (var t : tile.getLinkedTilesAs(block, tempTiles)) {
-                var entry = entryFor(t);
-                if (entry != null) {
-                    activeEntry = entry;
-                    return;
-                }
-            }
-        }
-
-        @Override
-        public void onProximityUpdate() {
-            super.onProximityUpdate(); // sets dominantItem and dominantItems
-            refreshActiveEntry();
-        }
-
-        /**
-         * The item this build outputs.
-         * */
         protected Item outputItem() {
-            return activeEntry != null ? activeEntry.output : null;
-        }
-
-        /**
-         * Overridden for {@link #outputMult}, otherwise the parent would check capacity against {@code dominantItems} alone, and the drill would keep consuming power/liquid even when there isn't room for the full batch of output items.
-         */
-        @Override
-        public boolean shouldConsume() {
-            return items.total() <= itemCapacity - dominantItems * outputMult && enabled;
+            return drilledItem;
         }
 
         @Override
         public void drawSelect() {
-            if (dominantItem == null || outputItem() == null) return;
+            if (dominantItem == null) return;
             float dx = x - size * tilesize / 2f;
             float dy = y + size * tilesize / 2f;
             float s = iconSmall / 4f;
@@ -175,7 +131,7 @@ public class ConversionDrill extends ThumperDrill {
 
         @Override
         public void updateTile() {
-            if (dominantItem == null || outputItem() == null) return;
+            if (dominantItem == null) return;
 
             if (invertTime > 0f) invertTime -= delta() / invertedTime;
 

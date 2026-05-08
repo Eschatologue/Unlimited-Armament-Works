@@ -1,17 +1,15 @@
 package uaw.content;
 
-import arc.struct.Seq;
-import mindustry.graphics.Pal;
-import uaw.audiovisual.UAWPal;
 import arc.graphics.Color;
+import arc.struct.Seq;
 import mindustry.content.Items;
 import mindustry.type.Item;
+import uaw.audiovisual.UAWPal;
 
 public class UAWItems {
+    public static final Seq<Item> serpuloItems = new Seq<>(), erekirItems = new Seq<>(), erekirOnlyItems = new Seq<>();
     public static Item
             sulphur, anthracite, cryogel, tisic, stoutsteel;
-
-    public static final Seq<Item> serpuloItems = new Seq<>(), erekirItems = new Seq<>(), erekirOnlyItems = new Seq<>();
 
     public static void load() {
         sulphur = new Item("sulphur", UAWPal.sulphurFront) {{
@@ -24,7 +22,7 @@ public class UAWItems {
             explosiveness = Items.coal.explosiveness / 2;
             buildable = false;
         }};
-        tisic = new Item("tisic", Pal.water) {{
+        tisic = new Item("tisic", Color.valueOf("768a9a")) {{
             healthScaling = 1.5f;
             cost = 1.5f;
         }};
@@ -35,12 +33,11 @@ public class UAWItems {
         cryogel = new Item("cryogel", UAWPal.cryoFront) {{
             flammability = -10f;
             explosiveness = 0f;
-            buildable = false;
         }};
 
 
         serpuloItems.addAll(
-               sulphur, anthracite, cryogel, tisic, stoutsteel
+                sulphur, anthracite, cryogel, tisic, stoutsteel
         );
 
     }

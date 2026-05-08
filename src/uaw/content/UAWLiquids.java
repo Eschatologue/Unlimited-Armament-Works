@@ -15,7 +15,7 @@ public class UAWLiquids {
                 coolant = false;
             }
         };
-        phlogiston = new Liquid("phlogiston", UAWPal.phlogistonMid) {{
+        phlogiston = new Liquid("phlogiston", UAWPal.phlogistonFront) {{
             flammability = UAWItems.anthracite.flammability * 2f;
             explosiveness = UAWItems.anthracite.explosiveness * 2f;
             temperature = 2;
@@ -24,7 +24,7 @@ public class UAWLiquids {
 
             gas = true;
             gasColor = color;
-            barColor = UAWPal.phlogistonBack;
+            barColor = UAWPal.phlogistonMid;
 
             coolant = false;
         }};
