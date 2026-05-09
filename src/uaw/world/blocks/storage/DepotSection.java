@@ -16,18 +16,18 @@ import mindustry.world.blocks.storage.*;
 import static mindustry.Vars.*;
 
 /**
- * A slave storage block that must be placed adjacent to a {@link DepoNode} or to another DepoSection that is already part of a valid chain
+ * A slave storage block that must be placed adjacent to a {@link DepotPort} or to another DepotSection that is already part of a valid chain
  * <p>Sections hold no items themselves. Everything deposited into them is
- * forwarded to the {@link DepoNode} that anchors their chain. Unloaders
+ * forwarded to the {@link DepotPort} that anchors their chain. Unloaders
  * placed next to a section drain from the node's inventory transparently</p>
  * <h4>Note</h4>
  * <ul>
- *   <li>A section must be adjacent to a DepoNode or another DepoSection at placement time, prevent placement otherwise</li>
- *   <li>Sections can be chained in any shape, provided every section in the group can trace a path back to the same DepoNode</li>
- *   <li>Two separate DepoNode networks cannot share sections</li>
+ *   <li>A section must be adjacent to a DepotPort or another DepotSection at placement time, prevent placement otherwise</li>
+ *   <li>Sections can be chained in any shape, provided every section in the group can trace a path back to the same DepotPort</li>
+ *   <li>Two separate DepotPort networks cannot share sections</li>
  * </ul>
  */
-public class DepoSection extends StorageBlock {
+public class DepotSection extends StorageBlock {
 
     public TextureRegion inactiveRegion;
 
@@ -37,7 +37,7 @@ public class DepoSection extends StorageBlock {
         inactiveRegion = Core.atlas.find(name + "-inactive", Core.atlas.find("cross"));
     }
 
-    public DepoSection(String name) {
+    public DepotSection(String name) {
         super(name);
         coreMerge = false;
     }
@@ -47,7 +47,7 @@ public class DepoSection extends StorageBlock {
     // =========================================================================
 
     /**
-     * Refuses placement unless at least one tile adjacent to this block's footprint already contains a {@link DepoNode.DepoNodeBuild} or a {@link DepoSectionBuild}
+     * Refuses placement unless at least one tile adjacent to this block's footprint already contains a {@link DepotPort.DepotPortBuild} or a {@link DepotSectionBuild}
      */
     @Override
     public boolean canPlaceOn(Tile tile, Team team, int rotation) {
@@ -60,8 +60,8 @@ public class DepoSection extends StorageBlock {
                 if (adj == null) continue;
                 Building b = world.build(adj.x, adj.y);
                 if (b == null || !b.isValid() || b.team != team) continue;
-                if (b instanceof DepoNode.DepoNodeBuild) return true;
-                if (b instanceof DepoSectionBuild) return true;
+                if (b instanceof DepotPort.DepotPortBuild) return true;
+                if (b instanceof DepotSectionBuild) return true;
             }
         }
         return false;
@@ -85,7 +85,7 @@ public class DepoSection extends StorageBlock {
                     Tile adj = t.nearby(i);
                     if (adj == null) continue;
                     Building b = world.build(adj.x, adj.y);
-                    if (b instanceof DepoNode.DepoNodeBuild || b instanceof DepoSectionBuild) {
+                    if (b instanceof DepotPort.DepotPortBuild || b instanceof DepotSectionBuild) {
                         hasNeighbour = true;
                         break outer;
                     }
@@ -101,14 +101,14 @@ public class DepoSection extends StorageBlock {
         }
     }
 
-    public class DepoSectionBuild extends StorageBuild {
+    public class DepotSectionBuild extends StorageBuild {
 
         /**
-         * The DepoNode this section's chain connects to
+         * The DepotPort this section's chain connects to
          * <p>{@code null} means the section's' chain is broken or the node was destroyed after placement</p>
          */
         @Nullable
-        public DepoNode.DepoNodeBuild linkedMaster = null;
+        public DepotPort.DepotPortBuild linkedMaster = null;
 
         // ------------------------------------------------------------------
         // Setup
@@ -135,7 +135,7 @@ public class DepoSection extends StorageBlock {
         }
 
         /**
-         * Re-evaluates which DepoNode (if any) this section connects to, then updates the node's {@code connectedSections} list accordingly
+         * Re-evaluates which DepotPort (if any) this section connects to, then updates the node's {@code connectedSections} list accordingly
          *
          * <h4>Registration pattern</h4>
          * <ol>
@@ -164,24 +164,24 @@ public class DepoSection extends StorageBlock {
         }
 
         /**
-         * Depth-first search that walks through adjacent DepoSections to find the first {@link DepoNode.DepoNodeBuild} reachable from {@code from}
+         * Depth-first search that walks through adjacent DepoSections to find the first {@link DepotPort.DepotPortBuild} reachable from {@code from}
          *
          * <p>The {@code visited} set prevents the search bouncing between two mutually adjacent sections indefinitely
          * The depth cap of 20 is an additional last-resort safeguard</p>
          */
-        protected DepoNode.DepoNodeBuild searchForNode(
-                DepoSectionBuild from,
-                ObjectSet<DepoSectionBuild> visited,
+        protected DepotPort.DepotPortBuild searchForNode(
+                DepotSectionBuild from,
+                ObjectSet<DepotSectionBuild> visited,
                 int depth
         ) {
             if (depth > 20) return null;
             visited.add(from);
 
             for (var building : from.proximity) {
-                if (building instanceof DepoNode.DepoNodeBuild node && node.isValid()) {
+                if (building instanceof DepotPort.DepotPortBuild node && node.isValid()) {
                     return node;
                 }
-                if (building instanceof DepoSectionBuild section
+                if (building instanceof DepotSectionBuild section
                         && section.isValid()
                         && !visited.contains(section)) {
                     var found = searchForNode(section, visited, depth + 1);
@@ -239,7 +239,7 @@ public class DepoSection extends StorageBlock {
 
         /**
          * Draws the block normally, then stamps {@link #inactiveRegion} on top
-         * when this section has no live link to a DepoNode
+         * when this section has no live link to a DepotPort
          */
         @Override
         public void draw() {
@@ -248,7 +248,6 @@ public class DepoSection extends StorageBlock {
             boolean inactive = linkedMaster == null || !linkedMaster.isValid();
             if (inactive) {
                 // Draw the inactive indicator on top.
-                // Draw.rect centres the sprite on the given world coordinates.
                 Draw.rect(inactiveRegion, x, y);
                 Draw.reset();
             }
