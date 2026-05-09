@@ -24,7 +24,7 @@ public class ConversionDrill extends ThumperDrill {
     public final Seq<ConversionEntry> conversions = new Seq<>();
 
     /**
-     * How many output items are produced per ore tile per drill cycle.
+     * How many output items are produced per ore tile per drill cycle
      */
     public int outputMult = 1;
 
@@ -81,7 +81,7 @@ public class ConversionDrill extends ThumperDrill {
 
         countOre(tile);
 
-        // Scan all linked tiles for a matching entry, same logic as canPlaceOn.
+        // Scan all linked tiles for a matching entry, same logic as canPlaceOn
         ConversionEntry entry = null;
         for (var other : tile.getLinkedTilesAs(this, tempTiles)) {
             entry = entryFor(other);
@@ -127,7 +127,7 @@ public class ConversionDrill extends ThumperDrill {
         protected ConversionEntry activeEntry;
 
         /**
-         * Scans linked tiles to find the first matching {@link ConversionEntry} and caches it in {@link #activeEntry}.
+         * Scans linked tiles to find the first matching {@link ConversionEntry} and caches it in {@link #activeEntry}
          */
         protected void refreshActiveEntry() {
             activeEntry = null;
@@ -147,14 +147,14 @@ public class ConversionDrill extends ThumperDrill {
         }
 
         /**
-         * The item this build outputs.
+         * The item this build outputs
          * */
         protected Item outputItem() {
             return activeEntry != null ? activeEntry.output : null;
         }
 
         /**
-         * Overridden for {@link #outputMult}, otherwise the parent would check capacity against {@code dominantItems} alone, and the drill would keep consuming power/liquid even when there isn't room for the full batch of output items.
+         * Overridden for {@link #outputMult}, otherwise the parent would check capacity against {@code dominantItems} alone, and the drill would keep consuming power/liquid even when there isn't room for the full batch of output items
          */
         @Override
         public boolean shouldConsume() {

@@ -111,7 +111,7 @@ public class LegacyConversionDrill extends ThumperDrill {
     public class ConversionDrillBuild extends ThumperDrillBuild {
 
         /**
-         * The item this build outputs. Override for specialised variants.
+         * The item this build outputs. Override for specialised variants
          */
         protected Item outputItem() {
             return drilledItem;

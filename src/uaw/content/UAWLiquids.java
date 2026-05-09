@@ -17,10 +17,10 @@ public class UAWLiquids {
         };
         phlogiston = new Liquid("phlogiston", UAWPal.phlogistonFront) {{
             flammability = UAWItems.anthracite.flammability * 2f;
-            explosiveness = UAWItems.anthracite.explosiveness * 2f;
-            temperature = 2;
+            explosiveness = 3;
+            temperature = 2; // Will damage normal conduits
             boilPoint = -1;
-            gasColor = UAWPal.phlogistonFront.cpy().a(0.4f);
+            gasColor = UAWPal.phlogistonFront.cpy().a(0.5f);
 
             gas = true;
             gasColor = color;

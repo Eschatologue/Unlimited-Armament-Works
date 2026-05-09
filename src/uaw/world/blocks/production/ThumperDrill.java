@@ -9,9 +9,11 @@ import mindustry.graphics.Pal;
 import mindustry.world.blocks.production.BurstDrill;
 import uaw.audiovisual.UAWSfx;
 
+/**
+ * A drill that hammers the ground, only visual changes
+ * <p>Used as the base class for {@link ConversionDrill}, which add tile-matching and item-conversion logic on top.</p>
+ */
 public class ThumperDrill extends BurstDrill {
-
-    public TextureRegion liquidRegion;
 
     public ThumperDrill(final String name) {
         super(name);
@@ -23,7 +25,6 @@ public class ThumperDrill extends BurstDrill {
         arrows = 0;
 
         shake = 2f;
-        hardnessDrillMultiplier = 0f;
     }
 
     public class ThumperDrillBuild extends BurstDrill.BurstDrillBuild {
@@ -33,19 +34,27 @@ public class ThumperDrill extends BurstDrill {
             final float px = 0.25f;
             Draw.rect(region, x, y);
             drawDefaultCracks();
+
+            // fract drives both the offset of the shadow and the scale of the drill head.
+            // Clamping keeps it in a sensible visual range during the wind-up and return.
             float fract = Mathf.clamp(smoothProgress, px, 0.3f);
+
+            // Shadow: drawn slightly down-left, darkened by Pal.shadow.
             Draw.color(Pal.shadow, Pal.shadow.a);
-            Draw.rect(topRegion, x - (fract - px) * 40, y - (fract - px) * 40, topRegion.width * fract, topRegion.width * fract);
+            Draw.rect(topRegion, x - (fract - px) * 40, y - (fract - px) * 40,
+                    topRegion.width * fract, topRegion.width * fract);
             Draw.color();
+
+            // Drill head on the additive layer so it blends with glow effects
             Draw.z(Layer.blockAdditive);
             Draw.rect(topRegion, x, y, topRegion.width * fract, topRegion.height * fract);
-            // Draws the liquid used to power the drill
+
+            // Tints the centre of the drill head with the colour of the dominant ore
             if (dominantItem != null && drawMineItem) {
                 Draw.color(dominantItem.color);
                 Draw.rect(itemRegion, x, y, itemRegion.width * fract, itemRegion.height * fract);
                 Draw.color();
             }
         }
-
     }
 }

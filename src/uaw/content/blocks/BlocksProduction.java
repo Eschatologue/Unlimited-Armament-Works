@@ -208,7 +208,7 @@ public class BlocksProduction {
             craftTime = 2 * tick;
             consumeItems(with(UAWItems.anthracite, 2));
             consumeLiquids(LiquidStack.with(
-                    Liquids.oil, liquidUnit(12),
+                    Liquids.oil, liquidUnit(18),
                     UAWLiquids.sulphuricAcid, liquidUnit(12)
             ));
             outputLiquid = new LiquidStack(UAWLiquids.phlogiston, liquidUnit(12));
@@ -228,24 +228,29 @@ public class BlocksProduction {
 
         // Production - Stoutsteel Alloy
 
-        //TODO
         isostaticCrucible = new GenericCrafter("isostatic-crucible") {{
             requirements(Category.crafting, with(
-                    UAWItems.tisic, 150,
-                    Items.metaglass, 100
+                    Items.graphite, 300,
+                    Items.silicon, 150,
+                    UAWItems.tisic, 100
             ));
 
             size = 3;
             squareSprite = false;
             buildTime = 5 * tick;
 
-            craftEffect = new MultiEffect(Fx.coalSmeltsmoke, Fx.smeltsmoke, Fx.vaporSmall.wrap(UAWItems.tisic.color));
-            updateEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
+//            craftEffect = new MultiEffect(Fx.coalSmeltsmoke, Fx.smeltsmoke, Fx.vaporSmall.wrap(UAWItems.tisic.color));
+//            updateEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
 
-            craftTime = 2 * tick;
-            consumeItems(with(Items.titanium, 3, Items.silicon, 1, Items.graphite, 2));
-            outputItems = with(UAWItems.tisic, 1);
+            craftTime = 5 * tick;
+            consumeItems(with(UAWItems.tisic, 5));
+            consumeLiquids(LiquidStack.with(
+                    UAWLiquids.sulphuricAcid, liquidUnit(6),
+                    UAWLiquids.phlogiston, liquidUnit(12)
+            ));
+            outputItems = with(UAWItems.stoutsteel, 1);
 
+            // TODO Drawers
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
                     new DrawArcSmelt() {{
