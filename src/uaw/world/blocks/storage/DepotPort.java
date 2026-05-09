@@ -6,7 +6,6 @@ import arc.graphics.g2d.Lines;
 import arc.math.geom.Geometry;
 import arc.math.geom.Point2;
 import arc.struct.Seq;
-import jdk.jfr.Experimental;
 import mindustry.gen.Building;
 import mindustry.graphics.Pal;
 import mindustry.world.blocks.storage.StorageBlock;
@@ -16,28 +15,27 @@ import static mindustry.Vars.tilesize;
 /**
  * The master storage block of a Depo network
  *
- * <p>This block holds the actual inventory for the whole network. Every {@link DepoSection} that connects to it forwards items here, and Unloaders
+ * <p>This block holds the actual inventory for the whole network. Every {@link DepotSection} that connects to it forwards items here, and Unloaders
  * placed next to any section drain from this block's inventory</p>
  *
- * <p>DepoNode also keeps a list of every section currently attached to it so that the selection outline can be drawn across the entire network at once
+ * <p>DepotPort also keeps a list of every section currently attached to it so that the selection outline can be drawn across the entire network at once
  * (the same technique used by CoreBlock for its linked vaults)</p>
  */
-@Experimental
-public class DepoNode extends StorageBlock {
+public class DepotPort extends StorageBlock {
 
-    public DepoNode(String name) {
+    public DepotPort(String name) {
         super(name);
         coreMerge = false;
     }
 
-    public class DepoNodeBuild extends StorageBuild {
+    public class DepotPortBuild extends StorageBuild {
 
         /**
-         * Every {@link DepoSection.DepoSectionBuild} that has confirmed a link back to this node lives in this list
+         * Every {@link DepotSection.DepotSectionBuild} that has confirmed a link back to this node lives in this list
          * <p>Sections add themselves here inside {@code refreshLink()} and remove themselves when they are destroyed or re-link to a different node</p>
          * </p>Never touch this list from the node side as the sections manage it</p>
          */
-        public final Seq<DepoSection.DepoSectionBuild> connectedSections = new Seq<>();
+        public final Seq<DepotSection.DepotSectionBuild> connectedSections = new Seq<>();
 
         /**
          * When the node is removed from the world, purge the "list" so that any surviving sections don't hold a dangling reference to a dead node
