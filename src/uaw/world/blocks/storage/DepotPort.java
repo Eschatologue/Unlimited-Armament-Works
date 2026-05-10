@@ -25,6 +25,7 @@ public class DepotPort extends StorageBlock {
 
     public DepotPort(String name) {
         super(name);
+        size = 4;
         coreMerge = false;
     }
 

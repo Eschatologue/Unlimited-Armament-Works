@@ -11,7 +11,6 @@ import mindustry.type.Item;
 import mindustry.world.Tile;
 import mindustry.world.blocks.storage.StorageBlock;
 import mindustry.world.modules.ItemModule;
-import mindustry.world.blocks.storage.*;
 
 import static mindustry.Vars.*;
 
@@ -39,6 +38,7 @@ public class DepotSection extends StorageBlock {
 
     public DepotSection(String name) {
         super(name);
+        size = 2;
         coreMerge = false;
     }
 
@@ -116,12 +116,13 @@ public class DepotSection extends StorageBlock {
 
         /**
          * Called once when the building enters the world. Swaps the default
-         * {@link ItemModule} for a custom one so vanilla {@link Unloader} can read the master's inventory through this section
+         * {@link ItemModule} for our custom one so vanilla Unloaders can read
+         * the master's inventory through this section.
          */
         @Override
         public void created() {
             super.created();
-            if (hasItems) items = new DepoItemModule();
+            if (hasItems) items = new DepotItemModule();
         }
 
         // ------------------------------------------------------------------
@@ -192,12 +193,33 @@ public class DepotSection extends StorageBlock {
         }
 
         /**
-         * When this section is removed from the world, unregister it from the master's list so the outline doesn't draw a ghost block
+         * When this section is removed from the world, unregister it from the master's list and force every other section in the network to re-evaluate its link
+         *
+         * <p>Without the re-evaluation step, sections further down the chain
+         * keep their stale {@code linkedMaster} reference until something
+         * coincidentally triggers {@code onProximityUpdate} near them — which
+         * may never happen. Calling {@code refreshLink()} on each surviving
+         * section immediately corrects the entire network.</p>
+         *
+         * <p>We snapshot {@code connectedSections} into a plain array before
+         * iterating because {@code refreshLink()} modifies that list (it removes
+         * and re-adds entries). Iterating the live list while it changes would
+         * cause a {@link java.util.ConcurrentModificationException}.</p>
          */
         @Override
         public void onRemoved() {
             if (linkedMaster != null && linkedMaster.isValid()) {
+                // Snapshot first — refreshLink() will mutate connectedSections
+                // toArray returns Object[], so we cast each element explicitly
+                Object[] snapshot = linkedMaster.connectedSections.toArray();
                 linkedMaster.connectedSections.remove(this);
+
+                for (Object obj : snapshot) {
+                    DepotSectionBuild section = (DepotSectionBuild) obj;
+                    // Skip ourselves (already removed) and any dead buildings
+                    if (section == this || !section.isValid()) continue;
+                    section.refreshLink();
+                }
             }
             super.onRemoved();
         }
@@ -281,7 +303,7 @@ public class DepotSection extends StorageBlock {
          * <p>When the Unloader then calls {@code removeStack()} on the building,
          * the overrides above redirects the removal to the master, completing the cycle</p>
          */
-        public class DepoItemModule extends ItemModule {
+        public class DepotItemModule extends ItemModule {
 
             @Override
             public boolean has(Item item) {
