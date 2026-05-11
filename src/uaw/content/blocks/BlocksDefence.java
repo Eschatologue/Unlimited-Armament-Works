@@ -12,6 +12,7 @@ import mindustry.type.Category;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.*;
 import mindustry.world.draw.DrawTurret;
+import uaw.entities.bullet.TrailBulletType;
 
 import static uaw.Vars.*;
 import static uaw.Vars.px;
@@ -41,8 +42,9 @@ public class BlocksDefence {
             maxAmmo = 30;
 
             range = 20 * tilesize;
+            shake = 0.5f;
             shootCone = 15f;
-            inaccuracy = 7.5f;
+            inaccuracy = 5f;
             rotateSpeed = 10f;
 
             ammoUseEffect = Fx.casing2Double;
@@ -57,13 +59,12 @@ public class BlocksDefence {
             }};
 
             ammo(
-                    Items.copper,  new BasicBulletType(8, 9){{
-                        width = 7f;
-                        height = 9f;
-                        lifetime = 60f;
+                    Items.copper,  new TrailBulletType(18, 12){{
+                        height = 4f;
+                        width = 3f;
                         ammoMultiplier = 2;
 
-                        hitEffect = despawnEffect = Fx.hitBulletColor;
+                        hitEffect = despawnEffect = Fx.hitBulletColor.wrap(Pal.copperAmmoBack);
                         hitColor = backColor = trailColor = Pal.copperAmmoBack;
                         frontColor = Pal.copperAmmoFront;
                     }}

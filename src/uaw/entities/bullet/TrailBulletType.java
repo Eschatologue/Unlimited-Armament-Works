@@ -1,7 +1,6 @@
 package uaw.entities.bullet;
 
 import uaw.audiovisual.fx.BulletFx;
-import uaw.audiovisual.fx.ProductionFx;
 import arc.graphics.g2d.Draw;
 import arc.math.Mathf;
 import mindustry.content.Fx;
@@ -16,7 +15,7 @@ public class TrailBulletType extends BasicBulletType {
      * How long is the generated trail based on height multiplied by this
      * <p> 0 to disable </p>
      */
-    public float trailLengthScale = 1f;
+    public float trailLengthScale = 0.6f;
     public float trailWidthScale = 0.28f;
     public float trailLayerOffset = 0.0001f;
 
@@ -24,7 +23,7 @@ public class TrailBulletType extends BasicBulletType {
 
     public TrailBulletType(float speed, float damage, String bulletSprite) {
         super(speed, damage);
-        this.sprite = bulletSprite;
+        sprite = bulletSprite;
         trailEffect = Fx.none;
         hitSize = width;
     }
