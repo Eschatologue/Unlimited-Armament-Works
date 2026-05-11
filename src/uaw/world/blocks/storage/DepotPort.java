@@ -5,12 +5,13 @@ import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Lines;
 import arc.math.geom.Geometry;
 import arc.math.geom.Point2;
+import arc.struct.ObjectSet;
 import arc.struct.Seq;
 import mindustry.gen.Building;
 import mindustry.graphics.Pal;
 import mindustry.world.blocks.storage.StorageBlock;
 
-import static mindustry.Vars.tilesize;
+import static mindustry.Vars.*;
 
 /**
  * The master storage block of a Depo network
@@ -46,6 +47,48 @@ public class DepotPort extends StorageBlock {
         public void onRemoved() {
             connectedSections.clear();
             super.onRemoved();
+        }
+
+        /**
+         * When a player taps this block, do a breadth-first scan outward through all
+         * reachable {@link DepotSection.DepotSectionBuild}s and call {@code refreshLink()} on each one in order — nearest first
+         *
+         * <h4>Why not do this automatically?</h4>
+         * <ol>
+         *     <li>Automatic propagation on placement/removal requires cascading calls between
+         * Depot Sections, which trivially produces infinite mutual recursion in a connected
+         * network</li>
+         *     <li>I have no clue lmao</li>
+         * </ol>
+         */
+        @Override
+        public void tapped() {
+            // BFS queue — sections waiting to be processed
+            Seq<DepotSection.DepotSectionBuild> queue = new Seq<>();
+            // visited set — prevents processing the same section twice
+            ObjectSet<DepotSection.DepotSectionBuild> visited = new ObjectSet<>();
+
+            // Seed the queue with sections directly adjacent to this node
+            for (var b : proximity) {
+                if (b instanceof DepotSection.DepotSectionBuild s && s.isValid()) {
+                    queue.add(s);
+                    visited.add(s);
+                }
+            }
+            // Process wave by wave — each section refreshes, then its unvisited neighbours are added to the back of the queue
+            while (!queue.isEmpty()) {
+                DepotSection.DepotSectionBuild current = queue.remove(0);
+                current.refreshLink();
+
+                for (var b : current.proximity) {
+                    if (b instanceof DepotSection.DepotSectionBuild s
+                            && s.isValid()
+                            && !visited.contains(s)) {
+                        visited.add(s);
+                        queue.add(s);
+                    }
+                }
+            }
         }
 
         @Override

@@ -21,7 +21,7 @@ import static mindustry.type.ItemStack.with;
 public class BlocksDefence {
 
     public static Block placeholder,
-    // MG - Machine Guns
+    // MG
     quadra;
 
     public static void load() {
@@ -57,18 +57,15 @@ public class BlocksDefence {
             }};
 
             ammo(
-                    Items.copper, new BasicBulletType(8f, 12) {{
-                        Color front = Pal.bulletYellow;
-                        Color back = Pal.bulletYellowBack;
-                        height = 12f;
-                        width = 5f;
-                        frontColor = front;
-                        backColor = back;
-                        shootEffect = Fx.shootSmall;
-                        smokeEffect = Fx.shootSmallSmoke;
-                        pierceCap = 2;
+                    Items.copper,  new BasicBulletType(8, 9){{
+                        width = 7f;
+                        height = 9f;
+                        lifetime = 60f;
+                        ammoMultiplier = 2;
 
-                        ammoMultiplier = 3;
+                        hitEffect = despawnEffect = Fx.hitBulletColor;
+                        hitColor = backColor = trailColor = Pal.copperAmmoBack;
+                        frontColor = Pal.copperAmmoFront;
                     }}
             );
             limitRange();
@@ -80,7 +77,6 @@ public class BlocksDefence {
                         new RegionPart("-barrel") {{
                             progress = PartProgress.warmup;
                             moveY = -4.0f * px;
-
                         }},
                         new RegionPart("-bolt") {{
                             progress = PartProgress.recoil;

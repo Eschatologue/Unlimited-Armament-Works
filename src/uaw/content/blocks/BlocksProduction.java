@@ -13,8 +13,9 @@ import mindustry.type.LiquidStack;
 import mindustry.world.Block;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.draw.*;
-import uaw.audiovisual.UAWFx;
+import uaw.audiovisual.fx.ProductionFx;
 import uaw.audiovisual.UAWPal;
+import uaw.audiovisual.fx.ResourcingFx;
 import uaw.content.UAWItems;
 import uaw.content.UAWLiquids;
 import uaw.world.blocks.production.ConversionDrill;
@@ -56,10 +57,11 @@ public class BlocksProduction {
             drillTime = 3 * tick;
             drillEffect = new MultiEffect(
                     Fx.mineImpact,
-                    UAWFx.thumperImpactWave,
-                    UAWFx.thumpParticles
+                    ResourcingFx.thumperImpactWave,
+                    ResourcingFx.thumpParticles
             );
             consumeLiquid(Liquids.water, liquidUnit(12));
+            itemCapacity = 50;
             addConversion(Blocks.oreCoal, UAWItems.anthracite);
         }};
 
@@ -79,6 +81,7 @@ public class BlocksProduction {
             craftTime = 2 * tick;
             consumeItems(with(Items.graphite, 2, Items.sand, 2));
             outputItems = with(UAWItems.anthracite, 2);
+            itemCapacity = 50;
 
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
@@ -106,6 +109,8 @@ public class BlocksProduction {
             craftTime = 2 * tick;
             consumeItems(with(UAWItems.anthracite, 2));
             outputItems = with(Items.graphite, 2, UAWItems.sulphur, 1);
+
+            itemCapacity = 50;
         }};
 
         // Production - Sulphur
@@ -123,6 +128,7 @@ public class BlocksProduction {
             consumeItems(with(Items.lead, 2, Items.coal, 1));
             outputItems = with(UAWItems.sulphur, 2);
             outputLiquids = LiquidStack.with(Liquids.slag, liquidUnit(3));
+            itemCapacity = 50;
 
             drawer = new DrawMulti(new DrawDefault(), new DrawFlame(Color.valueOf("ffc099")));
         }};
@@ -139,6 +145,7 @@ public class BlocksProduction {
             consumeItems(with(UAWItems.sulphur, 2));
             consumeLiquids(LiquidStack.with(Liquids.water, liquidUnit(12)));
             outputLiquids = LiquidStack.with(UAWLiquids.sulphuricAcid, liquidUnit(12));
+            itemCapacity = 50;
 
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
@@ -171,6 +178,7 @@ public class BlocksProduction {
             craftTime = 2 * tick;
             consumeItems(with(Items.titanium, 3, Items.silicon, 1, Items.graphite, 2));
             outputItems = with(UAWItems.tisic, 1);
+            itemCapacity = 50;
 
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
@@ -198,9 +206,9 @@ public class BlocksProduction {
             craftEffect =
                     new RadialEffect(
                             new MultiEffect(
-                                    UAWFx.crucibleSmoke(160, UAWPal.phlogistonFront),
-                                    UAWFx.crucibleSmoke(145, UAWPal.phlogistonMid),
-                                    UAWFx.crucibleSmoke(130, Pal.lightishGray)
+                                    ProductionFx.crucibleSmoke(145, UAWPal.phlogistonFront),
+                                    ProductionFx.crucibleSmoke(130, UAWPal.phlogistonMid),
+                                    ProductionFx.crucibleSmoke(115, Pal.lightishGray)
                             ), 4, 90, 6) {{
                         rotationOffset = 45;
                     }};
@@ -211,6 +219,7 @@ public class BlocksProduction {
                     Liquids.oil, liquidUnit(18),
                     UAWLiquids.sulphuricAcid, liquidUnit(12)
             ));
+            itemCapacity = 50;
             outputLiquid = new LiquidStack(UAWLiquids.phlogiston, liquidUnit(12));
 
             drawer = new DrawMulti(
@@ -239,8 +248,15 @@ public class BlocksProduction {
             squareSprite = false;
             buildTime = 5 * tick;
 
-//            craftEffect = new MultiEffect(Fx.coalSmeltsmoke, Fx.smeltsmoke, Fx.vaporSmall.wrap(UAWItems.tisic.color));
-//            updateEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
+            craftEffect =
+                    new RadialEffect(
+                            new MultiEffect(
+                                    ProductionFx.crucibleSmoke(160, UAWPal.phlogistonFront),
+                                    ProductionFx.crucibleSmoke(145, UAWPal.phlogistonMid),
+                                    ProductionFx.crucibleSmoke(130, Pal.lightishGray)
+                            ), 4, 90, 6) {{
+                        rotationOffset = 0;
+                    }};
 
             craftTime = 5 * tick;
             consumeItems(with(UAWItems.tisic, 5));
@@ -249,14 +265,19 @@ public class BlocksProduction {
                     UAWLiquids.phlogiston, liquidUnit(12)
             ));
             outputItems = with(UAWItems.stoutsteel, 1);
+            itemCapacity = 50;
 
-            // TODO Drawers
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
-                    new DrawArcSmelt() {{
-                        particles = 45;
-                    }},
-                    new DrawDefault()
+                    new DrawLiquidTile(UAWLiquids.phlogiston, 12 * px),
+                    new DrawRegion("-middle"),
+                    new DrawRegion("-rot", -3, true),
+                    new DrawRegion("-top"),
+                    new DrawFrames() {{
+                        frames = 14;
+                        interval = 0.125f * tick;
+                        sine = false;
+                    }}
             );
         }};
     }

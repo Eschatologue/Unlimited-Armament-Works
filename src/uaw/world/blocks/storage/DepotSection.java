@@ -10,9 +10,10 @@ import mindustry.gen.Building;
 import mindustry.type.Item;
 import mindustry.world.Tile;
 import mindustry.world.blocks.storage.StorageBlock;
+import mindustry.world.meta.Stat;
 import mindustry.world.modules.ItemModule;
 
-import static mindustry.Vars.*;
+import static mindustry.Vars.world;
 
 /**
  * A slave storage block that must be placed adjacent to a {@link DepotPort} or to another DepotSection that is already part of a valid chain
@@ -30,16 +31,16 @@ public class DepotSection extends StorageBlock {
 
     public TextureRegion inactiveRegion;
 
-    @Override
-    public void load() {
-        super.load();
-        inactiveRegion = Core.atlas.find(name + "-inactive", Core.atlas.find("cross"));
-    }
-
     public DepotSection(String name) {
         super(name);
         size = 2;
         coreMerge = false;
+    }
+
+    @Override
+    public void load() {
+        super.load();
+        inactiveRegion = Core.atlas.find(name + "-inactive", Core.atlas.find("cross"));
     }
 
     // =========================================================================
@@ -68,7 +69,7 @@ public class DepotSection extends StorageBlock {
     }
 
     /**
-     * Shows an error message when the player hovers a section over a spot with no adjacent Depo block.
+     * Shows an error message when the player hovers a section over a spot with no adjacent Depot block.
      */
     @Override
     public void drawPlace(int x, int y, int rotation, boolean valid) {
@@ -101,22 +102,25 @@ public class DepotSection extends StorageBlock {
         }
     }
 
+    @Override
+    public void setStats() {
+        super.setStats();
+        // Remove Item capacity stat
+        stats.remove(Stat.itemCapacity);
+    }
+
     public class DepotSectionBuild extends StorageBuild {
 
         /**
          * The DepotPort this section's chain connects to
-         * <p>{@code null} means the section's' chain is broken or the node was destroyed after placement</p>
+         * <p>{@code null} means the section's chain is broken or the node was destroyed after placement</p>
          */
         @Nullable
         public DepotPort.DepotPortBuild linkedMaster = null;
 
-        // ------------------------------------------------------------------
-        // Setup
-        // ------------------------------------------------------------------
-
         /**
          * Called once when the building enters the world. Swaps the default
-         * {@link ItemModule} for our custom one so vanilla Unloaders can read
+         * {@link ItemModule} for a custom one so vanilla Unloaders can read
          * the master's inventory through this section.
          */
         @Override
@@ -125,10 +129,10 @@ public class DepotSection extends StorageBlock {
             if (hasItems) items = new DepotItemModule();
         }
 
-        // ------------------------------------------------------------------
-        // Linking
-        // ------------------------------------------------------------------
-
+        /**
+         * The game calls this whenever a nearby block is placed or removed.
+         * To refresh the entire network, tap/click the {@link DepotPort}.
+         */
         @Override
         public void onProximityUpdate() {
             super.onProximityUpdate();
@@ -146,7 +150,7 @@ public class DepotSection extends StorageBlock {
          * </ol>
          * <p>This keeps the master list perfectly in sync without the master ever needing to scan for its own sections</p>
          */
-        protected void refreshLink() {
+        public void refreshLink() {
             // Step 1 — unregister from the old master before we overwrite the reference
             if (linkedMaster != null && linkedMaster.isValid()) {
                 linkedMaster.connectedSections.remove(this);
@@ -157,7 +161,6 @@ public class DepotSection extends StorageBlock {
 
             // Step 3 — register with the new master
             if (linkedMaster != null && linkedMaster.isValid()) {
-                // contains check avoids duplicates if onProximityUpdate fires twice.
                 if (!linkedMaster.connectedSections.contains(this, true)) {
                     linkedMaster.connectedSections.add(this);
                 }
@@ -194,17 +197,6 @@ public class DepotSection extends StorageBlock {
 
         /**
          * When this section is removed from the world, unregister it from the master's list and force every other section in the network to re-evaluate its link
-         *
-         * <p>Without the re-evaluation step, sections further down the chain
-         * keep their stale {@code linkedMaster} reference until something
-         * coincidentally triggers {@code onProximityUpdate} near them — which
-         * may never happen. Calling {@code refreshLink()} on each surviving
-         * section immediately corrects the entire network.</p>
-         *
-         * <p>We snapshot {@code connectedSections} into a plain array before
-         * iterating because {@code refreshLink()} modifies that list (it removes
-         * and re-adds entries). Iterating the live list while it changes would
-         * cause a {@link java.util.ConcurrentModificationException}.</p>
          */
         @Override
         public void onRemoved() {
@@ -291,7 +283,7 @@ public class DepotSection extends StorageBlock {
         }
 
         // ==================================================================
-        // DepoItemModule: makes vanilla Unloaders work on slave sections
+        // DepotItemModule: makes vanilla Unloaders work on slave sections
         // ==================================================================
 
         /**
