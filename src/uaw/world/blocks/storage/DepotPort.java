@@ -50,15 +50,15 @@ public class DepotPort extends StorageBlock {
         }
 
         /**
-         * When a player taps this block, do a breadth-first scan outward through all
-         * reachable {@link DepotSection.DepotSectionBuild}s and call {@code refreshLink()} on each one in order — nearest first
+         * When a player taps this block, do a BFS outward through all reachable {@link DepotSection.DepotSectionBuild}s
+         * and call {@code refreshLink()} on each one in order — nearest first
          *
          * <h4>Why not do this automatically?</h4>
          * <ol>
          *     <li>Automatic propagation on placement/removal requires cascading calls between
          * Depot Sections, which trivially produces infinite mutual recursion in a connected
          * network</li>
-         *     <li>I have no clue lmao</li>
+         *     <li>I have no clue, it somehow works and if it ain't broke don't fix it, please tell me if there is a better way than doing manual search</li>
          * </ol>
          */
         @Override

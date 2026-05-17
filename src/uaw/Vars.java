@@ -10,5 +10,4 @@ public class Vars implements Loadable {
     public static final float px = 0.25f;
 
     public static final String modName = "uaw-";
-    public static final String modTurretBase = "armoured-";
 }
