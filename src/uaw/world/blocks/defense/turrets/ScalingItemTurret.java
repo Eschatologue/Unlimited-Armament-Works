@@ -64,7 +64,7 @@ public class ScalingItemTurret extends ItemTurret {
             String ramp = Strings.fixed(rampSeconds, 1) + UAWStatUnit.sec.localized();
             String final_ = Strings.fixed(finalShotsPerSec, 1) + StatUnit.perSecond.localized();
 
-            table.add(base + " [lightgray]\u003E[] " + ramp + " [lightgray]\u003E[] " + final_).left();
+            table.add(base + " [lightgray]>[] " + ramp + " [lightgray]>[] " + final_).left();
         });
     }
 

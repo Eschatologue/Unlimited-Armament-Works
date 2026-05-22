@@ -1,12 +1,11 @@
 package uaw.entities.bullet;
 
-import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.math.Mathf;
 import mindustry.content.Fx;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.gen.Bullet;
-import uaw.audiovisual.fx.BulletFx;
+import uaw.audiovisual.fx.ShootingFx;
 
 /**
  * A {@link BasicBulletType} that auto-sizes its trail from the bullet's own dimensions. Used as the base class for most UAW projectiles
@@ -34,7 +33,7 @@ public class TrailBulletType extends BasicBulletType {
     public TrailBulletType(float speed, float damage, String bulletSprite) {
         super(speed, damage);
         sprite = bulletSprite;
-        trailEffect = Fx.none; // suppress the default spark trail; we draw our own
+        trailEffect = Fx.none; // suppress the default spark trail
         hitSize = width;
     }
 
@@ -50,8 +49,7 @@ public class TrailBulletType extends BasicBulletType {
     public void init() {
         super.init();
         if (trailLengthScl > 0) autoTrail();
-        // drawSize tells the renderer how far offscreen a bullet can be before
-        // it's culled. A long trail needs extra room, hence the generous multiplier
+        // drawSize tells the renderer how far offscreen a bullet can be before it's culled. A long trail needs extra room, hence the generous multiplier
         drawSize = Math.max(drawSize, trailLength * speed * 4.5f);
     }
 
@@ -81,7 +79,7 @@ public class TrailBulletType extends BasicBulletType {
     @Override
     public void removed(Bullet b) {
         if (trailLength > 0 && b.trail != null && b.trail.size() > 0) {
-            BulletFx.trailFade.at(b.x, b.y, trailWidth, trailColor, b.trail.copy());
+            ShootingFx.trailFade.at(b.x, b.y, trailWidth, trailColor, b.trail.copy());
         }
     }
 }

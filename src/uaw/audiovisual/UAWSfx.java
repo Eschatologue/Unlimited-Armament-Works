@@ -12,9 +12,13 @@ public class UAWSfx {
 
     public static Sound
             // Resourcing
-            mineThumperDrill;
+            mineThumperDrill,
+    // Shoot
+    shootBig1, shootSolo;
 
-    /** Scans and loads every 'Sound' field automatically */
+    /**
+     * Scans and loads every 'Sound' field automatically
+     */
     public static void load() {
         if (Vars.headless) return;
 

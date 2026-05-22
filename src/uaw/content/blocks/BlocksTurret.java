@@ -1,5 +1,6 @@
 package uaw.content.blocks;
 
+import arc.math.Interp;
 import mindustry.content.Fx;
 import mindustry.content.Items;
 import mindustry.content.StatusEffects;
@@ -11,9 +12,14 @@ import mindustry.gen.Sounds;
 import mindustry.graphics.Pal;
 import mindustry.type.Category;
 import mindustry.world.Block;
+import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.draw.DrawTurret;
+import uaw.audiovisual.UAWPal;
+import uaw.audiovisual.UAWSfx;
+import uaw.audiovisual.fx.ShootingFx;
 import uaw.content.UAWItems;
 import uaw.entities.bullet.TrailBulletType;
+import uaw.utils.TurretDef;
 import uaw.world.blocks.defense.turrets.ScalingItemTurret;
 
 import static mindustry.Vars.tilesize;
@@ -32,6 +38,9 @@ public class BlocksTurret {
     static String modTurretBase = "armoured-";
 
     public static void load() {
+
+        // region MG
+
         quadra = new ScalingItemTurret("quadra") {{
             requirements(Category.turret, with(
                     Items.copper, 150,
@@ -71,25 +80,18 @@ public class BlocksTurret {
                         frontColor = Pal.siliconAmmoFront;
                     }}
             );
-
-            size = 2;
-            scaledHealth = 150;
-
-            reload = 25;
-            maxReloadScale = 4;
+            // General
+            TurretDef.generalParams(this, 2);
+            rotateSpeed = 10f;
+            // Shooting
+            range = 20 * tilesize;
+            reload = 25f;
+            maxReloadScale = 4f;
             recoil = 1f;
             recoilTime = 30f;
-            maxAmmo = 100;
-
-            range = 20 * tilesize;
             shake = 0.5f;
             shootCone = 15f;
             inaccuracy = 5f;
-            rotateSpeed = 10f;
-
-            ammoUseEffect = Fx.casing2Double;
-            shootSound = Sounds.shoot;
-
             shoot = new ShootAlternate() {{
                 barrels = 2;
                 shots = 2;
@@ -97,11 +99,13 @@ public class BlocksTurret {
                 spread = 5f;
                 velocityRnd = 0.2f;
             }};
-
             limitRange();
+            // Effects
+            ammoUseEffect = Fx.casing2Double;
+            shootSound = Sounds.shoot;
 
-            squareSprite = false;
             cooldownTime = reload / 2;
+            // Drawer
             drawer = new DrawTurret(modTurretBase) {{
                 parts.addAll(
                         new RegionPart("-barrel") {{
@@ -116,6 +120,7 @@ public class BlocksTurret {
                 );
             }};
         }};
+
         spitfire = new ScalingItemTurret("spitfire") {{
             requirements(Category.turret, with(
                     Items.titanium, 350,
@@ -123,12 +128,15 @@ public class BlocksTurret {
                     Items.plastanium, 100,
                     UAWItems.tisic, 50
             ));
+            float bHeight = 8f;
+            float bWidth = bHeight / 2;
             ammo(
-                    Items.graphite, new TrailBulletType(15, 10) {{
-                        height = 8;
-                        width = 4;
-                        ammoMultiplier = 2.5f;
-
+                    Items.graphite, new TrailBulletType(12, 12) {{
+                        height = bHeight;
+                        width = bWidth;
+                        ammoMultiplier = 4;
+                        pierceCap = 1;
+                        knockback = 2;
                         reloadMultiplier = 0.75f;
 
                         hitEffect = despawnEffect = Fx.hitBulletColor.wrap(Pal.graphiteAmmoBack);
@@ -138,14 +146,25 @@ public class BlocksTurret {
                         smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.fireSmoke);
                         shootEffect = new MultiEffect(Fx.shootBig, Fx.sparkShoot);
                     }},
-                    Items.surgeAlloy, new TrailBulletType(18, 8) {{
-                        height = 8;
-                        width = 4;
-                        ammoMultiplier = 10;
-                        pierceCap = 2;
+                    Items.titanium, new TrailBulletType(20, 10) {{
+                        height = bHeight;
+                        width = bWidth;
+                        ammoMultiplier = 4;
+                        pierceCap = 3;
 
+                        hitEffect = despawnEffect = Fx.hitBulletColor.wrap(UAWPal.titaniumBack);
+                        hitColor = backColor = trailColor = UAWPal.titaniumBack;
+                        frontColor = UAWPal.titaniumFront;
+
+                        smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.fireSmoke);
+                        shootEffect = new MultiEffect(Fx.shootBig, Fx.sparkShoot);
+                    }},
+                    Items.surgeAlloy, new TrailBulletType(15, 8) {{
+                        height = bHeight;
+                        width = bWidth;
+                        ammoMultiplier = 8;
+                        pierceCap = 1;
                         status = StatusEffects.electrified;
-
                         lightning = 3;
                         lightningAngle = 270;
                         lightningDamage = 1.5f;
@@ -160,30 +179,20 @@ public class BlocksTurret {
                         shootEffect = new MultiEffect(Fx.shootBig, Fx.sparkShoot);
                     }}
             );
-            size = 3;
-            scaledHealth = 250;
-
-            reload = 15f; // Slower RoF than Cyclone (10f)
-            maxReloadScale = 8;
-            accelTime = 10 * tick;
-            decayTime = 5 * tick;
-
-            recoil = 1f;
-            recoilTime = 60f;
-            maxAmmo = 250;
-
-            range = 25 * tilesize;
-            shake = 0.75f;
-            inaccuracy = 7f;
+            // General
+            TurretDef.generalParams(this, 3);
             rotateSpeed = 7f;
             targetAir = false;
-
-            ammoUseEffect = Fx.casing2;
-            shootSound = Sounds.shootCyclone;
-
-            coolant = consumeCoolant(1.5f);
-            coolantMultiplier = 8f;
-
+            // Shooting
+            range = 25 * tilesize;
+            reload = 15f;
+            maxReloadScale = 8f;
+            accelTime = 10 * tick;
+            decayTime = 5 * tick;
+            recoil = 1f;
+            recoilTime = 60f;
+            shake = 0.75f;
+            inaccuracy = 6.5f;
             shoot = new ShootBarrel() {{
                 barrels = new float[]{
                         0f, 2f, 0f,
@@ -192,18 +201,25 @@ public class BlocksTurret {
                 };
                 velocityRnd = 0.2f;
             }};
-
             limitRange(2 * tilesize);
+            // Effects
+            ammoUseEffect = Fx.casing2;
+            shootSound = Sounds.shootCyclone;
 
-            squareSprite = false;
             cooldownTime = 2 * tick;
+            // Drawer
             drawer = new DrawTurret(modTurretBase) {{
+                for (int i = 3; i > 0; i--) {
+                    int f = i;
+                    parts.add(new RegionPart("-barrel-" + i) {{
+                        heatProgress = PartProgress.smoothReload;
+                        progress = PartProgress.warmup.add(PartProgress.reload.add(-3.5f));
+                        recoilIndex = f - 1;
+                        under = true;
+                        moveY = 4 * px;
+                    }});
+                }
                 parts.addAll(
-                        new RegionPart("-barrel") {{
-                            heatProgress = PartProgress.smoothReload;
-                            progress = PartProgress.warmup.add(PartProgress.reload.add(-2.5f));
-                            moveY = 4 * px;
-                        }},
                         new RegionPart("-back") {{
                             progress = PartProgress.warmup.min(PartProgress.recoil);
                             moveY = -7 * px;
@@ -212,5 +228,76 @@ public class BlocksTurret {
                 );
             }};
         }};
+
+        // endregion MG
+
+        // region SN
+        solo = new ItemTurret("solo") {{
+            requirements(Category.turret, with(
+                    Items.copper, 150,
+                    Items.graphite, 50
+            ));
+            float bH = 14;
+            float bW = 8;
+            ammo(
+                    Items.graphite, new TrailBulletType(15, 55) {{
+                        height = bH;
+                        width = bW;
+                        pierce = true;
+                        pierceCap = 2;
+                        knockback = 3;
+
+                        shootEffect = new MultiEffect(
+                                Fx.shootBig,
+                                ShootingFx.ellipseWave()
+                        );
+                        smokeEffect = Fx.shootSmokeDisperse;
+                        hitEffect = despawnEffect = new MultiEffect(
+                                Fx.hitBulletColor.wrap(Pal.graphiteAmmoBack),
+                                ShootingFx.hitBulletBig(Pal.graphiteAmmoBack)
+                        );
+                        hitColor = backColor = trailColor = Pal.graphiteAmmoBack;
+                        frontColor = Pal.graphiteAmmoFront;
+                    }}
+            );
+            // General
+            TurretDef.generalParams(this, 2);
+            rotateSpeed = 7.5f;
+            // Shooting
+            range = 35 * tilesize;
+            reload = 1.25f * tick;
+            shake = 2.5f;
+            limitRange();
+            // Effects
+            ammoUseEffect = Fx.casing3;
+            shootSound = UAWSfx.shootSolo;
+            // Drawer
+            drawer = new DrawTurret(modTurretBase) {{
+                float mX = 2 * px;
+                float mY = -8 * px;
+                float mRot = -26.5f;
+                parts.addAll(
+                        new RegionPart("-bottom"),
+                        new RegionPart("-side-r") {{
+                            progress = PartProgress.recoil.curve(Interp.bounceIn);
+                            moveRot = -mRot;
+                            moveX = mX;
+                            moveY = mY;
+                        }},
+                        new RegionPart("-side-l") {{
+                            progress = PartProgress.recoil.curve(Interp.bounceIn);
+                            moveRot = mRot;
+                            moveX = -mX;
+                            moveY = mY;
+                        }},
+                        new RegionPart("-barrel") {{
+                            progress = PartProgress.recoil.curve(Interp.pow3).curve(Interp.bounceIn);
+                            moveY = -5f * px;
+                        }}
+                );
+            }};
+        }};
+        // endregion SN
+
     }
 }
