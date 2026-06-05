@@ -1,9 +1,12 @@
 package uaw.content.blocks;
 
+import arc.graphics.Color;
 import arc.math.Interp;
 import mindustry.content.Fx;
 import mindustry.content.Items;
 import mindustry.content.StatusEffects;
+import mindustry.entities.bullet.BasicBulletType;
+import mindustry.entities.bullet.FlakBulletType;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.ShootAlternate;
@@ -12,15 +15,16 @@ import mindustry.gen.Sounds;
 import mindustry.graphics.Pal;
 import mindustry.type.Category;
 import mindustry.world.Block;
-import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.draw.DrawTurret;
 import uaw.audiovisual.UAWPal;
 import uaw.audiovisual.UAWSfx;
-import uaw.audiovisual.fx.ShootingFx;
+import uaw.audiovisual.fx.CombatFx;
 import uaw.content.UAWItems;
-import uaw.entities.bullet.TrailBulletType;
+import uaw.utils.BulletDef;
+import uaw.utils.Calc;
 import uaw.utils.TurretDef;
 import uaw.world.blocks.defense.turrets.ScalingItemTurret;
+import uaw.world.blocks.defense.turrets.UAWItemTurret;
 
 import static mindustry.Vars.tilesize;
 import static mindustry.type.ItemStack.with;
@@ -33,55 +37,52 @@ public class BlocksTurret {
     // MG
     quadra, spitfire, saintfire,
     // SN
-    solo, longsword, deadeye;
+    solo, longsword, excalibre;
 
     static String modTurretBase = "armoured-";
 
     public static void load() {
 
         // region MG
-
         quadra = new ScalingItemTurret("quadra") {{
             requirements(Category.turret, with(
                     Items.copper, 150,
                     Items.titanium, 50,
                     Items.graphite, 25
             ));
+            float bH = 4;
             ammo(
-                    Items.copper, new TrailBulletType(15, 9) {{
-                        height = 4f;
-                        width = 3f;
+                    Items.copper, new BasicBulletType(15, 9) {{
+                        BulletDef.size(this, bH);
+                        BulletDef.color(this, Pal.copperAmmoFront, Pal.copperAmmoBack);
+                        BulletDef.autoTrail(this);
                         ammoMultiplier = 4;
                         pierceCap = 2;
 
                         hitEffect = despawnEffect = Fx.hitBulletColor.wrap(Pal.copperAmmoBack);
-                        hitColor = backColor = trailColor = Pal.copperAmmoBack;
-                        frontColor = Pal.copperAmmoFront;
                     }},
-                    Items.graphite, new TrailBulletType(12, 18) {{
-                        height = 4f;
-                        width = 3f;
+                    Items.graphite, new BasicBulletType(12, 18) {{
+                        BulletDef.size(this, bH);
+                        BulletDef.color(this, Pal.graphiteAmmoFront, Pal.graphiteAmmoBack);
+                        BulletDef.autoTrail(this);
                         ammoMultiplier = 6;
                         reloadMultiplier = 0.8f;
 
                         hitEffect = despawnEffect = Fx.hitBulletColor.wrap(Pal.graphiteAmmoBack);
-                        hitColor = backColor = trailColor = Pal.graphiteAmmoBack;
-                        frontColor = Pal.graphiteAmmoFront;
                     }},
-                    Items.silicon, new TrailBulletType(12, 12) {{
-                        height = 4f;
-                        width = 3f;
+                    Items.silicon, new BasicBulletType(12, 12) {{
+                        BulletDef.size(this, bH);
+                        BulletDef.color(this, Pal.siliconAmmoFront, Pal.siliconAmmoBack);
+                        BulletDef.autoTrail(this);
                         homingPower = 0.3f;
                         reloadMultiplier = 1.5f;
                         ammoMultiplier = 8;
 
                         hitEffect = despawnEffect = Fx.hitBulletColor.wrap(Pal.siliconAmmoBack);
-                        hitColor = backColor = trailColor = Pal.siliconAmmoBack;
-                        frontColor = Pal.siliconAmmoFront;
                     }}
             );
             // General
-            TurretDef.generalParams(this, 2);
+            TurretDef.general(this, 2);
             rotateSpeed = 10f;
             // Shooting
             range = 20 * tilesize;
@@ -120,7 +121,6 @@ public class BlocksTurret {
                 );
             }};
         }};
-
         spitfire = new ScalingItemTurret("spitfire") {{
             requirements(Category.turret, with(
                     Items.titanium, 350,
@@ -128,59 +128,55 @@ public class BlocksTurret {
                     Items.plastanium, 100,
                     UAWItems.tisic, 50
             ));
-            float bHeight = 8f;
-            float bWidth = bHeight / 2;
+            float bH = 8f;
             ammo(
-                    Items.graphite, new TrailBulletType(12, 12) {{
-                        height = bHeight;
-                        width = bWidth;
+                    Items.graphite, new BasicBulletType(12, 12) {{
+                        BulletDef.size(this, bH);
+                        BulletDef.color(this, Pal.graphiteAmmoFront, Pal.graphiteAmmoBack);
+                        BulletDef.autoTrail(this);
                         ammoMultiplier = 4;
                         pierceCap = 1;
-                        knockback = 2;
+                        knockback = 3;
                         reloadMultiplier = 0.75f;
 
                         hitEffect = despawnEffect = Fx.hitBulletColor.wrap(Pal.graphiteAmmoBack);
-                        hitColor = backColor = trailColor = Pal.graphiteAmmoBack;
-                        frontColor = Pal.graphiteAmmoFront;
 
                         smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.fireSmoke);
                         shootEffect = new MultiEffect(Fx.shootBig, Fx.sparkShoot);
                     }},
-                    Items.titanium, new TrailBulletType(20, 10) {{
-                        height = bHeight;
-                        width = bWidth;
+                    Items.titanium, new BasicBulletType(20, 10) {{
+                        BulletDef.size(this, bH);
+                        BulletDef.color(this, UAWPal.titaniumAmmoFront, UAWPal.titaniumAmmoBack);
+                        BulletDef.autoTrail(this);
                         ammoMultiplier = 4;
                         pierceCap = 3;
 
-                        hitEffect = despawnEffect = Fx.hitBulletColor.wrap(UAWPal.titaniumBack);
-                        hitColor = backColor = trailColor = UAWPal.titaniumBack;
-                        frontColor = UAWPal.titaniumFront;
+                        hitEffect = despawnEffect = Fx.hitBulletColor.wrap(UAWPal.titaniumAmmoBack);
 
                         smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.fireSmoke);
                         shootEffect = new MultiEffect(Fx.shootBig, Fx.sparkShoot);
                     }},
-                    Items.surgeAlloy, new TrailBulletType(15, 8) {{
-                        height = bHeight;
-                        width = bWidth;
+                    Items.surgeAlloy, new BasicBulletType(15, 8) {{
+                        BulletDef.size(this, bH);
+                        BulletDef.color(this, Pal.surgeAmmoFront, Pal.surgeAmmoBack);
+                        BulletDef.autoTrail(this);
                         ammoMultiplier = 8;
                         pierceCap = 1;
                         status = StatusEffects.electrified;
                         lightning = 3;
                         lightningAngle = 270;
                         lightningDamage = 1.5f;
-                        lightningLength = 7;
+                        lightningLength = 3;
                         collidesAir = false;
 
                         hitEffect = despawnEffect = new MultiEffect(Fx.hitBulletColor.wrap(Pal.surgeAmmoBack), Fx.lightning);
-                        hitColor = backColor = trailColor = Pal.surgeAmmoBack;
-                        frontColor = Pal.surgeAmmoFront;
 
                         smokeEffect = new MultiEffect(Fx.shootBigSmoke2, Fx.fireSmoke);
                         shootEffect = new MultiEffect(Fx.shootBig, Fx.sparkShoot);
                     }}
             );
             // General
-            TurretDef.generalParams(this, 3);
+            TurretDef.general(this, 3);
             rotateSpeed = 7f;
             targetAir = false;
             // Shooting
@@ -228,46 +224,132 @@ public class BlocksTurret {
                 );
             }};
         }};
-
         // endregion MG
 
         // region SN
-        solo = new ItemTurret("solo") {{
+        solo = new UAWItemTurret("solo") {{
             requirements(Category.turret, with(
                     Items.copper, 150,
                     Items.graphite, 50
             ));
-            float bH = 14;
-            float bW = 8;
+            float bH = 14f;
             ammo(
-                    Items.graphite, new TrailBulletType(15, 55) {{
-                        height = bH;
-                        width = bW;
-                        pierce = true;
-                        pierceCap = 2;
-                        knockback = 3;
+                    Items.graphite, new BasicBulletType(14, 65) {{
+                        Color colFront = Pal.graphiteAmmoFront, colBack = Pal.graphiteAmmoBack;
+                        BulletDef.size(this, bH);
+                        BulletDef.color(this, colFront, colBack);
+                        BulletDef.autoTrail(this);
+
+                        pierceCap = 1;
+                        knockback = 5;
 
                         shootEffect = new MultiEffect(
                                 Fx.shootBig,
-                                ShootingFx.ellipseWave()
+                                CombatFx.ellipseWave(8, CombatFx.EllipseFade.FADE)
                         );
+
                         smokeEffect = Fx.shootSmokeDisperse;
+
                         hitEffect = despawnEffect = new MultiEffect(
-                                Fx.hitBulletColor.wrap(Pal.graphiteAmmoBack),
-                                ShootingFx.hitBulletBig(Pal.graphiteAmmoBack)
+                                Fx.hitBulletColor.wrap(colBack),
+                                CombatFx.hitBulletBig(colBack)
                         );
-                        hitColor = backColor = trailColor = Pal.graphiteAmmoBack;
-                        frontColor = Pal.graphiteAmmoFront;
+                        ammoMultiplier = 1.5f;
+                    }},
+                    Items.titanium, new BasicBulletType(16, 45) {{
+                        Color colFront = UAWPal.titaniumAmmoFront, colBack = UAWPal.titaniumAmmoBack;
+                        BulletDef.size(this, bH);
+                        BulletDef.color(this, colFront, colBack);
+                        BulletDef.autoTrail(this);
+
+                        pierceCap = 2;
+                        armorMultiplier = 0.75f;
+
+                        shootEffect = new MultiEffect(
+                                Fx.shootBig,
+                                CombatFx.ellipseWave(8, CombatFx.EllipseFade.FADE)
+                        );
+
+                        smokeEffect = Fx.shootSmokeDisperse;
+
+                        trailEffect = Fx.disperseTrail;
+                        trailInterval = 1f;
+
+                        hitEffect = despawnEffect = new MultiEffect(
+                                Fx.hitBulletColor.wrap(colBack),
+                                CombatFx.hitBulletBig(colBack),
+                                Fx.hitLancer
+                        );
+                        ammoMultiplier = 1;
+                    }},
+                    Items.metaglass, new FlakBulletType(14, 10) {{
+                        Color colFront = Pal.glassAmmoFront, colBack = Pal.glassAmmoBack;
+                        BulletDef.size(this, bH);
+                        BulletDef.color(this, colFront, colBack);
+                        BulletDef.autoTrail(this);
+
+                        splashDamage = 35;
+                        splashDamageRadius = 4 * tilesize;
+                        collidesGround = true;
+
+                        shootEffect = new MultiEffect(
+                                Fx.shootBig,
+                                CombatFx.ellipseWave(8, CombatFx.EllipseFade.FADE)
+                        );
+
+                        smokeEffect = Fx.shootSmokeDisperse;
+
+                        hitEffect = despawnEffect = new MultiEffect(
+                                Fx.hitBulletColor.wrap(colBack),
+                                Fx.flakExplosion
+                        );
+                        fragBullets = 8;
+                        fragBullet = new BasicBulletType(4, 15, "bullet") {{
+                            BulletDef.size(this, 10);
+                            BulletDef.color(this, Color.white, Pal.gray);
+                            shrinkY = 1f;
+                            lifetime = Calc.bulletLifetime(4 * tilesize, 4);
+                            despawnEffect = Fx.none;
+                        }};
+                        ammoMultiplier = 2;
+                    }},
+                    Items.thorium, new BasicBulletType(14, 90) {{
+                        Color colFront = Pal.thoriumAmmoFront, colBack = Pal.thoriumAmmoBack;
+                        BulletDef.size(this, bH);
+                        BulletDef.color(this, colFront, colBack);
+                        BulletDef.autoTrail(this);
+
+                        reloadMultiplier = 0.5f;
+                        rangeOverride = 25 * tilesize;
+
+                        pierceCap = 2;
+                        armorMultiplier = 0.25f;
+                        hitShake = 1.5f;
+
+                        shootEffect = new MultiEffect(
+                                Fx.shootBig,
+                                CombatFx.ellipseWave(12, CombatFx.EllipseFade.FADE),
+                                CombatFx.hitBulletBig(Pal.lightishOrange)
+                        );
+
+                        smokeEffect = Fx.shootSmokeDisperse;
+
+                        hitEffect = despawnEffect = new MultiEffect(
+                                Fx.hitBulletColor.wrap(colBack),
+                                CombatFx.hitBulletBig(colBack)
+                        );
+                        ammoMultiplier = 1;
                     }}
             );
             // General
-            TurretDef.generalParams(this, 2);
+            TurretDef.general(this, 2);
             rotateSpeed = 7.5f;
             // Shooting
-            range = 35 * tilesize;
+            range = 30 * tilesize;
             reload = 1.25f * tick;
             shake = 2.5f;
             limitRange();
+            ammoPerShot = 2;
             // Effects
             ammoUseEffect = Fx.casing3;
             shootSound = UAWSfx.shootSolo;
@@ -293,6 +375,68 @@ public class BlocksTurret {
                         new RegionPart("-barrel") {{
                             progress = PartProgress.recoil.curve(Interp.pow3).curve(Interp.bounceIn);
                             moveY = -5f * px;
+                        }}
+                );
+            }};
+        }};
+        longsword = new UAWItemTurret("longsword") {{
+            requirements(Category.turret, with(
+                    Items.titanium, 500,
+                    Items.graphite, 300,
+                    Items.silicon, 200,
+                    Items.plastanium, 150
+            ));
+            float bH = 14f;
+            ammo(
+                    Items.thorium, new BasicBulletType(15, 100) {{
+                        Color colFront = Pal.thoriumAmmoFront, colBack = Pal.thoriumAmmoBack;
+                        BulletDef.size(this, bH);
+                        BulletDef.color(this, colFront, colBack);
+                        BulletDef.autoTrail(this);
+
+                        pierceCap = 2;
+                        armorMultiplier = 0.25f;
+                        hitShake = 1.5f;
+
+                        shootEffect = new MultiEffect(
+                                Fx.shootBig,
+                                CombatFx.ellipseWave(12, CombatFx.EllipseFade.FADE),
+                                Fx.shootTitan,
+                                Fx.disperseTrail
+                        );
+
+                        smokeEffect = Fx.shootSmokeDisperse;
+
+                        hitEffect = despawnEffect = new MultiEffect(
+                                Fx.hitBulletColor.wrap(colBack),
+                                CombatFx.hitBulletBig(colBack)
+                        );
+                    }}
+            );
+            // General
+            TurretDef.general(this, 3);
+            rotateSpeed = 5;
+            // Shooting
+            range = 60 * tilesize;
+            reload = 2f * tick;
+            shake = 6;
+            limitRange();
+            shootY = 75 * px;
+            // Effects
+            ammoUseEffect = Fx.casing4;
+            shootSound = UAWSfx.shootLongsword;
+            // Drawer
+            drawer = new DrawTurret(modTurretBase) {{
+                float barrelMoveY = -6 * px;
+                parts.addAll(
+                        new RegionPart("-bottom"),
+                        new RegionPart("-barrel-1") {{
+                            progress = PartProgress.recoil.curve(Interp.pow3);
+                            moveY = barrelMoveY;
+                        }},
+                        new RegionPart("-barrel-2") {{
+                            progress = PartProgress.recoil.curve(Interp.pow3).curve(Interp.bounceIn);
+                            moveY = barrelMoveY + (-6f * px);
                         }}
                 );
             }};

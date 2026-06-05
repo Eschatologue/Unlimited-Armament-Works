@@ -12,13 +12,11 @@ import static arc.graphics.g2d.Draw.color;
 import static arc.graphics.g2d.Lines.lineAngle;
 import static arc.graphics.g2d.Lines.stroke;
 import static arc.math.Angles.randLenVectors;
-import static arc.math.Mathf.rand;
-import static mindustry.content.Fx.v;
 import static uaw.Vars.tick;
 
 public class ResourcingFx extends UAWFx{
 
-    public static final Effect thumperImpactWave = new Effect(tick, e -> {
+    public static final Effect thumpImpactWave = new Effect(tick, e -> {
         color(e.color);
         stroke(e.fout() * 1.5f);
 

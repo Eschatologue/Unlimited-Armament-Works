@@ -59,6 +59,21 @@ public class ConversionDrill extends ThumperDrill {
     public void setStats() {
         super.setStats();
         stats.remove(Stat.drillTier);
+
+        stats.add(Stat.drillTier, t -> {
+            for (var entry : conversions) {
+                t.table(row -> {
+                    // The ore/floor block the drill must sit on
+                    row.image(entry.requirement.uiIcon).size(32f).padRight(4f);
+                    row.add(entry.requirement.localizedName).color(Color.lightGray).padRight(8f);
+
+                    row.add(">").color(Color.lightGray).padRight(8f);
+
+                    row.image(entry.output.uiIcon).size(32f).padRight(4f);
+                    row.add(entry.output.localizedName).color(Color.lightGray);
+                }).left().padTop(4f).row();
+            }
+        });
     }
 
     @Override

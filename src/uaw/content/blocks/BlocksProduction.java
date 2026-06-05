@@ -13,11 +13,13 @@ import mindustry.type.LiquidStack;
 import mindustry.world.Block;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.draw.*;
-import uaw.audiovisual.fx.ProductionFx;
 import uaw.audiovisual.UAWPal;
+import uaw.audiovisual.fx.ProductionFx;
 import uaw.audiovisual.fx.ResourcingFx;
 import uaw.content.UAWItems;
 import uaw.content.UAWLiquids;
+import uaw.utils.BlockDef;
+import uaw.world.blocks.production.BoostGenericCrafter;
 import uaw.world.blocks.production.ConversionDrill;
 
 import static mindustry.type.ItemStack.with;
@@ -52,12 +54,12 @@ public class BlocksProduction {
                     Items.graphite, 50
             ));
 
-            size = 3;
+            BlockDef.general(this, 3);
 
             drillTime = 3 * tick;
             drillEffect = new MultiEffect(
                     Fx.mineImpact,
-                    ResourcingFx.thumperImpactWave,
+                    ResourcingFx.thumpImpactWave,
                     ResourcingFx.thumpParticles
             );
             consumeLiquid(Liquids.water, liquidUnit(12));
@@ -72,8 +74,7 @@ public class BlocksProduction {
         attritionMill = new GenericCrafter("attrition-mill") {{
             requirements(Category.crafting, with(Items.graphite, 60));
 
-            size = 2;
-            squareSprite = false;
+            BlockDef.general(this, 2);
 
             craftEffect = new MultiEffect(Fx.coalSmeltsmoke, Fx.smeltsmoke);
             updateEffect = Fx.pulverize;
@@ -81,7 +82,6 @@ public class BlocksProduction {
             craftTime = 2 * tick;
             consumeItems(with(Items.graphite, 2, Items.sand, 2));
             outputItems = with(UAWItems.anthracite, 2);
-            itemCapacity = 50;
 
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
@@ -100,8 +100,7 @@ public class BlocksProduction {
         calcinator = new GenericCrafter("calcinator") {{
             requirements(Category.crafting, with(Items.graphite, 150, Items.copper, 50));
 
-            size = 2;
-            squareSprite = false;
+            BlockDef.general(this, 2);
 
             craftEffect = new MultiEffect(Fx.coalSmeltsmoke, Fx.smeltsmoke, Fx.formsmoke);
             updateEffect = Fx.fireHit;
@@ -118,8 +117,7 @@ public class BlocksProduction {
         oxidationKiln = new GenericCrafter("oxidation-kiln") {{
             requirements(Category.crafting, with(Items.copper, 60, Items.graphite, 25));
 
-            size = 2;
-            squareSprite = false;
+            BlockDef.general(this, 2);
 
             craftEffect = new MultiEffect(Fx.coalSmeltsmoke, Fx.smeltsmoke);
             updateEffect = Fx.pulverizeSmall;
@@ -128,16 +126,13 @@ public class BlocksProduction {
             consumeItems(with(Items.lead, 2, Items.coal, 1));
             outputItems = with(UAWItems.sulphur, 2);
             outputLiquids = LiquidStack.with(Liquids.slag, liquidUnit(3));
-            itemCapacity = 50;
 
             drawer = new DrawMulti(new DrawDefault(), new DrawFlame(Color.valueOf("ffc099")));
         }};
 
         chemicalSaturator = new GenericCrafter("chemical-saturator") {{
             requirements(Category.crafting, with(Items.graphite, 50, Items.metaglass, 25));
-
-            size = 3;
-            squareSprite = false;
+            BlockDef.general(this, 3);
 
             craftEffect = new MultiEffect(Fx.coalSmeltsmoke, Fx.smeltsmoke);
 
@@ -161,24 +156,24 @@ public class BlocksProduction {
 
         // Production - TiSiC
 
-        sinteringFurnace = new GenericCrafter("sintering-furnace") {{
+        sinteringFurnace = new BoostGenericCrafter("sintering-furnace") {{
             requirements(Category.crafting, with(
                     Items.titanium, 100,
                     Items.graphite, 50,
                     Items.silicon, 25
             ));
 
-            size = 3;
-            squareSprite = false;
-            buildTime = 5 * tick;
+            BlockDef.general(this, 3);
 
             craftEffect = new MultiEffect(Fx.coalSmeltsmoke, Fx.smeltsmoke, Fx.vaporSmall.wrap(UAWItems.tisic.color));
             updateEffect = new MultiEffect(Fx.melting, Fx.burning, Fx.fireSmoke);
 
             craftTime = 2 * tick;
             consumeItems(with(Items.titanium, 3, Items.silicon, 1, Items.graphite, 2));
+            consumeLiquids(LiquidStack.with(UAWLiquids.sulphuricAcid, liquidUnit(12))).boost();
             outputItems = with(UAWItems.tisic, 1);
-            itemCapacity = 50;
+
+            boostYieldMult = 1.5f;
 
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
@@ -199,9 +194,7 @@ public class BlocksProduction {
                     Items.metaglass, 50
             ));
 
-            size = 3;
-            squareSprite = false;
-            buildTime = 5 * tick;
+            BlockDef.general(this, 3);
 
             craftEffect =
                     new RadialEffect(
@@ -214,12 +207,11 @@ public class BlocksProduction {
                     }};
 
             craftTime = 2 * tick;
-            consumeItems(with(UAWItems.anthracite, 2));
+            consumeItems(with(UAWItems.anthracite, 4));
             consumeLiquids(LiquidStack.with(
                     Liquids.oil, liquidUnit(18),
                     UAWLiquids.sulphuricAcid, liquidUnit(12)
             ));
-            itemCapacity = 50;
             outputLiquid = new LiquidStack(UAWLiquids.phlogiston, liquidUnit(12));
 
             drawer = new DrawMulti(
@@ -237,16 +229,14 @@ public class BlocksProduction {
 
         // Production - Stoutsteel Alloy
 
-        isostaticCrucible = new GenericCrafter("isostatic-crucible") {{
+        isostaticCrucible = new BoostGenericCrafter("isostatic-crucible") {{
             requirements(Category.crafting, with(
                     Items.graphite, 300,
                     Items.silicon, 150,
                     UAWItems.tisic, 100
             ));
 
-            size = 3;
-            squareSprite = false;
-            buildTime = 5 * tick;
+            BlockDef.general(this, 3);
 
             craftEffect =
                     new RadialEffect(
@@ -258,14 +248,16 @@ public class BlocksProduction {
                         rotationOffset = 0;
                     }};
 
-            craftTime = 5 * tick;
-            consumeItems(with(UAWItems.tisic, 5));
-            consumeLiquids(LiquidStack.with(
-                    UAWLiquids.sulphuricAcid, liquidUnit(6),
-                    UAWLiquids.phlogiston, liquidUnit(12)
+            craftTime = 10 * tick;
+            consumeItems(with(
+                    UAWItems.tisic, 5,
+                    Items.phaseFabric, 10
             ));
+            consumeLiquid(UAWLiquids.phlogiston, liquidUnit(12));
+            consumeLiquid(UAWLiquids.sulphuricAcid, liquidUnit(6)).boost();
             outputItems = with(UAWItems.stoutsteel, 1);
-            itemCapacity = 50;
+
+            boostCraftSpeedMult = 0.5f;
 
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),

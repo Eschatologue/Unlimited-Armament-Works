@@ -26,11 +26,11 @@ public class UAWItems {
             healthScaling = 1.5f;
             cost = 1.5f;
         }};
-        stoutsteel = new Item("stoutsteel", UAWPal.stoutSteelMiddle) {{
+        stoutsteel = new Item("stoutsteel", UAWPal.stoutsteelMiddle) {{
             healthScaling = 2f;
             cost = 2;
         }};
-        cryogel = new Item("cryogel", UAWPal.cryoFront) {{
+        cryogel = new Item("cryogel", UAWPal.cryoAmmoFront) {{
             flammability = -10f;
             explosiveness = 0f;
         }};

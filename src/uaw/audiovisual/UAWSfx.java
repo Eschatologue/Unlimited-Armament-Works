@@ -14,7 +14,7 @@ public class UAWSfx {
             // Resourcing
             mineThumperDrill,
     // Shoot
-    shootBig1, shootSolo;
+    shootBig1, shootSolo, shootLongsword;
 
     /**
      * Scans and loads every 'Sound' field automatically

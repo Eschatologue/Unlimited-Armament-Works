@@ -14,7 +14,7 @@ import static arc.graphics.g2d.Lines.stroke;
 import static arc.math.Angles.randLenVectors;
 import static mindustry.Vars.state;
 
-public class ShootingFx extends UAWFx {
+public class CombatFx extends UAWFx {
 
     public static final Effect hitBulletSmallColor = new Effect(14, e -> {
         color(Color.white, e.color, e.fin());
@@ -64,28 +64,49 @@ public class ShootingFx extends UAWFx {
         });
     }
 
-    public static Effect ellipseWave(){
-        return ellipseWave(25, 4, 8, 1f, Color.gray);
+    public static Effect ellipseWave(float width, EllipseFade mode) {
+        return ellipseWave(width, Color.gray, mode);
+    }
+
+    public static Effect ellipseWave(float width, Color col, EllipseFade mode) {
+        return ellipseWave(20, width, width * 0.125f, col, mode);
     }
 
     /**
-     * Draws an expanding ellipse ring that fades out
+     * Draws an expanding ellipse ring
      *
-     * @param lifetime how long the effect lasts, in ticks
-     * @param width half-width of the ellipse at full size, in world units
-     * @param height half-height of the ellipse at full size, in world units
-     * @param thickness peak line stroke thickness (fades to 0 as the effect ends)
-     * @param col ring colour
+     * @param lifetime  duration in ticks
+     * @param width     half-width at full size, in world units
+     * @param thickness peak stroke thickness
+     * @param col       ring colour
+     * @param mode      {@link EllipseFade#STROKE} thins the line; {@link EllipseFade#FADE} fades opacity
      */
-    public static Effect ellipseWave(float lifetime, float width, float height, float thickness, Color col) {
-        float rad = Math.max(width, height);
+    public static Effect ellipseWave(float lifetime, float width, float thickness, Color col, EllipseFade mode) {
+        float rad = Math.max(width * 0.375f, width);
         return new Effect(lifetime, e -> {
-            alpha(0.75f);
             color(col);
-
-            stroke(thickness * e.fout());
+            switch (mode) {
+                case STROKE -> {
+                    stroke(thickness * e.fout());
+                }
+                case FADE -> {
+                    alpha(e.fout());
+                    stroke(thickness);
+                }
+            }
             float scale = e.finpow();
-            Lines.ellipse(e.x, e.y, rad, (width * scale) / rad, (height * scale) / rad, e.rotation);
+            Lines.ellipse(e.x, e.y, rad, (width * 0.375f * scale) / rad, (width * scale) / rad, e.rotation);
         });
+    }
+
+    public enum EllipseFade {
+        /**
+         * Stroke thins as the ring expands.
+         */
+        STROKE,
+        /**
+         * Stroke stays constant; opacity fades out.
+         */
+        FADE
     }
 }

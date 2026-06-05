@@ -9,7 +9,6 @@ import arc.util.Tmp;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
 import mindustry.graphics.Layer;
-import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.meta.Stat;
 import mindustry.world.meta.StatUnit;
 import uaw.world.meta.UAWStatUnit;
@@ -23,7 +22,7 @@ import static mindustry.Vars.tilesize;
  * <p>While shooting, a {@code rampUp} value climbs from 0 to 1. That value is fed into {@code baseReloadSpeed()}, scaling it from
  * 1x up to {@link #maxReloadScale}x. When the turret stops shooting, rampUp decays back to 0</p>
  */
-public class ScalingItemTurret extends ItemTurret {
+public class ScalingItemTurret extends UAWItemTurret {
 
     /**
      * Peak fire-rate multiplier

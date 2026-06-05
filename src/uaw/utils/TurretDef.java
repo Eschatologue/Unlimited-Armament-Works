@@ -9,18 +9,18 @@ import static uaw.Vars.tick;
  */
 public class TurretDef {
 
-    public static void generalParams(ItemTurret t, int size) {
-        generalParams(t, size, size * 75);
+    public static void general(ItemTurret t, int size) {
+        general(t, size, size * 75);
     }
 
-    public static void generalParams(ItemTurret t, int size, float scaledHealth) {
-        generalParams(t, size, scaledHealth, size * 25);
+    public static void general(ItemTurret t, int size, float scaledHealth) {
+        general(t, size, scaledHealth, size * 20);
     }
 
     /**
      * Used to standardised all UAW turrets
      */
-    public static void generalParams(ItemTurret t, int size, float scaledHealth, int maxAmmo) {
+    public static void general(ItemTurret t, int size, float scaledHealth, int maxAmmo) {
         t.size = size;
         t.scaledHealth = size * scaledHealth;
         t.maxAmmo = maxAmmo;
