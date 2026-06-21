@@ -8,5 +8,6 @@
   "minGameVersion": 158,
   "version": "v0.1r",
   "repo": "Eschatologue/Unlimited-Armament-Works",
-  "java": true
+  "java": true,
+  "dependencies": ["multicrafter"]
 }

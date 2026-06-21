@@ -1,6 +1,7 @@
 package uaw.content.blocks;
 
 import arc.graphics.Color;
+import dev.jojofr.multicrafter.MultiCrafterBlock;
 import mindustry.content.Blocks;
 import mindustry.content.Fx;
 import mindustry.content.Items;
@@ -18,6 +19,7 @@ import uaw.audiovisual.fx.ProductionFx;
 import uaw.audiovisual.fx.ResourcingFx;
 import uaw.content.UAWItems;
 import uaw.content.UAWLiquids;
+import uaw.content.UAWRecipes;
 import uaw.utils.BlockDef;
 import uaw.world.blocks.production.BoostGenericCrafter;
 import uaw.world.blocks.production.ConversionDrill;
@@ -27,7 +29,7 @@ import static uaw.Vars.px;
 import static uaw.Vars.tick;
 import static uaw.utils.Calc.liquidUnit;
 
-public class BlocksProduction {
+public class Production {
 
     public static Block placeholder,
 
@@ -62,15 +64,13 @@ public class BlocksProduction {
                     ResourcingFx.thumpImpactWave,
                     ResourcingFx.thumpParticles
             );
-            consumeLiquid(Liquids.water, liquidUnit(12));
+            consumeLiquid(Liquids.water, liquidUnit(15));
             itemCapacity = 50;
             addConversion(Blocks.oreCoal, UAWItems.anthracite);
         }};
-
         // endregion Resourcing
 
         // Production - Anthracite
-
         attritionMill = new GenericCrafter("attrition-mill") {{
             requirements(Category.crafting, with(Items.graphite, 60));
 
@@ -96,24 +96,15 @@ public class BlocksProduction {
         }};
 
         // Production - Graphite
-
-        calcinator = new GenericCrafter("calcinator") {{
+        calcinator = new MultiCrafterBlock("calcinator") {{
             requirements(Category.crafting, with(Items.graphite, 150, Items.copper, 50));
-
             BlockDef.general(this, 2);
-
-            craftEffect = new MultiEffect(Fx.coalSmeltsmoke, Fx.smeltsmoke, Fx.formsmoke);
-            updateEffect = Fx.fireHit;
-
-            craftTime = 2 * tick;
-            consumeItems(with(UAWItems.anthracite, 2));
-            outputItems = with(Items.graphite, 2, UAWItems.sulphur, 1);
-
             itemCapacity = 50;
+
+            recipes.addAll(UAWRecipes.Anthracite.fromCoal, UAWRecipes.Graphite.fromAnthracite);
         }};
 
         // Production - Sulphur
-
         oxidationKiln = new GenericCrafter("oxidation-kiln") {{
             requirements(Category.crafting, with(Items.copper, 60, Items.graphite, 25));
 
@@ -129,7 +120,6 @@ public class BlocksProduction {
 
             drawer = new DrawMulti(new DrawDefault(), new DrawFlame(Color.valueOf("ffc099")));
         }};
-
         chemicalSaturator = new GenericCrafter("chemical-saturator") {{
             requirements(Category.crafting, with(Items.graphite, 50, Items.metaglass, 25));
             BlockDef.general(this, 3);
@@ -155,7 +145,6 @@ public class BlocksProduction {
         }};
 
         // Production - TiSiC
-
         sinteringFurnace = new BoostGenericCrafter("sintering-furnace") {{
             requirements(Category.crafting, with(
                     Items.titanium, 100,
@@ -185,7 +174,6 @@ public class BlocksProduction {
         }};
 
         // Production - Phlogiston
-
         pyrolyticExtractor = new GenericCrafter("pyrolytic-extractor") {{
             requirements(Category.crafting, with(
                     Items.titanium, 150,
@@ -228,7 +216,6 @@ public class BlocksProduction {
         }};
 
         // Production - Stoutsteel Alloy
-
         isostaticCrucible = new BoostGenericCrafter("isostatic-crucible") {{
             requirements(Category.crafting, with(
                     Items.graphite, 300,

@@ -1,13 +1,15 @@
 package uaw.content;
 
-import uaw.content.blocks.BlocksTurret;
-import uaw.content.blocks.BlocksProduction;
-import uaw.content.blocks.BlocksStorage;
+import uaw.content.blocks.Power;
+import uaw.content.blocks.Production;
+import uaw.content.blocks.Storage;
+import uaw.content.blocks.Turrets;
 
 public class UAWBlocks {
     public static void load() {
-        BlocksStorage.load();
-        BlocksProduction.load();
-        BlocksTurret.load();
+        Power.load();
+        Production.load();
+        Storage.load();
+        Turrets.load();
     }
 }

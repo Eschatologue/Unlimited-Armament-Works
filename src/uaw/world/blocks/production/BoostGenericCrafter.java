@@ -25,6 +25,13 @@ public class BoostGenericCrafter extends GenericCrafter {
         super(name);
     }
 
+    /**
+     * Shows one decimal place only when the value has a fractional part. 2.0 → "2", 1.5 → "1.5"
+     */
+    private static String formatNum(float value) {
+        return value == (int) value ? String.valueOf((int) value) : Strings.fixed(value, 1);
+    }
+
     @Override
     public void setStats() {
         super.setStats();
@@ -33,20 +40,22 @@ public class BoostGenericCrafter extends GenericCrafter {
             stats.remove(Stat.productionTime);
             stats.add(Stat.productionTime, table -> {
                 float base = craftTime / 60f;
-                float boosted = craftTime * boostCraftSpeedMult / 60f;
+                float boosted = craftTime / boostCraftSpeedMult / 60f;
+                // trim() guards against versions where localized() includes a leading space
+                String unit = " " + StatUnit.seconds.localized().trim();
 
-                String baseStr = Strings.fixed(base, 1) + StatUnit.seconds;
-                String boostedStr = Strings.fixed(boosted, 1) + StatUnit.seconds;
-                String multStr = Strings.fixed((boostCraftSpeedMult * 100), 0);
-
-                table.add(Core.bundle.format("stat.uaw-boost-craft-speed", baseStr, boostedStr, multStr)).left();
+                table.add(Core.bundle.format("stat.uaw-boost-craft-speed",
+                        formatNum(base) + unit,
+                        formatNum(boosted) + unit,
+                        formatNum(boostCraftSpeedMult)
+                )).left();
             });
         }
 
         if (boostYieldMult != 1f) {
             stats.add(Stat.output, table -> {
                 table.row();
-                table.add(Core.bundle.format("stat.uaw-boost-yield", Strings.fixed(boostYieldMult, 1))).left();
+                table.add(Core.bundle.format("stat.uaw-boost-yield", formatNum(boostYieldMult))).left();
             });
         }
     }

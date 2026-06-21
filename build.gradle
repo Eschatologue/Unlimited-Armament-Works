@@ -27,6 +27,13 @@ repositories{
         patternLayout{artifact '/[organisation]/[module]/releases/download/[revision]/jabel.jar'}
         metadataSources{ artifact() }
     }
+
+    // MultiCrafter
+    ivy {
+        url = 'https://github.com/'
+        patternLayout {artifact '/[organisation]/[module]/releases/download/[revision]/MultiCrafter.jar'}
+        metadataSources { artifact() }
+    }
 }
 
 java{
@@ -54,6 +61,7 @@ dependencies{
     def useLatest = false //set to "true" to always depend on the newest version of mindustry
 
     compileOnly useLatest ? "Anuken:MindustryBuilds:latest" : "Anuken:Mindustry:$mindustryVersion"
+    compileOnly "JojoFR1:MultiCrafter:v1.2.0"
 
     annotationProcessor "Anuken:jabel:v1.0.0"
 }

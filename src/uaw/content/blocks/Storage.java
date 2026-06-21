@@ -11,7 +11,7 @@ import uaw.world.blocks.storage.DepotSection;
 import static mindustry.type.ItemStack.with;
 import static uaw.Vars.tick;
 
-public class BlocksStorage {
+public class Storage {
 
     public static Block placeholder,
 

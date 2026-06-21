@@ -39,10 +39,10 @@ public class Calc {
     }
 
     // Items & Liquid measurements
-
     public static float liquidUnit(float amount){
         return amount / tick;
     }
+
 
     public static float percentageDifference(float from, float to) {
         return (Math.abs(from - to) / ((from + to) / 2) * 100);
