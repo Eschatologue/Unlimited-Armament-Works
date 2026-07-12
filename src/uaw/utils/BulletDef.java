@@ -45,7 +45,7 @@ public class BulletDef {
      * Call this after setting height, width, speed, and backColor.
      * <p>Always call this last!</p>
      *
-     * @param b         the bullet
+     * @param b         the boolet
      * @param lengthScl trail length multiplier applied to {@code b.height}
      * @param widthScl  trail width multiplier applied to {@code b.width}
      */
@@ -57,7 +57,7 @@ public class BulletDef {
     }
 
     /**
-     * Finds the {@link BulletSprite} matching {@code b.sprite}, or {@link BulletSprite#DEFAULT} if none match.
+     * Finds the {@link BulletSprite} matching {@code b.sprite}, or {@link BulletSprite#DEFAULT} if none match
      */
     private static BulletSprite spriteOf(BasicBulletType b) {
         for (BulletSprite s : BulletSprite.values()) {
@@ -67,7 +67,7 @@ public class BulletDef {
     }
 
     /**
-     * Derives trail dimensions using the scale defaults baked into a {@link BulletSprite} preset.
+     * Derives trail dimensions using the scale defaults baked into a {@link BulletSprite} preset
      * <p>Always call this last!</p>
      */
     public static void autoTrail(BasicBulletType b, BulletSprite sprite) {
@@ -77,6 +77,7 @@ public class BulletDef {
     public static void autoTrail(BasicBulletType b, float lengthScl, BulletSprite sprite) {
         autoTrail(b, lengthScl, sprite.trailWidthScl);
     }
+
     /**
      * Derives trail dimensions using the scale defaults of whichever {@link BulletSprite} was applied to this bullet
      */
@@ -98,13 +99,7 @@ public class BulletDef {
      * so {@link BulletDef#size} and {@link BulletDef#autoTrail} produce consistent results without manual tuning</p>
      */
     public enum BulletSprite {
-        /**
-         * Default game bullet sprite
-         */
         DEFAULT("bullet", 0.75f, 0.6f, 0.192f),
-        /**
-         * Large missile sprite. Narrower, with a wider trail
-         */
         MISSILE_LARGE("missile-large", 0.52f, 0.6f, 0.326f);
 
         /**

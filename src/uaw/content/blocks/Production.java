@@ -2,6 +2,7 @@ package uaw.content.blocks;
 
 import arc.graphics.Color;
 import dev.jojofr.multicrafter.MultiCrafterBlock;
+import dev.jojofr.multicrafter.type.DrawRecipe;
 import mindustry.content.Blocks;
 import mindustry.content.Fx;
 import mindustry.content.Items;
@@ -23,24 +24,23 @@ import uaw.content.UAWRecipes;
 import uaw.utils.BlockDef;
 import uaw.world.blocks.production.BoostGenericCrafter;
 import uaw.world.blocks.production.ConversionDrill;
+import uaw.world.draw.UAWDrawFlame;
 
 import static mindustry.type.ItemStack.with;
 import static uaw.Vars.px;
 import static uaw.Vars.tick;
-import static uaw.utils.Calc.liquidUnit;
+import static uaw.utils.Calc.liquidsPerSec;
 
 public class Production {
 
     public static Block placeholder,
 
     // Resourcing
-    hydroThumper, acidThumper,
-    // Production - Anthracite
-    attritionMill, calcinator,
-    // Production - Sulphur
-    oxidationKiln, chemicalSaturator,
-    // Production - Phlogiston
-    pyrolyticExtractor,
+    hydroThumper,
+    // Production I
+    refiner_carbon, refiner_oil,
+    // Production II
+    mixer_chemicalSynth, pyrolyticExtractor,
     // Production II - TiSiC
     sinteringFurnace,
     // Production III - Stoutsteel
@@ -64,85 +64,121 @@ public class Production {
                     ResourcingFx.thumpImpactWave,
                     ResourcingFx.thumpParticles
             );
-            consumeLiquid(Liquids.water, liquidUnit(15));
+            consumeLiquid(Liquids.water, liquidsPerSec(15));
             itemCapacity = 50;
             addConversion(Blocks.oreCoal, UAWItems.anthracite);
         }};
         // endregion Resourcing
 
-        // Production - Anthracite
-        attritionMill = new GenericCrafter("attrition-mill") {{
-            requirements(Category.crafting, with(Items.graphite, 60));
-
-            BlockDef.general(this, 2);
-
-            craftEffect = new MultiEffect(Fx.coalSmeltsmoke, Fx.smeltsmoke);
-            updateEffect = Fx.pulverize;
-
-            craftTime = 2 * tick;
-            consumeItems(with(Items.graphite, 2, Items.sand, 2));
-            outputItems = with(UAWItems.anthracite, 2);
-
-            drawer = new DrawMulti(
-                    new DrawRegion("-bottom"),
-                    new DrawArcSmelt() {{
-                        circleStroke = 1;
-                        particles = 25;
-                        particleLife = 30;
-                    }},
-                    new DrawRegion("-rot1", -4, true),
-                    new DrawRegion("-rot2", 4, true),
-                    new DrawDefault());
-        }};
-
         // Production - Graphite
-        calcinator = new MultiCrafterBlock("calcinator") {{
-            requirements(Category.crafting, with(Items.graphite, 150, Items.copper, 50));
+        // region Production I
+        refiner_carbon = new MultiCrafterBlock("refiner-carbon") {{
+            requirements(Category.crafting, with(Items.graphite, 100));
             BlockDef.general(this, 2);
-            itemCapacity = 50;
-
-            recipes.addAll(UAWRecipes.Anthracite.fromCoal, UAWRecipes.Graphite.fromAnthracite);
-        }};
-
-        // Production - Sulphur
-        oxidationKiln = new GenericCrafter("oxidation-kiln") {{
-            requirements(Category.crafting, with(Items.copper, 60, Items.graphite, 25));
-
-            BlockDef.general(this, 2);
-
-            craftEffect = new MultiEffect(Fx.coalSmeltsmoke, Fx.smeltsmoke);
-            updateEffect = Fx.pulverizeSmall;
-
-            craftTime = 2 * tick;
-            consumeItems(with(Items.lead, 2, Items.coal, 1));
-            outputItems = with(UAWItems.sulphur, 2);
-            outputLiquids = LiquidStack.with(Liquids.slag, liquidUnit(3));
-
-            drawer = new DrawMulti(new DrawDefault(), new DrawFlame(Color.valueOf("ffc099")));
-        }};
-        chemicalSaturator = new GenericCrafter("chemical-saturator") {{
-            requirements(Category.crafting, with(Items.graphite, 50, Items.metaglass, 25));
-            BlockDef.general(this, 3);
-
-            craftEffect = new MultiEffect(Fx.coalSmeltsmoke, Fx.smeltsmoke);
-
-            craftTime = 2 * tick;
-            consumeItems(with(UAWItems.sulphur, 2));
-            consumeLiquids(LiquidStack.with(Liquids.water, liquidUnit(12)));
-            outputLiquids = LiquidStack.with(UAWLiquids.sulphuricAcid, liquidUnit(12));
-            itemCapacity = 50;
-
-            drawer = new DrawMulti(
+            drawer = new DrawRecipe();
+            recipes.addAll(
+                    UAWRecipes.anthraciteSynth,
+                    UAWRecipes.graphiteSynth,
+                    UAWRecipes.hvyAnthraciteSynth
+            );
+            drawer = new DrawRecipe();
+            UAWRecipes.anthraciteSynth.drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
-                    new DrawLiquidTile(Liquids.water, 8 * px) {{
-                        alpha = 0.8f;
-                    }},
-                    new DrawLiquidTile(UAWLiquids.sulphuricAcid, 8 * px) {{
-                        alpha = 1.2f;
-                    }},
-                    new DrawRegion("-rot", 3),
-                    new DrawDefault());
+                    new DrawRegion("-base"),
+                    new DrawRegion("-rec-1")
+            );
+            UAWRecipes.graphiteSynth.drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawRegion("-base"),
+                    new DrawRegion("-rec-2"),
+                    new UAWDrawFlame() {{
+                        topSuffix = "-rec-2-top";
+                    }}
+            );
+
         }};
+
+        refiner_oil = new MultiCrafterBlock("refiner-oil") {{
+            requirements(Category.crafting, with(Items.graphite, 150));
+            BlockDef.general(this, 3);
+            recipes.addAll(
+                    UAWRecipes.oilProcessing_basic,
+                    UAWRecipes.oilProcessing_adv,
+                    UAWRecipes.coalLiquefaction,
+                    UAWRecipes.sporePress
+            );
+            drawer = new DrawRecipe();
+            UAWRecipes.oilProcessing_basic.drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawRegion("-rec-1")
+            );
+            UAWRecipes.oilProcessing_basic.craftEffect = ProductionFx.stackSmoke(60, 16, 8, Color.gray);
+        }};
+        // endregion
+
+        // region Production II
+        mixer_chemicalSynth = new MultiCrafterBlock("mixer-chemical-synth") {{
+            requirements(Category.crafting, with(Items.graphite, 150, Items.metaglass, 50));
+            BlockDef.general(this, 3);
+            recipes.addAll(
+                    UAWRecipes.sulphur,
+                    UAWRecipes.sulphuricAcid,
+                    UAWRecipes.sulphuricPyrite,
+                    UAWRecipes.sulphuricBlast,
+                    UAWRecipes.plastanium,
+                    UAWRecipes.ketonite
+            );
+            drawer = new DrawRecipe();
+        }};
+
+        // endregion
+
+        // region Legacy
+
+//        attritionMill = new GenericCrafter("attrition-mill") {{
+//            requirements(Category.crafting, with(Items.graphite, 60));
+//
+//            BlockDef.general(this, 2);
+//
+//            craftEffect = new MultiEffect(Fx.coalSmeltsmoke, Fx.smeltsmoke);
+//            updateEffect = Fx.pulverize;
+//
+//            craftTime = 2 * tick;
+//            consumeItems(with(Items.graphite, 2, Items.sand, 2));
+//            outputItems = with(UAWItems.anthracite, 2);
+//
+//            drawer = new DrawMulti(
+//                    new DrawRegion("-bottom"),
+//                    new DrawArcSmelt() {{
+//                        circleStroke = 1;
+//                        particles = 25;
+//                        particleLife = 30;
+//                    }},
+//                    new DrawRegion("-rot1", -4, true),
+//                    new DrawRegion("-rot2", 4, true),
+//                    new DrawDefault());
+//        }};
+
+//        oxidationKiln = new GenericCrafter("oxidation-kiln") {{
+//            requirements(Category.crafting, with(Items.copper, 60, Items.graphite, 25));
+//
+//            BlockDef.general(this, 2);
+//
+//            craftEffect = new MultiEffect(Fx.coalSmeltsmoke, Fx.smeltsmoke);
+//            updateEffect = Fx.pulverizeSmall;
+//
+//            craftTime = 2 * tick;
+//            consumeItems(with(Items.lead, 2, Items.coal, 1));
+//            outputItems = with(UAWItems.sulphur, 2);
+//            outputLiquids = LiquidStack.with(Liquids.slag, liquidUnit(3));
+//
+//            drawer = new DrawMulti(new DrawDefault(), new DrawFlame(Color.valueOf("ffc099")));
+//        }};
+
+        // endregion
+
+
+        // TODO Turn these into multicrafter WIP
 
         // Production - TiSiC
         sinteringFurnace = new BoostGenericCrafter("sintering-furnace") {{
@@ -159,7 +195,7 @@ public class Production {
 
             craftTime = 2 * tick;
             consumeItems(with(Items.titanium, 3, Items.silicon, 1, Items.graphite, 2));
-            consumeLiquids(LiquidStack.with(UAWLiquids.sulphuricAcid, liquidUnit(12))).boost();
+            consumeLiquids(LiquidStack.with(UAWLiquids.sulphuricAcid, liquidsPerSec(12))).boost();
             outputItems = with(UAWItems.tisic, 1);
 
             boostYieldMult = 1.5f;
@@ -197,10 +233,10 @@ public class Production {
             craftTime = 2 * tick;
             consumeItems(with(UAWItems.anthracite, 4));
             consumeLiquids(LiquidStack.with(
-                    Liquids.oil, liquidUnit(18),
-                    UAWLiquids.sulphuricAcid, liquidUnit(12)
+                    Liquids.oil, liquidsPerSec(18),
+                    UAWLiquids.sulphuricAcid, liquidsPerSec(12)
             ));
-            outputLiquid = new LiquidStack(UAWLiquids.phlogiston, liquidUnit(12));
+            outputLiquid = new LiquidStack(UAWLiquids.phlogiston, liquidsPerSec(12));
 
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
@@ -240,8 +276,8 @@ public class Production {
                     UAWItems.tisic, 5,
                     Items.phaseFabric, 10
             ));
-            consumeLiquid(UAWLiquids.phlogiston, liquidUnit(12));
-            consumeLiquid(UAWLiquids.sulphuricAcid, liquidUnit(6)).boost();
+            consumeLiquid(UAWLiquids.phlogiston, liquidsPerSec(12));
+            consumeLiquid(UAWLiquids.sulphuricAcid, liquidsPerSec(6)).boost();
             outputItems = with(UAWItems.stoutsteel, 1);
 
             boostCraftSpeedMult = 0.5f;

@@ -89,6 +89,53 @@ public class AreaFx extends UAWFx {
         return explosion(radius, smokeCol, Color.white, sparkColBack, sparkColBack);
     }
 
+    public static Effect explosion(float radius, Color sparkColBack) {
+        return explosion(radius, Color.gray, sparkColBack);
+    }
+
+    /**
+     * Ring flash, grey smoke dots, and coloured line sparks
+     *
+     * <p>Derived from {@code Fx.flakExplosion}, {@code Fx.plasticExplosion}, {@code Fx.plasticExplosionFlak},
+     * {@code Fx.blastExplosion}, {@code Fx.sapExplosion}, and {@code Fx.massiveExplosion}</p>
+     *
+     * @param radius   explosion radius in world units, adjusts smoke spread, spark spread, and ring size
+     * @param colFront ring and spark starting colour
+     * @param colBack  spark ending colour and point-light tint
+     */
+    public static Effect bulletExplosion(float radius, Color colFront, Color colBack) {
+        float lifetime = radius * (20f / 23f);
+        float ringDuration = lifetime * (6f / 20f);
+        float ringRadius = radius * (10f / 23f);
+        float smokeDots = Mathf.clamp(radius * (5f / 23f), 3f, 12f);
+        float sparkLines = Mathf.clamp(radius * (4f / 23f), 2f, 10f);
+        float lightRadius = radius * (50f / 23f);
+
+        return new Effect(lifetime, e -> {
+            // Ring flash
+            color(colFront);
+            e.scaled(ringDuration, i -> {
+                stroke(3f * i.fout());
+                Lines.circle(e.x, e.y, 3f + i.fin() * ringRadius);
+            });
+
+            // Grey smoke dots
+            color(Color.gray);
+            randLenVectors(e.id, (int) smokeDots, 2f + radius * e.finpow(), (x, y) -> {
+                Fill.circle(e.x + x, e.y + y, e.fout() * 3.5f + 0.5f);
+            });
+
+            // Coloured line sparks
+            color(colBack);
+            stroke(e.fout());
+            randLenVectors(e.id + 1, (int) sparkLines, 1f + radius * e.finpow(), (x, y) -> {
+                lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), 1f + e.fout() * 3f);
+            });
+
+            Drawf.light(e.x, e.y, lightRadius, colBack, 0.8f * e.fout());
+        });
+    }
+
     /**
      * Expanding ring with triangle spikes and a filled circle bloom. Based on {@code Fx.scatheExplosion} & {@code Fx.scatheLight}
      *
@@ -148,11 +195,11 @@ public class AreaFx extends UAWFx {
     }
 
     /**
-     * Expanding ring with radiating line bursts — the "titan" style hit flash.
+     * Expanding ring with radiating line bursts — the "titan" style hit flash
      *
-     * <p>All dimensions, counts, and timings derive from {@code radius}.
+     * <p>All dimensions, counts, and timings derive from {@code radius}
      * Clip distance scales automatically.
-     * Pair with {@link #titanSmoke(float, Color)} for the full titan explosion look.</p>
+     * Pair with {@link #titanSmoke(float, Color)}</p>
      *
      * <h4>Scaling anchors (at {@code radius = 60f})</h4>
      * <ul>
@@ -189,7 +236,7 @@ public class AreaFx extends UAWFx {
     }
 
     /**
-     * Drifting smoke cloud — the "titan" style lingering smoke.
+     * Drifting smoke cloud — the "titan" style lingering smoke
      *
      * <p>Lifetime and spread scale with {@code radius}.
      * Clip distance matches lifetime so distant smoke is never culled early.

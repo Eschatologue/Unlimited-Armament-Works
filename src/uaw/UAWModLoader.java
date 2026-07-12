@@ -7,6 +7,7 @@ import uaw.audiovisual.UAWSfx;
 import uaw.content.UAWBlocks;
 import uaw.content.UAWItems;
 import uaw.content.UAWLiquids;
+import uaw.content.UAWRecipes;
 
 public class UAWModLoader extends Mod {
     public UAWModLoader() {
@@ -15,9 +16,9 @@ public class UAWModLoader extends Mod {
 
     @Override
     public void loadContent() {
-
         UAWItems.load();
         UAWLiquids.load();
+        UAWRecipes.load();
         UAWBlocks.load();
     }
 }

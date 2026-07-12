@@ -5,6 +5,9 @@ import static uaw.Vars.tick;
 
 public class Calc {
 
+    public static String modName = "uaw-";
+    public static String recipe = "rec-";
+
     /**
      * Calculate range based on lifetime. Not 100% accurate but gets you close enough result
      * <p>Author: Sh1penfire</p>
@@ -38,11 +41,20 @@ public class Calc {
         }
     }
 
-    // Items & Liquid measurements
-    public static float liquidUnit(float amount){
-        return amount / tick;
+    // Time measurements
+    public static float sec(float amount) {
+        return amount * tick;
     }
 
+    // Value Rounding
+    public static float round(float amount) {
+        return (int) amount;
+    }
+
+    // Liquid measurements
+    public static float liquidsPerSec(float amount) {
+        return amount / tick;
+    }
 
     public static float percentageDifference(float from, float to) {
         return (Math.abs(from - to) / ((from + to) / 2) * 100);
@@ -51,5 +63,5 @@ public class Calc {
     public static float percentageChange(float from, float to) {
         return (from - to) / Math.abs(from) * 100;
     }
-
 }
+

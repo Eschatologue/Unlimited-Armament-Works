@@ -171,6 +171,7 @@ public class CombatFx extends UAWFx {
                 switch (shape) {
                     case LINES -> lineAngle(e.x + x, e.y + y, ang, e.fout() * 3f + 1f);
                     case SQUARES -> Fill.square(e.x + x, e.y + y, e.fout() * 3.2f, ang);
+                    case CIRCLE -> Fill.circle(e.x + x, e.y + y, e.fout() * 3.2f);
                 }
             });
 
@@ -219,14 +220,9 @@ public class CombatFx extends UAWFx {
     }
 
     public enum HitParticle {
-        /**
-         * Outward line streaks — {@code Lines.lineAngle}
-         */
         LINES,
-        /**
-         * Rotated filled squares — {@code Fill.square}
-         */
-        SQUARES
+        SQUARES,
+        CIRCLE
     }
 
     public enum EllipseFade {
