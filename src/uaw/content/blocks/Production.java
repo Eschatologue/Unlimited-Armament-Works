@@ -108,11 +108,22 @@ public class Production {
                     UAWRecipes.sporePress
             );
             drawer = new DrawRecipe();
+
             UAWRecipes.oilProcessing_basic.drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
                     new DrawRegion("-rec-1")
             );
-            UAWRecipes.oilProcessing_basic.craftEffect = ProductionFx.stackSmoke(60, 16, 8, Color.gray);
+            UAWRecipes.oilProcessing_basic.updateEffect = ProductionFx.chimneySmoke(UAWPal.refinerySmokeSulph);
+            UAWRecipes.oilProcessing_basic.updateEffectSpread = 0.4f;
+            UAWRecipes.oilProcessing_basic.updateEffectChance = 16;
+
+            UAWRecipes.oilProcessing_adv.drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawRegion("-rec-2")
+            );
+            UAWRecipes.oilProcessing_adv.updateEffect = ProductionFx.chimneySmoke(UAWPal.refinerySmokeSulph);
+            UAWRecipes.oilProcessing_adv.updateEffectSpread = 0.2f;
+            UAWRecipes.oilProcessing_adv.updateEffectChance = 16;
         }};
         // endregion
 
@@ -178,7 +189,7 @@ public class Production {
         // endregion
 
 
-        // TODO Turn these into multicrafter WIP
+        // TODO Turn these into multicrafter
 
         // Production - TiSiC
         sinteringFurnace = new BoostGenericCrafter("sintering-furnace") {{

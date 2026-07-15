@@ -5,7 +5,7 @@
   "main": "uaw.UAWModLoader",
   "subtitle": "sampleSub",
   "description": "sampleDesc",
-  "minGameVersion": 158,
+  "minGameVersion": 159,
   "version": "v0.1r",
   "repo": "Eschatologue/Unlimited-Armament-Works",
   "java": true,

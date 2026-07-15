@@ -6,6 +6,7 @@ import mindustry.content.Fx;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.entities.effect.MultiEffect;
+import uaw.audiovisual.UAWPal;
 import uaw.audiovisual.fx.CombatFx;
 import uaw.audiovisual.fx.ProductionFx;
 
@@ -66,7 +67,7 @@ public class UAWRecipes {
                 io(liq(Liquids.oil, 30, Liquids.water, 15)),
                 io(liq(UAWLiquids.refOil, 30)),
                 5 * tick
-        );
+        ).isUnlocked();;
 
         coalLiquefaction = new Recipe(recipe + "coal-liquefaction",
                 io(its(Items.coal, 6)),

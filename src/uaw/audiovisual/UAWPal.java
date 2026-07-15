@@ -67,4 +67,8 @@ public class UAWPal {
     public static final Color drawGlowGold = Color.valueOf("fcba03");
     public static final Color drawGlowPink = Color.valueOf("ff6060ff");
     public static final Color drawGlowOrange = Color.valueOf("ff9b59");
+
+    // --- Emissions ---
+    public static final Color refinerySmokeSulph = Color.grays(0.38f).lerp(sulphurBack, 0.125f);
+    public static final Color refinerySmokeFire = Color.grays(0.38f).lerp(redAmmoFront, 0.15f);
 }
