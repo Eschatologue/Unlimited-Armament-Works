@@ -67,7 +67,7 @@ public class UAWStatValues {
 	}
 
 	public static StatValue liquid(Liquid liquid, float amount, boolean perSecond) {
-		return table -> table.add(new LiquidDisplay(liquid, amount, perSecond));
+		return table -> table.add(StatValues.displayLiquid(liquid, amount, perSecond));
 	}
 
 	public static StatValue liquids(Boolf<Liquid> filter, float amount, boolean perSecond) {
@@ -75,7 +75,7 @@ public class UAWStatValues {
 			Seq<Liquid> list = content.liquids().select(i -> filter.get(i) && i.unlockedNow() && !i.isHidden());
 
 			for (int i = 0; i < list.size; i++) {
-				table.add(new LiquidDisplay(list.get(i), amount, perSecond)).padRight(5);
+				table.add(StatValues.displayLiquid(list.get(i), amount, perSecond)).padRight(5);
 
 				if (i != list.size - 1) {
 					table.add("/");
@@ -91,7 +91,7 @@ public class UAWStatValues {
 	public static StatValue liquids(float timePeriod, boolean perSecond, LiquidStack... stacks) {
 		return table -> {
 			for (var stack : stacks) {
-				table.add(new LiquidDisplay(stack.liquid, stack.amount * (60f / timePeriod), perSecond)).padRight(5);
+				table.add(StatValues.displayLiquid(stack.liquid, stack.amount * (60f / timePeriod), perSecond)).padRight(5);
 			}
 		};
 	}
@@ -103,7 +103,7 @@ public class UAWStatValues {
 	public static StatValue items(boolean displayName, ItemStack... stacks) {
 		return table -> {
 			for (ItemStack stack : stacks) {
-				table.add(new ItemDisplay(stack.item, stack.amount, displayName)).padRight(5);
+				table.add(StatValues.displayItem(stack.item, stack.amount, displayName)).padRight(5);
 			}
 		};
 	}
@@ -111,7 +111,7 @@ public class UAWStatValues {
 	public static StatValue items(float timePeriod, ItemStack... stacks) {
 		return table -> {
 			for (ItemStack stack : stacks) {
-				table.add(new ItemDisplay(stack.item, stack.amount, timePeriod, true)).padRight(5);
+				table.add(StatValues.displayItem(stack.item, stack.amount, timePeriod, true)).padRight(5);
 			}
 		};
 	}
@@ -127,7 +127,7 @@ public class UAWStatValues {
 			for (int i = 0; i < list.size; i++) {
 				Item item = list.get(i);
 
-				table.add(timePeriod <= 0 ? new ItemDisplay(item) : new ItemDisplay(item, 1, timePeriod, true)).padRight(5);
+				table.add(timePeriod <= 0 ? StatValues.displayItem(item) : StatValues.displayItem(item, 1, timePeriod, true)).padRight(5);
 
 				if (i != list.size - 1) {
 					table.add("/");
@@ -331,9 +331,9 @@ public class UAWStatValues {
 					c.table(Styles.grayPanel, b -> {
 						for (ItemStack stack : items) {
 							if (timePeriod < 0) {
-								b.add(new ItemDisplay(stack.item, stack.amount, true)).pad(20f).left();
+								b.add(StatValues.displayItem(stack.item, stack.amount, true)).pad(20f).left();
 							} else {
-								b.add(new ItemDisplay(stack.item, stack.amount, timePeriod, true)).pad(20f).left();
+								b.add(StatValues.displayItem(stack.item, stack.amount, timePeriod, true)).pad(20f).left();
 							}
 							if (items.length > 1) b.row();
 						}

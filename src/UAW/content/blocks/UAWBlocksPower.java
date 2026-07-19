@@ -194,7 +194,7 @@ public class UAWBlocksPower {
 
 			generateEffect = Fx.generatespark;
 
-			ambientSound = Sounds.smelter;
+			ambientSound = Sounds.loopSmelter;
 			ambientSoundVolume = 0.06f;
 
 			consume(new ConsumeLiquidFuelExplosive(60 / tick));

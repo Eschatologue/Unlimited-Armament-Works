@@ -25,7 +25,7 @@ public class ExplodingCrafter extends GenericCrafter {
 	public ExplodingCrafter(String name) {
 		super(name);
 
-		ambientSound = Sounds.smelter;
+		ambientSound = Sounds.loopSmelter;
 		ambientSoundVolume = 0.06f;
 	}
 

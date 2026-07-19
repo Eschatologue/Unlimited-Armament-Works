@@ -27,7 +27,13 @@ public class FilterLiquidGenerator extends ConsumeGenerator {
 	public class FilterLiquidGeneratorBuild extends ConsumeGeneratorBuild {
 		public Color liquidColor = Pal.bar;
 		public float liquidEfficiency;
-		public float currentLiquidQ = liquids.get(liquids.current()) / block.liquidCapacity;
+		public float currentLiquidQ;
+
+		@Override
+		public void updateTile() {
+			currentLiquidQ = liquids != null && liquids.current() != null ? liquids.get(liquids.current()) / block.liquidCapacity : 0;
+			super.updateTile();
+		}
 
 		public Color getLiquidColor() {
 			return currentLiquidQ > 0 ? liquidColor : Pal.bar;

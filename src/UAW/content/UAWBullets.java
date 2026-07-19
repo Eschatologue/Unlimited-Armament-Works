@@ -159,7 +159,7 @@ public class UAWBullets {
 			lightningDamage = 5;
 			lightningLength = 12;
 			lightningLengthRand = 7;
-			hitSound = Sounds.plasmaboom;
+			hitSound = Sounds.explosionPlasmaSmall;
 			hitEffect = UAWFx.empExplosion(splashDamageRadius, 6, frontColor);
 		}};
 
