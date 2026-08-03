@@ -5,20 +5,20 @@ import mindustry.type.Category;
 import mindustry.world.Block;
 import mindustry.world.blocks.power.PowerNode;
 import uaw.world.blocks.power.PowerPylon;
+import uaw.world.blocks.power.PowerPylonExtended;
 
 import static mindustry.type.ItemStack.with;
 
 public class Power {
 
-    public static Block testPylon;
+    public static Block pylon;
 
     public static void load(){
-        testPylon = new PowerPylon("power-pylon"){{
-            requirements(Category.power, with(Items.copper, 2, Items.lead, 6));
-            maxNodes = 12;
-            laserRange = 12;
+        pylon = new PowerPylonExtended("power-pylon"){{
+            requirements(Category.power, with(Items.graphite, 15));
+            maxNodes = 14;
+            laserRange = 15;
             underBullets = true;
-            crushFragile = true;
         }};
     }
 }
