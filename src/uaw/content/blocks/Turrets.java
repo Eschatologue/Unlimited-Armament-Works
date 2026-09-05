@@ -124,7 +124,7 @@ public class Turrets {
                         hitEffect = despawnEffect = CombatFx.hitBullet(back, CombatFx.HitParticle.CIRCLE);
                     }},
                     // CRYO
-                    UAWItems.cryogel, new BasicBulletType(STD_speed, (int) (STD_damage * 0.8)) {{
+                    UAWItems.cryoSolid, new BasicBulletType(STD_speed, (int) (STD_damage * 0.8)) {{
                         Color front = UAWPal.cryoAmmoFront, back = UAWPal.cryoAmmoBack;
                         BulletDef.size(this, bH);
                         BulletDef.color(this, front, back);

@@ -8,6 +8,7 @@ import arc.math.geom.Vec2;
 import mindustry.entities.Effect;
 import mindustry.graphics.Layer;
 import uaw.audiovisual.Perspective;
+import uaw.audiovisual.UAWPal;
 
 import static arc.graphics.g2d.Draw.alpha;
 import static arc.graphics.g2d.Draw.color;
@@ -104,6 +105,10 @@ public class ProductionFx extends UAWFx {
 
     public static Effect chimneySmoke(Color col) {
         return chimneySmoke(90, 4 * tilesize, col);
+    }
+
+    public static Effect sulphurChimneySmoke() {
+        return chimneySmoke(60, 3 * tilesize, UAWPal.refinerySmokeSulph);
     }
 
     // endregion

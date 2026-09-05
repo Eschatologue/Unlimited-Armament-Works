@@ -7,7 +7,7 @@ import static uaw.Vars.tick;
 public class BlockDef {
 
     public static void general(Block b, int size) {
-        general(b, size, 50, 50);
+        general(b, size, 50, 100);
     }
 
     /**

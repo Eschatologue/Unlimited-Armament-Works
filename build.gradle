@@ -44,7 +44,7 @@ java{
 ext{
     mindustryVersion = 'v159.2' //the build number that this mod is made for
     jabelVersion = "93fde537c7"
-    multiCrafterVersion = 'v1.4.1'
+    multiCrafterVersion = 'v1.5.2'
     isWindows = System.getProperty("os.name").toLowerCase().contains("windows")
     sdkRoot = System.getenv("ANDROID_HOME") ?: System.getenv("ANDROID_SDK_ROOT")
 }
@@ -62,7 +62,7 @@ dependencies{
     def useLatest = false //set to "true" to always depend on the newest version of mindustry
 
     compileOnly useLatest ? "Anuken:MindustryBuilds:latest" : "Anuken:Mindustry:$mindustryVersion"
-    compileOnly 'JojoFR1:MultiCrafter:v1.3.0'
+    compileOnly "JojoFR1:MultiCrafter:$multiCrafterVersion"
 
     annotationProcessor "Anuken:jabel:v1.0.0"
 }

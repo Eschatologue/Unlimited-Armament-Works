@@ -36,8 +36,9 @@ public class UAWPal {
     public static final Color surgeBack = Color.valueOf("d99f6b");
 
     // --- Materials ---
-    public static final Color sulphurFront = Color.valueOf("ffcd66");
-    public static final Color sulphurBack = Color.valueOf("e28654");
+    public static final Color sulphurFront = Color.valueOf("eadb74");
+    public static final Color sulphurMid = Color.valueOf("c19c4d");
+    public static final Color sulphurBack = Color.valueOf("a0734a");
 
     public static final Color coalFront = Color.valueOf("404040");
     public static final Color coalBack = Color.valueOf("2a2a2a");

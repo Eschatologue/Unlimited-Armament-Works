@@ -10,10 +10,10 @@ import uaw.audiovisual.UAWPal;
 public class UAWItems {
     public static final Seq<Item> serpuloItems = new Seq<>(), erekirItems = new Seq<>(), erekirOnlyItems = new Seq<>();
     public static Item
-            anthracite, sulphur, hvyAnthracite,
+            anthracite, sulphur, hvyAnthracite, lonsdaleite,
             tisic, stoutsteel,
             ketonite,
-            cryogel;
+            cryoSolid;
 
     public static void load() {
         anthracite = new Item("anthracite", Pal.coalBlack) {{
@@ -38,13 +38,13 @@ public class UAWItems {
             flammability = -5f;
         }};
 
-        cryogel = new Item("cryogel", UAWPal.cryoAmmoFront) {{
+        cryoSolid = new Item("cryo-solid", UAWPal.cryoAmmoFront) {{
             flammability = -10f;
             explosiveness = 0f;
         }};
 
         serpuloItems.addAll(
-                sulphur, anthracite, cryogel, tisic, ketonite, stoutsteel
+                sulphur, anthracite, cryoSolid, tisic, ketonite, stoutsteel
         );
     }
 }

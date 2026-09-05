@@ -5,7 +5,6 @@ import arc.func.Cons;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Lines;
-
 import arc.util.Structs;
 import mindustry.core.Renderer;
 import mindustry.game.Team;
@@ -19,8 +18,7 @@ import mindustry.world.blocks.power.PowerNode;
 import static mindustry.Vars.*;
 
 /**
- * A {@link PowerPylon} with an additional circular range that connects exclusively to
- * other {@link PowerPylon} or {@link PowerPylonExtended} blocks
+ * A {@link PowerPylon} with an additional circular range that connects exclusively to other {@link PowerPylon} or {@link PowerPylonExtended} blocks
  *
  * <p>{@link #getPotentialLinks} is overridden to widen the quadtree query to {@link #pylonLaserRange} so distant
  * pylon candidates appear in the auto-connect preview. {@link #linkValid} is overridden to apply the
@@ -51,13 +49,14 @@ public class PowerPylonExtended extends PowerPylon {
     /**
      * Pylon-to-pylon uses the circular extended range
      *
-     * <p>When both endpoints are {@link PowerPylon} instances, applies a circular check at
-     * {@link #pylonLaserRange}. All other connections delegate to super, which uses
-     * the square AABB via the overridden {@link #overlaps(Building, Building, float)}</p>
+     * <p>When both endpoints are {@link PowerPylon} instances, applies a circular check at {@link #pylonLaserRange} </p>
+     *
+     * <p>All other connections delegate to super, which uses the square AABB via the overridden {@link #overlaps(Building, Building, float)}</p>
      */
     @Override
     public boolean linkValid(Building tile, Building link, boolean checkMaxNodes) {
-        if (tile == link || link == null || !link.block.hasPower || !link.block.connectedPower || tile.team != link.team) return false;
+        if (tile == link || link == null || !link.block.hasPower || !link.block.connectedPower || tile.team != link.team)
+            return false;
 
         if (link.block instanceof PowerPylon otherPylon) {
             float range = link.block instanceof PowerPylonExtended ext
@@ -76,10 +75,9 @@ public class PowerPylonExtended extends PowerPylon {
     }
 
     /**
-     * Widens the quadtree query to {@link #pylonLaserRange} so distant pylons appear in the placement auto-connect preview.
+     * Widens the quadtree query to {@link #pylonLaserRange} so distant pylons appear in the placement auto-connect preview
      *
-     * <p>The valid lambda applies per-type range: circular {@link #pylonLaserRange} for
-     * pylons, square {@link #laserRange} AABB for everything else</p>
+     * <p>The valid lambda applies per-type range: circular {@link #pylonLaserRange} for pylons, square {@link #laserRange} AABB for everything else</p>
      */
     @Override
     protected void getPotentialLinks(Tile tile, Team team, Cons<Building> others) {
@@ -92,11 +90,13 @@ public class PowerPylonExtended extends PowerPylon {
 
         var valid = (Boolf<Building>) other -> {
             if (other == null || other.tile == tile || !other.block.connectedPower || other.power == null) return false;
-            if (!(other.block.outputsPower || other.block.consumesPower || other.block instanceof PowerNode)) return false;
+            if (!(other.block.outputsPower || other.block.consumesPower || other.block instanceof PowerNode))
+                return false;
             if (other.team != team) return false;
             if (graphs.contains(other.power.graph)) return false;
             if (PowerNode.insulated(tile, other.tile)) return false;
-            if (other instanceof PowerNodeBuild ob && ob.power.links.size >= ((PowerNode) ob.block).maxNodes) return false;
+            if (other instanceof PowerNodeBuild ob && ob.power.links.size >= ((PowerNode) ob.block).maxNodes)
+                return false;
             if (Structs.contains(Edges.getEdges(size), p -> {
                 var t = world.tile(tile.x + p.x, tile.y + p.y);
                 return t != null && t.build == other;
@@ -148,14 +148,9 @@ public class PowerPylonExtended extends PowerPylon {
         });
     }
 
-    // ------------------------------------------------------------------
-    // Placement drawing
-    // ------------------------------------------------------------------
-
     /**
-     * Draws the outer dashed circle for pylon range on top of the inherited square, then
-     * laser previews including distant pylon candidates.
-     * Super is not called — it would only draw the square without the circle.
+     * Draws the outer dashed circle for pylon range on top of the inherited square, then laser previews including distant pylon candidates
+     * Super is not called, cause it'll only draw the square without the circle
      */
     @Override
     public void drawPlace(int x, int y, int rotation, boolean valid) {
@@ -188,7 +183,7 @@ public class PowerPylonExtended extends PowerPylon {
     public class PowerPylonExtendedBuild extends PowerPylonBuild {
 
         /**
-         * Draws both range indicators when this node is selected.
+         * Draws both range indicators when this node is selected
          */
         @Override
         public void drawSelect() {
@@ -200,7 +195,7 @@ public class PowerPylonExtended extends PowerPylon {
         }
 
         /**
-         * Draws both range indicators and highlights valid link targets in configure mode.
+         * Draws both range indicators and highlights valid link targets in configure mode
          */
         @Override
         public void drawConfigure() {
@@ -213,7 +208,7 @@ public class PowerPylonExtended extends PowerPylon {
             Drawf.dashRect(rangeColor, x - limit, y - limit, limit * 2f, limit * 2f);
 
             // Scan up to pylonLaserRange so distant pylons are highlighted
-            int scanRadius = (int)(pylonLaserRange + 2);
+            int scanRadius = (int) (pylonLaserRange + 2);
             for (int tx = tile.x - scanRadius; tx <= tile.x + scanRadius; tx++) {
                 for (int ty = tile.y - scanRadius; ty <= tile.y + scanRadius; ty++) {
                     Building link = world.build(tx, ty);
@@ -228,9 +223,8 @@ public class PowerPylonExtended extends PowerPylon {
         }
 
         /**
-         * Registers {@link #pylonLaserRange} with the global max-range tracker so
-         * vanilla's {@link PowerNode#getNodeLinks} searches a wide enough area when
-         * other nodes try to auto-connect to this pylon.
+         * Registers {@link #pylonLaserRange} with the global max-range tracker so vanilla's {@link PowerNode#getNodeLinks}
+         * searches a wide enough area when other nodes try to auto-connect to this pylon
          */
         @Override
         public void created() {

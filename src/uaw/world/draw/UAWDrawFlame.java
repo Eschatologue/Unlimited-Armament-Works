@@ -2,8 +2,9 @@ package uaw.world.draw;
 
 import arc.Core;
 import mindustry.world.Block;
+import mindustry.world.draw.DrawFlame;
 
-public class UAWDrawFlame extends mindustry.world.draw.DrawFlame {
+public class UAWDrawFlame extends DrawFlame {
     public boolean drawTop = true;
     public String topSuffix = "-top";
 

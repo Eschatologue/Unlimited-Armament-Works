@@ -11,7 +11,7 @@ import static mindustry.content.Liquids.water;
 
 public class UAWLiquids {
 
-    public static Liquid sulphuricAcid, refOil, phlogiston;
+    public static Liquid sulphuricAcid, refOil, syngas, phlogiston;
 
     public static void load() {
         sulphuricAcid = new Liquid("sulphuric-acid", UAWPal.sulphurFront) {{
@@ -35,8 +35,8 @@ public class UAWLiquids {
 
         phlogiston = new Liquid("phlogiston", UAWPal.phlogistonFront) {{
             flammability = UAWItems.anthracite.flammability * 2f;
+            temperature = 2f;
             explosiveness = 3;
-//            temperature = 2; // Will damage normal conduits
             boilPoint = -1;
             gasColor = UAWPal.phlogistonFront.cpy().a(0.5f);
 

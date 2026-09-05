@@ -1,8 +1,11 @@
 package uaw.utils;
 
 import dev.jojofr.multicrafter.type.IOEntry;
+import dev.jojofr.multicrafter.type.Recipe;
 import mindustry.type.ItemStack;
 import mindustry.type.LiquidStack;
+
+import static uaw.utils.Calc.recipe;
 
 /**
  * Static helper methods for building {@link IOEntry} instances for {@link dev.jojofr.multicrafter.type.Recipe} definitions

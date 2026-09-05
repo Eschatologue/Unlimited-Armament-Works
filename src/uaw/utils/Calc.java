@@ -6,7 +6,7 @@ import static uaw.Vars.tick;
 public class Calc {
 
     public static String modName = "uaw-";
-    public static String recipe = "rec-";
+    public static String recipe = "rcp-";
 
     /**
      * Calculate range based on lifetime. Not 100% accurate but gets you close enough result

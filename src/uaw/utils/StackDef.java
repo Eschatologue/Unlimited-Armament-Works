@@ -14,8 +14,8 @@ public class StackDef {
     /**
      * Shorthand for {@link ItemStack#with}.
      */
-    public static ItemStack[] its(Object... itemsAndAmounts) {
-        return ItemStack.with(itemsAndAmounts);
+    public static ItemStack[] its(Object... items) {
+        return ItemStack.with(items);
     }
 
     /**
@@ -25,14 +25,13 @@ public class StackDef {
      * modules expect, via {@link Calc#liquidsPerSec(float)}
      * Call sites no longer need to wrap amounts in {@code liquidsPerSec()}</p>
      */
-    public static LiquidStack[] liq(Object... liquidsAndAmounts) {
-        int pairs = liquidsAndAmounts.length / 2;
+    public static LiquidStack[] liq(Object... liquids) {
+        int pairs = liquids.length / 2;
         LiquidStack[] result = new LiquidStack[pairs];
 
         for (int i = 0; i < pairs; i++) {
-            Liquid liquid = (Liquid) liquidsAndAmounts[i * 2];
-            // Number covers both int and float literals passed at call sites
-            float amount = ((Number) liquidsAndAmounts[i * 2 + 1]).floatValue();
+            Liquid liquid = (Liquid) liquids[i * 2];
+            float amount = ((Number) liquids[i * 2 + 1]).floatValue();
             result[i] = new LiquidStack(liquid, liquidsPerSec(amount));
         }
 
