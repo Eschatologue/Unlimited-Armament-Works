@@ -42,7 +42,7 @@ java{
 }
 
 ext{
-    mindustryVersion = 'v159.2' //the build number that this mod is made for
+    mindustryVersion = 'v160.4' //the build number that this mod is made for
     jabelVersion = "93fde537c7"
     multiCrafterVersion = 'v1.5.2'
     isWindows = System.getProperty("os.name").toLowerCase().contains("windows")
