@@ -1,6 +1,6 @@
 package uaw.audiovisual;
 
-import arc.graphics.Color;
+import  arc.graphics.Color;
 import mindustry.graphics.Pal;
 
 public class UAWPal {
@@ -35,10 +35,18 @@ public class UAWPal {
     public static final Color surgeMid = Color.valueOf("e8d174");
     public static final Color surgeBack = Color.valueOf("d99f6b");
 
+    // --- Gasses ---
+    public static final Color steam = Color.grays(0.9f);
+
     // --- Materials ---
     public static final Color sulphurFront = Color.valueOf("eadb74");
     public static final Color sulphurMid = Color.valueOf("c19c4d");
     public static final Color sulphurBack = Color.valueOf("a0734a");
+
+    public static final Color acidFront = Color.valueOf("ffee6d");
+    public static final Color acidMid = Color.valueOf("f6e030");
+    public static final Color acidBack = Color.valueOf("e6bd30");
+    public static final Color acidBack2 = Color.valueOf("caa129");
 
     public static final Color coalFront = Color.valueOf("404040");
     public static final Color coalBack = Color.valueOf("2a2a2a");
@@ -54,11 +62,13 @@ public class UAWPal {
     public static final Color refOilFront = Color.valueOf("70e6e2");
     public static final Color refOilMid = Color.valueOf("5ec1bf");
     public static final Color refOilBack = Color.valueOf("408b99");
+    public static final Color refOilBack2 = Color.valueOf("2f656f");
 
     public static final Color phlogiston = Color.valueOf("00aea2");
     public static final Color phlogistonFront = Color.valueOf("82e9de");
-    public static final Color phlogistonMid = Color.valueOf("4db6ac");
+    public static final Color phlogistonMid =  Color.valueOf("4db6ac");
     public static final Color phlogistonBack = Color.valueOf("00867d");
+    public static final Color phlogistonBack2 = Color.valueOf("006464");
 
     public static final Color waterFront = Color.valueOf("8aa3f4");
     public static final Color waterMid = Color.valueOf("6974c4");
@@ -70,6 +80,7 @@ public class UAWPal {
     public static final Color drawGlowOrange = Color.valueOf("ff9b59");
 
     // --- Emissions ---
-    public static final Color refinerySmokeSulph = Color.grays(0.38f).lerp(sulphurBack, 0.125f);
+    public static final Color refinerySmokeSulph = Color.grays(0.38f).lerp(sulphurMid, 0.125f);
+    public static final Color refinerySmokephlog = Color.grays(0.38f).lerp(phlogistonMid, 0.125f);
     public static final Color refinerySmokeFire = Color.grays(0.38f).lerp(redAmmoFront, 0.15f);
 }

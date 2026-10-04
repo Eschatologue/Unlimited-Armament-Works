@@ -62,8 +62,9 @@ public class ProductionFx extends UAWFx {
      * @param riseHeight how high a particle climbs before the effect ends, in world units
      * @param spread     maximum sideways drift per particle, in world units
      * @param col        smoke colour
+     * @param alpha      smoke transparency
      */
-    public static Effect chimneySmoke(float lifetime, float riseHeight, float spread, Color col) {
+    public static Effect chimneySmoke(float lifetime, float riseHeight, float spread, Color col, float alpha) {
         return new Effect(lifetime, e -> {
             rand.setSeed(e.id);
 
@@ -89,22 +90,31 @@ public class ProductionFx extends UAWFx {
 
                     Draw.z(Layer.blockOver + z * 0.01f);
                     color(col);
-                    alpha(0.5f * b.fout() * fade);
+                    alpha(alpha * b.fout() * fade);
                     Fill.circle(pos.x, pos.y, (2f + b.fin() * 3f) * scale);
                 });
             }
         });
     }
 
+
     /**
      * Spread defaults {@code riseHeight}/3.5f
      */
+    public static Effect chimneySmoke(float lifetime, float riseHeight, Color col, float alpha) {
+        return chimneySmoke(lifetime, riseHeight, riseHeight / 3.5f, col, alpha);
+    }
+
     public static Effect chimneySmoke(float lifetime, float riseHeight, Color col) {
-        return chimneySmoke(lifetime, riseHeight, riseHeight / 3.5f, col);
+        return chimneySmoke(lifetime, riseHeight, riseHeight / 3.5f, col, 0.5f);
+    }
+
+    public static Effect chimneySmoke(Color col, float alpha) {
+        return chimneySmoke(90, 6 * tilesize, col, alpha);
     }
 
     public static Effect chimneySmoke(Color col) {
-        return chimneySmoke(90, 4 * tilesize, col);
+        return chimneySmoke(col, 0.5f);
     }
 
     public static Effect sulphurChimneySmoke() {

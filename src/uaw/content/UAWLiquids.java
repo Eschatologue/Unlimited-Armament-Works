@@ -1,6 +1,7 @@
 package uaw.content;
 
 import arc.graphics.Color;
+import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.content.StatusEffects;
 import mindustry.type.Liquid;
@@ -11,18 +12,27 @@ import static mindustry.content.Liquids.water;
 
 public class UAWLiquids {
 
-    public static Liquid sulphuricAcid, refOil, syngas, phlogiston;
+    public static Liquid steam, sulphuricAcid, refOil, phlogiston;
 
     public static void load() {
-        sulphuricAcid = new Liquid("sulphuric-acid", UAWPal.sulphurFront) {{
-            temperature = 0.5f;
+        steam = new Liquid("steam", UAWPal.steam) {{
+            temperature = 0.75f;
+
+            gas = true;
+            gasColor = color;
+            barColor = color;
+
+            coolant = false;
+        }};
+
+        sulphuricAcid = new Liquid("sulphuric-acid", UAWPal.acidMid) {{
+            viscosity = water.viscosity * 1.5f;
             coolant = false;
         }};
 
         refOil = new Liquid("ref-oil", UAWPal.refOilMid) {{
-            viscosity = water.viscosity;
-            flammability = oil.flammability * 1.5f;
-            explosiveness = oil.explosiveness * 1.5f;
+            viscosity = oil.viscosity;
+            flammability = oil.flammability * 2;
             heatCapacity = oil.heatCapacity;
             barColor = color;
             effect = StatusEffects.tarred;
@@ -34,14 +44,13 @@ public class UAWLiquids {
         }};
 
         phlogiston = new Liquid("phlogiston", UAWPal.phlogistonFront) {{
-            flammability = UAWItems.anthracite.flammability * 2f;
-            temperature = 2f;
+            flammability = refOil.flammability * 2;
+            temperature = 2;
             explosiveness = 3;
             boilPoint = -1;
-            gasColor = UAWPal.phlogistonFront.cpy().a(0.5f);
 
             gas = true;
-            gasColor = color;
+            gasColor = UAWPal.phlogistonFront.cpy().a(0.5f);
             barColor = UAWPal.phlogistonMid;
 
             coolant = false;

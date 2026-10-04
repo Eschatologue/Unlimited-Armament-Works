@@ -51,17 +51,19 @@ public class Calc {
         return (int) amount;
     }
 
-    // Liquid measurements
-    public static float liquidsPerSec(float amount) {
+    /**
+     * Converts liquid units per second into the per-tick figure
+     */
+    public static float liqPerSec(float amount) {
         return amount / tick;
     }
 
-    public static float percentageDifference(float from, float to) {
-        return (Math.abs(from - to) / ((from + to) / 2) * 100);
+    /**
+     * Converts power units per second into the per-tick figure
+     */
+    public static float powerPerSec(float amount) {
+        return amount / tick;
     }
 
-    public static float percentageChange(float from, float to) {
-        return (from - to) / Math.abs(from) * 100;
-    }
 }
 

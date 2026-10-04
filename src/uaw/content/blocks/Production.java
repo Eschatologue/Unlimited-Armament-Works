@@ -5,34 +5,24 @@ import mindustry.content.Fx;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.entities.effect.MultiEffect;
-import mindustry.entities.effect.RadialEffect;
-import mindustry.graphics.Pal;
 import mindustry.type.Category;
 import mindustry.world.Block;
-import mindustry.world.draw.*;
-import uaw.audiovisual.UAWPal;
-import uaw.audiovisual.fx.ProductionFx;
 import uaw.audiovisual.fx.ResourcingFx;
 import uaw.content.UAWItems;
-import uaw.content.UAWLiquids;
 import uaw.content.blocks.production.*;
 import uaw.utils.BlockDef;
-import uaw.world.blocks.production.BoostGenericCrafter;
 import uaw.world.blocks.production.ConversionDrill;
 
 import static mindustry.type.ItemStack.with;
-import static uaw.Vars.px;
 import static uaw.Vars.tick;
-import static uaw.utils.Calc.liquidsPerSec;
+import static uaw.utils.Calc.liqPerSec;
 
 public class Production {
 
     public static Block placeholder,
 
     // Resourcing
-    hydroThumper,
-    // Production III - Stoutsteel
-    isostaticCrucible;
+    hydroThumper;
 
     public static void load() {
 
@@ -52,69 +42,68 @@ public class Production {
                     ResourcingFx.thumpImpactWave,
                     ResourcingFx.thumpParticles
             );
-            consumeLiquid(Liquids.water, liquidsPerSec(15));
+            consumeLiquid(Liquids.water, liqPerSec(15));
             itemCapacity = 50;
             addConversion(Blocks.oreCoal, UAWItems.anthracite);
         }};
         // endregion Resourcing
 
-        // region Production I
+        // Production I
+        Boiler.load();
         RefinerCarbon.load();
         RefinerOil.load();
         MixerChem.load();
+
+        // Production II
         MixerReactor.load();
         FurnaceAdv.load();
-        // Production I endregion
 
         // endregion
 
         // TODO Turn these into multicrafter
-
-        // Production - TiSiC
-
         // Production - Stoutsteel Alloy
-        isostaticCrucible = new BoostGenericCrafter("isostatic-crucible") {{
-            requirements(Category.crafting, with(
-                    Items.graphite, 300,
-                    Items.silicon, 150,
-                    UAWItems.tisic, 100
-            ));
-
-            BlockDef.general(this, 3);
-
-            craftEffect =
-                    new RadialEffect(
-                            new MultiEffect(
-                                    ProductionFx.crucibleSmoke(160, UAWPal.phlogistonFront),
-                                    ProductionFx.crucibleSmoke(145, UAWPal.phlogistonMid),
-                                    ProductionFx.crucibleSmoke(130, Pal.lightishGray)
-                            ), 4, 90, 6) {{
-                        rotationOffset = 0;
-                    }};
-
-            craftTime = 10 * tick;
-            consumeItems(with(
-                    UAWItems.tisic, 5,
-                    Items.phaseFabric, 10
-            ));
-            consumeLiquid(UAWLiquids.phlogiston, liquidsPerSec(12));
-            consumeLiquid(UAWLiquids.sulphuricAcid, liquidsPerSec(6)).boost();
-            outputItems = with(UAWItems.stoutsteel, 1);
-
-            boostCraftSpeedMult = 0.5f;
-
-            drawer = new DrawMulti(
-                    new DrawRegion("-bottom"),
-                    new DrawLiquidTile(UAWLiquids.phlogiston, 12 * px),
-                    new DrawRegion("-middle"),
-                    new DrawRegion("-rot", -3, true),
-                    new DrawRegion("-top"),
-                    new DrawFrames() {{
-                        frames = 14;
-                        interval = 0.125f * tick;
-                        sine = false;
-                    }}
-            );
-        }};
+//        isostaticCrucible = new BoostGenericCrafter("isostatic-crucible") {{
+//            requirements(Category.crafting, with(
+//                    Items.graphite, 300,
+//                    Items.silicon, 150,
+//                    UAWItems.tisic, 100
+//            ));
+//
+//            BlockDef.general(this, 3);
+//
+//            craftEffect =
+//                    new RadialEffect(
+//                            new MultiEffect(
+//                                    ProductionFx.crucibleSmoke(160, UAWPal.phlogistonFront),
+//                                    ProductionFx.crucibleSmoke(145, UAWPal.phlogistonMid),
+//                                    ProductionFx.crucibleSmoke(130, Pal.lightishGray)
+//                            ), 4, 90, 6) {{
+//                        rotationOffset = 0;
+//                    }};
+//
+//            craftTime = 10 * tick;
+//            consumeItems(with(
+//                    UAWItems.tisic, 5,
+//                    Items.phaseFabric, 10
+//            ));
+//            consumeLiquid(UAWLiquids.phlogiston, liqPerSec(12));
+//            consumeLiquid(UAWLiquids.sulphuricAcid, liqPerSec(6)).boost();
+//            outputItems = with(UAWItems.stoutsteel, 1);
+//
+//            boostCraftSpeedMult = 0.5f;
+//
+//            drawer = new DrawMulti(
+//                    new DrawRegion("-bottom"),
+//                    new DrawLiquidTile(UAWLiquids.phlogiston, 12 * px),
+//                    new DrawRegion("-middle"),
+//                    new DrawRegion("-rot", -3, true),
+//                    new DrawRegion("-top"),
+//                    new DrawFrames() {{
+//                        frames = 14;
+//                        interval = 0.125f * tick;
+//                        sine = false;
+//                    }}
+//            );
+//        }};
     }
 }

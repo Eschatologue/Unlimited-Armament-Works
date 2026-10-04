@@ -13,12 +13,12 @@ public class BlockDef {
     /**
      * Used to standardise most UAW Blocks
      */
-    public static void general(Block crafter, int size, int itemCapacity, int liquidCapacity) {
-        crafter.size = size;
-        crafter.buildTime = buildSeconds(size);
-        crafter.itemCapacity = itemCapacity;
-        crafter.liquidCapacity = liquidCapacity;
-        crafter.squareSprite = false;
+    public static void general(Block block, int size, int itemCapacity, int liquidCapacity) {
+        block.size = size;
+        block.buildTime = buildSeconds(size);
+        block.itemCapacity = itemCapacity;
+        block.liquidCapacity = liquidCapacity;
+        block.squareSprite = false;
     }
 
     public static float buildSeconds(int size) {

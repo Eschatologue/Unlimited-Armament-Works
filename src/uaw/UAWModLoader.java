@@ -8,6 +8,7 @@ import uaw.content.UAWBlocks;
 import uaw.content.UAWItems;
 import uaw.content.UAWLiquids;
 import uaw.content.UAWRecipes;
+import uaw.content.vanilla.VanillaBullets;
 
 public class UAWModLoader extends Mod {
     public UAWModLoader() {
@@ -19,5 +20,6 @@ public class UAWModLoader extends Mod {
         UAWItems.load();
         UAWLiquids.load();
         UAWBlocks.load();
+        VanillaBullets.load();
     }
 }

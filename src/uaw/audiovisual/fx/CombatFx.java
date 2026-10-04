@@ -180,7 +180,11 @@ public class CombatFx extends UAWFx {
     }
 
     public static Effect hitBullet(Color col, HitParticle shape) {
-        return hitBullet(15, col, shape);
+        return hitBullet(16, col, shape);
+    }
+
+    public static Effect hitBullet(Color col) {
+        return hitBullet(col, HitParticle.CIRCLE);
     }
 
     /**
